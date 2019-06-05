@@ -1,44 +1,61 @@
 <template>
   <div id="app">
-
-    <!-- User Area -->
-    <div id="user-area" v-if="$authManager.isLoggedIn">
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-      </div>
+    <header>
+      <TopNavigation/>
+    </header>
+    <main>
       <router-view/>
-    </div>
-
-    <!-- Guest Area -->
-    <div id="guest-area" v-if="!$authManager.isLoggedIn">
-
-    </div>
+    </main>
+    <footer></footer>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "App",
-    mounted() {
-      
-    },
-    data() {
-      return {
-        //TODO: Proper login + check
-        isLoggedIn: true
-      };
-    }
+import TopNavigation from "@/components/TopNavigation.vue";
+
+export default {
+  name: "App",
+  mounted() {},
+  components: {
+    TopNavigation
+  },
+  data() {
+    return {
+      //TODO: Proper login + check
+      isLoggedIn: true
+    };
   }
+};
 </script>
 
-<style>
+<style lang="scss">
+body {
+  margin: 0;
+}
+
+header {
+  background: $dark-1;
+  border-bottom: 1px solid $purple;
+  position: relative;
+}
+
+main {
+  background: $dark-2;
+  flex: 1 1 auto;
+
+  .view {
+    h1 {
+      margin: 0;
+      color: white;
+    }
+  }
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 </style>
