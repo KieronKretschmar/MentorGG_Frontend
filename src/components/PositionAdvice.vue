@@ -55,7 +55,6 @@
 
 <script>
 export default {
-  name: "dashboard",
   mounted() {
     this.$api.getImportantPositions(true, 3, 10).then(response => {
       this.best = response.data;
@@ -79,7 +78,7 @@ export default {
 .position-advice {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   .advice {
     width: calc(50% - 5px);

@@ -8,7 +8,6 @@
     </div>
 
     <div class="match-list">
-
       <div v-if="!matches.length">
         <div class="bordered-box no-matches">
           <AjaxLoader>Loading Matches</AjaxLoader>
@@ -19,7 +18,11 @@
         <div class="match-header">
           <div class="left">
             <div class="map-thumbnail">
-              <img :src="$api.resolveResource(match.MapIcon)" :alt="match.Map + ' Thumbnail'" :title="match.Map">
+              <img
+                :src="$api.resolveResource(match.MapIcon)"
+                :alt="match.Map + ' Thumbnail'"
+                :title="match.Map"
+              >
             </div>
             <div class="map-and-datetime">
               <span class="map">{{ match.Map }}</span>
@@ -54,7 +57,12 @@
           <div class="match-body" v-if="match.IsVisible">
             <hr>
             <div class="team-table">
-              <div v-for="(team, teamName) in match.Scoreboard.Teams" :key="teamName" class="team" :name="teamName">
+              <div
+                v-for="(team, teamName) in match.Scoreboard.Teams"
+                :key="teamName"
+                class="team"
+                :name="teamName"
+              >
                 <div class="table-header">
                   <span></span>
                   <span>ADR</span>
@@ -64,12 +72,18 @@
                 </div>
                 <div class="table-content">
                   <div v-for="entry in team" :key="entry.Profile.SteamId" class="table-entry">
-                      <img class="avatar" :src="entry.Profile.Icon">
-                      <a class="name" :href="entry.Profile.Url" target="_blank">{{ entry.Profile.SteamName }}</a>
-                      <span class="adr">{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
-                      <span class="k">{{ entry.Kills }}</span>
-                      <span class="d">{{ entry.Assists }}</span>
-                      <span class="a">{{ entry.Deaths }}</span>
+                    <img class="avatar" :src="entry.Profile.Icon">
+                    <a
+                      class="name"
+                      :href="entry.Profile.Url"
+                      target="_blank"
+                    >{{ entry.Profile.SteamName }}</a>
+                    <span
+                      class="adr"
+                    >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                    <span class="k">{{ entry.Kills }}</span>
+                    <span class="d">{{ entry.Assists }}</span>
+                    <span class="a">{{ entry.Deaths }}</span>
                   </div>
                 </div>
               </div>
@@ -83,7 +97,6 @@
 
 <script>
 export default {
-  name: "dashboard",
   components: {},
   mounted() {
     this.$api.getMatches(5).then(response => {
@@ -144,10 +157,9 @@ export default {
         color: $l-blue;
       }
     }
-  }  
+  }
 
   .match-list {
-
     .no-matches {
       margin-top: 10px;
     }
@@ -185,7 +197,6 @@ export default {
             width: 20%;
             padding: 0 25px;
             border-right: 1px solid $purple;
-
 
             .map {
               color: white;
@@ -268,7 +279,8 @@ export default {
 
       .match-body {
         hr {
-          border-color: $purple;
+          border: 1px solid $purple;
+          border-bottom: none;
         }
 
         .team-table {
@@ -282,8 +294,8 @@ export default {
             .table-header {
               display: flex;
               color: $orange;
-              font-size: 12px;      
-              justify-content: space-between;        
+              font-size: 12px;
+              justify-content: space-between;
 
               span {
                 display: inline-block;
@@ -327,7 +339,7 @@ export default {
                   overflow: hidden;
                   text-overflow: ellipsis;
                   text-decoration: none;
-                  transition: .35s;
+                  transition: 0.35s;
 
                   &:hover {
                     color: $orange;
