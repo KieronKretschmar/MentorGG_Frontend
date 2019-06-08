@@ -1,16 +1,26 @@
 <template>
   <div class="match-history">
     <div class="bordered-box tabs-header">
-      <span class="title">Matchmaking:</span>
+      <span class="title">Match History:</span>
       <span :class="{ active: activeTab == 0 }" @click="activeTab = 0" class="filter all">All</span>
       <span :class="{ active: activeTab == 1 }" @click="activeTab = 1" class="filter faceit">Faceit</span>
       <span :class="{ active: activeTab == 2 }" @click="activeTab = 2" class="filter mm">Matchmaking</span>
     </div>
 
     <div class="match-list">
+
+      <div v-if="!matches.length">
+        <div class="bordered-box no-matches">
+          <AjaxLoader>Loading Matches</AjaxLoader>
+        </div>
+      </div>
+
       <div v-for="match in matches" :key="match.MatchId" class="bordered-box match">
         <div class="match-header">
           <div class="left">
+            <div class="map-thumbnail">
+              <img :src="$api.resolveResource(match.MapIcon)" :alt="match.Map + ' Thumbnail'" :title="match.Map">
+            </div>
             <div class="map-and-datetime">
               <span class="map">{{ match.Map }}</span>
               <span class="datetime">{{ match.MatchDate|formatDate }}</span>
@@ -44,8 +54,25 @@
           <div class="match-body" v-if="match.IsVisible">
             <hr>
             <div class="team-table">
-              <div class="team1"></div>
-              <div class="team2"></div>
+              <div v-for="(team, teamName) in match.Scoreboard.Teams" :key="teamName" class="team" :name="teamName">
+                <div class="table-header">
+                  <span></span>
+                  <span>ADR</span>
+                  <span>K</span>
+                  <span>D</span>
+                  <span>A</span>
+                </div>
+                <div class="table-content">
+                  <div v-for="entry in team" :key="entry.Profile.SteamId" class="table-entry">
+                      <img class="avatar" :src="entry.Profile.Icon">
+                      <a class="name" :href="entry.Profile.Url" target="_blank">{{ entry.Profile.SteamName }}</a>
+                      <span class="adr">{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                      <span class="k">{{ entry.Kills }}</span>
+                      <span class="d">{{ entry.Assists }}</span>
+                      <span class="a">{{ entry.Deaths }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </transition>
@@ -59,16 +86,11 @@ export default {
   name: "dashboard",
   components: {},
   mounted() {
-    this.$api.getMatches(1).then(response => {
+    this.$api.getMatches(5).then(response => {
       this.matches = response.data.MatchInfos;
       this.matches.forEach(match => {
         match.IsVisible = false;
       });
-      console.log(this.matches);
-    });
-
-    this.$api.getImportantPositions(true, 3, 10).then(response => {
-      console.log(response);
     });
   },
   data() {
@@ -122,26 +144,48 @@ export default {
         color: $l-blue;
       }
     }
-  }
+  }  
 
   .match-list {
+
+    .no-matches {
+      margin-top: 10px;
+    }
+
     .match {
-      margin-top: 20px;
+      margin-top: 10px;
 
       .match-header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
 
         .left {
           display: flex;
-          width: 60%;
+          width: 80%;
+
+          .map-thumbnail {
+            height: 55px;
+            width: 135px;
+            border-radius: 5px;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
 
           .map-and-datetime {
             display: flex;
             flex-direction: column;
-            text-align: right;
-            width: 30%;
-            padding-right: 50px;
+            justify-content: center;
+            width: 20%;
+            padding: 0 25px;
+            border-right: 1px solid $purple;
+
 
             .map {
               color: white;
@@ -159,8 +203,11 @@ export default {
           .match-score {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: center;
             padding: 0 50px;
+            width: 20%;
+            border-right: 1px solid $purple;
 
             .score {
               font-weight: 500;
@@ -189,7 +236,10 @@ export default {
           .player-kda {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: center;
+            padding: 0 50px;
+            width: 20%;
 
             .kda {
               color: white;
@@ -224,10 +274,82 @@ export default {
         .team-table {
           display: flex;
           justify-content: space-between;
+          margin-top: 20px;
 
-          .team1,
-          .team2 {
+          .team {
             width: 49%;
+
+            .table-header {
+              display: flex;
+              color: $orange;
+              font-size: 12px;      
+              justify-content: space-between;        
+
+              span {
+                display: inline-block;
+                width: 10%;
+                text-align: center;
+
+                &:first-child {
+                  max-width: 264px;
+                  flex: 0 1 264px;
+                  margin-right: 10px;
+                }
+              }
+            }
+
+            .table-content {
+              .table-entry {
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid $purple;
+                padding: 10px 0;
+                justify-content: space-between;
+
+                &:last-child {
+                  border-bottom: none;
+                }
+
+                .avatar {
+                  width: 24px;
+                  height: 24px;
+                  border-radius: 3px;
+                }
+
+                .name {
+                  color: white;
+                  font-weight: 500;
+                  margin-left: 20px;
+                  font-size: 14px;
+                  max-width: 200px;
+                  flex: 0 1 200px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  text-decoration: none;
+                  transition: .35s;
+
+                  &:hover {
+                    color: $orange;
+                  }
+                }
+
+                .adr {
+                  margin-left: 20px;
+                }
+
+                .adr,
+                .k,
+                .d,
+                .a {
+                  font-size: 12px;
+                  font-weight: 500;
+                  color: white;
+                  width: 10%;
+                  text-align: center;
+                }
+              }
+            }
           }
         }
       }

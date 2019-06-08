@@ -3,7 +3,12 @@ import axios from 'axios';
 class MentorGGAPI {
     constructor() {
         this.apiEndpoint = 'https://test.mentor.gg/api/';
-        this.steamId = '76561198033880857';
+        this.tldEndpoint = 'https://mentor.gg/';
+        this.steamId = '76561198166019050';
+    }
+
+    resolveResource(resource) {        
+        return resource.replace('~/', this.tldEndpoint);
     }
 
     getPlayerInfo() {
@@ -30,6 +35,16 @@ class MentorGGAPI {
                 showBest: showBest,
                 nPositions: count,
                 recentMatches: forMatchesN
+            }
+        });
+    }
+
+    getFriendsComparison(maxFriends = 3, recentMatches = 50) {
+        return axios.get(this.apiEndpoint + 'Compare/FriendsComparison', {
+            params: {
+                playerId: this.steamId,
+                maxFriends: maxFriends,
+                recentMatches: recentMatches
             }
         });
     }
