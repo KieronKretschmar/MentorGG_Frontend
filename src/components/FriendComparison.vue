@@ -13,9 +13,9 @@
         <div class="left">
           <img
             class="avatar"
-            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/43/430946ee3998cc0e8ca4f3cc0df1b88127fa3d63_medium.jpg"
+            :src="comparison.OtherPlayerInfo.Icon"
           >
-          <span class="name">bahne | mentor.gg</span>
+          <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
           <span class="winrate" :class="{good: comparison.WinRate >= 50}">
             {{ comparison.WinRate.toFixed(0) }}% win rate
             <br>
@@ -111,6 +111,7 @@ export default {
         .avatar {
           width: 32px;
           height: 32px;
+          border-radius: 5px;
         }
 
         .name {

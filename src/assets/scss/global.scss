@@ -17,6 +17,11 @@ $container-width: 1170px;
 }
 
 .view {
+    // max-width: $container-width;
+    // margin: 0 auto;
+}
+
+.fixed-width-container {
     max-width: $container-width;
     margin: 0 auto;
 }

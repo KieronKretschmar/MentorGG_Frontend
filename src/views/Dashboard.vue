@@ -2,20 +2,25 @@
   <div class="view view-dashboard">
     <div class="profile-section"></div>
 
-    <PositionAdvice/>
-    <FriendComparison/>
-    <MatchHistory/>
+    <ProfileHeader/>
+    <div class="fixed-width-container">
+      <PositionAdvice/>
+      <FriendComparison/>
+      <MatchHistory/>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import ProfileHeader from "@/components/ProfileHeader.vue";
 import PositionAdvice from "@/components/PositionAdvice.vue";
 import FriendComparison from "@/components/FriendComparison.vue";
 import MatchHistory from "@/components/MatchHistory.vue";
 
 export default {
   components: {
+    ProfileHeader,
     PositionAdvice,
     FriendComparison,
     MatchHistory,

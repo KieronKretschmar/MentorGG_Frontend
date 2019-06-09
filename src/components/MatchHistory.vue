@@ -39,10 +39,10 @@
             <div class="player-kda">
               <div class="kda">
                 <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
-                <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
                 <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
+                <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
               </div>
-              <span class="kda-text">K / D / A</span>
+              <span class="kda-text">K / A / D</span>
             </div>
           </div>
 
@@ -67,8 +67,8 @@
                   <span></span>
                   <span>ADR</span>
                   <span>K</span>
-                  <span>D</span>
                   <span>A</span>
+                  <span>D</span>
                 </div>
                 <div class="table-content">
                   <div v-for="entry in team" :key="entry.Profile.SteamId" class="table-entry">
@@ -82,8 +82,8 @@
                       class="adr"
                     >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
                     <span class="k">{{ entry.Kills }}</span>
-                    <span class="d">{{ entry.Assists }}</span>
-                    <span class="a">{{ entry.Deaths }}</span>
+                    <span class="a">{{ entry.Assists }}</span>
+                    <span class="d">{{ entry.Deaths }}</span>
                   </div>
                 </div>
               </div>
