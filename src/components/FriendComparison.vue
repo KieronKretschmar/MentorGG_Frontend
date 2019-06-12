@@ -17,7 +17,7 @@
           >
           <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
           <span class="winrate" :class="{good: comparison.WinRate >= 50}">
-            {{ comparison.WinRate.toFixed(0) }}% win rate
+            {{ comparison.WinRate.toFixed(0) }}% total win rate
             <br>
             <span>{{ comparison.MatchesPlayedTogether }} matches</span>
           </span>
@@ -30,8 +30,8 @@
           </span>
           <div
             class="winrate"
-            :class="{good: comparison.MapWinRate}"
-          >{{ comparison.MapWinRate.toFixed(0) }}% win rate<br><span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span></div>
+            :class="{good: comparison.MapWinRate >= 50}"
+          >{{ comparison.MapWinRate.toFixed(0) }}% map win rate<br><span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span></div>
         </div>
         <div class="right">
           <button

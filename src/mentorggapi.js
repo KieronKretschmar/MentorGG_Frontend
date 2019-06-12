@@ -3,8 +3,9 @@ import axios from 'axios';
 class MentorGGAPI {
     constructor() {
         this.apiEndpoint = 'https://test.mentor.gg/api/';
-        this.tldEndpoint = 'https://mentor.gg/';
-        this.steamId = '76561198166019050';
+        this.tldEndpoint = 'https://test.mentor.gg/';
+        this.steamId = '76561198166019050'; //felix
+        // this.steamId = '76561198033880857'; //kieron
     }
 
     resolveResource(resource) {        
@@ -44,6 +45,15 @@ class MentorGGAPI {
             params: {
                 playerId: this.steamId,
                 maxFriends: maxFriends,
+                recentMatches: recentMatches
+            }
+        });
+    }
+
+    getRecentMatchData(recentMatches = 50) {
+        return axios.get(this.apiEndpoint + 'User/RecentMatchResults', {
+            params: {
+                playerId: this.steamId,
                 recentMatches: recentMatches
             }
         });

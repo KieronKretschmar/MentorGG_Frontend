@@ -45,6 +45,7 @@ export default {
     background: $dark-3;
     padding: 50px 0;
     border-bottom: 1px solid $purple;
+    padding-bottom: 120px;
 
     .fixed-width-container {
         display: flex;
