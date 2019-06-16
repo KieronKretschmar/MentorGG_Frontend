@@ -6,18 +6,22 @@
     <main>
       <router-view/>
     </main>
-    <footer></footer>
+    <footer>
+      <Footer/>
+    </footer>
   </div>
 </template>
 
 <script>
 import TopNavigation from "@/components/TopNavigation.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "App",
   mounted() {},
   components: {
-    TopNavigation
+    TopNavigation,
+    Footer
   },
   data() {
     return {
