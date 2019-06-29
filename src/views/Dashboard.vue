@@ -26,7 +26,7 @@ export default {
     RecentMatchStats,
     PositionAdvice,
     FriendComparison,
-    MatchHistory,
+    MatchHistory
   },
   mounted() {}
 };

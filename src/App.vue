@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/styles.scss';
+@import "@/assets/scss/styles.scss";
 
 body {
   margin: 0;
@@ -51,7 +51,7 @@ header {
   position: fixed;
   width: 100%;
   left: 0;
-  top: 0; 
+  top: 0;
   z-index: 9999;
 }
 

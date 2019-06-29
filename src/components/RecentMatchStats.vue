@@ -24,15 +24,16 @@
           <div class="txt">Headshot %</div>
         </div>
         <div class="stat">
-          <div class="val" :class="RankBalanceClass">{{ Math.abs(RankBalance) }} <i class="material-icons" @click="OpenRankGraph">timeline</i></div>
+          <div class="val" :class="RankBalanceClass">
+            {{ Math.abs(RankBalance) }}
+            <i class="material-icons" @click="OpenRankGraph">timeline</i>
+          </div>
           <div class="txt">Rank Balance</div>
         </div>
       </div>
     </div>
     <div class="rank-graph-overlay" v-if="rankGraphVisible" @click="rankGraphVisible = false">
-      <div class="fixed-width-container">
-
-      </div>
+      <div class="fixed-width-container"></div>
     </div>
   </div>
 </template>
@@ -60,18 +61,21 @@ export default {
       );
     },
     RankBalance: function() {
-      return this.recentMatchStats.GamesWonAfterRankChange - this.recentMatchStats.GamesLostAfterRankChange;
+      return (
+        this.recentMatchStats.GamesWonAfterRankChange -
+        this.recentMatchStats.GamesLostAfterRankChange
+      );
     },
     RankBalanceClass: function() {
-      if ( this.RankBalance < 0 ) {
-        return 'n';
+      if (this.RankBalance < 0) {
+        return "n";
       }
 
-      if ( this.RankBalance > 0 ) {
-        return 'p';
+      if (this.RankBalance > 0) {
+        return "p";
       }
 
-      return 'e';
+      return "e";
     }
   },
   methods: {
@@ -86,7 +90,7 @@ export default {
 .recent-match-stats {
   margin-bottom: 20px;
   margin-top: -64px;
-  
+
   .bordered-box {
     padding: 30px 50px;
   }
@@ -126,7 +130,7 @@ export default {
 
       .txt {
         font-size: 12px;
-        margin-top: .5em;
+        margin-top: 0.5em;
         color: white;
       }
     }
