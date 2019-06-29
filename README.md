@@ -1,4 +1,7 @@
-# mentorgg
+# mentor.gg
+
+It is highly recommended to use Visual Studio Code with the Vetur plugin while working on this project.
+The plugin itself is beyond genious and is an incredible help with maintaining the coding style and some other stuff.
 
 ## Project setup
 ```
