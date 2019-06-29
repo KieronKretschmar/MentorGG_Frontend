@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    value: Number,
+    value: null,
     options: Object
   },
   mounted() {
@@ -25,8 +25,8 @@ export default {
   },
   methods: {
     SelectOption: function(key) {
-      this.value = key;
       this.optionsVisible = false;
+      this.$emit('input', key);
     }
   }
 };

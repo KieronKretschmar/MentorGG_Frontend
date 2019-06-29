@@ -7,9 +7,9 @@
                     <span>&copy; {{ new Date().getFullYear() }} — mentor.gg</span>
                 </div>
                 <div class="r">
-                    <a href="#">Terms Of Service</a>
-                    <a href="#">Contact / Disclaimer</a>
-                    <a href="#">Privacy Policy</a>
+                    <router-link to="/terms-of-service">Terms Of Service</router-link>
+                    <router-link to="/contact">Contact / Disclaimer</router-link>
+                    <router-link to="/privacy-policy">Privacy Policy</router-link>
                 </div>
             </div>
         </div>

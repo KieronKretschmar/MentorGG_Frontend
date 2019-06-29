@@ -104,10 +104,25 @@
         <div class="l bordered-box">
           <button class="button-variant-bordered" @click="OnShowTrajectories">Show Trajectories</button>
           <div class="team-select">
-            <img class="t" src="@/assets/t_logo.png" :class="{active: activeTeam == 'T'}" @click="activeTeam = 'T'">
-            <img class="ct" src="@/assets/ct_logo.png" :class="{active: activeTeam == 'CT'}" @click="activeTeam = 'CT'">
+            <img
+              class="t"
+              src="@/assets/t_logo.png"
+              :class="{active: activeTeam == 'T'}"
+              @click="activeTeam = 'T'"
+            >
+            <img
+              class="ct"
+              src="@/assets/ct_logo.png"
+              :class="{active: activeTeam == 'CT'}"
+              @click="activeTeam = 'CT'"
+            >
           </div>
-          <CustomSelect :value="matchCount" :options="matchCountSelectOptions"></CustomSelect>
+          <CustomSelect
+            class="match-count-select"
+            v-model="matchCount"
+            :options="matchCountSelectOptions"
+            v-on:input="OnMatchCountUpdated"
+          ></CustomSelect>
         </div>
 
         <div class="r bordered-box"></div>
@@ -129,19 +144,22 @@ export default {
   data() {
     return {
       activeMap: 0,
-      activeTeam: 'T',
+      activeTeam: "T",
       matchCount: 10,
       matchCountSelectOptions: {
-        5: 'Use last 5 matches',
-        10: 'Use last 10 matches',
-        50: 'Use last 50 matches',
-        100: 'Use last 100 matches',
+        5: "Use last 5 matches",
+        10: "Use last 10 matches",
+        50: "Use last 50 matches",
+        100: "Use last 100 matches"
       }
     };
   },
   methods: {
     OnShowTrajectories: function() {
       alert("Not Implemented");
+    },
+    OnMatchCountUpdated: function() {
+      alert("Match count changed: " + this.matchCount);
     }
   }
 };
@@ -275,6 +293,8 @@ export default {
     justify-content: space-between;
 
     .team-select {
+      display: flex;
+      margin: 0 20px;
 
       img {
         margin: 0 5px;
@@ -299,6 +319,11 @@ export default {
           filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
         }
       }
+    }
+
+    .match-count-select {
+      width: 100%;
+      max-width: 400px;
     }
   }
 

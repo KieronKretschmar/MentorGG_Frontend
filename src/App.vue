@@ -4,24 +4,29 @@
       <TopNavigation/>
     </header>
     <main>
-      <router-view/>
+      <transition name="page" mode="out-in">
+        <router-view/>
+      </transition>
     </main>
     <footer>
       <Footer/>
     </footer>
+    <DiscordHint/>
   </div>
 </template>
 
 <script>
 import TopNavigation from "@/components/TopNavigation.vue";
 import Footer from "@/components/Footer.vue";
+import DiscordHint from "@/components/DiscordHint.vue";
 
 export default {
   name: "App",
   mounted() {},
   components: {
     TopNavigation,
-    Footer
+    Footer,
+    DiscordHint
   },
   data() {
     return {
@@ -33,6 +38,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/styles.scss';
+
 body {
   margin: 0;
   overflow-y: scroll;
@@ -41,12 +48,17 @@ body {
 header {
   background: $dark-1;
   border-bottom: 1px solid $purple;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0; 
+  z-index: 9999;
 }
 
 main {
   background: $dark-2;
   flex: 1 1 auto;
+  padding-top: 100px;
 
   .view {
     h1 {
@@ -57,8 +69,6 @@ main {
 }
 
 #app {
-  font-family: "Montserrat", sans-serif;
-  -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

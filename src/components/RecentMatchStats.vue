@@ -24,9 +24,14 @@
           <div class="txt">Headshot %</div>
         </div>
         <div class="stat">
-          <div class="val" :class="RankBalanceClass">{{ Math.abs(RankBalance) }}</div>
+          <div class="val" :class="RankBalanceClass">{{ Math.abs(RankBalance) }} <i class="material-icons" @click="OpenRankGraph">timeline</i></div>
           <div class="txt">Rank Balance</div>
         </div>
+      </div>
+    </div>
+    <div class="rank-graph-overlay" v-if="rankGraphVisible" @click="rankGraphVisible = false">
+      <div class="fixed-width-container">
+
       </div>
     </div>
   </div>
@@ -42,7 +47,8 @@ export default {
   },
   data() {
     return {
-      recentMatchStats: null
+      recentMatchStats: null,
+      rankGraphVisible: false
     };
   },
   computed: {
@@ -66,6 +72,11 @@ export default {
       }
 
       return 'e';
+    }
+  },
+  methods: {
+    OpenRankGraph: function() {
+      this.rankGraphVisible = true;
     }
   }
 };
@@ -106,6 +117,11 @@ export default {
         &.e {
           color: $purple;
         }
+
+        i {
+          color: $orange;
+          cursor: pointer;
+        }
       }
 
       .txt {
@@ -114,6 +130,15 @@ export default {
         color: white;
       }
     }
+  }
+
+  .rank-graph-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

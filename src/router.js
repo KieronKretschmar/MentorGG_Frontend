@@ -46,6 +46,21 @@ export default new Router({
       path: '/matches',
       name: 'matches',
       component: () => import(/* webpackChunkName: "matches" */ './views/Matches.vue')
+    },
+    {
+      path: '/privacy-policy',
+      name: 'privacy-policy',
+      component: () => import(/* webpackChunkName: "privacypolicy" */ './views/PrivacyPolicy.vue')
+    },
+    {
+      path: '/terms-of-service',
+      name: 'terms-of-service',
+      component: () => import(/* webpackChunkName: "termsofservice" */ './views/TermsOfService.vue')
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import(/* webpackChunkName: "contact" */ './views/Contact.vue')
     }
   ]
 });

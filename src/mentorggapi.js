@@ -20,11 +20,12 @@ class MentorGGAPI {
         });
     }
 
-    getMatches(count) {
+    getMatches(count, offset = 0) {
         return axios.get(this.apiEndpoint + 'Matches/Matches', {
             params: {
                 playerId: this.steamId,
-                recentMatches: count
+                recentMatches: count,
+                offset: offset
             }
         });
     }

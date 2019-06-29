@@ -4,48 +4,54 @@
       <p>Performance when playing with friends</p>
     </div>
 
-    <div
-      v-for="comparison in comparisons"
-      :key="comparison.OtherSteamId"
-      class="comparison bordered-box"
-    >
-      <div class="header">
-        <div class="left">
-          <img
-            class="avatar"
-            :src="comparison.OtherPlayerInfo.Icon"
-          >
-          <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
-          <span class="winrate" :class="{good: comparison.WinRate >= 50}">
-            {{ comparison.WinRate.toFixed(0) }}% total win rate
-            <br>
-            <span>{{ comparison.MatchesPlayedTogether }} matches</span>
-          </span>
-          <span class="favorite-map">
-            <div class="map-text">
-              <span>Favorite Map</span>
-              <br>
-              {{ comparison.MostPlayedMap }}
-            </div>
-          </span>
-          <div
-            class="winrate"
-            :class="{good: comparison.MapWinRate >= 50}"
-          >{{ comparison.MapWinRate.toFixed(0) }}% map win rate<br><span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span></div>
-        </div>
-        <div class="right">
-          <button
-            class="button-variant-bordered"
-            @click="ToggleComparisonVisibility(comparison)"
-          >Friend details</button>
-        </div>
+    <div v-if="!comparisons.length">
+      <div class="bordered-box no-comparisons">
+        <AjaxLoader>Loading Friend Comparisons</AjaxLoader>
       </div>
-      <transition name="slide">
-        <div class="body" v-if="comparison.IsVisible">
-          <hr>
-        </div>
-      </transition>
     </div>
+
+    <span v-if="comparisons.length">
+      <div
+        v-for="comparison in comparisons"
+        :key="comparison.OtherSteamId"
+        class="comparison bordered-box"
+      >
+        <div class="header">
+          <div class="left">
+            <img class="avatar" :src="comparison.OtherPlayerInfo.Icon">
+            <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
+            <span class="winrate" :class="{good: comparison.WinRate >= 50}">
+              {{ comparison.WinRate.toFixed(0) }}% total win rate
+              <br>
+              <span>{{ comparison.MatchesPlayedTogether }} matches</span>
+            </span>
+            <span class="favorite-map">
+              <div class="map-text">
+                <span>Favorite Map</span>
+                <br>
+                {{ comparison.MostPlayedMap }}
+              </div>
+            </span>
+            <div class="winrate" :class="{good: comparison.MapWinRate >= 50}">
+              {{ comparison.MapWinRate.toFixed(0) }}% map win rate
+              <br>
+              <span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span>
+            </div>
+          </div>
+          <div class="right">
+            <button
+              class="button-variant-bordered"
+              @click="ToggleComparisonVisibility(comparison)"
+            >Friend details</button>
+          </div>
+        </div>
+        <transition name="slide">
+          <div class="body" v-if="comparison.IsVisible">
+            <hr>
+          </div>
+        </transition>
+      </div>
+    </span>
   </div>
 </template>
 
@@ -90,6 +96,10 @@ export default {
   p {
     color: white;
     font-weight: 500;
+  }
+
+  .no-comparisons {
+    margin-top: 10px;
   }
 
   .comparison {
@@ -143,7 +153,7 @@ export default {
           display: flex;
           align-items: center;
           width: 15%;
-          border-left: 1px solid $purple;    
+          border-left: 1px solid $purple;
 
           .map-text {
             padding: 0 25px;

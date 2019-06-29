@@ -8,12 +8,6 @@
     </div>
 
     <div class="match-list">
-      <div v-if="!matches.length">
-        <div class="bordered-box no-matches">
-          <AjaxLoader>Loading Matches</AjaxLoader>
-        </div>
-      </div>
-
       <div v-for="match in matches" :key="match.MatchId" class="bordered-box match">
         <div class="match-header">
           <div class="left">
@@ -91,6 +85,16 @@
           </div>
         </transition>
       </div>
+
+      <div v-if="loadingMatches">
+        <div class="bordered-box no-matches">
+          <AjaxLoader>Loading Matches</AjaxLoader>
+        </div>
+      </div>
+    </div>
+    <div class="match-history-controls" v-if="!loadingMatches">
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5)">Load 5 More</button>
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25)">Load 25 More</button>
     </div>
   </div>
 </template>
@@ -99,23 +103,31 @@
 export default {
   components: {},
   mounted() {
-    this.$api.getMatches(5).then(response => {
-      this.matches = response.data.MatchInfos;
-      this.matches.forEach(match => {
-        match.IsVisible = false;
-      });
-    });
+    this.LoadAppendMatches(5);
   },
   data() {
     return {
       matches: [],
-      activeTab: 0
+      activeTab: 0,
+      loadingMatches: false
     };
   },
   methods: {
     ToggleMatchVisibility: function(match) {
       match.IsVisible = !match.IsVisible;
       this.$forceUpdate();
+    },
+    LoadAppendMatches: function(count) {
+      this.loadingMatches = true;
+      this.$api.getMatches(count, this.matches.length).then(response => {
+        for (let i = 0; i < response.data.MatchInfos.length; i++) {
+          let match = response.data.MatchInfos[i];
+          match.IsVisible = false;
+          this.matches.push(match);
+        }
+
+        this.loadingMatches = false;
+      });
     }
   }
 };
@@ -365,6 +377,18 @@ export default {
           }
         }
       }
+    }
+  }
+}
+
+.match-history-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    &:first-child {
+      margin-right: 10px;
     }
   }
 }
