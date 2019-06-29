@@ -4,51 +4,71 @@
       <p>Positions you should practice or avoid</p>
       <div v-if="!worst.Performances" class="no-positions">
         <AjaxLoader>Loading Worst Positions</AjaxLoader>
-      </div>      
+      </div>
       <div class="position-table" v-if="worst.Performances">
-          <div class="table-header">
-            <span>Map</span>
-            <span>Name</span>
-            <span>Team</span>
-            <span>K/D</span>
+        <div class="table-header">
+          <span>Map</span>
+          <span>Name</span>
+          <span>Team</span>
+          <span>K/D</span>
+        </div>
+        <div class="table-content">
+          <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
+            <span>{{ entry.Map }}</span>
+            <span>{{ entry.Name }}</span>
+            <span>
+              <img
+                v-if="entry.Team == 2"
+                src="@/assets/t_logo.png"
+                alt="Terrorists Logo"
+                title="Terrorists"
+              >
+              <img
+                v-if="entry.Team == 3"
+                src="@/assets/ct_logo.png"
+                alt="Counter-Terrorists Logo"
+                title="Counter-Terrorists"
+              >
+            </span>
+            <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>
-          <div class="table-content">
-            <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-              <span>{{ entry.Map }}</span>
-              <span>{{ entry.Name }}</span>
-              <span>
-                <img v-if="entry.Team == 2" src="@/assets/t_logo.png" alt="Terrorists Logo" title="Terrorists">
-                <img v-if="entry.Team == 3" src="@/assets/ct_logo.png" alt="Counter-Terrorists Logo" title="Counter-Terrorists">
-              </span>
-              <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
     <div class="bordered-box advice">
       <p>Positions you are performing best in</p>
       <div v-if="!best.Performances" class="no-positions">
         <AjaxLoader>Loading Best Positions</AjaxLoader>
-      </div>          
+      </div>
       <div class="position-table" v-if="best.Performances">
-          <div class="table-header">
-            <span>Map</span>
-            <span>Name</span>
-            <span>Team</span>
-            <span>K/D</span>
+        <div class="table-header">
+          <span>Map</span>
+          <span>Name</span>
+          <span>Team</span>
+          <span>K/D</span>
+        </div>
+        <div class="table-content">
+          <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
+            <span>{{ entry.Map }}</span>
+            <span>{{ entry.Name }}</span>
+            <span>
+              <img
+                v-if="entry.Team == 2"
+                src="@/assets/t_logo.png"
+                alt="Terrorists Logo"
+                title="Terrorists"
+              >
+              <img
+                v-if="entry.Team == 3"
+                src="@/assets/ct_logo.png"
+                alt="Counter-Terrorists Logo"
+                title="Counter-Terrorists"
+              >
+            </span>
+            <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>
-          <div class="table-content">        
-            <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-              <span>{{ entry.Map }}</span>
-              <span>{{ entry.Name }}</span>
-              <span>
-                <img v-if="entry.Team == 2" src="@/assets/t_logo.png" alt="Terrorists Logo" title="Terrorists">
-                <img v-if="entry.Team == 3" src="@/assets/ct_logo.png" alt="Counter-Terrorists Logo" title="Counter-Terrorists">
-              </span>
-              <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
-            </div>
-          </div>
-      </div>      
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -94,7 +114,7 @@ export default {
         color: $orange;
         font-size: 12px;
         display: flex;
-        
+
         span {
           &:nth-child(1) {
             width: 30%;
