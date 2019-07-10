@@ -33,9 +33,19 @@ export default new Router({
       component: () => import(/* webpackChunkName: "smokes" */ './views/Smokes.vue')
     },
     {
+      path: '/firenades',
+      name: 'firenades',
+      component: () => import(/* webpackChunkName: "firenades" */ './views/FireNades.vue')
+    },
+    {
       path: '/flashes',
       name: 'flashes',
       component: () => import(/* webpackChunkName: "flashes" */ './views/Flashes.vue')
+    },
+    {
+      path: '/hes',
+      name: 'hes',
+      component: () => import(/* webpackChunkName: "hes" */ './views/HEs.vue')
     },
     {
       path: '/kills',

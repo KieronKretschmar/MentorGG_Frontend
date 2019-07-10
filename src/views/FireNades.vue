@@ -1,5 +1,5 @@
 <template>
-  <div class="view view-kills">
+  <div class="view view-firenades">
     <div class="fixed-width-container">
       <div class="performances">
         <div v-for="(mapSummary,index) in mapSummaries" :key="index" class="performance" :class="{active: activeMap == 0}" @click="OnActiveMapUpdated(mapSummary.Map)">
@@ -10,35 +10,41 @@
           <p class="map-name">{{mapSummary.Map}}</p>
 
           <div class="z-layer-lo">
-            <!-- TODO: Style -->
-            <span class="split-title">MatchWin Rate</span>
+            <span class="split-title">USES</span>
             <div class="split">
-                <span style="color:white;">{{(mapSummary.MatchWinFraction * 100).toFixed(0) }}%</span>
+              <div class="ct">
+                <img src="@/assets/ct_logo.png">
+                <span>{{(mapSummary.UsageRatioAsCt* 100).toFixed(0) }}%</span>
+              </div>
+              <div class="t">
+                <img src="@/assets/t_logo.png">
+                <span>{{(mapSummary.UsageRatioAsTerrorist* 100).toFixed(0) }}%</span>
+              </div>
             </div>
           </div>
 
           <div class="z-layer-hi">
-            <span class="split-title">ROUNDWIN RATE</span>
+            <span class="split-title">DAMAGE</span>
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png">
-                <span>{{(mapSummary.RoundWinFractionAsCt * 100).toFixed(0) }}%}}</span>
+                <span>{{mapSummary.AverageDamageAsCt.toFixed(1)}}</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png">
-                <span>{{(mapSummary.RoundWinFractionAsTerrorist * 100).toFixed(0) }}%}}</span>
+                <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
               </div>
             </div>
 
-            <span class="split-title">KD RATIO</span>
+            <span class="split-title">KILLS</span>
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png">
-                <span>{{(mapSummary.KDAsCt* 100).toFixed(0) }}%</span>
+                <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png">
-                <span>{{(mapSummary.KDAsTerrorist* 100).toFixed(0) }}%</span>
+                <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>
@@ -49,7 +55,6 @@
         <div class="l bordered-box">
           <div class="tool-menu">
             <button class="button-variant-bordered" @click="OnShowTrajectories">Show Trajectories</button>
-
             <div v-if="zonesEnabled">
               <button v-if="!detailView" class="button-variant-bordered" @click="SetDetailView(true)">Show Details</button>
               <button v-if="detailView" class="button-variant-bordered" @click="SetDetailView(false)">Show Zones</button>
@@ -90,11 +95,11 @@
             :OnClickBackground = OnClickBackground
             :detailView=detailView
 
-            :zoneType="'Kill'"
+            :zoneType="'FireNade'"
             :zones="zones.filter(x => x.ParentZoneId != -1)"
             :userPerformanceData=userPerformanceData
 
-            :kills=samples
+            :fireNades=samples
 
             />
           </div>
@@ -102,7 +107,7 @@
         </div>
         <div class="r bordered-box">
           <SideBar          
-            :sampleType="'Kill'"
+            :sampleType="'FireNade'"
             :selectedSample=selectedSample
             :selectedZone=selectedZone
             :detailView=detailView
@@ -152,38 +157,36 @@ export default {
     };
   },
   mounted() {
-    this.LoadKillsOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadKills(this.activeMap, 10);
+    // this.LoadFireNadeOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadFireNades(this.activeMap, 10);
   },
   methods: {
-    LoadKillsOverviews(matchCount){
-      this.$api.getKillsOverview(matchCount).then(response => {
+    LoadFireNadeOverviews(matchCount){
+      this.$api.getFireNadesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadKills(map, matchCount){
-      this.$api.getKills(map, matchCount).then(response => {
-        console.log(response.data.DetonationZones)
-
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.zones = response.data.Zones;
-        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
-        this.globalPerformanceData = response.data.GlobalData;
-        if(this.zones.length == 0){
-          this.zonesEnabled = false;
-          this.detailView = true;
-        }
-        else{
-          this.zonesEnabled = true;
-        }
+    LoadFireNades(map, matchCount){
+      this.$api.getFireNades(map, matchCount).then(response => {
+      this.mapInfo = response.data.MapInfo;
+      this.samples = response.data.Samples;
+      this.zones = response.data.DetonationZones;
+      this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+      this.globalPerformanceData = response.data.GlobalData;
+      if(this.zones.length == 0){
+        this.zonesEnabled = false;
+        this.detailView = true;
+      }
+      else{
+        this.zonesEnabled = true;
+      }
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadKills(this.activeMap, this.matchCount);
+      this.LoadFireNades(this.activeMap, this.matchCount);
     },    
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -191,7 +194,7 @@ export default {
     },
     OnActiveMapUpdated : function(map) {
       if(this.activeMap != map){
-        this.LoadKills(map, this.matchCount);
+        this.LoadFireNades(map, this.matchCount);
         this.activeMap = map;
       }
     },
@@ -231,7 +234,7 @@ export default {
 </script>
 
 <style lang="scss">
-.view-kills {
+.view-firenades {
   margin-top: 40px;
 }
 
