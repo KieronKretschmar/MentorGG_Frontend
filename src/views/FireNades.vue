@@ -54,10 +54,9 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Show Trajectories</button>
+            <button class="button-variant-bordered" @click="OnShowTrajectories">Toggle Trajectories</button>
             <div v-if="zonesEnabled">
-              <button v-if="!detailView" class="button-variant-bordered" @click="SetDetailView(true)">Show Details</button>
-              <button v-if="detailView" class="button-variant-bordered" @click="SetDetailView(false)">Show Zones</button>
+              <button class="button-variant-bordered" @click="SetDetailView()">Toggle Zones</button>
             </div>
 
             <div class="team-select">
@@ -142,7 +141,7 @@ export default {
       },
       showTrajectories: true,
       mapSummaries: [],
-      detailView: false,
+      detailView: true,
 
       zonesEnabled: false,
       zones: [],
@@ -170,7 +169,7 @@ export default {
       this.$api.getFireNades(map, matchCount).then(response => {
       this.mapInfo = response.data.MapInfo;
       this.samples = response.data.Samples;
-      this.zones = response.data.DetonationZones;
+      this.zones = response.data.Zones;
       this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
       this.globalPerformanceData = response.data.GlobalData;
       if(this.zones.length == 0){
@@ -204,10 +203,10 @@ export default {
     SetSelectedZone : function(zoneId){
       this.selectedZone = this.zones.find(x=> x.ZoneId == zoneId);
     },
-    SetDetailView(detailView){
+    SetDetailView(){
       this.selectedSample = null;
       this.selectedZone = null;
-      this.detailView = detailView;
+      this.detailView = !this.detailView;
     },
   },
   computed: {    
@@ -217,14 +216,14 @@ export default {
     },
     userSelectedZonePerformance(){
       if(this.selectedZone == null) return null;
-      return this.activeUserData.DetonationZonePerformances[this.selectedZone.ZoneId];      
+      return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];      
     },
     userTotalRounds(){
       return this.showCt ? this.activeUserData.TotalCtRounds : this.activeUserData.TotalTerroristRounds;
     },
     globalSelectedZonePerformance(){
       if(this.selectedZone == null) return null;
-      return this.activeGlobalData.DetonationZonePerformances[this.selectedZone.ZoneId];      
+      return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];      
     },
     globalTotalRounds(){
       return this.showCt ? this.activeGlobalData.TotalCtRounds : this.activeGlobalData.TotalTerroristRounds;

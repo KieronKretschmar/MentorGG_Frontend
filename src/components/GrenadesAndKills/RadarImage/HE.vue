@@ -1,9 +1,11 @@
 <template>
-    <g v-if="grenadeData" :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt > 0 ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
+    <g v-if="grenadeData" class="he-grenade" 
+    :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, { 'enemies-killed': enemiesKilled }, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]" 
+    :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
         <circle  v-if="showTrajectories" class="usercircle" :cx="grenadeData.ReleaseX" :cy="grenadeData.ReleaseY" :r="releaseRadius +'px'"/>
         <polyline v-if="showTrajectories" class="trajectory" vector-effect="non-scaling-stroke"
             :points="trajectory"></polyline>
-        <circle class="he-detonation"  :cx="grenadeData.DetonationX" :cy="grenadeData.DetonationY"
+        <circle class="detonation"  :cx="grenadeData.DetonationX" :cy="grenadeData.DetonationY"
                 data-toggle=tooltip data-placement=top title="@(tooltipTitle)" :r="detonationRadius +'px'" />    
 
         <g v-if="isSelected" class="victims-group">
@@ -45,6 +47,9 @@ export default {
 
             return this.grenadeData.Hits.filter(x=>!x.TeamAttack).reduce((acc, obj)=> obj.AmountHealth + acc, 0);            
         },
+        enemiesKilled() {
+            return (this.grenadeData.Hits.filter(x=>!x.TeamAttack && x.Kill).length > 0)       
+        },
         trajectory() {
             var trajectoryString = "";
             for (let i = 0; i < this.grenadeData.Trajectory.length; i++) {
@@ -59,46 +64,51 @@ export default {
 
 <style lang="scss">
 
-
-.usercircle{
-    .ct &{
-    fill: $ct-color;
-    }
-    .terrorist &{
-        fill: $terrorist-color;
-    }
-}
-
-.trajectory{
-    stroke-width: 1.5px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #FFFFFF;
-    opacity: 0.5;
-}
-
-.victim-circle{
-    &.ct{
-    fill: $ct-color;
-    }
-    &.terrorist{
+.he-grenade{
+    &.ct .usercircle{
+        fill: $ct-color;
+        }
+    &.terrorist .usercircle{
         fill: $terrorist-color;
     }
 
-    &.lethal{
+    .trajectory{
         stroke-width: 1.5px;
-        stroke:$success-color;
-        &.team-attack{
-            stroke:$failure-color;
+        fill: none;
+        /* stroke-dasharray: 5, 3; */
+        stroke: #FFFFFF;
+        opacity: 0.5;
+    }
+
+    .victim-circle{
+        &.ct{
+        fill: $ct-color;
+        }
+        &.terrorist{
+            fill: $terrorist-color;
         }
 
-    }
-}
+        &.lethal{
+            stroke-width: 1.5px;
+            stroke:$success-color;
+        }
 
-.he-detonation{
-    fill:black;
-    .enemies-hit &{
+        &.lethal.team-attack{
+            stroke:$failure-color;
+        }      
+        
+    }
+
+    .detonation{
+        fill:black;
+    }
+    &.enemies-hit .detonation {
         fill: white;
     }
+    &.enemies-killed .detonation {
+        fill: $success-color;
+    }
+    
 }
+
 </style>

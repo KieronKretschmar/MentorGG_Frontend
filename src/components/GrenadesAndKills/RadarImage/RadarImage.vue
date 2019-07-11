@@ -15,7 +15,15 @@
             :fillColor="zonePerformanceColors[zoneData.ZoneId]"
             />
 
-            <!-- Samples -->
+            <!-- Samples -->                        
+            <Kill v-for="killData in visibleKills" :key="killData.Id" 
+            :killData=killData 
+            :zoomFactor=zoomFactor 
+            :showTrajectories=showTrajectories
+            :SetSelectedSample=SetSelectedSample
+            :isSelected="selectedSample && selectedSample.Id==killData.Id"
+            /> 
+
             <Flash v-for="grenadeData in visibleFlashGrenades" :key="grenadeData.Id" 
             :grenadeData=grenadeData 
             :zoomFactor=zoomFactor 
@@ -51,7 +59,7 @@ import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
 import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
 import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
-// import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
+import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 
 
 export default {
@@ -60,7 +68,7 @@ export default {
     FireNade,
     Flash,
     HE,
-    // Kill,
+    Kill,
   },
   mounted() {
   },
@@ -131,14 +139,9 @@ export default {
     },
 
     // Kills
-    activeKills() {
-      if(!this.kills) return [];
-      if(this.selectedSample != null)  return [this.selectedSample];      
-      return this.kills.filter(x => x.UserIsCt == this.showCt)
-    },
     visibleKills() {
       if(!this.detailView) return [];
-      return this.activeKills;
+      return this.kills;
     },
 
     // Zones
@@ -153,18 +156,18 @@ export default {
       }
     },
     zonePerformanceColors() {
-
       let zonePerformanceColors = {}
       switch(this.zoneType){
         case "Flash":
-          for (let zoneId in this.userPerformanceData.DetonationZonePerformances){
-            const element = this.userPerformanceData.DetonationZonePerformances[zoneId];          
+          for (let zoneId in this.userPerformanceData.ZonePerformances){
+            const element = this.userPerformanceData.ZonePerformances[zoneId];          
             if(element.SampleCount == 0){
               zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15)
             }
             else{
               let rounds = element.IsCtZone ? this.userPerformanceData.CtRounds :  this.userPerformanceData.TerroristRounds;
-              let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, element.SampleCount, element.IsCtZone, rounds/10)
+              console.log(this.userPerformanceData.TerroristRounds);
+              let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, element.SampleCount, rounds/10)
               
               let blindDuration = element.FlashDuration / element.SampleCount;
               zonePerformanceColors[zoneId] = this.$performanceColors.performanceColorGivenOpacity(blindDuration, 4000, 500, opacity);
@@ -173,17 +176,35 @@ export default {
           break;
 
         case "HE":
-          for (let zoneId in this.userPerformanceData.DetonationZonePerformances){
-            const element = this.userPerformanceData.DetonationZonePerformances[zoneId];          
+          for (let zoneId in this.userPerformanceData.ZonePerformances){
+            const element = this.userPerformanceData.ZonePerformances[zoneId];          
             if(element.SampleCount == 0){
               zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15)
             }
             else{
               let rounds = element.IsCtZone ? this.userPerformanceData.CtRounds :  this.userPerformanceData.TerroristRounds;
-              let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, element.SampleCount, element.IsCtZone, rounds/10)
+              let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, element.SampleCount, rounds/10)
               
               let avgDamage = element.AmountHealth / element.SampleCount;
               zonePerformanceColors[zoneId] = this.$performanceColors.performanceColorGivenOpacity(avgDamage, 4000, 500, opacity);
+            }
+          }
+          break;
+
+          
+        case "Kill":
+          for (let zoneId in this.userPerformanceData.ZonePerformances){
+            const element = this.userPerformanceData.ZonePerformances[zoneId]; 
+            let sampleCount = element.Deaths + element.Kills;       
+            if(sampleCount == 0){
+              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15)
+            }
+            else{
+              // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
+              // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, SampleCount, element.IsCtZone, rounds/10)
+              let opacity = 0.3;
+              let kdRatio = element.Kills / (Math.max(1, sampleCount));
+              zonePerformanceColors[zoneId] = this.$performanceColors.performanceColorGivenOpacity(kdRatio, 4000, 500, opacity);
             }
           }
           break;

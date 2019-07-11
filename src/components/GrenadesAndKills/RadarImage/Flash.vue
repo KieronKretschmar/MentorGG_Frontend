@@ -1,5 +1,5 @@
 <template>
-    <g v-if="grenadeData" :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, grenadeData.UserIsCt > 0 ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
+    <g v-if="grenadeData" class="flash" :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
         <circle  v-if="showTrajectories" class="usercircle" :cx="grenadeData.ReleaseX" :cy="grenadeData.ReleaseY" :r="releaseRadius +'px'"/>
         <polyline v-if="showTrajectories" class="trajectory" vector-effect="non-scaling-stroke"
             :points="trajectory"></polyline>
@@ -52,40 +52,41 @@ export default {
                 trajectoryString += element.X + "," + element.Y + " ";
             }
             return trajectoryString;
+        },
+        killAssist() {
+            return this.grenadeData.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length > 0;
         }
     }
 }
 </script>
 
 <style lang="scss">
+.flash{
 
-
-.usercircle{
-    .ct &{
-    fill: $ct-color;
-    }
-    .terrorist &{
+    &.ct .usercircle{
+        fill: $ct-color;
+        }
+    &.terrorist .usercircle{
         fill: $terrorist-color;
     }
-}
+    
 
-.trajectory{
-    stroke-width: 1.5px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #FFFFFF;
-    opacity: 0.5;
-}
-
-.victim-circle{
-    &.ct{
-    fill: $ct-color;
+    .trajectory{
+        stroke-width: 1.5px;
+        fill: none;
+        /* stroke-dasharray: 5, 3; */
+        stroke: #FFFFFF;
+        opacity: 0.5;
     }
-    &.terrorist{
+
+    &.ct .victim-circle{
+        fill: $ct-color;
+    }
+    &.terrorist .victim-circle{
         fill: $terrorist-color;
     }
 
-    &.kill-assist{
+    &.kill-assist .victim-circle{
         stroke-width: 1.5px;
         stroke:$success-color;
         &.team-attack{
@@ -93,12 +94,17 @@ export default {
         }
 
     }
-}
+    
 
-.detonation{
-    fill:black;
-    .enemies-flashed &{
+    .detonation{
+        fill:black;
+    }
+    &.enemies-flashed .detonation {
         fill: white;
     }
+    &.enemies-flashed.kill-assist .detonation{
+        fill: $success-color;
+    }
 }
+
 </style>

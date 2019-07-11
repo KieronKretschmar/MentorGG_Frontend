@@ -1,9 +1,9 @@
 <template>
-    <g v-if="grenadeData" :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt > 0 ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
+    <g v-if="grenadeData" class="firenade" :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
         <circle  v-if="showTrajectories" class="usercircle" :cx="grenadeData.ReleaseX" :cy="grenadeData.ReleaseY" :r="releaseRadius +'px'"/>
         <polyline v-if="showTrajectories" class="trajectory" vector-effect="non-scaling-stroke"
             :points="trajectory"></polyline>
-        <circle class="firenade-detonation"  :cx="grenadeData.DetonationX" :cy="grenadeData.DetonationY"
+        <circle class="detonation"  :cx="grenadeData.DetonationX" :cy="grenadeData.DetonationY"
                 data-toggle=tooltip data-placement=top title="@(tooltipTitle)" :r="detonationRadius +'px'" />    
 
         <g v-if="isSelected" class="victims-group">
@@ -51,48 +51,49 @@ export default {
 </script>
 
 <style lang="scss">
-
-
-.usercircle{
-    .ct &{
-    fill: $ct-color;
+.firenade{
+    &.ct .usercircle{
+        fill: $ct-color;
     }
-    .terrorist &{
-        fill: $terrorist-color;
-    }
-}
-
-.trajectory{
-    stroke-width: 1.5px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #FFFFFF;
-    opacity: 0.5;
-}
-
-.victim-circle{
-    &.ct{
-    fill: $ct-color;
-    }
-    &.terrorist{
+    &.terrorist .usercircle {
         fill: $terrorist-color;
     }
 
-    &.lethal{
+    .trajectory{
         stroke-width: 1.5px;
-        stroke:$success-color;
-        &.team-attack{
-            stroke:$failure-color;
+        fill: none;
+        /* stroke-dasharray: 5, 3; */
+        stroke: #FFFFFF;
+        opacity: 0.5;
+    }
+
+    .victim-circle{
+        &.ct{
+        fill: $ct-color;
+        }
+        &.terrorist{
+            fill: $terrorist-color;
         }
 
-    }
-}
+        &.lethal{
+            stroke-width: 1.5px;
+            stroke:$success-color;
+            &.team-attack{
+                stroke:$failure-color;
+            }
 
-.firenade-detonation{
-    opacity: 0.4;
-    fill:white;
-    .enemies-hit &{
+        }
+    }
+
+    .detonation{
+        opacity: 0.4;
+        fill:white;
+    }
+    &.enemies-hit .detonation{
         fill: red;
     }
+    
 }
+
+
 </style>
