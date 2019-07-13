@@ -29,7 +29,7 @@ class PerformanceColors {
         return this.performanceColorGivenOpacity(performance, goodPerformance, badPerformance, opacity);
     }
 
-    opacityFromSampleSize(minOpacity, maxOpacity, sampleSize, samplesRequiredForMaxOpacity){
+    opacityFromSampleSize(minOpacity, maxOpacity, sampleSize, samplesRequiredForMaxOpacity) {
         return minOpacity + (maxOpacity - minOpacity) * Math.min(1, sampleSize / samplesRequiredForMaxOpacity);
     }
 
@@ -37,8 +37,7 @@ class PerformanceColors {
         return "rgba(255, 255, 255, " + opacity + ")";
     }
 
-    performanceColor(normalizedPerformance, opacity = 1.0)
-    {
+    performanceColor(normalizedPerformance, opacity = 1.0) {
         // clamp in [0,1]
         normalizedPerformance = Math.max(0, Math.min(1, normalizedPerformance));
 
@@ -67,9 +66,8 @@ class PerformanceColors {
     interpolateValue(d1, d2, fraction) {
         return d1 + (d2 - d1) * fraction;
     }
-    
-    normalizePerformance(performance, goodPerformance, badPerformance)
-    {
+
+    normalizePerformance(performance, goodPerformance, badPerformance) {
         var normalizedPerformance = (performance - badPerformance) / (goodPerformance - badPerformance);
         normalizedPerformance = Math.max(0, Math.min(1, normalizedPerformance));
         return normalizedPerformance;

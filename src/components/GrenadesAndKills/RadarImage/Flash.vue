@@ -1,110 +1,148 @@
 <template>
-    <g v-if="grenadeData" class="flash" :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]" :id="grenadeData.Id" @click="SetSelectedSample(grenadeData.Id)">
-        <circle  v-if="showTrajectories" class="usercircle" :cx="grenadeData.ReleaseX" :cy="grenadeData.ReleaseY" :r="releaseRadius +'px'"/>
-        <polyline v-if="showTrajectories" class="trajectory" vector-effect="non-scaling-stroke"
-            :points="trajectory"></polyline>
-        <circle class="detonation"  :cx="grenadeData.DetonationX" :cy="grenadeData.DetonationY"
-                data-toggle=tooltip data-placement=top title="@(tooltipTitle)" :r="detonationRadius +'px'" />    
+  <g
+    v-if="grenadeData"
+    class="flash"
+    :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
+    :id="grenadeData.Id"
+    @click="SetSelectedSample(grenadeData.Id)"
+  >
+    <circle
+      v-if="showTrajectories"
+      class="usercircle"
+      :cx="grenadeData.ReleaseX"
+      :cy="grenadeData.ReleaseY"
+      :r="releaseRadius +'px'"
+    />
+    <polyline
+      v-if="showTrajectories"
+      class="trajectory"
+      vector-effect="non-scaling-stroke"
+      :points="trajectory"
+    ></polyline>
+    <circle
+      class="detonation"
+      :cx="grenadeData.DetonationX"
+      :cy="grenadeData.DetonationY"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="@(tooltipTitle)"
+      :r="detonationRadius +'px'"
+    />
 
-        <g v-if="isSelected" class="victims-group">
-            <circle v-for="(flashed,index) in grenadeData.Flasheds" :key="index"
-            class="victim-circle"
-            :class="[{'kill-assist' : flashed.FlashAssist}, 
+    <g v-if="isSelected" class="victims-group">
+      <circle
+        v-for="(flashed,index) in grenadeData.Flasheds"
+        :key="index"
+        class="victim-circle"
+        :class="[{'kill-assist' : flashed.FlashAssist}, 
             {'team-attack' : flashed.TeamAttack},
-            flashed.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']" 
-            :cx="flashed.VictimPosX" :cy="flashed.VictimPosY" :r="victimRadius + 'px'"/>
-        </g>
+            flashed.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
+        :cx="flashed.VictimPosX"
+        :cy="flashed.VictimPosY"
+        :r="victimRadius + 'px'"
+      />
     </g>
-
+  </g>
 </template>
 
 <script>
 export default {
-    props: [
-        'grenadeData', 
-        'zoomFactor', 
-        'showTrajectories',
-        'SetSelectedSample',
-        'isSelected',
-        ],
-    computed: {
-        releaseRadius() {return 5 * this.zoomFactor;},
-        detonationRadius() {
-            var baseRadius = 5;
-            var maxRadius = 14;
-            var maxFlashDuration = 7000;
-            var normalizedPerformance = this.$helpers.NormalizedPerformance(this.enemiesFlashedDuration, maxFlashDuration, 0);
-            return (baseRadius + normalizedPerformance * (maxRadius - baseRadius)) * this.zoomFactor;
+  props: [
+    "grenadeData",
+    "zoomFactor",
+    "showTrajectories",
+    "SetSelectedSample",
+    "isSelected"
+  ],
+  computed: {
+    releaseRadius() {
+      return 5 * this.zoomFactor;
+    },
+    detonationRadius() {
+      var baseRadius = 5;
+      var maxRadius = 14;
+      var maxFlashDuration = 7000;
+      var normalizedPerformance = this.$helpers.NormalizedPerformance(
+        this.enemiesFlashedDuration,
+        maxFlashDuration,
+        0
+      );
+      return (
+        (baseRadius + normalizedPerformance * (maxRadius - baseRadius)) *
+        this.zoomFactor
+      );
+    },
+    victimRadius() {
+      return 5 * this.zoomFactor;
+    },
+    enemiesFlashedDuration() {
+      if (this.grenadeData.Flasheds.filter(x => !x.TeamAttack).length == 0) {
+        return 0;
+      }
 
-        },
-        victimRadius() {return 5 * this.zoomFactor;},
-        enemiesFlashedDuration() {
-            if(this.grenadeData.Flasheds.filter(x=>!x.TeamAttack).length == 0) {
-                return 0;
-            }
-
-            return this.grenadeData.Flasheds.filter(x=>!x.TeamAttack).reduce((acc, obj)=> obj.FlashedDuration + acc, 0);            
-        },
-        trajectory() {
-            var trajectoryString = "";
-            for (let i = 0; i < this.grenadeData.Trajectory.length; i++) {
-                const element = this.grenadeData.Trajectory[i];
-                trajectoryString += element.X + "," + element.Y + " ";
-            }
-            return trajectoryString;
-        },
-        killAssist() {
-            return this.grenadeData.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length > 0;
-        }
+      return this.grenadeData.Flasheds.filter(x => !x.TeamAttack).reduce(
+        (acc, obj) => obj.FlashedDuration + acc,
+        0
+      );
+    },
+    trajectory() {
+      var trajectoryString = "";
+      for (let i = 0; i < this.grenadeData.Trajectory.length; i++) {
+        const element = this.grenadeData.Trajectory[i];
+        trajectoryString += element.X + "," + element.Y + " ";
+      }
+      return trajectoryString;
+    },
+    killAssist() {
+      return (
+        this.grenadeData.Flasheds.filter(x => !x.TeamAttack && x.FlashAssist)
+          .length > 0
+      );
     }
-}
+  }
+};
 </script>
 
 <style lang="scss">
-.flash{
+.flash {
+  &.ct .usercircle {
+    fill: $ct-color;
+  }
+  &.terrorist .usercircle {
+    fill: $terrorist-color;
+  }
 
-    &.ct .usercircle{
-        fill: $ct-color;
-        }
-    &.terrorist .usercircle{
-        fill: $terrorist-color;
-    }
-    
+  .trajectory {
+    stroke-width: 1.5px;
+    fill: none;
+    /* stroke-dasharray: 5, 3; */
+    stroke: #ffffff;
+    opacity: 0.5;
+  }
 
-    .trajectory{
-        stroke-width: 1.5px;
-        fill: none;
-        /* stroke-dasharray: 5, 3; */
-        stroke: #FFFFFF;
-        opacity: 0.5;
-    }
+  &.ct .victim-circle {
+    fill: $ct-color;
+  }
+  &.terrorist .victim-circle {
+    fill: $terrorist-color;
+  }
 
-    &.ct .victim-circle{
-        fill: $ct-color;
+  &.kill-assist .victim-circle {
+    stroke-width: 1.5px;
+    stroke: $success-color;
+    &.team-attack {
+      stroke: $failure-color;
     }
-    &.terrorist .victim-circle{
-        fill: $terrorist-color;
-    }
+  }
 
-    &.kill-assist .victim-circle{
-        stroke-width: 1.5px;
-        stroke:$success-color;
-        &.team-attack{
-            stroke:$failure-color;
-        }
-
-    }
-    
-
-    .detonation{
-        fill:black;
-    }
-    &.enemies-flashed .detonation {
-        fill: white;
-    }
-    &.enemies-flashed.kill-assist .detonation{
-        fill: $success-color;
-    }
+  .detonation {
+    fill: black;
+  }
+  &.enemies-flashed .detonation {
+    fill: white;
+  }
+  &.enemies-flashed.kill-assist .detonation {
+    fill: $success-color;
+  }
 }
-
 </style>

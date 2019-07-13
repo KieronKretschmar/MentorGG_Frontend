@@ -2,7 +2,7 @@
   <nav>
     <div class="l">
       <router-link to="/" class="logo">
-        <img src="@/assets/logo_white.svg">
+        <img src="@/assets/logo_white.svg" />
       </router-link>
       <router-link to="/">Overview</router-link>
       <router-link to="/smokes">Smokes</router-link>

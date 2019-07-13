@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <header>
-      <TopNavigation/>
+      <TopNavigation />
     </header>
     <main>
       <transition name="page" mode="out-in">
-        <router-view/>
+        <router-view />
       </transition>
     </main>
     <footer>
-      <Footer/>
+      <Footer />
     </footer>
-    <DiscordHint/>
+    <DiscordHint />
   </div>
 </template>
 

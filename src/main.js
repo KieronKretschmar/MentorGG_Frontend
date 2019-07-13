@@ -16,8 +16,8 @@ Vue.prototype.$performanceColors = performanceColors;
 
 Vue.component('AjaxLoader', AjaxLoader);
 
-Vue.filter('formatDate', function(val) {
-  if ( val ) {
+Vue.filter('formatDate', function (val) {
+  if (val) {
     let date = new Date(val);
     return date.toLocaleString();
   }

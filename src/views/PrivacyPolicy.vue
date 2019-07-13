@@ -38,15 +38,15 @@
         <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
         <p>
           MentorGG
-          <br>Kieron Kretschmar
-          <br>Von-Melle-Park 5
-          <br>20146 Hamburg
-          <br>Deutschland
+          <br />Kieron Kretschmar
+          <br />Von-Melle-Park 5
+          <br />20146 Hamburg
+          <br />Deutschland
         </p>
 
         <p>
           Telefon: (+49) 16276749(NULL)4
-          <br>E-Mail: info@mentor.gg
+          <br />E-Mail: info@mentor.gg
         </p>
         <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
         <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
@@ -349,14 +349,14 @@
 </template>
 
 <style lang="scss">
-    .view-privacy-policy {
-        .bordered-box {
-            margin-top: 40px;
-            color: white;
+.view-privacy-policy {
+  .bordered-box {
+    margin-top: 40px;
+    color: white;
 
-            a {
-                color: $orange;
-            }
-        }
+    a {
+      color: $orange;
     }
+  }
+}
 </style>

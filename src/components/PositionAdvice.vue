@@ -22,13 +22,13 @@
                 src="@/assets/t_logo.png"
                 alt="Terrorists Logo"
                 title="Terrorists"
-              >
+              />
               <img
                 v-if="entry.Team == 3"
                 src="@/assets/ct_logo.png"
                 alt="Counter-Terrorists Logo"
                 title="Counter-Terrorists"
-              >
+              />
             </span>
             <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>
@@ -57,13 +57,13 @@
                 src="@/assets/t_logo.png"
                 alt="Terrorists Logo"
                 title="Terrorists"
-              >
+              />
               <img
                 v-if="entry.Team == 3"
                 src="@/assets/ct_logo.png"
                 alt="Counter-Terrorists Logo"
                 title="Counter-Terrorists"
-              >
+              />
             </span>
             <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>

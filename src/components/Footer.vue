@@ -3,7 +3,7 @@
     <div class="footer-content">
       <div class="fixed-width-container">
         <div class="l">
-          <img src="@/assets/logo_fullgray.svg">
+          <img src="@/assets/logo_fullgray.svg" />
           <span>&copy; {{ new Date().getFullYear() }} — mentor.gg</span>
         </div>
         <div class="r">

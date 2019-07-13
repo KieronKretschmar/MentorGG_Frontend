@@ -2,22 +2,28 @@
   <div class="view view-firenades">
     <div class="fixed-width-container">
       <div class="performances">
-        <div v-for="(mapSummary,index) in mapSummaries" :key="index" class="performance" :class="{active: activeMap == 0}" @click="OnActiveMapUpdated(mapSummary.Map)">
+        <div
+          v-for="(mapSummary,index) in mapSummaries"
+          :key="index"
+          class="performance"
+          :class="{active: activeMap == 0}"
+          @click="OnActiveMapUpdated(mapSummary.Map)"
+        >
           <img
             class="map-image"
             :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
-          >
+          />
           <p class="map-name">{{mapSummary.Map}}</p>
 
           <div class="z-layer-lo">
             <span class="split-title">USES</span>
             <div class="split">
               <div class="ct">
-                <img src="@/assets/ct_logo.png">
+                <img src="@/assets/ct_logo.png" />
                 <span>{{(mapSummary.UsageRatioAsCt* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
-                <img src="@/assets/t_logo.png">
+                <img src="@/assets/t_logo.png" />
                 <span>{{(mapSummary.UsageRatioAsTerrorist* 100).toFixed(0) }}%</span>
               </div>
             </div>
@@ -27,11 +33,11 @@
             <span class="split-title">DAMAGE</span>
             <div class="split">
               <div class="ct">
-                <img src="@/assets/ct_logo.png">
+                <img src="@/assets/ct_logo.png" />
                 <span>{{mapSummary.AverageDamageAsCt.toFixed(1)}}</span>
               </div>
               <div class="t">
-                <img src="@/assets/t_logo.png">
+                <img src="@/assets/t_logo.png" />
                 <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
               </div>
             </div>
@@ -39,11 +45,11 @@
             <span class="split-title">KILLS</span>
             <div class="split">
               <div class="ct">
-                <img src="@/assets/ct_logo.png">
+                <img src="@/assets/ct_logo.png" />
                 <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
-                <img src="@/assets/t_logo.png">
+                <img src="@/assets/t_logo.png" />
                 <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
               </div>
             </div>
@@ -65,13 +71,13 @@
                 src="@/assets/t_logo.png"
                 :class="{active: showCt == true}"
                 @click="showCt = false"
-              >
+              />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
                 :class="{active: showCt == false}"
                 @click="showCt = true"
-              >
+              />
             </div>
             <CustomSelect
               class="match-count-select"
@@ -79,37 +85,31 @@
               :options="matchCountSelectOptions"
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
-
           </div>
           <div>
-            <RadarImage 
-            :mapInfo=mapInfo
-
-            :showTrajectories=showTrajectories
-            :showCt=showCt
-            :SetSelectedSample = SetSelectedSample
-            :selectedSample=selectedSample
-            :selectedZone=selectedZone
-            :SetSelectedZone=SetSelectedZone
-            :OnClickBackground = OnClickBackground
-            :detailView=detailView
-
-            :zoneType="'FireNade'"
-            :zones="zones.filter(x => x.ParentZoneId != -1)"
-            :userPerformanceData=userPerformanceData
-
-            :fireNades=samples
-
+            <RadarImage
+              :mapInfo="mapInfo"
+              :showTrajectories="showTrajectories"
+              :showCt="showCt"
+              :SetSelectedSample="SetSelectedSample"
+              :selectedSample="selectedSample"
+              :selectedZone="selectedZone"
+              :SetSelectedZone="SetSelectedZone"
+              :OnClickBackground="OnClickBackground"
+              :detailView="detailView"
+              :zoneType="'FireNade'"
+              :zones="zones.filter(x => x.ParentZoneId != -1)"
+              :userPerformanceData="userPerformanceData"
+              :fireNades="samples"
             />
           </div>
-
         </div>
         <div class="r bordered-box">
-          <SideBar          
+          <SideBar
             :sampleType="'FireNade'"
-            :selectedSample=selectedSample
-            :selectedZone=selectedZone
-            :detailView=detailView
+            :selectedSample="selectedSample"
+            :selectedZone="selectedZone"
+            :detailView="detailView"
           />
         </div>
       </div>
@@ -126,7 +126,7 @@ export default {
   components: {
     CustomSelect,
     RadarImage,
-    SideBar,
+    SideBar
   },
   data() {
     return {
@@ -145,14 +145,14 @@ export default {
 
       zonesEnabled: false,
       zones: [],
-      userPerformanceData:[],
-      globalPerformanceData:[],
+      userPerformanceData: [],
+      globalPerformanceData: [],
 
       mapInfo: {},
       samples: [],
 
       selectedSample: null,
-      selectedZone: null,
+      selectedZone: null
     };
   },
   mounted() {
@@ -160,25 +160,24 @@ export default {
     this.LoadFireNades(this.activeMap, 10);
   },
   methods: {
-    LoadFireNadeOverviews(matchCount){
+    LoadFireNadeOverviews(matchCount) {
       this.$api.getFireNadesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadFireNades(map, matchCount){
+    LoadFireNades(map, matchCount) {
       this.$api.getFireNades(map, matchCount).then(response => {
-      this.mapInfo = response.data.MapInfo;
-      this.samples = response.data.Samples;
-      this.zones = response.data.Zones;
-      this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
-      this.globalPerformanceData = response.data.GlobalData;
-      if(this.zones.length == 0){
-        this.zonesEnabled = false;
-        this.detailView = true;
-      }
-      else{
-        this.zonesEnabled = true;
-      }
+        this.mapInfo = response.data.MapInfo;
+        this.samples = response.data.Samples;
+        this.zones = response.data.Zones;
+        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.globalPerformanceData = response.data.GlobalData;
+        if (this.zones.length == 0) {
+          this.zonesEnabled = false;
+          this.detailView = true;
+        } else {
+          this.zonesEnabled = true;
+        }
       });
     },
     OnShowTrajectories: function() {
@@ -186,48 +185,52 @@ export default {
     },
     OnMatchCountUpdated: function() {
       this.LoadFireNades(this.activeMap, this.matchCount);
-    },    
+    },
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZone = null;
     },
-    OnActiveMapUpdated : function(map) {
-      if(this.activeMap != map){
+    OnActiveMapUpdated: function(map) {
+      if (this.activeMap != map) {
         this.LoadFireNades(map, this.matchCount);
         this.activeMap = map;
       }
     },
-    SetSelectedSample : function(id){
-      this.selectedSample = this.samples.find(x=> x.Id == id);
+    SetSelectedSample: function(id) {
+      this.selectedSample = this.samples.find(x => x.Id == id);
     },
-    SetSelectedZone : function(zoneId){
-      this.selectedZone = this.zones.find(x=> x.ZoneId == zoneId);
+    SetSelectedZone: function(zoneId) {
+      this.selectedZone = this.zones.find(x => x.ZoneId == zoneId);
     },
-    SetDetailView(){
+    SetDetailView() {
       this.selectedSample = null;
       this.selectedZone = null;
       this.detailView = !this.detailView;
-    },
+    }
   },
-  computed: {    
-    activeUserData(){
+  computed: {
+    activeUserData() {
       // Filter (if applicable)
       return this.userPerformanceData;
     },
-    userSelectedZonePerformance(){
-      if(this.selectedZone == null) return null;
-      return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];      
+    userSelectedZonePerformance() {
+      if (this.selectedZone == null) return null;
+      return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
     },
-    userTotalRounds(){
-      return this.showCt ? this.activeUserData.TotalCtRounds : this.activeUserData.TotalTerroristRounds;
+    userTotalRounds() {
+      return this.showCt
+        ? this.activeUserData.TotalCtRounds
+        : this.activeUserData.TotalTerroristRounds;
     },
-    globalSelectedZonePerformance(){
-      if(this.selectedZone == null) return null;
-      return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];      
+    globalSelectedZonePerformance() {
+      if (this.selectedZone == null) return null;
+      return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
     },
-    globalTotalRounds(){
-      return this.showCt ? this.activeGlobalData.TotalCtRounds : this.activeGlobalData.TotalTerroristRounds;
-    },
+    globalTotalRounds() {
+      return this.showCt
+        ? this.activeGlobalData.TotalCtRounds
+        : this.activeGlobalData.TotalTerroristRounds;
+    }
   }
 };
 </script>
@@ -359,8 +362,8 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    .tool-menu{
-      display:flex;
+    .tool-menu {
+      display: flex;
       flex-direction: row;
       align-items: center;
     }

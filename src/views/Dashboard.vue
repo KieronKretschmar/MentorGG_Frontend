@@ -2,12 +2,12 @@
   <div class="view view-dashboard">
     <div class="profile-section"></div>
 
-    <ProfileHeader/>
+    <ProfileHeader />
     <div class="fixed-width-container">
-      <RecentMatchStats/>
-      <PositionAdvice/>
-      <FriendComparison/>
-      <MatchHistory/>
+      <RecentMatchStats />
+      <PositionAdvice />
+      <FriendComparison />
+      <MatchHistory />
     </div>
   </div>
 </template>

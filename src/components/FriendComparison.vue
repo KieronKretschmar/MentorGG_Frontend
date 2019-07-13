@@ -18,23 +18,23 @@
       >
         <div class="header">
           <div class="left">
-            <img class="avatar" :src="comparison.OtherPlayerInfo.Icon">
+            <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
             <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
             <span class="winrate" :class="{good: comparison.WinRate >= 50}">
               {{ comparison.WinRate.toFixed(0) }}% total win rate
-              <br>
+              <br />
               <span>{{ comparison.MatchesPlayedTogether }} matches</span>
             </span>
             <span class="favorite-map">
               <div class="map-text">
                 <span>Favorite Map</span>
-                <br>
+                <br />
                 {{ comparison.MostPlayedMap }}
               </div>
             </span>
             <div class="winrate" :class="{good: comparison.MapWinRate >= 50}">
               {{ comparison.MapWinRate.toFixed(0) }}% map win rate
-              <br>
+              <br />
               <span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span>
             </div>
           </div>
@@ -47,7 +47,7 @@
         </div>
         <transition name="slide">
           <div class="body" v-if="comparison.IsVisible">
-            <hr>
+            <hr />
           </div>
         </transition>
       </div>

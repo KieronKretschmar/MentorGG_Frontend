@@ -16,7 +16,7 @@
                 :src="$api.resolveResource(match.MapIcon)"
                 :alt="match.Map + ' Thumbnail'"
                 :title="match.Map"
-              >
+              />
             </div>
             <div class="map-and-datetime">
               <span class="map">{{ match.Map }}</span>
@@ -49,7 +49,7 @@
         </div>
         <transition name="slide">
           <div class="match-body" v-if="match.IsVisible">
-            <hr>
+            <hr />
             <div class="team-table">
               <div
                 v-for="(team, teamName) in match.Scoreboard.Teams"
@@ -66,7 +66,7 @@
                 </div>
                 <div class="table-content">
                   <div v-for="entry in team" :key="entry.Profile.SteamId" class="table-entry">
-                    <img class="avatar" :src="entry.Profile.Icon">
+                    <img class="avatar" :src="entry.Profile.Icon" />
                     <a
                       class="name"
                       :href="entry.Profile.Url"

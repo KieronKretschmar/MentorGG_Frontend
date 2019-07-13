@@ -9,7 +9,7 @@ class MentorGGAPI {
         this.steamId = '76561198033880857'; //kieron
     }
 
-    resolveResource(resource) {        
+    resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
     }
 
@@ -61,7 +61,7 @@ class MentorGGAPI {
         });
     }
 
-    getFireNadesOverview(recentMatches = 50){
+    getFireNadesOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'FireNades/FireNadesOverview', {
             params: {
                 playerId: this.steamId,
@@ -69,8 +69,8 @@ class MentorGGAPI {
             }
         });
     }
-    
-    getFireNades(map, recentMatches = 50){
+
+    getFireNades(map, recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'FireNades/FireNades', {
             params: {
                 playerId: this.steamId,
@@ -80,7 +80,7 @@ class MentorGGAPI {
         });
     }
 
-    getFlashesOverview(recentMatches = 50){
+    getFlashesOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Flashes/FlashesOverview', {
             params: {
                 playerId: this.steamId,
@@ -88,8 +88,8 @@ class MentorGGAPI {
             }
         });
     }
-    
-    getFlashes(map, recentMatches = 50){
+
+    getFlashes(map, recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Flashes/Flashes', {
             params: {
                 playerId: this.steamId,
@@ -99,9 +99,9 @@ class MentorGGAPI {
         });
     }
 
-    
 
-    getHEsOverview(recentMatches = 50){
+
+    getHEsOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'HEs/HEsOverview', {
             params: {
                 playerId: this.steamId,
@@ -109,8 +109,8 @@ class MentorGGAPI {
             }
         });
     }
-    
-    getHEs(map, recentMatches = 50){
+
+    getHEs(map, recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'HEs/HEs', {
             params: {
                 playerId: this.steamId,
@@ -119,9 +119,9 @@ class MentorGGAPI {
             }
         });
     }
-    
 
-    getKillsOverview(recentMatches = 50){
+
+    getKillsOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
             params: {
                 playerId: this.steamId,
@@ -129,8 +129,8 @@ class MentorGGAPI {
             }
         });
     }
-    
-    getKills(map, recentMatches = 50){
+
+    getKills(map, recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Kills/Kills', {
             params: {
                 playerId: this.steamId,

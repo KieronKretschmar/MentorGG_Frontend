@@ -2,7 +2,7 @@
   <div class="profile-header">
     <div class="fixed-width-container" v-if="user">
       <div class="avatar">
-        <img :src="getFullSteamAvatarURL(user.Icon)">
+        <img :src="getFullSteamAvatarURL(user.Icon)" />
       </div>
       <div class="name">
         <span>PROFILE NAME</span>
@@ -10,7 +10,7 @@
       </div>
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
-        <img :src="$api.resolveResource(user.RankIcon)" alt="CS:GO Rank Image">
+        <img :src="$api.resolveResource(user.RankIcon)" alt="CS:GO Rank Image" />
       </div>
     </div>
   </div>
