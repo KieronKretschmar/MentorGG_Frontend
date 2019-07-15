@@ -7,7 +7,7 @@
     @click="SetSelectedSample(killData.Id)"
   >
     <circle
-      class="usercircle"
+      class="attacker-circle"
       :cx="killData.PlayerPosX"
       :cy="killData.PlayerPosY"
       :r="userRadius +'px'"
@@ -51,17 +51,17 @@ export default {
 
 <style lang="scss">
 .kill {
-  // &.ct .usercircle{
+  // &.ct .attacker-circle{
   //     fill: $ct-color;
   // }
-  // &.terrorist .usercircle{
+  // &.terrorist .attacker-circle{
   //     fill: $terrorist-color;
   // }
 
-  &.userkiller .usercircle {
+  &.userkiller .attacker-circle {
     fill: $success-color;
   }
-  &.uservictim .usercircle {
+  &.uservictim .attacker-circle {
     fill: $failure-color;
   }
 

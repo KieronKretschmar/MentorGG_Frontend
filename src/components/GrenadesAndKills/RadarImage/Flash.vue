@@ -8,7 +8,7 @@
   >
     <circle
       v-if="showTrajectories"
-      class="usercircle"
+      class="attacker-circle is-user"
       :cx="grenadeData.ReleaseX"
       :cy="grenadeData.ReleaseY"
       :r="releaseRadius +'px'"
@@ -31,14 +31,16 @@
 
     <g v-if="isSelected" class="victims-group">
       <circle
-        v-for="(flashed,index) in grenadeData.Flasheds"
+        v-for="(hit,index) in grenadeData.Flasheds"
         :key="index"
         class="victim-circle"
-        :class="[{'kill-assist' : flashed.FlashAssist}, 
-            {'team-attack' : flashed.TeamAttack},
-            flashed.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
-        :cx="flashed.VictimPosX"
-        :cy="flashed.VictimPosY"
+        :class="[
+          {'kill-assist' : hit.FlashAssist}, 
+          {'team-attack' : hit.TeamAttack},
+          {'is-user' : hit.VictimIsAttacker},
+          hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
+        :cx="hit.VictimPosX"
+        :cy="hit.VictimPosY"
         :r="victimRadius + 'px'"
       />
     </g>
@@ -105,11 +107,8 @@ export default {
 
 <style lang="scss">
 .flash {
-  &.ct .usercircle {
-    fill: $ct-color;
-  }
-  &.terrorist .usercircle {
-    fill: $terrorist-color;
+  .attacker-circle.is-user{
+    fill: $orange;
   }
 
   .trajectory {
@@ -133,6 +132,10 @@ export default {
     &.team-attack {
       stroke: $failure-color;
     }
+
+    // &.is-user {
+    //   fill: $orange;      
+    // }
   }
 
   .detonation {

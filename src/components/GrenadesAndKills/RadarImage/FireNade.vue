@@ -8,7 +8,7 @@
   >
     <circle
       v-if="showTrajectories"
-      class="usercircle"
+      class="attacker-circle is-user"
       :cx="grenadeData.ReleaseX"
       :cy="grenadeData.ReleaseY"
       :r="releaseRadius +'px'"
@@ -34,9 +34,11 @@
         v-for="(hit,index) in grenadeData.Hits"
         :key="index"
         class="victim-circle"
-        :class="[{'lethal' : hit.Kill}, 
-            {'team-attack' : hit.TeamAttack},
-            hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
+        :class="[
+          {'lethal' : hit.Kill}, 
+          {'team-attack' : hit.TeamAttack},
+          {'is-user' : hit.VictimIsAttacker},
+          hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
         :cx="hit.VictimPosX"
         :cy="hit.VictimPosY"
         :r="victimRadius + 'px'"
@@ -88,11 +90,8 @@ export default {
 
 <style lang="scss">
 .firenade {
-  &.ct .usercircle {
-    fill: $ct-color;
-  }
-  &.terrorist .usercircle {
-    fill: $terrorist-color;
+  .attacker-circle.is-user{
+    fill: $orange;
   }
 
   .trajectory {
@@ -117,6 +116,10 @@ export default {
       &.team-attack {
         stroke: $failure-color;
       }
+    }
+
+    &.is-user {
+      fill: $orange;      
     }
   }
 
