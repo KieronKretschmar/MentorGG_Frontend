@@ -82,13 +82,13 @@
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: showCt == true}"
+                :class="{active: !showCt}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt == false}"
+                :class="{active: showCt}"
                 @click="showCt = true"
               />
             </div>

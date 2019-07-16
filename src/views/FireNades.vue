@@ -30,6 +30,19 @@
           </div>
 
           <div class="z-layer-hi">
+            
+            <span class="split-title">HIT CHANCE</span>
+            <div class="split">
+              <div class="ct">
+                <img src="@/assets/ct_logo.png" />
+                <span>{{(mapSummary.HitChanceAsCt* 100).toFixed(0) }}%</span>
+              </div>
+              <div class="t">
+                <img src="@/assets/t_logo.png" />
+                <span>{{(mapSummary.HitChanceAsTerrorist* 100).toFixed(0) }}%</span>
+              </div>
+            </div>
+
             <span class="split-title">DAMAGE</span>
             <div class="split">
               <div class="ct">
@@ -39,18 +52,6 @@
               <div class="t">
                 <img src="@/assets/t_logo.png" />
                 <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
-              </div>
-            </div>
-
-            <span class="split-title">KILLS</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>
@@ -69,13 +70,13 @@
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: showCt == true}"
+                :class="{active: !showCt}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt == false}"
+                :class="{active: showCt}"
                 @click="showCt = true"
               />
             </div>
@@ -156,7 +157,7 @@ export default {
     };
   },
   mounted() {
-    // this.LoadFireNadeOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadFireNadeOverviews(0); // matchCount is currently ignored for overviews by api
     this.LoadFireNades(this.activeMap, 10);
   },
   methods: {

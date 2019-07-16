@@ -3,7 +3,7 @@ import axios from 'axios';
 class MentorGGAPI {
     constructor() {
         this.apiEndpoint = 'https://test.mentor.gg/api/';
-        // this.apiEndpoint = 'http://localhost:58071/api/';
+        this.apiEndpoint = 'http://localhost:58071/api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
         // this.steamId = '76561198166019050'; //felix
         this.steamId = '76561198033880857'; //kieron
@@ -99,8 +99,6 @@ class MentorGGAPI {
         });
     }
 
-
-
     getHEsOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'HEs/HEsOverview', {
             params: {
@@ -120,7 +118,6 @@ class MentorGGAPI {
         });
     }
 
-
     getKillsOverview(recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
             params: {
@@ -132,6 +129,25 @@ class MentorGGAPI {
 
     getKills(map, recentMatches = 50) {
         return axios.get(this.apiEndpoint + 'Kills/Kills', {
+            params: {
+                playerId: this.steamId,
+                map: map,
+                recentMatches: recentMatches
+            }
+        });
+    }    
+
+    getSmokesOverview(recentMatches = 50) {
+        return axios.get(this.apiEndpoint + 'Smokes/SmokesOverview', {
+            params: {
+                playerId: this.steamId,
+                recentMatches: recentMatches
+            }
+        });
+    }
+
+    getSmokes(map, recentMatches = 50) {
+        return axios.get(this.apiEndpoint + 'Smokes/Smokes', {
             params: {
                 playerId: this.steamId,
                 map: map,

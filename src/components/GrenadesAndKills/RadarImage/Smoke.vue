@@ -1,8 +1,8 @@
 <template>
   <g
     v-if="grenadeData"
-    class="flash"
-    :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
+    class="smoke"
+    :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
   >
@@ -31,11 +31,11 @@
 
     <g v-if="isSelected" class="victims-group">
       <circle
-        v-for="(hit,index) in grenadeData.Flasheds"
+        v-for="(hit,index) in grenadeData.Hits"
         :key="index"
         class="victim-circle"
         :class="[
-          {'kill-assist' : hit.FlashAssist}, 
+          {'lethal' : hit.Kill}, 
           {'team-attack' : hit.TeamAttack},
           {'is-user' : hit.VictimIsAttacker},
           hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
@@ -61,29 +61,18 @@ export default {
       return 5 * this.zoomFactor;
     },
     detonationRadius() {
-      var baseRadius = 5;
-      var maxRadius = 14;
-      var maxFlashDuration = 7000;
-      var normalizedPerformance = this.$helpers.NormalizedPerformance(
-        this.enemiesFlashedDuration,
-        maxFlashDuration,
-        0
-      );
-      return (
-        (baseRadius + normalizedPerformance * (maxRadius - baseRadius)) *
-        this.zoomFactor
-      );
+      return 40 * this.zoomFactor;
     },
     victimRadius() {
       return 5 * this.zoomFactor;
     },
-    enemiesFlashedDuration() {
-      if (this.grenadeData.Flasheds.filter(x => !x.TeamAttack).length == 0) {
+    damageDealtToEnemies() {
+      if (this.grenadeData.Hits.filter(x => !x.TeamAttack).length == 0) {
         return 0;
       }
 
-      return this.grenadeData.Flasheds.filter(x => !x.TeamAttack).reduce(
-        (acc, obj) => obj.FlashedDuration + acc,
+      return this.grenadeData.Hits.filter(x => !x.TeamAttack).reduce(
+        (acc, obj) => obj.AmountHealth + acc,
         0
       );
     },
@@ -94,19 +83,13 @@ export default {
         trajectoryString += element.X + "," + element.Y + " ";
       }
       return trajectoryString;
-    },
-    killAssist() {
-      return (
-        this.grenadeData.Flasheds.filter(x => !x.TeamAttack && x.FlashAssist)
-          .length > 0
-      );
     }
   }
 };
 </script>
 
 <style lang="scss">
-.flash {
+.smoke {
   .attacker-circle.is-user{
     fill: $orange;
   }
@@ -119,18 +102,20 @@ export default {
     opacity: 0.5;
   }
 
-  &.ct .victim-circle {
-    fill: $ct-color;
-  }
-  &.terrorist .victim-circle {
-    fill: $terrorist-color;
-  }
+  .victim-circle {
+    &.ct {
+      fill: $ct-color;
+    }
+    &.terrorist {
+      fill: $terrorist-color;
+    }
 
-  &.kill-assist .victim-circle {
-    stroke-width: 1.5px;
-    stroke: $success-color;
-    &.team-attack {
-      stroke: $failure-color;
+    &.lethal {
+      stroke-width: 1.5px;
+      stroke: $success-color;
+      &.team-attack {
+        stroke: $failure-color;
+      }
     }
 
     &.is-user {
@@ -139,13 +124,11 @@ export default {
   }
 
   .detonation {
-    fill: black;
-  }
-  &.enemies-flashed .detonation {
+    opacity: 0.4;
     fill: white;
   }
-  &.enemies-flashed.kill-assist .detonation {
-    fill: $success-color;
+  &.enemies-hit .detonation {
+    fill: red;
   }
 }
 </style>

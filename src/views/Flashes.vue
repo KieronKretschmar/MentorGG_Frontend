@@ -70,13 +70,13 @@
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: showCt == true}"
+                :class="{active: !showCt}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt == false}"
+                :class="{active: showCt}"
                 @click="showCt = true"
               />
             </div>
@@ -224,6 +224,9 @@ export default {
     },
     userSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
+      console.log("uSZP");
+      console.log(this.selectedZone);
+      console.log(this.selectedZone.ZoneId);
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
     },
     userTotalRounds() {
@@ -232,7 +235,11 @@ export default {
         : this.activeUserData.TotalTerroristRounds;
     },
     globalSelectedZonePerformance() {
+      console.log("gSZP");
       if (this.selectedZone == null) return null;
+      console.log(this.selectedZone);
+      console.log(this.selectedZone.ZoneId);
+      
       return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
     },
     globalTotalRounds() {
