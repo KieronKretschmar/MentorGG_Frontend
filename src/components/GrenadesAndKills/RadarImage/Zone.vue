@@ -1,11 +1,12 @@
 <template>
   <g v-if="zoneData" class="zone" @click="SetSelectedZone(zoneData.ZoneId)">
+
     <polyline
       vector-effect="non-scaling-stroke"
-      :class="isSelected"
       :style="{fill:fillColor}"
       :points="polygonPoints"
     ></polyline>
+
   </g>
 </template>
 
@@ -16,7 +17,6 @@ export default {
     "zoneData",
     "userPerformanceData",
     "SetSelectedZone",
-    "isSelected",
     "fillColor"
   ],
   computed: {

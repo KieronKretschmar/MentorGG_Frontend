@@ -23,29 +23,51 @@
       />
 
       <!-- Zones -->
-      <Zone
-        v-for="zoneData in visibleZones"
-        :key="zoneData.ZoneId"
-        :zoneType="zoneType"
-        :zoneData="zoneData"
-        :SetSelectedZone="SetSelectedZone"
-        :isSelected="selectedZone && selectedZone.ZoneId==zoneData.ZoneId"
-        :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-      />
+      <g v-if="zoneType != 'Smoke'">
+        <Zone v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+        />
+      </g>
+      <!-- Smoke Zones (Targets) -->
+      <g v-if="zoneType == 'Smoke'">
+        <Target v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+        />
+      </g>
+
+      <!-- Lineups (currently for smokes only)-->
+      <g v-if="zoneType == 'Smoke'">
+        <Lineup v-for="lineupData in lineups"
+          :key="lineupData.LineupId"
+          :lineupData="lineupData"
+          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
+          :zoomFactor="zoomFactor"
+          :SetSelectedLineup="SetSelectedLineup"
+          :fillColor="lineupPerformanceColors[lineupData.LineupId]"
+        />
+      </g>
 
       <!-- Samples -->
-      <Kill
-        v-for="killData in visibleKills"
-        :key="killData.Id"
-        :killData="killData"
+      <FireNade
+        v-for="grenadeData in fireNades"
+        :key="grenadeData.Id"
+        :grenadeData="grenadeData"
         :zoomFactor="zoomFactor"
         :showTrajectories="showTrajectories"
         :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==killData.Id"
-      />
+        :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+      />   
 
       <Flash
-        v-for="grenadeData in visibleFlashGrenades"
+        v-for="grenadeData in flashGrenades"
         :key="grenadeData.Id"
         :grenadeData="grenadeData"
         :zoomFactor="zoomFactor"
@@ -55,7 +77,7 @@
       />
 
       <HE
-        v-for="grenadeData in visibleHEGrenades"
+        v-for="grenadeData in heGrenades"
         :key="grenadeData.Id"
         :grenadeData="grenadeData"
         :zoomFactor="zoomFactor"
@@ -64,8 +86,18 @@
         :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
       />
 
-      <FireNade
-        v-for="grenadeData in visibleFireNades"
+      <Kill
+        v-for="killData in kills"
+        :key="killData.Id"
+        :killData="killData"
+        :zoomFactor="zoomFactor"
+        :showTrajectories="showTrajectories"
+        :SetSelectedSample="SetSelectedSample"
+        :isSelected="selectedSample && selectedSample.Id==killData.Id"
+      />   
+
+      <Smoke
+        v-for="grenadeData in smokeGrenades"
         :key="grenadeData.Id"
         :grenadeData="grenadeData"
         :zoomFactor="zoomFactor"
@@ -79,18 +111,24 @@
 
 <script>
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
+import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
 import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
 import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
 import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
+import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
 
 export default {
   components: {
     Zone,
+    Target,
+    Lineup,
     FireNade,
     Flash,
     HE,
-    Kill
+    Kill,
+    Smoke,
   },
   mounted() {},
   data() {
@@ -108,16 +146,20 @@ export default {
     "selectedSample",
     "SetSelectedZone",
     "selectedZone",
+    "SetSelectedLineup",
+    "selectedLineup",
     "OnClickBackground",
 
     "zoneType",
     "zones",
+    "lineups",
     "userPerformanceData",
 
     "fireNades",
     "flashGrenades",
     "heGrenades",
-    "kills"
+    "kills",
+    "smokeGrenades",
   ],
   computed: {
     viewBox() {
@@ -132,59 +174,7 @@ export default {
       );
     },
 
-    // Flashes
-    activeFlashGrenades() {
-      if (!this.flashGrenades) return [];
-      if (this.selectedSample != null) return [this.selectedSample];
-      return this.flashGrenades.filter(x => x.UserIsCt == this.showCt);
-    },
-    visibleFlashGrenades() {
-      if (!this.detailView) return [];
-      return this.activeFlashGrenades;
-    },
-
-    // FireNades
-    activeFireNades() {
-      if (!this.fireNades) return [];
-      if (this.selectedSample != null) return [this.selectedSample];
-      return this.fireNades.filter(x => x.UserIsCt == this.showCt);
-    },
-    visibleFireNades() {
-      if (!this.detailView) return [];
-      return this.activeFireNades;
-    },
-
-    // HEs
-    activeHEGrenades() {
-      if (!this.heGrenades) return [];
-      if (this.selectedSample != null) return [this.selectedSample];
-      return this.heGrenades.filter(x => x.UserIsCt == this.showCt);
-    },
-    visibleHEGrenades() {
-      if (!this.detailView) return [];
-      return this.activeHEGrenades;
-    },
-
-    // Kills
-    visibleKills() {
-      if (!this.detailView) return [];
-      return this.kills;
-    },
-
-    // Zones
-    visibleZones() {
-      if (this.detailView) return [];
-
-      if (this.selectedZone != null) {
-        return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId
-        );
-      } else {
-        return this.zones.filter(
-          x => x.IsCtZone == this.showCt && x.Depth == 1
-        );
-      }
-    },
+    // Zones    
     zonePerformanceColors() {
       let zonePerformanceColors = {};
       switch (this.zoneType) {
@@ -261,17 +251,11 @@ export default {
               ] = this.$performanceColors.neutralColor(0.15);
             } else {
               // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
-              // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, SampleCount, element.IsCtZone, rounds/10)
+              // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, sampleCount, rounds/10)
               let opacity = 0.3;
               let kdRatio = element.Kills / Math.max(1, sampleCount);
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.performanceColorGivenOpacity(
-                kdRatio,
-                4000,
-                500,
-                opacity
-              );
+              zonePerformanceColors[zoneId] = 
+              this.$performanceColors.performanceColorGivenOpacity(kdRatio,4000,500,opacity);
             }
           }
           break;
@@ -279,6 +263,20 @@ export default {
         default:
       }
       return zonePerformanceColors;
+    },
+    lineupPerformanceColors() {
+      let lineupPerformanceColors = {};
+      for (let lineupId in this.userPerformanceData.LineupPerformances) {
+        const element = this.userPerformanceData.LineupPerformances[lineupId];
+        let opacity = 1;
+        if (element.TotalAttemptsCount == 0) {
+          lineupPerformanceColors[lineupId] = this.$performanceColors.neutralColor(opacity);
+        } else {
+          let targetHitRatio = element.SuccessfulAttemptsCount / Math.max(1, element.TotalAttemptsCount);
+          lineupPerformanceColors[lineupId] = this.$performanceColors.performanceColorGivenOpacity(targetHitRatio,1,0.8,opacity);
+        }
+      }
+      return lineupPerformanceColors;
     }
   }
 };

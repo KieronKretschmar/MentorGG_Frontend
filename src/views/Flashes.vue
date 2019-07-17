@@ -99,9 +99,9 @@
               :OnClickBackground="OnClickBackground"
               :detailView="detailView"
               :zoneType="'Flash'"
-              :zones="zones.filter(x => x.ParentZoneId != -1)"
+              :zones="visibleZones"
               :userPerformanceData="userPerformanceData"
-              :flashGrenades="samples"
+              :flashGrenades="visibleSamples"
             />
           </div>
         </div>
@@ -174,7 +174,7 @@ export default {
       this.$api.getFlashes(map, matchCount).then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
-        this.zones = response.data.Zones;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
         this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
         this.globalPerformanceData = response.data.GlobalData;
         if (this.zones.length == 0) {
@@ -224,9 +224,6 @@ export default {
     },
     userSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
-      console.log("uSZP");
-      console.log(this.selectedZone);
-      console.log(this.selectedZone.ZoneId);
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
     },
     userTotalRounds() {
@@ -235,10 +232,7 @@ export default {
         : this.activeUserData.TotalTerroristRounds;
     },
     globalSelectedZonePerformance() {
-      console.log("gSZP");
       if (this.selectedZone == null) return null;
-      console.log(this.selectedZone);
-      console.log(this.selectedZone.ZoneId);
       
       return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
     },
@@ -246,7 +240,26 @@ export default {
       return this.showCt
         ? this.activeGlobalData.TotalCtRounds
         : this.activeGlobalData.TotalTerroristRounds;
-    }
+    },
+    visibleSamples() {
+      if (!this.detailView) return [];
+      if (!this.samples) return [];
+      if (this.selectedSample != null) return [this.selectedSample];
+      return this.samples.filter(x => x.UserIsCt == this.showCt);
+    },    
+    visibleZones() {
+      if (this.detailView) return [];
+
+      if (this.selectedZone != null) {
+        return this.zones.filter(
+          x => x.ParentZoneId == this.selectedZone.ZoneId
+        );
+      } else {
+        return this.zones.filter(
+          x => x.IsCtZone == this.showCt && x.Depth == 1
+        );
+      }
+    },
   }
 };
 </script>

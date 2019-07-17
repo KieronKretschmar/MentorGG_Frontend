@@ -111,9 +111,9 @@
               :OnClickBackground="OnClickBackground"
               :detailView="detailView"
               :zoneType="'Kill'"
-              :zones="zones.filter(x => x.ParentZoneId != -1)"
+              :zones="visibleZones"
               :userPerformanceData="activeUserData"
-              :kills="activeSamples"
+              :kills="visibleSamples"
             />
           </div>
         </div>
@@ -184,7 +184,7 @@ export default {
       this.$api.getKills(map, matchCount).then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
-        this.zones = response.data.Zones;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
         this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
         this.activeFilterSettings = JSON.parse(
           JSON.stringify(response.data.UserData[0].FilterSettings)
@@ -223,13 +223,10 @@ export default {
     SetDetailView() {
       this.selectedSample = null;
       this.selectedZone = null;
-      console.log(this.detailView);
       this.detailView = !this.detailView;
-      console.log(this.detailView);
     },
     SetPlantStatus(status) {
       this.activeFilterSettings.PlantStatus = status;
-      console.log(this.activeFilterSettings.PlantStatus);
     }
     // Deactivated because userPerformances for different combinations of filtersettings don't need to be computed in JS;
     // All userPerformances for every FilterCombination are provided by api
@@ -273,15 +270,16 @@ export default {
           JSON.stringify(x.FilterSettings) ==
           JSON.stringify(this.activeFilterSettings)
       );
-
-      // // Filter (if applicable)
-      // let applicableUserDatas = this.FilterUserDatas(this.userPerformanceData);
-      // console.log("Applicable: ");
-      // console.log(applicableUserDatas);
-
-      // let accumulatedUserData = this.SumUserDatas(applicableUserDatas);
-      // return accumulatedUserData;
     },
+    activeGlobalData() {
+      // Return userData with matching killfiltersettings. Stringifying to compare by value
+      return this.globalPerformanceData.find(
+        x =>
+          JSON.stringify(x.FilterSettings) ==
+          JSON.stringify(this.activeFilterSettings)
+      );
+    },
+
     userSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
@@ -300,16 +298,15 @@ export default {
         ? this.activeGlobalData.TotalCtRounds
         : this.activeGlobalData.TotalTerroristRounds;
     },
-    activeSamples() {
+    visibleSamples() {
+      if (!this.detailView) return [];
       if (!this.samples) return [];
 
       if (this.selectedSample != null) return [this.selectedSample];
 
       let filteredKills = this.samples;
-      console.log(filteredKills);
       // filter by team
       filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);
-      console.log(filteredKills);
 
       // apply other filters by PlantStatus
       // Check whether one or more filters are active
@@ -321,10 +318,22 @@ export default {
             JSON.stringify(this.activeFilterSettings)
         );
       }
-      console.log(filteredKills);
 
       return filteredKills;
-    }
+    },    
+    visibleZones() {
+      if (this.detailView) return [];
+
+      if (this.selectedZone != null) {
+        return this.zones.filter(
+          x => x.ParentZoneId == this.selectedZone.ZoneId
+        );
+      } else {
+        return this.zones.filter(
+          x => x.IsCtZone == this.showCt && x.Depth == 1
+        );
+      }
+    },
   }
 };
 </script>

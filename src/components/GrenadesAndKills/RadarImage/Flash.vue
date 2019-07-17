@@ -119,10 +119,10 @@ export default {
     opacity: 0.5;
   }
 
-  &.ct .victim-circle {
+  .ct.victim-circle {
     fill: $ct-color;
   }
-  &.terrorist .victim-circle {
+  .terrorist.victim-circle {
     fill: $terrorist-color;
   }
 

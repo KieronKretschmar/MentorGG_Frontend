@@ -2,7 +2,11 @@
   <g
     v-if="grenadeData"
     class="smoke"
-    :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
+    :class="[
+    { 'not-rated': grenadeData.Result == 0 || grenadeData.Result == 4}, 
+    { 'target-missed': grenadeData.Result == 1}, 
+    { 'target-hit': grenadeData.Result == 2}, 
+    grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
   >
@@ -23,27 +27,8 @@
       class="detonation"
       :cx="grenadeData.DetonationX"
       :cy="grenadeData.DetonationY"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="@(tooltipTitle)"
       :r="detonationRadius +'px'"
     />
-
-    <g v-if="isSelected" class="victims-group">
-      <circle
-        v-for="(hit,index) in grenadeData.Hits"
-        :key="index"
-        class="victim-circle"
-        :class="[
-          {'lethal' : hit.Kill}, 
-          {'team-attack' : hit.TeamAttack},
-          {'is-user' : hit.VictimIsAttacker},
-          hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
-        :cx="hit.VictimPosX"
-        :cy="hit.VictimPosY"
-        :r="victimRadius + 'px'"
-      />
-    </g>
   </g>
 </template>
 
@@ -62,19 +47,6 @@ export default {
     },
     detonationRadius() {
       return 40 * this.zoomFactor;
-    },
-    victimRadius() {
-      return 5 * this.zoomFactor;
-    },
-    damageDealtToEnemies() {
-      if (this.grenadeData.Hits.filter(x => !x.TeamAttack).length == 0) {
-        return 0;
-      }
-
-      return this.grenadeData.Hits.filter(x => !x.TeamAttack).reduce(
-        (acc, obj) => obj.AmountHealth + acc,
-        0
-      );
     },
     trajectory() {
       var trajectoryString = "";
@@ -102,33 +74,15 @@ export default {
     opacity: 0.5;
   }
 
-  .victim-circle {
-    &.ct {
-      fill: $ct-color;
-    }
-    &.terrorist {
-      fill: $terrorist-color;
-    }
-
-    &.lethal {
-      stroke-width: 1.5px;
-      stroke: $success-color;
-      &.team-attack {
-        stroke: $failure-color;
-      }
-    }
-
-    &.is-user {
-      fill: $orange;      
-    }
-  }
-
   .detonation {
     opacity: 0.4;
     fill: white;
   }
-  &.enemies-hit .detonation {
-    fill: red;
+  &.target-missed .detonation {
+    fill: $failure-color;
+  }
+  &.target-hit .detonation {
+    fill: $success-color;
   }
 }
 </style>

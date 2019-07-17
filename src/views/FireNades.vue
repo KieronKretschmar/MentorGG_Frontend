@@ -99,9 +99,9 @@
               :OnClickBackground="OnClickBackground"
               :detailView="detailView"
               :zoneType="'FireNade'"
-              :zones="zones.filter(x => x.ParentZoneId != -1)"
+              :zones="visibleZones"
               :userPerformanceData="userPerformanceData"
-              :fireNades="samples"
+              :fireNades="visibleSamples"
             />
           </div>
         </div>
@@ -170,7 +170,7 @@ export default {
       this.$api.getFireNades(map, matchCount).then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
-        this.zones = response.data.Zones;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
         this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
         this.globalPerformanceData = response.data.GlobalData;
         if (this.zones.length == 0) {
@@ -231,7 +231,26 @@ export default {
       return this.showCt
         ? this.activeGlobalData.TotalCtRounds
         : this.activeGlobalData.TotalTerroristRounds;
-    }
+    },
+    visibleSamples() {
+      if (!this.detailView) return [];
+      if (!this.samples) return [];
+      if (this.selectedSample != null) return [this.selectedSample];
+      return this.samples.filter(x => x.UserIsCt == this.showCt);
+    },    
+    visibleZones() {
+      if (this.detailView) return [];
+
+      if (this.selectedZone != null) {
+        return this.zones.filter(
+          x => x.ParentZoneId == this.selectedZone.ZoneId
+        );
+      } else {
+        return this.zones.filter(
+          x => x.IsCtZone == this.showCt && x.Depth == 1
+        );
+      }
+    },
   }
 };
 </script>
