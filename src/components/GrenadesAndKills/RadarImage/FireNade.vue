@@ -5,7 +5,16 @@
     :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
-  >
+  >    
+    <circle
+      class="detonation"
+      :cx="grenadeData.DetonationX"
+      :cy="grenadeData.DetonationY"
+      data-toggle="tooltip"
+      data-placement="top"
+      title="@(tooltipTitle)"
+      :r="detonationRadius +'px'"
+    />
     <circle
       v-if="showTrajectories"
       class="attacker-circle is-user"
@@ -19,15 +28,7 @@
       vector-effect="non-scaling-stroke"
       :points="trajectory"
     ></polyline>
-    <circle
-      class="detonation"
-      :cx="grenadeData.DetonationX"
-      :cy="grenadeData.DetonationY"
-      data-toggle="tooltip"
-      data-placement="top"
-      title="@(tooltipTitle)"
-      :r="detonationRadius +'px'"
-    />
+
 
     <g v-if="isSelected" class="victims-group">
       <circle

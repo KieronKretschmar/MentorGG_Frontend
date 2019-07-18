@@ -6,7 +6,7 @@
           v-for="(mapSummary,index) in mapSummaries"
           :key="index"
           class="performance"
-          :class="{active: activeMap == 0}"
+          :class="{active: activeMap == mapSummary.Map}"
           @click="OnActiveMapUpdated(mapSummary.Map)"
         >
           <img
@@ -236,7 +236,13 @@ export default {
         : this.activeGlobalData.TotalTerroristRounds;
     },
     visibleSamples() {
-      if (!this.detailView) return [];
+      if (!this.detailView){
+        if(this.selectedLineup != null){
+          console.log("hi")
+          return this.samples.filter(x=>x.LineupId == this.selectedLineup.LineupId)
+        }
+        return [];
+      } 
       if (!this.samples) return [];
       if (this.selectedSample != null) return [this.selectedSample];
       return this.samples.filter(x => x.UserIsCt == this.showCt);

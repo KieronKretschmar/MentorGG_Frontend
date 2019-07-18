@@ -22,38 +22,6 @@
         height="1024"
       />
 
-      <!-- Zones -->
-      <g v-if="zoneType != 'Smoke'">
-        <Zone v-for="zoneData in zones"
-          :key="zoneData.ZoneId"
-          :zoneType="zoneType"
-          :zoneData="zoneData"
-          :SetSelectedZone="SetSelectedZone"
-          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-        />
-      </g>
-      <!-- Smoke Zones (Targets) -->
-      <g v-if="zoneType == 'Smoke'">
-        <Target v-for="zoneData in zones"
-          :key="zoneData.ZoneId"
-          :zoneType="zoneType"
-          :zoneData="zoneData"
-          :SetSelectedZone="SetSelectedZone"
-          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-        />
-      </g>
-
-      <!-- Lineups (currently for smokes only)-->
-      <g v-if="zoneType == 'Smoke'">
-        <Lineup v-for="lineupData in lineups"
-          :key="lineupData.LineupId"
-          :lineupData="lineupData"
-          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
-          :zoomFactor="zoomFactor"
-          :SetSelectedLineup="SetSelectedLineup"
-          :fillColor="lineupPerformanceColors[lineupData.LineupId]"
-        />
-      </g>
 
       <!-- Samples -->
       <FireNade
@@ -105,11 +73,47 @@
         :SetSelectedSample="SetSelectedSample"
         :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
       />
+      
+      <!-- Zones -->
+      <g v-if="zoneType != 'Smoke'">
+        <Zone v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+        />
+      </g>
+      <!-- Smoke Zones (Targets) -->
+      <g v-if="zoneType == 'Smoke'">
+        <Target v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+        />
+      </g>
+
+      <!-- Lineups (currently for smokes only)-->
+      <g v-if="zoneType == 'Smoke'">
+        <Lineup v-for="lineupData in lineups"
+          :key="lineupData.LineupId"
+          :lineupData="lineupData"
+          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
+          :zoomFactor="zoomFactor"
+          :SetSelectedLineup="SetSelectedLineup"
+          :fillColor="lineupPerformanceColors[lineupData.LineupId]"
+        />
+      </g>
     </g>
   </svg>
 </template>
 
+
 <script>
+import svgPanZoom from 'svg-pan-zoom';
+
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
 import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
@@ -118,7 +122,6 @@ import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
 import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
-
 export default {
   components: {
     Zone,
@@ -130,10 +133,18 @@ export default {
     Kill,
     Smoke,
   },
-  mounted() {},
+  mounted() {
+    var panZoomRadar = svgPanZoom('#svgView', {
+      zoomScaleSensitivity: 0.6,
+      minZoom: 1, 
+    });
+    // or
+    // var svgElement = document.querySelector('#demo-tiger')
+    // var panZoomTiger = svgPanZoom(svgElement)
+  },
   data() {
     return {
-      zoomFactor: 1
+      zoomFactor: 1,
     };
   },
   props: [
@@ -161,6 +172,8 @@ export default {
     "kills",
     "smokeGrenades",
   ],
+  methods: {
+  },
   computed: {
     viewBox() {
       return (

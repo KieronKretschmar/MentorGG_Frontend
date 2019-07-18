@@ -6,7 +6,7 @@
           v-for="(mapSummary,index) in mapSummaries"
           :key="index"
           class="performance"
-          :class="{active: activeMap == 0}"
+          :class="{active: activeMap == mapSummary.Map}"
           @click="OnActiveMapUpdated(mapSummary.Map)"
         >
           <img
