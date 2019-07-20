@@ -10,6 +10,7 @@
       <router-link to="/flashes">Flashes</router-link>
       <router-link to="/hes">HEs</router-link>
       <router-link to="/kills">Kills</router-link>
+      <router-link to="/statistics">Statistics</router-link>
     </div>
     <div class="r">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
@@ -22,7 +23,7 @@ export default {
   mounted() {},
   methods: {
     OnUploadMatches: function() {
-      alert("NotImplemented");
+      this.$router.push({name: 'downloads'});
     }
   }
 };
