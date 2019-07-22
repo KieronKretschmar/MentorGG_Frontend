@@ -3,10 +3,8 @@ import axios from 'axios';
 class MentorGGAPI {
     constructor() {
         this.apiEndpoint = 'https://test.mentor.gg/api/';
-        this.apiEndpoint = 'http://localhost:58071/api/';
+        // this.apiEndpoint = 'http://localhost:58071/api/';
         this.apiEndpoint = document.location.origin + '/api/';
-        console.log(this.apiEndpoint);
-        console.log(document.location.origin);
         this.tldEndpoint = 'https://test.mentor.gg/';
         // this.steamId = '76561198166019050'; //felix
         this.steamId = '76561198033880857'; //kieron

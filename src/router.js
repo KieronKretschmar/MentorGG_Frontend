@@ -71,6 +71,16 @@ export default new Router({
       path: '/contact',
       name: 'contact',
       component: () => import(/* webpackChunkName: "contact" */ './views/Contact.vue')
+    },
+    {
+      path: '/downloads',
+      name: 'downloads',
+      component: () => import(/* webpackChunkName: "downloads" */ './views/Downloads.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'statistics',
+      component: () => import(/* webpackChunkName: "statistics" */ './views/Statistics.vue')
     }
   ]
 });
