@@ -326,7 +326,7 @@ export default {
 
       if (this.selectedZone != null) {
         return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId
+          x => x.ParentZoneId == this.selectedZone.ZoneId || this.selectedZone.ZoneId == x.ZoneId
         );
       } else {
         return this.zones.filter(
@@ -508,6 +508,10 @@ export default {
 
   .r {
     width: 30%;
+  }
+  
+  .sidebar{
+    color: white;
   }
 }
 </style>

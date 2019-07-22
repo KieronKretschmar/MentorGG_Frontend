@@ -106,12 +106,196 @@
           </div>
         </div>
         <div class="r bordered-box">
-          <SideBar
-            :sampleType="'FireNade'"
-            :selectedSample="selectedSample"
-            :selectedZone="selectedZone"
-            :detailView="detailView"
-          />
+          <div class="sidebar">
+            <div class="legend-tab">
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <FireNade 
+                      :grenadeData="{
+                        'Id':'FireNade-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Victims':[]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="true" 
+                      :fixedDetonationRadius="15" 
+                    />
+                  </svg>
+                </div>
+                <div class="legend-description">
+                  White markers represent FireNades that did not deal damage to enemies.
+                </div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <FireNade 
+                      :grenadeData="{
+                        'Id':'FireNade-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Victims':[{'Hits': [{'VictimId':1,'VictimPosX':42,'VictimPosY':12,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="false" 
+                      :fixedDetonationRadius="15" 
+                    />
+                  </svg>
+                </div>                
+                <div class="legend-description">
+                  Red markers indicate damaged enemies.
+                </div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <FireNade 
+                      :grenadeData="{
+                        'Id':'FireNade-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Victims':[{'Hits': [
+                        {'VictimId':1,'VictimPosX':43,'VictimPosY':27,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                        {'VictimId':1,'VictimPosX':37,'VictimPosY':25,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                        {'VictimId':1,'VictimPosX':32,'VictimPosY':21,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                        {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                        ]}]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="true" 
+                      :fixedDetonationRadius="15" 
+                    />
+                  </svg>
+                </div>
+                <div class="legend-description">
+                  Click on a FireNade to see the victims' path through the fire. 
+                </div>
+              </div>
+            </div>
+            <div id="analysis-tab" class="sidebar-tabcontent">
+              <div v-if="selectedSample" class="selected-sample-stats"> 
+                About this FireNade:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Round
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Round}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Enemies Flashed
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Flasheds.length}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Total time enemies flashed:
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0)}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Enemies died shortly after being flashed:
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="selectedZone" class="selected-sample-stats"> 
+                About your Flashes in the {{selectedZone.Name}} Zone:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Flashes thrown
+                  </div>
+                  <div class="stat-content">
+                    {{userSelectedZonePerformance.SampleCount}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Das hier soll wie im Overview ein links-rechts split sein, nur für enemyattack und teamattack 
+                  </div>
+                  <div class="stat-content-split">
+                    <div class="split-right">
+                      Enemy-flash             
+                    </div>
+                    <div class="split-left">
+                      Team-flash        
+                    </div>
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. time flashed
+                  </div>
+                  <div class="stat-content-split">
+                    <div class="split-left">
+                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
+                    </div>
+                    <div class="split-right">
+                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                   
+                    </div>
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. kill-assists
+                  </div>
+                  <div class="stat-content-split">
+                    <div class="split-left">
+                      {{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                    
+                    </div>
+                    <div class="split-right">
+                      {{(userSelectedZonePerformance.TeamFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                   
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -120,12 +304,14 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
 
 export default {
   components: {
     CustomSelect,
+    FireNade,
     RadarImage,
     SideBar
   },
@@ -243,7 +429,7 @@ export default {
 
       if (this.selectedZone != null) {
         return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId
+          x => x.ParentZoneId == this.selectedZone.ZoneId || this.selectedZone.ZoneId == x.ZoneId
         );
       } else {
         return this.zones.filter(
@@ -425,6 +611,10 @@ export default {
 
   .r {
     width: 30%;
+  }
+  
+  .sidebar{
+    color: white;
   }
 }
 </style>

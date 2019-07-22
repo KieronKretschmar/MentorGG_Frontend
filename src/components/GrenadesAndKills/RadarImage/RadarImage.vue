@@ -82,6 +82,7 @@
           :zoneData="zoneData"
           :SetSelectedZone="SetSelectedZone"
           :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+          :isSelected="selectedZone && selectedZone.ZoneId == zoneData.ZoneId"
         />
       </g>
       <!-- Smoke Zones (Targets) -->
@@ -134,13 +135,10 @@ export default {
     Smoke,
   },
   mounted() {
-    var panZoomRadar = svgPanZoom('#svgView', {
-      zoomScaleSensitivity: 0.6,
-      minZoom: 1, 
-    });
-    // or
-    // var svgElement = document.querySelector('#demo-tiger')
-    // var panZoomTiger = svgPanZoom(svgElement)
+    // var panZoomRadar = svgPanZoom('#svgView', {
+    //   zoomScaleSensitivity: 0.6,
+    //   minZoom: 1, 
+    // });
   },
   data() {
     return {

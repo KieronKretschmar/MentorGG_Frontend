@@ -31,19 +31,23 @@
 
 
     <g v-if="isSelected" class="victims-group">
-      <circle
-        v-for="(hit,index) in grenadeData.Hits"
-        :key="index"
-        class="victim-circle"
-        :class="[
-          {'lethal' : hit.Kill}, 
-          {'team-attack' : hit.TeamAttack},
-          {'is-user' : hit.VictimIsAttacker},
-          hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
-        :cx="hit.VictimPosX"
-        :cy="hit.VictimPosY"
-        :r="victimRadius + 'px'"
-      />
+      <g v-for="victimData in grenadeData.Victims" 
+      :key=victimData.VictimId
+      class="firenade-victim">
+        <circle
+          v-for="(hit,index) in victimData.Hits"
+          :key="index"
+          class="victim-circle"
+          :class="[
+            {'lethal' : hit.Kill}, 
+            {'team-attack' : hit.TeamAttack},
+            {'is-user' : hit.VictimIsAttacker},
+            hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
+          :cx="hit.VictimPosX"
+          :cy="hit.VictimPosY"
+          :r="victimRadius + 'px'"
+        />
+      </g>
     </g>
   </g>
 </template>
@@ -55,27 +59,26 @@ export default {
     "zoomFactor",
     "showTrajectories",
     "SetSelectedSample",
-    "isSelected"
+    "isSelected",
+    "fixedDetonationRadius"
   ],
   computed: {
     releaseRadius() {
       return 5 * this.zoomFactor;
     },
     detonationRadius() {
+      if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
       return 40 * this.zoomFactor;
     },
     victimRadius() {
       return 5 * this.zoomFactor;
     },
     damageDealtToEnemies() {
-      if (this.grenadeData.Hits.filter(x => !x.TeamAttack).length == 0) {
+      if (this.grenadeData.Victims.filter(x => !x.TeamAttack).length == 0) {
         return 0;
       }
-
-      return this.grenadeData.Hits.filter(x => !x.TeamAttack).reduce(
-        (acc, obj) => obj.AmountHealth + acc,
-        0
-      );
+      return this.grenadeData.Victims.filter(x => !x.TeamAttack && x.Hits).reduce((acc, v) => 
+        v.Hits.reduce((acc, obj) => obj.AmountHealth + acc, 0), 0);
     },
     trajectory() {
       var trajectoryString = "";

@@ -106,12 +106,198 @@
           </div>
         </div>
         <div class="r bordered-box">
-          <SideBar
-            :sampleType="'HE'"
-            :selectedSample="selectedSample"
-            :selectedZone="selectedZone"
-            :detailView="detailView"
-          />
+          <div class="sidebar">
+            <div class="legend-tab">
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <HE 
+                      :grenadeData="{
+                        'Id':'HE-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Hits':[]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="true" 
+                    />
+                  </svg>
+                </div>
+                <div class="legend-description">
+                  Black markers represent HEs that did not hit enemies.
+                </div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <HE 
+                      :grenadeData="{
+                        'Id':'HE-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':20,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false}]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="false" 
+                    />
+                  </svg>
+                </div>                
+                <div class="legend-description">
+                  White markers indicate damaged enemies. Radius corresponds to damage.
+                </div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <HE 
+                      :grenadeData="{
+                        'Id':'Flash-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':40,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false}]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="false" 
+                    />
+                  </svg>
+                </div>                
+                <div class="legend-description">
+                  Green markers indicate lethal damage.
+                </div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-depiction">
+                  <svg height="50" width="50">
+                    <HE 
+                      :grenadeData="{
+                        'Id':'HE-1-1',
+                        'MatchId':1,
+                        'PlayerId':1,
+                        'GrenadeId':1,
+                        'Round':1,
+                        'UserIsCt':showCt,
+                        'ZoneId':0,
+                        'ReleaseX':5,
+                        'ReleaseY':22,
+                        'DetonationX':33,
+                        'DetonationY':27,
+                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                        'Hits':[
+                        {'VictimPosX':42,'VictimPosY':12,'AmountHealth':15,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                        {'VictimPosX':39,'VictimPosY':39,'AmountHealth':35,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false},]
+                      }"
+                      :zoomFactor="1"
+                      :showTrajectories="showTrajectories"
+                      :SetSelectedSample="function(){}"
+                      :isSelected="true" 
+                    />
+                  </svg>
+                </div>
+                <div class="legend-description">
+                  Click on a HE to see the victims' positions. 
+                  <!-- Green border indicates a player died shortly after being flashed. -->
+                </div>
+              </div>
+            </div>
+            <div id="analysis-tab" class="sidebar-tabcontent">
+              <div v-if="selectedSample" class="selected-sample-stats"> 
+                About this HE:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Round
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Round}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Enemies Hit
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Hits.length}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Total damage dealt to enemies:
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Hits.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.AmountHealth, 0)}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Enemies killed:
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Hits.filter(x=>!x.TeamAttack && x.Kill).length}}
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="selectedZone" class="selected-sample-stats"> 
+                About your HEs in the {{selectedZone.Name}} Zone:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    HEs thrown
+                  </div>
+                  <div class="stat-content">
+                    {{userSelectedZonePerformance.SampleCount}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. damage
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}                     
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. kills
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -120,12 +306,14 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
 
 export default {
   components: {
     CustomSelect,
+    HE,
     RadarImage,
     SideBar
   },
@@ -243,7 +431,7 @@ export default {
 
       if (this.selectedZone != null) {
         return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId
+          x => x.ParentZoneId == this.selectedZone.ZoneId || this.selectedZone.ZoneId == x.ZoneId
         );
       } else {
         return this.zones.filter(
@@ -425,6 +613,10 @@ export default {
 
   .r {
     width: 30%;
+  }
+  
+  .sidebar{
+    color: white;
   }
 }
 </style>

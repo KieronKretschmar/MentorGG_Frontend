@@ -126,7 +126,7 @@ export default {
     fill: $terrorist-color;
   }
 
-  &.kill-assist .victim-circle {
+  & .kill-assist.victim-circle {
     stroke-width: 1.5px;
     stroke: $success-color;
     &.team-attack {
@@ -146,6 +146,8 @@ export default {
   }
   &.enemies-flashed.kill-assist .detonation {
     fill: $success-color;
+    // stroke: $success-color;
+    // stroke-width: 2.5px;
   }
 }
 </style>
