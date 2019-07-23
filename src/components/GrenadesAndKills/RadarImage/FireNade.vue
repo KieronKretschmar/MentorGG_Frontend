@@ -16,14 +16,14 @@
       :r="detonationRadius +'px'"
     />
     <circle
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="attacker-circle is-user"
       :cx="grenadeData.ReleaseX"
       :cy="grenadeData.ReleaseY"
       :r="releaseRadius +'px'"
     />
     <polyline
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="trajectory"
       vector-effect="non-scaling-stroke"
       :points="trajectory"

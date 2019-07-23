@@ -7,14 +7,14 @@
     @click="SetSelectedSample(grenadeData.Id)"
   >
     <circle
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="attacker-circle is-user"
       :cx="grenadeData.ReleaseX"
       :cy="grenadeData.ReleaseY"
       :r="releaseRadius +'px'"
     />
     <polyline
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="trajectory"
       vector-effect="non-scaling-stroke"
       :points="trajectory"
@@ -125,16 +125,14 @@ export default {
   .terrorist.victim-circle {
     fill: $terrorist-color;
   }
-
+  .is-user {
+    fill: $orange !important;      
+  }
   & .kill-assist.victim-circle {
     stroke-width: 1.5px;
     stroke: $success-color;
     &.team-attack {
       stroke: $failure-color;
-    }
-
-    &.is-user {
-      fill: $orange;      
     }
   }
 

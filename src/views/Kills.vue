@@ -118,12 +118,143 @@
           </div>
         </div>
         <div class="r bordered-box">
-          <SideBar
-            :sampleType="'Kill'"
-            :selectedSample="selectedSample"
-            :selectedZone="selectedZone"
-            :detailView="detailView"
-          />
+          <div class="sidebar">
+            <div class="legend-tab">
+              <div class="details-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Kill 
+                        :killData="{
+                          'Id':'Kill-1-1',
+                          'MatchId':1,
+                          'KillId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'PlayerPosX':5,
+                          'PlayerPosY':22,
+                          'VictimPosX':33,
+                          'VictimPosY':27,
+                          'UserWinner':true,
+                          'PlayerZoneByTeam':0,
+                          'VictimZoneByTeam':0,
+                          'FilterSettings':{'PlantStatus':0}}"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    <!-- Green markers represent your kills. -->
+                    Green markers represent your position when you killed an enemy. 
+                    <!-- The enemy's position is at the other end of the line.  -->
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Kill 
+                        :killData="{
+                          'Id':'Kill-1-1',
+                          'MatchId':1,
+                          'KillId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'PlayerPosX':5,
+                          'PlayerPosY':22,
+                          'VictimPosX':33,
+                          'VictimPosY':27,
+                          'UserWinner':false,
+                          'PlayerZoneByTeam':0,
+                          'VictimZoneByTeam':0,
+                          'FilterSettings':{'PlantStatus':0}}"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                      />
+                    </svg>
+                  </div>                
+                  <div class="legend-description">
+                    Red markers represent your deaths.
+                  </div>
+                </div>
+              </div>
+              <div class="zone-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Zone 
+                        :SetSelectedZone="function(){}"
+                        :fillColor="'rgba(255, 255, 255, 0.15)'"
+                        :isSelected="false" 
+                        :zoneData="{
+                          'ZoneId':1,
+                          'Name':'Legend_Zone',
+                          'CenterXPixel':15,
+                          'CenterYPixel':15,
+                          'PolygonPointsX':[10,50,50,30,30,10,10],
+                          'PolygonPointsY':[10,10,50,50,30,30,10],
+                          'ParentZoneId':230000,
+                          'Depth':1,
+                          }"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A zone's color corresponds to your K/D ratio inside it. 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="analysis-tab" class="sidebar-tabcontent">
+              <div v-if="selectedSample" class="selected-sample-stats"> 
+                About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Round
+                  </div>
+                  <div class="stat-content">
+                    {{selectedSample.Round}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Hier könnte man theoretisch noch sowas hin wie: 
+                  </div>
+                  <div class="stat-content">
+                    "Tell us if you want additional information about this 
+                    {{selectedSample.UserWinner ? "Kill" : "Death"}}!"
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="selectedZone" class="selected-sample-stats"> 
+                About your Kills and Deaths in the {{selectedZone.Name}}-Zone as a {{this.showCt ? "CT" : "Terrorist"}} 
+                {{ this.activeFilterSettings.PlantStatus == 0 ? "" : " that happened " 
+                + (this.activeFilterSettings.PlantStatus == 1 ? "before" : "after") + " the bomb was planted"}}:
+                <div class="stat-row">
+                  <div class="stat-description">
+                    K/D ratio
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}} 
+                    ({{userSelectedZonePerformance.Kills}} Kills / {{userSelectedZonePerformance.Deaths}} Deaths)
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Damage per Death::
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.Damage / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(0)}}                     
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,14 +263,16 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
+import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 
 export default {
   components: {
     CustomSelect,
+    Kill,
     RadarImage,
-    SideBar
+    Zone,
   },
   data() {
     return {
@@ -152,7 +285,7 @@ export default {
         50: "Use last 50 matches",
         100: "Use last 100 matches"
       },
-      showTrajectories: true,
+      showTrajectories: false,
       mapSummaries: [],
       detailView: true,
 

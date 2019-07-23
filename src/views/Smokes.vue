@@ -115,13 +115,11 @@
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
 
 export default {
   components: {
     CustomSelect,
     RadarImage,
-    SideBar
   },
   data() {
     return {
@@ -134,7 +132,7 @@ export default {
         50: "Use last 50 matches",
         100: "Use last 100 matches"
       },
-      showTrajectories: true,
+      showTrajectories: false,
       mapSummaries: [],
       detailView: true,
 

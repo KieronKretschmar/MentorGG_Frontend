@@ -20,9 +20,7 @@
 <script>
 export default {
   props: [
-    "zoneType",
     "zoneData",
-    "userPerformanceData",
     "SetSelectedZone",
     "fillColor",
     "isSelected"

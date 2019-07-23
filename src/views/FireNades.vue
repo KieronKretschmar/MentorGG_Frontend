@@ -108,102 +108,131 @@
         <div class="r bordered-box">
           <div class="sidebar">
             <div class="legend-tab">
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <FireNade 
-                      :grenadeData="{
-                        'Id':'FireNade-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Victims':[]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="true" 
-                      :fixedDetonationRadius="15" 
-                    />
-                  </svg>
+              <div class="detail-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <FireNade 
+                        :grenadeData="{
+                          'Id':'FireNade-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Victims':[]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                        :fixedDetonationRadius="15" 
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    White markers represent FireNades that did not deal damage to enemies.
+                  </div>
                 </div>
-                <div class="legend-description">
-                  White markers represent FireNades that did not deal damage to enemies.
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <FireNade 
+                        :grenadeData="{
+                          'Id':'FireNade-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Victims':[{'Hits': [{'VictimId':1,'VictimPosX':42,'VictimPosY':12,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                        :fixedDetonationRadius="15" 
+                      />
+                    </svg>
+                  </div>                
+                  <div class="legend-description">
+                    Red markers indicate damaged enemies.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <FireNade 
+                        :grenadeData="{
+                          'Id':'FireNade-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Victims':[{'Hits': [
+                          {'VictimId':1,'VictimPosX':43,'VictimPosY':27,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPosX':37,'VictimPosY':25,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPosX':32,'VictimPosY':21,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          ]}]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="true" 
+                        :fixedDetonationRadius="15" 
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    Click on a FireNade to see the victims' path through the fire. 
+                  </div>
                 </div>
               </div>
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <FireNade 
-                      :grenadeData="{
-                        'Id':'FireNade-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Victims':[{'Hits': [{'VictimId':1,'VictimPosX':42,'VictimPosY':12,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="false" 
-                      :fixedDetonationRadius="15" 
-                    />
-                  </svg>
-                </div>                
-                <div class="legend-description">
-                  Red markers indicate damaged enemies.
-                </div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <FireNade 
-                      :grenadeData="{
-                        'Id':'FireNade-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Victims':[{'Hits': [
-                        {'VictimId':1,'VictimPosX':43,'VictimPosY':27,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                        {'VictimId':1,'VictimPosX':37,'VictimPosY':25,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                        {'VictimId':1,'VictimPosX':32,'VictimPosY':21,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                        {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                        ]}]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="true" 
-                      :fixedDetonationRadius="15" 
-                    />
-                  </svg>
-                </div>
-                <div class="legend-description">
-                  Click on a FireNade to see the victims' path through the fire. 
+              <div class="zone-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Zone 
+                        :SetSelectedZone="function(){}"
+                        :fillColor="'rgba(255, 255, 255, 0.15)'"
+                        :isSelected="false" 
+                        :zoneData="{
+                          'ZoneId':1,
+                          'Name':'Legend_Zone',
+                          'CenterXPixel':15,
+                          'CenterYPixel':15,
+                          'PolygonPointsX':[10,50,50,30,30,10,10],
+                          'PolygonPointsY':[10,10,50,50,30,30,10],
+                          'ParentZoneId':230000,
+                          'Depth':1,
+                          }"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A zone's color corresponds to the chance of your FireNades burning at least one enemy. 
+                    <!-- A zone's color corresponds to the chance of your FireNades inside that burned at least one enemy.  -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -245,7 +274,7 @@
               </div>
 
               <div v-if="selectedZone" class="selected-sample-stats"> 
-                About your Flashes in the {{selectedZone.Name}} Zone:
+                About your Flashes in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
                     Flashes thrown
@@ -306,14 +335,14 @@
 import CustomSelect from "@/components/CustomSelect.vue";
 import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
+import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 
 export default {
   components: {
     CustomSelect,
     FireNade,
     RadarImage,
-    SideBar
+    Zone,
   },
   data() {
     return {
@@ -326,7 +355,7 @@ export default {
         50: "Use last 50 matches",
         100: "Use last 100 matches"
       },
-      showTrajectories: true,
+      showTrajectories: false,
       mapSummaries: [],
       detailView: true,
 

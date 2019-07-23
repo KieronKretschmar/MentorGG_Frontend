@@ -108,127 +108,156 @@
         <div class="r bordered-box">
           <div class="sidebar">
             <div class="legend-tab">
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <Flash 
-                      :grenadeData="{
-                        'Id':'Flash-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Flasheds':[]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="true" 
-                    />
-                  </svg>
+              <div class="details-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Flash 
+                        :grenadeData="{
+                          'Id':'Flash-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Flasheds':[]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    Black markers represent Flashes that did not blind enemies.
+                  </div>
                 </div>
-                <div class="legend-description">
-                  Black markers represent Flashes that did not blind enemies.
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Flash 
+                        :grenadeData="{
+                          'Id':'Flash-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                      />
+                    </svg>
+                  </div>                
+                  <div class="legend-description">
+                    White markers indicate blinded enemies. Radius corresponds to duration.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Flash 
+                        :grenadeData="{
+                          'Id':'Flash-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false" 
+                      />
+                    </svg>
+                  </div>                
+                  <div class="legend-description">
+                    Green markers indicate enemies were killed shortly after being flashed.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Flash 
+                        :grenadeData="{
+                          'Id':'Flash-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'Flasheds':[
+                          {'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimPosX':39,'VictimPosY':39,'FlashedDuration':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
+                        }"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="true" 
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    Click on a Flash to see the victims' positions. 
+                    <!-- Green border indicates a player died shortly after being flashed. -->
+                  </div>
                 </div>
               </div>
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <Flash 
-                      :grenadeData="{
-                        'Id':'Flash-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="false" 
-                    />
-                  </svg>
-                </div>                
-                <div class="legend-description">
-                  White markers indicate blinded enemies. Radius corresponds to duration.
-                </div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <Flash 
-                      :grenadeData="{
-                        'Id':'Flash-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="false" 
-                    />
-                  </svg>
-                </div>                
-                <div class="legend-description">
-                  Green markers indicate enemies were killed shortly after being flashed.
-                </div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-depiction">
-                  <svg height="50" width="50">
-                    <Flash 
-                      :grenadeData="{
-                        'Id':'Flash-1-1',
-                        'MatchId':1,
-                        'PlayerId':1,
-                        'GrenadeId':1,
-                        'Round':1,
-                        'UserIsCt':showCt,
-                        'ZoneId':0,
-                        'ReleaseX':5,
-                        'ReleaseY':22,
-                        'DetonationX':33,
-                        'DetonationY':27,
-                        'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                        'Flasheds':[
-                        {'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
-                        {'VictimPosX':39,'VictimPosY':39,'FlashedDuration':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
-                      }"
-                      :zoomFactor="1"
-                      :showTrajectories="showTrajectories"
-                      :SetSelectedSample="function(){}"
-                      :isSelected="true" 
-                    />
-                  </svg>
-                </div>
-                <div class="legend-description">
-                  Click on a Flash to see the victims' positions. 
-                  <!-- Green border indicates a player died shortly after being flashed. -->
+              <div class="zone-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Zone 
+                        :SetSelectedZone="function(){}"
+                        :fillColor="'rgba(255, 255, 255, 0.15)'"
+                        :isSelected="false" 
+                        :zoneData="{
+                          'ZoneId':1,
+                          'Name':'Legend_Zone',
+                          'CenterXPixel':15,
+                          'CenterYPixel':15,
+                          'PolygonPointsX':[10,50,50,30,30,10,10],
+                          'PolygonPointsY':[10,10,50,50,30,30,10],
+                          'ParentZoneId':230000,
+                          'Depth':1,
+                          }"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A zone's color corresponds to the average blind duration of your Flashes that detonated in it. 
+                    <!-- A zone's color corresponds to the average duration of enemies being blinded by your Flashes that detonated in it.  -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -270,7 +299,7 @@
               </div>
 
               <div v-if="selectedZone" class="selected-sample-stats"> 
-                About your Flashes in the {{selectedZone.Name}} Zone:
+                About your Flashes in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
                     Flashes thrown
@@ -331,14 +360,14 @@
 import CustomSelect from "@/components/CustomSelect.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
-import SideBar from "@/components/GrenadesAndKills/SideBar.vue";
+import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 
 export default {
   components: {
     CustomSelect,
     Flash,
     RadarImage,
-    SideBar
+    Zone,
   },
   data() {
     return {
@@ -351,7 +380,7 @@ export default {
         50: "Use last 50 matches",
         100: "Use last 100 matches"
       },
-      showTrajectories: true,
+      showTrajectories: false,
       mapSummaries: [],
       detailView: true,
 

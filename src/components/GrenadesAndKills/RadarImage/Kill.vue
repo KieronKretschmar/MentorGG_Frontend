@@ -13,7 +13,7 @@
       :r="userRadius +'px'"
     />
     <polyline
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="connection"
       vector-effect="non-scaling-stroke"
       :points="killConnection"
