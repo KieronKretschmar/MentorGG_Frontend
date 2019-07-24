@@ -178,7 +178,7 @@
                     </svg>
                   </div>                
                   <div class="legend-description">
-                    Red markers represent your deaths.
+                    Green markers represent your position when you died.
                   </div>
                 </div>
               </div>
@@ -252,6 +252,17 @@
                     {{(userSelectedZonePerformance.Damage / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(0)}}                     
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="practice-tab">
+              <div v-show="!selectedZone">
+                Select a Zone to get advice on how to improve in that position!
+              </div>
+              <div v-show="selectedZone && selectedZone.VideoUrl == ''">
+                Advice for this Zone is not yet available. 
+              </div>
+              <div v-if="selectedZone && selectedZone.VideoUrl != ''">
+                {{selectedZone.VideoUrl}}
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@
 
     <!-- Images for smoke targets -->
     <image class="smoke target" v-bind="{'xlink:href':this.$api.resolveResource(filename)}"  :x="posX" :y="posY"
-            width="50" height="50" color="#002220"/>
+            :width="width" :height="height" color="#002220"/>
 
   </g>
 </template>
@@ -13,14 +13,13 @@ export default {
   props: [
     "zoneType",
     "zoneData",
-    "userPerformanceData",
     "SetSelectedZone",
-    "fillColor",
+    "scaleFactor",
   ],
   data(){
       return {
-        width : 50,
-        height : 50,
+        width : 50 * this.scaleFactor,
+        height : 50 * this.scaleFactor,
       }
   },
   computed: {
@@ -32,7 +31,7 @@ export default {
       },
       posY() {
           return this.zoneData.GrenadePosYPixel - (this.height/2);
-      }
+      },
   }
 };
 </script>

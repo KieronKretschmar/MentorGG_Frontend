@@ -60,7 +60,7 @@ export default {
     "showTrajectories",
     "SetSelectedSample",
     "isSelected",
-    "fixedDetonationRadius"
+    "fixedDetonationRadius",
   ],
   computed: {
     releaseRadius() {

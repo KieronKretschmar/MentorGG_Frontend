@@ -39,13 +39,15 @@ export default {
     "zoomFactor",
     "showTrajectories",
     "SetSelectedSample",
-    "isSelected"
+    "isSelected",
+    "fixedDetonationRadius",
   ],
   computed: {
     releaseRadius() {
       return 5 * this.zoomFactor;
     },
     detonationRadius() {
+      if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
       return 40 * this.zoomFactor;
     },
     trajectory() {

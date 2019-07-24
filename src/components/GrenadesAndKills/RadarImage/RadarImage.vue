@@ -93,6 +93,7 @@
           :zoneData="zoneData"
           :SetSelectedZone="SetSelectedZone"
           :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+          :scaleFactor="1"
         />
       </g>
 

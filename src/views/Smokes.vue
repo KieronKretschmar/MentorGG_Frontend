@@ -99,13 +99,205 @@
           </div>
         </div>
         <div class="r bordered-box">
-          <SideBar
-            :sampleType="'Smoke'"
-            :selectedSample="selectedSample"
-            :selectedLineup="selectedLineup"
-            :selectedZone="selectedZone"
-            :detailView="detailView"
-          />
+          <div class="sidebar">
+            <div class="legend-tab">
+              <div class="details-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Smoke 
+                        :grenadeData="{
+                          'Id':'Smoke-1-1',
+                          'MatchId':1,
+                          'Round':1,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':2,
+                          'TargetId':0,
+                          'LineupId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                        :fixedDetonationRadius="15"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    Your Smokes are represented by circular markers. Green means it reached its target.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Smoke 
+                        :grenadeData="{
+                          'Id':'Smoke-1-1',
+                          'MatchId':1,
+                          'Round':1,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':1,
+                          'TargetId':0,
+                          'LineupId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                        :fixedDetonationRadius="15"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A red marker means you f'ed up the throw and maybe you should look at the lineup one more time.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Smoke 
+                        :grenadeData="{
+                          'Id':'Smoke-1-1',
+                          'MatchId':1,
+                          'Round':1,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':0,
+                          'TargetId':0,
+                          'LineupId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                        :zoomFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                        :fixedDetonationRadius="15"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A grey marker means the lineup of this throw is not featured on MENTOR.GG.
+                  </div>
+                </div>
+              </div>
+              <div class="zone-legend-section">
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Lineup 
+                        :SetSelectedLineup="function(){}"
+                        :fillColor="'rgb(255, 255, 255)'"
+                        :lineupData="{
+                          'LineupId':1,
+                          'TargetId':1,
+                          'Name':'Legend Example',
+                          'PlayerPosXPixel':5,
+                          'PlayerPosYPixel':22,
+                          'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
+                          'ThrowTypeString':'left-click',
+                          'Images':null,
+                          'Thumbnails':null}"
+                        :zoneData="{
+                          'ZoneId':1,
+                          'CategoryIds':[1],
+                          'Name':'Legend Example',
+                          'GrenadePosXPixel':33,
+                          'GrenadePosYPixel':27}"
+                        :zoomFactor="0.5"
+                      />
+                      <Target
+                      :fillcolor="'rgba(0, 255, 0, 1)'"
+                      :zoneData="{
+                        'ZoneId':1,
+                        'CategoryIds':[1],
+                        'Name':'Legend Example',
+                        'GrenadePosXPixel':33,
+                        'GrenadePosYPixel':27}"
+                      :zoneType="'Smoke'"                      
+                      :scaleFactor="0.5"                      
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    You can learn new smokes by clicking on the lineups and checking out the "Practice" section.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Lineup 
+                        :SetSelectedLineup="function(){}"
+                        :fillColor="'rgba(0, 255, 0, 1)'"
+                        :lineupData="{
+                          'LineupId':1,
+                          'TargetId':1,
+                          'Name':'Legend Example',
+                          'PlayerPosXPixel':5,
+                          'PlayerPosYPixel':22,
+                          'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
+                          'ThrowTypeString':'left-click',
+                          'Images':null,
+                          'Thumbnails':null}"
+                        :zoneData="{
+                          'ZoneId':1,
+                          'CategoryIds':[1],
+                          'Name':'Legend Example',
+                          'GrenadePosXPixel':33,
+                          'GrenadePosYPixel':27}"
+                        :zoomFactor="0.5"
+                      />
+                      <Target
+                      :fillcolor="'rgba(0, 255, 0, 1)'"
+                      :zoneData="{
+                        'ZoneId':1,
+                        'CategoryIds':[1],
+                        'Name':'Legend Example',
+                        'GrenadePosXPixel':33,
+                        'GrenadePosYPixel':27}"
+                      :zoneType="'Smoke'"                      
+                      :scaleFactor="0.5"                      
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    As soon as you've used a lineup ingame, it is colored according to your accuracy.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="practice-tab">
+              <div v-show="!selectedLineup">
+                Select a Lineup to see how it's done!
+              </div>
+              <div v-if="selectedLineup && selectedLineup.Setpos != ''">
+                <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly>
+                <button id="setpos-copy" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Copy to clipboard" @click="CopyTextToClipboard(selectedLineup.Setpos)">
+                  <i class="material-icons" >file_copy</i>
+                </button>
+              </div>
+              <div v-if="selectedLineup && selectedLineup.Images && selectedLineup.Thumbnails">
+                Images: {{selectedLineup.Images}}
+                Thumbnails: {{selectedLineup.Thumbnails}}
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -115,11 +307,17 @@
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
+import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
+import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
+import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
 
 export default {
   components: {
     CustomSelect,
     RadarImage,
+    Lineup,
+    Target,
+    Smoke,
   },
   data() {
     return {
@@ -208,6 +406,33 @@ export default {
       this.selectedLineup = null;
       this.selectedZone = null;
       this.detailView = !this.detailView;
+    },
+    CopyTextToClipboard(text) {
+      // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+      if (!navigator.clipboard) {
+          fallbackCopyTextToClipboard(text);
+          return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+      }, function(err) {
+          console.error('Async: Could not copy text: ', err);
+      });
+    },
+    fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+      } catch (err) {
+          console.error('Fallback: Oops, unable to copy', err);
+      }
+
+      document.body.removeChild(textArea);
     }
   },
   computed: {
@@ -236,7 +461,6 @@ export default {
     visibleSamples() {
       if (!this.detailView){
         if(this.selectedLineup != null){
-          console.log("hi")
           return this.samples.filter(x=>x.LineupId == this.selectedLineup.LineupId)
         }
         return [];
@@ -432,6 +656,10 @@ export default {
 
   .r {
     width: 30%;
+  }
+    
+  .sidebar{
+    color: white;
   }
 }
 </style>
