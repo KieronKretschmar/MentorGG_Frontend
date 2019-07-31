@@ -1,0 +1,102 @@
+.sidebar {
+    color: white;
+    padding-top: 10px;
+
+    .legend-tab {
+        .legend-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .legend-depiction {
+                padding-right: 30px;
+
+                .legend-circle {
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+
+                    &.green {
+                        background: $green;
+                    }
+
+                    &.red {
+                        background: $red;
+                    }
+                }
+            }
+        }
+    }
+
+    .zone-legend-section {
+        .legend-depiction {
+            svg {
+            position: relative;
+            top: 3px;
+            }
+        }
+    }
+}
+
+.practice-tab {
+    margin-top: 20px;
+    border-top: 1px solid $purple;
+    padding-top: 20px;
+}
+
+#analysis-tab {
+    margin-top: 20px;
+    border-top: 1px solid $purple;
+    padding-top: 20px;
+
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        background: $purple;
+        padding: 10px 10px;
+        border-radius: 3px;
+
+        .stat-description {
+            width: calc(70% - 20px);
+        }
+
+        .stat-content {
+            width: 30%;
+            text-align: right;
+        }
+    }
+}
+
+
+.setpos-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;    
+
+    #setpos-text {
+        background: $purple;
+        border: 0;
+        outline: 0;
+        padding: 8px 10px;
+        width: 100%;
+        color: $gray;
+        height: 32px;
+    }
+    
+    #setpos-copy {
+        outline: 0;
+        border: 0;
+        cursor: pointer;
+        background: $dark-3;
+        color: $orange;
+        height: 32px;
+        padding: 0 10px;
+        
+        i {
+            font-size: 18px;
+        }
+    }
+}

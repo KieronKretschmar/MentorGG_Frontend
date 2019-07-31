@@ -54,7 +54,7 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Toggle Trajectories</button>
+            <button class="button-variant-bordered" @click="OnShowTrajectories">Trajectories</button>
 
             <div v-if="zonesEnabled">
               <button class="button-variant-bordered" @click="SetDetailView()">Toggle Zones</button>
@@ -123,8 +123,9 @@
               <div class="details-legend-section">
                 <div class="legend-row">
                   <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Kill 
+                    <div class="legend-circle green"></div>
+                    <!-- <svg height="50" width="50">
+                      <Kill
                         :killData="{
                           'Id':'Kill-1-1',
                           'MatchId':1,
@@ -142,20 +143,21 @@
                         :zoomFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="false" 
+                        :isSelected="false"
                       />
-                    </svg>
+                    </svg>-->
                   </div>
                   <div class="legend-description">
                     <!-- Green markers represent your kills. -->
-                    Green markers represent your position when you killed an enemy. 
+                    Green markers represent your position when you killed an enemy.
                     <!-- The enemy's position is at the other end of the line.  -->
                   </div>
                 </div>
                 <div class="legend-row">
                   <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Kill 
+                    <div class="legend-circle red"></div>
+                    <!-- <svg height="50" width="50">
+                      <Kill
                         :killData="{
                           'Id':'Kill-1-1',
                           'MatchId':1,
@@ -173,97 +175,83 @@
                         :zoomFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="false" 
+                        :isSelected="false"
                       />
-                    </svg>
-                  </div>                
-                  <div class="legend-description">
-                    Green markers represent your position when you died.
+                    </svg>-->
                   </div>
+                  <div class="legend-description">Red markers represent your position when you died.</div>
                 </div>
               </div>
               <div class="zone-legend-section">
                 <div class="legend-row">
                   <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Zone 
+                    <svg height="40" width="40">
+                      <Zone
                         :SetSelectedZone="function(){}"
                         :fillColor="'rgba(255, 255, 255, 0.15)'"
-                        :isSelected="false" 
+                        :isSelected="false"
                         :zoneData="{
                           'ZoneId':1,
                           'Name':'Legend_Zone',
-                          'CenterXPixel':15,
-                          'CenterYPixel':15,
-                          'PolygonPointsX':[10,50,50,30,30,10,10],
-                          'PolygonPointsY':[10,10,50,50,30,30,10],
+                          'CenterXPixel':20,
+                          'CenterYPixel':20,
+                          'PolygonPointsX':[0,40,40,20,20,0,0],
+                          'PolygonPointsY':[0,0,40,40,20,20,0],
                           'ParentZoneId':230000,
                           'Depth':1,
                           }"
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    A zone's color corresponds to your K/D ratio inside it. 
-                  </div>
+                  <div
+                    class="legend-description"
+                  >A zone's color corresponds to your K/D ratio inside it.</div>
                 </div>
               </div>
             </div>
             <div id="analysis-tab" class="sidebar-tabcontent">
-              <div v-if="selectedSample" class="selected-sample-stats"> 
+              <div v-if="selectedSample" class="selected-sample-stats">
                 About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Round
-                  </div>
-                  <div class="stat-content">
-                    {{selectedSample.Round}}
-                  </div>
+                  <div class="stat-description">Round</div>
+                  <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Hier könnte man theoretisch noch sowas hin wie: 
-                  </div>
+                  <div class="stat-description">Hier könnte man theoretisch noch sowas hin wie:</div>
                   <div class="stat-content">
-                    "Tell us if you want additional information about this 
+                    "Tell us if you want additional information about this
                     {{selectedSample.UserWinner ? "Kill" : "Death"}}!"
                   </div>
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-sample-stats"> 
-                About your Kills and Deaths in the {{selectedZone.Name}}-Zone as a {{this.showCt ? "CT" : "Terrorist"}} 
-                {{ this.activeFilterSettings.PlantStatus == 0 ? "" : " that happened " 
+              <div v-if="selectedZone" class="selected-sample-stats">
+                About your Kills and Deaths in the {{selectedZone.Name}}-Zone as a {{this.showCt ? "CT" : "Terrorist"}}
+                {{ this.activeFilterSettings.PlantStatus == 0 ? "" : " that happened "
                 + (this.activeFilterSettings.PlantStatus == 1 ? "before" : "after") + " the bomb was planted"}}:
                 <div class="stat-row">
-                  <div class="stat-description">
-                    K/D ratio
-                  </div>
+                  <div class="stat-description">K/D ratio</div>
                   <div class="stat-content">
-                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}} 
+                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}}
                     ({{userSelectedZonePerformance.Kills}} Kills / {{userSelectedZonePerformance.Deaths}} Deaths)
                   </div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Damage per Death::
-                  </div>
-                  <div class="stat-content">
-                    {{(userSelectedZonePerformance.Damage / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(0)}}                     
-                  </div>
+                  <div class="stat-description">Damage per Death::</div>
+                  <div
+                    class="stat-content"
+                  >{{(userSelectedZonePerformance.Damage / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(0)}}</div>
                 </div>
               </div>
             </div>
             <div class="practice-tab">
-              <div v-show="!selectedZone">
-                Select a Zone to get advice on how to improve in that position!
-              </div>
-              <div v-show="selectedZone && selectedZone.VideoUrl == ''">
-                Advice for this Zone is not yet available. 
-              </div>
-              <div v-if="selectedZone && selectedZone.VideoUrl != ''">
-                {{selectedZone.VideoUrl}}
-              </div>
+              <div
+                v-show="!selectedZone"
+              >Select a Zone to get advice on how to improve in that position!</div>
+              <div
+                v-show="selectedZone && selectedZone.VideoUrl == ''"
+              >Advice for this Zone is not yet available.</div>
+              <div v-if="selectedZone && selectedZone.VideoUrl != ''">{{selectedZone.VideoUrl}}</div>
             </div>
           </div>
         </div>
@@ -283,7 +271,7 @@ export default {
     CustomSelect,
     Kill,
     RadarImage,
-    Zone,
+    Zone
   },
   data() {
     return {
@@ -464,25 +452,29 @@ export default {
       }
 
       return filteredKills;
-    },    
+    },
     visibleZones() {
       if (this.detailView) return [];
 
       if (this.selectedZone != null) {
         return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId || this.selectedZone.ZoneId == x.ZoneId
+          x =>
+            x.ParentZoneId == this.selectedZone.ZoneId ||
+            this.selectedZone.ZoneId == x.ZoneId
         );
       } else {
         return this.zones.filter(
           x => x.IsCtZone == this.showCt && x.Depth == 1
         );
       }
-    },
+    }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "@/assets/scss/sidebar.scss";
+
 .view-kills {
   margin-top: 40px;
 }
@@ -490,10 +482,11 @@ export default {
 .performances {
   display: flex;
   flex-direction: row;
+  margin: 0 -10px;
 
   .performance {
     width: calc(100% / 7);
-    margin-right: 20px;
+    margin: 0 10px;
     background-position: center;
     background-size: cover;
     position: relative;
@@ -604,7 +597,7 @@ export default {
   margin-top: 20px;
 
   .l {
-    width: 65%;
+    width: calc(70% - 20px);
     // display: flex;
     align-items: center;
     justify-content: space-between;
@@ -613,6 +606,16 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      #plantfilter {
+        button {
+          width: 128px;
+        }
+      }
+
+      > button {
+        margin-right: 20px;
+      }
     }
 
     .team-select {
@@ -646,16 +649,12 @@ export default {
 
     .match-count-select {
       width: 100%;
-      max-width: 400px;
+      // max-width: 400px;
     }
   }
 
   .r {
     width: 30%;
-  }
-  
-  .sidebar{
-    color: white;
   }
 }
 </style>

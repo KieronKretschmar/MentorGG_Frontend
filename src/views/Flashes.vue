@@ -60,7 +60,7 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Toggle Trajectories</button>
+            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
 
             <div v-if="zonesEnabled">
               <button class="button-variant-bordered" @click="SetDetailView()">Toggle Zones</button>
@@ -500,7 +500,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "@/assets/scss/sidebar.scss";
+
 .view-flashes {
   margin-top: 40px;
 }
@@ -508,10 +510,11 @@ export default {
 .performances {
   display: flex;
   flex-direction: row;
+  margin: 0 -10px;
 
   .performance {
     width: calc(100% / 7);
-    margin-right: 20px;
+    margin: 0 10px;
     background-position: center;
     background-size: cover;
     position: relative;
@@ -622,7 +625,7 @@ export default {
   margin-top: 20px;
 
   .l {
-    width: 65%;
+    width: calc(70% - 20px);
     // display: flex;
     align-items: center;
     justify-content: space-between;
@@ -664,7 +667,7 @@ export default {
 
     .match-count-select {
       width: 100%;
-      max-width: 400px;
+      // max-width: 400px;
     }
   }
 

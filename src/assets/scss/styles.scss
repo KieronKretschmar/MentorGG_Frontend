@@ -42,8 +42,10 @@ body {
     cursor: pointer;
     outline: 0;
     @extend .main-font;
+    white-space: nowrap;
 
-    &:hover {
+    &:hover,
+    &.active {
         background: $orange;
     }
 
