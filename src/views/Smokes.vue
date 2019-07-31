@@ -479,6 +479,7 @@ export default {
     visibleZones() {
       if (this.detailView) return [];
       if (this.selectedZone != null) return [this.selectedZone];
+      if (this.selectedLineup != null) return [this.zones.find(x=>x.ZoneId == this.selectedLineup.TargetId)]
       return this.zones;
     },
   }
