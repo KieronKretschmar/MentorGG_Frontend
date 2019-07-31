@@ -53,11 +53,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "kills" */ './views/Kills.vue')
     },
     {
-      path: '/matches',
-      name: 'matches',
-      component: () => import(/* webpackChunkName: "matches" */ './views/Matches.vue')
-    },
-    {
       path: '/privacy-policy',
       name: 'privacy-policy',
       component: () => import(/* webpackChunkName: "privacypolicy" */ './views/PrivacyPolicy.vue')

@@ -51,9 +51,9 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Toggle Trajectories</button>
+            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
             <div v-if="zonesEnabled">
-              <button class="button-variant-bordered" @click="SetDetailView()">Toggle Lineups</button>
+              <button class="button-variant-bordered" :class="{active: !detailView}" @click="SetDetailView">Lineups</button>
             </div>
 
             <div class="team-select">
@@ -285,7 +285,7 @@
               <div v-show="!selectedLineup">
                 Select a Lineup to see how it's done!
               </div>
-              <div v-if="selectedLineup && selectedLineup.Setpos != ''">
+              <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.Setpos != ''">
                 <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly>
                 <button id="setpos-copy" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Copy to clipboard" @click="CopyTextToClipboard(selectedLineup.Setpos)">
                   <i class="material-icons" >file_copy</i>
@@ -485,7 +485,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "@/assets/scss/sidebar.scss";
+
 .view-smokes {
   margin-top: 40px;
 }
@@ -493,10 +495,11 @@ export default {
 .performances {
   display: flex;
   flex-direction: row;
+  margin: 0 -10px;
 
   .performance {
     width: calc(100% / 7);
-    margin-right: 20px;
+    margin: 0 10px;
     background-position: center;
     background-size: cover;
     position: relative;
@@ -608,7 +611,7 @@ export default {
   margin-top: 20px;
 
   .l {
-    width: 65%;
+    width: calc(70% - 20px);
     // display: flex;
     align-items: center;
     justify-content: space-between;
@@ -617,6 +620,10 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+
+      > button {
+        margin-right: 20px;
+      }
     }
 
     .team-select {
@@ -650,16 +657,12 @@ export default {
 
     .match-count-select {
       width: 100%;
-      max-width: 400px;
+      // max-width: 400px;
     }
   }
 
   .r {
     width: 30%;
-  }
-    
-  .sidebar{
-    color: white;
   }
 }
 </style>
