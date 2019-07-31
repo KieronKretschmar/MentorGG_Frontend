@@ -20,7 +20,7 @@
         </p>
 
         <h2>Disclaimer</h2>
-        <p>mentor.gg is not associated or affiliated with Valve Corporation in any way.</p>
+        <p>MENTOR.GG is not associated or affiliated with Valve Corporation in any way.</p>
         <p>The radar maps are kindly provided by simpleradar.com</p>
       </div>
     </div>
