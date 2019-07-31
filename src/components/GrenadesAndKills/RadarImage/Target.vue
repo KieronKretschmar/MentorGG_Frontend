@@ -14,12 +14,12 @@ export default {
     "zoneType",
     "zoneData",
     "SetSelectedZone",
-    "scaleFactor",
+    "zoomFactor",
   ],
   data(){
       return {
-        width : 50 * this.scaleFactor,
-        height : 50 * this.scaleFactor,
+        width : 100 * this.zoomFactor,
+        height : 100 * this.zoomFactor,
       }
   },
   computed: {
@@ -38,7 +38,7 @@ export default {
 
 <style>
 polyline {
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-opacity: 0.5;
   stroke: white;
 }

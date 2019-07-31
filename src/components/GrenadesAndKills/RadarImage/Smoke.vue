@@ -44,11 +44,11 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 5 * this.zoomFactor;
+      return 10 * this.zoomFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 40 * this.zoomFactor;
+      return 80 * this.zoomFactor;
     },
     trajectory() {
       var trajectoryString = "";
@@ -69,7 +69,7 @@ export default {
   }
 
   .trajectory {
-    stroke-width: 1.5px;
+    stroke-width: 3.0px;
     fill: none;
     /* stroke-dasharray: 5, 3; */
     stroke: #ffffff;

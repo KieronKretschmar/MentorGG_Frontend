@@ -1,7 +1,7 @@
 <template>
   <svg
     v-if="this.mapInfo.CropOffsets"
-    :viewBox="viewBox"
+    :viewBox="'0 0 2000 2000'"
     id="svgView"
     xmlns="http://www.w3.org/2000/svg"
     width="100%"
@@ -18,8 +18,8 @@
         alt="Map Radar"
         x="0"
         y="0"
-        width="1024"
-        height="1024"
+        :width="imageSize"
+        :height="imageSize"
       />
 
 
@@ -93,7 +93,7 @@
           :zoneData="zoneData"
           :SetSelectedZone="SetSelectedZone"
           :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-          :scaleFactor="1"
+          :zoomFactor="1"
         />
       </g>
 
@@ -144,6 +144,7 @@ export default {
   data() {
     return {
       zoomFactor: 1,
+      imageSize: 2000,
     };
   },
   props: [
@@ -175,6 +176,13 @@ export default {
   },
   computed: {
     viewBox() {
+      console.log(this.mapInfo.CropOffsets.MinX +
+        " " +
+        this.mapInfo.CropOffsets.MinY +
+        " " +
+        (this.mapInfo.CropOffsets.MaxX - this.mapInfo.CropOffsets.MinX) +
+        " " +
+        (this.mapInfo.CropOffsets.MaxY - this.mapInfo.CropOffsets.MinY));
       return (
         this.mapInfo.CropOffsets.MinX +
         " " +

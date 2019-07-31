@@ -64,14 +64,14 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 5 * this.zoomFactor;
+      return 10 * this.zoomFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 40 * this.zoomFactor;
+      return 80 * this.zoomFactor;
     },
     victimRadius() {
-      return 5 * this.zoomFactor;
+      return 10 * this.zoomFactor;
     },
     damageDealtToEnemies() {
       if (this.grenadeData.Victims.filter(x => !x.TeamAttack).length == 0) {
@@ -99,7 +99,7 @@ export default {
   }
 
   .trajectory {
-    stroke-width: 1.5px;
+    stroke-width: 3.0px;
     fill: none;
     /* stroke-dasharray: 5, 3; */
     stroke: #ffffff;
@@ -115,7 +115,7 @@ export default {
     }
 
     &.lethal {
-      stroke-width: 1.5px;
+      stroke-width: 3.0px;
       stroke: $success-color;
       &.team-attack {
         stroke: $failure-color;

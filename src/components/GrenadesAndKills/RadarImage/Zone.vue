@@ -43,13 +43,13 @@ export default {
 
 <style>
 polyline {
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-opacity: 0.5;
   stroke: white;
 }
 polyline.selected{
   fill:none;
-  stroke-width: 4px;
+  stroke-width: 8px;
   stroke-opacity: 1;
 }
 </style>

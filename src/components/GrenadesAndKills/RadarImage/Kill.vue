@@ -32,7 +32,7 @@ export default {
   ],
   computed: {
     userRadius() {
-      return 5 * this.zoomFactor;
+      return 10 * this.zoomFactor;
     },
     killConnection() {
       return (
@@ -66,7 +66,7 @@ export default {
   }
 
   .connection {
-    stroke-width: 1.5px;
+    stroke-width: 3.0px;
     fill: none;
     stroke: white;
     opacity: 1;
