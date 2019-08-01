@@ -4,7 +4,7 @@
       <div class="fixed-width-container">
         <div class="l">
           <img src="@/assets/logo_fullgray.svg" />
-          <span>&copy; {{ new Date().getFullYear() }} — mentor.gg</span>
+          <span>&copy; {{ new Date().getFullYear() }} — MENTOR.GG</span>
         </div>
         <div class="r">
           <router-link to="/terms-of-service">Terms Of Service</router-link>

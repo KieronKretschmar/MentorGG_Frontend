@@ -216,13 +216,13 @@
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
-                <div class="stat-row">
+                <!-- <div class="stat-row">
                   <div class="stat-description">Hier könnte man theoretisch noch sowas hin wie:</div>
                   <div class="stat-content">
                     "Tell us if you want additional information about this
                     {{selectedSample.UserWinner ? "Kill" : "Death"}}!"
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div v-if="selectedZone" class="selected-sample-stats">
@@ -233,7 +233,18 @@
                   <div class="stat-description">K/D ratio</div>
                   <div class="stat-content">
                     {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}}
-                    ({{userSelectedZonePerformance.Kills}} Kills / {{userSelectedZonePerformance.Deaths}} Deaths)
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">Kills</div>
+                  <div class="stat-content">
+                    {{userSelectedZonePerformance.Kills}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">Deaths</div>
+                  <div class="stat-content">
+                    {{userSelectedZonePerformance.Deaths}}
                   </div>
                 </div>
                 <div class="stat-row">
@@ -305,6 +316,7 @@ export default {
   mounted() {
     this.LoadKillsOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
     this.LoadKills(this.activeMap, 10);
+    this.loadDebug();
   },
   methods: {
     LoadKillsOverviews(matchCount) {
@@ -328,6 +340,11 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+      });
+    },
+        
+    loadDebug() {
+      this.$api.getDebug().then(response => {
       });
     },
     OnShowTrajectories: function() {
