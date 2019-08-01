@@ -156,6 +156,15 @@ class MentorGGAPI {
             }
         });
     }
+    
+    // recentMatches are currently ignored
+    getPlayerStats() {
+        return axios.get(this.apiEndpoint + 'Stats/Player', {
+            params: {
+                playerId: this.steamId,
+            }
+        });
+    }
 }
 
 export default new MentorGGAPI();

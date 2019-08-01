@@ -107,6 +107,18 @@ export default {
       }
     ];
   },
+  mounted() {
+    this.LoadPlayerStats();
+  },
+  methods: {
+    LoadPlayerStats() {
+      this.$api.getPlayerStats().then(response => {
+        // console.log(response.data)
+        this.playerStats = response.data.PlayerStats;
+        this.playerStatsList = response.data.PlayerStatsList;
+      });
+    },
+  },
   data() {
     return {
       sections: []
