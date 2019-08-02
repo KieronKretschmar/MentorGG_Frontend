@@ -292,9 +292,10 @@
                 </button>
               </div>
               <div v-if="selectedLineup && selectedLineup.Images && selectedLineup.Thumbnails">
-                Images: {{selectedLineup.Images}}
-                Thumbnails: {{selectedLineup.Thumbnails}}
-
+                <LightBox :images="lineupImages" :show-light-box="false" ref="lightbox"></LightBox>
+                <div class="image-list">
+                  <img :src="lineupImages[0].src" @click="OpenLightbox">
+                </div>
               </div>
             </div>
           </div>
@@ -310,6 +311,8 @@ import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue"
 import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
 import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
 import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
+import LightBox from 'vue-image-lightbox'
+require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 
 export default {
   components: {
@@ -318,6 +321,7 @@ export default {
     Lineup,
     Target,
     Smoke,
+    LightBox
   },
   data() {
     return {
@@ -433,6 +437,9 @@ export default {
       }
 
       document.body.removeChild(textArea);
+    },
+    OpenLightbox(e) {
+      this.$refs.lightbox.showImage(0);
     }
   },
   computed: {
@@ -482,6 +489,25 @@ export default {
       if (this.selectedLineup != null) return [this.zones.find(x=>x.ZoneId == this.selectedLineup.TargetId)]
       return this.zones;
     },
+    lineupImages() {
+      let ret = [];
+      if ( this.selectedLineup == null ) {
+        return ret;
+      }
+
+      if ( this.selectedLineup.Images.length != this.selectedLineup.Thumbnails.length ) {
+        return ret;
+      }
+
+      for ( let i = 0; i < this.selectedLineup.Images.length; i++ ) {
+        ret.push({
+          src: this.$api.resolveResource('~' + this.selectedLineup.Images[i]),
+          thumb: this.$api.resolveResource('~' + this.selectedLineup.Thumbnails[i])
+        });
+      }
+
+      return ret;
+    }
   }
 };
 </script>

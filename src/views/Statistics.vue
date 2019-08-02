@@ -3,11 +3,13 @@
     <ProfileHeader />
     <div class="fixed-width-container">
       <div class="bordered-box">
-        <button class="button-variant-bordered" :class="{active: referenceUnit=='global'}" @click="referenceUnit='global'">Total</button>
-        <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
+        <div class="controls">
+          <button class="button-variant-bordered" :class="{active: referenceUnit=='global'}" @click="referenceUnit='global'">Total</button>
+          <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
+        </div>
 
-        <div v-if="playerStats" class="statistics-container">
-          <div v-for="section in sections" :key="section.name" class="statistic">
+        <div v-if="playerStats" class="statistics-container" v-masonry>
+          <div v-for="section in sections" :key="section.name" class="statistic" v-masonry-tile>
             <p class="title">{{ section.name }}</p>
             <ul class="statistic-entries">
               <li v-for="entry in section.entries" :key="entry.name">
@@ -25,6 +27,7 @@
 
 <script>
 import ProfileHeader from "@/components/ProfileHeader.vue";
+
 
 export default {
   components: {
@@ -297,6 +300,13 @@ export default {
   .bordered-box {
     margin-top: -64px;
     padding: 10px 0;
+
+    .controls {
+      padding: 10px 20px;
+      button {
+        margin-right: 20px;
+      }
+    }
   }
 
   .statistics-container {
@@ -306,12 +316,26 @@ export default {
     .statistic {
       width: calc(33.33%);
       padding: 0 20px;
-      margin-top: 10px;
+      //margin-top: 10px;
 
       .title {
-        color: white;
+        color: $dark-4;
         font-weight: 700;
         font-size: 1.125rem;
+        height: 48px;
+        margin: 0;
+        line-height: 48px;
+        position: relative;
+
+        &:after {
+          content: '';
+          background: $orange;
+          height: 1px;
+          width: 100%;
+          top: 40px;
+          left: 0;
+          position: absolute;
+        }
       }
 
       .statistic-entries {

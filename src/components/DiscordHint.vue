@@ -9,7 +9,7 @@
 .discord-hint {
   height: 54px;
   position: fixed;
-  left: -1px;
+  right: -1px;
   top: 50%;
   margin-top: -27px;
   display: flex;
@@ -26,7 +26,7 @@
 
   img {
     width: 40px;
-    margin-right: 8px;
+    margin-right: 8px;    
   }
 
   &:hover {

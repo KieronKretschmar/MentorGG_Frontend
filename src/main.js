@@ -6,8 +6,12 @@ import mentorGGAPI from './mentorggapi';
 import helpers from './helpers';
 import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
+import {VueMasonryPlugin} from 'vue-masonry';
+import VueLazyLoad from 'vue-lazyload'
 
 Vue.config.productionTip = false;
+Vue.use(VueMasonryPlugin);
+Vue.use(VueLazyLoad);
 
 Vue.prototype.$authManager = authManager;
 Vue.prototype.$api = mentorGGAPI;

@@ -17,3 +17,8 @@ $failure-color:$red;
 
 //vars
 $container-width: 1170px;
+
+//lightbox fix
+.vue-lb-container {
+    z-index: 9999 !important;
+}
