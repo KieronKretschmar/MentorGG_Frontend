@@ -12,6 +12,9 @@
       <router-link to="/kills">Kills</router-link>
       <router-link to="/statistics">Statistics</router-link>
     </div>
+    <div class="">
+      <button class="button-variant-filled" @click="OnLogout">Logout</button>
+    </div>
     <div class="r">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
     </div>
@@ -24,6 +27,10 @@ export default {
   methods: {
     OnUploadMatches: function() {
       this.$router.push({name: 'downloads'});
+    },
+    OnLogout: function() {
+      sessionStorage.removeItem('.AspNet.ApplicationCookie')
+      window.location.href('http://localhost:58071')
     }
   }
 };
