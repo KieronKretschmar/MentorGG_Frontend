@@ -2,9 +2,10 @@ import axios from 'axios';
 
 class MentorGGAPI {
     constructor() {
-        this.apiEndpoint = 'https://test.mentor.gg/api/';
-        // this.apiEndpoint = 'http://localhost:58071/api/';
-        // this.apiEndpoint = document.location.origin + '/api/';
+        // this.mvcEndpoint = document.location.origin + '/';
+        this.mvcEndpoint = 'https://test.mentor.gg/';
+        // this.mvcEndpoint = 'http://localhost:58071/';
+        this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
         // this.steamId = '76561198166019050'; //felix
         this.steamId = '76561198033880857'; //kieron
@@ -12,6 +13,14 @@ class MentorGGAPI {
 
     resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
+    }
+    
+    getFaceitStatus() {
+        return axios.get(this.apiEndpoint + 'User/FaceitStatus', {
+            params: {
+                playerId: this.steamId
+            }
+        });
     }
 
     getPlayerInfo() {
@@ -164,6 +173,20 @@ class MentorGGAPI {
             }
         });
     }    
+
+    postRefreshFaceit(){
+        return axios.post(this.mvcEndpoint + 'Account/RefreshFaceit', {
+            params: {
+            }
+        });
+    }
+    
+    postRemoveFaceit(){
+        return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
+            params: {
+            }
+        });
+    }
 }
 
 export default new MentorGGAPI();

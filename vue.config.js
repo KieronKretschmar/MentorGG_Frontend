@@ -9,5 +9,10 @@ module.exports = {
     },
     devServer: {
         host: 'localhost'
+    },
+    configureWebpack: {
+        externals: {
+            faceit: 'FACEIT'
+        }
     }
 };

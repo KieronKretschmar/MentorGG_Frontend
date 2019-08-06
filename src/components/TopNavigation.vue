@@ -13,7 +13,13 @@
       <router-link to="/statistics">Statistics</router-link>
     </div>
     <div class="">
-      <button class="button-variant-filled" @click="OnLogout">Logout</button>
+    <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
+    <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
+      <button type="submit" class="button-variant-filled">
+        Log out
+      </button>
+    </form>
+      <!-- <button class="button-variant-filled" @click="OnLogout">Logout</button> -->
     </div>
     <div class="r">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
@@ -26,7 +32,7 @@ export default {
   mounted() {},
   methods: {
     OnUploadMatches: function() {
-      this.$router.push({name: 'downloads'});
+      this.$router.push({name: 'upload'});
     },
     OnLogout: function() {
       sessionStorage.removeItem('.AspNet.ApplicationCookie')

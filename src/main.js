@@ -8,6 +8,7 @@ import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
 import {VueMasonryPlugin} from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload'
+// import FACEIT from 'faceit';
 
 Vue.config.productionTip = false;
 Vue.use(VueMasonryPlugin);
@@ -17,6 +18,7 @@ Vue.prototype.$authManager = authManager;
 Vue.prototype.$api = mentorGGAPI;
 Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
+// Vue.prototype.$FACEIT = FACEIT;
 
 Vue.component('AjaxLoader', AjaxLoader);
 

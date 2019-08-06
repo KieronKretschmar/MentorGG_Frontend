@@ -248,7 +248,7 @@
                   </div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">Damage per Death::</div>
+                  <div class="stat-description">Damage per Death</div>
                   <div
                     class="stat-content"
                   >{{(userSelectedZonePerformance.Damage / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(0)}}</div>
