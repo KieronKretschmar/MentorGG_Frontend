@@ -128,7 +128,7 @@ export default {
       demoviewer.matchId = match.MatchId;
       demoviewer.Show();
 
-      this.$api.getDVMatch(match.MatchId, 3).then(response => {
+      this.$api.getDVMatch(match.MatchId, 1).then(response => {
         demoviewer.UpdateData(response.data);
         demoviewer.Finalize();
       });

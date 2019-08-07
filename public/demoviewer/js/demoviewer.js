@@ -422,9 +422,7 @@ function __DemoViewer() {
             var ret = { Primary: null, Pistol: null };
 
             for( var equipmentId in inventory ) {
-                console.log(equipmentId);
                 var eq = self.Helper.GetEquipmentInfo(equipmentId);
-                console.log(eq);
                 if (eq.WeaponClass == 'Pistol') {
                     ret.Pistol = eq.Type;
                     continue;

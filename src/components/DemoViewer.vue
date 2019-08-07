@@ -161,7 +161,6 @@ export default {
           self.Cleanup();
           self.$api.getDVRound(self.matchId, roundNum).then(result => {
               DemoViewer.Data.Round = result.data;
-              console.log("data", result.data);
               self.UpdateData(DemoViewer.Data);
               self.Finalize();
           });
