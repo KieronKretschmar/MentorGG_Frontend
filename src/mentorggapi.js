@@ -172,6 +172,24 @@ class MentorGGAPI {
             }
         });
     }
+
+    getDVRound(matchId, round) {
+        return axios.get(this.apiEndpoint + 'DemoViewer/Round', {
+            params: {
+                matchId: matchId,
+                round: round
+            }
+        });
+    }
+
+    getDVMatch(matchId, round) {
+        return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
+            params: {
+                matchId: matchId,
+                round: round
+            }
+        });
+    }
     
     getPlayerStats() {
         return axios.get(this.apiEndpoint + 'Stats/Player', {

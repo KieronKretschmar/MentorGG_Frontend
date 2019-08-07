@@ -12,6 +12,7 @@
       <Footer />
     </footer>
     <DiscordHint />
+    <DemoViewer ref="demoviewer" />
   </div>
 </template>
 
@@ -19,6 +20,7 @@
 import TopNavigation from "@/components/TopNavigation.vue";
 import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
+import DemoViewer from "@/components/DemoViewer.vue";
 
 export default {
   name: "App",
@@ -26,7 +28,8 @@ export default {
   components: {
     TopNavigation,
     Footer,
-    DiscordHint
+    DiscordHint,
+    DemoViewer
   },
   data() {
     return {
@@ -43,6 +46,10 @@ export default {
 body {
   margin: 0;
   overflow-y: scroll;
+
+  &.no-scroll {
+    overflow-y: hidden;
+  }
 }
 
 header {
@@ -72,5 +79,6 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
 }
 </style>
