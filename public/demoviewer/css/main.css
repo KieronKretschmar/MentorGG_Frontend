@@ -1,0 +1,679 @@
+.weapon-font {
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #05040a;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+.scrollbar-outer > .scroll-element .scroll-element_track {
+  background: #262637;
+}
+.scrollbar-outer > .scroll-element .scroll-bar,
+.scrollbar-outer > .scroll-element .scroll-element_outer,
+.scrollbar-outer > .scroll-element .scroll-element_track {
+  border-radius: 0;
+}
+.scrollbar-outer > .scroll-element.scroll-y .scroll-element_outer {
+  left: 0px;
+  width: 6px;
+}
+.scrollbar-outer > .scroll-element.scroll-y {
+  width: 6px;
+}
+.scrollbar-outer > .scroll-element .scroll-bar {
+  background-color: #4d5773;
+}
+.scrollbar-outer > .scroll-content.scroll-scrolly_visible {
+  left: 0;
+  margin-left: 0;
+}
+#mgg-demo-viewer {
+  display: flex;
+  width: 100%;
+}
+#mgg-demo-viewer .scrollbar-outer {
+  width: 100%;
+}
+#mgg-demo-viewer #pl {
+  max-height: 100vh;
+}
+#mgg-demo-viewer #pr {
+  background: #0e0c15;
+  width: 100% !important;
+  max-height: 100vh;
+}
+#mgg-demo-viewer #pr #rd-next,
+#mgg-demo-viewer #pr #rd-prev {
+  color: white;
+  margin: 0 20px;
+  cursor: pointer;
+  transition: 0.75s all;
+  font-size: 24px;
+}
+#mgg-demo-viewer #pr #rd-next:hover,
+#mgg-demo-viewer #pr #rd-prev:hover {
+  color: #e05658;
+}
+#mgg-demo-viewer #pr #round-display-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+#mgg-demo-viewer #pr #round-display {
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
+  color: white;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  text-align: center;
+}
+#mgg-demo-viewer #pr #round-display .round-entry {
+  position: relative;
+  height: 50px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 30px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner] {
+  cursor: pointer;
+  transition: 0.75s all;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner]:hover {
+  color: #e05658;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.final-result,
+#mgg-demo-viewer #pr #round-display .round-entry.round-switch {
+  position: relative;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.final-result span,
+#mgg-demo-viewer #pr #round-display .round-entry.round-switch span {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.final-result span:first-child,
+#mgg-demo-viewer #pr #round-display .round-entry.round-switch span:first-child {
+  top: -22px;
+  left: 0;
+  color: #007cc8;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.final-result span:last-child,
+#mgg-demo-viewer #pr #round-display .round-entry.round-switch span:last-child {
+  top: 22px;
+  left: 0;
+  color: #e5a500;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.past:after {
+  position: absolute;
+  right: -6px;
+  content: "";
+  background: #4d5773;
+  height: 1px;
+  width: 12px;
+  top: 9px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry.active {
+  color: #e05658;
+  font-weight: bold;
+}
+#mgg-demo-viewer #pr #round-display .round-entry:before {
+  font-size: 16px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner="3"]:before {
+  left: 0;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: -22px;
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  color: #007cc8;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner="2"]:before {
+  left: 0;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  color: #e5a500;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner="2"][data-win-type="0"]:before,
+#mgg-demo-viewer #pr #round-display .round-entry[data-winner="2"][data-win-type="1"]:before {
+  margin-top: 2px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="0"]:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f54c";
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="1"]:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f017";
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="2"]:before {
+  content: "a";
+  font-size: 20px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="3"]:before {
+  content: "j";
+  font-size: 20px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="4"]:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f183";
+  font-size: 16px;
+}
+#mgg-demo-viewer #pr #round-display .round-entry[data-win-type="5"]:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f024";
+  font-size: 16px;
+}
+#mgg-demo-viewer #pr #round-select {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+#mgg-demo-viewer #pr #round-select #round-num {
+  margin: 0 10px;
+  border-bottom: 1px solid #4d5773;
+  padding-bottom: 10px;
+  cursor: pointer;
+  position: relative;
+  width: 180px;
+}
+#mgg-demo-viewer #pr #round-select #round-num .fas {
+  font-size: 14px;
+  top: 3px;
+  float: right;
+}
+#mgg-demo-viewer #pr #round-select #round-num .text-cur:before {
+  content: 'Round ';
+}
+#mgg-demo-viewer #pr #round-select #round-num .text-cur:after {
+  content: '/';
+}
+#mgg-demo-viewer #pr #round-select #round-num .text-max {
+  margin-left: -2px;
+}
+#mgg-demo-viewer #pr #round-select #round-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: #1b1c28;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  z-index: 1;
+  height: 200px;
+  overflow-y: scroll;
+  display: none;
+}
+#mgg-demo-viewer #pr #round-select #round-list li {
+  text-align: right;
+  transition: 0.75s all;
+  padding: 3px 20px;
+}
+#mgg-demo-viewer #pr #round-select #round-list li:hover {
+  background: #0e0c15;
+}
+#mgg-demo-viewer #pr #round-select .fas {
+  font-size: 26px;
+  position: relative;
+  top: -6px;
+  cursor: pointer;
+}
+#mgg-demo-viewer #pr #team-display {
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 0 50px;
+}
+#mgg-demo-viewer #pr #team-display .wrapper {
+  padding: 20px 0;
+  border-top: 1px solid #262637;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#mgg-demo-viewer #pr #team-display .score {
+  font-size: 26px;
+  font-weight: bold;
+}
+#mgg-demo-viewer #pr #table-header {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  text-align: center;
+}
+#mgg-demo-viewer #pr #table-header .push-left {
+  width: 45%;
+}
+#mgg-demo-viewer #pr #table-header .money {
+  width: 5%;
+  margin-right: 3%;
+}
+#mgg-demo-viewer #pr #table-header .kills,
+#mgg-demo-viewer #pr #table-header .deaths,
+#mgg-demo-viewer #pr #table-header .assists {
+  width: 5%;
+}
+#demo-view {
+  border-right: 1px solid #333;
+  width: 800px;
+  height: 800px;
+  background-size: cover;
+  position: relative;
+}
+#demo-view #round-time {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  top: 20px;
+  left: 20px;
+  position: absolute;
+}
+#demo-view #round-time p {
+  margin: 0;
+}
+#demo-view #round-time div {
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 26px;
+  color: #e05658;
+  display: none;
+}
+#demo-view #round-time span {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+#demo-view #kill-feed {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+}
+#demo-view #kill-feed .kill {
+  display: flex;
+  align-items: center;
+  background: #1b1c28;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  align-self: flex-end;
+}
+#demo-view #kill-feed .kill .player,
+#demo-view #kill-feed .kill .victim,
+#demo-view #kill-feed .kill .assister {
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+}
+#demo-view #kill-feed .kill .player[team="ct"],
+#demo-view #kill-feed .kill .victim[team="ct"],
+#demo-view #kill-feed .kill .assister[team="ct"] {
+  color: #007cc8;
+}
+#demo-view #kill-feed .kill .player[team="t"],
+#demo-view #kill-feed .kill .victim[team="t"],
+#demo-view #kill-feed .kill .assister[team="t"] {
+  color: #e5a500;
+}
+#demo-view #kill-feed .kill .weapon {
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  color: white;
+  font-size: 12px;
+  margin: 0 10px;
+}
+#demo-player {
+  background: #0e0c15;
+  border-right: 1px solid #333;
+  padding: 0 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+#demo-player #btn-pause {
+  display: none;
+  cursor: pointer;
+}
+#demo-player #btn-play {
+  cursor: pointer;
+}
+#demo-player .time-display {
+  margin-left: 20px;
+  color: white;
+  font-weight: 500;
+  width: 100px;
+  font-size: 14px;
+}
+#demo-player #btn-fullscreen {
+  cursor: pointer;
+}
+#demo-player #btn-settings {
+  cursor: pointer;
+  margin: 0 20px;
+  position: relative;
+}
+#demo-player #btn-settings .options {
+  position: absolute;
+  display: none;
+  bottom: 20px;
+  left: 20px;
+  background: #0e0c15;
+  padding: 20px;
+  -webkit-box-shadow: -1px 0px 14px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 0px 14px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 0px 14px -2px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+  z-index: 999;
+}
+#demo-player #btn-settings .options ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#demo-player #btn-settings .options ul li {
+  padding: 5px;
+}
+#demo-player .fas {
+  font-size: 20px;
+}
+.range-wrapper {
+  width: 70%;
+  margin-left: 20px;
+  position: relative;
+  height: 44px;
+  overflow: hidden;
+}
+.range-wrapper .event-kill {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  pointer-events: none;
+}
+.range-wrapper .event-kill[team="ct"] {
+  background: #007cc8;
+}
+.range-wrapper .event-kill[team="t"] {
+  background: #e5a500;
+}
+.range-wrapper .event-bomb-plant {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  margin-top: -12px;
+  margin-left: -12px;
+  background: #d90000;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
+  pointer-events: none;
+}
+.range-wrapper .event-bomb-plant:before,
+.range-wrapper .event-bomb-plant:after {
+  position: absolute;
+  left: 50%;
+  background: #d90000;
+  content: "";
+  height: 10px;
+  width: 2px;
+  top: -10px;
+  margin-left: -1px;
+}
+.range-wrapper .event-bomb-plant:after {
+  top: 24px;
+}
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 44px;
+  background: #1b1c28;
+  outline: none;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3px;
+  height: 44px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  z-index: 999;
+}
+.slider::-moz-range-thumb {
+  width: 3px;
+  height: 44px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  z-index: 999;
+}
+#player-list .t {
+  border-top: 1px solid #e5a500;
+}
+#player-list .t li:nth-child(2n) {
+  background: #1b1c28;
+}
+#player-list .t li .hp-name-eq .hp-bar {
+  background: #e5a500;
+}
+#player-list .ct {
+  border-top: 1px solid #007cc8;
+}
+#player-list .ct li:nth-child(2n+1) {
+  background: #1b1c28;
+}
+#player-list .ct li .hp-name-eq .hp-bar {
+  background: #007cc8;
+}
+#player-list .ct,
+#player-list .t {
+  padding: 0;
+  margin: 0;
+}
+#player-list .ct li,
+#player-list .t li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#player-list .ct li[alive="false"] .hp-name-eq .hp-name,
+#player-list .t li[alive="false"] .hp-name-eq .hp-name {
+  background: #09121f;
+}
+#player-list .ct li[alive="false"] .hp-name-eq .hp-name .hp:before,
+#player-list .t li[alive="false"] .hp-name-eq .hp-name .hp:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f54c";
+  margin-left: 3px;
+}
+#player-list .ct li[alive="false"] .hp-name-eq .eq div span,
+#player-list .t li[alive="false"] .hp-name-eq .eq div span {
+  color: transparent;
+}
+#player-list .ct li[alive="false"] .main span,
+#player-list .t li[alive="false"] .main span {
+  color: transparent !important;
+}
+#player-list .ct li .hp-name-eq,
+#player-list .t li .hp-name-eq {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+#player-list .ct li .hp-name-eq .hp-bar,
+#player-list .t li .hp-name-eq .hp-bar {
+  transition: 0.35s all;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#player-list .ct li .hp-name-eq .hp-name,
+#player-list .t li .hp-name-eq .hp-name {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 7px 20px;
+  color: white;
+  font-weight: 500;
+}
+#player-list .ct li .hp-name-eq .hp-name .hp,
+#player-list .t li .hp-name-eq .hp-name .hp {
+  width: 20%;
+  position: relative;
+}
+#player-list .ct li .hp-name-eq .hp-name .name,
+#player-list .t li .hp-name-eq .hp-name .name {
+  position: relative;
+}
+#player-list .ct li .hp-name-eq .eq,
+#player-list .t li .hp-name-eq .eq {
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  color: white;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(1),
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(1),
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(2),
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(2) {
+  font-size: 30px;
+  margin-right: 5px;
+}
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(1).inactive,
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(1).inactive,
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(2).inactive,
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(2).inactive {
+  color: transparent;
+}
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(2).inactive,
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(2).inactive {
+  color: transparent;
+}
+#player-list .ct li .hp-name-eq .eq div:first-child span:nth-child(3),
+#player-list .t li .hp-name-eq .eq div:first-child span:nth-child(3) {
+  font-size: 24px;
+  margin-left: 15px;
+}
+#player-list .ct li .hp-name-eq .eq span,
+#player-list .t li .hp-name-eq .eq span {
+  color: #66747f;
+  font-size: 24px;
+  margin-right: 5px;
+}
+#player-list .ct li .hp-name-eq .eq span.active,
+#player-list .t li .hp-name-eq .eq span.active {
+  color: white;
+}
+#player-list .ct li .main,
+#player-list .t li .main {
+  font-family: 'csgo_icons';
+  font-weight: normal;
+  font-style: normal;
+  color: white;
+  font-size: 30px;
+  width: 20%;
+  text-align: center;
+}
+#player-list .ct li .main span,
+#player-list .t li .main span {
+  color: #66747f;
+}
+#player-list .ct li .main span.active,
+#player-list .t li .main span.active {
+  color: white;
+}
+#player-list .ct li .money,
+#player-list .t li .money {
+  font-weight: 500;
+  margin-right: 3%;
+  text-align: center;
+  width: 10%;
+}
+#player-list .ct li .money .wrapper,
+#player-list .t li .money .wrapper {
+  margin: 0 auto;
+  display: inline-block;
+  text-align: right;
+}
+#player-list .ct li .money .spent,
+#player-list .t li .money .spent {
+  color: #e05658;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+#player-list .ct li .money .spent:before,
+#player-list .t li .money .spent:before {
+  content: "-$";
+}
+#player-list .ct li .money .current,
+#player-list .t li .money .current {
+  color: white;
+}
+#player-list .ct li .money .current:before,
+#player-list .t li .money .current:before {
+  content: "$";
+}
+#player-list .ct li .kills,
+#player-list .t li .kills,
+#player-list .ct li .assists,
+#player-list .t li .assists,
+#player-list .ct li .deaths,
+#player-list .t li .deaths {
+  width: 5%;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+#player-icon,
+#player-entry-template {
+  display: none;
+}

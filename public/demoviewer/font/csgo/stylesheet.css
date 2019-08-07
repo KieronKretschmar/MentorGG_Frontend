@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'csgo_icons';
+    src: url('csgo_icons.eot');
+    src: url('csgo_icons.eot?#iefix') format('embedded-opentype'),
+        url('csgo_icons.woff2') format('woff2'),
+        url('csgo_icons.woff') format('woff'),
+        url('csgo_icons.ttf') format('truetype'),
+        url('csgo_icons.svg#csgo_icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+

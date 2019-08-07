@@ -18,6 +18,7 @@ Vue.prototype.$authManager = authManager;
 Vue.prototype.$api = mentorGGAPI;
 Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
+Vue.prototype.$app = App;
 // Vue.prototype.$FACEIT = FACEIT;
 
 Vue.component('AjaxLoader', AjaxLoader);
@@ -31,5 +32,5 @@ Vue.filter('formatDate', function (val) {
 
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App)  
 }).$mount('#app');

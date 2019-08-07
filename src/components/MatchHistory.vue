@@ -41,6 +41,9 @@
           </div>
 
           <div class="right">
+
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="WatchMatch(match)">videocam</i>
+
             <button
               class="button-variant-bordered"
               @click="ToggleMatchVisibility(match)"
@@ -100,6 +103,7 @@
 </template>
 
 <script>
+import DemoViewerVue from './DemoViewer.vue';
 export default {
   components: {},
   mounted() {
@@ -116,6 +120,18 @@ export default {
     ToggleMatchVisibility: function(match) {
       match.IsVisible = !match.IsVisible;
       this.$forceUpdate();
+    },
+    WatchMatch: function(match) {
+
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.loadingData = true;
+      demoviewer.matchId = match.MatchId;
+      demoviewer.Show();
+
+      this.$api.getDVMatch(match.MatchId, 3).then(response => {
+        demoviewer.UpdateData(response.data);
+        demoviewer.Finalize();
+      });
     },
     LoadAppendMatches: function(count) {
       this.loadingMatches = true;
@@ -286,6 +302,20 @@ export default {
         }
 
         .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
         }
       }
 
