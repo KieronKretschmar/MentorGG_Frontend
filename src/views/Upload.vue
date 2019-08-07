@@ -103,8 +103,8 @@ export default {
 
     // Activate FACEIT
     var initParams = {
-        // client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
-        client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
+        client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
+        // client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
         response_type: 'code',
         state: '', //informationYouWantPassedToTheRedirectUri
         redirect_popup: false,
@@ -128,7 +128,8 @@ export default {
       console.log(FACEIT);
       this.$api.postRefreshFaceit().then(response => {
         console.log(response.data);
-        this.faceitJustRefreshed = true;
+        if(response.data.status == "success")
+          this.faceitJustRefreshed = true;
       });
     },
     RemoveFaceit() {
