@@ -21,7 +21,6 @@ class MentorGGAPI {
             }
         });
     }
-
     
     getFaceitStatus() {
         return axios.get(this.apiEndpoint + 'User/FaceitStatus', {

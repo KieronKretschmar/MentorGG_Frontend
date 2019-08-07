@@ -25,55 +25,65 @@
 
 
       <!-- Samples -->
-      <FireNade
-        v-for="grenadeData in fireNades"
-        :key="grenadeData.Id"
-        :grenadeData="grenadeData"
-        :zoomFactor="zoomFactor"
-        :showTrajectories="showTrajectories"
-        :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-      />   
+      <g id="firenades-group">
+        <FireNade
+          v-for="grenadeData in fireNades"
+          :key="grenadeData.Id"
+          :grenadeData="grenadeData"
+          :zoomFactor="zoomFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+        />   
+      </g>
 
-      <Flash
-        v-for="grenadeData in flashGrenades"
-        :key="grenadeData.Id"
-        :grenadeData="grenadeData"
-        :zoomFactor="zoomFactor"
-        :showTrajectories="showTrajectories"
-        :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-      />
+      <g id="flashes-group">
+        <Flash
+          v-for="grenadeData in flashGrenades"
+          :key="grenadeData.Id"
+          :grenadeData="grenadeData"
+          :zoomFactor="zoomFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+        />
+      </g>
 
-      <HE
-        v-for="grenadeData in heGrenades"
-        :key="grenadeData.Id"
-        :grenadeData="grenadeData"
-        :zoomFactor="zoomFactor"
-        :showTrajectories="showTrajectories"
-        :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-      />
+      <g id="hes-group">
+        <HE
+          v-for="grenadeData in heGrenades"
+          :key="grenadeData.Id"
+          :grenadeData="grenadeData"
+          :zoomFactor="zoomFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+        />
+      </g>
 
-      <Kill
-        v-for="killData in kills"
-        :key="killData.Id"
-        :killData="killData"
-        :zoomFactor="zoomFactor"
-        :showTrajectories="showTrajectories"
-        :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==killData.Id"
-      />   
+      <g id="kills-group">
+        <Kill
+          v-for="killData in kills"
+          :key="killData.Id"
+          :killData="killData"
+          :zoomFactor="zoomFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==killData.Id"
+        />   
+      </g>
 
-      <Smoke
-        v-for="grenadeData in smokeGrenades"
-        :key="grenadeData.Id"
-        :grenadeData="grenadeData"
-        :zoomFactor="zoomFactor"
-        :showTrajectories="showTrajectories"
-        :SetSelectedSample="SetSelectedSample"
-        :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-      />
+      <g id="smokes-group">
+        <Smoke
+          v-for="grenadeData in smokeGrenades"
+          :key="grenadeData.Id"
+          :grenadeData="grenadeData"
+          :zoomFactor="zoomFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+        />
+      </g>
       
       <!-- Zones -->
       <g v-if="zoneType != 'Smoke'">
