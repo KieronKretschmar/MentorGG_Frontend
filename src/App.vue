@@ -36,7 +36,7 @@ export default {
       //TODO: Proper login + check
       isLoggedIn: true
     };
-  }
+  },
 };
 </script>
 

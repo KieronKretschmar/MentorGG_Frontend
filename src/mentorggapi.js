@@ -13,7 +13,15 @@ class MentorGGAPI {
 
     resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
+    }    
+
+    getSrcMap() {
+        return axios.get(this.apiEndpoint + 'Image/SrcMap', {
+            params: {
+            }
+        });
     }
+
     
     getFaceitStatus() {
         return axios.get(this.apiEndpoint + 'User/FaceitStatus', {

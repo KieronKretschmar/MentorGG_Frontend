@@ -316,7 +316,6 @@ export default {
   mounted() {
     this.LoadKillsOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
     this.LoadKills(this.activeMap, 10);
-    this.loadDebug();
   },
   methods: {
     LoadKillsOverviews(matchCount) {
@@ -340,11 +339,6 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
-      });
-    },
-        
-    loadDebug() {
-      this.$api.getDebug().then(response => {
       });
     },
     OnShowTrajectories: function() {

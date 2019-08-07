@@ -4,12 +4,13 @@
     :viewBox="viewBox"
     id="svgView"
     xmlns="http://www.w3.org/2000/svg"
-    width="100%"
-    height="100%"
+    
+    width="600px"
+    height="600px"
     preserveAspectRatio="xMidYMin"
     oncontextmenu="return false;"
   >
-    <g v-if="mapInfo" id="svg-child">
+    <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
         v-if="mapInfo.ImageURL"
         v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
@@ -108,13 +109,14 @@
           :fillColor="lineupPerformanceColors[lineupData.LineupId]"
         />
       </g>
-    </g>
+    <!-- </g> -->
   </svg>
 </template>
 
 
 <script>
 import svgPanZoom from 'svg-pan-zoom';
+import Vue from 'vue';
 
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
@@ -136,10 +138,6 @@ export default {
     Smoke,
   },
   mounted() {
-    // var panZoomRadar = svgPanZoom('#svgView', {
-    //   zoomScaleSensitivity: 0.6,
-    //   minZoom: 1, 
-    // });
   },
   data() {
     return {
@@ -171,6 +169,18 @@ export default {
     "kills",
     "smokeGrenades",
   ],
+  watch: {
+    // svg needs to be rendered in order to enable svgPanZoom. 
+    // svg is rendered via v-if when mapInfo is loaded, so we enable zoom one tick later
+    mapInfo: function (newVal, oldVal){
+      Vue.nextTick(function () {
+        var panZoomRadar = svgPanZoom('#svgView', {
+          zoomScaleSensitivity: 0.6,
+          minZoom: 1, 
+        });
+      })
+    }
+  },
   methods: {
   },
   computed: {
