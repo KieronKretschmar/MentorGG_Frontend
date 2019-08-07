@@ -7,8 +7,8 @@ import helpers from './helpers';
 import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
 import {VueMasonryPlugin} from 'vue-masonry';
-import VueLazyLoad from 'vue-lazyload'
-// import FACEIT from 'faceit';
+import VueLazyLoad from 'vue-lazyload';
+import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false;
 Vue.use(VueMasonryPlugin);
@@ -18,7 +18,6 @@ Vue.prototype.$authManager = authManager;
 Vue.prototype.$api = mentorGGAPI;
 Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
-// Vue.prototype.$FACEIT = FACEIT;
 
 Vue.component('AjaxLoader', AjaxLoader);
 
@@ -28,6 +27,14 @@ Vue.filter('formatDate', function (val) {
     return date.toLocaleString();
   }
 });
+
+Vue.use(VueAnalytics, {
+  id: 'UA-121787145-1', 
+  router,
+  beforeFirstHit () {
+    Vue.$ga.set('anonymizeIp', true);
+  }
+})
 
 new Vue({
   router,
