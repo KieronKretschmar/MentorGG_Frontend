@@ -43,7 +43,6 @@ export default {
   mounted() {
     this.$api.getRecentMatchData().then(response => {
       this.recentMatchStats = response.data;
-      console.log(response);
     });
   },
   data() {

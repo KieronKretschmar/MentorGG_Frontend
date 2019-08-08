@@ -327,10 +327,10 @@
                   </div>
                   <div class="stat-content-split">
                     <div class="split-left">
-                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
+                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                     
                     </div>
                     <div class="split-right">
-                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                   
+                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                   
                     </div>
                   </div>
                 </div>

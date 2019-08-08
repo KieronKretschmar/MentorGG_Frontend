@@ -4,7 +4,7 @@ class MentorGGAPI {
     constructor() {
         // this.mvcEndpoint = document.location.origin + '/';
         this.mvcEndpoint = 'https://test.mentor.gg/';
-        // this.mvcEndpoint = 'http://localhost:58071/';
+        this.mvcEndpoint = 'http://localhost:58071/';
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
         // this.steamId = '76561198166019050'; //felix
