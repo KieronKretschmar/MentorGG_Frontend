@@ -285,7 +285,7 @@
                     Total time enemies flashed:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0)}}
+                    {{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0) / 1000).toFixed(2) + "s"}}
                   </div>
                 </div>
                 <div class="stat-row">

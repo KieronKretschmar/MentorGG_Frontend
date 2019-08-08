@@ -13,6 +13,7 @@ module.exports = {
     configureWebpack: {
         externals: {
             faceit: 'FACEIT'
-        }
+        },
+        devtool: 'source-map'
     }
 };
