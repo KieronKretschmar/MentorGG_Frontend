@@ -150,7 +150,7 @@ export default {
     Finalize: function() {
       let self = this;
 
-      $("#round-display").slick("setPosition");
+      // $("#round-display").slick("setPosition");
       $(window).trigger("resize");
 
       $(".round-entry:not(.round-switch):not(.final-result)")
