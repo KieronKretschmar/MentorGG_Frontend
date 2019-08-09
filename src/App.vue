@@ -42,6 +42,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/styles.scss";
+@import "@/assets/scss/demoviewer.scss";
 
 body {
   margin: 0;
