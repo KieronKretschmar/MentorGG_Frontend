@@ -221,7 +221,6 @@ export default {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
-              console.log(this.userPerformanceData.TerroristRounds);
               let opacity = this.$performanceColors.opacityFromSampleSize(
                 0.15,
                 0.4,
@@ -229,7 +228,7 @@ export default {
                 rounds / 10
               );
 
-              let blindDuration = element.FlashDuration / element.SampleCount;
+              let blindDuration = element.TotalEnemyFlashDuration / element.SampleCount;
               zonePerformanceColors[
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
@@ -265,8 +264,8 @@ export default {
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
                 avgDamage,
-                4000,
-                500,
+                20,
+                0,
                 opacity
               );
             }
@@ -285,9 +284,9 @@ export default {
               // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
               // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, sampleCount, rounds/10)
               let opacity = 0.3;
-              let kdRatio = element.Kills / Math.max(1, sampleCount);
+              let kdRatio = element.Kills / Math.max(1, element.Deaths);
               zonePerformanceColors[zoneId] = 
-              this.$performanceColors.performanceColorGivenOpacity(kdRatio,4000,500,opacity);
+              this.$performanceColors.performanceColorGivenOpacity(kdRatio,2,0,opacity);
             }
           }
           break;

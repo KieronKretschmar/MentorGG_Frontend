@@ -112,29 +112,22 @@ export default {
     };
     FACEIT.init(initParams); // Hier habe ich Zugriff auf FACEIT
 
-    console.log(FACEIT)
-
-
     this.LoadFaceitStatus();
   },
   methods: {
     LoadFaceitStatus() {
       this.$api.getFaceitStatus().then(response => {
         this.faceitStatus = response.data;
-        console.log(response.data);
       });
     },
     RefreshFaceit() {
-      console.log(FACEIT);
       this.$api.postRefreshFaceit().then(response => {
-        console.log(response.data);
         if(response.data.status == "success")
           this.faceitJustRefreshed = true;
       });
     },
     RemoveFaceit() {
       this.$api.postRemoveFaceit().then(response => {
-        console.log(response.data);
         this.LoadFaceitStatus();
       });
     },
