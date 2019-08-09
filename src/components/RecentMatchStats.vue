@@ -4,7 +4,7 @@
       <AjaxLoader v-if="!recentMatchStats">Loading Recent Match Stats</AjaxLoader>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
-          <div class="val">107</div>
+          <div class="val">{{recentMatchStats.GamesUploaded}}</div>
           <div class="txt">Matches uploaded</div>
         </div>
         <div class="stat">
@@ -20,7 +20,7 @@
           <div class="txt">Winrate</div>
         </div>
         <div class="stat">
-          <div class="val">30%</div>
+          <div class="val">{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
           <div class="txt">Headshot %</div>
         </div>
         <div class="stat">

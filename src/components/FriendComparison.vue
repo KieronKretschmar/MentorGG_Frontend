@@ -4,13 +4,18 @@
       <p>Performance when playing with friends</p>
     </div>
 
-    <div v-if="!comparisons.length">
+    <div v-if="!loadingComplete">
       <div class="bordered-box no-comparisons">
         <AjaxLoader>Loading Friend Comparisons</AjaxLoader>
       </div>
     </div>
 
-    <span v-if="comparisons.length">
+    <span v-if="loadingComplete">
+      <div v-if="!comparisons.length">
+        <div class="comparison bordered-box">
+          No Matches found.
+        </div>
+      </div>
       <div
         v-for="comparison in comparisons"
         :key="comparison.OtherSteamId"
@@ -72,12 +77,14 @@ export default {
 
         comparison.IsVisible = false;
       });
+      this.loadingComplete = true;
       console.log(this.comparisons);
     });
   },
   data() {
     return {
-      comparisons: []
+      comparisons: [],
+      loadingComplete: false,
     };
   },
   methods: {
