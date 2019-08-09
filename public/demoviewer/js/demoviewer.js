@@ -282,7 +282,9 @@ function __DemoViewer() {
                 var bomb_delta = 1 + bomb_time - (t - self.Data.Round.BombPlant.Time) / 1000;
 
                 var minutes = Math.floor(bomb_delta / 60);
+                minutes = minutes < 0 ? 0 : minutes;
                 var seconds = Math.floor(bomb_delta % 60);
+                seconds = seconds < 0 ? 0 : seconds;
 
                 timestring = minutes + ':' + seconds.PadDigit();
 
@@ -291,7 +293,9 @@ function __DemoViewer() {
             } else {
                 var curtime = 1 + seconds - delta_s + freeze_time;
                 var minutes = Math.floor(curtime / 60);
+                minutes = minutes < 0 ? 0 : minutes;
                 var seconds = Math.floor(curtime % 60);
+                seconds = seconds < 0 ? 0 : seconds;
     
                 timestring = minutes + ':' + seconds.PadDigit();
 
