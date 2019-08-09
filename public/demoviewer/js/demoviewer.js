@@ -413,6 +413,9 @@ function __DemoViewer() {
         this.PlayerList.Clear();
         this.TwoInstance.clear();
         this.TwoInstance.unbind('update', null);
+
+        $('.event-bomb-plant').remove();
+        $('.event-kill').remove();
     };
 
     this.Helper = {
