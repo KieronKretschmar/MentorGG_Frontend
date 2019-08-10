@@ -88,7 +88,17 @@
             ></CustomSelect>
           </div>
           <div>
+            <div v-if="!samples.length && !loadingSamplesComplete" class="">
+              <AjaxLoader>Loading HEs</AjaxLoader>
+            </div>
+            <div v-if="!samples.length && loadingSamplesComplete" class="">
+              <NoDataAvailableDisplay 
+              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
+                Either you don't have any matches on this map, or you just don't use any he grenades at all. Load someone else's?
+                </NoDataAvailableDisplay>
+            </div>
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -346,6 +356,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -372,17 +383,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadHEOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadHEs(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount);
   },
   methods: {
-    LoadHEOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getHEsOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadHEs(map, matchCount) {
-      this.$api.getHEs(map, matchCount).then(response => {
+    LoadSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getHEs("", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
@@ -394,13 +407,40 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
+      });
+    },
+    LoadDemoSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getHEs("76561198033880857", map, matchCount)
+      .then(response => {
+        this.mapInfo = response.data.MapInfo;
+        this.samples = response.data.Samples;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
+        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.globalPerformanceData = response.data.GlobalData;
+        if (this.zones.length == 0) {
+          this.zonesEnabled = false;
+          this.detailView = true;
+        } else {
+          this.zonesEnabled = true;
+        }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadHEs(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -408,7 +448,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadHEs(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount);
         this.activeMap = map;
       }
     },

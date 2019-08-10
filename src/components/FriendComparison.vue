@@ -10,13 +10,15 @@
       </div>
     </div>
 
-    <span v-if="loadingComplete">
-      <div v-if="!comparisons.length">
-        <div class="comparison bordered-box">
-          No Matches found.
-        </div>
+    <span>
+      <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">        
+        <NoDataAvailableDisplay @buttonClicked="LoadDemoData">
+          You either have no friends or no matches in the database (or neither). Wanna see somebody else's shitty ass random stats? 
+          </NoDataAvailableDisplay>
       </div>
+
       <div
+        v-else
         v-for="comparison in comparisons"
         :key="comparison.OtherSteamId"
         class="comparison bordered-box"
@@ -61,25 +63,10 @@
 </template>
 
 <script>
+
 export default {
   mounted() {
-    this.$api.getFriendsComparison().then(result => {
-      this.comparisons = result.data.Rows;
-      this.comparisons.forEach(comparison => {
-        comparison.WinRate =
-          (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
-          100;
-
-        comparison.MapWinRate =
-          (comparison.MostPlayedMapMatchesWon /
-            comparison.MostPlayedMapMatchesPlayed) *
-          100;
-
-        comparison.IsVisible = false;
-      });
-      this.loadingComplete = true;
-      console.log(this.comparisons);
-    });
+    this.LoadPlayerData();
   },
   data() {
     return {
@@ -88,10 +75,52 @@ export default {
     };
   },
   methods: {
+    LoadPlayerData: function() {
+      this.loadingComplete = false;
+      this.$api.getFriendsComparison().then(result => {
+        this.comparisons = result.data.Rows;
+        this.comparisons.forEach(comparison => {
+          comparison.WinRate =
+            (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
+            100;
+
+          comparison.MapWinRate =
+            (comparison.MostPlayedMapMatchesWon /
+              comparison.MostPlayedMapMatchesPlayed) *
+            100;
+
+          comparison.IsVisible = false;
+        });
+      });
+      this.loadingComplete = true;
+    },
+    LoadDemoData: function() {
+      this.loadingComplete = false;
+      this.$api.getFriendsComparison("76561198033880857").then(result => {
+        this.comparisons = result.data.Rows;
+        this.comparisons.forEach(comparison => {
+          comparison.WinRate =
+            (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
+            100;
+
+          comparison.MapWinRate =
+            (comparison.MostPlayedMapMatchesWon /
+              comparison.MostPlayedMapMatchesPlayed) *
+            100;
+
+          comparison.IsVisible = false;
+        });
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
+      });
+    },
     ToggleComparisonVisibility: function(comparison) {
       comparison.IsVisible = !comparison.IsVisible;
       this.$forceUpdate();
-    }
+    },
   }
 };
 </script>
@@ -197,5 +226,6 @@ export default {
       }
     }
   }
+
 }
 </style>

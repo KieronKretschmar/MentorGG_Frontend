@@ -100,7 +100,17 @@
             ></CustomSelect>
           </div>
           <div>
+            <div v-if="!samples.length && !loadingSamplesComplete" class="">
+              <AjaxLoader>Loading Kills</AjaxLoader>
+            </div>
+            <div v-if="!samples.length && loadingSamplesComplete" class="">
+              <NoDataAvailableDisplay 
+              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
+                Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
+                </NoDataAvailableDisplay>
+            </div>            
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -149,7 +159,7 @@
                   </div>
                   <div class="legend-description">
                     <!-- Green markers represent your kills. -->
-                    Green markers represent your position when you killed an enemy.
+                    Your position when you killed an enemy.
                     <!-- The enemy's position is at the other end of the line.  -->
                   </div>
                 </div>
@@ -179,7 +189,7 @@
                       />
                     </svg>-->
                   </div>
-                  <div class="legend-description">Red markers represent your position when you died.</div>
+                  <div class="legend-description">Your position when you died.</div>
                 </div>
               </div>
               <div class="zone-legend-section">
@@ -286,6 +296,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -314,17 +325,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadKillsOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-    this.LoadKills(this.activeMap, 10);
+    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
+    this.LoadSamples(this.activeMap, this.matchCount);
   },
   methods: {
-    LoadKillsOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getKillsOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadKills(map, matchCount) {
-      this.$api.getKills(map, matchCount).then(response => {
+    LoadSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getKills("", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
@@ -339,13 +352,43 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
+      });
+    },
+    LoadDemoSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getKills("76561198033880857", map, matchCount)
+      .then(response => {
+        this.mapInfo = response.data.MapInfo;
+        this.samples = response.data.Samples;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
+        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.activeFilterSettings = JSON.parse(
+          JSON.stringify(response.data.UserData[0].FilterSettings)
+        ); // Make a deepcopy of the first (default) filtersettings
+        this.globalPerformanceData = response.data.GlobalData;
+        if (this.zones.length == 0) {
+          this.zonesEnabled = false;
+          this.detailView = true;
+        } else {
+          this.zonesEnabled = true;
+        }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadKills(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -353,7 +396,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadKills(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount);
         this.activeMap = map;
       }
     },

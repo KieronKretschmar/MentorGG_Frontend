@@ -7,7 +7,16 @@
       <span :class="{ active: activeTab == 2 }" @click="activeTab = 2" class="filter mm">Matchmaking</span>
     </div>
 
-    <div class="match-list">
+    <div class="match-list">      
+      <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
+        <NoDataAvailableDisplay 
+        @buttonClicked="LoadAppendDemoMatches(5)">
+          Couldn't find any matches for you. Want so see what it looks like once you've understood how to upload demos?
+          </NoDataAvailableDisplay>
+      </div>
+
+
+
       <div v-for="match in matches" :key="match.MatchId" class="bordered-box match">
         <div class="match-header">
           <div class="left">
@@ -113,7 +122,7 @@ export default {
     return {
       matches: [],
       activeTab: 0,
-      loadingMatches: false
+      loadingMatches: false,
     };
   },
   methods: {
@@ -135,14 +144,34 @@ export default {
     },
     LoadAppendMatches: function(count) {
       this.loadingMatches = true;
-      this.$api.getMatches(count, this.matches.length).then(response => {
+      this.$api.getMatches("", count, this.matches.length)
+      .then(response => {
         for (let i = 0; i < response.data.MatchInfos.length; i++) {
           let match = response.data.MatchInfos[i];
           match.IsVisible = false;
           this.matches.push(match);
         }
-
         this.loadingMatches = false;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingMatches = false
+      });
+    },
+    LoadAppendDemoMatches: function(count) {
+      this.loadingMatches = true;
+      this.$api.getMatches("76561198033880857", count, this.matches.length)
+      .then(response => {
+        for (let i = 0; i < response.data.MatchInfos.length; i++) {
+          let match = response.data.MatchInfos[i];
+          match.IsVisible = false;
+          this.matches.push(match);
+        }
+        this.loadingMatches = false;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingMatches = false
       });
     }
   }

@@ -6,6 +6,7 @@ import mentorGGAPI from './mentorggapi';
 import helpers from './helpers';
 import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
+import NoDataAvailableDisplay from './components/NoDataAvailableDisplay.vue';
 import {VueMasonryPlugin} from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
@@ -20,6 +21,7 @@ Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
 
 Vue.component('AjaxLoader', AjaxLoader);
+Vue.component('NoDataAvailableDisplay', NoDataAvailableDisplay);
 
 Vue.filter('formatDate', function (val) {
   if (val) {

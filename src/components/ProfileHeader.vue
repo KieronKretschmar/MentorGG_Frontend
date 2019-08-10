@@ -19,7 +19,7 @@
 <script>
 export default {
   mounted() {
-    this.$api.getPlayerInfo().then(response => {
+    this.$api.getPlayerInfo("").then(response => {
       this.user = response.data;
     });
   },

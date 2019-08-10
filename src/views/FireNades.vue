@@ -88,7 +88,17 @@
             ></CustomSelect>
           </div>
           <div>
+            <div v-if="!samples.length && !loadingSamplesComplete" class="">
+              <AjaxLoader>Loading FireNades</AjaxLoader>
+            </div>
+            <div v-if="!samples.length && loadingSamplesComplete" class="">
+              <NoDataAvailableDisplay 
+              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
+                Either you don't have any matches on this map, or you just don't use any firenades at all. Load someone else's?
+                </NoDataAvailableDisplay>
+            </div>
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -249,26 +259,26 @@
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Enemies Flashed
+                    Enemies Burned
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.length}}
+                    {{selectedSample.Victims.length}}
                   </div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Total time enemies flashed:
+                    Total damage to enemies:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0)}}
+                    {{selectedSample.Victims.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.Hits.reduce((c,d) => c + d.AmountHealth, 0), 0)}}
                   </div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Enemies died shortly after being flashed:
+                    Kills:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}
+                    {{selectedSample.Victims.filter(x=>!x.TeamAttack && x.Hits[x.Hits.length-1].Kill).length}}
                   </div>
                 </div>
               </div>
@@ -346,6 +356,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -372,17 +383,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadFireNadeOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadFireNades(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount);
   },
   methods: {
-    LoadFireNadeOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getFireNadesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadFireNades(map, matchCount) {
-      this.$api.getFireNades(map, matchCount).then(response => {
+    LoadSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getFireNades("", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
@@ -394,13 +407,40 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
+      });
+    },
+    LoadDemoSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getFireNades("76561198033880857", map, matchCount)
+      .then(response => {
+        this.mapInfo = response.data.MapInfo;
+        this.samples = response.data.Samples;
+        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
+        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.globalPerformanceData = response.data.GlobalData;
+        if (this.zones.length == 0) {
+          this.zonesEnabled = false;
+          this.detailView = true;
+        } else {
+          this.zonesEnabled = true;
+        }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadFireNades(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -408,7 +448,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadFireNades(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount);
         this.activeMap = map;
       }
     },

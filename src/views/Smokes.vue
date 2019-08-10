@@ -78,7 +78,17 @@
             ></CustomSelect>
           </div>
           <div>
+            <div v-if="!samples.length && !loadingSamplesComplete" class="">
+              <AjaxLoader>Loading Smokes</AjaxLoader>
+            </div>
+            <div v-if="!samples.length && loadingSamplesComplete" class="">
+              <NoDataAvailableDisplay 
+              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
+                Either you don't have any matches on this map, or you just don't use any smokes at all. Load someone else's?
+                </NoDataAvailableDisplay>
+            </div>      
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -325,6 +335,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -354,17 +365,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadSmokeOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadSmokes(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount);
   },
   methods: {
-    LoadSmokeOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getSmokesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadSmokes(map, matchCount) {
-      this.$api.getSmokes(map, matchCount).then(response => {
+    LoadSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getSmokes("", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.lineups = response.data.Lineups;
@@ -377,13 +390,41 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
+      });
+    },
+    LoadDemoSamples(map, matchCount) {
+      this.loadingSamplesComplete = false;
+      this.$api.getSmokes("76561198033880857", map, matchCount)
+      .then(response => {
+        this.mapInfo = response.data.MapInfo;
+        this.samples = response.data.Samples;
+        this.lineups = response.data.Lineups;
+        this.zones = response.data.Zones.filter(x=>x.CategoryIds.length > 0);
+        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.globalPerformanceData = response.data.GlobalData;
+        if (this.zones.length == 0) {
+          this.zonesEnabled = false;
+          this.detailView = true;
+        } else {
+          this.zonesEnabled = true;
+        }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadSmokes(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -392,7 +433,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSmokes(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount);
         this.activeMap = map;
       }
     },
@@ -414,12 +455,12 @@ export default {
     CopyTextToClipboard(text) {
       // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
       if (!navigator.clipboard) {
-          fallbackCopyTextToClipboard(text);
+          this.fallbackCopyTextToClipboard(text);
           return;
       }
       navigator.clipboard.writeText(text).then(function() {
-      }, function(err) {
-          console.error('Async: Could not copy text: ', err);
+      }, function(error) {
+        console.error(error); // eslint-disable-line no-console
       });
     },
     fallbackCopyTextToClipboard(text) {
@@ -430,15 +471,14 @@ export default {
       textArea.select();
 
       try {
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-      } catch (err) {
-          console.error('Fallback: Oops, unable to copy', err);
+          document.execCommand('copy');
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
       }
 
       document.body.removeChild(textArea);
     },
-    OpenLightbox(e) {
+    OpenLightbox() {
       this.$refs.lightbox.showImage(0);
     }
   },
