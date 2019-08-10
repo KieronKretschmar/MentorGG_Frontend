@@ -518,6 +518,7 @@ $t: rgb(229, 165, 0);
         width: 2px;
         height: 100%;
         pointer-events: none;
+        z-index: 1;
 
         &[team="ct"] {
             background: $ct;
@@ -542,6 +543,7 @@ $t: rgb(229, 165, 0);
         font-size: 14px;
         line-height: 24px;
         pointer-events: none;
+        z-index: 1;
 
         &:before,
         &:after {
@@ -565,7 +567,7 @@ $t: rgb(229, 165, 0);
     -webkit-appearance: none;
     width: 100%;
     height: 44px;
-    background: $dark-2;
+    background: $dark-3;
     outline: none;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;

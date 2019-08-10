@@ -49,10 +49,12 @@ function Grenade(nade, type) {
     this.ExtendDataWithLerpedTrajectory();
 
     this.Nade.DetonationLocation = this.Nade.LerpedTrajectory[this.Nade.LerpedTrajectory.length - 1];
-    this.TwoObject_Projectile = twoInstance.makeCircle(0, 0, 7);
-    this.TwoObject_Projectile.fill = "rgba(255, 0, 255, 0.8)";
-    this.TwoObject_Projectile.stroke = "none";
+    this.TwoObject_Projectile = twoInstance.makeText("", 2, 2);
+    this.TwoObject_Projectile.stroke = "#555";
     this.TwoObject_Projectile.visible = false;
+    this.TwoObject_Projectile.family = "csgo_icons";
+    this.TwoObject_Projectile.fill = "#fb2056";
+    this.TwoObject_Projectile.size = 40;
 
     console.log(nade, type);
 
@@ -75,6 +77,8 @@ function Grenade(nade, type) {
             this.Nade.DetonationLocation.Y + 1
         );
 
+        this.TwoObject_Projectile.value = "g";
+
         this.TwoObject_Text.visible = false;
 
     } else if ( this.Type == GrenadeType.Flash ) {
@@ -89,6 +93,9 @@ function Grenade(nade, type) {
         icon.family = "csgo_icons";
         icon.fill = "#555";
         icon.size = 40;
+        icon.stroke = "#fff";
+
+        this.TwoObject_Projectile.value = "e";
 
         this.TwoObject_OnDetonate = twoInstance.makeGroup(circle, icon);
 
@@ -109,6 +116,9 @@ function Grenade(nade, type) {
         icon.family = "csgo_icons";
         icon.fill = "white";
         icon.size = 40;
+        icon.stroke = "#fff";
+
+        this.TwoObject_Projectile.value = "b";
 
         this.TwoObject_OnDetonate = twoInstance.makeGroup(circle, icon);
 
