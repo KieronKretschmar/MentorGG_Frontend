@@ -10,7 +10,7 @@
       <button
         class="button-variant-bordered accept-button"
         @click="$emit('buttonClicked')"
-      >Fuck yes!</button>
+      >Load sample data</button>
     </div>
   </div>
 </template>

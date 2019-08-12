@@ -7,7 +7,7 @@
       </div>
       <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
         <NoDataAvailableDisplay 
-        @buttonClicked="LoadDemoData">
+        @buttonClicked="LoadData(true)">
           No data available for you. Wanna see where somebody else keeps dying all the time?
           </NoDataAvailableDisplay>
       </div>
@@ -48,7 +48,7 @@
       </div>
       <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
         <NoDataAvailableDisplay 
-        @buttonClicked="LoadDemoData">
+        @buttonClicked="LoadData(true)">
           No data available for you. Want to see where somebody else plays really good?
           </NoDataAvailableDisplay>
       </div>
@@ -88,7 +88,7 @@
 <script>
 export default {
   mounted() {
-    this.LoadData();
+    this.LoadData(false);
   },
   data() {
     return {
@@ -98,9 +98,9 @@ export default {
     };
   },
   methods : {
-    LoadData: function() {
+    LoadData: function(isDemo) {
       this.loadingComplete = false,
-      this.$api.getImportantPositions("", true, 3, 10)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 10)
       .then(response => {
         this.best = response.data;
         this.loadingComplete = true;
@@ -110,29 +110,7 @@ export default {
         this.loadingComplete = true;
       });
 
-      this.$api.getImportantPositions("", false, 3, 10)
-      .then(response => {
-        this.worst = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
-    },
-    LoadDemoData: function() {
-      this.loadingComplete = false,
-      this.$api.getImportantPositions("76561198033880857", true, 3, 10)
-      .then(response => {
-        this.best = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
-
-      this.$api.getImportantPositions("76561198033880857", false, 3, 10)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 10)
       .then(response => {
         this.worst = response.data;
         this.loadingComplete = true;

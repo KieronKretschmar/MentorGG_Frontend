@@ -4,8 +4,8 @@
       <AjaxLoader v-if="!loadingComplete">Loading Recent Match Stats</AjaxLoader>
       <NoDataAvailableDisplay 
       v-if="loadingComplete && !recentMatchStats"
-      @buttonClicked="LoadDemoData">
-        None of your matches found in the database. Load someone else's?
+      @buttonClicked="LoadData(true)">
+        Unfortunately, you haven't uploaded any matches yet.
         </NoDataAvailableDisplay>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
@@ -46,7 +46,7 @@
 <script>
 export default {
   mounted() {
-    this.LoadData();
+    this.LoadData(false);
   },
   data() {
     return {
@@ -85,8 +85,8 @@ export default {
     OpenRankGraph: function() {
       this.rankGraphVisible = true;
     },
-    LoadData: function() {
-      this.$api.getRecentMatchData("")
+    LoadData: function(isDemo) {
+      this.$api.getRecentMatchData(isDemo ? "76561198033880857" : "")
       .then(response => {
         this.recentMatchStats = response.data;
           this.loadingComplete = true;
@@ -96,17 +96,6 @@ export default {
           this.loadingComplete = true;
         });
     },
-    LoadDemoData: function() {
-      this.$api.getRecentMatchData("76561198033880857")
-      .then(response => {
-        this.recentMatchStats = response.data;
-          this.loadingComplete = true;
-        })
-        .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-          this.loadingComplete = true;
-        });
-    }
   }
 };
 </script>

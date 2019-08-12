@@ -12,7 +12,7 @@
         </div>
         <div v-if="!playerStats && loadingComplete" class="">
           <NoDataAvailableDisplay 
-          @buttonClicked="LoadDemoPlayerStats()">
+          @buttonClicked="LoadPlayerStats(true)">
             No stats found for you. Load someone else's until you finally figure out how to upload your own matches?
             </NoDataAvailableDisplay>
         </div>
@@ -50,24 +50,13 @@ export default {
     };
   }, 
   mounted() {
-    this.LoadPlayerStats();
+    this.LoadPlayerStats(false);
   },
   methods: {
-    LoadPlayerStats() {
+    LoadPlayerStats(isDemo) {
       this.loadingComplete = false;
-      this.$api.getPlayerStats("").then(response => {
-        this.playerStats = response.data.AllTimePlayerStats;
-        this.AssignSections();
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
-    },
-    LoadDemoPlayerStats() {
-      this.loadingComplete = false;
-      this.$api.getPlayerStats("76561198033880857").then(response => {
+      this.$api.getPlayerStats(isDemo ? "76561198033880857" : "")
+      .then(response => {
         this.playerStats = response.data.AllTimePlayerStats;
         this.AssignSections();
         this.loadingComplete = true;

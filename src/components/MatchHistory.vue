@@ -10,7 +10,7 @@
     <div class="match-list">      
       <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
         <NoDataAvailableDisplay 
-        @buttonClicked="LoadAppendDemoMatches(5)">
+        @buttonClicked="LoadAppendMatches(5, true)">
           Couldn't find any matches for you. Want so see what it looks like once you've understood how to upload demos?
           </NoDataAvailableDisplay>
       </div>
@@ -105,8 +105,8 @@
       </div>
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5)">Load 5 More</button>
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25)">Load 25 More</button>
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5, false)">Load 5 More</button>
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25, false)">Load 25 More</button>
     </div>
   </div>
 </template>
@@ -116,7 +116,7 @@ import DemoViewerVue from './DemoViewer.vue';
 export default {
   components: {},
   mounted() {
-    this.LoadAppendMatches(5);
+    this.LoadAppendMatches(5, false);
   },
   data() {
     return {
@@ -137,14 +137,14 @@ export default {
       demoviewer.matchId = match.MatchId;
       demoviewer.Show();
 
-      this.$api.getDVMatch(match.MatchId, 1).then(response => {
+      this.$api.getDVMatch("", match.MatchId, 1).then(response => {
         demoviewer.UpdateData(response.data);
         demoviewer.Finalize();
       });
     },
-    LoadAppendMatches: function(count) {
+    LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;
-      this.$api.getMatches("", count, this.matches.length)
+      this.$api.getMatches(isDemo ? "76561198033880857" : "", count, this.matches.length)
       .then(response => {
         for (let i = 0; i < response.data.MatchInfos.length; i++) {
           let match = response.data.MatchInfos[i];
@@ -158,22 +158,6 @@ export default {
         this.loadingMatches = false
       });
     },
-    LoadAppendDemoMatches: function(count) {
-      this.loadingMatches = true;
-      this.$api.getMatches("76561198033880857", count, this.matches.length)
-      .then(response => {
-        for (let i = 0; i < response.data.MatchInfos.length; i++) {
-          let match = response.data.MatchInfos[i];
-          match.IsVisible = false;
-          this.matches.push(match);
-        }
-        this.loadingMatches = false;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingMatches = false
-      });
-    }
   }
 };
 </script>

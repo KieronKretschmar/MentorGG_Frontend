@@ -12,8 +12,8 @@
 
     <span>
       <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">        
-        <NoDataAvailableDisplay @buttonClicked="LoadDemoData">
-          You either have no friends or no matches in the database (or neither). Wanna see somebody else's shitty ass random stats? 
+        <NoDataAvailableDisplay @buttonClicked="LoadData(true)">
+          You have no matches played with your steam-friends in the database :(. Wanna see somebody else's shitty ass random stats? 
           </NoDataAvailableDisplay>
       </div>
 
@@ -66,7 +66,7 @@
 
 export default {
   mounted() {
-    this.LoadPlayerData();
+    this.LoadData(false);
   },
   data() {
     return {
@@ -75,28 +75,9 @@ export default {
     };
   },
   methods: {
-    LoadPlayerData: function() {
+    LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getFriendsComparison().then(result => {
-        this.comparisons = result.data.Rows;
-        this.comparisons.forEach(comparison => {
-          comparison.WinRate =
-            (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
-            100;
-
-          comparison.MapWinRate =
-            (comparison.MostPlayedMapMatchesWon /
-              comparison.MostPlayedMapMatchesPlayed) *
-            100;
-
-          comparison.IsVisible = false;
-        });
-      });
-      this.loadingComplete = true;
-    },
-    LoadDemoData: function() {
-      this.loadingComplete = false;
-      this.$api.getFriendsComparison("76561198033880857").then(result => {
+      this.$api.getFriendsComparison(isDemo ? "76561198033880857" : "").then(result => {
         this.comparisons = result.data.Rows;
         this.comparisons.forEach(comparison => {
           comparison.WinRate =

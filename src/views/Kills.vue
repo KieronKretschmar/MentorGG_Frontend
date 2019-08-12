@@ -11,7 +11,7 @@
         >
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -54,7 +54,7 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Trajectories</button>
+            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
 
             <div v-if="zonesEnabled">
               <button class="button-variant-bordered" @click="SetDetailView()">Toggle Zones</button>
@@ -68,12 +68,12 @@
               >No Filter</button>
               <button
                 v-else-if="activeFilterSettings.PlantStatus == 1"
-                class="button-variant-bordered"
+                class="button-variant-bordered active"
                 @click="SetPlantStatus(2)"
               >Pre-Plant</button>
               <button
                 v-else-if="activeFilterSettings.PlantStatus == 2"
-                class="button-variant-bordered"
+                class="button-variant-bordered active"
                 @click="SetPlantStatus(0)"
               >Post-Plant</button>
             </div>
@@ -99,16 +99,16 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
-          <div>
-            <div v-if="!samples.length && !loadingSamplesComplete" class="">
-              <AjaxLoader>Loading Kills</AjaxLoader>
-            </div>
-            <div v-if="!samples.length && loadingSamplesComplete" class="">
-              <NoDataAvailableDisplay 
-              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
-                Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
-                </NoDataAvailableDisplay>
-            </div>            
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading Kills</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
+              </NoDataAvailableDisplay>
+          </div>      
+          <div>      
             <RadarImage
               v-if="samples.length"
               :mapInfo="mapInfo"
@@ -326,7 +326,7 @@ export default {
   },
   mounted() {
     this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-    this.LoadSamples(this.activeMap, this.matchCount);
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
     LoadOverviews(matchCount) {
@@ -334,34 +334,9 @@ export default {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadSamples(map, matchCount) {
+    LoadSamples(map, matchCount, isDemo) {
       this.loadingSamplesComplete = false;
-      this.$api.getKills("", map, matchCount)
-      .then(response => {
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
-        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
-        this.activeFilterSettings = JSON.parse(
-          JSON.stringify(response.data.UserData[0].FilterSettings)
-        ); // Make a deepcopy of the first (default) filtersettings
-        this.globalPerformanceData = response.data.GlobalData;
-        if (this.zones.length == 0) {
-          this.zonesEnabled = false;
-          this.detailView = true;
-        } else {
-          this.zonesEnabled = true;
-        }
-        this.loadingSamplesComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingSamplesComplete = true;
-      });
-    },
-    LoadDemoSamples(map, matchCount) {
-      this.loadingSamplesComplete = false;
-      this.$api.getKills("76561198033880857", map, matchCount)
+      this.$api.getKills(isDemo ? "76561198033880857" : "", map, matchCount)
       .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
@@ -388,7 +363,7 @@ export default {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadSamples(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -396,7 +371,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
     },

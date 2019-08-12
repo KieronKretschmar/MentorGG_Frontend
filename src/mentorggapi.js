@@ -2,13 +2,16 @@ import axios from 'axios';
 
 class MentorGGAPI {
     constructor() {
-        // this.mvcEndpoint = document.location.origin + '/';
-        this.mvcEndpoint = 'https://test.mentor.gg/';
+        this.mvcEndpoint = document.location.origin + '/';
+        if(this.mvcEndpoint.indexOf('8080')){
+            this.mvcEndpoint = this.mvcEndpoint.replace('8080', '58071');
+        }
+        // this.mvcEndpoint = 'https://test.mentor.gg/';
         // this.mvcEndpoint = 'http://localhost:58071/';
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
         // this.steamId = '76561198166019050'; //felix
-        this.steamId = '76561198033880857'; //kieron
+        // this.steamId = '76561198033880857'; //kieron
     }
 
     resolveResource(resource) {

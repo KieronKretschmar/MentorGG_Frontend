@@ -11,7 +11,7 @@
         >
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -77,16 +77,16 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
-          <div>
-            <div v-if="!samples.length && !loadingSamplesComplete" class="">
-              <AjaxLoader>Loading Smokes</AjaxLoader>
-            </div>
-            <div v-if="!samples.length && loadingSamplesComplete" class="">
-              <NoDataAvailableDisplay 
-              @buttonClicked="LoadDemoSamples(activeMap, matchCount)">
-                Either you don't have any matches on this map, or you just don't use any smokes at all. Load someone else's?
-                </NoDataAvailableDisplay>
-            </div>      
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading Smokes</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you just don't use any smokes at all. Load someone else's?
+              </NoDataAvailableDisplay>
+          </div>   
+          <div>   
             <RadarImage
               v-if="samples.length"
               :mapInfo="mapInfo"
@@ -366,7 +366,7 @@ export default {
   },
   mounted() {
     this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadSamples(this.activeMap, this.matchCount);
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
     LoadOverviews(matchCount) {
@@ -374,32 +374,9 @@ export default {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadSamples(map, matchCount) {
+    LoadSamples(map, matchCount, isDemo) {
       this.loadingSamplesComplete = false;
-      this.$api.getSmokes("", map, matchCount)
-      .then(response => {
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.lineups = response.data.Lineups;
-        this.zones = response.data.Zones.filter(x=>x.CategoryIds.length > 0);
-        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
-        this.globalPerformanceData = response.data.GlobalData;
-        if (this.zones.length == 0) {
-          this.zonesEnabled = false;
-          this.detailView = true;
-        } else {
-          this.zonesEnabled = true;
-        }
-        this.loadingSamplesComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingSamplesComplete = true;
-      });
-    },
-    LoadDemoSamples(map, matchCount) {
-      this.loadingSamplesComplete = false;
-      this.$api.getSmokes("76561198033880857", map, matchCount)
+      this.$api.getSmokes(isDemo ? "76561198033880857" : "", map, matchCount)
       .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
@@ -424,7 +401,7 @@ export default {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadSamples(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -433,7 +410,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
     },
