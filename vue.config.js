@@ -10,10 +10,12 @@ module.exports = {
     devServer: {
         host: 'localhost'
     },
-    configureWebpack: {
-        externals: {
-            faceit: 'FACEIT'
-        },
-        devtool: 'source-map'
+    configureWebpack: (env) => {
+        return {
+            externals: {
+                faceit: 'FACEIT'
+            },
+            devtool: 'source-map'
+        }
     }
 };

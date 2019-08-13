@@ -2,16 +2,24 @@ import axios from 'axios';
 
 class MentorGGAPI {
     constructor() {
-        this.mvcEndpoint = document.location.origin + '/';
-        if(this.mvcEndpoint.indexOf('8080')){
-            this.mvcEndpoint = this.mvcEndpoint.replace('8080', '58071');
+
+        if(process.env.NODE_ENV == 'production'){
+            this.mvcEndpoint = document.location.origin + '/';
+            this.sendFixedSteamId = false;
         }
-        this.mvcEndpoint = 'https://test.mentor.gg/';
-        // this.mvcEndpoint = 'http://localhost:58071/';
+        // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
+        if(process.env.NODE_ENV == 'development'){
+            this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
+            this.sendFixedSteamId = true;
+            this.fixedSteamId = '76561198166019050'; //felix
+            this.fixedSteamId = '76561198033880857'; //kieron
+        }
+
+
+        console.log(this.fixedSteamId);
+        
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
-        // this.steamId = '76561198166019050'; //felix
-        // this.steamId = '76561198033880857'; //kieron
     }
 
     resolveResource(resource) {
@@ -31,6 +39,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'User/FaceitStatus', {
             params: params
         });
@@ -42,6 +54,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'User/PlayerInfo', {
             params: params
         });
@@ -55,6 +71,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Matches/Matches', {
             params: params
         });
@@ -69,6 +89,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+        
         return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
             params: params
         });
@@ -82,6 +106,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Compare/FriendsComparison', {
             params: params
         });
@@ -93,6 +121,9 @@ class MentorGGAPI {
         }                
         if(playerId.length) {
             params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
         }
 
         return axios.get(this.apiEndpoint + 'User/RecentMatchResults', {
@@ -107,6 +138,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'FireNades/FireNadesOverview', {
             params: params
         });
@@ -120,6 +155,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'FireNades/FireNades', {
             params: params
         });
@@ -132,6 +171,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Flashes/FlashesOverview', {
             params: params
         });
@@ -145,6 +188,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Flashes/Flashes', {
             params: params
         });
@@ -157,6 +204,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'HEs/HEsOverview', {
             params: params
         });
@@ -170,6 +221,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'HEs/HEs', {
             params: params
         });
@@ -182,6 +237,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
             params: params
         });
@@ -195,6 +254,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Kills/Kills', {
             params: params
         });
@@ -207,6 +270,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Smokes/SmokesOverview', {
             params: params
         });
@@ -220,6 +287,10 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+        
         return axios.get(this.apiEndpoint + 'Smokes/Smokes', {
             params: params
         });
@@ -252,6 +323,9 @@ class MentorGGAPI {
         }                
         if(playerId.length) {
             params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
         }
         return axios.get(this.apiEndpoint + 'Stats/Player', {
             params: params
