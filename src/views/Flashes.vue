@@ -270,7 +270,7 @@
                 </div>
               </div>
             </div>
-            <div id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats"> 
                 About this Flash:
                 <div class="stat-row">
@@ -461,6 +461,8 @@ export default {
         this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
+      this.selectedSample = null;
+      this.selectedZone = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);

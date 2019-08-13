@@ -219,7 +219,7 @@
                 </div>
               </div>
             </div>
-            <div id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
                 About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
                 <div class="stat-row">
