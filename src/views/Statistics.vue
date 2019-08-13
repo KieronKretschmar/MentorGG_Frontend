@@ -157,12 +157,12 @@ export default {
           name: "Headshots",
           entries: [          
             {
-              name: "Headshot Kills",
+              name: "Total Headshot Kills",
               value: this.playerStats.HSKills,
               valuePerMatch: (this.playerStats.HSKills / this.playerStats.GamesPlayed).toFixed(2),
             },
             {
-              name: "Headshot Kill %",
+              name: "Headshot Kill",
               value: (this.playerStats.HeadshotKillRatio * 100).toFixed(1) + '%',
               valuePerMatch: (this.playerStats.HeadshotKillRatio * 100).toFixed(1) + '%',
             },
@@ -172,12 +172,12 @@ export default {
               valuePerMatch: (this.playerStats.HSDeaths / this.playerStats.GamesPlayed).toFixed(2),
             },    
             {
-              name: "Headshots",
+              name: "Total Headshots",
               value: this.playerStats.HS,
               valuePerMatch: (this.playerStats.HS / this.playerStats.GamesPlayed).toFixed(2),
             },
             {
-              name: "Headshot %",
+              name: "Headshot",
               value: (this.playerStats.HeadshotHitRatio * 100).toFixed(1) + '%',
               valuePerMatch: (this.playerStats.HeadshotHitRatio * 100).toFixed(1) + '%',
             },

@@ -281,55 +281,24 @@
                     {{selectedSample.Victims.filter(x=>!x.TeamAttack && x.Hits[x.Hits.length-1].Kill).length}}
                   </div>
                 </div>
+                <div class="split">
+                  <div class="left">
+                    <p>Watch this round</p>
+                  </div>
+                  <div class="right">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+                  </div>    
+                </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-sample-stats"> 
-                About your Flashes in the {{selectedZone.Name}}-Zone:
+              <div v-if="selectedZone" class="selected-zone-stats"> 
+                About your Firenades in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
                     Flashes thrown
                   </div>
                   <div class="stat-content">
                     {{userSelectedZonePerformance.SampleCount}}
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Das hier soll wie im Overview ein links-rechts split sein, nur für enemyattack und teamattack 
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-right">
-                      Enemy-flash             
-                    </div>
-                    <div class="split-left">
-                      Team-flash        
-                    </div>
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. time flashed
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                   
-                    </div>
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. kill-assists
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                    
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TeamFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                   
-                    </div>
                   </div>
                 </div>
               </div>
@@ -440,7 +409,11 @@ export default {
       this.selectedSample = null;
       this.selectedZone = null;
       this.detailView = !this.detailView;
-    }
+    },
+    Watch: function(matchId, round) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round);
+    },
   },
   computed: {
     activeUserData() {
@@ -483,7 +456,7 @@ export default {
           x => x.IsCtZone == this.showCt && x.Depth == 1
         );
       }
-    },
+    }
   }
 };
 </script>
@@ -632,13 +605,27 @@ export default {
         margin: 0 5px;
       }
 
+      :not(.active){
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;      
+      }
+
       .t {
         transition: 0.35s;
         cursor: pointer;
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(168, 153, 102));
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
         }
       }
 
@@ -648,7 +635,7 @@ export default {
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
         }
       }
     }
@@ -661,10 +648,36 @@ export default {
 
   .r {
     width: 30%;
-  }
-  
-  .sidebar{
-    color: white;
+      
+    .sidebar{
+      color: white;
+
+      .split {
+        display: flex;
+
+        .left {
+          display: flex;
+          width: 80%;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

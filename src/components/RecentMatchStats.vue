@@ -26,7 +26,7 @@
         </div>
         <div class="stat">
           <div class="val">{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
-          <div class="txt">Headshot %</div>
+          <div class="txt">Headshot</div>
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">

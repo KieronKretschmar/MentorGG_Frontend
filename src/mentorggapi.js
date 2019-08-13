@@ -6,7 +6,7 @@ class MentorGGAPI {
         if(this.mvcEndpoint.indexOf('8080')){
             this.mvcEndpoint = this.mvcEndpoint.replace('8080', '58071');
         }
-        // this.mvcEndpoint = 'https://test.mentor.gg/';
+        this.mvcEndpoint = 'https://test.mentor.gg/';
         // this.mvcEndpoint = 'http://localhost:58071/';
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';

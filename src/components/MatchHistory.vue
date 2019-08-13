@@ -131,16 +131,9 @@ export default {
       this.$forceUpdate();
     },
     WatchMatch: function(match) {
-
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.loadingData = true;
-      demoviewer.matchId = match.MatchId;
-      demoviewer.Show();
-
-      this.$api.getDVMatch("", match.MatchId, 1).then(response => {
-        demoviewer.UpdateData(response.data);
-        demoviewer.Finalize();
-      });
+      console.log(match.MatchId);
+      demoviewer.Watch("", match.MatchId, 1);
     },
     LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;
