@@ -663,6 +663,10 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      
+      > button {
+        margin-right: 20px;
+      }
     }
 
     .team-select {
