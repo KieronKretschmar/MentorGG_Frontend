@@ -14,9 +14,6 @@ class MentorGGAPI {
             this.fixedSteamId = '76561198166019050'; //felix
             this.fixedSteamId = '76561198033880857'; //kieron
         }
-
-
-        console.log(this.fixedSteamId);
         
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';

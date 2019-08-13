@@ -4,10 +4,13 @@
       <div class="bordered-box">
         <h2>Contact</h2>
         <p>
-          <a href="https://discord.gg/X29FEKG" class="social-icons-intext align-self-center">
-            <span class="fab fa-discord social-icons-intext"></span>
-          </a>
-        </p>
+          <div>
+            <a href="https://discord.gg/X29FEKG" target="_blank" class="discord-hint-inline">
+              <img src="@/assets/Discord-Logo-Color.svg" alt="Discord Logo" title="Join us on Discord" />
+              <p>Discord</p>
+            </a>
+          </div>
+
         <p>
           E-mail:
           <a href="mailto:info@mentor.gg">info@mentor.gg</a>
@@ -36,6 +39,32 @@
     a {
       color: $orange;
     }
+  }
+}
+.discord-hint-inline {
+  height: 54px;
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $dark-1;
+  color: white;
+  padding-right: 15px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid $dark-1;
+  transition: 0.35s;
+  text-decoration: none;
+  p {
+    color: white;
+  }
+  img {
+    width: 40px;
+    margin-right: 8px;    
+  }
+
+  &:hover {
+    background: $dark-2;
   }
 }
 </style>
