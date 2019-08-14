@@ -1,7 +1,10 @@
 <template>
   <div class="view view-kills">
-    <div class="fixed-width-container">
-      <div class="performances">
+    <div class="fixed-width-container">      
+      <div v-if="mapSummaries == null" class="bordered-box no-data">
+        <AjaxLoader>Computing summaries for each map</AjaxLoader>
+      </div>
+      <div v-if="mapSummaries != null" class="performances">
         <div
           v-for="(mapSummary,index) in mapSummaries"
           :key="index"
@@ -50,8 +53,16 @@
           </div>
         </div>
       </div>
-
-      <div class="interactive-area">
+      <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
+        <AjaxLoader>Loading Kills</AjaxLoader>
+      </div>
+      <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
+        <NoDataAvailableDisplay 
+        @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+          Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
+          </NoDataAvailableDisplay>
+      </div>   
+      <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
             <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
@@ -98,16 +109,7 @@
               :options="matchCountSelectOptions"
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
-          </div>
-          <div v-if="!samples.length && !loadingSamplesComplete" class="">
-            <AjaxLoader>Loading Kills</AjaxLoader>
-          </div>
-          <div v-if="!samples.length && loadingSamplesComplete" class="">
-            <NoDataAvailableDisplay 
-            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-              Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
-              </NoDataAvailableDisplay>
-          </div>      
+          </div>   
           <div>      
             <RadarImage
               v-if="samples.length"
@@ -317,7 +319,7 @@ export default {
         100: "Use last 100 matches"
       },
       showTrajectories: false,
-      mapSummaries: [],
+      mapSummaries: null,
       detailView: true,
 
       zonesEnabled: false,
@@ -340,11 +342,13 @@ export default {
   },
   methods: {
     LoadOverviews(matchCount) {
+      this.mapSummaries = null;
       this.$api.getKillsOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
     LoadSamples(map, matchCount, isDemo) {
+      this.samples = [];
       this.loadingSamplesComplete = false;
       this.$api.getKills(isDemo ? "76561198033880857" : "", map, matchCount)
       .then(response => {
@@ -634,6 +638,10 @@ export default {
       }
     }
   }
+}
+
+.no-data {  
+  margin-top: 20px;
 }
 
 .interactive-area {

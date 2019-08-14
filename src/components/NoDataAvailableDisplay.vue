@@ -8,7 +8,7 @@
     </div>
     <div class="lower">
       <button
-        class="button-variant-bordered accept-button"
+        class="button-variant-bordered accept-button active"
         @click="$emit('buttonClicked')"
       >Load sample data</button>
     </div>
@@ -30,6 +30,5 @@
   .lower{
     margin-top: 5px;
   }
-
 }
 </style>
