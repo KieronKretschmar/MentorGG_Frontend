@@ -146,6 +146,14 @@ export default {
     Smoke,
   },
   mounted() {
+    // assuming maps are quadratic, set svg height to the available width.
+    this.$refs.svgElement.style.height = this.$refs.svgElement.clientWidth;
+    // Activate zoom
+    var panZoomRadar = svgPanZoom('#svgView', {
+      zoomScaleSensitivity: 0.6,
+      controlIconsEnabled: true,
+      minZoom: 1, 
+    });
   },
   data() {
     return {
@@ -178,18 +186,6 @@ export default {
     "smokeGrenades",
   ],
   watch: {
-    // svg needs to be rendered in order to enable svgPanZoom. 
-    // svg is rendered via v-if when mapInfo is loaded, so we enable zoom one tick later
-    mapInfo: function (newVal, oldVal){
-      this.$refs.svgElement.style.height = this.$refs.svgElement.clientWidth;
-
-      Vue.nextTick(function () {        
-        var panZoomRadar = svgPanZoom('#svgView', {
-          zoomScaleSensitivity: 0.6,
-          minZoom: 1, 
-        });
-      })
-    }
   },
   methods: {
   },
