@@ -3,12 +3,10 @@
     v-if="this.mapInfo.CropOffsets"
     :viewBox="viewBox"
     id="svgView"
-    xmlns="http://www.w3.org/2000/svg"
-    
-    width="600px"
-    height="600px"
+    xmlns="http://www.w3.org/2000/svg"  
     preserveAspectRatio="xMidYMin"
     oncontextmenu="return false;"
+    ref="svgElement"
   >
     <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
@@ -183,7 +181,9 @@ export default {
     // svg needs to be rendered in order to enable svgPanZoom. 
     // svg is rendered via v-if when mapInfo is loaded, so we enable zoom one tick later
     mapInfo: function (newVal, oldVal){
-      Vue.nextTick(function () {
+      this.$refs.svgElement.style.height = this.$refs.svgElement.clientWidth;
+
+      Vue.nextTick(function () {        
         var panZoomRadar = svgPanZoom('#svgView', {
           zoomScaleSensitivity: 0.6,
           minZoom: 1, 
@@ -316,5 +316,6 @@ export default {
 <style>
 #svgView {
   margin-top: 40px;
+  width: 100%;
 }
 </style>
