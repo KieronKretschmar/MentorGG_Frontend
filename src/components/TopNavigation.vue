@@ -17,7 +17,7 @@
     </div>
     <div class="r">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
-      <div class="user-profile" @click="optionsVisible = !optionsVisible" @mouseleave="optionsVisible = false">
+      <div class="user-profile" v-if="user" @click="optionsVisible = !optionsVisible" @mouseleave="optionsVisible = false">
         <span class="username">{{ user.SteamName }}</span>
         <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
         <div class="profile-options" :class="{visible: optionsVisible}">
