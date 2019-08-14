@@ -296,7 +296,6 @@ import CustomSelect from "@/components/CustomSelect.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
-import DemoViewerVue from '../components/DemoViewer.vue';
 
 export default {
   components: {

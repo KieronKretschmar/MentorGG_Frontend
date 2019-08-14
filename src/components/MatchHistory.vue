@@ -112,7 +112,6 @@
 </template>
 
 <script>
-import DemoViewerVue from './DemoViewer.vue';
 export default {
   components: {},
   mounted() {
@@ -132,7 +131,6 @@ export default {
     },
     WatchMatch: function(match) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      console.log(match.MatchId);
       demoviewer.Watch("", match.MatchId, 1);
     },
     LoadAppendMatches: function(count, isDemo) {

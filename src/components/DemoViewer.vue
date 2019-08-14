@@ -171,8 +171,8 @@ export default {
       }, 500);
     },
     Cleanup: function() {
-      $("#round-display").slick("unslick");
-      DemoViewer.Reset();
+      window.$("#round-display").slick("unslick");
+      window.DemoViewer.Reset();
     },
     Watch: function(playerId, matchId, roundId){
       this.loadingData = true;
