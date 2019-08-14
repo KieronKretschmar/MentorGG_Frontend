@@ -7,7 +7,15 @@
           <button class="button-variant-bordered" :class="{active: referenceUnit=='global'}" @click="referenceUnit='global'">Total</button>
           <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
         </div>
-
+        <div v-if="!playerStats && !loadingComplete" class="">
+          <AjaxLoader>Loading FireNades</AjaxLoader>
+        </div>
+        <div v-if="!playerStats && loadingComplete" class="">
+          <NoDataAvailableDisplay 
+          @buttonClicked="LoadPlayerStats(true)">
+            No stats found for you. Load someone else's until you finally figure out how to upload your own matches?
+            </NoDataAvailableDisplay>
+        </div>
         <div v-if="playerStats" class="statistics-container" v-masonry>
           <div v-for="section in sections" :key="section.name" class="statistic" v-masonry-tile>
             <p class="title">{{ section.name }}</p>
@@ -33,14 +41,29 @@ export default {
   components: {
     ProfileHeader
   },
+  data() {
+    return {
+      loadingComplete: false,
+      sections: [],
+      playerStats: null,
+      referenceUnit: 'global',
+    };
+  }, 
   mounted() {
-    this.LoadPlayerStats();
+    this.LoadPlayerStats(false);
   },
   methods: {
-    LoadPlayerStats() {
-      this.$api.getPlayerStats().then(response => {
+    LoadPlayerStats(isDemo) {
+      this.loadingComplete = false;
+      this.$api.getPlayerStats(isDemo ? "76561198033880857" : "")
+      .then(response => {
         this.playerStats = response.data.AllTimePlayerStats;
         this.AssignSections();
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
       });
     },
     AssignSections() {
@@ -134,12 +157,12 @@ export default {
           name: "Headshots",
           entries: [          
             {
-              name: "Headshot Kills",
+              name: "Total Headshot Kills",
               value: this.playerStats.HSKills,
               valuePerMatch: (this.playerStats.HSKills / this.playerStats.GamesPlayed).toFixed(2),
             },
             {
-              name: "Headshot Kill %",
+              name: "Headshot Kill",
               value: (this.playerStats.HeadshotKillRatio * 100).toFixed(1) + '%',
               valuePerMatch: (this.playerStats.HeadshotKillRatio * 100).toFixed(1) + '%',
             },
@@ -149,12 +172,12 @@ export default {
               valuePerMatch: (this.playerStats.HSDeaths / this.playerStats.GamesPlayed).toFixed(2),
             },    
             {
-              name: "Headshots",
+              name: "Total Headshots",
               value: this.playerStats.HS,
               valuePerMatch: (this.playerStats.HS / this.playerStats.GamesPlayed).toFixed(2),
             },
             {
-              name: "Headshot %",
+              name: "Headshot",
               value: (this.playerStats.HeadshotHitRatio * 100).toFixed(1) + '%',
               valuePerMatch: (this.playerStats.HeadshotHitRatio * 100).toFixed(1) + '%',
             },
@@ -282,14 +305,7 @@ export default {
         }
       ];    
     },
-  },
-  data() {
-    return {
-      sections: [],
-      playerStats: null,
-      referenceUnit: 'global',
-    };
-  },  
+  }, 
 };
 
 

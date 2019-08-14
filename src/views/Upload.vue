@@ -47,7 +47,7 @@
 
             <p>And by the way, Valve has confirmed that this will not trigger VAC at all. You are completely safe using this!</p>
 
-            <a href="#">Download</a>
+            <a href="/Downloads/MentorUploader.zip">Download</a>
           </div>
         </div>
       </div>

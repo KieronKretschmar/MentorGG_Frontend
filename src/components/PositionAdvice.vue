@@ -2,10 +2,16 @@
   <div class="position-advice">
     <div class="bordered-box advice">
       <p>Positions you should practice or avoid</p>
-      <div v-if="!worst.Performances" class="no-positions">
+      <div v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete" class="no-positions">
         <AjaxLoader>Loading Worst Positions</AjaxLoader>
       </div>
-      <div class="position-table" v-if="worst.Performances">
+      <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
+        <NoDataAvailableDisplay 
+        @buttonClicked="LoadData(true)">
+          No data available for you. Wanna see where somebody else keeps dying all the time?
+          </NoDataAvailableDisplay>
+      </div>
+      <div class="position-table" v-if="worst.Performances && worst.Performances.length">
         <div class="table-header">
           <span>Map</span>
           <span>Name</span>
@@ -37,10 +43,16 @@
     </div>
     <div class="bordered-box advice">
       <p>Positions you are performing best in</p>
-      <div v-if="!best.Performances" class="no-positions">
+      <div v-if="(!best.Performances || !best.Performances.length) && !loadingComplete" class="no-positions">
         <AjaxLoader>Loading Best Positions</AjaxLoader>
       </div>
-      <div class="position-table" v-if="best.Performances">
+      <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
+        <NoDataAvailableDisplay 
+        @buttonClicked="LoadData(true)">
+          No data available for you. Want to see where somebody else plays really good?
+          </NoDataAvailableDisplay>
+      </div>
+      <div class="position-table" v-if="best.Performances && best.Performances.length">
         <div class="table-header">
           <span>Map</span>
           <span>Name</span>
@@ -76,20 +88,38 @@
 <script>
 export default {
   mounted() {
-    this.$api.getImportantPositions(true, 3, 10).then(response => {
-      this.best = response.data;
-    });
-    this.$api.getImportantPositions(false, 3, 10).then(response => {
-      this.worst = response.data;
-    });
-
-    this.$api.getFriendsComparison().then(r => console.log(r));
+    this.LoadData(false);
   },
   data() {
     return {
       best: [],
-      worst: []
+      worst: [],
+      loadingComplete: false,
     };
+  },
+  methods : {
+    LoadData: function(isDemo) {
+      this.loadingComplete = false,
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 10)
+      .then(response => {
+        this.best = response.data;
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
+      });
+
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 10)
+      .then(response => {
+        this.worst = response.data;
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
+      });
+    },
   }
 };
 </script>

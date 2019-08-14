@@ -2,13 +2,21 @@ import axios from 'axios';
 
 class MentorGGAPI {
     constructor() {
-        // this.mvcEndpoint = document.location.origin + '/';
-        this.mvcEndpoint = 'https://test.mentor.gg/';
-        // this.mvcEndpoint = 'http://localhost:58071/';
+
+        if(process.env.NODE_ENV == 'production'){
+            this.mvcEndpoint = document.location.origin + '/';
+            this.sendFixedSteamId = false;
+        }
+        // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
+        if(process.env.NODE_ENV == 'development'){
+            this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
+            this.sendFixedSteamId = true;
+            this.fixedSteamId = '76561198166019050'; //felix
+            this.fixedSteamId = '76561198033880857'; //kieron
+        }
+        
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.tldEndpoint = 'https://test.mentor.gg/';
-        // this.steamId = '76561198166019050'; //felix
-        this.steamId = '76561198033880857'; //kieron
     }
 
     resolveResource(resource) {
@@ -22,154 +30,266 @@ class MentorGGAPI {
         });
     }
     
-    getFaceitStatus() {
+    getFaceitStatus(playerId = "") {
+        let params = {
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'User/FaceitStatus', {
-            params: {
-                playerId: this.steamId
-            }
+            params: params
         });
     }
 
-    getPlayerInfo() {
+    getPlayerInfo(playerId = "") {
+        let params = {
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'User/PlayerInfo', {
-            params: {
-                playerId: this.steamId
-            }
+            params: params
         });
     }
 
-    getMatches(count, offset = 0) {
+    getMatches(playerId = "", count, offset = 0) {
+        let params = {
+            recentMatches: count,
+            offset: offset
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Matches/Matches', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: count,
-                offset: offset
-            }
+            params: params
         });
     }
 
-    getImportantPositions(showBest, count, forMatchesN) {
+    getImportantPositions(playerId = "", showBest, count, forMatchesN) {
+        let params = {
+            showBest: showBest,
+            nPositions: count,
+            recentMatches: forMatchesN
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+        
         return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
-            params: {
-                playerId: this.steamId,
-                showBest: showBest,
-                nPositions: count,
-                recentMatches: forMatchesN
-            }
+            params: params
         });
     }
 
-    getFriendsComparison(maxFriends = 3, recentMatches = 50) {
+    getFriendsComparison(playerId = "", maxFriends = 3, recentMatches = 50) {
+        let params = {
+            maxFriends: maxFriends,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Compare/FriendsComparison', {
-            params: {
-                playerId: this.steamId,
-                maxFriends: maxFriends,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getRecentMatchData(recentMatches = 50) {
+    getRecentMatchData(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'User/RecentMatchResults', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getFireNadesOverview(recentMatches = 50) {
+    getFireNadesOverview(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'FireNades/FireNadesOverview', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getFireNades(map, recentMatches = 50) {
+    getFireNades(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'FireNades/FireNades', {
-            params: {
-                playerId: this.steamId,
-                map: map,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getFlashesOverview(recentMatches = 50) {
+    getFlashesOverview(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Flashes/FlashesOverview', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getFlashes(map, recentMatches = 50) {
+    getFlashes(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Flashes/Flashes', {
-            params: {
-                playerId: this.steamId,
-                map: map,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getHEsOverview(recentMatches = 50) {
+    getHEsOverview(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'HEs/HEsOverview', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getHEs(map, recentMatches = 50) {
+    getHEs(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'HEs/HEs', {
-            params: {
-                playerId: this.steamId,
-                map: map,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getKillsOverview(recentMatches = 50) {
+    getKillsOverview(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getKills(map, recentMatches = 50) {
+    getKills(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Kills/Kills', {
-            params: {
-                playerId: this.steamId,
-                map: map,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }    
 
-    getSmokesOverview(recentMatches = 50) {
+    getSmokesOverview(playerId = "", recentMatches = 50) {
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
         return axios.get(this.apiEndpoint + 'Smokes/SmokesOverview', {
-            params: {
-                playerId: this.steamId,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
-    getSmokes(map, recentMatches = 50) {
+    getSmokes(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+        
         return axios.get(this.apiEndpoint + 'Smokes/Smokes', {
-            params: {
-                playerId: this.steamId,
-                map: map,
-                recentMatches: recentMatches
-            }
+            params: params
         });
     }
 
@@ -182,20 +302,30 @@ class MentorGGAPI {
         });
     }
 
-    getDVMatch(matchId, round) {
+    getDVMatch(playerId = "", matchId, round) {
+        let params = {
+            matchId: matchId,
+            round: round
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
         return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
-            params: {
-                matchId: matchId,
-                round: round
-            }
+            params: params
         });
     }
     
-    getPlayerStats() {
+    getPlayerStats(playerId = "") {
+        let params = {
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
         return axios.get(this.apiEndpoint + 'Stats/Player', {
-            params: {
-                playerId: this.steamId,
-            }
+            params: params
         });
     }    
 

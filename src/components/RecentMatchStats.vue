@@ -1,7 +1,12 @@
 <template>
   <div class="recent-match-stats">
     <div class="bordered-box">
-      <AjaxLoader v-if="!recentMatchStats">Loading Recent Match Stats</AjaxLoader>
+      <AjaxLoader v-if="!loadingComplete">Loading Recent Match Stats</AjaxLoader>
+      <NoDataAvailableDisplay 
+      v-if="loadingComplete && !recentMatchStats"
+      @buttonClicked="LoadData(true)">
+        Unfortunately, you haven't uploaded any matches yet.
+        </NoDataAvailableDisplay>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
           <div class="val">{{recentMatchStats.GamesUploaded}}</div>
@@ -21,7 +26,7 @@
         </div>
         <div class="stat">
           <div class="val">{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
-          <div class="txt">Headshot %</div>
+          <div class="txt">Headshot</div>
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
@@ -41,14 +46,13 @@
 <script>
 export default {
   mounted() {
-    this.$api.getRecentMatchData().then(response => {
-      this.recentMatchStats = response.data;
-    });
+    this.LoadData(false);
   },
   data() {
     return {
       recentMatchStats: null,
-      rankGraphVisible: false
+      rankGraphVisible: false,
+      loadingComplete: false,
     };
   },
   computed: {
@@ -80,7 +84,18 @@ export default {
   methods: {
     OpenRankGraph: function() {
       this.rankGraphVisible = true;
-    }
+    },
+    LoadData: function(isDemo) {
+      this.$api.getRecentMatchData(isDemo ? "76561198033880857" : "")
+      .then(response => {
+        this.recentMatchStats = response.data;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+    },
   }
 };
 </script>

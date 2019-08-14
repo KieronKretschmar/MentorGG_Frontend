@@ -11,7 +11,7 @@
         >
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -60,13 +60,13 @@
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: !showCt}"
+                :class="{active: !showCt || selectedLineup}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt}"
+                :class="{active: showCt || selectedLineup}"
                 @click="showCt = true"
               />
             </div>
@@ -77,8 +77,18 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
-          <div>
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading Smokes</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you just don't use any smokes at all. Load someone else's?
+              </NoDataAvailableDisplay>
+          </div>   
+          <div>   
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -130,7 +140,9 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    Your Smokes are represented by circular markers. Green means it reached its target.
+                    <!-- Your Smokes are represented by circular markers. Green means it reached its target. -->
+                    <!-- Smokes that reached there target are colored green.  -->
+                    A smoke that reached its target.
                   </div>
                 </div>
                 <div class="legend-row">
@@ -161,7 +173,8 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    A red marker means you f'ed up the throw and maybe you should look at the lineup one more time.
+                    <!-- A red marker means you f'ed up the throw and maybe you should look at the lineup one more time. -->
+                    You f'ed up the throw. Look at the lineup one more time.
                   </div>
                 </div>
                 <div class="legend-row">
@@ -192,7 +205,9 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    A grey marker means the lineup of this throw is not featured on MENTOR.GG.
+                    <!-- A grey marker means the lineup of this throw is not featured on MENTOR.GG. -->
+                    <!-- The lineup of this throw is not featured on MENTOR.GG. -->
+                    This throw's lineup is not featured on MENTOR.GG - yet!
                   </div>
                 </div>
               </div>
@@ -235,7 +250,8 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    You can learn new smokes by clicking on the lineups and checking out the "Practice" section.
+                    Click on lineups to learn new smokes.
+                    <!-- You can learn new smokes by clicking on the lineups and checking out the "Practice" section. -->
                   </div>
                 </div>
                 <div class="legend-row">
@@ -276,15 +292,50 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    As soon as you've used a lineup ingame, it is colored according to your accuracy.
+                    <!-- As soon as you've used a lineup ingame, it is colored according to your accuracy. -->
+                    Use a lineup ingame and it will be colored according to your accuracy.
                   </div>
                 </div>
               </div>
             </div>
-            <div class="practice-tab">
-              <div v-show="!selectedLineup">
-                Select a Lineup to see how it's done!
+            <div v-if="selectedSample || selectedLineup" id="analysis-tab" class="sidebar-tabcontent">
+              <div v-if="selectedSample" class="selected-sample-stats">
+                About this smoke of yours:
+                <div class="stat-row">
+                  <div class="stat-description">Round</div>
+                  <div class="stat-content">{{selectedSample.Round}}</div>
+                </div>
+                <div class="split">
+                  <div class="left">
+                    <p>Watch this round</p>
+                  </div>
+                  <div class="right">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+                  </div>
+                </div>
               </div>
+
+
+              <div v-if="selectedLineup" class="selected-lineup-stats">
+                {{selectedLineup.Name}}-Lineup
+                <div class="stat-row">
+                  <div class="stat-description">Attempts</div>
+                  <div class="stat-content">
+                    {{userSelectedLineupPerformance.TotalAttemptsCount}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">Accuracy</div>
+                  <div class="stat-content">
+                    {{(userSelectedLineupPerformance.SuccessfulAttemptsCount / Math.max(1, userSelectedLineupPerformance.TotalAttemptsCount ) * 100).toFixed(0)+ '%'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="selectedLineup" class="practice-tab">
+              <!-- <div v-show="!selectedLineup">
+                Select a Lineup to see how it's done!
+              </div> -->
               <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.Setpos != ''">
                 <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly>
                 <button id="setpos-copy" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Copy to clipboard" @click="CopyTextToClipboard(selectedLineup.Setpos)">
@@ -325,6 +376,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -354,17 +406,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadSmokeOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadSmokes(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
-    LoadSmokeOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getSmokesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadSmokes(map, matchCount) {
-      this.$api.getSmokes(map, matchCount).then(response => {
+    LoadSamples(map, matchCount, isDemo) {
+      this.loadingSamplesComplete = false;
+      this.$api.getSmokes(isDemo ? "76561198033880857" : "", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.lineups = response.data.Lineups;
@@ -377,13 +431,18 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadSmokes(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -392,9 +451,11 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSmokes(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
+      this.selectedSample = null;
+      this.selectedLineup = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
@@ -414,12 +475,12 @@ export default {
     CopyTextToClipboard(text) {
       // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
       if (!navigator.clipboard) {
-          fallbackCopyTextToClipboard(text);
+          this.fallbackCopyTextToClipboard(text);
           return;
       }
       navigator.clipboard.writeText(text).then(function() {
-      }, function(err) {
-          console.error('Async: Could not copy text: ', err);
+      }, function(error) {
+        console.error(error); // eslint-disable-line no-console
       });
     },
     fallbackCopyTextToClipboard(text) {
@@ -430,17 +491,20 @@ export default {
       textArea.select();
 
       try {
-          var successful = document.execCommand('copy');
-          var msg = successful ? 'successful' : 'unsuccessful';
-      } catch (err) {
-          console.error('Fallback: Oops, unable to copy', err);
+          document.execCommand('copy');
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
       }
 
       document.body.removeChild(textArea);
     },
-    OpenLightbox(e) {
+    OpenLightbox() {
       this.$refs.lightbox.showImage(0);
-    }
+    },
+    Watch: function(matchId, round) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round);
+    },
   },
   computed: {
     activeUserData() {
@@ -451,6 +515,10 @@ export default {
       if (this.selectedZone == null) return null;
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
     },
+    userSelectedLineupPerformance() {
+      if (this.selectedLineup == null) return null;
+      return this.activeUserData.LineupPerformances[this.selectedLineup.LineupId];
+    },
     userTotalRounds() {
       return this.showCt
         ? this.activeUserData.TotalCtRounds
@@ -459,6 +527,10 @@ export default {
     globalSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
       return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
+    },
+    globalSelectedLineupPerformance() {
+      if (this.selectedLineup == null) return null;
+      return this.activeGlobalData.LineupPerformances[this.selectedLineup.LineupId];
     },
     globalTotalRounds() {
       return this.showCt
@@ -661,13 +733,27 @@ export default {
         margin: 0 5px;
       }
 
+      :not(.active){
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;      
+      }
+
       .t {
         transition: 0.35s;
         cursor: pointer;
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(168, 153, 102));
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
         }
       }
 
@@ -677,7 +763,7 @@ export default {
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
         }
       }
     }
@@ -690,6 +776,36 @@ export default {
 
   .r {
     width: 30%;
+      
+    .sidebar{
+      color: white;
+
+      .split {
+        display: flex;
+
+        .left {
+          display: flex;
+          width: 80%;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

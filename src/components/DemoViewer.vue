@@ -173,7 +173,17 @@ export default {
     Cleanup: function() {
       $("#round-display").slick("unslick");
       DemoViewer.Reset();
-    }
+    },
+    Watch: function(playerId, matchId, roundId){
+      this.loadingData = true;
+      this.matchId = matchId;
+      this.Show();
+
+      this.$api.getDVMatch("", matchId, roundId).then(response => {
+        this.UpdateData(response.data);
+        this.Finalize();
+      });
+    },
   },
   data() {
     return {

@@ -10,13 +10,15 @@
       </div>
     </div>
 
-    <span v-if="loadingComplete">
-      <div v-if="!comparisons.length">
-        <div class="comparison bordered-box">
-          No Matches found.
-        </div>
+    <span>
+      <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">        
+        <NoDataAvailableDisplay @buttonClicked="LoadData(true)">
+          You have no matches played with your steam-friends in the database :(. Wanna see somebody else's shitty ass random stats? 
+          </NoDataAvailableDisplay>
       </div>
+
       <div
+        v-else
         v-for="comparison in comparisons"
         :key="comparison.OtherSteamId"
         class="comparison bordered-box"
@@ -61,25 +63,10 @@
 </template>
 
 <script>
+
 export default {
   mounted() {
-    this.$api.getFriendsComparison().then(result => {
-      this.comparisons = result.data.Rows;
-      this.comparisons.forEach(comparison => {
-        comparison.WinRate =
-          (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
-          100;
-
-        comparison.MapWinRate =
-          (comparison.MostPlayedMapMatchesWon /
-            comparison.MostPlayedMapMatchesPlayed) *
-          100;
-
-        comparison.IsVisible = false;
-      });
-      this.loadingComplete = true;
-      console.log(this.comparisons);
-    });
+    this.LoadData(false);
   },
   data() {
     return {
@@ -88,10 +75,33 @@ export default {
     };
   },
   methods: {
+    LoadData: function(isDemo) {
+      this.loadingComplete = false;
+      this.$api.getFriendsComparison(isDemo ? "76561198033880857" : "").then(result => {
+        this.comparisons = result.data.Rows;
+        this.comparisons.forEach(comparison => {
+          comparison.WinRate =
+            (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
+            100;
+
+          comparison.MapWinRate =
+            (comparison.MostPlayedMapMatchesWon /
+              comparison.MostPlayedMapMatchesPlayed) *
+            100;
+
+          comparison.IsVisible = false;
+        });
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
+      });
+    },
     ToggleComparisonVisibility: function(comparison) {
       comparison.IsVisible = !comparison.IsVisible;
       this.$forceUpdate();
-    }
+    },
   }
 };
 </script>
@@ -197,5 +207,6 @@ export default {
       }
     }
   }
+
 }
 </style>

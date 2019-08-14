@@ -7,11 +7,10 @@
           :key="index"
           class="performance"
           :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
-        >
+          @click="OnActiveMapUpdated(mapSummary.Map)">
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -87,8 +86,18 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading Flashes</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you just don't use any flashbangs at all. Load someone else's?
+              </NoDataAvailableDisplay>
+          </div>
           <div>
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -261,7 +270,7 @@
                 </div>
               </div>
             </div>
-            <div id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats"> 
                 About this Flash:
                 <div class="stat-row">
@@ -285,7 +294,7 @@
                     Total time enemies flashed:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0)}}
+                    {{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0) / 1000).toFixed(2) + "s"}}
                   </div>
                 </div>
                 <div class="stat-row">
@@ -296,9 +305,17 @@
                     {{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}
                   </div>
                 </div>
+                <div class="split">
+                  <div class="left">
+                    <p>Watch this round</p>
+                  </div>
+                  <div class="right">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+                  </div>    
+                </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-sample-stats"> 
+              <div v-if="selectedZone" class="selected-zone-stats"> 
                 About your Flashes in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
@@ -371,6 +388,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -397,21 +415,23 @@ export default {
     };
   },
   mounted() {
-    this.LoadFlashOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadFlashes(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
-    LoadFlashOverviews(matchCount) {
-      this.$api.getFlashesOverview(matchCount).then(response => {
+    LoadOverviews(matchCount) {
+      this.$api.getFlashesOverview("", matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadFlashes(map, matchCount) {
-      this.$api.getFlashes(map, matchCount).then(response => {
+    LoadSamples(map, matchCount, isDemo) {
+      this.loadingSamplesComplete = false;
+      this.$api.getFlashes(isDemo ? "76561198033880857" : "", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
-        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.userPerformanceData = response.data.UserData;
         this.globalPerformanceData = response.data.GlobalData;
         if (this.zones.length == 0) {
           this.zonesEnabled = false;
@@ -419,13 +439,18 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadFlashes(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -433,9 +458,11 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadFlashes(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
+      this.selectedSample = null;
+      this.selectedZone = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
@@ -447,7 +474,11 @@ export default {
       this.selectedSample = null;
       this.selectedZone = null;
       this.detailView = !this.detailView;
-    }
+    },
+    Watch: function(matchId, round) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round);
+    },
   },
   computed: {
     activeUserData() {
@@ -495,7 +526,7 @@ export default {
           x => x.IsCtZone == this.showCt && x.Depth == 1
         );
       }
-    },
+    }
   }
 };
 </script>
@@ -634,6 +665,10 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      
+      > button {
+        margin-right: 20px;
+      }
     }
 
     .team-select {
@@ -644,13 +679,27 @@ export default {
         margin: 0 5px;
       }
 
+      :not(.active){
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;      
+      }
+
       .t {
         transition: 0.35s;
         cursor: pointer;
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(168, 153, 102));
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
         }
       }
 
@@ -660,7 +709,7 @@ export default {
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
         }
       }
     }
@@ -673,10 +722,36 @@ export default {
 
   .r {
     width: 30%;
-  }
+      
+    .sidebar{
+      color: white;
 
-  .sidebar{
-    color: white;
+      .split {
+        display: flex;
+
+        .left {
+          display: flex;
+          width: 80%;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

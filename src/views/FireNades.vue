@@ -11,7 +11,7 @@
         >
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -87,8 +87,18 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading FireNades</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you just don't use any firenades at all. Load someone else's?
+              </NoDataAvailableDisplay>
+          </div>
           <div>
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -236,7 +246,7 @@
                 </div>
               </div>
             </div>
-            <div id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats"> 
                 About this FireNade:
                 <div class="stat-row">
@@ -249,77 +259,46 @@
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Enemies Flashed
+                    Enemies Burned
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.length}}
+                    {{selectedSample.Victims.length}}
                   </div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Total time enemies flashed:
+                    Total damage to enemies:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0)}}
+                    {{selectedSample.Victims.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.Hits.reduce((c,d) => c + d.AmountHealth, 0), 0)}}
                   </div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">
-                    Enemies died shortly after being flashed:
+                    Kills:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}
+                    {{selectedSample.Victims.filter(x=>!x.TeamAttack && x.Hits[x.Hits.length-1].Kill).length}}
                   </div>
+                </div>
+                <div class="split">
+                  <div class="left">
+                    <p>Watch this round</p>
+                  </div>
+                  <div class="right">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+                  </div>    
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-sample-stats"> 
-                About your Flashes in the {{selectedZone.Name}}-Zone:
+              <div v-if="selectedZone" class="selected-zone-stats"> 
+                About your Firenades in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
                     Flashes thrown
                   </div>
                   <div class="stat-content">
                     {{userSelectedZonePerformance.SampleCount}}
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Das hier soll wie im Overview ein links-rechts split sein, nur für enemyattack und teamattack 
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-right">
-                      Enemy-flash             
-                    </div>
-                    <div class="split-left">
-                      Team-flash        
-                    </div>
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. time flashed
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                   
-                    </div>
-                  </div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. kill-assists
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                    
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TeamFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                   
-                    </div>
                   </div>
                 </div>
               </div>
@@ -346,6 +325,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -372,17 +352,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadFireNadeOverviews(0); // matchCount is currently ignored for overviews by api
-    this.LoadFireNades(this.activeMap, 10);
+    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
-    LoadFireNadeOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getFireNadesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadFireNades(map, matchCount) {
-      this.$api.getFireNades(map, matchCount).then(response => {
+    LoadSamples(map, matchCount, isDemo) {
+      this.loadingSamplesComplete = false;
+      this.$api.getFireNades(isDemo ? "76561198033880857" : "", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
@@ -394,13 +376,18 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadFireNades(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -408,9 +395,11 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadFireNades(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
+      this.selectedSample = null;
+      this.selectedZone = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
@@ -422,7 +411,11 @@ export default {
       this.selectedSample = null;
       this.selectedZone = null;
       this.detailView = !this.detailView;
-    }
+    },
+    Watch: function(matchId, round) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round);
+    },
   },
   computed: {
     activeUserData() {
@@ -465,7 +458,7 @@ export default {
           x => x.IsCtZone == this.showCt && x.Depth == 1
         );
       }
-    },
+    }
   }
 };
 </script>
@@ -604,6 +597,10 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      
+      > button {
+        margin-right: 20px;
+      }
     }
 
     .team-select {
@@ -614,13 +611,27 @@ export default {
         margin: 0 5px;
       }
 
+      :not(.active){
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;      
+      }
+
       .t {
         transition: 0.35s;
         cursor: pointer;
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(168, 153, 102));
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
         }
       }
 
@@ -630,7 +641,7 @@ export default {
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
         }
       }
     }
@@ -643,10 +654,36 @@ export default {
 
   .r {
     width: 30%;
-  }
-  
-  .sidebar{
-    color: white;
+      
+    .sidebar{
+      color: white;
+
+      .split {
+        display: flex;
+
+        .left {
+          display: flex;
+          width: 80%;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

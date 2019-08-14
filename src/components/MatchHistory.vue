@@ -7,7 +7,16 @@
       <span :class="{ active: activeTab == 2 }" @click="activeTab = 2" class="filter mm">Matchmaking</span>
     </div>
 
-    <div class="match-list">
+    <div class="match-list">      
+      <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
+        <NoDataAvailableDisplay 
+        @buttonClicked="LoadAppendMatches(5, true)">
+          Couldn't find any matches for you. Want so see what it looks like once you've understood how to upload demos?
+          </NoDataAvailableDisplay>
+      </div>
+
+
+
       <div v-for="match in matches" :key="match.MatchId" class="bordered-box match">
         <div class="match-header">
           <div class="left">
@@ -96,8 +105,8 @@
       </div>
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5)">Load 5 More</button>
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25)">Load 25 More</button>
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5, false)">Load 5 More</button>
+      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25, false)">Load 25 More</button>
     </div>
   </div>
 </template>
@@ -107,13 +116,13 @@ import DemoViewerVue from './DemoViewer.vue';
 export default {
   components: {},
   mounted() {
-    this.LoadAppendMatches(5);
+    this.LoadAppendMatches(5, false);
   },
   data() {
     return {
       matches: [],
       activeTab: 0,
-      loadingMatches: false
+      loadingMatches: false,
     };
   },
   methods: {
@@ -122,29 +131,26 @@ export default {
       this.$forceUpdate();
     },
     WatchMatch: function(match) {
-
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.loadingData = true;
-      demoviewer.matchId = match.MatchId;
-      demoviewer.Show();
-
-      this.$api.getDVMatch(match.MatchId, 1).then(response => {
-        demoviewer.UpdateData(response.data);
-        demoviewer.Finalize();
-      });
+      console.log(match.MatchId);
+      demoviewer.Watch("", match.MatchId, 1);
     },
-    LoadAppendMatches: function(count) {
+    LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;
-      this.$api.getMatches(count, this.matches.length).then(response => {
+      this.$api.getMatches(isDemo ? "76561198033880857" : "", count, this.matches.length)
+      .then(response => {
         for (let i = 0; i < response.data.MatchInfos.length; i++) {
           let match = response.data.MatchInfos[i];
           match.IsVisible = false;
           this.matches.push(match);
         }
-
         this.loadingMatches = false;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingMatches = false
       });
-    }
+    },
   }
 };
 </script>

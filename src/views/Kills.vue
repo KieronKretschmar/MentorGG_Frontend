@@ -11,7 +11,7 @@
         >
           <img
             class="map-image"
-            :src="'https://test.mentor.gg/Content/Images/Overview/' + mapSummary.Map +'.jpg'"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
           />
           <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -54,7 +54,7 @@
       <div class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" @click="OnShowTrajectories">Trajectories</button>
+            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
 
             <div v-if="zonesEnabled">
               <button class="button-variant-bordered" @click="SetDetailView()">Toggle Zones</button>
@@ -68,12 +68,12 @@
               >No Filter</button>
               <button
                 v-else-if="activeFilterSettings.PlantStatus == 1"
-                class="button-variant-bordered"
+                class="button-variant-bordered active"
                 @click="SetPlantStatus(2)"
               >Pre-Plant</button>
               <button
                 v-else-if="activeFilterSettings.PlantStatus == 2"
-                class="button-variant-bordered"
+                class="button-variant-bordered active"
                 @click="SetPlantStatus(0)"
               >Post-Plant</button>
             </div>
@@ -99,8 +99,18 @@
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
           </div>
-          <div>
+          <div v-if="!samples.length && !loadingSamplesComplete" class="">
+            <AjaxLoader>Loading Kills</AjaxLoader>
+          </div>
+          <div v-if="!samples.length && loadingSamplesComplete" class="">
+            <NoDataAvailableDisplay 
+            @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+              Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
+              </NoDataAvailableDisplay>
+          </div>      
+          <div>      
             <RadarImage
+              v-if="samples.length"
               :mapInfo="mapInfo"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
@@ -149,7 +159,7 @@
                   </div>
                   <div class="legend-description">
                     <!-- Green markers represent your kills. -->
-                    Green markers represent your position when you killed an enemy.
+                    Your position when you killed an enemy.
                     <!-- The enemy's position is at the other end of the line.  -->
                   </div>
                 </div>
@@ -179,7 +189,7 @@
                       />
                     </svg>-->
                   </div>
-                  <div class="legend-description">Red markers represent your position when you died.</div>
+                  <div class="legend-description">Your position when you died.</div>
                 </div>
               </div>
               <div class="zone-legend-section">
@@ -209,13 +219,23 @@
                 </div>
               </div>
             </div>
-            <div id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
                 About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
+                <div class="split">
+                  <div class="left">
+                    <p>Watch this round</p>
+                  </div>
+                  <div class="right">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+                  </div>    
+                </div>
+           
+
                 <!-- <div class="stat-row">
                   <div class="stat-description">Hier könnte man theoretisch noch sowas hin wie:</div>
                   <div class="stat-content">
@@ -225,7 +245,7 @@
                 </div> -->
               </div>
 
-              <div v-if="selectedZone" class="selected-sample-stats">
+              <div v-if="selectedZone" class="selected-zone-stats">
                 About your Kills and Deaths in the {{selectedZone.Name}}-Zone as a {{this.showCt ? "CT" : "Terrorist"}}
                 {{ this.activeFilterSettings.PlantStatus == 0 ? "" : " that happened "
                 + (this.activeFilterSettings.PlantStatus == 1 ? "before" : "after") + " the bomb was planted"}}:
@@ -276,6 +296,7 @@ import CustomSelect from "@/components/CustomSelect.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import DemoViewerVue from '../components/DemoViewer.vue';
 
 export default {
   components: {
@@ -286,6 +307,7 @@ export default {
   },
   data() {
     return {
+      loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
       matchCount: 10,
@@ -314,17 +336,19 @@ export default {
     };
   },
   mounted() {
-    this.LoadKillsOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-    this.LoadKills(this.activeMap, 10);
+    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
+    this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
-    LoadKillsOverviews(matchCount) {
+    LoadOverviews(matchCount) {
       this.$api.getKillsOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadKills(map, matchCount) {
-      this.$api.getKills(map, matchCount).then(response => {
+    LoadSamples(map, matchCount, isDemo) {
+      this.loadingSamplesComplete = false;
+      this.$api.getKills(isDemo ? "76561198033880857" : "", map, matchCount)
+      .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
@@ -339,13 +363,18 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.loadingSamplesComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingSamplesComplete = true;
       });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.LoadKills(this.activeMap, this.matchCount);
+      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
@@ -353,9 +382,11 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadKills(map, this.matchCount);
+        this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
+      this.selectedSample = null;
+      this.selectedZone = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
@@ -370,7 +401,11 @@ export default {
     },
     SetPlantStatus(status) {
       this.activeFilterSettings.PlantStatus = status;
-    }
+    },
+    Watch: function(matchId, round) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round);
+    },
     // Deactivated because userPerformances for different combinations of filtersettings don't need to be computed in JS;
     // All userPerformances for every FilterCombination are provided by api
     // // Takes an array of userDatas and returns the ones that match this.activeFilterSettings
@@ -637,13 +672,27 @@ export default {
         margin: 0 5px;
       }
 
+      :not(.active){
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;      
+      }
+      
       .t {
         transition: 0.35s;
         cursor: pointer;
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(168, 153, 102));
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
         }
       }
 
@@ -653,7 +702,7 @@ export default {
 
         &.active,
         &:hover {
-          filter: drop-shadow(0px 0px 4px rgb(61, 120, 204));
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
         }
       }
     }
@@ -666,6 +715,36 @@ export default {
 
   .r {
     width: 30%;
+      
+    .sidebar{
+      color: white;
+
+      .split {
+        display: flex;
+
+        .left {
+          display: flex;
+          width: 80%;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          .watch-match-icon {
+            color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: .35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
+          }
+        }
+      }
+    }  
   }
 }
 </style>
