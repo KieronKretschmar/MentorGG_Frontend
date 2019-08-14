@@ -310,6 +310,9 @@ class MentorGGAPI {
         if(playerId.length) {
             params.playerId = playerId;
         }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
         return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
             params: params
         });

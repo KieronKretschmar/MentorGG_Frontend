@@ -210,13 +210,38 @@ export default {
     zonePerformanceColors() {
       let zonePerformanceColors = {};
       switch (this.zoneType) {
+        case "FireNade":
+          for (let zoneId in this.userPerformanceData.ZonePerformances) {
+            const element = this.userPerformanceData.ZonePerformances[zoneId];
+            if (element.SampleCount == 0) {
+              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
+            } else {
+              let rounds = element.IsCtZone
+                ? this.userPerformanceData.CtRounds
+                : this.userPerformanceData.TerroristRounds;
+              let opacity = this.$performanceColors.opacityFromSampleSize(
+                0.15,
+                0.4,
+                element.SampleCount,
+                rounds / 10
+              );
+
+              let hitEnemyRatio = element.DamagingNadesCount / Math.max(1, element.SampleCount);
+              zonePerformanceColors[zoneId] = this.$performanceColors.performanceColorGivenOpacity(
+                hitEnemyRatio,
+                0.25,
+                0,
+                opacity
+              );
+            }
+          }
+          break;
+
         case "Flash":
           for (let zoneId in this.userPerformanceData.ZonePerformances) {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             if (element.SampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
@@ -245,9 +270,7 @@ export default {
           for (let zoneId in this.userPerformanceData.ZonePerformances) {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             if (element.SampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
@@ -277,9 +300,7 @@ export default {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             let sampleCount = element.Deaths + element.Kills;
             if (sampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
               // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
               // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, sampleCount, rounds/10)

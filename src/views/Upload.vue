@@ -64,11 +64,11 @@
                 <p>
                   Your MENTOR.GG account is currently connected to this Faceit Account: <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
                   <br />
-                  Last check for new Faceit matches at: 
-                  <span v-if="faceitJustRefreshed">
-                    just now
+                  <span v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed">
+                    Currently looking for new Faceit Matches
                   </span>
                   <span v-else>
+                    Last check for new Faceit matches at: 
                     {{ faceitStatus.LastCheck|formatDate }}
                   </span>
                 </p>

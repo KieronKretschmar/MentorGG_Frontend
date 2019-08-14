@@ -273,7 +273,7 @@
                     Total damage to enemies:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Victims.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.Hits.reduce((c,d) => c + d.AmountHealth, 0), 0)}}
+                    {{selectedSample.EnemyAmountHealth}}
                   </div>
                 </div>
                 <div class="stat-row">
@@ -281,7 +281,7 @@
                     Kills:
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Victims.filter(x=>!x.TeamAttack && x.Hits[x.Hits.length-1].Kill).length}}
+                    {{selectedSample.KilledEnemies}}
                   </div>
                 </div>
                 <div class="split">
@@ -295,13 +295,29 @@
               </div>
 
               <div v-if="selectedZone" class="selected-zone-stats"> 
-                About your Firenades in the {{selectedZone.Name}}-Zone:
+                About your FireNades in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
-                    Flashes thrown
+                    FireNades thrown
                   </div>
                   <div class="stat-content">
                     {{userSelectedZonePerformance.SampleCount}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Hits
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.DamagingNadesCount / Math.max(1, userSelectedZonePerformance.SampleCount) * 100).toFixed(0)+'%'}}                     
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. damage
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}                     
                   </div>
                 </div>
               </div>
