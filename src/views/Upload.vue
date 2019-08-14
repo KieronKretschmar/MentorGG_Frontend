@@ -55,26 +55,31 @@
         <h2>Connect your FACEIT account</h2>
         <div class="split">
           <div class="l">
-            <div class="no-image">
-              <p>There are no images but we have this text here so that the layout can still be symmetrical ¯\_(ツ)_/¯</p>
-            </div>
+            <img src="@/assets/faceit-logo.jpg" />
           </div>
           <div class="r">
-            <p>
-              If you connect your Faceit Account to MENTOR.GG, your Faceit matches will be automatically uploaded to MENTOR.GG every few hours.
-            </p>
+            <p>If you connect your Faceit Account to MENTOR.GG, your Faceit matches will be automatically uploaded to MENTOR.GG every few hours.</p>
             <div v-if="faceitStatus">
               <div v-if="faceitStatus.IsConnected">
                 <p>
-                Your MENTOR.GG account is currently connected to this Faceit Account: {{faceitStatus.FaceitName}} <br />
-                Last check for new Faceit matches at: {{faceitJustRefreshed ? "just now" : (faceitStatus.LastCheck|formatDate) }} 
+                  Your MENTOR.GG account is currently connected to this Faceit Account: <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
+                  <br />
+                  Last check for new Faceit matches at: 
+                  <span v-if="faceitJustRefreshed">
+                    just now
+                  </span>
+                  <span v-else>
+                    {{ faceitStatus.LastCheck|formatDate }}
+                  </span>
                 </p>
                 <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
-                <button class="material-icons" @click="RefreshFaceit">refresh</button>
-                <button class="button-variant-filled" @click="RemoveFaceit">Disconnect</button>
+                <div class="button-wrapper">
+                  <button class="button-variant-bordered" @click="RefreshFaceit">Manual Refresh</button>
+                  <button class="button-variant-bordered" @click="RemoveFaceit">Disconnect</button>
+                </div>
               </div>
               <div v-else>
-                <button @click="ConnectFaceit">Connect</button> 
+                <button class="button-variant-bordered" @click="ConnectFaceit">Connect</button>
               </div>
             </div>
           </div>
@@ -86,15 +91,15 @@
 
 
 <script>
-import FACEIT from 'faceit';
+import FACEIT from "faceit";
 
 export default {
   data() {
     return {
-      faceitStatus : null,
-      faceit : FACEIT,
-      faceitJustRefreshed : false,
-    }
+      faceitStatus: null,
+      faceit: FACEIT,
+      faceitJustRefreshed: false
+    };
   },
   mounted() {
     // let faceitScript = document.createElement('script')
@@ -103,12 +108,12 @@ export default {
 
     // Activate FACEIT
     var initParams = {
-        client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
-        // client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
-        response_type: 'code',
-        state: '', //informationYouWantPassedToTheRedirectUri
-        redirect_popup: false,
-        debug: false
+      client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
+      // client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
+      response_type: "code",
+      state: "", //informationYouWantPassedToTheRedirectUri
+      redirect_popup: false,
+      debug: false
     };
     FACEIT.init(initParams); // Hier habe ich Zugriff auf FACEIT
 
@@ -122,8 +127,7 @@ export default {
     },
     RefreshFaceit() {
       this.$api.postRefreshFaceit().then(response => {
-        if(response.data.status == "success")
-          this.faceitJustRefreshed = true;
+        if (response.data.status == "success") this.faceitJustRefreshed = true;
       });
     },
     RemoveFaceit() {
@@ -131,8 +135,8 @@ export default {
         this.LoadFaceitStatus();
       });
     },
-    ConnectFaceit(){
-      FACEIT.loginWithFaceit() // Hier ist FACEIT undefined
+    ConnectFaceit() {
+      FACEIT.loginWithFaceit(); // Hier ist FACEIT undefined
     }
   }
 };
@@ -191,7 +195,7 @@ export default {
     }
 
     h2 {
-        margin-top: 0;
+      margin-top: 0;
     }
 
     .download-links {
@@ -199,6 +203,21 @@ export default {
 
       a {
         margin-right: 10px;
+      }
+    }
+  }
+
+  .faceit-name {
+    color: $orange;
+  }
+
+  .button-wrapper {
+    display: flex;
+    align-items: center;
+
+    button {
+      &:first-child {
+        margin-right: 20px;
       }
     }
   }
