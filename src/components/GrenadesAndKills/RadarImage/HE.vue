@@ -70,7 +70,7 @@ export default {
         0
       );
       return (
-        (baseRadius + normalizedPerformance * (maxRadius - baseRadius)) *
+        (baseRadius + normalizedPerformance * (maxRadius - baseRadius)) /
         this.scaleFactor
       );
     },

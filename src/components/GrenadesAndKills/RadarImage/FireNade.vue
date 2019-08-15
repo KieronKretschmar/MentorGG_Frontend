@@ -68,7 +68,7 @@ export default {
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 40 / this.scaleFactor;
+      return 40;
     },
     victimRadius() {
       return 5 / this.scaleFactor;

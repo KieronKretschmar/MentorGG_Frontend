@@ -153,6 +153,7 @@ export default {
       zoomScaleSensitivity: 0.6,
       controlIconsEnabled: true,
       minZoom: 1, 
+      maxZoom: 16,
       onZoom: (newScale) => {
         this.scaleFactor = newScale;
       }
