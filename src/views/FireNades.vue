@@ -141,7 +141,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Victims':[]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -172,7 +172,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Victims':[{'Hits': [{'VictimId':1,'VictimPosX':42,'VictimPosY':12,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -208,7 +208,7 @@
                           {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
                           ]}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="true" 

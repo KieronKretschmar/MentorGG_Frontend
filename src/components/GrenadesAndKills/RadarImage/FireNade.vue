@@ -56,7 +56,7 @@
 export default {
   props: [
     "grenadeData",
-    "zoomFactor",
+    "scaleFactor",
     "showTrajectories",
     "SetSelectedSample",
     "isSelected",
@@ -64,14 +64,14 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 5 * this.zoomFactor;
+      return 5 / this.scaleFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 40 * this.zoomFactor;
+      return 40 / this.scaleFactor;
     },
     victimRadius() {
-      return 5 * this.zoomFactor;
+      return 5 / this.scaleFactor;
     },
     damageDealtToEnemies() {
       if (this.grenadeData.Victims.filter(x => !x.TeamAttack).length == 0) {

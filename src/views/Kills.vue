@@ -152,7 +152,7 @@
                           'PlayerZoneByTeam':0,
                           'VictimZoneByTeam':0,
                           'FilterSettings':{'PlantStatus':0}}"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -184,7 +184,7 @@
                           'PlayerZoneByTeam':0,
                           'VictimZoneByTeam':0,
                           'FilterSettings':{'PlantStatus':0}}"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"

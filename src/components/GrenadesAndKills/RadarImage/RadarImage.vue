@@ -28,7 +28,7 @@
           v-for="grenadeData in fireNades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
@@ -40,7 +40,7 @@
           v-for="grenadeData in flashGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
@@ -52,7 +52,7 @@
           v-for="grenadeData in heGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
@@ -64,7 +64,7 @@
           v-for="killData in kills"
           :key="killData.Id"
           :killData="killData"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==killData.Id"
@@ -76,7 +76,7 @@
           v-for="grenadeData in smokeGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
@@ -112,7 +112,7 @@
           :key="lineupData.LineupId"
           :lineupData="lineupData"
           :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
-          :zoomFactor="zoomFactor"
+          :scaleFactor="scaleFactor"
           :SetSelectedLineup="SetSelectedLineup"
           :fillColor="lineupPerformanceColors[lineupData.LineupId]"
         />
@@ -153,11 +153,14 @@ export default {
       zoomScaleSensitivity: 0.6,
       controlIconsEnabled: true,
       minZoom: 1, 
+      onZoom: (newScale) => {
+        this.scaleFactor = newScale;
+      }
     });
   },
   data() {
     return {
-      zoomFactor: 1,
+      scaleFactor: 1,
     };
   },
   props: [

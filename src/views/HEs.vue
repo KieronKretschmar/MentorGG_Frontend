@@ -141,7 +141,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Hits':[]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -171,7 +171,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':20,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -201,7 +201,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':40,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -233,7 +233,7 @@
                           {'VictimPosX':42,'VictimPosY':12,'AmountHealth':15,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
                           {'VictimPosX':39,'VictimPosY':39,'AmountHealth':35,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="true" 

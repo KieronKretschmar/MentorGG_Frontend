@@ -25,14 +25,14 @@
 export default {
   props: [
     "killData",
-    "zoomFactor",
+    "scaleFactor",
     "SetSelectedSample",
     "isSelected",
     "showTrajectories"
   ],
   computed: {
     userRadius() {
-      return 5 * this.zoomFactor;
+      return 5 / this.scaleFactor;
     },
     killConnection() {
       return (

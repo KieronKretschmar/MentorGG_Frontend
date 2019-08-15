@@ -36,7 +36,7 @@
 export default {
   props: [
     "grenadeData",
-    "zoomFactor",
+    "scaleFactor",
     "showTrajectories",
     "SetSelectedSample",
     "isSelected",
@@ -44,11 +44,11 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 5 * this.zoomFactor;
+      return 5 / this.scaleFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 40 * this.zoomFactor;
+      return 40 / this.scaleFactor;
     },
     trajectory() {
       var trajectoryString = "";

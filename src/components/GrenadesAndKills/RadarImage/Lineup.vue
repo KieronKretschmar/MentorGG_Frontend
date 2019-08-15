@@ -26,13 +26,13 @@ export default {
   props: [
     "lineupData",
     "SetSelectedLineup",
-    "zoomFactor",
+    "scaleFactor",
     "fillColor",
     "zoneData",
   ],
   computed: {
     releaseRadius() {
-        return  10 * this.zoomFactor;
+        return  10 / this.scaleFactor;
     },
     trajectory() {
         // Currently there are no trajectories for lineups stored in db

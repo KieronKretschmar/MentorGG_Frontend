@@ -140,7 +140,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -170,7 +170,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -200,7 +200,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -232,7 +232,7 @@
                           {'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
                           {'VictimPosX':39,'VictimPosY':39,'FlashedDuration':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
-                        :zoomFactor="1"
+                        :scaleFactor="1"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="true" 
