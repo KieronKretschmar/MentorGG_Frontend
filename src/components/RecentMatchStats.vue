@@ -31,7 +31,7 @@
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
             {{ Math.abs(RankBalance) }}
-            <i class="material-icons" @click="OpenRankGraph">timeline</i>
+            <!-- <i class="material-icons" @click="OpenRankGraph">timeline</i> -->
           </div>
           <div class="txt">Rank Balance</div>
         </div>

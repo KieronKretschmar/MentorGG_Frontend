@@ -27,10 +27,10 @@
           <div class="left">
             <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
             <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
-            <span class="winrate" :class="{good: comparison.WinRate >= 50}">
-              {{ comparison.WinRate.toFixed(0) }}% total win rate
+            <span class="winrate" :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}">
+              {{ comparison.MatchesWon + " - " + comparison.MatchesTied + " - " + comparison.MatchesLost }}
               <br />
-              <span>{{ comparison.MatchesPlayedTogether }} matches</span>
+              <span>Win - Tie - Lose</span>
             </span>
             <span class="favorite-map">
               <div class="map-text">
@@ -39,10 +39,10 @@
                 {{ comparison.MostPlayedMap }}
               </div>
             </span>
-            <div class="winrate" :class="{good: comparison.MapWinRate >= 50}">
-              {{ comparison.MapWinRate.toFixed(0) }}% map win rate
+            <div class="winrate" :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}">
+              {{ comparison.MostPlayedMapMatchesWon + " - " + comparison.MostPlayedMapMatchesTied + " - " + comparison.MostPlayedMapMatchesLost }}
               <br />
-              <span>{{ comparison.MostPlayedMapMatchesPlayed }} matches</span>
+              <span>Win - Tie - Lose</span>
             </div>
           </div>
           <div class="right">
@@ -81,7 +81,7 @@ export default {
         this.comparisons = result.data.Rows;
         this.comparisons.forEach(comparison => {
           comparison.WinRate =
-            (comparison.MatchesWonTogether / comparison.MatchesPlayedTogether) *
+            (comparison.MatchesWon / comparison.MatchesPlayed) *
             100;
 
           comparison.MapWinRate =
