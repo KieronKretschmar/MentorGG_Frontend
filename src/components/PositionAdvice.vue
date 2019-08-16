@@ -20,9 +20,9 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <span>{{ entry.Map }}</span>
-            <span>{{ entry.Name }}</span>
-            <span>
+            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.ZoneId)">{{ entry.Name }}</a>
+            <span class="cell">
               <img
                 v-if="entry.Team == 2"
                 src="@/assets/t_logo.png"
@@ -36,7 +36,7 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
+            <span class="cell">{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -61,9 +61,9 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <span>{{ entry.Map }}</span>
-            <span>{{ entry.Name }}</span>
-            <span>
+            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.ZoneId)">{{ entry.Name }}</a>
+            <span class="cell">
               <img
                 v-if="entry.Team == 2"
                 src="@/assets/t_logo.png"
@@ -77,7 +77,7 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span>{{ entry.EstimatedKd.toFixed(2) }}</span>
+            <span class="cell">{{ entry.EstimatedKd.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default {
   methods : {
     LoadData: function(isDemo) {
       this.loadingComplete = false,
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 10)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 50)
       .then(response => {
         this.best = response.data;
         this.loadingComplete = true;
@@ -110,7 +110,7 @@ export default {
         this.loadingComplete = true;
       });
 
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 10)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 50)
       .then(response => {
         this.worst = response.data;
         this.loadingComplete = true;
@@ -119,6 +119,21 @@ export default {
         console.error(error); // eslint-disable-line no-console
         this.loadingComplete = true;
       });
+    },
+    NavigateToKills: function(matchCount = 0, map = "", zoneId = 0){
+          console.log(zoneId)
+      let params = {};
+      if(matchCount){
+        params.matchCount = matchCount;
+      }
+      if(map){
+        params.map = map;  
+
+        if(zoneId){
+          params.zoneId = zoneId;
+        }
+      }
+      this.$router.push({ path: 'kills', query: params });
     },
   }
 };
@@ -179,7 +194,7 @@ export default {
             border-bottom: none;
           }
 
-          span {
+          .cell {
             &:nth-child(1) {
               width: 30%;
             }
@@ -193,6 +208,27 @@ export default {
             &:nth-child(4) {
               width: 20%;
               text-align: center;
+            }
+          }
+
+          .link {
+            display: flex;
+            align-items: center;
+            background: $dark-1;
+            color: white;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border: 1px solid $dark-1;
+            transition: 0.35s;
+            text-decoration: none;
+
+            img {
+              width: 40px;
+              margin-right: 8px;    
+            }
+
+            &:hover {
+              background: $dark-2;
             }
           }
         }

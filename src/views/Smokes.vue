@@ -65,20 +65,20 @@
           <div class="tool-menu">
             <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
             <div v-if="zonesEnabled">
-              <button class="button-variant-bordered" :class="{active: !detailView}" @click="SetDetailView">Lineups</button>
+              <button class="button-variant-bordered" :class="{active: !detailView}" @click="ToggleDetailView">Lineups</button>
             </div>
 
             <div class="team-select">
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: !showCt || selectedLineup}"
+                :class="{active: !showCt || !detailView}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt || selectedLineup}"
+                :class="{active: showCt || !detailView}"
                 @click="showCt = true"
               />
             </div>
@@ -405,11 +405,19 @@ export default {
 
       selectedSample: null,
       selectedLineup: null,
-      selectedZone: null,
+      selectedZoneId: 0,
     };
   },
   mounted() {
-    this.LoadOverviews(0); // matchCount is currently ignored for overviews by api
+    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
+
+    if(this.$route.query.map){
+      this.activeMap = this.$route.query.map;
+    }
+    if(this.$route.query.matchCount){
+      this.matchCount = this.$route.query.matchCount;
+      this.matchCountSelectOptions[this.$route.query.matchCount] = "Use last " + this.$route.query.matchCount + " matches"
+    }
     this.LoadSamples(this.activeMap, this.matchCount, false);
   },
   methods: {
@@ -432,7 +440,6 @@ export default {
         this.globalPerformanceData = response.data.GlobalData;
         if (this.zones.length == 0) {
           this.zonesEnabled = false;
-          this.detailView = true;
         } else {
           this.zonesEnabled = true;
         }
@@ -451,7 +458,7 @@ export default {
     },
     OnClickBackground: function() {
       this.selectedSample = null;
-      this.selectedZone = null;
+      this.selectedZoneId = 0;
       this.selectedLineup = null;
     },
     OnActiveMapUpdated: function(map) {
@@ -469,12 +476,12 @@ export default {
       this.selectedLineup = this.lineups.find(x => x.LineupId == lineupId);
     },
     SetSelectedZone: function(zoneId) {
-      this.selectedZone = this.zones.find(x => x.ZoneId == zoneId);
+      this.selectedZoneId = zoneId;
     },
-    SetDetailView() {
+    ToggleDetailView() {
       this.selectedSample = null;
       this.selectedLineup = null;
-      this.selectedZone = null;
+      this.selectedZoneId = 0;
       this.detailView = !this.detailView;
     },
     CopyTextToClipboard(text) {
@@ -541,6 +548,12 @@ export default {
       return this.showCt
         ? this.activeGlobalData.TotalCtRounds
         : this.activeGlobalData.TotalTerroristRounds;
+    },
+    selectedZone() {
+      if(this.selectedZoneId == 0){
+        return null;
+      }
+      return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleSamples() {
       if (!this.detailView){
