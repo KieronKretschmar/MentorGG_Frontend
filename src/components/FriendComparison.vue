@@ -27,7 +27,7 @@
           <div class="left">
             <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
             <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
-            <span class="winrate" :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}">
+            <span class="winrate" :class="{good: comparison.MatchesWon >= comparison.MatchesLost}">
               {{ comparison.MatchesWon + " - " + comparison.MatchesTied + " - " + comparison.MatchesLost }}
               <br />
               <span>Win - Tie - Lose</span>
