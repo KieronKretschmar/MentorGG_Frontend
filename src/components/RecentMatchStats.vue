@@ -30,10 +30,12 @@
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
-            {{ Math.abs(RankBalance) }}
+            {{  0 > RankBalance ? "-" : "+" + Math.abs(RankBalance) }}
             <!-- <i class="material-icons" @click="OpenRankGraph">timeline</i> -->
           </div>
-          <div class="txt">Rank Balance</div>
+          <div class="txt">W/L balance on this rank</div>
+          <!-- Not using below, because the player may have never changed ranks since he started uploading matches. -->
+          <!-- <div class="txt">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
         </div>
       </div>
     </div>

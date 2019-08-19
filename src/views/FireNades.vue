@@ -19,15 +19,15 @@
           <p class="map-name">{{mapSummary.Map}}</p>
 
           <div class="z-layer-lo">
-            <span class="split-title">USES</span>
+            <span class="split-title">UNUSED</span>
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.UsageRatioAsCt* 100).toFixed(0) }}%</span>
+                <span>{{((1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.UsageRatioAsTerrorist* 100).toFixed(0) }}%</span>
+                <span>{{((1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>

@@ -2,9 +2,9 @@
   <div class="match-history">
     <div class="bordered-box tabs-header">
       <span class="title">Match History:</span>
-      <span :class="{ active: activeTab == 0 }" @click="activeTab = 0" class="filter all">All</span>
-      <span :class="{ active: activeTab == 1 }" @click="activeTab = 1" class="filter faceit">Faceit</span>
-      <span :class="{ active: activeTab == 2 }" @click="activeTab = 2" class="filter mm">Matchmaking</span>
+      <span :class="{ active: activeTab == 'all' }" @click="activeTab = 'all'" class="filter all">All</span>
+      <span :class="{ active: activeTab == 'valve' }" @click="activeTab = 'valve'" class="filter mm">Matchmaking</span>
+      <span :class="{ active: activeTab == 'faceit' }" @click="activeTab = 'faceit'" class="filter faceit">Faceit</span>
     </div>
 
     <div class="match-list">      
@@ -17,8 +17,8 @@
 
 
 
-      <div v-for="match in matches" :key="match.MatchId" class="bordered-box match">
-        <div class="match-header">
+      <div v-for="match in visibleMatches" :key="match.MatchId" class="bordered-box match">
+        <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
           <div class="left">
             <div class="map-thumbnail">
               <img
@@ -120,9 +120,22 @@ export default {
   data() {
     return {
       matches: [],
-      activeTab: 0,
+      activeTab: 'all',
       loadingMatches: false,
     };
+  },
+  computed: {
+    visibleMatches: function() {
+      if(this.activeTab == 'all'){
+        return this.matches;
+      }
+      if(this.activeTab == 'valve'){
+        return this.matches.filter(x=>x.Source=="Valve");
+      }
+      if(this.activeTab == 'faceit'){
+        return this.matches.filter(x=>x.Source=="Faceit");
+      }
+    },
   },
   methods: {
     ToggleMatchVisibility: function(match) {
@@ -182,11 +195,11 @@ export default {
       }
 
       &.faceit {
-        color: $orange;
+        color: $faceit-orange;
       }
 
       &.mm {
-        color: $l-blue;
+        color: $matchmaking-blue;
       }
     }
   }
@@ -205,6 +218,14 @@ export default {
         align-items: center;
         padding: 5px 0;
 
+        &.source-valve>.left>.map-thumbnail{
+              border-left-color: $matchmaking-blue;
+        }
+        
+        &.source-faceit>.left>.map-thumbnail{
+              border-left-color: $faceit-orange;
+        }
+
         .left {
           display: flex;
           width: 80%;
@@ -214,6 +235,7 @@ export default {
             width: 135px;
             border-radius: 5px;
             overflow: hidden;
+            border-left-style: solid;
 
             img {
               width: 100%;

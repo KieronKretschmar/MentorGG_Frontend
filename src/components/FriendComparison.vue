@@ -30,7 +30,7 @@
             <span class="winrate" :class="{good: comparison.MatchesWon >= comparison.MatchesLost}">
               {{ comparison.MatchesWon + " - " + comparison.MatchesTied + " - " + comparison.MatchesLost }}
               <br />
-              <span>Win - Tie - Lose</span>
+              <span>Win - Tie - Loss</span>
             </span>
             <span class="favorite-map">
               <div class="map-text">
@@ -42,7 +42,7 @@
             <div class="winrate" :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}">
               {{ comparison.MostPlayedMapMatchesWon + " - " + comparison.MostPlayedMapMatchesTied + " - " + comparison.MostPlayedMapMatchesLost }}
               <br />
-              <span>Win - Tie - Lose</span>
+              <span>Win - Tie - Loss</span>
             </div>
           </div>
           <div class="right">
