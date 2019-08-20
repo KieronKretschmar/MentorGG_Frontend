@@ -39,7 +39,7 @@
           :key="index"
           class="victim-circle"
           :class="[
-            {'lethal' : hit.Kill}, 
+            {'fatal' : hit.Kill}, 
             {'team-attack' : hit.TeamAttack},
             {'is-user' : hit.VictimIsAttacker},
             hit.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
@@ -114,7 +114,7 @@ export default {
       fill: $terrorist-color;
     }
 
-    &.lethal {
+    &.fatal {
       stroke-width: 1.5px;
       stroke: $success-color;
       &.team-attack {

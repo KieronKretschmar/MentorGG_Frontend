@@ -23,11 +23,11 @@
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>
@@ -207,7 +207,7 @@
                     </svg>
                   </div>                
                   <div class="legend-description">
-                    Green markers indicate lethal damage.
+                    Green markers indicate fatal damage.
                   </div>
                 </div>
                 <div class="legend-row">
@@ -381,6 +381,7 @@ export default {
 
       zonesEnabled: false,
       zones: [],
+      zoneDescendants: [],
       userPerformanceData: [],
       globalPerformanceData: [],
 
@@ -434,6 +435,7 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.zoneDescendants = response.data.ZoneDescendants;
         this.loadingSamplesComplete = true;
       })
       .catch(error => {
@@ -505,9 +507,11 @@ export default {
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleSamples() {
-      if (!this.detailView) return [];
       if (!this.samples) return [];
       if (this.selectedSample != null) return [this.selectedSample];
+      if(this.selectedZoneId){
+        return this.samples.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) || x.ZoneId == this.selectedZoneId)
+      }
       return this.samples.filter(x => x.UserIsCt == this.showCt);
     },    
     visibleZones() {

@@ -29,7 +29,42 @@
         :class="{tinted : !detailView && selectedZone}"
       />
 
+      
+      <!-- Zones -->
+      <g v-if="zoneType != 'Smoke'">
+        <Zone v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+          :isSelected="selectedZone && selectedZone.ZoneId == zoneData.ZoneId"
+        />
+      </g>
+      <!-- Smoke Zones (Targets) -->
+      <g v-if="zoneType == 'Smoke'">
+        <Target v-for="zoneData in zones"
+          :key="zoneData.ZoneId"
+          :zoneType="zoneType"
+          :zoneData="zoneData"
+          :SetSelectedZone="SetSelectedZone"
+          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+          :scaleFactor="1"
+        />
+      </g>
 
+      <!-- Lineups (currently for smokes only)-->
+      <g v-if="zoneType == 'Smoke'">
+        <Lineup v-for="lineupData in lineups"
+          :key="lineupData.LineupId"
+          :lineupData="lineupData"
+          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
+          :scaleFactor="scaleFactor"
+          :SetSelectedLineup="SetSelectedLineup"
+          :fillColor="lineupPerformanceColors[lineupData.LineupId]"
+        />
+      </g>
+      
       <!-- Samples -->
       <g id="firenades-group">
         <FireNade
@@ -90,41 +125,7 @@
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
         />
       </g>
-      
-      <!-- Zones -->
-      <g v-if="zoneType != 'Smoke'">
-        <Zone v-for="zoneData in zones"
-          :key="zoneData.ZoneId"
-          :zoneType="zoneType"
-          :zoneData="zoneData"
-          :SetSelectedZone="SetSelectedZone"
-          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-          :isSelected="selectedZone && selectedZone.ZoneId == zoneData.ZoneId"
-        />
-      </g>
-      <!-- Smoke Zones (Targets) -->
-      <g v-if="zoneType == 'Smoke'">
-        <Target v-for="zoneData in zones"
-          :key="zoneData.ZoneId"
-          :zoneType="zoneType"
-          :zoneData="zoneData"
-          :SetSelectedZone="SetSelectedZone"
-          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
-          :scaleFactor="1"
-        />
-      </g>
 
-      <!-- Lineups (currently for smokes only)-->
-      <g v-if="zoneType == 'Smoke'">
-        <Lineup v-for="lineupData in lineups"
-          :key="lineupData.LineupId"
-          :lineupData="lineupData"
-          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
-          :scaleFactor="scaleFactor"
-          :SetSelectedLineup="SetSelectedLineup"
-          :fillColor="lineupPerformanceColors[lineupData.LineupId]"
-        />
-      </g>
     <!-- </g> -->
   </svg>
 </template>

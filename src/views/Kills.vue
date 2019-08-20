@@ -322,6 +322,7 @@ export default {
 
       zonesEnabled: false,
       zones: [],
+      zoneDescendants: [],
       userPerformanceData: [],
       globalPerformanceData: [],
 
@@ -380,6 +381,7 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.zoneDescendants = response.data.ZoneDescendants;
         this.loadingSamplesComplete = true;
       })
       .catch(error => {
@@ -506,8 +508,13 @@ export default {
       if (this.selectedSample != null) return [this.selectedSample];
 
       let filteredKills = this.samples;
-      // filter by team
-      filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);
+      // filter by zone (includes filtering by team)
+      if(this.selectedZoneId){
+        filteredKills = filteredKills.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) || x.ZoneId == this.selectedZoneId)
+      }
+      else{
+        filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);
+      }
 
       // apply other filters by PlantStatus
       // Check whether one or more filters are active

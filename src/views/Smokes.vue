@@ -23,11 +23,11 @@
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>

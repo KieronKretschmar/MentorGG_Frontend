@@ -22,11 +22,11 @@
             <div class="split">
               <div class="ct">
                 <img src="@/assets/ct_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
               </div>
               <div class="t">
                 <img src="@/assets/t_logo.png" />
-                <span>{{((1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div>
@@ -287,7 +287,7 @@
                     Enemies Flashed
                   </div>
                   <div class="stat-content">
-                    {{selectedSample.Flasheds.length}}
+                    {{selectedSample.Flasheds.filter(x=>!x.TeamAttack).length}}
                   </div>
                 </div>
                 <div class="stat-row">
@@ -405,6 +405,7 @@ export default {
 
       zonesEnabled: false,
       zones: [],
+      zoneDescendants: [],
       userPerformanceData: [],
       globalPerformanceData: [],
 
@@ -458,6 +459,7 @@ export default {
         } else {
           this.zonesEnabled = true;
         }
+        this.zoneDescendants = response.data.ZoneDescendants;
         this.loadingSamplesComplete = true;
       })
       .catch(error => {
@@ -534,9 +536,11 @@ export default {
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleSamples() {
-      if (!this.detailView) return [];
       if (!this.samples) return [];
       if (this.selectedSample != null) return [this.selectedSample];
+      if(this.selectedZoneId){
+        return this.samples.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) || x.ZoneId == this.selectedZoneId)
+      }
       return this.samples.filter(x => x.UserIsCt == this.showCt);
     },    
     visibleZones() {
