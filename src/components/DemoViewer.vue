@@ -137,10 +137,12 @@ export default {
     Show: function() {
       $("#demoviewer").fadeIn(500);
       $("body").addClass("no-scroll");
+      this.isVisible = true;
     },
     Hide: function() {
       $("#demoviewer").fadeOut(500);
       $("body").removeClass("no-scroll");
+      this.isVisible = false;
 
       this.Cleanup();
     },
@@ -184,9 +186,22 @@ export default {
         this.Finalize();
       });
     },
+        
+    // If demoviewer is open and the user navigates back/to another site, 
+    // demoviewer is closed instead needs to be replaced as soon as we 
+    // enable other navigations out of the demoviewer instead of just 
+    // using the "back" function of the browser
+    // demoViewerCloseGuard: function(to, from, next) {
+    //   let demoviewer = this.$root.$children[0].$refs.demoviewer;
+    //   if(demoviewer && demoviewer.IsVisible){
+    //     demoviewer.hide();
+    //     next(false);
+    //   }
+    // },
   },
   data() {
     return {
+      isVisible: false,
       loadingData: false,
       matchId: 0
     };

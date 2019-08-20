@@ -11,6 +11,7 @@ import {VueMasonryPlugin} from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
 
+
 Vue.config.productionTip = false;
 Vue.use(VueMasonryPlugin);
 Vue.use(VueLazyLoad);
@@ -38,7 +39,26 @@ Vue.use(VueAnalytics, {
   }
 })
 
-new Vue({
+
+let vapp = new Vue({
   router,
   render: h => h(App)  
 }).$mount('#app');
+
+
+
+// If demoviewer is open and the user navigates back/to another site, 
+// demoviewer is closed instead. This needs to be replaced as soon as  
+// we enable other navigations out of the demoviewer instead of just 
+// using the "back" function of the browser
+router.beforeEach(demoViewerCloseGuard);
+function demoViewerCloseGuard(to, from, next) {
+  let demoviewer = vapp.$root.$children[0].$refs.demoviewer;
+  if(demoviewer && demoviewer.isVisible){
+    demoviewer.Hide();
+    next(false);
+  }
+  else{
+    next(true)
+  }
+}
