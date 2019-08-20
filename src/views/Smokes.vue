@@ -476,6 +476,7 @@ export default {
       this.selectedLineup = this.lineups.find(x => x.LineupId == lineupId);
     },
     SetSelectedZone: function(zoneId) {
+      this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     ToggleDetailView() {

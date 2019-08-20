@@ -442,6 +442,7 @@ export default {
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedZone: function(zoneId) {
+      this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     ToggleDetailView() {

@@ -147,8 +147,8 @@
                           'VictimPosX':33,
                           'VictimPosY':27,
                           'UserWinner':true,
-                          'PlayerZoneByTeam':0,
-                          'VictimZoneByTeam':0,
+                          'PlayerZoneId':0,
+                          'VictimZoneId':0,
                           'FilterSettings':{'PlantStatus':0}}"
                         :scaleFactor="1"
                         :showTrajectories="showTrajectories"
@@ -179,8 +179,8 @@
                           'VictimPosX':33,
                           'VictimPosY':27,
                           'UserWinner':false,
-                          'PlayerZoneByTeam':0,
-                          'VictimZoneByTeam':0,
+                          'PlayerZoneId':0,
+                          'VictimZoneId':0,
                           'FilterSettings':{'PlantStatus':0}}"
                         :scaleFactor="1"
                         :showTrajectories="showTrajectories"
@@ -411,6 +411,7 @@ export default {
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedZone: function(zoneId) {
+      this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     ToggleDetailView() {
@@ -509,7 +510,10 @@ export default {
       let filteredKills = this.samples;
       // filter by zone (includes filtering by team)
       if(this.selectedZoneId){
-        filteredKills = filteredKills.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.PlayerZoneId) || x.PlayerZoneId == this.selectedZoneId)
+        let debug = filteredKills[0];
+        filteredKills = filteredKills.filter(x => 
+        this.zoneDescendants[this.selectedZoneId].includes(x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) 
+        || (x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) == this.selectedZoneId)
       }
       else{
         filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);
@@ -532,11 +536,9 @@ export default {
       if (this.detailView) return [];
 
       if (this.selectedZone != null) {
-        return this.zones.filter(
-          x =>
-            x.ParentZoneId == this.selectedZone.ZoneId ||
-            this.selectedZone.ZoneId == x.ZoneId
-        );
+        return this.zones.filter(x => 
+          this.zoneDescendants[this.selectedZone.ZoneId].includes(x.ZoneId) ||
+            this.selectedZone.ZoneId == x.ZoneId);
       } else {
         return this.zones.filter(
           x => x.IsCtZone == this.showCt && x.Depth == 1
