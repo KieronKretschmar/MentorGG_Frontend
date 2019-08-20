@@ -74,9 +74,7 @@
           <div class="tool-menu">
             <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
 
-            <div v-if="zonesEnabled">
-              <button class="button-variant-bordered" @click="ToggleDetailView()">Toggle Zones</button>
-            </div>
+            <button class="button-variant-bordered" @click="ToggleDetailView()" :disabled="!zonesEnabled">Toggle Zones</button>
 
             <div class="team-select">
               <img
@@ -425,9 +423,12 @@ export default {
       .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
-        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
-        this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
+        this.userPerformanceData = response.data.UserData;
         this.globalPerformanceData = response.data.GlobalData;
+        // Ignore zones where there are no samples for less clutter
+        this.zones = response.data.Zones
+        .filter(x => x.ParentZoneId != -1 && this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount != 0)
+        .sort((a,b) => a.Depth - b.Depth);
         if (this.zones.length == 0) {
           this.zonesEnabled = false;
         } else {

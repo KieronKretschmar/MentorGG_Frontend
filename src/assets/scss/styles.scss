@@ -49,6 +49,16 @@ body {
         background: $orange;
     }
 
+    &:disabled {
+        border-color: $dark-4;
+        cursor: default;
+        color:$dark-4;
+
+        &:hover{
+            background: inherit;
+        }
+    }
+
     &.purple {
         border: 1px solid $purple;
 

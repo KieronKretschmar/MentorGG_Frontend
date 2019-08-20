@@ -8,8 +8,15 @@
     oncontextmenu="return false;"
     ref="svgElement"
   >
+    <defs>
+    <pattern id="map-background-pattern-light" x="0" y="0" patternUnits="userSpaceOnUse" height="1000" width="1000">
+      <image x="0" y="0" v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"></image>
+    </pattern>
+  </defs>
+
     <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
+        class="background-map-img"
         v-if="mapInfo.ImageURL"
         v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
         id="map-image"
@@ -19,6 +26,7 @@
         y="0"
         width="1024"
         height="1024"
+        :class="{tinted : !detailView && selectedZone}"
       />
 
 
@@ -253,7 +261,7 @@ export default {
                 rounds / 10
               );
 
-              let blindDuration = element.TotalEnemyFlashDuration / element.SampleCount;
+              let blindDuration = element.TotalEnemyTimeFlashed / element.SampleCount;
               zonePerformanceColors[
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
@@ -334,9 +342,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+#map-background-pattern-dark{
+  filter: brightness(50%);
+}
 #svgView {
   margin-top: 40px;
   width: 100%;
+
+  .tinted{
+    opacity:0.5;
+  }
 }
 </style>

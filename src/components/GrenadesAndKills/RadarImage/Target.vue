@@ -37,9 +37,4 @@ export default {
 </script>
 
 <style>
-polyline {
-  stroke-width: 1px;
-  stroke-opacity: 0.5;
-  stroke: white;
-}
 </style>

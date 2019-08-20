@@ -10,7 +10,7 @@
     
     <polyline v-show="isSelected" class="selected"
       vector-effect="non-scaling-stroke"
-      :style="{stroke:fillColor}"
+      :style="{DEBUGstroke:fillColor}"
       :points="polygonPoints"
     ></polyline>
 
@@ -44,12 +44,14 @@ export default {
 <style>
 polyline {
   stroke-width: 1px;
-  stroke-opacity: 0.5;
+  stroke-opacity: 1;
   stroke: white;
 }
 polyline.selected{
-  fill:none;
-  stroke-width: 4px;
+  /* defined in RadarImage.vue */
+  fill:url(#map-background-pattern-light); 
+  stroke-width: 3px;
   stroke-opacity: 1;
+  stroke: white;
 }
 </style>

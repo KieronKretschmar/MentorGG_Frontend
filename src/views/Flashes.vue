@@ -73,9 +73,7 @@
           <div class="tool-menu">
             <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
 
-            <div v-if="zonesEnabled">
-              <button class="button-variant-bordered" @click="ToggleDetailView()">Toggle Zones</button>
-            </div>
+            <button class="button-variant-bordered" @click="ToggleDetailView()" :disabled="!zonesEnabled">Toggle Zones</button>
 
             <div class="team-select">
               <img
@@ -168,7 +166,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
+                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
                         :scaleFactor="1"
                         :showTrajectories="showTrajectories"
@@ -198,7 +196,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'FlashedDuration':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
+                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
                         :scaleFactor="1"
                         :showTrajectories="showTrajectories"
@@ -229,8 +227,8 @@
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[
-                          {'VictimPosX':42,'VictimPosY':12,'FlashedDuration':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimPosX':39,'VictimPosY':39,'FlashedDuration':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
+                          {'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimPosX':39,'VictimPosY':39,'TimeFlashed':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
                         :scaleFactor="1"
                         :showTrajectories="showTrajectories"
@@ -297,7 +295,7 @@
                     Total time enemies flashed:
                   </div>
                   <div class="stat-content">
-                    {{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.FlashedDuration, 0) / 1000).toFixed(2) + "s"}}
+                    {{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.TimeFlashed, 0) / 1000).toFixed(2) + "s"}}
                   </div>
                 </div>
                 <div class="stat-row">
@@ -347,10 +345,10 @@
                   </div>
                   <div class="stat-content-split">
                     <div class="split-left">
-                      {{(userSelectedZonePerformance.TotalEnemyFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                     
+                      {{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                     
                     </div>
                     <div class="split-right">
-                      {{(userSelectedZonePerformance.TotalTeamFlashDuration / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                   
+                      {{(userSelectedZonePerformance.TotalTeamTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                   
                     </div>
                   </div>
                 </div>
@@ -449,9 +447,12 @@ export default {
       .then(response => {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
-        this.zones = response.data.Zones.filter(x => x.ParentZoneId != -1);
         this.userPerformanceData = response.data.UserData;
         this.globalPerformanceData = response.data.GlobalData;
+        // Ignore zones where there are no samples for less clutter
+        this.zones = response.data.Zones
+        .filter(x => x.ParentZoneId != -1 && this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount != 0)
+        .sort((a,b) => a.Depth - b.Depth);
         if (this.zones.length == 0) {
           this.zonesEnabled = false;
         } else {

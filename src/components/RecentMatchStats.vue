@@ -30,7 +30,7 @@
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
-            {{  0 > RankBalance ? "-" : "+" + Math.abs(RankBalance) }}
+            {{  (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
             <!-- <i class="material-icons" @click="OpenRankGraph">timeline</i> -->
           </div>
           <div class="txt">W/L balance on this rank</div>

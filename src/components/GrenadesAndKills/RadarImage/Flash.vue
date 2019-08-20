@@ -2,7 +2,7 @@
   <g
     v-if="grenadeData"
     class="flash"
-    :class="[{ 'enemies-flashed': enemiesFlashedDuration > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
+    :class="[{ 'enemies-flashed': enemiesTimeFlashed > 0}, {'kill-assist': killAssist}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
   >
@@ -63,10 +63,10 @@ export default {
     detonationRadius() {
       var baseRadius = 5;
       var maxRadius = 14;
-      var maxFlashDuration = 7000;
+      var maxTimeFlashed = 7000;
       var normalizedPerformance = this.$helpers.NormalizedPerformance(
-        this.enemiesFlashedDuration,
-        maxFlashDuration,
+        this.enemiesTimeFlashed,
+        maxTimeFlashed,
         0
       );
       return (
@@ -77,13 +77,13 @@ export default {
     victimRadius() {
       return 5 / this.scaleFactor;
     },
-    enemiesFlashedDuration() {
+    enemiesTimeFlashed() {
       if (this.grenadeData.Flasheds.filter(x => !x.TeamAttack).length == 0) {
         return 0;
       }
 
       return this.grenadeData.Flasheds.filter(x => !x.TeamAttack).reduce(
-        (acc, obj) => obj.FlashedDuration + acc,
+        (acc, obj) => obj.TimeFlashed + acc,
         0
       );
     },
