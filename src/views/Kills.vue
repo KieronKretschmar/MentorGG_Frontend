@@ -374,7 +374,7 @@ export default {
         this.globalPerformanceData = response.data.GlobalData;
         // Ignore zones where there are no samples for less clutter
         this.zones = response.data.Zones
-        .filter(x => x.ParentZoneId != -1 && this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount != 0)
+        .filter(x => x.ParentZoneId != -1 && (this.activeUserData.ZonePerformances[x.ZoneId].Deaths != 0 || this.activeUserData.ZonePerformances[x.ZoneId].Kills != 0))
         .sort((a,b) => a.Depth - b.Depth);
         if (this.zones.length == 0) {
           this.zonesEnabled = false;
@@ -502,7 +502,6 @@ export default {
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleSamples() {
-      if (!this.detailView) return [];
       if (!this.samples) return [];
 
       if (this.selectedSample != null) return [this.selectedSample];
@@ -510,7 +509,7 @@ export default {
       let filteredKills = this.samples;
       // filter by zone (includes filtering by team)
       if(this.selectedZoneId){
-        filteredKills = filteredKills.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) || x.ZoneId == this.selectedZoneId)
+        filteredKills = filteredKills.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.PlayerZoneId) || x.PlayerZoneId == this.selectedZoneId)
       }
       else{
         filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);

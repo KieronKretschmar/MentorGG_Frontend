@@ -6,12 +6,20 @@
     :id="killData.Id"
     @click="SetSelectedSample(killData.Id)"
   >
-    <circle
-      class="attacker-circle"
+    <circle v-if="killData.UserWinner"
+      class="user-circle"
       :cx="killData.PlayerPosX"
       :cy="killData.PlayerPosY"
       :r="userRadius +'px'"
     />
+
+    <circle v-if="!killData.UserWinner"
+      class="user-circle"
+      :cx="killData.VictimPosX"
+      :cy="killData.VictimPosY"
+      :r="userRadius +'px'"
+    />
+
     <polyline
       v-if="isSelected || showTrajectories"
       class="connection"
@@ -51,17 +59,17 @@ export default {
 
 <style lang="scss">
 .kill {
-  // &.ct .attacker-circle{
+  // &.ct .user-circle{
   //     fill: $ct-color;
   // }
-  // &.terrorist .attacker-circle{
+  // &.terrorist .user-circle{
   //     fill: $terrorist-color;
   // }
 
-  &.userkiller .attacker-circle {
+  &.userkiller .user-circle {
     fill: $success-color;
   }
-  &.uservictim .attacker-circle {
+  &.uservictim .user-circle {
     fill: $failure-color;
   }
 
