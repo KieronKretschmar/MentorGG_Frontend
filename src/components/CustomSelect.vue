@@ -43,6 +43,7 @@ export default {
   font-size: 14px;
 
   ul {
+    z-index: 45;
     list-style-type: none;
     padding: 0;
     margin: 0;

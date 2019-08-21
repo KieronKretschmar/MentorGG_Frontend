@@ -100,8 +100,6 @@ export default {
       this.$api.getFriendsComparison(isDemo ? "76561198033880857" : "").then(result => {
         this.comparisons = result.data.Rows;
         this.comparisons.forEach(comparison => {
-          console.log(comparison);
-
           comparison.WinRate =
             (comparison.MatchesWon / comparison.MatchesPlayed) *
             100;

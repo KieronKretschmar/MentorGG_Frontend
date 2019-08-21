@@ -80,9 +80,9 @@
       </g>
 
       <!-- Samples -->
-      <g id="firenades-group">
-        <FireNade
-          v-for="grenadeData in fireNades"
+      <g id="molotovs-group">
+        <Molotov
+          v-for="grenadeData in molotovs"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
           :scaleFactor="scaleFactor"
@@ -153,12 +153,11 @@
 
 <script>
 import svgPanZoom from "svg-pan-zoom";
-import Vue from "vue";
 
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
 import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
-import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
+import Molotov from "@/components/GrenadesAndKills/RadarImage/Molotov.vue";
 import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
 import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
@@ -168,7 +167,7 @@ export default {
     Zone,
     Target,
     Lineup,
-    FireNade,
+    Molotov,
     Flash,
     HE,
     Kill,
@@ -191,8 +190,6 @@ export default {
     });
 
     this.svgReference = panZoomRadar;
-
-    console.log(panZoomRadar);
   },
   data() {
     return {
@@ -219,7 +216,7 @@ export default {
     "lineups",
     "userPerformanceData",
 
-    "fireNades",
+    "molotovs",
     "flashGrenades",
     "heGrenades",
     "kills",
@@ -258,6 +255,21 @@ export default {
 
     // Zones
     zonePerformanceColors() {
+      const minOpacity = 0.15;
+      const maxOpacity = 0.4;
+      // FireNades
+      const greenHitEnemyRatio = 0.25;
+      const redHitEnemyRatio = 0;
+      // Flashes
+      const greenBlindDuration = 3000;
+      const redBlindDuration = 0;
+      // HEs
+      const greenDamageDealt = 20;
+      const redDamageDealt = 0;
+      // Kills
+      const greenKillDeathRatio = 2;
+      const redKillDeathRatio = 0;
+
       let zonePerformanceColors = {};
       switch (this.zoneType) {
         case "FireNade":
@@ -271,11 +283,12 @@ export default {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
+              let samplesRequiredForMaxOpacity = rounds / 10;
               let opacity = this.$performanceColors.opacityFromSampleSize(
-                0.15,
-                0.4,
+                minOpacity,
+                maxOpacity,
                 element.SampleCount,
-                rounds / 10
+                samplesRequiredForMaxOpacity
               );
 
               let hitEnemyRatio =
@@ -284,8 +297,8 @@ export default {
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
                 hitEnemyRatio,
-                0.25,
-                0,
+                greenHitEnemyRatio,
+                redHitEnemyRatio,
                 opacity
               );
             }
@@ -303,12 +316,14 @@ export default {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
+              let samplesRequiredForMaxOpacity = rounds / 10;
               let opacity = this.$performanceColors.opacityFromSampleSize(
-                0.15,
-                0.4,
+                minOpacity,
+                maxOpacity,
                 element.SampleCount,
-                rounds / 10
+                samplesRequiredForMaxOpacity
               );
+
 
               let blindDuration =
                 element.TotalEnemyTimeFlashed / element.SampleCount;
@@ -316,8 +331,8 @@ export default {
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
                 blindDuration,
-                4000,
-                500,
+                greenBlindDuration,
+                redBlindDuration,
                 opacity
               );
             }
@@ -336,8 +351,8 @@ export default {
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
               let opacity = this.$performanceColors.opacityFromSampleSize(
-                0.15,
-                0.4,
+                minOpacity,
+                maxOpacity,
                 element.SampleCount,
                 rounds / 10
               );
@@ -347,8 +362,8 @@ export default {
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
                 avgDamage,
-                20,
-                0,
+                greenDamageDealt,
+                redDamageDealt,
                 opacity
               );
             }
@@ -372,8 +387,8 @@ export default {
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
                 kdRatio,
-                2,
-                0,
+                greenKillDeathRatio,
+                redKillDeathRatio,
                 opacity
               );
             }

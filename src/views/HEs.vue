@@ -405,7 +405,6 @@ export default {
     this.LoadSamples(this.activeMap, this.matchCount, false);
 
     if(this.$route.query.zoneId){
-      console.log(this.$route.query.zoneId);
       this.detailView = false;
       this.selectedZoneId = this.$route.query.zoneId;        
     }

@@ -8,7 +8,7 @@
           <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
         </div>
         <div v-if="!playerStats && !loadingComplete" class="">
-          <AjaxLoader>Loading FireNades</AjaxLoader>
+          <AjaxLoader>Loading Molotovs</AjaxLoader>
         </div>
         <div v-if="!playerStats && loadingComplete" class="">
           <NoDataAvailableDisplay 
@@ -289,10 +289,10 @@ export default {
           ]
         },
         {
-          name: "FireNades",
+          name: "Molotovs",
           entries: [
             {
-              name: "FireNades Thrown",
+              name: "Molotovs Thrown",
               value: this.playerStats.FireNadesUsed,
               valuePerMatch: (this.playerStats.FireNadesUsed / this.playerStats.GamesPlayed).toFixed(2),
             },

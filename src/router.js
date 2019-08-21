@@ -34,9 +34,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "smokes" */ './views/Smokes.vue')
     },
     {
-      path: '/firenades',
-      name: 'firenades',
-      component: () => import(/* webpackChunkName: "firenades" */ './views/FireNades.vue')
+      path: '/molotovs',
+      name: 'molotovs',
+      component: () => import(/* webpackChunkName: "molotovs" */ './views/Molotovs.vue')
     },
     {
       path: '/flashes',

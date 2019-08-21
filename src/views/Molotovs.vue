@@ -1,5 +1,5 @@
 <template>
-  <div class="view view-firenades">
+  <div class="view view-molotovs">
     <div class="fixed-width-container">      
       <div v-if="mapSummaries == null" class="bordered-box no-data">
         <AjaxLoader>Computing summaries for each map</AjaxLoader>
@@ -62,12 +62,12 @@
       </div>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
-        <AjaxLoader>Loading FireNades</AjaxLoader>
+        <AjaxLoader>Loading Molotovs</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-            Either you don't have any matches on this map, or you just don't use any firenades at all. Load someone else's?
+            Either you don't have any matches on this map, or you just don't use any molotovs at all. Load someone else's?
           </NoDataAvailableDisplay>
       </div>   
       <div v-if="samples.length" class="interactive-area">
@@ -112,7 +112,7 @@
               :zoneType="'FireNade'"
               :zones="visibleZones"
               :userPerformanceData="userPerformanceData"
-              :fireNades="visibleSamples"
+              :molotovs="visibleSamples"
             />
           </div>
         </div>
@@ -123,7 +123,7 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <FireNade 
+                      <Molotov 
                         :grenadeData="{
                           'Id':'FireNade-1-1',
                           'MatchId':1,
@@ -148,13 +148,13 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    White markers represent FireNades that did not deal damage to enemies.
+                    White markers represent Molotovs that did not deal damage to enemies.
                   </div>
                 </div>
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <FireNade 
+                      <Molotov 
                         :grenadeData="{
                           'Id':'FireNade-1-1',
                           'MatchId':1,
@@ -185,7 +185,7 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <FireNade 
+                      <Molotov 
                         :grenadeData="{
                           'Id':'FireNade-1-1',
                           'MatchId':1,
@@ -215,7 +215,7 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    Click on a FireNade to see the victims' path through the fire. 
+                    Click on a Molotov to see the victims' path through the fire. 
                   </div>
                 </div>
               </div>
@@ -241,15 +241,15 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    A zone's color corresponds to the chance of your FireNades burning at least one enemy. 
-                    <!-- A zone's color corresponds to the chance of your FireNades inside that burned at least one enemy.  -->
+                    A zone's color corresponds to the chance of your Molotovs burning at least one enemy. 
+                    <!-- A zone's color corresponds to the chance of your Molotovs inside that burned at least one enemy.  -->
                   </div>
                 </div>
               </div>
             </div>
             <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats"> 
-                About this FireNade:
+                About this Molotov:
                 <div class="stat-row">
                   <div class="stat-description">
                     Round
@@ -293,10 +293,10 @@
               </div>
 
               <div v-if="selectedZone" class="selected-zone-stats"> 
-                About your FireNades in the {{selectedZone.Name}}-Zone:
+                About your Molotovs in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
                   <div class="stat-description">
-                    FireNades thrown
+                    Molotovs thrown
                   </div>
                   <div class="stat-content">
                     {{userSelectedZonePerformance.SampleCount}}
@@ -329,14 +329,14 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
-import FireNade from "@/components/GrenadesAndKills/RadarImage/FireNade.vue";
+import Molotov from "@/components/GrenadesAndKills/RadarImage/Molotov.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 
 export default {
   components: {
     CustomSelect,
-    FireNade,
+    Molotov,
     RadarImage,
     Zone,
   },
@@ -382,7 +382,6 @@ export default {
     this.LoadSamples(this.activeMap, this.matchCount, false);
 
     if(this.$route.query.zoneId){
-      console.log(this.$route.query.zoneId);
       this.detailView = false;
       this.selectedZoneId = this.$route.query.zoneId;        
     }
@@ -512,7 +511,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/sidebar.scss";
 
-.view-firenades {
+.view-molotovs {
   margin-top: 40px;
 }
 

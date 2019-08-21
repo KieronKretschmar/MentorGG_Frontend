@@ -121,7 +121,6 @@ export default {
       });
     },
     NavigateToKills: function(matchCount = 0, map = "", zoneId = 0){
-          console.log(zoneId)
       let params = {};
       if(matchCount){
         params.matchCount = matchCount;

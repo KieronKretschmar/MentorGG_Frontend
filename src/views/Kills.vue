@@ -348,7 +348,6 @@ export default {
     this.LoadSamples(this.activeMap, this.matchCount, false);
 
     if(this.$route.query.zoneId){
-      console.log(this.$route.query.zoneId);
       this.detailView = false;
       this.selectedZoneId = this.$route.query.zoneId;        
     }
@@ -537,7 +536,7 @@ export default {
 
       if (this.selectedZone != null) {
         return this.zones.filter(x => 
-          this.zoneDescendants[this.selectedZone.ZoneId].includes(x.ZoneId) ||
+          x.ParentZoneId == this.selectedZone.ZoneId ||
             this.selectedZone.ZoneId == x.ZoneId);
       } else {
         return this.zones.filter(

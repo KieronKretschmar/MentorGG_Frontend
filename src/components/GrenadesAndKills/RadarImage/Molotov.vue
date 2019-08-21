@@ -1,7 +1,7 @@
 <template>
   <g
     v-if="grenadeData"
-    class="firenade"
+    class="molotov"
     :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
@@ -33,7 +33,7 @@
     <g v-if="isSelected" class="victims-group">
       <g v-for="victimData in grenadeData.Victims" 
       :key=victimData.VictimId
-      class="firenade-victim">
+      class="molotov-victim">
         <circle
           v-for="(hit,index) in victimData.Hits"
           :key="index"
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-.firenade {
+.molotov {
   .attacker-circle.is-user{
     fill: $orange;
   }

@@ -6,7 +6,7 @@
       </router-link>
       <router-link to="/">Overview</router-link>
       <router-link to="/smokes">Smokes</router-link>
-      <router-link to="/firenades">FireNades</router-link>
+      <router-link to="/molotovs">Molotovs</router-link>
       <router-link to="/flashes">Flashes</router-link>
       <router-link to="/hes">HEs</router-link>
       <router-link to="/kills">Kills</router-link>
