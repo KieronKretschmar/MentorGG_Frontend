@@ -1,20 +1,32 @@
 <template>
-  <svg
-    v-if="this.mapInfo.CropOffsets"
-    :viewBox="viewBox"
-    id="svgView"
-    xmlns="http://www.w3.org/2000/svg"  
-    preserveAspectRatio="xMidYMin"
-    oncontextmenu="return false;"
-    ref="svgElement"
-  >
-    <defs>
-    <pattern id="map-background-pattern-light" x="0" y="0" patternUnits="userSpaceOnUse" height="1000" width="1000">
-      <image x="0" y="0" v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"></image>
-    </pattern>
-  </defs>
+  <div class="svg-wrapper">
+    <svg
+      v-if="this.mapInfo.CropOffsets"
+      :viewBox="viewBox"
+      id="svgView"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMin"
+      oncontextmenu="return false;"
+      ref="svgElement"
+    >
+      <defs>
+        <pattern
+          id="map-background-pattern-light"
+          x="0"
+          y="0"
+          patternUnits="userSpaceOnUse"
+          height="1000"
+          width="1000"
+        >
+          <image
+            x="0"
+            y="0"
+            v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+          />
+        </pattern>
+      </defs>
 
-    <!-- <g v-if="mapInfo" id="svg-child"> -->
+      <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
         class="background-map-img"
         v-if="mapInfo.ImageURL"
@@ -29,10 +41,10 @@
         :class="{tinted : !detailView && selectedZone}"
       />
 
-      
       <!-- Zones -->
       <g v-if="zoneType != 'Smoke'">
-        <Zone v-for="zoneData in zones"
+        <Zone
+          v-for="zoneData in zones"
           :key="zoneData.ZoneId"
           :zoneType="zoneType"
           :zoneData="zoneData"
@@ -43,7 +55,8 @@
       </g>
       <!-- Smoke Zones (Targets) -->
       <g v-if="zoneType == 'Smoke'">
-        <Target v-for="zoneData in zones"
+        <Target
+          v-for="zoneData in zones"
           :key="zoneData.ZoneId"
           :zoneType="zoneType"
           :zoneData="zoneData"
@@ -55,7 +68,8 @@
 
       <!-- Lineups (currently for smokes only)-->
       <g v-if="zoneType == 'Smoke'">
-        <Lineup v-for="lineupData in lineups"
+        <Lineup
+          v-for="lineupData in lineups"
           :key="lineupData.LineupId"
           :lineupData="lineupData"
           :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
@@ -64,7 +78,7 @@
           :fillColor="lineupPerformanceColors[lineupData.LineupId]"
         />
       </g>
-      
+
       <!-- Samples -->
       <g id="firenades-group">
         <FireNade
@@ -75,7 +89,7 @@
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-        />   
+        />
       </g>
 
       <g id="flashes-group">
@@ -111,7 +125,7 @@
           :showTrajectories="showTrajectories"
           :SetSelectedSample="SetSelectedSample"
           :isSelected="selectedSample && selectedSample.Id==killData.Id"
-        />   
+        />
       </g>
 
       <g id="smokes-group">
@@ -126,14 +140,20 @@
         />
       </g>
 
-    <!-- </g> -->
-  </svg>
+      <!-- </g> -->
+    </svg>
+    <div class="svg-custom-zoom-controls">
+      <i class="material-icons" title="Zoom In" @click="Zoom(1)">zoom_in</i>
+      <i class="material-icons" title="Reset Zoom" @click="Zoom(0)">clear</i>
+      <i class="material-icons" title="Zoom Out" @click="Zoom(-1)">zoom_out</i>
+    </div>
+  </div>
 </template>
 
 
 <script>
-import svgPanZoom from 'svg-pan-zoom';
-import Vue from 'vue';
+import svgPanZoom from "svg-pan-zoom";
+import Vue from "vue";
 
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
@@ -152,25 +172,33 @@ export default {
     Flash,
     HE,
     Kill,
-    Smoke,
+    Smoke
   },
   mounted() {
     // assuming maps are quadratic, set svg height to the available width.
-    this.$refs.svgElement.style.height = this.$refs.svgElement.clientWidth;
+    this.$refs.svgElement.style.height =
+      this.$refs.svgElement.clientWidth + "px";
+    console.log("done");
+
     // Activate zoom
-    var panZoomRadar = svgPanZoom('#svgView', {
+    var panZoomRadar = svgPanZoom("#svgView", {
       zoomScaleSensitivity: 0.6,
-      controlIconsEnabled: true,
-      minZoom: 1, 
+      controlIconsEnabled: false,
+      minZoom: 1,
       maxZoom: 16,
-      onZoom: (newScale) => {
+      onZoom: newScale => {
         this.scaleFactor = newScale;
       }
     });
+
+    this.svgReference = panZoomRadar;
+
+    console.log(panZoomRadar);
   },
   data() {
     return {
       scaleFactor: 1,
+      svgReference: null
     };
   },
   props: [
@@ -196,11 +224,25 @@ export default {
     "flashGrenades",
     "heGrenades",
     "kills",
-    "smokeGrenades",
+    "smokeGrenades"
   ],
-  watch: {
-  },
+  watch: {},
   methods: {
+    Zoom: function(x) {
+      if (x == 1) {
+        this.svgReference.zoomIn();
+        return;
+      }
+
+      if (x == -1) {
+        this.svgReference.zoomOut();
+        return;
+      }
+
+      if (x == 0) {
+        this.svgReference.resetZoom();
+      }
+    }
   },
   computed: {
     viewBox() {
@@ -215,7 +257,7 @@ export default {
       );
     },
 
-    // Zones    
+    // Zones
     zonePerformanceColors() {
       let zonePerformanceColors = {};
       switch (this.zoneType) {
@@ -223,7 +265,9 @@ export default {
           for (let zoneId in this.userPerformanceData.ZonePerformances) {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             if (element.SampleCount == 0) {
-              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.neutralColor(0.15);
             } else {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
@@ -235,8 +279,11 @@ export default {
                 rounds / 10
               );
 
-              let hitEnemyRatio = element.DamagingNadesCount / Math.max(1, element.SampleCount);
-              zonePerformanceColors[zoneId] = this.$performanceColors.performanceColorGivenOpacity(
+              let hitEnemyRatio =
+                element.DamagingNadesCount / Math.max(1, element.SampleCount);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.performanceColorGivenOpacity(
                 hitEnemyRatio,
                 0.25,
                 0,
@@ -250,7 +297,9 @@ export default {
           for (let zoneId in this.userPerformanceData.ZonePerformances) {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             if (element.SampleCount == 0) {
-              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.neutralColor(0.15);
             } else {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
@@ -262,7 +311,8 @@ export default {
                 rounds / 10
               );
 
-              let blindDuration = element.TotalEnemyTimeFlashed / element.SampleCount;
+              let blindDuration =
+                element.TotalEnemyTimeFlashed / element.SampleCount;
               zonePerformanceColors[
                 zoneId
               ] = this.$performanceColors.performanceColorGivenOpacity(
@@ -279,7 +329,9 @@ export default {
           for (let zoneId in this.userPerformanceData.ZonePerformances) {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             if (element.SampleCount == 0) {
-              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.neutralColor(0.15);
             } else {
               let rounds = element.IsCtZone
                 ? this.userPerformanceData.CtRounds
@@ -309,14 +361,22 @@ export default {
             const element = this.userPerformanceData.ZonePerformances[zoneId];
             let sampleCount = element.Deaths + element.Kills;
             if (sampleCount == 0) {
-              zonePerformanceColors[zoneId] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.neutralColor(0.15);
             } else {
               // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
               // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, sampleCount, rounds/10)
               let opacity = 0.3;
               let kdRatio = element.Kills / Math.max(1, element.Deaths);
-              zonePerformanceColors[zoneId] = 
-              this.$performanceColors.performanceColorGivenOpacity(kdRatio,2,0,opacity);
+              zonePerformanceColors[
+                zoneId
+              ] = this.$performanceColors.performanceColorGivenOpacity(
+                kdRatio,
+                2,
+                0,
+                opacity
+              );
             }
           }
           break;
@@ -331,10 +391,21 @@ export default {
         const element = this.userPerformanceData.LineupPerformances[lineupId];
         let opacity = 1;
         if (element.TotalAttemptsCount == 0) {
-          lineupPerformanceColors[lineupId] = this.$performanceColors.neutralColor(opacity);
+          lineupPerformanceColors[
+            lineupId
+          ] = this.$performanceColors.neutralColor(opacity);
         } else {
-          let targetHitRatio = element.SuccessfulAttemptsCount / Math.max(1, element.TotalAttemptsCount);
-          lineupPerformanceColors[lineupId] = this.$performanceColors.performanceColorGivenOpacity(targetHitRatio,1,0.8,opacity);
+          let targetHitRatio =
+            element.SuccessfulAttemptsCount /
+            Math.max(1, element.TotalAttemptsCount);
+          lineupPerformanceColors[
+            lineupId
+          ] = this.$performanceColors.performanceColorGivenOpacity(
+            targetHitRatio,
+            1,
+            0.8,
+            opacity
+          );
         }
       }
       return lineupPerformanceColors;
@@ -344,15 +415,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#map-background-pattern-dark{
+.svg-wrapper {
+  position: relative;
+
+  .svg-custom-zoom-controls {
+    border-radius: 3px;
+    position: absolute;
+    bottom: 0;
+    right: -15px;
+    display: flex;
+    background: $purple;
+    padding: 5px;
+
+    i {
+      transition: 0.35s all;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      font-size: 32px;
+
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+}
+
+#map-background-pattern-dark {
   filter: brightness(50%);
 }
 #svgView {
   margin-top: 40px;
   width: 100%;
 
-  .tinted{
-    opacity:0.5;
+  .tinted {
+    opacity: 0.5;
   }
 }
 </style>
