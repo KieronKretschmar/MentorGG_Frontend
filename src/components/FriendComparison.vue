@@ -55,6 +55,26 @@
         <transition name="slide">
           <div class="body" v-if="comparison.IsVisible">
             <hr />
+
+            <div class="row">
+              <div class="col">Who</div>
+              <div class="col centered"><img src="@/assets/t_logo.png"> K/D</div>
+              <div class="col centered"><img src="@/assets/ct_logo.png"> K/D</div>
+              <div class="col centered">ADR</div>
+            </div>
+            <div class="row">
+              <div class="col">You</div>
+              <div class="col centered">1.12</div>
+              <div class="col centered">1.02</div>
+              <div class="col centered">80</div>
+            </div>
+            <div class="row">
+              <div class="col">Them</div>
+              <div class="col centered">0.97</div>
+              <div class="col centered">0.85</div>
+              <div class="col centered">79</div>
+            </div>
+
           </div>
         </transition>
       </div>
@@ -80,6 +100,8 @@ export default {
       this.$api.getFriendsComparison(isDemo ? "76561198033880857" : "").then(result => {
         this.comparisons = result.data.Rows;
         this.comparisons.forEach(comparison => {
+          console.log(comparison);
+
           comparison.WinRate =
             (comparison.MatchesWon / comparison.MatchesPlayed) *
             100;
@@ -204,6 +226,51 @@ export default {
         border: 1px solid $purple;
         border-bottom: none;
         margin: 15px 0;
+      }
+
+      .row {
+        display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid $purple;
+
+        &:first-child,
+        &:last-child {
+          border-bottom: none;
+        }        
+
+        &:first-of-type {
+          .col {
+            color: $orange;
+            text-transform: uppercase;
+            font-size: 12px;
+          }
+        }
+        
+        .col {
+          color: white;
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+
+          &.centered {
+            justify-content: center;
+          }
+
+          img {
+            margin-right: 5px;
+          }
+
+          &:nth-child(1) {
+            width: 15%;
+          }
+
+          &:nth-child(2),
+          &:nth-child(3),
+          &:nth-child(4) {
+            width: 15%;
+          }
+        }
       }
     }
   }
