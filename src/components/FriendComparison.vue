@@ -58,21 +58,33 @@
 
             <div class="row">
               <div class="col">Who</div>
-              <div class="col centered"><img src="@/assets/t_logo.png"> K/D</div>
-              <div class="col centered"><img src="@/assets/ct_logo.png"> K/D</div>
+              <!-- <div class="col">Team</div> -->
               <div class="col centered">ADR</div>
+              <div class="col centered">Score</div>
             </div>
             <div class="row">
-              <div class="col">You</div>
-              <div class="col centered">1.12</div>
-              <div class="col centered">1.02</div>
+              <div class="col"><img src="@/assets/t_logo.png">You</div>
+              <!-- <div class="col"><img src="@/assets/t_logo.png"></div> -->
+              <div class="col centered">{{(comparison.UserData.TerroristDamage / Math.max(0, comparison.TerroristRounds)).toFixed(0)}}</div>
               <div class="col centered">80</div>
             </div>
             <div class="row">
-              <div class="col">Them</div>
-              <div class="col centered">0.97</div>
-              <div class="col centered">0.85</div>
-              <div class="col centered">79</div>
+              <div class="col"><img src="@/assets/t_logo.png">Friend</div>
+              <!-- <div class="col"><img src="@/assets/t_logo.png"></div> -->
+              <div class="col centered">{{(comparison.OtherData.TerroristDamage / Math.max(0, comparison.TerroristRounds)).toFixed(0)}}</div>
+              <div class="col centered">80</div>
+            </div>
+            <div class="row">
+              <div class="col"><img src="@/assets/ct_logo.png">You</div>
+              <!-- <div class="col"><img src="@/assets/ct_logo.png"></div> -->
+              <div class="col centered">80</div>
+              <div class="col centered">80</div>
+            </div>
+            <div class="row">
+              <div class="col"><img src="@/assets/ct_logo.png">Friend</div>
+              <!-- <div class="col"><img src="@/assets/ct_logo.png"></div> -->
+              <div class="col centered">80</div>
+              <div class="col centered">80</div>
             </div>
 
           </div>
