@@ -221,6 +221,7 @@ export default {
             border: 1px solid $dark-1;
             transition: 0.35s;
             text-decoration: none;
+            cursor: pointer;
 
             img {
               width: 40px;
@@ -228,7 +229,7 @@ export default {
             }
 
             &:hover {
-              background: $dark-2;
+              color: $orange;
             }
           }
         }

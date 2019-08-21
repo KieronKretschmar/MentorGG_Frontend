@@ -107,7 +107,7 @@ export default {
 
 <style lang="scss">
 .flash {
-  .attacker-circle.is-user{
+  .attacker-circle.is-user {
     fill: $orange;
   }
 
@@ -126,7 +126,7 @@ export default {
     fill: $terrorist-color;
   }
   .is-user {
-    fill: $orange !important;      
+    fill: $orange !important;
   }
   & .kill-assist.victim-circle {
     stroke-width: 1.5px;
