@@ -178,7 +178,6 @@ export default {
     // assuming maps are quadratic, set svg height to the available width.
     this.$refs.svgElement.style.height =
       this.$refs.svgElement.clientWidth + "px";
-    console.log("done");
 
     // Activate zoom
     var panZoomRadar = svgPanZoom("#svgView", {
