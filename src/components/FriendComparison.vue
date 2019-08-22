@@ -58,33 +58,42 @@
 
             <div class="row">
               <div class="col">Who</div>
-              <!-- <div class="col">Team</div> -->
-              <div class="col centered">ADR</div>
+              <div class="col centered"><img src="@/assets/t_logo.png"> K/D</div>
+              <div class="col centered"><img src="@/assets/ct_logo.png">K/D</div>
+              <!-- <div class="col centered"><img src="@/assets/t_logo.png">Deaths</div>
+              <div class="col centered"><img src="@/assets/ct_logo.png">Deaths</div> -->
+              <div class="col centered"><img src="@/assets/t_logo.png">ADR</div>
+              <div class="col centered"><img src="@/assets/ct_logo.png">ADR</div>
+              <!-- <div class="col centered">Flashes Thrown</div> -->
+              <div class="col centered">Enemies <br> Flashed</div>
+              <div class="col centered">Team <br> Flashed</div>
+              <!-- <div class="col centered">Firenades Thrown</div>
+              <div class="col centered">HEs Thrown</div>
+              <div class="col centered">Smokes Thrown</div> -->
+              <div class="col centered">MVPs</div>
               <div class="col centered">Score</div>
             </div>
             <div class="row">
-              <div class="col"><img src="@/assets/t_logo.png">You</div>
-              <!-- <div class="col"><img src="@/assets/t_logo.png"></div> -->
-              <div class="col centered">{{(comparison.UserData.TerroristDamage / Math.max(0, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div class="col centered">80</div>
+              <div class="col">You</div>
+              <div class="col centered">{{(comparison.UserData.TerroristKills / Math.max(1, comparison.UserData.TerroristDeaths)).toFixed(2)}}</div>
+              <div class="col centered">{{(comparison.UserData.CtKills / Math.max(1, comparison.UserData.CtDeaths)).toFixed(2)}}</div>
+              <div class="col centered">{{(comparison.UserData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+              <div class="col centered">{{(comparison.UserData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+              <div class="col centered">{{comparison.UserData.EnemiesFlashed}}</div>
+              <div class="col centered">{{comparison.UserData.TeammatesFlashed}}</div>
+              <div class="col centered">{{comparison.UserData.MVPs}}</div>
+              <div class="col centered">{{comparison.UserData.Score}}</div>
             </div>
             <div class="row">
-              <div class="col"><img src="@/assets/t_logo.png">Friend</div>
-              <!-- <div class="col"><img src="@/assets/t_logo.png"></div> -->
-              <div class="col centered">{{(comparison.OtherData.TerroristDamage / Math.max(0, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div class="col centered">80</div>
-            </div>
-            <div class="row">
-              <div class="col"><img src="@/assets/ct_logo.png">You</div>
-              <!-- <div class="col"><img src="@/assets/ct_logo.png"></div> -->
-              <div class="col centered">80</div>
-              <div class="col centered">80</div>
-            </div>
-            <div class="row">
-              <div class="col"><img src="@/assets/ct_logo.png">Friend</div>
-              <!-- <div class="col"><img src="@/assets/ct_logo.png"></div> -->
-              <div class="col centered">80</div>
-              <div class="col centered">80</div>
+              <div class="col">Friend</div>
+              <div class="col centered">{{(comparison.OtherData.TerroristKills / Math.max(1, comparison.OtherData.TerroristDeaths)).toFixed(2)}}</div>
+              <div class="col centered">{{(comparison.OtherData.CtKills / Math.max(1, comparison.OtherData.CtDeaths)).toFixed(2)}}</div>
+              <div class="col centered">{{(comparison.OtherData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+              <div class="col centered">{{(comparison.OtherData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+              <div class="col centered">{{comparison.OtherData.EnemiesFlashed}}</div>
+              <div class="col centered">{{comparison.OtherData.TeammatesFlashed}}</div>
+              <div class="col centered">{{comparison.OtherData.MVPs}}</div>
+              <div class="col centered">{{comparison.OtherData.Score}}</div>
             </div>
 
           </div>
@@ -262,7 +271,7 @@ export default {
           font-weight: 500;
           display: flex;
           align-items: center;
-
+          
           &.centered {
             justify-content: center;
           }
@@ -270,16 +279,16 @@ export default {
           img {
             margin-right: 5px;
           }
+          width:(1/9)*100%;
+          // &:nth-child(1) {
+          //   width: 15%;
+          // }
 
-          &:nth-child(1) {
-            width: 15%;
-          }
-
-          &:nth-child(2),
-          &:nth-child(3),
-          &:nth-child(4) {
-            width: 15%;
-          }
+          // &:nth-child(2),
+          // &:nth-child(3),
+          // &:nth-child(4) {
+          //   width: 15%;
+          // }
         }
       }
     }
