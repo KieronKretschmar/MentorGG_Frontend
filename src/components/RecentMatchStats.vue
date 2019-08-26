@@ -1,7 +1,7 @@
 <template>
   <div class="recent-match-stats">
     <div class="bordered-box">
-      <AjaxLoader v-if="!loadingComplete">Loading Recent Match Stats</AjaxLoader>
+      <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
       <NoDataAvailableDisplay 
       v-if="loadingComplete && !recentMatchStats"
       @buttonClicked="LoadData(true)">

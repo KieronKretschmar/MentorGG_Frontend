@@ -3,7 +3,7 @@
     <div class="bordered-box advice">
       <p>Positions you should practice or avoid</p>
       <div v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete" class="no-positions">
-        <AjaxLoader>Loading Worst Positions</AjaxLoader>
+        <AjaxLoader>Computing Worst Positions</AjaxLoader>
       </div>
       <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
         <NoDataAvailableDisplay 
@@ -44,7 +44,7 @@
     <div class="bordered-box advice">
       <p>Positions you are performing best in</p>
       <div v-if="(!best.Performances || !best.Performances.length) && !loadingComplete" class="no-positions">
-        <AjaxLoader>Loading Best Positions</AjaxLoader>
+        <AjaxLoader>Computing Best Positions</AjaxLoader>
       </div>
       <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
         <NoDataAvailableDisplay 

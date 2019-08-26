@@ -6,7 +6,7 @@
 
     <div v-if="!loadingComplete">
       <div class="bordered-box no-comparisons">
-        <AjaxLoader>Loading Friend Comparisons</AjaxLoader>
+        <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
       </div>
     </div>
 
