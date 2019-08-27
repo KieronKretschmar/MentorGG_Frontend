@@ -238,6 +238,7 @@ export default {
 
       if (x == 0) {
         this.svgReference.resetZoom();
+        this.svgReference.resetPan();
       }
     }
   },
