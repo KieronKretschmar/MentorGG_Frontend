@@ -9,7 +9,7 @@ $(function() {
     };
     
     Two.Vector.prototype.SetPositionAdjusted = function(x, y) {
-        this._x = x / 1024 * DemoViewer.TwoInstance.width;
-        this._y = y / 1024 * DemoViewer.TwoInstance.height;
+        this._x = x / 2000 * DemoViewer.TwoInstance.width;
+        this._y = y / 2000 * DemoViewer.TwoInstance.height;
     };
 });
