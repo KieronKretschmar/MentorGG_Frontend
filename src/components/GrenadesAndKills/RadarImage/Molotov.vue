@@ -64,14 +64,14 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 80 * this.scaleFactor;
+      return 80 / this.scaleFactor;
     },
     victimRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     damageDealtToEnemies() {
       if (this.grenadeData.Victims.filter(x => !x.TeamAttack).length == 0) {

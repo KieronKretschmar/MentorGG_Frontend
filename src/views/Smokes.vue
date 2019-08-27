@@ -134,7 +134,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="0.5"
+                        :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -167,7 +167,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="0.5"
+                        :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -198,7 +198,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="0.5"
+                        :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -224,7 +224,7 @@
                           'LineupId':1,
                           'TargetId':1,
                           'Name':'Legend Example',
-                          'PlayerPosXPixel':5,
+                          'PlayerPosXPixel':9,
                           'PlayerPosYPixel':22,
                           'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
                           'ThrowTypeString':'left-click',
@@ -236,7 +236,7 @@
                           'Name':'Legend Example',
                           'GrenadePosXPixel':33,
                           'GrenadePosYPixel':27}"
-                        :scaleFactor="0.25"
+                        :scaleFactor="2.5"
                       />
                       <Target
                       :fillcolor="'rgba(0, 255, 0, 1)'"
@@ -247,7 +247,7 @@
                         'GrenadePosXPixel':33,
                         'GrenadePosYPixel':27}"
                       :zoneType="'Smoke'"                      
-                      :scaleFactor="0.35"                      
+                      :scaleFactor="3"                      
                       />
                     </svg>
                   </div>
@@ -266,7 +266,7 @@
                           'LineupId':1,
                           'TargetId':1,
                           'Name':'Legend Example',
-                          'PlayerPosXPixel':5,
+                          'PlayerPosXPixel':9,
                           'PlayerPosYPixel':22,
                           'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
                           'ThrowTypeString':'left-click',
@@ -278,7 +278,7 @@
                           'Name':'Legend Example',
                           'GrenadePosXPixel':33,
                           'GrenadePosYPixel':27}"
-                        :scaleFactor="0.25"
+                        :scaleFactor="2.5"
                       />
                       <Target
                       :fillcolor="'rgba(0, 255, 0, 1)'"
@@ -289,7 +289,7 @@
                         'GrenadePosXPixel':33,
                         'GrenadePosYPixel':27}"
                       :zoneType="'Smoke'"                      
-                      :scaleFactor="0.35"                      
+                      :scaleFactor="3"                      
                       />
                     </svg>
                   </div>

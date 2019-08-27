@@ -40,7 +40,7 @@ export default {
   ],
   computed: {
     userRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     killConnection() {
       return (

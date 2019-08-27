@@ -58,7 +58,7 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     detonationRadius() {
       var baseRadius = 10;
@@ -75,7 +75,7 @@ export default {
       );
     },
     victimRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     damageDealtToEnemies() {
       if (this.grenadeData.Hits.filter(x => !x.TeamAttack).length == 0) {
@@ -142,7 +142,7 @@ export default {
   }
 
   .detonation {
-    fill: black;
+    fill: $light-1;
   }
   &.enemies-hit .detonation {
     fill: white;

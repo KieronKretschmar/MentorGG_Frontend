@@ -44,11 +44,11 @@ export default {
   ],
   computed: {
     releaseRadius() {
-      return 10 * this.scaleFactor;
+      return 10 / this.scaleFactor;
     },
     detonationRadius() {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
-      return 80 * this.scaleFactor;
+      return 80 / this.scaleFactor;
     },
     trajectory() {
       var trajectoryString = "";

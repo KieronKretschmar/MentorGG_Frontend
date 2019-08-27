@@ -48,9 +48,10 @@ polyline {
   stroke: white;
 }
 polyline.selected{
-  fill:none;
-  stroke-width: 8px;
+  fill:url(#map-background-pattern-light); 
+  stroke-width: 5px;
   stroke-opacity: 1;
   stroke: white;
 }
+
 </style>

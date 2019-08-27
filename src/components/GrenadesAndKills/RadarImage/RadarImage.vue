@@ -2,7 +2,7 @@
   <div class="svg-wrapper">
     <svg
       v-if="this.mapInfo.CropOffsets"
-      :viewBox="viewBox"
+      :viewBox="'0 0 2000 2000'"
       id="svgView"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMin"
@@ -15,8 +15,8 @@
           x="0"
           y="0"
           patternUnits="userSpaceOnUse"
-          height="1000"
-          width="1000"
+          :height="imageSize"
+          :width="imageSize"
         >
           <image
             x="0"
@@ -464,7 +464,7 @@ export default {
   width: 100%;
 
   .tinted {
-    opacity: 0.5;
+    opacity: 0.2;
   }
 }
 </style>

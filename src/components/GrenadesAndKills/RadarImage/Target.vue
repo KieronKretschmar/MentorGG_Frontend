@@ -18,8 +18,8 @@ export default {
   ],
   data(){
       return {
-        width : 100 * this.scaleFactor,
-        height : 100 * this.scaleFactor,
+        width : 100 / this.scaleFactor,
+        height : 100 / this.scaleFactor,
       }
   },
   computed: {
