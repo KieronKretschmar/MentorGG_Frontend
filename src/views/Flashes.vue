@@ -326,7 +326,28 @@
                     {{userSelectedZonePerformance.SampleCount}}
                   </div>
                 </div>
+                <!-- Temp version: -->
                 <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. Enemy flashed
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}
+                  </div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">
+                    Avg. assisted Kills
+                  </div>
+                  <div class="stat-content">
+                    {{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}
+                  </div>
+                </div>
+
+
+                
+                <!-- Richtige version die gestyled werden muss: -->
+                <!-- <div class="stat-row">
                   <div class="stat-description">
                     Das hier soll wie im Overview ein links-rechts split sein, nur für enemyattack und teamattack 
                   </div>
@@ -364,7 +385,7 @@
                       {{(userSelectedZonePerformance.TeamFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                   
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
