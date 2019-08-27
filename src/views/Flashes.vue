@@ -138,7 +138,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -168,7 +168,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -198,7 +198,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -230,7 +230,7 @@
                           {'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
                           {'VictimPosX':39,'VictimPosY':39,'TimeFlashed':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="true" 

@@ -139,7 +139,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Victims':[]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -170,7 +170,7 @@
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
                           'Victims':[{'Hits': [{'VictimId':1,'VictimPosX':42,'VictimPosY':12,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false" 
@@ -206,7 +206,7 @@
                           {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
                           ]}]
                         }"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="true" 
@@ -215,6 +215,7 @@
                     </svg>
                   </div>
                   <div class="legend-description">
+                    Click on a FireNade to see the victims' path through the fire. 
                     Click on a Molotov to see the victims' path through the fire. 
                   </div>
                 </div>

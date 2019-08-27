@@ -36,8 +36,8 @@
         alt="Map Radar"
         x="0"
         y="0"
-        width="1024"
-        height="1024"
+        :width="imageSize"
+        :height="imageSize"
         :class="{tinted : !detailView && selectedZone}"
       />
 
@@ -194,7 +194,8 @@ export default {
   data() {
     return {
       scaleFactor: 1,
-      svgReference: null
+      svgReference: null,
+      imageSize: 2000,
     };
   },
   props: [

@@ -18,8 +18,8 @@ export default {
   ],
   data(){
       return {
-        width : 50 / this.scaleFactor,
-        height : 50 / this.scaleFactor,
+        width : 100 * this.scaleFactor,
+        height : 100 * this.scaleFactor,
       }
   },
   computed: {
@@ -37,4 +37,9 @@ export default {
 </script>
 
 <style>
+polyline {
+  stroke-width: 2px;
+  stroke-opacity: 0.5;
+  stroke: white;
+}
 </style>

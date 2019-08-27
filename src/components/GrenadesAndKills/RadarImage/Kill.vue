@@ -40,7 +40,7 @@ export default {
   ],
   computed: {
     userRadius() {
-      return 5 / this.scaleFactor;
+      return 10 * this.scaleFactor;
     },
     killConnection() {
       return (
@@ -74,7 +74,7 @@ export default {
   }
 
   .connection {
-    stroke-width: 1.5px;
+    stroke-width: 3.0px;
     fill: none;
     stroke: white;
     opacity: 1;

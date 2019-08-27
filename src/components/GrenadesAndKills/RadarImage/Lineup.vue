@@ -32,7 +32,7 @@ export default {
   ],
   computed: {
     releaseRadius() {
-        return  10 / this.scaleFactor;
+        return  20 * this.scaleFactor;
     },
     trajectory() {
         // Currently there are no trajectories for lineups stored in db
@@ -57,7 +57,7 @@ export default {
 //   }
 
   .trajectory {
-    stroke-width: 2px;
+    stroke-width: 3px;
     // fill: white;
     stroke-opacity: 1;
   }

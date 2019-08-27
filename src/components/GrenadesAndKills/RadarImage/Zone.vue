@@ -43,14 +43,13 @@ export default {
 
 <style>
 polyline {
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke-opacity: 1;
   stroke: white;
 }
 polyline.selected{
-  /* defined in RadarImage.vue */
-  fill:url(#map-background-pattern-light); 
-  stroke-width: 3px;
+  fill:none;
+  stroke-width: 8px;
   stroke-opacity: 1;
   stroke: white;
 }

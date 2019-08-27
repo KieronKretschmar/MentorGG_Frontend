@@ -134,7 +134,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -167,7 +167,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -176,8 +176,7 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    <!-- A red marker means you f'ed up the throw and maybe you should look at the lineup one more time. -->
-                    You f'ed up the throw. Look at the lineup one more time.
+                    A red marker means you f'ed up and maybe you should look at the lineup one more time.
                   </div>
                 </div>
                 <div class="legend-row">
@@ -199,7 +198,7 @@
                           'DetonationX':33,
                           'DetonationY':27,
                           'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
-                        :scaleFactor="1"
+                        :scaleFactor="0.5"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
@@ -237,7 +236,7 @@
                           'Name':'Legend Example',
                           'GrenadePosXPixel':33,
                           'GrenadePosYPixel':27}"
-                        :scaleFactor="1.5"
+                        :scaleFactor="0.25"
                       />
                       <Target
                       :fillcolor="'rgba(0, 255, 0, 1)'"
@@ -248,7 +247,7 @@
                         'GrenadePosXPixel':33,
                         'GrenadePosYPixel':27}"
                       :zoneType="'Smoke'"                      
-                      :scaleFactor="1.5"                      
+                      :scaleFactor="0.35"                      
                       />
                     </svg>
                   </div>
@@ -279,7 +278,7 @@
                           'Name':'Legend Example',
                           'GrenadePosXPixel':33,
                           'GrenadePosYPixel':27}"
-                        :scaleFactor="1.5"
+                        :scaleFactor="0.25"
                       />
                       <Target
                       :fillcolor="'rgba(0, 255, 0, 1)'"
@@ -290,7 +289,7 @@
                         'GrenadePosXPixel':33,
                         'GrenadePosYPixel':27}"
                       :zoneType="'Smoke'"                      
-                      :scaleFactor="1.5"                      
+                      :scaleFactor="0.35"                      
                       />
                     </svg>
                   </div>
