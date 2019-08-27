@@ -20,8 +20,8 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.ZoneId)">{{ entry.Name }}</a>
+            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
             <span class="cell">
               <img
                 v-if="entry.Team == 2"
@@ -36,7 +36,7 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span class="cell">{{ entry.EstimatedKd.toFixed(2) }}</span>
+            <span class="cell">{{ entry.KillDeathRatio.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -61,8 +61,8 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.ZoneId)">{{ entry.Name }}</a>
+            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
             <span class="cell">
               <img
                 v-if="entry.Team == 2"
@@ -77,7 +77,7 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span class="cell">{{ entry.EstimatedKd.toFixed(2) }}</span>
+            <span class="cell">{{ entry.KillDeathRatio.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -120,8 +120,10 @@ export default {
         this.loadingComplete = true;
       });
     },
-    NavigateToKills: function(matchCount = 0, map = "", zoneId = 0){
-      let params = {};
+    NavigateToKills: function(matchCount = 0, map = "", showCt = true, zoneId = 0){
+      let params = {
+        showCt: showCt,
+      };
       if(matchCount){
         params.matchCount = matchCount;
       }

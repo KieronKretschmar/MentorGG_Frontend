@@ -337,7 +337,10 @@ export default {
   },
   mounted() {
     this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-
+    // boolean in query param might be received as string
+    if('showCt' in this.$route.query){
+      this.showCt = this.$route.query.showCt == true ||  this.$route.query.showCt == "true";
+    }
     if(this.$route.query.map){
       this.activeMap = this.$route.query.map;
     }
