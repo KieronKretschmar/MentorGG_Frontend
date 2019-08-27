@@ -5,18 +5,19 @@ class MentorGGAPI {
 
         if(process.env.NODE_ENV == 'production'){
             this.mvcEndpoint = document.location.origin + '/';
+            this.tldEndpoint = this.mvcEndpoint;
             this.sendFixedSteamId = false;
         }
         // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
         if(process.env.NODE_ENV == 'development'){
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             this.sendFixedSteamId = true;
+            this.tldEndpoint = 'https://mentor.gg/';
             this.fixedSteamId = '76561198166019050'; //felix
             this.fixedSteamId = '76561198033880857'; //kieron
         }
         
         this.apiEndpoint = this.mvcEndpoint + 'api/';
-        this.tldEndpoint = 'https://test.mentor.gg/';
     }
 
     resolveResource(resource) {
