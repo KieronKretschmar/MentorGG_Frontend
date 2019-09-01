@@ -13,7 +13,8 @@
         <div v-if="!playerStats && loadingComplete" class="">
           <NoDataAvailableDisplay 
           @buttonClicked="LoadPlayerStats(true)">
-            No stats found for you. Load someone else's until you finally figure out how to upload your own matches?
+            Man, still stats found for you. 
+            <br>Wanna load someone else's until you finally figure out how to upload your own matches?
             </NoDataAvailableDisplay>
         </div>
         <div v-if="playerStats" class="statistics-container" v-masonry>

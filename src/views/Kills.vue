@@ -59,7 +59,8 @@
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-          Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all. Load someone else's kills?
+          Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all.
+          <br>Wanna load someone else's kills?
           </NoDataAvailableDisplay>
       </div>   
       <div v-if="samples.length" class="interactive-area">

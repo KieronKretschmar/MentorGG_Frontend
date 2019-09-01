@@ -67,7 +67,8 @@
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-            Either you don't have any matches on this map, or you just don't use any molotovs at all. Load someone else's?
+            Either you don't have any matches on this map, or you just don't use any molotovs at all. 
+            <br>Wanna load someone else's?
           </NoDataAvailableDisplay>
       </div>   
       <div v-if="samples.length" class="interactive-area">

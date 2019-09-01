@@ -8,7 +8,9 @@
       <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadData(true)">
-          No data available for you. Wanna see where somebody else keeps dying all the time?
+          No data available for you.
+          <br>
+          Wanna see where somebody else keeps dying all the time?
           </NoDataAvailableDisplay>
       </div>
       <div class="position-table" v-if="worst.Performances && worst.Performances.length">
@@ -49,7 +51,9 @@
       <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadData(true)">
-          No data available for you. Want to see where somebody else plays really good?
+          No data available for you.
+          <br>
+          Want to see where somebody else plays really good?
           </NoDataAvailableDisplay>
       </div>
       <div class="position-table" v-if="best.Performances && best.Performances.length">

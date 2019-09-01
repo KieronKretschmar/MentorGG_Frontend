@@ -11,7 +11,9 @@
       <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
         <NoDataAvailableDisplay 
         @buttonClicked="LoadAppendMatches(5, true)">
-          Couldn't find any matches for you. Want so see what it looks like once you've understood how to upload demos?
+          Couldn't find any matches for you.
+          <br>
+          Want so see what it looks like once you've understood how to upload demos?
           </NoDataAvailableDisplay>
       </div>
 
