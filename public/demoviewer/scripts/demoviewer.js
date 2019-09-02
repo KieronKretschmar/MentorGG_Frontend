@@ -336,7 +336,7 @@ function __DemoViewer() {
 
             var winnerTeam = summary.WinnerTeam;
 
-            if ( summary.Round > 16 ) {
+            if ( summary.Round >= 16 ) {
                 if (winnerTeam == 2) {
                     winnerTeam = 3;
                 } else {
@@ -344,18 +344,19 @@ function __DemoViewer() {
                 }
             }
 
-            teamScores[summary.WinnerTeam]++;
-
+            
             if ( summary.Round == 16 ) {
                 roundDisplayEntries += '<div class="round-entry round-switch ' + (summary.Round < cur ? 'past' : '') + '">'
-                    + '<span>' + teamScores[2] + '</span>'
-                    + '<i class="fas fa-random"></i>'
-                    + '<span>' + teamScores[3] + '</span></div>';
-            } else {
-                roundDisplayEntries += '<div class="' + itemClass + ' round-entry" data-winner="' 
-                    + winnerTeam + '" data-win-type="' + summary.WinType + '" title="Click to load this round">';
-                roundDisplayEntries += summary.Round + '</div>';
-            }            
+                + '<span>' + teamScores[2] + '</span>'
+                + '<i class="fas fa-random"></i>'
+                + '<span>' + teamScores[3] + '</span></div>';
+            }
+            
+            roundDisplayEntries += '<div class="' + itemClass + ' round-entry" data-winner="' 
+            + winnerTeam + '" data-win-type="' + summary.WinType + '" title="Click to load this round">';
+            roundDisplayEntries += summary.Round + '</div>';            
+
+            teamScores[summary.WinnerTeam]++;
         }
 
         roundDisplayEntries += '<div class="round-entry final-result">' 
