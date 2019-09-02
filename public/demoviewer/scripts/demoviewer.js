@@ -125,12 +125,13 @@ function __DemoViewer() {
         $('#round-display').css('width', roundDisplayWidth + 'px');
         $('#round-display').slick({
             slidesToShow: numSlidesToShow,
-            slidesToScroll: 1,
-            swipeToSlide: true,
+            slidesToScroll: 5,
+            swipeToSlide: false,
             arrows: true,
             infinite: false,
             prevArrow: $('#rd-prev'),
             nextArrow: $('#rd-next'),
+            centerMode: false
         });
 
         $('.scrollbar-outer').scrollbar();
