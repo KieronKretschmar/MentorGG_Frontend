@@ -21,11 +21,11 @@ function Grenade(nade, type) {
                 var lerp_x = d3.interpolateNumber(point.X, nextPoint.X);
                 var lerp_y = d3.interpolateNumber(point.Y, nextPoint.Y);
                 
-                for ( var i = 0; i < 20; i++ ) {
+                for ( var i = 0; i < 100; i++ ) {
                     lerped.push({
-                        Time: lerp_t(i / 20),
-                        X: lerp_x(i / 20),
-                        Y: lerp_y(i / 20)                        
+                        Time: lerp_t(i / 100),
+                        X: lerp_x(i / 100),
+                        Y: lerp_y(i / 100)                        
                     });
                 }
             }
