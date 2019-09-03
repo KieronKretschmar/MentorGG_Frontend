@@ -44,6 +44,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "flashes" */ './views/Flashes.vue')
     },
     {
+      path: '/eventflashes',
+      name: 'eventflashes',
+      component: () => import(/* webpackChunkName: "flashes" */ './views/Event/EventFlashes.vue')
+    },
+    {
       path: '/hes',
       name: 'hes',
       component: () => import(/* webpackChunkName: "hes" */ './views/HEs.vue')

@@ -332,6 +332,22 @@ class MentorGGAPI {
             params: params
         });
     }    
+        
+    getEvents() {
+        return axios.get(this.apiEndpoint + 'Event/Events', {
+            params: {
+            }
+        });
+    } 
+                      
+    getEventInfo(eventName) {
+        return axios.get(this.apiEndpoint + 'Event/Event', {
+            params: {
+                eventName: eventName
+            }
+        });
+    } 
+ 
 
     postRefreshFaceit(){
         return axios.post(this.mvcEndpoint + 'Account/RefreshFaceit', {
