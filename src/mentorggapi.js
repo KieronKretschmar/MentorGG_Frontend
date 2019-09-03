@@ -348,6 +348,15 @@ class MentorGGAPI {
         });
     } 
  
+    getEventFlashes(eventName, teamName, map){
+        return axios.get(this.apiEndpoint + 'Flashes/EventFlashes', {
+            params: {
+                eventName: eventName,
+                teamName: teamName,
+                map: map,
+            }
+        });
+    }
 
     postRefreshFaceit(){
         return axios.post(this.mvcEndpoint + 'Account/RefreshFaceit', {

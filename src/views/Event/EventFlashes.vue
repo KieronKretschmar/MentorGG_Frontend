@@ -6,21 +6,21 @@
       <div v-if="false" class="bordered-box no-data">
         <AjaxLoader>Loading tournament data</AjaxLoader>
       </div>
-      <div v-if="mapSummaries != null" class="performances">
+      <div v-if="eventData != null" class="performances">
         <div
-          v-for="(mapSummary,index) in mapSummaries"
+          v-for="(map,index) in eventData.Event.MapPool"
           :key="index"
           class="performance"
-          :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
+          :class="{active: activeMap == map}"
+          @click="OnActiveMapUpdated(map)"
         >
           <img
             class="map-image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + map +'.jpg')"
           />
-          <p class="map-name">{{mapSummary.Map}}</p>
+          <p class="map-name">{{map}}</p>
 
-          <div class="z-layer-lo">
+          <!-- <div class="z-layer-lo">
             <span class="split-title">UNUSED</span>
             <div class="split">
               <div class="ct">
@@ -58,7 +58,7 @@
                 <span>{{mapSummary.AverageEnemiesFlashedAsTerrorist.toFixed(2)}}</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -100,12 +100,10 @@
                 @click="showCt = true"
               />
             </div>
-            <CustomSelect
-              class="match-count-select"
-              v-model="matchCount"
-              :options="matchCountSelectOptions"
-              v-on:input="OnMatchCountUpdated"
-            ></CustomSelect>
+            <div class="matchcount-display">
+              <!-- {{matchInfos.length}} -->
+              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeam}} on {{activeMap}} 
+            </div>
           </div>
           <div>
             <RadarImage
@@ -286,6 +284,14 @@
               <div v-if="selectedSample" class="selected-sample-stats">
                 About this Flash:
                 <div class="stat-row">
+                  <div class="stat-description">Thrown by</div>
+                  <div class="stat-content">{{selectedSample.PlayerName}}</div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">Against</div>
+                  <div class="stat-content">{{selectedSample.EnemyTeamName}}</div>
+                </div>
+                <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
@@ -416,13 +422,13 @@ export default {
       loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
-      matchCount: 10,
-      matchCountSelectOptions: {
-        5: "Use last 5 matches",
-        10: "Use last 10 matches",
-        50: "Use last 50 matches",
-        100: "Use last 100 matches"
-      },
+      // matchCount: 10,
+      // matchCountSelectOptions: {
+      //   5: "Use last 5 matches",
+      //   10: "Use last 10 matches",
+      //   50: "Use last 50 matches",
+      //   100: "Use last 100 matches"
+      // },
       showTrajectories: false,
       mapSummaries: null,
       detailView: true,
@@ -439,13 +445,15 @@ export default {
       selectedSample: null,
       selectedZoneId: 0,
 
-      eventData: null
+      eventData: null,
+      matchInfos: [],
+      selectedTeam: "Astralis",
+      // selectedEvent: "StarladderBerlin2019",
+      selectedEvent: "IEMKatowice2019",
     };
   },
   mounted() {
-    // let defaultEventNameShort = 'StarladderBerlin2019';
-    let defaultEventNameShort = "IEMKatowice2019";
-    this.LoadEventInfo(defaultEventNameShort);
+    this.LoadEventInfo(this.selectedEvent);
 
     if (this.$route.query.map) {
       this.activeMap = this.$route.query.map;
@@ -455,12 +463,8 @@ export default {
       this.matchCountSelectOptions[this.$route.query.matchCount] =
         "Use last " + this.$route.query.matchCount + " matches";
     }
-    this.LoadSamples(this.activeMap, this.matchCount, false);
+    this.LoadSamples(this.selectedEvent, this.selectedTeam, this.activeMap);
 
-    if (this.$route.query.zoneId) {
-      this.detailView = false;
-      this.selectedZoneId = this.$route.query.zoneId;
-    }
   },
   methods: {
     LoadEventInfo(eventNameShort) {
@@ -469,35 +473,53 @@ export default {
         this.eventData = response.data;
       });
     },
-    LoadSamples(map, teamName) {
+    LoadSamples(eventName, teamName, map) {
       this.samples = [];
       this.loadingSamplesComplete = false;
-      // this.$api
-      //   .getFlashes(isDemo ? "76561198033880857" : "", map, matchCount)
-      //   .then(response => {
-      //     this.mapInfo = response.data.MapInfo;
-      //     this.samples = response.data.Samples;
-      //     this.userPerformanceData = response.data.UserData;
-      //     this.globalPerformanceData = response.data.GlobalData;
-      //     // Ignore zones where there are no samples for less clutter
-      //     this.zones = response.data.Zones.filter(
-      //       x =>
-      //         x.ParentZoneId != -1 &&
-      //         this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount !=
-      //           0
-      //     ).sort((a, b) => a.Depth - b.Depth);
-      //     if (this.zones.length == 0) {
-      //       this.zonesEnabled = false;
-      //     } else {
-      //       this.zonesEnabled = true;
-      //     }
-      //     this.zoneDescendants = response.data.ZoneDescendants;
-      //     this.loadingSamplesComplete = true;
-      //   })
-      //   .catch(error => {
-      //     console.error(error); // eslint-disable-line no-console
-      //     this.loadingSamplesComplete = true;
-      //   });
+      this.$api
+        .getEventFlashes(eventName, teamName, map)
+        .then(response => {
+          console.log(response.data);
+          this.mapInfo = response.data.MapInfo;
+          this.samples = response.data.Samples;
+          this.matchInfos = response.data.MatchInfos;
+
+          // Add EnemyTeam to each sample
+          console.log("hay");
+          for(let i=0; i<this.samples.length; i++){
+            let sample = this.samples[i];
+            console.log(sample.MatchId);
+            console.log(this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.Teams);
+            for (let enemyTeamName in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.Teams){
+              console.log(enemyTeamName);
+              if(enemyTeamName != this.selectedTeam){
+                sample.EnemyTeamName = enemyTeamName;
+                break;
+              }
+            }
+          }
+          
+          // this.userPerformanceData = response.data.UserData;
+          // this.globalPerformanceData = response.data.GlobalData;
+          // Ignore zones where there are no samples for less clutter
+          // this.zones = response.data.Zones.filter(
+          //   x =>
+          //     x.ParentZoneId != -1 &&
+          //     this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount !=
+          //       0
+          // ).sort((a, b) => a.Depth - b.Depth);
+          // if (this.zones.length == 0) {
+          //   this.zonesEnabled = false;
+          // } else {
+          //   this.zonesEnabled = true;
+          // }
+          // this.zoneDescendants = response.data.ZoneDescendants;
+          this.loadingSamplesComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingSamplesComplete = true;
+        });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
@@ -792,9 +814,14 @@ export default {
       }
     }
 
-    .match-count-select {
-      width: 100%;
-      // max-width: 400px;
+    .matchcount-display {
+      background: $dark-4;
+      position: relative;
+      padding: 8px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      color: white;
+      font-size: 14px;
     }
   }
 
