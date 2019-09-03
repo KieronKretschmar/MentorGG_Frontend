@@ -4,11 +4,15 @@
       <router-link to="/" class="logo">
         <img src="@/assets/logo_white.svg" />
       </router-link>
+      <div class = 'grenades'>
+        <router-link class = 'grenade'to="">Grenades</router-link>
+        <router-link class = 'hide' to="/smokes">Smokes</router-link>
+        <router-link class = 'hide' to="/molotovs">Molotovs</router-link>
+        <router-link class = 'hide' to="/flashes">Flashes</router-link>
+       <router-link  class = 'hide' to="/hes">HEs</router-link>
+      </div>
       <router-link to="/">Overview</router-link>
-      <router-link to="/smokes">Smokes</router-link>
-      <router-link to="/molotovs">Molotovs</router-link>
-      <router-link to="/flashes">Flashes</router-link>
-      <router-link to="/hes">HEs</router-link>
+      
       <router-link to="/kills">Kills</router-link>
       <router-link to="/statistics">Statistics</router-link>
     </div>
@@ -73,6 +77,20 @@ nav {
   padding: 30px 0;
   justify-content: space-between;
 
+  .l{
+    display:flex;
+
+    .grenades{
+      &:hover .hide{
+        display:block;
+      }
+      display:flex;
+      flex-direction:column;
+      .hide{
+        display:none
+      }
+    }
+  }
   .user-profile {
     position: absolute;
     right: 30px;
@@ -150,7 +168,7 @@ nav {
   }
 
   .logo {
-    position: absolute;
+    //position: absolute;
     width: 170px;
     left: 30px;
     top: 32px;

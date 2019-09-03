@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 import TopNavigation from "@/components/TopNavigation.vue";
 import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
