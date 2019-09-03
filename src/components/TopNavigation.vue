@@ -4,29 +4,32 @@
       <router-link to="/" class="logo">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <div class = 'grenades'>
-        <router-link class = 'grenade'to="">Grenades</router-link>
-        <router-link class = 'hide' to="/smokes">Smokes</router-link>
-        <router-link class = 'hide' to="/molotovs">Molotovs</router-link>
-        <router-link class = 'hide' to="/flashes">Flashes</router-link>
-       <router-link  class = 'hide' to="/hes">HEs</router-link>
+      <div class="grenades">
+        <router-link class="grenade" to>Grenades</router-link>
+        <router-link class="hide" to="/smokes">Smokes</router-link>
+        <router-link class="hide" to="/molotovs">Molotovs</router-link>
+        <router-link class="hide" to="/flashes">Flashes</router-link>
+        <router-link class="hide" to="/hes">HEs</router-link>
       </div>
       <router-link to="/">Overview</router-link>
-      
+
       <router-link to="/kills">Kills</router-link>
       <router-link to="/statistics">Statistics</router-link>
     </div>
-    <div class>
-
-    </div>
+    <div class></div>
     <div class="r">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
-      <div class="user-profile" v-if="user" @click="optionsVisible = !optionsVisible" @mouseleave="optionsVisible = false">
+      <div
+        class="user-profile"
+        v-if="user"
+        @click="optionsVisible = !optionsVisible"
+        @mouseleave="optionsVisible = false"
+      >
         <span class="username">{{ user.SteamName }}</span>
         <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
         <div class="profile-options" :class="{visible: optionsVisible}">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
-          <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
+            <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
             <button type="submit">Log out</button>
           </form>
           <!-- <button class="button-variant-filled" @click="OnLogout">Logout</button> -->
@@ -77,17 +80,17 @@ nav {
   padding: 30px 0;
   justify-content: space-between;
 
-  .l{
-    display:flex;
+  .l {
+    display: flex;
 
-    .grenades{
-      &:hover .hide{
-        display:block;
+    .grenades {
+      &:hover .hide {
+        display: block;
       }
-      display:flex;
-      flex-direction:column;
-      .hide{
-        display:none
+      display: flex;
+      flex-direction: column;
+      .hide {
+        display: none;
       }
     }
   }
@@ -98,7 +101,7 @@ nav {
     display: flex;
     align-items: center;
     cursor: pointer;
-    transition: .35s;
+    transition: 0.35s;
     padding: 10px;
     border-top: 2px solid transparent;
 
@@ -111,7 +114,7 @@ nav {
       width: 50px;
       height: 50px;
       border-radius: 4px;
-      margin-left: 10px;      
+      margin-left: 10px;
     }
 
     .username {
@@ -121,7 +124,7 @@ nav {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      transition: .35s;
+      transition: 0.35s;
     }
 
     .profile-options {
@@ -133,11 +136,11 @@ nav {
 
       background: $dark-3;
       // border: 1px solid $purple;
-      width: 100%;      
+      width: 100%;
       border-bottom: 2px solid $orange;
       opacity: 0;
       pointer-events: none;
-      transition: .35s;
+      transition: 0.35s;
 
       &.visible {
         opacity: 1;
@@ -153,7 +156,7 @@ nav {
           outline: 0;
           padding: 5px 10px;
           cursor: pointer;
-          transition: .35s;
+          transition: 0.35s;
 
           &:hover {
             background: darken($purple, 5%);
