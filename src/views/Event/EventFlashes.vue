@@ -479,19 +479,14 @@ export default {
       this.$api
         .getEventFlashes(eventName, teamName, map)
         .then(response => {
-          console.log(response.data);
           this.mapInfo = response.data.MapInfo;
           this.samples = response.data.Samples;
           this.matchInfos = response.data.MatchInfos;
 
           // Add EnemyTeam to each sample
-          console.log("hay");
           for(let i=0; i<this.samples.length; i++){
             let sample = this.samples[i];
-            console.log(sample.MatchId);
-            console.log(this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.Teams);
             for (let enemyTeamName in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.Teams){
-              console.log(enemyTeamName);
               if(enemyTeamName != this.selectedTeam){
                 sample.EnemyTeamName = enemyTeamName;
                 break;
@@ -558,7 +553,7 @@ export default {
     SetSelectedTeam(teamName) {
       if (teamName != this.selectedTeam) {
         this.selectedTeam = teamName;
-        this.LoadSamples(this.map, this.selectedTeam);
+        this.LoadSamples(this.selectedEvent, this.selectedTeam, this.activeMap);
       }
     }
   },
