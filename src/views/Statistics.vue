@@ -11,11 +11,11 @@
           <AjaxLoader>Loading Molotovs</AjaxLoader>
         </div>
         <div v-if="!playerStats && loadingComplete" class="">
-          <NoDataAvailableDisplay 
+          <DemoDataLoadRequest 
           @buttonClicked="LoadPlayerStats(true)">
             Man, still stats found for you. 
             <br>Wanna load someone else's until you finally figure out how to upload your own matches?
-            </NoDataAvailableDisplay>
+            </DemoDataLoadRequest>
         </div>
         <div v-if="playerStats" class="statistics-container" v-masonry>
           <div v-for="section in sections" :key="section.name" class="statistic" v-masonry-tile>

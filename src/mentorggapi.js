@@ -340,16 +340,68 @@ class MentorGGAPI {
         });
     } 
                       
-    getEventInfo(eventName) {
+    getEvent(eventName) {
         return axios.get(this.apiEndpoint + 'Event/Event', {
             params: {
                 eventName: eventName
             }
         });
     } 
- 
+     
     getEventFlashes(eventName, teamName, map){
         return axios.get(this.apiEndpoint + 'Flashes/EventFlashes', {
+            params: {
+                eventName: eventName,
+                teamName: teamName,
+                map: map,
+            }
+        });
+    }
+     
+    getEventHEs(eventName, teamName, map){
+        return axios.get(this.apiEndpoint + 'HEs/EventHEs', {
+            params: {
+                eventName: eventName,
+                teamName: teamName,
+                map: map,
+            }
+        });
+    }
+         
+    getEventKills(eventName, teamName, map){
+        return axios.get(this.apiEndpoint + 'Kills/EventKills', {
+            params: {
+                eventName: eventName,
+                teamName: teamName,
+                map: map,
+            }
+        });
+    }       
+
+    getEventMatches(eventName, count, offset = 0) {
+        let params = {
+            eventName: eventName,
+            recentMatches: count,
+            offset: offset
+        }      
+
+        return axios.get(this.apiEndpoint + 'Matches/EventMatches', {
+            params: params
+        });
+    }
+
+    getEventMolotovs(eventName, teamName, map){
+        return axios.get(this.apiEndpoint + 'FireNades/EventMolotovs', {
+            params: {
+                eventName: eventName,
+                teamName: teamName,
+                map: map,
+            }
+        });
+    }
+     
+    getEventSmokes(eventName, teamName, map){
+        return axios.get(this.apiEndpoint + 'Smokes/EventSmokes', {
             params: {
                 eventName: eventName,
                 teamName: teamName,
