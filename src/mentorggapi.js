@@ -391,7 +391,7 @@ class MentorGGAPI {
     }
 
     getEventMolotovs(eventName, teamName, map){
-        return axios.get(this.apiEndpoint + 'FireNades/EventMolotovs', {
+        return axios.get(this.apiEndpoint + 'FireNades/EventFireNades', {
             params: {
                 eventName: eventName,
                 teamName: teamName,
