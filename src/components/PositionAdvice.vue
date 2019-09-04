@@ -6,12 +6,12 @@
         <AjaxLoader>Computing Worst Positions</AjaxLoader>
       </div>
       <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
-        <NoDataAvailableDisplay 
+        <DemoDataLoadRequest 
         @buttonClicked="LoadData(true)">
           No data available for you.
           <br>
           Wanna see where somebody else keeps dying all the time?
-          </NoDataAvailableDisplay>
+          </DemoDataLoadRequest>
       </div>
       <div class="position-table" v-if="worst.Performances && worst.Performances.length">
         <div class="table-header">
@@ -49,12 +49,12 @@
         <AjaxLoader>Computing Best Positions</AjaxLoader>
       </div>
       <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
-        <NoDataAvailableDisplay 
+        <DemoDataLoadRequest 
         @buttonClicked="LoadData(true)">
           No data available for you.
           <br>
           Want to see where somebody else plays really good?
-          </NoDataAvailableDisplay>
+          </DemoDataLoadRequest>
       </div>
       <div class="position-table" v-if="best.Performances && best.Performances.length">
         <div class="table-header">

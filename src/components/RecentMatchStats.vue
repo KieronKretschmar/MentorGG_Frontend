@@ -2,11 +2,11 @@
   <div class="recent-match-stats">
     <div class="bordered-box">
       <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
-      <NoDataAvailableDisplay 
+      <DemoDataLoadRequest 
       v-if="loadingComplete && !recentMatchStats"
       @buttonClicked="LoadData(true)">
         Unfortunately, you haven't uploaded any matches yet.
-        </NoDataAvailableDisplay>
+        </DemoDataLoadRequest>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
           <div class="val">{{recentMatchStats.GamesUploaded}}</div>

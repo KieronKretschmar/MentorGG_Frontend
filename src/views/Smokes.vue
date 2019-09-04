@@ -55,11 +55,11 @@
         <AjaxLoader>Loading Smokes</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
-        <NoDataAvailableDisplay 
+        <DemoDataLoadRequest 
         @buttonClicked="LoadSamples(activeMap, matchCount, true)">
           Either you don't have any matches on this map, or you just don't use any smokes at all. 
           <br>Wanna load someone else's?
-          </NoDataAvailableDisplay>
+          </DemoDataLoadRequest>
       </div>   
       <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">

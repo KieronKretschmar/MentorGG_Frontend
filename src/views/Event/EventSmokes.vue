@@ -1,6 +1,6 @@
 <template>
-  <div class="view view-flashes">
-    <div class="fixed-width-container">
+  <div class="view view-smokes">
+    <div class="fixed-width-container"> 
       <TeamSelection :teamInfos="eventData ? eventData.TeamInfos : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
 
       <div v-if="eventData != null" class="performances">
@@ -32,27 +32,18 @@
           </div>
 
           <div class="z-layer-hi">
-            <span class="split-title">ASSISTS</span>
+            
+            <span class="split-title">COMPLETED LINEUPS</span>
             <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.KillAssistChanceAsCt* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.KillAssistChanceAsTerrorist* 100).toFixed(0) }}%</span>
+              <div class="unisex">
+                <span>{{mapSummary.CompletedCategories}}/{{mapSummary.TotalCategories}}</span>
               </div>
             </div>
 
-            <span class="split-title">BLINDED</span>
+            <span class="split-title">LINEUP ACCURACY</span>
             <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{mapSummary.AverageEnemiesFlashedAsCt.toFixed(2)}}</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{mapSummary.AverageEnemiesFlashedAsTerrorist.toFixed(2)}}</span>
+              <div class="unisex">
+                <span>{{(mapSummary.CategorizedSmokesAccuracy* 100).toFixed(0) }}%</span>
               </div>
             </div>
           </div> -->
@@ -60,47 +51,40 @@
       </div>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
-        <AjaxLoader>Loading Flashes</AjaxLoader>
+        <AjaxLoader>Loading Smokes</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
         <NoDataAvailableDisplay>
           Seems like we have no matches for {{selectedTeamName}} on {{activeMap}} from {{eventData.Event.EventNameLong}}
         </NoDataAvailableDisplay>
-      </div>
+      </div>   
       <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button
-              class="button-variant-bordered"
-              :class="{active: showTrajectories}"
-              @click="OnShowTrajectories"
-            >Trajectories</button>
-
-            <button
-              class="button-variant-bordered"
-              @click="ToggleDetailView()"
-              :disabled="!zonesEnabled"
-            >Toggle Zones</button>
+            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
+            <div v-if="zonesEnabled">
+              <button class="button-variant-bordered" :class="{active: !detailView}" @click="ToggleDetailView">Lineups</button>
+            </div>
 
             <div class="team-select">
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: !showCt}"
+                :class="{active: !showCt || !detailView}"
                 @click="showCt = false"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt}"
+                :class="{active: showCt || !detailView}"
                 @click="showCt = true"
               />
             </div>
             <div class="matchcount-display">
               {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}} on {{activeMap}} 
             </div>
-          </div>
-          <div>
+          </div>  
+          <div>   
             <RadarImage
               v-if="samples.length"
               :mapInfo="mapInfo"
@@ -108,14 +92,17 @@
               :showCt="showCt"
               :SetSelectedSample="SetSelectedSample"
               :selectedSample="selectedSample"
+              :SetSelectedLineup="SetSelectedLineup"
+              :selectedLineup="selectedLineup"
               :selectedZone="selectedZone"
               :SetSelectedZone="SetSelectedZone"
               :OnClickBackground="OnClickBackground"
               :detailView="detailView"
-              :zoneType="'Flash'"
+              :zoneType="'Smoke'"
               :zones="visibleZones"
+              :lineups="visibleLineups"
               :userPerformanceData="userPerformanceData"
-              :flashGrenades="visibleSamples"
+              :smokeGrenades="visibleSamples"
             />
           </div>
         </div>
@@ -126,124 +113,98 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <Flash
+                      <Smoke 
                         :grenadeData="{
-                          'Id':'Flash-1-1',
+                          'Id':'Smoke-1-1',
                           'MatchId':1,
-                          'PlayerId':1,
-                          'GrenadeId':1,
                           'Round':1,
-                          'UserIsCt':showCt,
-                          'ZoneId':0,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':2,
+                          'TargetId':0,
+                          'LineupId':0,
                           'ReleaseX':5,
                           'ReleaseY':22,
                           'DetonationX':33,
                           'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[]
-                        }"
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
                         :isSelected="false"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="legend-description"
-                  >Grey markers represent Flashes that did not blind enemies.</div>
-                </div>
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Flash
-                        :grenadeData="{
-                          'Id':'Flash-1-1',
-                          'MatchId':1,
-                          'PlayerId':1,
-                          'GrenadeId':1,
-                          'Round':1,
-                          'UserIsCt':showCt,
-                          'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
-                        }"
-                        :scaleFactor="2"
-                        :showTrajectories="showTrajectories"
-                        :SetSelectedSample="function(){}"
-                        :isSelected="false"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="legend-description"
-                  >White markers indicate blinded enemies. Radius corresponds to duration.</div>
-                </div>
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Flash
-                        :grenadeData="{
-                          'Id':'Flash-1-1',
-                          'MatchId':1,
-                          'PlayerId':1,
-                          'GrenadeId':1,
-                          'Round':1,
-                          'UserIsCt':showCt,
-                          'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[{'VictimPosX':42,'VictimPosY':12,'TimeFlashed':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
-                        }"
-                        :scaleFactor="2"
-                        :showTrajectories="showTrajectories"
-                        :SetSelectedSample="function(){}"
-                        :isSelected="false"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="legend-description"
-                  >Green markers indicate enemies were killed shortly after being flashed.</div>
-                </div>
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Flash
-                        :grenadeData="{
-                          'Id':'Flash-1-1',
-                          'MatchId':1,
-                          'PlayerId':1,
-                          'GrenadeId':1,
-                          'Round':1,
-                          'UserIsCt':showCt,
-                          'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Flasheds':[
-                          {'VictimPosX':42,'VictimPosY':12,'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimPosX':39,'VictimPosY':39,'TimeFlashed':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
-                        }"
-                        :scaleFactor="2"
-                        :showTrajectories="showTrajectories"
-                        :SetSelectedSample="function(){}"
-                        :isSelected="true"
+                        :fixedDetonationRadius="15"
                       />
                     </svg>
                   </div>
                   <div class="legend-description">
-                    Click on a Flash to see the victims' positions.
-                    <!-- Green border indicates a player died shortly after being flashed. -->
+                    <!-- Your Smokes are represented by circular markers. Green means it reached its target. -->
+                    <!-- Smokes that reached there target are colored green.  -->
+                    A smoke that reached its target.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Smoke 
+                        :grenadeData="{
+                          'Id':'Smoke-1-1',
+                          'MatchId':1,
+                          'Round':1,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':1,
+                          'TargetId':0,
+                          'LineupId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                        :scaleFactor="2"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                        :fixedDetonationRadius="15"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    A red marker means you f'ed up and maybe you should look at the lineup one more time.
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Smoke 
+                        :grenadeData="{
+                          'Id':'Smoke-1-1',
+                          'MatchId':1,
+                          'Round':1,
+                          'GrenadeId':1,
+                          'UserIsCt':true,
+                          'UserWonRound':false,
+                          'Result':0,
+                          'TargetId':0,
+                          'LineupId':0,
+                          'ReleaseX':5,
+                          'ReleaseY':22,
+                          'DetonationX':33,
+                          'DetonationY':27,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                        :scaleFactor="2"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                        :fixedDetonationRadius="15"
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    <!-- A grey marker means the lineup of this throw is not featured on MENTOR.GG. -->
+                    <!-- The lineup of this throw is not featured on MENTOR.GG. -->
+                    This throw's lineup is not featured on MENTOR.GG - yet!
                   </div>
                 </div>
               </div>
@@ -251,33 +212,92 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <Zone
-                        :SetSelectedZone="function(){}"
-                        :fillColor="'rgba(255, 255, 255, 0.15)'"
-                        :isSelected="false"
+                      <Lineup 
+                        :SetSelectedLineup="function(){}"
+                        :fillColor="'rgb(255, 255, 255)'"
+                        :lineupData="{
+                          'LineupId':1,
+                          'TargetId':1,
+                          'Name':'Legend Example',
+                          'PlayerPosXPixel':9,
+                          'PlayerPosYPixel':22,
+                          'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
+                          'ThrowTypeString':'left-click',
+                          'Images':null,
+                          'Thumbnails':null}"
                         :zoneData="{
                           'ZoneId':1,
-                          'Name':'Legend_Zone',
-                          'CenterXPixel':15,
-                          'CenterYPixel':15,
-                          'PolygonPointsX':[10,50,50,30,30,10,10],
-                          'PolygonPointsY':[10,10,50,50,30,30,10],
-                          'ParentZoneId':230000,
-                          'Depth':1,
-                          }"
+                          'CategoryIds':[1],
+                          'Name':'Legend Example',
+                          'GrenadePosXPixel':33,
+                          'GrenadePosYPixel':27}"
+                        :scaleFactor="2.5"
+                      />
+                      <Target
+                      :fillcolor="'rgba(0, 255, 0, 1)'"
+                      :zoneData="{
+                        'ZoneId':1,
+                        'CategoryIds':[1],
+                        'Name':'Legend Example',
+                        'GrenadePosXPixel':33,
+                        'GrenadePosYPixel':27}"
+                      :zoneType="'Smoke'"                      
+                      :scaleFactor="3"                      
                       />
                     </svg>
                   </div>
                   <div class="legend-description">
-                    A zone's color corresponds to the average blind duration of your Flashes that detonated in it.
-                    <!-- A zone's color corresponds to the average duration of enemies being blinded by your Flashes that detonated in it.  -->
+                    Click on lineups to learn new smokes.
+                    <!-- You can learn new smokes by clicking on the lineups and checking out the "Practice" section. -->
+                  </div>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-depiction">
+                    <svg height="50" width="50">
+                      <Lineup 
+                        :SetSelectedLineup="function(){}"
+                        :fillColor="'rgba(0, 255, 0, 1)'"
+                        :lineupData="{
+                          'LineupId':1,
+                          'TargetId':1,
+                          'Name':'Legend Example',
+                          'PlayerPosXPixel':9,
+                          'PlayerPosYPixel':22,
+                          'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
+                          'ThrowTypeString':'left-click',
+                          'Images':null,
+                          'Thumbnails':null}"
+                        :zoneData="{
+                          'ZoneId':1,
+                          'CategoryIds':[1],
+                          'Name':'Legend Example',
+                          'GrenadePosXPixel':33,
+                          'GrenadePosYPixel':27}"
+                        :scaleFactor="2.5"
+                      />
+                      <Target
+                      :fillcolor="'rgba(0, 255, 0, 1)'"
+                      :zoneData="{
+                        'ZoneId':1,
+                        'CategoryIds':[1],
+                        'Name':'Legend Example',
+                        'GrenadePosXPixel':33,
+                        'GrenadePosYPixel':27}"
+                      :zoneType="'Smoke'"                      
+                      :scaleFactor="3"                      
+                      />
+                    </svg>
+                  </div>
+                  <div class="legend-description">
+                    <!-- As soon as you've used a lineup ingame, it is colored according to your accuracy. -->
+                    Use a lineup ingame and it will be colored according to your accuracy.
                   </div>
                 </div>
               </div>
             </div>
-            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
+            <div v-if="selectedSample || selectedLineup" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this Flash:
+                About this smoke:
                 <div class="stat-row">
                   <div class="stat-description">Thrown by</div>
                   <div class="stat-content">{{selectedSample.PlayerName}}</div>
@@ -290,104 +310,48 @@
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
-                <div class="stat-row">
-                  <div class="stat-description">Enemies Flashed</div>
-                  <div
-                    class="stat-content"
-                  >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack).length}}</div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">Total time enemies flashed:</div>
-                  <div
-                    class="stat-content"
-                  >{{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.TimeFlashed, 0) / 1000).toFixed(2) + "s"}}</div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">Enemies died shortly after being flashed:</div>
-                  <div
-                    class="stat-content"
-                  >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}</div>
-                </div>
                 <div class="split">
                   <div class="left">
                     <p>Watch this round</p>
                   </div>
                   <div class="right">
-                    <i
-                      class="material-icons watch-match-icon"
-                      title="Watch in Browser"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
-                    >videocam</i>
+                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
                   </div>
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-zone-stats">
-                About your Flashes in the {{selectedZone.Name}}-Zone:
-                <div class="stat-row">
-                  <div class="stat-description">Flashes thrown</div>
-                  <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
-                </div>
-                <!-- Temp version: -->
-                <div class="stat-row">
-                  <div class="stat-description">Avg. Enemy flashed</div>
-                  <div
-                    class="stat-content"
-                  >{{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">Avg. Team flashed</div>
-                  <div
-                    class="stat-content"
-                  >{{(userSelectedZonePerformance.TotalTeamTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
-                </div>
-                <div class="stat-row">
-                  <div class="stat-description">Avg. assisted Kills</div>
-                  <div
-                    class="stat-content"
-                  >{{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}</div>
-                </div>
 
-                <!-- Richtige version die gestyled werden muss: -->
-                <!-- <div class="stat-row">
-                  <div class="stat-description">
-                    Das hier soll wie im Overview ein links-rechts split sein, nur für enemyattack und teamattack 
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-right">
-                      Enemy-flash             
-                    </div>
-                    <div class="split-left">
-                      Team-flash        
-                    </div>
+              <div v-if="selectedLineup" class="selected-lineup-stats">
+                {{selectedLineup.Name}}-Lineup
+                <div class="stat-row">
+                  <div class="stat-description">Attempts</div>
+                  <div class="stat-content">
+                    {{userSelectedLineupPerformance.TotalAttemptsCount}}
                   </div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. time flashed
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                     
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TotalTeamTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}                   
-                    </div>
+                  <div class="stat-description">Accuracy</div>
+                  <div class="stat-content">
+                    {{(userSelectedLineupPerformance.SuccessfulAttemptsCount / Math.max(1, userSelectedLineupPerformance.TotalAttemptsCount ) * 100).toFixed(0)+ '%'}}
                   </div>
                 </div>
-                <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. kill-assists
-                  </div>
-                  <div class="stat-content-split">
-                    <div class="split-left">
-                      {{(userSelectedZonePerformance.EnemyFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                    
-                    </div>
-                    <div class="split-right">
-                      {{(userSelectedZonePerformance.TeamFlashAssists / userSelectedZonePerformance.SampleCount).toFixed(2) }}                   
-                    </div>
-                  </div>
-                </div>-->
+              </div>
+            </div>
+            <div v-if="selectedLineup" class="practice-tab">
+              <!-- <div v-show="!selectedLineup">
+                Select a Lineup to see how it's done!
+              </div> -->
+              <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.Setpos != ''">
+                <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly>
+                <button id="setpos-copy" type="button" data-toggle="tooltip" data-placement="top" data-original-title="Copy to clipboard" @click="CopyTextToClipboard(selectedLineup.Setpos)">
+                  <i class="material-icons" >file_copy</i>
+                </button>
+              </div>
+              <div v-if="selectedLineup && selectedLineup.Images && selectedLineup.Thumbnails">
+                <LightBox :images="lineupImages" :show-light-box="false" ref="lightbox"></LightBox>
+                <div class="image-list">
+                  <img :src="lineupImages[0].src" @click="OpenLightbox">
+                </div>
               </div>
             </div>
           </div>
@@ -401,36 +365,42 @@
 import CustomSelect from "@/components/CustomSelect.vue";
 import TeamSelection from "@/components/TeamSelection.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
-import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
+import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
+import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
+import LightBox from 'vue-image-lightbox'
+require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 
 export default {
   components: {
     CustomSelect,
     TeamSelection,
-    Flash,
     RadarImage,
-    Zone
+    Lineup,
+    Target,
+    Smoke,
+    LightBox
   },
   data() {
     return {
       loadingSamplesComplete: false,
       activeMap: "de_mirage",
       showCt: true,
-      // matchCount: 10,
-      // matchCountSelectOptions: {
-      //   5: "Use last 5 matches",
-      //   10: "Use last 10 matches",
-      //   50: "Use last 50 matches",
-      //   100: "Use last 100 matches"
-      // },
+      matchCount: 10,
+      matchCountSelectOptions: {
+        5: "Use last 5 matches",
+        10: "Use last 10 matches",
+        50: "Use last 50 matches",
+        100: "Use last 100 matches"
+      },
       showTrajectories: false,
       mapSummaries: null,
       detailView: true,
 
       zonesEnabled: false,
       zones: [],
-      zoneDescendants: [],
+      lineups: [],
+
       userPerformanceData: [],
       globalPerformanceData: [],
 
@@ -438,6 +408,7 @@ export default {
       samples: [],
 
       selectedSample: null,
+      selectedLineup: null,
       selectedZoneId: 0,
 
       eventData: null,
@@ -462,11 +433,17 @@ export default {
         this.eventData = response.data;
       });
     },
+    LoadOverviews(matchCount) {
+      this.mapSummaries = null;
+      this.$api.getSmokesOverview(matchCount).then(response => {
+        this.mapSummaries = response.data.MapSummaries;
+      });
+    },
     LoadSamples(eventName, teamName, map) {
       this.samples = [];
       this.loadingSamplesComplete = false;
       this.$api
-        .getEventFlashes(eventName, teamName, map)
+        .getEventSmokes(eventName, teamName, map)
         .then(response => {
           this.mapInfo = response.data.MapInfo;
           this.samples = response.data.Samples;
@@ -498,6 +475,7 @@ export default {
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
+      this.selectedLineup = null;
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
@@ -505,10 +483,13 @@ export default {
         this.activeMap = map;
       }
       this.selectedSample = null;
-      this.selectedZoneId = 0;
+      this.selectedLineup = null;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
+    },
+    SetSelectedLineup: function(lineupId) {
+      this.selectedLineup = this.lineups.find(x => x.LineupId == lineupId);
     },
     SetSelectedZone: function(zoneId) {
       this.selectedSample = null;
@@ -516,8 +497,38 @@ export default {
     },
     ToggleDetailView() {
       this.selectedSample = null;
+      this.selectedLineup = null;
       this.selectedZoneId = 0;
       this.detailView = !this.detailView;
+    },
+    CopyTextToClipboard(text) {
+      // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+      if (!navigator.clipboard) {
+          this.fallbackCopyTextToClipboard(text);
+          return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+      }, function(error) {
+        console.error(error); // eslint-disable-line no-console
+      });
+    },
+    fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+          document.execCommand('copy');
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
+      }
+
+      document.body.removeChild(textArea);
+    },
+    OpenLightbox() {
+      this.$refs.lightbox.showImage(0);
     },
     Watch: function(matchId, round) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
@@ -535,13 +546,13 @@ export default {
       // Filter (if applicable)
       return this.userPerformanceData;
     },
-    activeGlobalData() {
-      // Filter (if applicable)
-      return this.globalPerformanceData;
-    },
     userSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
+    },
+    userSelectedLineupPerformance() {
+      if (this.selectedLineup == null) return null;
+      return this.activeUserData.LineupPerformances[this.selectedLineup.LineupId];
     },
     userTotalRounds() {
       return this.showCt
@@ -550,8 +561,11 @@ export default {
     },
     globalSelectedZonePerformance() {
       if (this.selectedZone == null) return null;
-
       return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
+    },
+    globalSelectedLineupPerformance() {
+      if (this.selectedLineup == null) return null;
+      return this.activeGlobalData.LineupPerformances[this.selectedLineup.LineupId];
     },
     globalTotalRounds() {
       return this.showCt
@@ -559,37 +573,53 @@ export default {
         : this.activeGlobalData.TotalTerroristRounds;
     },
     selectedZone() {
-      if (this.selectedZoneId == 0) {
+      if(this.selectedZoneId == 0){
         return null;
       }
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleSamples() {
+      if (!this.detailView){
+        if(this.selectedLineup != null){
+          return this.samples.filter(x=>x.LineupId == this.selectedLineup.LineupId)
+        }
+        return [];
+      } 
       if (!this.samples) return [];
       if (this.selectedSample != null) return [this.selectedSample];
-      if (this.selectedZoneId) {
-        return this.samples.filter(
-          x =>
-            this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) ||
-            x.ZoneId == this.selectedZoneId
-        );
-      }
       return this.samples.filter(x => x.UserIsCt == this.showCt);
-    },
+    },    
+    visibleLineups() {
+      if (this.detailView) return [];
+      if (!this.lineups) return [];
+      if (this.selectedLineup != null) return [this.selectedLineup];
+      if (this.selectedZone != null) return this.lineups.filter(x => x.TargetId == this.selectedZone.ZoneId);
+      return this.lineups;
+    },    
     visibleZones() {
       if (this.detailView) return [];
-
-      if (this.selectedZone != null) {
-        return this.zones.filter(
-          x =>
-            x.ParentZoneId == this.selectedZone.ZoneId ||
-            this.selectedZone.ZoneId == x.ZoneId
-        );
-      } else {
-        return this.zones.filter(
-          x => x.IsCtZone == this.showCt && x.Depth == 1
-        );
+      if (this.selectedZone != null) return [this.selectedZone];
+      if (this.selectedLineup != null) return [this.zones.find(x=>x.ZoneId == this.selectedLineup.TargetId)]
+      return this.zones;
+    },
+    lineupImages() {
+      let ret = [];
+      if ( this.selectedLineup == null ) {
+        return ret;
       }
+
+      if ( this.selectedLineup.Images.length != this.selectedLineup.Thumbnails.length ) {
+        return ret;
+      }
+
+      for ( let i = 0; i < this.selectedLineup.Images.length; i++ ) {
+        ret.push({
+          src: this.$api.resolveResource('~' + this.selectedLineup.Images[i]),
+          thumb: this.$api.resolveResource('~' + this.selectedLineup.Thumbnails[i])
+        });
+      }
+
+      return ret;
     }
   }
 };
@@ -598,7 +628,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/sidebar.scss";
 
-.view-flashes {
+.view-smokes {
   margin-top: 40px;
 }
 
@@ -696,7 +726,8 @@ export default {
       font-size: 12px;
 
       .ct,
-      .t {
+      .t,
+      .unisex {
         display: flex;
         align-items: center;
 
@@ -714,7 +745,7 @@ export default {
   }
 }
 
-.no-data {
+.no-data {  
   margin-top: 20px;
 }
 
@@ -747,7 +778,7 @@ export default {
         margin: 0 5px;
       }
 
-      :not(.active) {
+      :not(.active){
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -ms-filter: grayscale(100%);
@@ -758,7 +789,7 @@ export default {
         -webkit-filter: none;
         -moz-filter: none;
         -ms-filter: none;
-        filter: none;
+        filter: none;      
       }
 
       .t {
@@ -795,8 +826,8 @@ export default {
 
   .r {
     width: 30%;
-
-    .sidebar {
+      
+    .sidebar{
       color: white;
 
       .split {
@@ -815,7 +846,7 @@ export default {
             color: $orange;
             margin-right: 20px;
             font-size: 26px;
-            transition: 0.35s;
+            transition: .35s;
             cursor: pointer;
 
             &:hover {

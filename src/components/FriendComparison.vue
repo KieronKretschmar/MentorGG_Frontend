@@ -12,11 +12,11 @@
 
     <span>
       <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">        
-        <NoDataAvailableDisplay @buttonClicked="LoadData(true)">
+        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           You have no matches played with your steam-friends in the database :(
           <br>
           Wanna see somebody else's shitty ass random stats? 
-          </NoDataAvailableDisplay>
+          </DemoDataLoadRequest>
       </div>
 
       <div

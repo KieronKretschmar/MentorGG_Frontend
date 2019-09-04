@@ -1,25 +1,23 @@
 <template>
   <div class="view view-kills">
-    <div class="fixed-width-container">      
-      <div v-if="mapSummaries == null" class="bordered-box no-data">
-        <AjaxLoader>Computing summaries for each map</AjaxLoader>
-      </div>
-      <div v-if="mapSummaries != null" class="performances">
+    <div class="fixed-width-container">   
+      <TeamSelection :teamInfos="eventData ? eventData.TeamInfos : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
+
+      <div v-if="eventData != null" class="performances">
         <div
-          v-for="(mapSummary,index) in mapSummaries"
+          v-for="(map,index) in eventData.Event.MapPool"
           :key="index"
           class="performance"
-          :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
+          :class="{active: activeMap == map}"
+          @click="OnActiveMapUpdated(map)"
         >
           <img
             class="map-image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
+            :src="$api.resolveResource('~/Content/Images/Overview/' + map +'.jpg')"
           />
-          <p class="map-name">{{mapSummary.Map}}</p>
+          <p class="map-name">{{map}}</p>
 
-          <div class="z-layer-lo">
-            <!-- TODO: Style -->
+          <!-- <div class="z-layer-lo">
             <span class="split-title">MatchWin Rate</span>
             <div class="split">
               <span style="color:white;">{{(mapSummary.MatchWinFraction * 100).toFixed(0) }}%</span>
@@ -50,18 +48,16 @@
                 <span>{{(mapSummary.KDAsTerrorist).toFixed(2) }}</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Kills</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-          Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all.
-          <br>Wanna load someone else's kills?
-          </DemoDataLoadRequest>
+        <NoDataAvailableDisplay>
+          Seems like we have no matches for {{selectedTeamName}} on {{activeMap}} from {{eventData.Event.EventNameLong}}
+        </NoDataAvailableDisplay>
       </div>   
       <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">
@@ -102,12 +98,9 @@
                 @click="showCt = true"
               />
             </div>
-            <CustomSelect
-              class="match-count-select"
-              v-model="matchCount"
-              :options="matchCountSelectOptions"
-              v-on:input="OnMatchCountUpdated"
-            ></CustomSelect>
+            <div class="matchcount-display">
+              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}} on {{activeMap}} 
+            </div>
           </div>   
           <div>      
             <RadarImage
@@ -222,7 +215,15 @@
             </div>
             <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
+                About this {{selectedSample.UserWinner ? "Kill" : "Death"}}:
+                <div class="stat-row">
+                  <div class="stat-description">Player</div>
+                  <div class="stat-content">{{selectedSample.PlayerName}}</div>
+                </div>
+                <div class="stat-row">
+                  <div class="stat-description">Against</div>
+                  <div class="stat-content">{{selectedSample.VictimName}} from {{selectedSample.EnemyTeamName}}</div>
+                </div>
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
@@ -294,6 +295,7 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import TeamSelection from "@/components/TeamSelection.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
@@ -301,6 +303,7 @@ import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 export default {
   components: {
     CustomSelect,
+    TeamSelection,
     Kill,
     RadarImage,
     Zone
@@ -333,64 +336,62 @@ export default {
       selectedSample: null,
       selectedZoneId: 0,
 
-      activeFilterSettings: {}
+      activeFilterSettings: {},
+
+      eventData: null,
+      matchInfos: [],
+      selectedTeamName: "Astralis",
+      // selectedEventName: "StarladderBerlin2019",
+      selectedEventName: "IEMKatowice2019",
     };
   },
   mounted() {
-    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-    // boolean in query param might be received as string
-    if('showCt' in this.$route.query){
-      this.showCt = this.$route.query.showCt == true ||  this.$route.query.showCt == "true";
-    }
-    if(this.$route.query.map){
+    this.LoadEventInfo(this.selectedEventName);
+
+    if (this.$route.query.map) {
       this.activeMap = this.$route.query.map;
     }
-    if(this.$route.query.matchCount){
-      this.matchCount = this.$route.query.matchCount;
-      this.matchCountSelectOptions[this.$route.query.matchCount] = "Use last " + this.$route.query.matchCount + " matches"
-    }
-    this.LoadSamples(this.activeMap, this.matchCount, false);
-
-    if(this.$route.query.zoneId){
-      this.detailView = false;
-      this.selectedZoneId = this.$route.query.zoneId;        
-    }
+    this.LoadSamples(this.selectedEventName, this.selectedTeamName, this.activeMap);
   },
   methods: {
+    LoadEventInfo(eventName) {
+      this.mapSummaries = null;
+      this.$api.getEvent(eventName).then(response => {
+        this.eventData = response.data;
+      });
+    },
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
       this.$api.getKillsOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },
-    LoadSamples(map, matchCount, isDemo) {
+    LoadSamples(eventName, teamName, map) {
       this.samples = [];
       this.loadingSamplesComplete = false;
-      this.$api.getKills(isDemo ? "76561198033880857" : "", map, matchCount)
-      .then(response => {
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.userPerformanceData = response.data.UserData;
-        this.activeFilterSettings = JSON.parse(
-          JSON.stringify(response.data.UserData[0].FilterSettings)
-        ); // Make a deepcopy of the first (default) filtersettings
-        this.globalPerformanceData = response.data.GlobalData;
-        // Ignore zones where there are no samples for less clutter
-        this.zones = response.data.Zones
-        .filter(x => x.ParentZoneId != -1 && (this.activeUserData.ZonePerformances[x.ZoneId].Deaths != 0 || this.activeUserData.ZonePerformances[x.ZoneId].Kills != 0))
-        .sort((a,b) => a.Depth - b.Depth);
-        if (this.zones.length == 0) {
-          this.zonesEnabled = false;
-        } else {
-          this.zonesEnabled = true;
-        }
-        this.zoneDescendants = response.data.ZoneDescendants;
-        this.loadingSamplesComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingSamplesComplete = true;
-      });
+      this.$api
+        .getEventKills(eventName, teamName, map)
+        .then(response => {
+          this.mapInfo = response.data.MapInfo;
+          this.samples = response.data.Samples;
+          this.matchInfos = response.data.MatchInfos;
+
+          // Add EnemyTeam to each sample
+          for(let i=0; i<this.samples.length; i++){
+            let sample = this.samples[i];
+            for (let teamInfo in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.TeamInfos){
+              if(teamInfo.TeamName != this.selectedTeamName){
+                sample.EnemyTeamName = teamInfo.TeamName;
+                break;
+              }
+            }
+          }
+          this.loadingSamplesComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingSamplesComplete = true;
+        });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
@@ -429,6 +430,12 @@ export default {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round);
     },
+    SetSelectedTeam(teamName) {
+      if (teamName != this.selectedTeamName) {
+        this.selectedTeamName = teamName;
+        this.LoadSamples(this.selectedEventName, this.selectedTeamName, this.activeMap);
+      }
+    }
     // Deactivated because userPerformances for different combinations of filtersettings don't need to be computed in JS;
     // All userPerformances for every FilterCombination are provided by api
     // // Takes an array of userDatas and returns the ones that match this.activeFilterSettings
@@ -745,9 +752,14 @@ export default {
       }
     }
 
-    .match-count-select {
-      width: 100%;
-      // max-width: 400px;
+    .matchcount-display {
+      background: $dark-4;
+      position: relative;
+      padding: 8px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      color: white;
+      font-size: 14px;
     }
   }
 

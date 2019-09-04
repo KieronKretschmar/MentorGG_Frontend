@@ -4,17 +4,27 @@
       <router-link to="/" class="logo">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <div class="grenades">
+      <router-link to="/">Overview</router-link>
+      <router-link to="/kills">Kills</router-link>
+      <div class="dropdown-navitem">
         <router-link class="grenade" to>Grenades</router-link>
         <router-link class="hide" to="/smokes">Smokes</router-link>
         <router-link class="hide" to="/molotovs">Molotovs</router-link>
         <router-link class="hide" to="/flashes">Flashes</router-link>
         <router-link class="hide" to="/hes">HEs</router-link>
       </div>
-      <router-link to="/">Overview</router-link>
 
-      <router-link to="/kills">Kills</router-link>
       <router-link to="/statistics">Statistics</router-link>
+      
+      <div class="dropdown-navitem">
+        <router-link class="grenade" to>Starladder2019</router-link>
+        <router-link class="hide" to="/eventmatchhistory">Matches</router-link>
+        <router-link class="hide" to="/eventkills">Kills</router-link>
+        <router-link class="hide" to="/eventsmokes">Smokes</router-link>
+        <router-link class="hide" to="/eventmolotovs">Molotovs</router-link>
+        <router-link class="hide" to="/eventflashes">Flashes</router-link>
+        <router-link class="hide" to="/eventhes">HEs</router-link>
+      </div>
     </div>
     <div class></div>
     <div class="r">
@@ -83,7 +93,7 @@ nav {
   .l {
     display: flex;
 
-    .grenades {
+    .dropdown-navitem {
       &:hover .hide {
         display: block;
       }
