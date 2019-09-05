@@ -1,101 +1,100 @@
 <template>
-<div class="bordered-box match">
-  <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
-    <div class="left">
-      <div class="map-thumbnail">
-        <img
-          :src="$api.resolveResource(match.MapIcon)"
-          :alt="match.Map + ' Thumbnail'"
-          :title="match.Map"
-        />
-      </div>
-      <div class="map-and-datetime">
-        <span class="map">{{ match.Map }}</span>
-        <!-- <span class="datetime">{{ match.MatchDate|formatDate }}</span> -->
-      </div>
+  <div class="bordered-box match">
+    <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
+      <div class="left">
+        <div class="map-thumbnail">
+          <img
+            :src="$api.resolveResource(match.MapIcon)"
+            :alt="match.Map + ' Thumbnail'"
+            :title="match.Map"
+          />
+        </div>
+        <div class="map-and-datetime">
+          <span class="map">{{ match.Map }}</span>
+          <!-- <span class="datetime">{{ match.MatchDate|formatDate }}</span> -->
+        </div>
 
-      <div class="team l">
-        <span class="team-name">{{match.Scoreboard.TeamInfos[0].TeamName}}</span>
-        <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[0].Icon)" />
-      </div>
-
-      <div class="match-score">
-        <span
-          class="score"
-          :type="3"
-        >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
-        <span class="score-text">SCORE</span>
-      </div>
-
-      <div class="team r">
-        <span class="team-name">{{match.Scoreboard.TeamInfos[1].TeamName}}</span>
-        <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[1].Icon)" />
-      </div>
-
-    </div>
-
-    <div class="right">
-
-      <i class="material-icons watch-match-icon" title="Watch in Browser" @click="WatchMatch(match)">videocam</i>
-
-      <button
-        class="button-variant-bordered"
-        @click="ToggleMatchVisibility(match)"
-      >Match details</button>
-    </div>
-  </div>
-  <transition name="slide">
-    <div class="match-body" v-if="match.IsVisible">
-      <hr />
-      <div class="team-table">
-        <div
-          v-for="team in match.Scoreboard.TeamInfos"
-          :key="team.TeamName"
-          class="team"
-          :name="team.TeamName"
-        >
-          <div class="table-header">
-            <span></span>
-            <span>ADR</span>
-            <span>K</span>
-            <span>A</span>
-            <span>D</span>
+        <div class="versus">
+          <div class="team l">
+            <span class="team-name">{{match.Scoreboard.TeamInfos[0].TeamName}}</span>
+            <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[0].Icon)" />
           </div>
-          <div class="table-content">
-            <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
-              <img class="avatar" :src="entry.Profile.Icon" />
-              <a
-                class="name"
-                :href="entry.Profile.Url"
-                target="_blank"
-              >{{ entry.Profile.SteamName }}</a>
-              <span
-                class="adr"
-              >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
-              <span class="k">{{ entry.Kills }}</span>
-              <span class="a">{{ entry.Assists }}</span>
-              <span class="d">{{ entry.Deaths }}</span>
+
+          <div class="match-score">
+            <span
+              class="score"
+              :type="3"
+            >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
+            <span class="score-text">SCORE</span>
+          </div>
+
+          <div class="team r">
+            <span class="team-name">{{match.Scoreboard.TeamInfos[1].TeamName}}</span>
+            <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[1].Icon)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <i
+          class="material-icons watch-match-icon"
+          title="Watch in Browser"
+          @click="WatchMatch(match)"
+        >videocam</i>
+
+        <button class="button-variant-bordered" @click="ToggleMatchVisibility(match)">Match details</button>
+      </div>
+    </div>
+    <transition name="slide">
+      <div class="match-body" v-if="match.IsVisible">
+        <hr />
+        <div class="team-table">
+          <div
+            v-for="team in match.Scoreboard.TeamInfos"
+            :key="team.TeamName"
+            class="team"
+            :name="team.TeamName"
+          >
+            <div class="table-header">
+              <span></span>
+              <span>ADR</span>
+              <span>K</span>
+              <span>A</span>
+              <span>D</span>
+            </div>
+            <div class="table-content">
+              <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
+                <img class="avatar" :src="entry.Profile.Icon" />
+                <a
+                  class="name"
+                  :href="entry.Profile.Url"
+                  target="_blank"
+                >{{ entry.Profile.SteamName }}</a>
+                <span
+                  class="adr"
+                >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                <span class="k">{{ entry.Kills }}</span>
+                <span class="a">{{ entry.Assists }}</span>
+                <span class="d">{{ entry.Deaths }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
-</div>  
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
-  props: [
-    "match"
-  ],
+  props: ["match"],
   methods: {
     ToggleMatchVisibility: function() {
       this.match.IsVisible = !this.match.IsVisible;
       this.$forceUpdate();
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -108,12 +107,12 @@ export default {
     align-items: center;
     padding: 5px 0;
 
-    &.source-valve>.left>.map-thumbnail{
-          border-left-color: $matchmaking-blue;
+    &.source-valve > .left > .map-thumbnail {
+      border-left-color: $matchmaking-blue;
     }
-    
-    &.source-faceit>.left>.map-thumbnail{
-          border-left-color: $faceit-orange;
+
+    &.source-faceit > .left > .map-thumbnail {
+      border-left-color: $faceit-orange;
     }
 
     .left {
@@ -126,6 +125,7 @@ export default {
         border-radius: 5px;
         overflow: hidden;
         border-left-style: solid;
+        border-left-color: turquoise;
 
         img {
           width: 100%;
@@ -155,61 +155,71 @@ export default {
         }
       }
 
-      .team {
+      .versus {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        
-        &.r {
-          border-right: 1px solid $purple;
-        }
+        flex: 1 1 auto;
+        padding-right: 50px;
+        justify-content: space-between;
 
-        .team-name{
-          font-size: 12px;
-          color: $dark-4;
-        }
+        .team {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          padding-left: 20px;
+          width: 40%;
 
-        .team-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 3px;
-
-        }
-
-      }
-
-
-      .match-score {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        padding: 0 50px;
-        width: 20%;
-
-
-        .score {
-          font-weight: 500;
-          font-size: 16px;
-
-          &[type="0"] {
-            color: $green;
+          &.r {
+            border-right: 1px solid $purple;
+            padding-right: 20px;
           }
 
-          &[type="1"] {
-            color: $red;
+          .team-name {
+            font-size: 10px;
+            color: white;
+            margin-bottom: 5px;
           }
 
-          &[type="2"] {
-            color: orange;
+          .team-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 3px;
+            align-self: center;
           }
         }
 
-        .score-text {
-          font-size: 12px;
-          color: $dark-4;
-          margin-top: 5px;
+        .match-score {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          // padding: 0 50px;
+          width: auto !important;
+          border-right: none !important;
+          white-space: nowrap;
+
+          .score {
+            font-weight: 500;
+            font-size: 16px;
+
+            &[type="0"] {
+              color: $green;
+            }
+
+            &[type="1"] {
+              color: $red;
+            }
+
+            &[type="2"] {
+              color: orange;
+            }
+          }
+
+          .score-text {
+            font-size: 12px;
+            color: $dark-4;
+            margin-top: 5px;
+          }
         }
       }
 
@@ -250,7 +260,7 @@ export default {
         color: $orange;
         margin-right: 20px;
         font-size: 26px;
-        transition: .35s;
+        transition: 0.35s;
         cursor: pointer;
 
         &:hover {

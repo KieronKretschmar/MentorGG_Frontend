@@ -3,7 +3,7 @@
   <div class="fixed-width-container">
     <div class="match-history">
       <div class="bordered-box tabs-header">
-        <span class="title">Matches from {{selectedEventName}}:</span>
+        <span class="title">Matches from {{selectedEventName}}</span>
       </div>
 
       <div class="match-list">   
@@ -103,6 +103,7 @@ export default {
     .filter {
       color: white;
       font-weight: 500;
+      font-size: 16px;
     }
 
     .filter {
