@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!teamInfos" class="bordered-box no-data">
+    <div v-if="!teams" class="bordered-box no-data">
       <AjaxLoader>Loading tournament data</AjaxLoader>
     </div>
 
@@ -8,7 +8,7 @@
       <div class="tournament">
         <div
           class="outer-team"
-          v-for="teamDetail in teamInfos"
+          v-for="teamDetail in teams"
           :key="teamDetail.TeamDetails.TeamEnum"
           @click="SetSelectedTeam(teamDetail.TeamDetails.Name)"
         >
@@ -25,9 +25,9 @@
 <script>
 export default {
   props: [
-    "teamInfos",
+    "teams",
     "SetSelectedTeam", // Call SetSelectedTeam(teamName) on click
-    "selectedTeam" // highlight the selected team's logo
+    "selectedTeamName" // highlight the selected team's logo
   ]
 };
 </script>

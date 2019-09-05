@@ -1,7 +1,7 @@
 <template>
   <div class="view view-flashes">
     <div class="fixed-width-container">
-      <TeamSelection :teamInfos="eventData ? eventData.TeamInfos : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
+      <TeamSelection :teams="eventData ? eventData.Teams : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
 
       <div v-if="eventData != null" class="performances">
         <div
