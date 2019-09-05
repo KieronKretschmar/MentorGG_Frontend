@@ -607,8 +607,8 @@ export default {
 
     .map-name {
       color: white;
-      font-weight: 700;
-      font-size: 1.125rem;
+      font-weight: 500;
+      font-size: 16px;
       margin: 5px 0;
       padding: 10px;
     }

@@ -37,16 +37,24 @@ export default {
   cursor: pointer;
   display: flex;
   flex-wrap: wrap;
+  margin: -10px;
+  margin-bottom: 10px;
 
   .outer-team {
-    flex-basis: 12%;
+    margin: 10px;
+    width: calc((100% / 7) - 20px);
+    // flex-basis: 12%;
+    // margin-bottom: 20px;
 
     .team {
       background: $dark-3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: 1px solid $purple;
+      border: 1px solid $purple;   
+      padding: 20px;
+      height: 110px;   
+      justify-content: center;
 
       &:hover {
         background: $dark-4;
@@ -60,6 +68,8 @@ export default {
       h6 {
         font-size: 12px;
         color: white;
+        margin: 0;
+        font-weight: 400;
       }
     }
   }
