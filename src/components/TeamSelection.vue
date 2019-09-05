@@ -55,6 +55,7 @@ export default {
       padding: 20px;
       height: 110px;   
       justify-content: center;
+      border-radius: 3px;
 
       &:hover {
         background: $dark-4;
