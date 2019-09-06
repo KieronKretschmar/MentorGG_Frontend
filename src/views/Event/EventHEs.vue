@@ -1,7 +1,11 @@
 <template>
   <div class="view view-hes">
     <div class="fixed-width-container">      
-      <TeamSelection :teams="eventData ? eventData.Teams : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
+            <TeamSelection 
+        :teams="eventData ? eventData.Teams : null" 
+        :SetSelectedTeam="SetSelectedTeam"
+        :selectedTeamName="selectedTeamName"
+        />
 
       <div v-if="eventData != null" class="performances">
         <div

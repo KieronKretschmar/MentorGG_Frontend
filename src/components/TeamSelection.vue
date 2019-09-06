@@ -12,7 +12,7 @@
           :key="teamDetail.TeamDetails.TeamEnum"
           @click="SetSelectedTeam(teamDetail.TeamDetails.Name)"
         >
-          <div class="team">
+          <div class="team" :class="{selected: teamDetail.TeamDetails.Name == selectedTeamName}">
             <img class="icon" :src="$api.resolveResource(teamDetail.TeamDetails.IconPath)" />
             <h6>{{teamDetail.TeamDetails.Name}}</h6>
           </div>
@@ -58,6 +58,10 @@ export default {
       border-radius: 3px;
 
       &:hover {
+        background: $dark-4;
+      }
+
+      &.selected{
         background: $dark-4;
       }
 
