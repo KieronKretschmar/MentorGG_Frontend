@@ -46,6 +46,8 @@ let vapp = new Vue({
   render: h => h(App)  
 }).$mount('#app');
 
+Vue.prototype.$vapp = vapp;
+
 
 
 // If demoviewer is open and the user navigates back/to another site, 
