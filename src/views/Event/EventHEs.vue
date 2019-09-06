@@ -375,7 +375,7 @@ export default {
   data() {
     return {
       loadingSamplesComplete: false,
-      activeMap: "de_mirage",
+      activeMap: "de_dust2",
       showCt: true,
       matchCount: 10,
       matchCountSelectOptions: {
