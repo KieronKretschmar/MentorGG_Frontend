@@ -1,33 +1,40 @@
 <template>
   <nav>
     <div class="l">
-      <router-link to="/" class="logo">
+      <router-link to="/" class="logo close-others" @click="closeOpenDropDowns">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <router-link to="/">Overview</router-link>
-      <router-link to="/kills">Kills</router-link>
+      <router-link to="/" class="close-others" @click.native="closeOpenDropDowns">Overview</router-link>
+      <router-link to="/kills" class="close-others" @click.native="closeOpenDropDowns">Kills</router-link>
       <div class="dropdown-navitem">
-        <router-link class="grenade" to>Grenades</router-link>
-        <router-link class="hide" to="/smokes">Smokes</router-link>
-        <router-link class="hide" to="/molotovs">Molotovs</router-link>
-        <router-link class="hide" to="/flashes">Flashes</router-link>
-        <router-link class="hide" to="/hes">HEs</router-link>
+        <router-link to="#" class="grenade drop-button">Grenades <i class="material-icons">arrow_drop_down</i></router-link>
+        <div class="dropdown-hideables hide">
+          <router-link class to="/smokes">Smokes</router-link>
+          <router-link class to="/molotovs">Molotovs</router-link>
+          <router-link class to="/flashes">Flashes</router-link>
+          <router-link class to="/hes">HEs</router-link>
+        </div>
       </div>
 
-      <router-link to="/statistics">Statistics</router-link>
-      
+      <router-link
+        to="/statistics"
+        class="close-others"
+        @click.native="closeOpenDropDowns"
+      >Statistics</router-link>
       <div class="dropdown-navitem">
-        <router-link class="grenade" to>Starladder2019</router-link>
-        <router-link class="hide" to="/eventmatchhistory">Matches</router-link>
-        <router-link class="hide" to="/eventkills">Kills</router-link>
-        <router-link class="hide" to="/eventsmokes">Smokes</router-link>
-        <router-link class="hide" to="/eventmolotovs">Molotovs</router-link>
-        <router-link class="hide" to="/eventflashes">Flashes</router-link>
-        <router-link class="hide" to="/eventhes">HEs</router-link>
+        <router-link to="#1" class="tournaments drop-button">Starladder2019 <i class="material-icons">arrow_drop_down</i></router-link>
+        <div class="dropdown-hideables hide">
+          <router-link class to="/eventmatchhistory">Matches</router-link>
+          <router-link class to="/eventkills">Kills</router-link>
+          <router-link class to="/eventsmokes">Smokes</router-link>
+          <router-link class to="/eventmolotovs">Molotovs</router-link>
+          <router-link class to="/eventflashes">Flashes</router-link>
+          <router-link class to="/eventhes">HEs</router-link>
+        </div>
       </div>
     </div>
     <div class></div>
-    <div class="r">
+    <div class="r close-others"  @click="closeOpenDropDowns">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
       <div
         class="user-profile"
@@ -55,6 +62,7 @@ export default {
     this.$api.getPlayerInfo("").then(response => {
       this.user = response.data;
     });
+    this.toggleHidden();
   },
   data() {
     return {
@@ -75,6 +83,42 @@ export default {
         return "";
       }
       return url.split(".jpg")[0] + "_full.jpg";
+    },
+    /*toggleHidden: function(e){
+      let clicked = e.target.parentNode
+      let hideables = clicked.querySelectorAll(".dropdown-hideables")[0]
+      hideables.classList.toggle("hide")
+    },*/
+    toggleHidden: () => {
+      const dropDownLink = document.querySelectorAll(".drop-button");
+      let hideables = document.querySelectorAll(".dropdown-hideables");
+      for (var i = 0; i < dropDownLink.length; i++) {
+        dropDownLink[i].addEventListener("click", function() {
+          if (
+            this.parentNode
+              .querySelectorAll(".dropdown-hideables")[0]
+              .className.includes(" hide")
+          ) {
+            for (var i = 0; i < hideables.length; i++) {
+              hideables[i].classList.add("hide");
+            }
+            this.parentNode
+              .querySelectorAll(".dropdown-hideables")[0]
+              .classList.remove("hide");
+          } else {
+            this.parentNode
+              .querySelectorAll(".dropdown-hideables")[0]
+              .classList.add("hide");
+          }
+        });
+      }
+    },
+    closeOpenDropDowns: function() {
+      let closeOthers = document.querySelectorAll(".close-others");
+      let dropdowns = document.querySelectorAll(".dropdown-hideables");
+      for (var i = 0; i < dropdowns.length; i++) {
+        dropdowns[i].classList.add("hide");
+      }
     }
   }
 };
@@ -92,13 +136,58 @@ nav {
 
   .l {
     display: flex;
-
-    .dropdown-navitem {
-      &:hover .hide {
-        display: block;
+    align-items: center;
+    .grenade,
+    .tournaments {
+      .material-icons{
+        vertical-align:middle;
       }
+      &:active {
+        color: black;
+      }
+      cursor: pointer;
+    }
+    .dropdown-navitem {
+      /* &:hover .hide {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 55px;
+      }*/
       display: flex;
       flex-direction: column;
+      .dropdown-hideables {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        z-index: 10;
+        top: 65px;
+        border: 1px solid $purple;
+        border-radius: 5px;
+        padding: 10px;
+        background: $dark-3;
+        align-items: flex-start;
+       /* &:a{
+          position:absolute;
+          width:50px;
+          height:50px;
+          border-top:2px solid white;
+          border-bottom:2px solid white;
+          border-left:2px solid white;
+          border-right:2px solid white;
+          top:0%;
+          left: 50%;
+          margin-left:-25px;
+          content: '';
+
+        }*/
+        a {
+          padding: 5px;
+        }
+      }
+      a {
+        padding-left: 14px;
+      }
       .hide {
         display: none;
       }
