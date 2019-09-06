@@ -89,6 +89,10 @@
 export default {
   props: ["match"],
   methods: {
+    WatchMatch: function(match) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", match.MatchId, 1);
+    },
     ToggleMatchVisibility: function() {
       this.match.IsVisible = !this.match.IsVisible;
       this.$forceUpdate();
