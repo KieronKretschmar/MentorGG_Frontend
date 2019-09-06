@@ -371,9 +371,7 @@ export default {
         this.mapInfo = response.data.MapInfo;
         this.samples = response.data.Samples;
         this.userPerformanceData = response.data.UserData;
-        this.activeFilterSettings = JSON.parse(
-          JSON.stringify(response.data.UserData[0].FilterSettings)
-        ); // Make a deepcopy of the first (default) filtersettings
+        this.activeFilterSettings = {PlantStatus : 0};
         this.globalPerformanceData = response.data.GlobalData;
         // Ignore zones where there are no samples for less clutter
         this.zones = response.data.Zones

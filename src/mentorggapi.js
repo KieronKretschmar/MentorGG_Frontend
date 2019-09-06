@@ -24,6 +24,10 @@ class MentorGGAPI {
         return resource.replace('~/', this.tldEndpoint);
     }    
 
+    getLoginStatus() {
+        return axios.get(this.apiEndpoint + 'User/LoginStatus');
+    }
+
     getSrcMap() {
         return axios.get(this.apiEndpoint + 'Image/SrcMap', {
             params: {

@@ -249,12 +249,12 @@ function __DemoViewer() {
 
                 if ( kill.AssisterId != '' ) {
                     var assister = self.PlayerList.GetPlayerById(kill.AssisterId);
-                    assist += '<span class="assister" team="' + (assister.IsCT ? 'ct' : 't') + '">';
-                    assist += assister.Name + '</span> + ';
+                    assist += '<span class="assister" team="' + (assister.IsCT ? 'ct' : 't') + '"> + ';
+                    assist += assister.Name + '</span>';
                 }
 
                 kills += '<div class="kill">';
-                kills += '<span class="player" team="' + (killer.IsCT ? 'ct' : 't') + '">' + assist + killer.Name + '</span>';
+                kills += '<span class="player" team="' + (killer.IsCT ? 'ct' : 't') + '">' + killer.Name + assist + '</span>';
                 kills += '<span class="weapon">' + self.Helper.EquipmentIdToFontCharacter(kill.Weapon) + '</span>';
                 kills += '<span class="victim" team="' + (victim.IsCT ? 'ct' : 't') + '">' + victim.Name + '</span>';
                 kills += '</div>';

@@ -375,6 +375,7 @@ export default {
           this.mapInfo = response.data.MapInfo;
           this.samples = response.data.Samples;
           this.matchInfos = response.data.MatchInfos;
+          this.activeFilterSettings = {PlantStatus : 0}
 
           // Add EnemyTeam to each sample
           for(let i=0; i<this.samples.length; i++){

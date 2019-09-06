@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
+import axios from 'axios';
 
 Vue.use(Router);
 
@@ -8,14 +9,15 @@ Vue.use(Router);
 // Will redirect to login if the user is currently not logged in
 // eslint-disable-next-line
 function authenticationGuard(to, from, next) {
-  //TODO: get proper login state here
-  let loggedIn = false;
-
-  if (loggedIn) {
+  Vue.prototype.$api.getLoginStatus().then(response => {
     next();
-  } else {
-    next('/');
-  }
+  }).catch(error => {
+    if (from.name == "login") {
+      Vue.prototype.$vapp.$emit('shakeLogin')
+    } else {
+      next('/login');
+    }
+  });
 }
 
 
@@ -26,32 +28,39 @@ export default new Router({
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      beforeEnter: authenticationGuard
     },
     {
       path: '/hes',
       name: 'hes',
-      component: () => import(/* webpackChunkName: "hes" */'./views/HEs.vue')
+      component: () => import(/* webpackChunkName: "hes" */'./views/HEs.vue'),
+      beforeEnter: authenticationGuard
     },
     {
       path: '/flashes',
       name: 'flashes',
-      component: () => import(/* webpackChunkName: "flashes" */'./views/Flashes.vue')
+      component: () => import(/* webpackChunkName: "flashes" */'./views/Flashes.vue'),
+      beforeEnter: authenticationGuard
     },
     {
       path: '/kills',
       name: 'kills',
-      component: () => import(/* webpackChunkName: "kills" */'./views/Kills.vue')
+      component: () => import(/* webpackChunkName: "kills" */'./views/Kills.vue'),
+      beforeEnter: authenticationGuard
+
     },
     {
       path: '/molotovs',
       name: 'molotovs',
-      component: () => import(/* webpackChunkName: "molotovs" */'./views/Molotovs.vue')
+      component: () => import(/* webpackChunkName: "molotovs" */'./views/Molotovs.vue'),
+      beforeEnter: authenticationGuard
     },
     {
       path: '/smokes',
       name: 'smokes',
-      component: () => import(/* webpackChunkName: "smokes" */'./views/Smokes.vue')
+      component: () => import(/* webpackChunkName: "smokes" */'./views/Smokes.vue'),
+      beforeEnter: authenticationGuard
     },
     {
       path: '/eventhes',
@@ -86,7 +95,8 @@ export default new Router({
     {
       path: '/statistics',
       name: 'statistics',
-      component: () => import(/* webpackChunkName: "statistics" */'./views/Statistics.vue')
+      component: () => import(/* webpackChunkName: "statistics" */'./views/Statistics.vue'),
+      beforeEnter: authenticationGuard
     },
     {
       path: '/privacy-policy',
@@ -106,7 +116,13 @@ export default new Router({
     {
       path: '/upload',
       name: 'upload',
-      component: () => import(/* webpackChunkName: "upload" */'./views/Upload.vue')
+      component: () => import(/* webpackChunkName: "upload" */'./views/Upload.vue'),
+      beforeEnter: authenticationGuard
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */'./views/Login.vue')
+    }
   ]
 });
