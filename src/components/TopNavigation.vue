@@ -6,13 +6,14 @@
       </router-link>
       <router-link to="/" class="close-others" @click.native="closeOpenDropDowns">Overview</router-link>
       <router-link to="/kills" class="close-others" @click.native="closeOpenDropDowns">Kills</router-link>
+
       <div class="dropdown-navitem">
         <router-link to="#" class="grenade drop-button">Grenades <i class="material-icons">arrow_drop_down</i></router-link>
         <div class="dropdown-hideables hide">
-          <router-link class to="/smokes">Smokes</router-link>
-          <router-link class to="/molotovs">Molotovs</router-link>
-          <router-link class to="/flashes">Flashes</router-link>
-          <router-link class to="/hes">HEs</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/smokes">Smokes</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/molotovs">Molotovs</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/flashes">Flashes</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/hes">HEs</router-link>
         </div>
       </div>
 
@@ -21,15 +22,16 @@
         class="close-others"
         @click.native="closeOpenDropDowns"
       >Statistics</router-link>
+      
       <div class="dropdown-navitem">
-        <router-link to="#1" class="tournaments drop-button">Starladder2019 <i class="material-icons">arrow_drop_down</i></router-link>
+        <router-link to="" class="tournaments drop-button">Starladder2019 <i class="material-icons">arrow_drop_down</i></router-link>
         <div class="dropdown-hideables hide">
-          <router-link class to="/eventmatchhistory">Matches</router-link>
-          <router-link class to="/eventkills">Kills</router-link>
-          <router-link class to="/eventsmokes">Smokes</router-link>
-          <router-link class to="/eventmolotovs">Molotovs</router-link>
-          <router-link class to="/eventflashes">Flashes</router-link>
-          <router-link class to="/eventhes">HEs</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventmatchhistory">Matches</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventkills">Kills</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventsmokes">Smokes</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventmolotovs">Molotovs</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventflashes">Flashes</router-link>
+          <router-link class @click.native="closeOpenDropDowns" to="/eventhes">HEs</router-link>
         </div>
       </div>
     </div>
