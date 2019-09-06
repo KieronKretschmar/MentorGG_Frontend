@@ -38,7 +38,7 @@
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
       <div
         class="user-profile"
-        v-if="user && user.IsLoggedIn"
+        v-if="user"
         @click="optionsVisible = !optionsVisible"
         @mouseleave="optionsVisible = false"
       >

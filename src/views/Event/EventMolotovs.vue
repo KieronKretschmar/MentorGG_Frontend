@@ -377,8 +377,8 @@ export default {
       eventData: null,
       matchInfos: [],
       selectedTeamName: "Astralis",
-      // selectedEventName: "StarladderBerlin2019",
-      selectedEventName: "IEMKatowice2019",
+      selectedEventName: "StarladderBerlin2019",
+      // selectedEventName: "IEMKatowice2019",
     };
   },
   mounted() {
@@ -441,7 +441,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
+        this.LoadSamples(this.selectedEventName, this.selectedTeamName, map);
         this.activeMap = map;
       }
       this.selectedSample = null;

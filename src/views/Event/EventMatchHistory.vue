@@ -45,7 +45,8 @@ export default {
       loadingMatches: false,
       eventData: null,
       teams: [],
-      selectedEventName: 'IEMKatowice2019',
+      selectedEventName: "StarladderBerlin2019",
+      // selectedEventName: 'IEMKatowice2019',
     };
   },
   computed: {

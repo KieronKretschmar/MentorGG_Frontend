@@ -10,13 +10,19 @@ Vue.use(Router);
 // eslint-disable-next-line
 function authenticationGuard(to, from, next) {
   Vue.prototype.$api.getLoginStatus().then(response => {
-    next();
-  }).catch(error => {
-    if (from.name == "login") {
-      Vue.prototype.$vapp.$emit('shakeLogin')
-    } else {
-      next('/login');
+    console.log(response);
+    if(response.data.IsLoggedIn == true){
+      next();
     }
+    else{
+      if (from.name == "login") {
+        Vue.prototype.$vapp.$emit('shakeLogin');
+      } else {
+        next('/login');
+      }
+    }
+  }).catch(error => {
+      next('/login');
   });
 }
 
