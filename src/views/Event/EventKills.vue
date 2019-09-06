@@ -99,7 +99,7 @@
               />
             </div>
             <div class="matchcount-display">
-              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}} on {{activeMap}} 
+              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}}
             </div>
           </div>   
           <div>      
@@ -217,12 +217,12 @@
               <div v-if="selectedSample" class="selected-sample-stats">
                 About this {{selectedSample.UserWinner ? "Kill" : "Death"}}:
                 <div class="stat-row">
-                  <div class="stat-description">Player</div>
+                  <div class="stat-description">Killer</div>
                   <div class="stat-content">{{selectedSample.PlayerName}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">Against</div>
-                  <div class="stat-content">{{selectedSample.VictimName}} from {{selectedSample.EnemyTeamName}}</div>
+                  <div class="stat-description">Victim</div>
+                  <div class="stat-content">{{selectedSample.VictimName}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
@@ -377,16 +377,16 @@ export default {
           this.matchInfos = response.data.MatchInfos;
           this.activeFilterSettings = {PlantStatus : 0}
 
-          // Add EnemyTeam to each sample
-          for(let i=0; i<this.samples.length; i++){
-            let sample = this.samples[i];
-            for (let teamInfo in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.TeamInfos){
-              if(teamInfo.TeamName != this.selectedTeamName){
-                sample.EnemyTeamName = teamInfo.TeamName;
-                break;
-              }
-            }
-          }
+          // // Add EnemyTeam to each sample (not working currently)
+          // for(let i=0; i<this.samples.length; i++){
+          //   let sample = this.samples[i];
+          //   for (let teamInfo in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.TeamInfos){
+          //     if(teamInfo.TeamName != this.selectedTeamName){
+          //       sample.EnemyTeamName = teamInfo.TeamName;
+          //       break;
+          //     }
+          //   }
+          // }
           this.loadingSamplesComplete = true;
         })
         .catch(error => {
