@@ -4,10 +4,10 @@
       <router-link to="/" class="logo close-open">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <i class="material-icons toggle-nav-icon" @click=toggleNav>menu</i>
-      <i class="material-icons toggle-nav-icon hide" @click=toggleNav>close</i>
+      <i class="material-icons toggle-nav-icon" @click="toggleNav">menu</i>
+      <i class="material-icons toggle-nav-icon hide" @click="toggleNav">close</i>
     </div>
-    <hr>
+    <hr />
     <div class="nav-container closed">
       <div class="l">
         <router-link to="/" class="close-open">Overview</router-link>
@@ -49,9 +49,10 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr />
       <div class="r close-open">
         <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
+        <hr />
         <div
           class="user-profile"
           v-if="user"
@@ -141,11 +142,11 @@ export default {
         });
       }
     },
-    toggleNav: function(){
-      let nav = document.querySelectorAll(".nav-container")[0]
-      let icons = [... document.querySelectorAll(".toggle-nav-icon")]
-       nav.classList.toggle('closed')
-       icons.forEach((icon) => icon.classList.toggle('hide'))
+    toggleNav: function() {
+      let nav = document.querySelectorAll(".nav-container")[0];
+      let icons = [...document.querySelectorAll(".toggle-nav-icon")];
+      nav.classList.toggle("closed");
+      icons.forEach(icon => icon.classList.toggle("hide"));
     }
   }
 };
@@ -160,165 +161,172 @@ nav {
   max-width: $container-width;
   padding: 30px 0;
   justify-content: space-between;
- 
-hr{
-  display:none
-}
+
+  hr {
+    display: none;
+    opacity: 0;
+  }
+
   .logo-and-hamburger {
     display: flex;
     align-items: center;
+
     i {
       display: none;
     }
   }
 
-   .nav-container {
+  .nav-container {
     display: flex;
-     .l {
-    display: flex;
-    align-items: center;
 
-    .grenade,
-    .tournaments {
-      .material-icons {
-        vertical-align: middle;
-      }
-      &:active {
-        color: black;
-      }
-      cursor: pointer;
-    }
-    .dropdown-navitem {
-      /* &:hover .hide {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 55px;
-      }*/
+    .l {
       display: flex;
-      flex-direction: column;
-      .drop-button {
-        display: inline-flex;
-        vertical-align: middle;
-        align-items: center;
+      align-items: center;
+
+      .grenade,
+      .tournaments {
+        cursor: pointer;
+
+        .material-icons {
+          vertical-align: middle;
+        }
+
+        &:active {
+          color: black;
+        }
       }
-      .dropdown-hideables {
+
+      .dropdown-navitem {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        z-index: 10;
-        top: 65px;
-        border: 1px solid $purple;
-        border-radius: 5px;
-        padding: 10px;
-        background: $dark-3;
-        align-items: flex-start;
-        &:after {
+
+        .drop-button {
+          display: inline-flex;
+          vertical-align: middle;
+          align-items: center;
+        }
+
+        .dropdown-hideables {
+          display: flex;
+          flex-direction: column;
           position: absolute;
-          width: 10px;
-          height: 10px;
-          border-top: 2px solid $purple;
-          border-bottom: 0px solid $purple;
-          border-left: 2px solid $purple;
-          border-right: 0px solid $purple;
-          top: -12px;
-          left: 50%;
-          margin-left: -5px;
-          content: "";
-          transform: rotate(45deg);
-          margin-top: 5px;
+          z-index: 10;
+          top: 65px;
+          border: 1px solid $purple;
+          border-radius: 5px;
+          padding: 10px;
           background: $dark-3;
+          align-items: flex-start;
+
+          &:after {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid $purple;
+            border-bottom: 0px solid $purple;
+            border-left: 2px solid $purple;
+            border-right: 0px solid $purple;
+            top: -12px;
+            left: 50%;
+            margin-left: -5px;
+            content: "";
+            transform: rotate(45deg);
+            margin-top: 5px;
+            background: $dark-3;
+          }
+
+          a {
+            padding: 5px;
+          }
         }
+
         a {
-          padding: 5px;
+          padding-left: 14px;
+        }
+
+        .hide {
+          display: none;
         }
       }
-      a {
-        padding-left: 14px;
-      }
-      .hide {
-        display: none;
-      }
-    }
-  }
-  .r{
-     .button-variant-filled {
-    font-weight: 500;
-  }
-   .user-profile {
-    position: absolute;
-    right: 30px;
-    top: 14px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: 0.35s;
-    padding: 10px;
-    border-top: 2px solid transparent;
-
-    &:hover {
-      background: $dark-3;
-      // border-top: 2px solid $orange;
     }
 
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 4px;
-      margin-left: 10px;
-    }
-
-    .username {
-      color: white;
-      font-weight: 500;
-      max-width: 200px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      transition: 0.35s;
-    }
-
-    .profile-options {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      padding: 10px;
-      padding-top: 0px;
-
-      background: $dark-3;
-      // border: 1px solid $purple;
-      width: 100%;
-      border-bottom: 2px solid $orange;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.35s;
-
-      &.visible {
-        opacity: 1;
-        pointer-events: all;
+    .r {
+      .button-variant-filled {
+        font-weight: 500;
       }
 
-      form {
-        button {
-          background: $purple;
+      .user-profile {
+        position: absolute;
+        right: 30px;
+        top: 14px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.35s;
+        padding: 10px;
+        border-top: 2px solid transparent;
+
+        &:hover {
+          background: $dark-3;
+          // border-top: 2px solid $orange;
+        }
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 4px;
+          margin-left: 10px;
+        }
+
+        .username {
           color: white;
-          border: 0;
+          font-weight: 500;
+          max-width: 200px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          transition: 0.35s;
+        }
+
+        .profile-options {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          padding: 10px;
+          padding-top: 0px;
+
+          background: $dark-3;
+          // border: 1px solid $purple;
           width: 100%;
-          outline: 0;
-          padding: 5px 10px;
-          cursor: pointer;
+          border-bottom: 2px solid $orange;
+          opacity: 0;
+          pointer-events: none;
           transition: 0.35s;
 
-          &:hover {
-            background: darken($purple, 5%);
+          &.visible {
+            opacity: 1;
+            pointer-events: all;
+          }
+
+          form {
+            button {
+              background: $purple;
+              color: white;
+              border: 0;
+              width: 100%;
+              outline: 0;
+              padding: 5px 10px;
+              cursor: pointer;
+              transition: 0.35s;
+
+              &:hover {
+                background: darken($purple, 5%);
+              }
+            }
           }
         }
       }
     }
-  }
-  }
- 
-  
   }
   .logo {
     //position: absolute;
@@ -356,18 +364,22 @@ hr{
   nav {
     align-items: flex-start;
     flex-direction: column;
-    hr{
-  display:block;
-}
+
+    hr {
+      display: block;
+    }
+
     a {
       padding: 0.5em 0;
     }
+
     .nav-container {
       flex-direction: column;
-      &.closed{
-        display:none;
+
+      &.closed {
+        display: none;
       }
-    
+
       .l {
         flex-direction: column;
         align-items: flex-start;
@@ -376,6 +388,7 @@ hr{
           a {
             padding: 0;
           }
+
           .dropdown-hideables {
             position: static;
             border: none;
@@ -383,39 +396,32 @@ hr{
           }
         }
       }
+
       .r {
         padding: 0.5em 0;
+
         .user-profile {
           position: static;
           padding: 0;
         }
       }
     }
+
     .logo-and-hamburger {
       flex-direction: row;
       width: 100%;
       justify-content: space-between;
+
       i {
         color: white;
         display: block;
-        cursor:pointer;
-        &.hide{
-          display:none;
+        cursor: pointer;
+
+        &.hide {
+          display: none;
         }
       }
     }
-  }
-}
-@keyframes slide-down{
-  0%{
-    visibility:hidden;
-    height:0;
-
-  }
-
-  100%{
-   visibility:visible;
-    height:auto;
   }
 }
 </style>

@@ -107,4 +107,75 @@ export default {
     }
   }
 }
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .profile-header {
+    font-size: 1.2vw;
+
+    .fixed-width-container {
+      .avatar {
+        width: 7em;
+        height: 7em;
+      }
+
+      .name {
+        span:first-child {
+          font-size: 1em;
+        }
+
+        span:last-child {
+          font-size: 2em;
+        }
+      }
+
+      .csgo-rank {
+        margin-left: 2em;
+        span:first-child {
+          font-size: 1em;
+        }
+
+        img {
+          height: 4em;
+          width: auto;
+        }
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .profile-header {
+    font-size: 1.75vw;
+
+    .fixed-width-container {
+      .avatar {
+        width: 8em;
+        height: 8em;
+      }
+
+      .name {
+        margin-left: 2em;
+        padding-right: 8em;
+        span:first-child {
+        }
+
+        span:last-child {
+          font-size: 2em;
+        }
+      }
+      .csgo-rank {
+        span:first-child {
+        }
+
+        img {
+        }
+      }
+    }
+  }
+}
 </style>

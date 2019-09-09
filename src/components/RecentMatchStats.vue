@@ -2,11 +2,10 @@
   <div class="recent-match-stats">
     <div class="bordered-box">
       <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
-      <DemoDataLoadRequest 
-      v-if="loadingComplete && !recentMatchStats"
-      @buttonClicked="LoadData(true)">
-        Unfortunately, you haven't uploaded any matches yet.
-        </DemoDataLoadRequest>
+      <DemoDataLoadRequest
+        v-if="loadingComplete && !recentMatchStats"
+        @buttonClicked="LoadData(true)"
+      >Unfortunately, you haven't uploaded any matches yet.</DemoDataLoadRequest>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
           <div class="val">{{recentMatchStats.GamesUploaded}}</div>
@@ -25,12 +24,14 @@
           <div class="txt">Winrate</div>
         </div>
         <div class="stat">
-          <div class="val">{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
+          <div
+            class="val"
+          >{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
           <div class="txt">Headshot</div>
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
-            {{  (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
+            {{ (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
             <!-- <i class="material-icons" @click="OpenRankGraph">timeline</i> -->
           </div>
           <div class="txt">W/L balance on this rank</div>
@@ -54,7 +55,7 @@ export default {
     return {
       recentMatchStats: null,
       rankGraphVisible: false,
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
   computed: {
@@ -88,16 +89,17 @@ export default {
       this.rankGraphVisible = true;
     },
     LoadData: function(isDemo) {
-      this.$api.getRecentMatchData(isDemo ? "76561198033880857" : "")
-      .then(response => {
-        this.recentMatchStats = response.data;
+      this.$api
+        .getRecentMatchData(isDemo ? "76561198033880857" : "")
+        .then(response => {
+          this.recentMatchStats = response.data;
           this.loadingComplete = true;
         })
         .catch(error => {
-        console.error(error); // eslint-disable-line no-console
+          console.error(error); // eslint-disable-line no-console
           this.loadingComplete = true;
         });
-    },
+    }
   }
 };
 </script>
@@ -159,6 +161,57 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
+  }
+}
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .recent-match-stats {
+    font-size: 1.2vw;
+
+    .bordered-box {
+      padding: 1em 2em;
+
+      .stats {
+        .stat {
+          .val {
+            font-size: 2em;
+          }
+
+          .txt {
+            font-size: 1em;
+          }
+        }
+      }
+    }
+  }
+}
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .recent-match-stats {
+    font-size: 2.25vw;
+
+    .bordered-box {
+      padding: 1em 0.5em;
+
+      .stats {
+        align-items: flex-start;
+
+        .stat {
+          .val {
+            font-size: 2em;
+          }
+
+          .txt {
+            font-size: 1em;
+            max-width: 7em;
+          }
+        }
+      }
+    }
   }
 }
 </style>

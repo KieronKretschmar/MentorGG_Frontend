@@ -1,7 +1,6 @@
 <template>
   <div class="view view-dashboard">
     <div class="profile-section"></div>
-
     <ProfileHeader />
     <div class="fixed-width-container">
       <RecentMatchStats />

@@ -2,16 +2,20 @@
   <div class="position-advice">
     <div class="bordered-box advice">
       <p>Positions you should practice or avoid</p>
-      <div v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete" class="no-positions">
+      <div
+        v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
+        class="no-positions"
+      >
         <AjaxLoader>Computing Worst Positions</AjaxLoader>
       </div>
-      <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadData(true)">
+      <div
+        v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete "
+        class="no-positions"
+      >
+        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           No data available for you.
-          <br>
-          Wanna see where somebody else keeps dying all the time?
-          </DemoDataLoadRequest>
+          <br />Wanna see where somebody else keeps dying all the time?
+        </DemoDataLoadRequest>
       </div>
       <div class="position-table" v-if="worst.Performances && worst.Performances.length">
         <div class="table-header">
@@ -22,8 +26,14 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)"
+            >{{ entry.Map }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)"
+            >{{ entry.Name }}</a>
             <span class="cell">
               <img
                 v-if="entry.Team == 2"
@@ -45,16 +55,20 @@
     </div>
     <div class="bordered-box advice">
       <p>Positions you are performing best in</p>
-      <div v-if="(!best.Performances || !best.Performances.length) && !loadingComplete" class="no-positions">
+      <div
+        v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
+        class="no-positions"
+      >
         <AjaxLoader>Computing Best Positions</AjaxLoader>
       </div>
-      <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadData(true)">
+      <div
+        v-if="(!best.Performances || !best.Performances.length) && loadingComplete"
+        class="no-positions"
+      >
+        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           No data available for you.
-          <br>
-          Want to see where somebody else plays really good?
-          </DemoDataLoadRequest>
+          <br />Want to see where somebody else plays really good?
+        </DemoDataLoadRequest>
       </div>
       <div class="position-table" v-if="best.Performances && best.Performances.length">
         <div class="table-header">
@@ -65,8 +79,14 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)"
+            >{{ entry.Map }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)"
+            >{{ entry.Name }}</a>
             <span class="cell">
               <img
                 v-if="entry.Team == 2"
@@ -98,48 +118,55 @@ export default {
     return {
       best: [],
       worst: [],
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
-  methods : {
+  methods: {
     LoadData: function(isDemo) {
-      this.loadingComplete = false,
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 50)
-      .then(response => {
-        this.best = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      (this.loadingComplete = false),
+        this.$api
+          .getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 50)
+          .then(response => {
+            this.best = response.data;
+            this.loadingComplete = true;
+          })
+          .catch(error => {
+            console.error(error); // eslint-disable-line no-console
+            this.loadingComplete = true;
+          });
 
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 50)
-      .then(response => {
-        this.worst = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      this.$api
+        .getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 50)
+        .then(response => {
+          this.worst = response.data;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
     },
-    NavigateToKills: function(matchCount = 0, map = "", showCt = true, zoneId = 0){
+    NavigateToKills: function(
+      matchCount = 0,
+      map = "",
+      showCt = true,
+      zoneId = 0
+    ) {
       let params = {
-        showCt: showCt,
+        showCt: showCt
       };
-      if(matchCount){
+      if (matchCount) {
         params.matchCount = matchCount;
       }
-      if(map){
-        params.map = map;  
+      if (map) {
+        params.map = map;
 
-        if(zoneId){
+        if (zoneId) {
           params.zoneId = zoneId;
         }
       }
-      this.$router.push({ path: 'kills', query: params });
-    },
+      this.$router.push({ path: "kills", query: params });
+    }
   }
 };
 </script>
@@ -230,12 +257,71 @@ export default {
 
             img {
               width: 40px;
-              margin-right: 8px;    
+              margin-right: 8px;
             }
 
             &:hover {
               color: $orange;
             }
+          }
+        }
+      }
+    }
+  }
+}
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .position-advice {
+    font-size: 1.2vw;
+
+    .bordered-box {
+      padding: 1em 2em;
+
+      p {
+        font-size: 1.5em;
+      }
+
+      .position-table {
+        .table-header {
+          font-size: 1.5em;
+        }
+
+        .table-content {
+          .entry {
+            font-size: 1.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .position-advice {
+    font-size: 1.75vw;
+    flex-direction: column;
+
+    .bordered-box {
+      padding: 1em 2em;
+
+      &.advice {
+        width: auto;
+      }
+
+      p {
+      }
+
+      .position-table {
+        .table-header {
+        }
+
+        .table-content {
+          .entry {
           }
         }
       }
