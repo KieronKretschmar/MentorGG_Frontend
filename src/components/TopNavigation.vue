@@ -10,7 +10,7 @@
         <router-link
           to="#"
           class="grenade drop-button"
-          v-bind:class="{ 'router-link-exact-active':this.checkNestedRouterLinks($route.fullPath,['smokes','molotovs','flashes','hes'])}"
+          v-bind:class="{ 'router-link-exact-active':this.checkNestedRouterLinks($route.fullPath,['/smokes','/molotovs','/flashes','/hes'])}"
         >
           Grenades
           <i class="material-icons">arrow_drop_down</i>
@@ -28,7 +28,7 @@
         <router-link
           to="#1"
           class="tournaments drop-button"
-          v-bind:class="{ 'router-link-exact-active':($route.fullPath.includes('event'))}"
+          v-bind:class="{ 'router-link-exact-active':($route.fullPath.includes('/event'))}"
         >
           Starladder2019
           <i class="material-icons">arrow_drop_down</i>
