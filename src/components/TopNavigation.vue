@@ -16,10 +16,10 @@
           <i class="material-icons">arrow_drop_down</i>
         </router-link>
         <div class="dropdown-hideables hide">
-          <router-link class to="/smokes">Smokes</router-link>
-          <router-link class to="/molotovs">Molotovs</router-link>
-          <router-link class to="/flashes">Flashes</router-link>
-          <router-link class to="/hes">HEs</router-link>
+          <router-link class="close-open" to="/smokes">Smokes</router-link>
+          <router-link class="close-open" to="/molotovs">Molotovs</router-link>
+          <router-link class="close-open" to="/flashes">Flashes</router-link>
+          <router-link class="close-open" to="/hes">HEs</router-link>
         </div>
       </div>
 
@@ -34,12 +34,12 @@
           <i class="material-icons">arrow_drop_down</i>
         </router-link>
         <div class="dropdown-hideables hide">
-          <router-link class to="/eventmatchhistory">Matches</router-link>
-          <router-link class to="/eventkills">Kills</router-link>
-          <router-link class to="/eventsmokes">Smokes</router-link>
-          <router-link class to="/eventmolotovs">Molotovs</router-link>
-          <router-link class to="/eventflashes">Flashes</router-link>
-          <router-link class to="/eventhes">HEs</router-link>
+          <router-link class="close-open" to="/eventmatchhistory">Matches</router-link>
+          <router-link class="close-open" to="/eventkills">Kills</router-link>
+          <router-link class="close-open" to="/eventsmokes">Smokes</router-link>
+          <router-link class="close-open" to="/eventmolotovs">Molotovs</router-link>
+          <router-link class="close-open" to="/eventflashes">Flashes</router-link>
+          <router-link class="close-open" to="/eventhes">HEs</router-link>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
       <div
         class="user-profile"
-        v-if="user && user.IsLoggedIn"
+        v-if="user"
         @click="optionsVisible = !optionsVisible"
         @mouseleave="optionsVisible = false"
       >

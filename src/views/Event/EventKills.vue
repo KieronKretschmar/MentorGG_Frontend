@@ -1,7 +1,11 @@
 <template>
   <div class="view view-kills">
     <div class="fixed-width-container">   
-      <TeamSelection :teams="eventData ? eventData.Teams : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
+            <TeamSelection 
+        :teams="eventData ? eventData.Teams : null" 
+        :SetSelectedTeam="SetSelectedTeam"
+        :selectedTeamName="selectedTeamName"
+        />
 
       <div v-if="eventData != null" class="performances">
         <div
@@ -99,7 +103,7 @@
               />
             </div>
             <div class="matchcount-display">
-              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}} on {{activeMap}} 
+              {{matchInfos? matchInfos.length : "?"}} match(es) of {{selectedTeamName}}
             </div>
           </div>   
           <div>      
@@ -217,12 +221,12 @@
               <div v-if="selectedSample" class="selected-sample-stats">
                 About this {{selectedSample.UserWinner ? "Kill" : "Death"}}:
                 <div class="stat-row">
-                  <div class="stat-description">Player</div>
+                  <div class="stat-description">Killer</div>
                   <div class="stat-content">{{selectedSample.PlayerName}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">Against</div>
-                  <div class="stat-content">{{selectedSample.VictimName}} from {{selectedSample.EnemyTeamName}}</div>
+                  <div class="stat-description">Victim</div>
+                  <div class="stat-content">{{selectedSample.VictimName}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
@@ -311,7 +315,7 @@ export default {
   data() {
     return {
       loadingSamplesComplete: false,
-      activeMap: "de_mirage",
+      activeMap: "de_dust2",
       showCt: true,
       matchCount: 10,
       matchCountSelectOptions: {
@@ -341,8 +345,8 @@ export default {
       eventData: null,
       matchInfos: [],
       selectedTeamName: "Astralis",
-      // selectedEventName: "StarladderBerlin2019",
-      selectedEventName: "IEMKatowice2019",
+      selectedEventName: "StarladderBerlin2019",
+      // selectedEventName: "IEMKatowice2019",
     };
   },
   mounted() {
@@ -377,16 +381,16 @@ export default {
           this.matchInfos = response.data.MatchInfos;
           this.activeFilterSettings = {PlantStatus : 0}
 
-          // Add EnemyTeam to each sample
-          for(let i=0; i<this.samples.length; i++){
-            let sample = this.samples[i];
-            for (let teamInfo in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.TeamInfos){
-              if(teamInfo.TeamName != this.selectedTeamName){
-                sample.EnemyTeamName = teamInfo.TeamName;
-                break;
-              }
-            }
-          }
+          // // Add EnemyTeam to each sample (not working currently)
+          // for(let i=0; i<this.samples.length; i++){
+          //   let sample = this.samples[i];
+          //   for (let teamInfo in this.matchInfos.filter(x=>x.MatchId == sample.MatchId)[0].Scoreboard.TeamInfos){
+          //     if(teamInfo.TeamName != this.selectedTeamName){
+          //       sample.EnemyTeamName = teamInfo.TeamName;
+          //       break;
+          //     }
+          //   }
+          // }
           this.loadingSamplesComplete = true;
         })
         .catch(error => {
@@ -406,7 +410,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
+        this.LoadSamples(this.selectedEventName, this.selectedTeamName, map);
         this.activeMap = map;
       }
       this.selectedSample = null;

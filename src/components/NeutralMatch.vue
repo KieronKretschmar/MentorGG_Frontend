@@ -36,7 +36,7 @@
       </div>
 
       <div class="right">
-        <i
+        <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
           class="material-icons watch-match-icon"
           title="Watch in Browser"
           @click="WatchMatch(match)"

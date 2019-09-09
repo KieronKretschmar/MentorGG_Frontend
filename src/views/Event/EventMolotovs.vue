@@ -1,7 +1,11 @@
 <template>
   <div class="view view-molotovs">
     <div class="fixed-width-container">   
-      <TeamSelection :teams="eventData ? eventData.Teams : null" :SetSelectedTeam="SetSelectedTeam"></TeamSelection>
+            <TeamSelection 
+        :teams="eventData ? eventData.Teams : null" 
+        :SetSelectedTeam="SetSelectedTeam"
+        :selectedTeamName="selectedTeamName"
+        />
    
       <div v-if="eventData != null" class="performances">
         <div
@@ -349,7 +353,7 @@ export default {
   data() {
     return {
       loadingSamplesComplete: false,
-      activeMap: "de_mirage",
+      activeMap: "de_dust2",
       showCt: true,
       matchCount: 10,
       matchCountSelectOptions: {
@@ -377,8 +381,8 @@ export default {
       eventData: null,
       matchInfos: [],
       selectedTeamName: "Astralis",
-      // selectedEventName: "StarladderBerlin2019",
-      selectedEventName: "IEMKatowice2019",
+      selectedEventName: "StarladderBerlin2019",
+      // selectedEventName: "IEMKatowice2019",
     };
   },
   mounted() {
@@ -441,7 +445,7 @@ export default {
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
+        this.LoadSamples(this.selectedEventName, this.selectedTeamName, map);
         this.activeMap = map;
       }
       this.selectedSample = null;
