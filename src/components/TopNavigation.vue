@@ -1,13 +1,20 @@
 <template>
   <nav>
     <div class="l">
-      <router-link to="/" class="logo close-others" @click="closeOpenDropDowns">
+      <router-link to="/" class="logo close-open">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <router-link to="/" class="close-others" @click.native="closeOpenDropDowns">Overview</router-link>
-      <router-link to="/kills" class="close-others" @click.native="closeOpenDropDowns">Kills</router-link>
+      <router-link to="/" class="close-open">Overview</router-link>
+      <router-link to="/kills" class="close-open">Kills</router-link>
       <div class="dropdown-navitem">
-        <router-link to="#" class="grenade drop-button">Grenades <i class="material-icons">arrow_drop_down</i></router-link>
+        <router-link
+          to="#"
+          class="grenade drop-button"
+          v-bind:class="{ 'router-link-exact-active':this.checkNestedRouterLinks($route.fullPath,['smokes','molotovs','flashes','hes'])}"
+        >
+          Grenades
+          <i class="material-icons">arrow_drop_down</i>
+        </router-link>
         <div class="dropdown-hideables hide">
           <router-link class to="/smokes">Smokes</router-link>
           <router-link class to="/molotovs">Molotovs</router-link>
@@ -16,13 +23,16 @@
         </div>
       </div>
 
-      <router-link
-        to="/statistics"
-        class="close-others"
-        @click.native="closeOpenDropDowns"
-      >Statistics</router-link>
+      <router-link to="/statistics" class="close-open">Statistics</router-link>
       <div class="dropdown-navitem">
-        <router-link to="#1" class="tournaments drop-button">Starladder2019 <i class="material-icons">arrow_drop_down</i></router-link>
+        <router-link
+          to="#1"
+          class="tournaments drop-button"
+          v-bind:class="{ 'router-link-exact-active':($route.fullPath.includes('event'))}"
+        >
+          Starladder2019
+          <i class="material-icons">arrow_drop_down</i>
+        </router-link>
         <div class="dropdown-hideables hide">
           <router-link class to="/eventmatchhistory">Matches</router-link>
           <router-link class to="/eventkills">Kills</router-link>
@@ -34,7 +44,7 @@
       </div>
     </div>
     <div class></div>
-    <div class="r close-others"  @click="closeOpenDropDowns">
+    <div class="r close-open">
       <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
       <div
         class="user-profile"
@@ -63,11 +73,13 @@ export default {
       this.user = response.data;
     });
     this.toggleHidden();
+    this.closeOpenDropDowns();
   },
   data() {
     return {
       user: null,
-      optionsVisible: false
+      optionsVisible: false,
+      isActive: true
     };
   },
   methods: {
@@ -84,11 +96,9 @@ export default {
       }
       return url.split(".jpg")[0] + "_full.jpg";
     },
-    /*toggleHidden: function(e){
-      let clicked = e.target.parentNode
-      let hideables = clicked.querySelectorAll(".dropdown-hideables")[0]
-      hideables.classList.toggle("hide")
-    },*/
+    checkNestedRouterLinks: function(route, array) {
+      return array.some(word => route.includes(word));
+    },
     toggleHidden: () => {
       const dropDownLink = document.querySelectorAll(".drop-button");
       let hideables = document.querySelectorAll(".dropdown-hideables");
@@ -114,10 +124,14 @@ export default {
       }
     },
     closeOpenDropDowns: function() {
-      let closeOthers = document.querySelectorAll(".close-others");
-      let dropdowns = document.querySelectorAll(".dropdown-hideables");
-      for (var i = 0; i < dropdowns.length; i++) {
-        dropdowns[i].classList.add("hide");
+      let closeOpen = document.querySelectorAll(".close-open");
+      for (var i = 0; i < closeOpen.length; i++) {
+        closeOpen[i].addEventListener("click", function() {
+          let dropdowns = document.querySelectorAll(".dropdown-hideables");
+          for (var i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].classList.add("hide");
+          }
+        });
       }
     }
   }
@@ -139,8 +153,8 @@ nav {
     align-items: center;
     .grenade,
     .tournaments {
-      .material-icons{
-        vertical-align:middle;
+      .material-icons {
+        vertical-align: middle;
       }
       &:active {
         color: black;
@@ -156,6 +170,11 @@ nav {
       }*/
       display: flex;
       flex-direction: column;
+      .drop-button {
+        display: inline-flex;
+        vertical-align: middle;
+        align-items: center;
+      }
       .dropdown-hideables {
         display: flex;
         flex-direction: column;
@@ -167,20 +186,22 @@ nav {
         padding: 10px;
         background: $dark-3;
         align-items: flex-start;
-       /* &:a{
-          position:absolute;
-          width:50px;
-          height:50px;
-          border-top:2px solid white;
-          border-bottom:2px solid white;
-          border-left:2px solid white;
-          border-right:2px solid white;
-          top:0%;
+        &:after {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-top: 2px solid $purple;
+          border-bottom: 0px solid $purple;
+          border-left: 2px solid $purple;
+          border-right: 0px solid $purple;
+          top: -12px;
           left: 50%;
-          margin-left:-25px;
-          content: '';
-
-        }*/
+          margin-left: -5px;
+          content: "";
+          transform: rotate(45deg);
+          margin-top: 5px;
+          background: $dark-3;
+        }
         a {
           padding: 5px;
         }

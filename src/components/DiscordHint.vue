@@ -7,6 +7,7 @@
 
 <style lang="scss">
 .discord-hint {
+  z-index:1000;
   height: 54px;
   position: fixed;
   right: -1px;
