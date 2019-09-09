@@ -1,65 +1,72 @@
 <template>
   <nav>
-    <div class="l">
+    <div class="logo-and-hamburger">
       <router-link to="/" class="logo close-open">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <router-link to="/" class="close-open">Overview</router-link>
-      <router-link to="/kills" class="close-open">Kills</router-link>
-      <div class="dropdown-navitem">
-        <router-link
-          to="#"
-          class="grenade drop-button"
-          v-bind:class="{ 'router-link-exact-active':this.checkNestedRouterLinks($route.fullPath,['/smokes','/molotovs','/flashes','/hes'])}"
-        >
-          Grenades
-          <i class="material-icons">arrow_drop_down</i>
-        </router-link>
-        <div class="dropdown-hideables hide">
-          <router-link class="close-open" to="/smokes">Smokes</router-link>
-          <router-link class="close-open" to="/molotovs">Molotovs</router-link>
-          <router-link class="close-open" to="/flashes">Flashes</router-link>
-          <router-link class="close-open" to="/hes">HEs</router-link>
-        </div>
-      </div>
-
-      <router-link to="/statistics" class="close-open">Statistics</router-link>
-      <div class="dropdown-navitem">
-        <router-link
-          to="#1"
-          class="tournaments drop-button"
-          v-bind:class="{ 'router-link-exact-active':($route.fullPath.includes('/event'))}"
-        >
-          Starladder2019
-          <i class="material-icons">arrow_drop_down</i>
-        </router-link>
-        <div class="dropdown-hideables hide">
-          <router-link class="close-open" to="/eventmatchhistory">Matches</router-link>
-          <router-link class="close-open" to="/eventkills">Kills</router-link>
-          <router-link class="close-open" to="/eventsmokes">Smokes</router-link>
-          <router-link class="close-open" to="/eventmolotovs">Molotovs</router-link>
-          <router-link class="close-open" to="/eventflashes">Flashes</router-link>
-          <router-link class="close-open" to="/eventhes">HEs</router-link>
-        </div>
-      </div>
+      <i class="material-icons toggle-nav-icon" @click=toggleNav>menu</i>
+      <i class="material-icons toggle-nav-icon hide" @click=toggleNav>close</i>
     </div>
-    <div class></div>
-    <div class="r close-open">
-      <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
-      <div
-        class="user-profile"
-        v-if="user"
-        @click="optionsVisible = !optionsVisible"
-        @mouseleave="optionsVisible = false"
-      >
-        <span class="username">{{ user.SteamName }}</span>
-        <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
-        <div class="profile-options" :class="{visible: optionsVisible}">
-          <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
-            <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
-            <button type="submit">Log out</button>
-          </form>
-          <!-- <button class="button-variant-filled" @click="OnLogout">Logout</button> -->
+    <hr>
+    <div class="nav-container closed">
+      <div class="l">
+        <router-link to="/" class="close-open">Overview</router-link>
+        <router-link to="/kills" class="close-open">Kills</router-link>
+        <div class="dropdown-navitem">
+          <router-link
+            to="#"
+            class="grenade drop-button"
+            v-bind:class="{ 'router-link-exact-active':this.checkNestedRouterLinks($route.fullPath,['/smokes','/molotovs','/flashes','/hes'])}"
+          >
+            Grenades
+            <i class="material-icons">arrow_drop_down</i>
+          </router-link>
+          <div class="dropdown-hideables hide">
+            <router-link class="close-open" to="/smokes">Smokes</router-link>
+            <router-link class="close-open" to="/molotovs">Molotovs</router-link>
+            <router-link class="close-open" to="/flashes">Flashes</router-link>
+            <router-link class="close-open" to="/hes">HEs</router-link>
+          </div>
+        </div>
+
+        <router-link to="/statistics" class="close-open">Statistics</router-link>
+        <div class="dropdown-navitem">
+          <router-link
+            to="#1"
+            class="tournaments drop-button"
+            v-bind:class="{ 'router-link-exact-active':($route.fullPath.includes('/event'))}"
+          >
+            Starladder2019
+            <i class="material-icons">arrow_drop_down</i>
+          </router-link>
+          <div class="dropdown-hideables hide">
+            <router-link class="close-open" to="/eventmatchhistory">Matches</router-link>
+            <router-link class="close-open" to="/eventkills">Kills</router-link>
+            <router-link class="close-open" to="/eventsmokes">Smokes</router-link>
+            <router-link class="close-open" to="/eventmolotovs">Molotovs</router-link>
+            <router-link class="close-open" to="/eventflashes">Flashes</router-link>
+            <router-link class="close-open" to="/eventhes">HEs</router-link>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="r close-open">
+        <button class="button-variant-filled" @click="OnUploadMatches">Upload Matches</button>
+        <div
+          class="user-profile"
+          v-if="user"
+          @click="optionsVisible = !optionsVisible"
+          @mouseleave="optionsVisible = false"
+        >
+          <span class="username">{{ user.SteamName }}</span>
+          <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
+          <div class="profile-options" :class="{visible: optionsVisible}">
+            <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
+              <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
+              <button type="submit">Log out</button>
+            </form>
+            <!-- <button class="button-variant-filled" @click="OnLogout">Logout</button> -->
+          </div>
         </div>
       </div>
     </div>
@@ -133,6 +140,12 @@ export default {
           }
         });
       }
+    },
+    toggleNav: function(){
+      let nav = document.querySelectorAll(".nav-container")[0]
+      let icons = [... document.querySelectorAll(".toggle-nav-icon")]
+       nav.classList.toggle('closed')
+       icons.forEach((icon) => icon.classList.toggle('hide'))
     }
   }
 };
@@ -147,10 +160,24 @@ nav {
   max-width: $container-width;
   padding: 30px 0;
   justify-content: space-between;
-
-  .l {
+ 
+hr{
+  display:none
+}
+  .logo-and-hamburger {
     display: flex;
     align-items: center;
+    i {
+      display: none;
+    }
+  }
+
+   .nav-container {
+    display: flex;
+     .l {
+    display: flex;
+    align-items: center;
+
     .grenade,
     .tournaments {
       .material-icons {
@@ -214,7 +241,11 @@ nav {
       }
     }
   }
-  .user-profile {
+  .r{
+     .button-variant-filled {
+    font-weight: 500;
+  }
+   .user-profile {
     position: absolute;
     right: 30px;
     top: 14px;
@@ -285,11 +316,10 @@ nav {
       }
     }
   }
-
-  .button-variant-filled {
-    font-weight: 500;
   }
-
+ 
+  
+  }
   .logo {
     //position: absolute;
     width: 170px;
@@ -316,6 +346,76 @@ nav {
     &:hover {
       color: $orange;
     }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 1730px) {
+  nav {
+    align-items: flex-start;
+    flex-direction: column;
+    hr{
+  display:block;
+}
+    a {
+      padding: 0.5em 0;
+    }
+    .nav-container {
+      flex-direction: column;
+      &.closed{
+        display:none;
+      }
+    
+      .l {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .dropdown-navitem {
+          a {
+            padding: 0;
+          }
+          .dropdown-hideables {
+            position: static;
+            border: none;
+            background: none;
+          }
+        }
+      }
+      .r {
+        padding: 0.5em 0;
+        .user-profile {
+          position: static;
+          padding: 0;
+        }
+      }
+    }
+    .logo-and-hamburger {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      i {
+        color: white;
+        display: block;
+        cursor:pointer;
+        &.hide{
+          display:none;
+        }
+      }
+    }
+  }
+}
+@keyframes slide-down{
+  0%{
+    visibility:hidden;
+    height:0;
+
+  }
+
+  100%{
+   visibility:visible;
+    height:auto;
   }
 }
 </style>
