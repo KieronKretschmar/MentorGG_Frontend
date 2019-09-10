@@ -277,13 +277,23 @@
               </div>
             </div>
             <div class="practice-tab">
-              <div
-                v-show="!selectedZone"
-              >Select a Zone to get advice on how to improve in that position!</div>
-              <div
-                v-show="selectedZone && selectedZone.VideoUrl == ''"
-              >Advice for this Zone is not yet available.</div>
-              <div v-if="selectedZone && selectedZone.VideoUrl != ''">{{selectedZone.VideoUrl}}</div>
+              <div v-show="!selectedZone">
+                Select a Zone to get advice on how to improve in that position!
+              </div>
+              <div v-if="selectedZone">
+                <div v-if="selectedZone.VideoUrl != ''"> 
+                  <p>Advice for this position: </p> 
+                  <VideoOverlay v-if="selectedZone && selectedZone.VideoUrl != ''"
+                  :url="selectedZone.VideoUrl"
+                  
+                  useThumbnail 
+                  style="width: 100%; height: 100%;">
+                  </VideoOverlay>                 
+                </div>
+                <div v-else>
+                  Advice for this Zone is not yet available. 
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -296,6 +306,7 @@
 import CustomSelect from "@/components/CustomSelect.vue";
 import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
+import VideoOverlay from "@/components/VideoOverlay.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
 
 export default {
@@ -303,7 +314,8 @@ export default {
     CustomSelect,
     Kill,
     RadarImage,
-    Zone
+    VideoOverlay,
+    Zone,
   },
   data() {
     return {

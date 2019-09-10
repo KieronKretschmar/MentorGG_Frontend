@@ -13,7 +13,7 @@
         <div v-if="!playerStats && loadingComplete" class="">
           <DemoDataLoadRequest 
           @buttonClicked="LoadPlayerStats(true)">
-            Man, still stats found for you. 
+            Sorry man, no stats found for you. 
             <br>Wanna load someone else's until you finally figure out how to upload your own matches?
             </DemoDataLoadRequest>
         </div>

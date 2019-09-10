@@ -9,16 +9,14 @@ Vue.use(Router);
 // Will redirect to login if the user is currently not logged in
 // eslint-disable-next-line
 function authenticationGuard(to, from, next) {
+
+  // OUTCOMMENT CODE BELOW IF YOU DO NOT WANT TO APPEAR LOGGED IN
+  if(process.env.NODE_ENV == 'development'){
+    next();
+    return;
+  }
+
   Vue.prototype.$api.getLoginStatus().then(response => {
-
-    // OUTCOMMENT CODE BELOW IF YOU DO NOT WANT TO APPEAR LOGGED IN
-    if(process.env.NODE_ENV == 'development'){
-      next();
-      return;
-    }
-
-
-    console.log(response);
     if(response.data.IsLoggedIn == true){
       next();
     }
