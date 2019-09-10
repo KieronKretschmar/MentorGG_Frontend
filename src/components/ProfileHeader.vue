@@ -12,7 +12,7 @@
         <span>CS:GO RANK</span>
         <img :src="$api.resolveResource(user.RankIcon)" alt="CS:GO Rank Image" />
       </div>
-    </div>
+    </div>    
   </div>
 </template>
 
