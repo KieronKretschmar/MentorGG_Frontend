@@ -227,8 +227,28 @@
         <p>The data controller shall process and store the personal data of the data subject only for the period necessary to achieve the purpose of storage, or as far as this is granted by the European legislator or other legislators in laws or regulations to which the controller is subject to.</p>
 
         <p>If the storage purpose is not applicable, or if a storage period prescribed by the European legislator or another competent legislator expires, the personal data are routinely blocked or erased in accordance with legal requirements.</p>
+        
+        <h2>7. Plugins und Tools</h2>
+        <h3>YouTube</h3>
+        <p>Our website uses plugins from YouTube, which is operated by Google. The operator of the pages is YouTube LLC, 901 Cherry Ave., San Bruno, CA 94066, USA.</p>
+        <p>If you visit one of our pages featuring a YouTube plugin, a connection to the YouTube servers is established. Here the YouTube server is informed about which of our pages you have visited.</p>
+        <p>If you're logged in to your YouTube account, YouTube allows you to associate your browsing behavior directly with your personal profile. You can prevent this by logging out of your YouTube account.</p>
+        <p>YouTube is used to help make our website appealing. This constitutes a justified interest pursuant to Art. 6 (1) (f) DSGVO.</p>
+        <p>Die Nutzung von YouTube erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar.</p>
+        <p>
+          Further information about handling user data, can be found in the data protection declaration of YouTube under
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener"
+          >https://policies.google.com/privacy</a>.
+        </p>
+        <p>
+          Quelle:
+          <a href="https://www.e-recht24.de">e-recht24.de</a>
+        </p>
 
-        <h2>7. Rights of the data subject</h2>
+        <h2>8. Rights of the data subject</h2>
         <ul style="list-style: none;">
           <li>
             <h3>a) Right of confirmation</h3>
@@ -321,27 +341,27 @@
             <p>If the data subject wishes to exercise the right to withdraw the consent, he or she may, at any time, contact any employee of Mentor.gg.</p>
           </li>
         </ul>
-        <h2>8. Legal basis for the processing</h2>
+        <h2>9. Legal basis for the processing</h2>
         <p>
           Art. 6(1) lit. a GDPR serves as the legal basis for processing operations for which we obtain consent for a specific processing purpose. If the processing of personal data is necessary for the performance of a contract to which the data subject is party, as is the case, for example, when processing operations are necessary for the supply of goods or to provide any other service, the processing is based on Article 6(1) lit. b GDPR. The same applies to such processing operations which are necessary for carrying out pre-contractual measures, for example in the case of inquiries concerning our products or services. Is our company subject to a legal obligation by which processing of personal data is required, such as for the fulfillment of tax obligations, the processing is based on Art. 6(1) lit. c GDPR.
           In rare cases, the processing of personal data may be necessary to protect the vital interests of the data subject or of another natural person. This would be the case, for example, if a visitor were injured in our company and his name, age, health insurance data or other vital information would have to be passed on to a doctor, hospital or other third party. Then the processing would be based on Art. 6(1) lit. d GDPR.
           Finally, processing operations could be based on Article 6(1) lit. f GDPR. This legal basis is used for processing operations which are not covered by any of the abovementioned legal grounds, if processing is necessary for the purposes of the legitimate interests pursued by our company or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data. Such processing operations are particularly permissible because they have been specifically mentioned by the European legislator. He considered that a legitimate interest could be assumed if the data subject is a client of the controller (Recital 47 Sentence 2 GDPR).
         </p>
 
-        <h2>9. The legitimate interests pursued by the controller or by a third party</h2>
+        <h2>10. The legitimate interests pursued by the controller or by a third party</h2>
         <p>Where the processing of personal data is based on Article 6(1) lit. f GDPR our legitimate interest is to carry out our business in favor of the well-being of all our employees and the shareholders.</p>
 
-        <h2>10. Period for which the personal data will be stored</h2>
+        <h2>11. Period for which the personal data will be stored</h2>
         <p>The criteria used to determine the period of storage of personal data is the respective statutory retention period. After expiration of that period, the corresponding data is routinely deleted, as long as it is no longer necessary for the fulfillment of the contract or the initiation of a contract.</p>
 
-        <h2>11. Provision of personal data as statutory or contractual requirement; Requirement necessary to enter into a contract; Obligation of the data subject to provide the personal data; possible consequences of failure to provide such data</h2>
+        <h2>12. Provision of personal data as statutory or contractual requirement; Requirement necessary to enter into a contract; Obligation of the data subject to provide the personal data; possible consequences of failure to provide such data</h2>
         <p>
           We clarify that the provision of personal data is partly required by law (e.g. tax regulations) or can also result from contractual provisions (e.g. information on the contractual partner).
           Sometimes it may be necessary to conclude a contract that the data subject provides us with personal data, which must subsequently be processed by us. The data subject is, for example, obliged to provide us with personal data when our company signs a contract with him or her. The non-provision of the personal data would have the consequence that the contract with the data subject could not be concluded.
           Before personal data is provided by the data subject, the data subject must contact any employee. The employee clarifies to the data subject whether the provision of the personal data is required by law or contract or is necessary for the conclusion of the contract, whether there is an obligation to provide the personal data and the consequences of non-provision of the personal data.
         </p>
 
-        <h2>12. Existence of automated decision-making</h2>
+        <h2>13. Existence of automated decision-making</h2>
         <p>As a responsible company, we do not use automatic decision-making or profiling, except to offer users trainings data.</p>
       </div>
     </div>
