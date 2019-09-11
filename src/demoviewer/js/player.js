@@ -372,7 +372,7 @@ function Player() {
         //Check for the real pros
         if ( inventory[401] >= 1 ) { //Zeus
             inventoryString += WrapInSpan(
-                DemoViewer.Helper.EquipmentIdToFontCharacter(e),
+                DemoViewer.Helper.EquipmentIdToFontCharacter(401),
                 self.ActiveWeapon == 401
             );
         }
