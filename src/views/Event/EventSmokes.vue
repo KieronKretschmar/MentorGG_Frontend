@@ -75,13 +75,13 @@
                 class="t"
                 src="@/assets/t_logo.png"
                 :class="{active: !showCt || !detailView}"
-                @click="showCt = false"
+                @click="SetShowCt(false)"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
                 :class="{active: showCt || !detailView}"
-                @click="showCt = true"
+                @click="SetShowCt(true)"
               />
             </div>
             <div class="matchcount-display">
@@ -494,6 +494,9 @@ export default {
     },
     SetSelectedLineup: function(lineupId) {
       this.selectedLineup = this.lineups.find(x => x.LineupId == lineupId);
+    },
+    SetShowCt(showCt) {
+      this.showCt = showCt;
     },
     SetSelectedZone: function(zoneId) {
       this.selectedSample = null;
