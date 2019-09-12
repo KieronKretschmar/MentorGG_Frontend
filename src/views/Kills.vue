@@ -93,13 +93,13 @@
                 class="t"
                 src="@/assets/t_logo.png"
                 :class="{active: !showCt}"
-                @click="showCt = false"
+                @click="SetShowCt(false)"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
                 :class="{active: showCt}"
-                @click="showCt = true"
+                @click="SetShowCt(true)"
               />
             </div>
             <CustomSelect
@@ -427,6 +427,11 @@ export default {
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
+    SetShowCt(showCt) {
+      this.selectedSample = null;
+      this.selectedZoneId = 0;
+      this.showCt = showCt;
+    },
     ToggleDetailView() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
@@ -434,6 +439,11 @@ export default {
     },
     SetPlantStatus(status) {
       this.activeFilterSettings.PlantStatus = status;
+    },
+    SetShowCt(showCt) {
+      this.selectedSample = null;
+      this.selectedZoneId = 0;
+      this.showCt = showCt;
     },
     Watch: function(matchId, round) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;

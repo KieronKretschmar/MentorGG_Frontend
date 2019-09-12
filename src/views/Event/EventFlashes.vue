@@ -91,13 +91,13 @@
                 class="t"
                 src="@/assets/t_logo.png"
                 :class="{active: !showCt}"
-                @click="showCt = false"
+                @click="SetShowCt(false)"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
                 :class="{active: showCt}"
-                @click="showCt = true"
+                @click="SetShowCt(true)"
               />
             </div>
             <div class="matchcount-display">
@@ -517,6 +517,12 @@ export default {
     SetSelectedZone: function(zoneId) {
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
+    },
+    SetShowCt(showCt) {
+      this.selectedSample = null;
+      this.selectedLineup = null;
+      this.selectedZoneId = 0;
+      this.showCt = showCt;
     },
     ToggleDetailView() {
       this.selectedSample = null;

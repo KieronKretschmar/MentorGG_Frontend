@@ -5,7 +5,7 @@
         <h2>MENTOR.GG Uploader as Browser Extension</h2>
         <div class="split">
           <div class="l">
-            <img src="@/assets/browser-extension.png" />
+            <img src="@/assets/browser-extension-alternate.jpg" />
           </div>
           <div class="r">
             <p>With our browser extension you are be able to upload your matchmaking matches right from within your browser.</p>
@@ -34,9 +34,7 @@
         <h2>MENTOR.GG Uploader for Windows</h2>
         <div class="split">
           <div class="l">
-            <div class="no-image">
-              <p>There are no images but we have this text here so that the layout can still be symmetrical ¯\_(ツ)_/¯</p>
-            </div>
+            <img src="@/assets/windows-upload.jpg" />
           </div>
           <div class="r">
             <p>
