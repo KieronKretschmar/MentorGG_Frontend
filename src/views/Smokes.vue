@@ -404,7 +404,7 @@ export default {
       samples: [],
 
       selectedSample: null,
-      selectedLineup: null,
+      selectedLineupId: 0,
       selectedZoneId: 0,
     };
   },
@@ -414,11 +414,17 @@ export default {
     if(this.$route.query.map){
       this.activeMap = this.$route.query.map;
     }
+
     if(this.$route.query.matchCount){
       this.matchCount = this.$route.query.matchCount;
       this.matchCountSelectOptions[this.$route.query.matchCount] = "Use last " + this.$route.query.matchCount + " matches"
     }
     this.LoadSamples(this.activeMap, this.matchCount, false);
+    
+    if(this.$route.query.lineupId){
+      this.SetSelectedLineup(this.$route.query.lineupId);
+      this.detailView = false;
+    }
   },
   methods: {
     LoadOverviews(matchCount) {
@@ -459,7 +465,7 @@ export default {
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
-      this.selectedLineup = null;
+      this.selectedLineupId = 0;
     },
     OnActiveMapUpdated: function(map) {
       if (this.activeMap != map) {
@@ -467,13 +473,13 @@ export default {
         this.activeMap = map;
       }
       this.selectedSample = null;
-      this.selectedLineup = null;
+      this.selectedLineupId = 0;
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedLineup: function(lineupId) {
-      this.selectedLineup = this.lineups.find(x => x.LineupId == lineupId);
+      this.selectedLineupId = lineupId;
     },
     SetSelectedZone: function(zoneId) {
       this.selectedSample = null;
@@ -481,7 +487,7 @@ export default {
     },
     ToggleDetailView() {
       this.selectedSample = null;
-      this.selectedLineup = null;
+      this.selectedLineupId = 0;
       this.selectedZoneId = 0;
       this.detailView = !this.detailView;
     },
@@ -555,6 +561,12 @@ export default {
         return null;
       }
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
+    },
+    selectedLineup() {
+      if(this.selectedLineupId == 0){
+        return null;
+      }
+      return this.lineups.find(x => x.LineupId == this.selectedLineupId);
     },
     visibleSamples() {
       if (!this.detailView){
