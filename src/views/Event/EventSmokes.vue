@@ -175,7 +175,7 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    A red marker means you f'ed up and maybe you should look at the lineup one more time.
+                    A red marker means you missed.
                   </div>
                 </div>
                 <div class="legend-row">
