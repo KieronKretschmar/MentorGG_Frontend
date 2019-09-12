@@ -82,6 +82,23 @@ class MentorGGAPI {
         });
     }
 
+    getMisplays(playerId = "", recentMatches = 10){
+        let params = {
+            showBest: showBest,
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
+        return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
+            params: params
+        });
+    }
+
     getImportantPositions(playerId = "", showBest, count, forMatchesN) {
         let params = {
             showBest: showBest,
