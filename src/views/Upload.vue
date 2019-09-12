@@ -58,7 +58,7 @@
             <img src="@/assets/faceit-logo.jpg" />
           </div>
           <div class="r">
-            <p>If you connect your Faceit Account to MENTOR.GG, your Faceit matches will be automatically uploaded to MENTOR.GG every few hours.</p>
+            <p>If you connect your Faceit Account to MENTOR.GG, your Faceit matches from the last 2 weeks will be automatically uploaded to MENTOR.GG every few hours.</p>
             <div v-if="faceitStatus">
               <div v-if="faceitStatus.IsConnected">
                 <p>
