@@ -150,7 +150,7 @@ export default {
 //=========================================================================================================================================
 @media (max-width: 576px) {
   .profile-header {
-    font-size: 1.75vw;
+    font-size: 2.25vw;
 
     .fixed-width-container {
       .avatar {
@@ -159,8 +159,9 @@ export default {
       }
 
       .name {
-        margin-left: 2em;
-        padding-right: 8em;
+        margin-left: 1em;
+        padding-right: 1em;
+        max-width: 23em;
         span:first-child {
         }
 

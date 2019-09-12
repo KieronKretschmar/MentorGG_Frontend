@@ -303,7 +303,7 @@ export default {
 //=========================================================================================================================================
 @media (max-width: 576px) {
   .position-advice {
-    font-size: 1.75vw;
+    font-size: 2.25vw;
     flex-direction: column;
 
     .bordered-box {

@@ -4,8 +4,8 @@
       <router-link to="/" class="logo close-open">
         <img src="@/assets/logo_white.svg" />
       </router-link>
-      <i class="material-icons toggle-nav-icon" @click="toggleNav">menu</i>
-      <i class="material-icons toggle-nav-icon hide" @click="toggleNav">close</i>
+      <i class="material-icons toggle-nav-icon menu" @click="toggleNav">menu</i>
+      <i class="material-icons toggle-nav-icon hide close" @click="toggleNav">close</i>
     </div>
     <hr />
     <div class="nav-container closed">
@@ -133,12 +133,19 @@ export default {
     },
     closeOpenDropDowns: function() {
       let closeOpen = document.querySelectorAll(".close-open");
+      let navContainer = document.querySelectorAll(".nav-container");
+      let menu = document.querySelectorAll(".menu");
+        let close = document.querySelectorAll(".close");
+      
       for (var i = 0; i < closeOpen.length; i++) {
         closeOpen[i].addEventListener("click", function() {
           let dropdowns = document.querySelectorAll(".dropdown-hideables");
           for (var i = 0; i < dropdowns.length; i++) {
             dropdowns[i].classList.add("hide");
           }
+          navContainer[0].classList.add("closed")
+          menu[0].classList.remove("hide")
+          close[0].classList.add("hide")
         });
       }
     },
@@ -358,10 +365,11 @@ nav {
 }
 
 //========================================================================================================================================
-//mobile
+//reponsive
 //=========================================================================================================================================
 @media (max-width: 1730px) {
   nav {
+    padding: 1em;
     align-items: flex-start;
     flex-direction: column;
 

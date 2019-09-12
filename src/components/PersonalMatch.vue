@@ -1,92 +1,94 @@
 <template>
-<div class="bordered-box match">
-  <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
-    <div class="left">
-      <div class="map-thumbnail">
-        <img
-          :src="$api.resolveResource(match.MapIcon)"
-          :alt="match.Map + ' Thumbnail'"
-          :title="match.Map"
-        />
-      </div>
-      <div class="map-and-datetime">
-        <span class="map">{{ match.Map }}</span>
-        <span class="datetime">{{ match.MatchDate|formatDate }}</span>
-      </div>
-      <div class="match-score">
-        <span
-          class="score"
-          :type="match.WinLoseTie"
-        >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
-        <span class="score-text">SCORE</span>
-      </div>
-
-      <div class="player-kda">
-        <div class="kda">
-          <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
-          <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
-          <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
+  <div class="bordered-box match">
+    <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
+      <div class="left">
+        <div class="map-thumbnail">
+          <img
+            :src="$api.resolveResource(match.MapIcon)"
+            :alt="match.Map + ' Thumbnail'"
+            :title="match.Map"
+          />
         </div>
-        <span class="kda-text">K / A / D</span>
+        <div class="map-and-datetime">
+          <span class="map">{{ match.Map }}</span>
+          <span class="datetime">{{ match.MatchDate|formatDate }}</span>
+        </div>
+        <hr class="on-mobile" />
+        <div class="match-score">
+          <span
+            class="score"
+            :type="match.WinLoseTie"
+          >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
+          <span class="score-text">SCORE</span>
+        </div>
+
+        <div class="player-kda">
+          <div class="kda">
+            <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
+            <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
+            <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
+          </div>
+          <span class="kda-text">K / A / D</span>
+        </div>
+      </div>
+
+      <div class="right">
+        <i
+          v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
+          class="material-icons watch-match-icon"
+          title="Watch in Browser"
+          @click="WatchMatch(match)"
+        >videocam</i>
+
+        <button
+          class="button-variant-bordered match-details-button"
+          @click="ToggleMatchVisibility(match)"
+        >Match details</button>
       </div>
     </div>
-
-    <div class="right">
-
-      <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
-      class="material-icons watch-match-icon" title="Watch in Browser" @click="WatchMatch(match)">videocam</i>
-
-      <button
-        class="button-variant-bordered"
-        @click="ToggleMatchVisibility(match)"
-      >Match details</button>
-    </div>
-  </div>
-  <transition name="slide">
-    <div class="match-body" v-if="match.IsVisible">
-      <hr />
-      <div class="team-table">
-        <div
-          v-for="team in match.Scoreboard.TeamInfos"
-          :key="team.TeamName"
-          class="team"
-          :name="team.TeamName"
-        >
-          <div class="table-header">
-            <span></span>
-            <span>ADR</span>
-            <span>K</span>
-            <span>A</span>
-            <span>D</span>
-          </div>
-          <div class="table-content">
-            <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
-              <img class="avatar" :src="entry.Profile.Icon" />
-              <a
-                class="name"
-                :href="entry.Profile.Url"
-                target="_blank"
-              >{{ entry.Profile.SteamName }}</a>
-              <span
-                class="adr"
-              >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
-              <span class="k">{{ entry.Kills }}</span>
-              <span class="a">{{ entry.Assists }}</span>
-              <span class="d">{{ entry.Deaths }}</span>
+    <transition name="slide">
+      <div class="match-body" v-if="match.IsVisible">
+        <hr />
+        <div class="team-table">
+          <div
+            v-for="team in match.Scoreboard.TeamInfos"
+            :key="team.TeamName"
+            class="team"
+            :name="team.TeamName"
+          >
+            <div class="table-header">
+              <span></span>
+              <span>ADR</span>
+              <span>K</span>
+              <span>A</span>
+              <span>D</span>
+            </div>
+            <div class="table-content">
+              <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
+                <img class="avatar" :src="entry.Profile.Icon" />
+                <a
+                  class="name"
+                  :href="entry.Profile.Url"
+                  target="_blank"
+                >{{ entry.Profile.SteamName }}</a>
+                <span
+                  class="adr"
+                >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                <span class="k">{{ entry.Kills }}</span>
+                <span class="a">{{ entry.Assists }}</span>
+                <span class="d">{{ entry.Deaths }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
-</div>  
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
-  props: [
-    "match"
-  ],
+  props: ["match"],
   methods: {
     WatchMatch: function(match) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
@@ -95,9 +97,9 @@ export default {
     ToggleMatchVisibility: function() {
       this.match.IsVisible = !this.match.IsVisible;
       this.$forceUpdate();
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -110,17 +112,20 @@ export default {
     align-items: center;
     padding: 5px 0;
 
-    &.source-valve>.left>.map-thumbnail{
-          border-left-color: $matchmaking-blue;
+    &.source-valve > .left > .map-thumbnail {
+      border-left-color: $matchmaking-blue;
     }
-    
-    &.source-faceit>.left>.map-thumbnail{
-          border-left-color: $faceit-orange;
+
+    &.source-faceit > .left > .map-thumbnail {
+      border-left-color: $faceit-orange;
     }
 
     .left {
       display: flex;
       width: 80%;
+      .on-mobile {
+        display: none;
+      }
 
       .map-thumbnail {
         height: 55px;
@@ -227,7 +232,7 @@ export default {
         color: $orange;
         margin-right: 20px;
         font-size: 26px;
-        transition: .35s;
+        transition: 0.35s;
         cursor: pointer;
 
         &:hover {
@@ -321,6 +326,109 @@ export default {
               text-align: center;
             }
           }
+        }
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .match {
+    font-size: 1.2vw;
+    margin-top: 1em;
+    .match-header {
+      padding: 0.5em 0;
+      .left {
+        .map-thumbnail {
+          width: 10em;
+          height: auto;
+          border-radius: 0.5em;
+        }
+        .map-and-datetime {
+          padding: 0 1.5em;
+          .map {
+            font-size: 1.2em;
+          }
+          .datetime {
+            font-size: 1em;
+          }
+        }
+        .match-score {
+          padding: 0 1.5em;
+          .score {
+            font-size: 1.5em;
+          }
+        }
+        .player-kda {
+          padding: 0 1.5em;
+
+          .kda {
+            font-size: 1.25em;
+          }
+          .kda-text {
+            font-size: 1.25em;
+          }
+        }
+      }
+      .right {
+        .watch-match-icon {
+          margin-right: 1em;
+          font-size: 2.5em;
+        }
+        .match-details-button {
+          font-size: 1.1em;
+          border-radius: 2.5em;
+        }
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .match {
+    font-size: 2.25vw;
+    .match-header {
+      .left {
+        flex-wrap: wrap;
+        .on-mobile {
+          display: block;
+          width: 100%;
+          border: 0.5px solid $purple;
+        }
+        .map-thumbnail {
+        }
+        .map-and-datetime {
+          flex-basis: 50%;
+          .map {
+          }
+          .datetime {
+          }
+        }
+        .match-score {
+          flex-basis: 45%;
+
+          .score {
+          }
+        }
+        .player-kda {
+          flex-basis: 45%;
+
+          .kda {
+          }
+          .kda-text {
+          }
+        }
+      }
+      .right {
+        .watch-match-icon {
+        }
+        .match-details-button {
         }
       }
     }
