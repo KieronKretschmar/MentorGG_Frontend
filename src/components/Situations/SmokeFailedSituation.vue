@@ -10,6 +10,7 @@
           Practice them, so that you and your team will not get caught off guard by a failed smoke and possibly give away rounds you might have otherwise won.
         </div>
       </div>
+      <!-- <hr /> -->
 
       <div class="right">
         <button
@@ -21,6 +22,7 @@
     
     <transition name="slide">
       <div class="body" v-if="isVisible">
+        <hr />
         <div class="row">
           <div class="col">
             Match
@@ -28,7 +30,10 @@
           <div class="col centered">
             Round
           </div>
-          <div class="col">
+          <!-- <div class="col centered">
+            Round time
+          </div> -->
+          <div class="col centered">
             Lineup
           </div>
           <div class="col centered">
@@ -41,26 +46,19 @@
         
         class="row">
           <div class="col">
-            <div class="map-thumbnail">
-              <img
-                :src="$api.resolveResource('~/Content/Images/Overview/' + situation.Map +'.jpg')"
-                :alt="situation.Map + ' Thumbnail'"
-                :title="situation.Map"
-              />
-            </div>
-            <div class="map-and-datetime">
-              <span class="map">{{ situation.Map }}</span>
-              <span class="datetime">{{ situation.MatchDate|formatDate }}</span>
-            </div>
+            <div class="map-and-datetime"><span class="map">{{situation.Map}}</span><span class="datetime">{{situation.MatchDate}}</span></div>
           </div>
           <div class="col centered">
             {{situation.Round}}
           </div>
-          <div class="col">
+          <!-- <div class="col centered">
+            00:51
+          </div> -->
+          <div class="col centered">
             <a class="cell link" @click="NavigateToSmokes(situation.Map, situation.LineupId)">{{ situation.LineupName }}</a>
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 10000)">videocam</i>
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round)">videocam</i>
           </div>
         </div>
       </div>
@@ -89,23 +87,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.misplay{
-  .body{
-    .row{
-      .col{
-        
-        &:nth-child(1) {
-          width: 20%;
-        }
+<style lang="scss">
 
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-          width: 20%;
-        }
-      }
-    }
-  }
-}
 </style>
