@@ -82,9 +82,8 @@ class MentorGGAPI {
         });
     }
 
-    getMisplays(playerId = "", recentMatches = 10){
+    getMisplays(playerId = "", recentMatches = 50){
         let params = {
-            showBest: showBest,
             recentMatches: recentMatches
         }                
         if(playerId.length) {
@@ -94,7 +93,7 @@ class MentorGGAPI {
             params.playerId = this.fixedSteamId;
         }
 
-        return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
+        return axios.get(this.apiEndpoint + 'Situations/Misplays', {
             params: params
         });
     }

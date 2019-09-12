@@ -1,63 +1,4 @@
 <template>
-  <div class="misplay bordered-box">
-    <div class="header">
-      <div class="left">
-        <span class="misplay-title">TITLE</span>
-        
-        <div class="misplay-explanation">
-          EXPLANATION
-        </div>
-      </div>
-      <!-- <hr /> -->
-      <div class="right">
-        <button
-          class="button-variant-bordered"
-          @click="ToggleMisplayVisibility(1)"
-        >Show {{situationCollection.length}} Occurrences</button>
-      </div>
-    </div>
-    
-    <transition name="slide">
-      <div class="body" v-if="true">
-        <hr />
-        <div class="row">
-          <div class="col">
-            Match
-          </div>
-          <div class="col centered">
-            Round
-          </div>
-          <div class="col centered">
-            Round time
-          </div>
-          <div class="col centered">
-            Details
-          </div>
-          <div class="col centered">
-            Watch Misplay
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="map-and-datetime"><span class="map">de_inferno</span><span class="datetime">24.8.2019, 12:34:27</span></div>
-          </div>
-          <div class="col centered">
-            12
-          </div>
-          <div class="col centered">
-            00:51
-          </div>
-          <div class="col centered">
-            Bomb defused while 2 teammates were alive.
-          </div>
-          <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </div>
 </template>
 
 <script>
@@ -73,8 +14,9 @@ export default {
   },
   
   methods: {
-    ToggleMisplayVisibility: function(misplay) {
-      this.IsVisible = !this.IsVisible;
+    ToggleMisplayVisibility: function() {
+      console.log("toggled " + this.isVisible)
+      this.isVisible = !this.isVisible;
       this.$forceUpdate();
     },
   }
@@ -203,6 +145,23 @@ export default {
             font-size: 12px;
             color: $dark-4;
             margin-top: 5px;
+          }
+        }
+
+        .link {
+          display: flex;
+          align-items: center;
+          background: $dark-1;
+          color: white;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+          border: 1px solid $dark-1;
+          transition: 0.35s;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover {
+            color: $orange;
           }
         }
       }
