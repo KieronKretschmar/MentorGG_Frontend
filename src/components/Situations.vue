@@ -16,24 +16,32 @@
           No misplays found for you. Either you haven't uploaded any matches, or we could not detect a single mistake you made!
           </NoDataAvailableDisplay>
       </div>
-
-      <component
-        v-else
+      
+      <div        
         v-for="situationCollection in situationCollections"
         :key="situationCollection.Name"
-        class="misplay bordered-box"
+      >
+        <component
+        v-if="$options.components[situationCollection.Name + 'Situation']"
         :is="situationCollection.Name + 'Situation'"
         :situationCollection="situationCollection"
-      />
+        class="misplay bordered-box"
+        
+        />
+      </div>
     </span>
 </div>
 </template>
 
 <script>
+import DeathByBombSituation from "@/components/Situations/DeathByBombSituation.vue";
+import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
 import SmokeFailedSituation from "@/components/Situations/SmokeFailedSituation.vue";
 
 export default {
   components: {
+    DeathByBombSituation,
+    ShotWhileMovingSituation,
     SmokeFailedSituation,
   },
   mounted() {
