@@ -51,6 +51,16 @@
     a {
       color: $orange;
     }
+
+    ol {
+      li {        
+        font-weight: 200;
+      }
+    }
+    
+    p {
+      font-weight: 200;
+    }
   }
 }
 </style>
