@@ -34,7 +34,7 @@
     <div class="right">
 
       <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
-      class="material-icons watch-match-icon" title="Watch in Browser" @click="WatchMatch(match)">videocam</i>
+      class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(match)">videocam</i>
 
       <button
         class="button-variant-bordered"
@@ -88,7 +88,7 @@ export default {
     "match"
   ],
   methods: {
-    WatchMatch: function(match) {
+    Watch: function(match) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", match.MatchId, 1);
     },
