@@ -176,7 +176,7 @@ export default {
       window.$("#round-display").slick("unslick");
       window.DemoViewer.Reset();
     },
-    Watch: function(playerId, matchId, roundId){
+    Watch: function(playerId, matchId, roundId, time=0){
       this.loadingData = true;
       this.matchId = matchId;
       this.Show();
@@ -184,6 +184,9 @@ export default {
       this.$api.getDVMatch("", matchId, roundId).then(response => {
         this.UpdateData(response.data);
         this.Finalize();
+        if(time){
+            DemoViewer.DemoPlayer.Cur = time;          
+        }
       });
     },
         
