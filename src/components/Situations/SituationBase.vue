@@ -19,6 +19,10 @@ export default {
       this.isVisible = !this.isVisible;
       this.$forceUpdate();
     },
+    Watch: function(matchId, round = 1, time=0) {
+      let demoviewer = this.$root.$children[0].$refs.demoviewer;
+      demoviewer.Watch("", matchId, round, Math.max(0,time));
+    },
   }
 }
 </script>
@@ -57,6 +61,23 @@ export default {
         // white-space: nowrap;
         // overflow: hidden;
         text-overflow: ellipsis;
+
+        .link {
+          &.link-inline {
+            // display: flex;
+            // align-items: center;
+            background: $dark-1;
+            color: white;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border: 1px solid $dark-1;
+            transition: 0.35s;
+            text-decoration: none;
+            cursor: pointer;
+
+            color: $orange;
+          }
+        }
       }
     }
 
@@ -67,6 +88,9 @@ export default {
   }
 
   .body {
+
+    margin-top: 10px;
+
     hr {
       border: 1px solid $purple;
       border-bottom: none;
@@ -111,14 +135,13 @@ export default {
         img {
           margin-right: 5px;
         }
-        width:(1/5)*100%;
+
 
         .map-thumbnail {
-        height: 55px;
-        width: 135px;
-        border-radius: 5px;
-        overflow: hidden;
-        border-left-style: solid;
+          height: 55px;
+          width: 135px;
+          border-radius: 5px;
+          overflow: hidden;
 
           img {
             width: 100%;
@@ -131,9 +154,8 @@ export default {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          width: 100%;
-          // padding: 0 25px;
-          // border-right: 1px solid $purple;
+          width: 20%;
+          padding: 0 25px;
 
           .map {
             color: white;
@@ -148,22 +170,34 @@ export default {
           }
         }
 
-        .link {
-          display: flex;
-          align-items: center;
-          background: $dark-1;
-          color: white;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          border: 1px solid $dark-1;
-          transition: 0.35s;
-          text-decoration: none;
-          cursor: pointer;
-
-          &:hover {
+        .watch-match-icon {
             color: $orange;
+            margin-right: 20px;
+            font-size: 26px;
+            transition: 0.35s;
+            cursor: pointer;
+
+            &:hover {
+              color: $purple;
+            }
           }
-        }
+      }
+    }
+    
+    .link {
+      display: flex;
+      align-items: center;
+      background: $dark-1;
+      color: white;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border: 1px solid $dark-1;
+      transition: 0.35s;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        color: $orange;
       }
     }
   }

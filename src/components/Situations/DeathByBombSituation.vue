@@ -2,16 +2,17 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Death by C4</span>
+        <span class="misplay-title">Death by Bomb</span>
         
         <div class="misplay-explanation">
-          Don't lose your life and equipment by dying to the C4 explosion at the end of the round.
+          Don't lose your life and equipment by dying to the bomb explosion at the end of the round.
           Try to be aware of your HP, route of escape and time left on the ticking bomb (enabling the 
-          <a class="link" href="https://www.youtube.com/watch?v=WJE9mtatb3I">10 second bomb warning</a>
+          <a class="link link-inline" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=WJE9mtatb3I">
+            10 second bomb warning
+          </a>
           helps!)
         </div>
       </div>
-      <!-- <hr /> -->
 
       <div class="right">
         <button
@@ -23,7 +24,6 @@
     
     <transition name="slide">
       <div class="body" v-if="isVisible">
-        <hr />
         <div class="row">
           <div class="col">
             Match
@@ -31,9 +31,6 @@
           <div class="col centered">
             Round
           </div>
-          <!-- <div class="col centered">
-            Round time
-          </div> -->
           <div class="col centered">
             Lost equipment
           </div>
@@ -62,9 +59,6 @@
           <div class="col centered">
             {{situation.Round}}
           </div>
-          <!-- <div class="col centered">
-            00:51
-          </div> -->
           <div class="col centered">
             {{situation.LostEqValue}}$
           </div>
@@ -98,6 +92,23 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.misplay{
+  .body{
+    .row{
+      .col{
+        
+        &:nth-child(1) {
+          width: 20%;
+        }
 
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+          width: 20%;
+        }
+      }
+    }
+  }
+}
 </style>

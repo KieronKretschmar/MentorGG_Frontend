@@ -2,7 +2,7 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Shot while moving</span>
+        <span class="misplay-title">TITLE</span>
         
         <div class="misplay-explanation">
           EXPLANATION
@@ -35,9 +35,9 @@
         </div>
 
         <div v-for="(situation, index) in situationCollection.Situations" 
-        :key="index"        
+        :key="index"
+        
         class="row">
-
           <div class="col">
             <div class="map-thumbnail">
               <img
@@ -58,7 +58,7 @@
             {{situation.ExtraDetail}}
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round)">videocam</i>
           </div>
         </div>
       </div>
