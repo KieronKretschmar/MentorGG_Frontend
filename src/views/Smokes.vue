@@ -487,7 +487,7 @@ export default {
     },
     SetShowCt(showCt) {
       this.selectedSample = null;
-      this.selectedLineup = null;
+      this.selectedLineupId = 0;
       this.selectedZoneId = 0;
       this.showCt = showCt;
     },
