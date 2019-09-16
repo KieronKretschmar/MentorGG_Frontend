@@ -5,9 +5,9 @@
     <ProfileHeader />
     <div class="fixed-width-container">
       <RecentMatchStats />
+      <Situations />
       <PositionAdvice />
       <FriendComparison />
-      <Misplays />
       <MatchHistory />
     </div>
   </div>
@@ -20,7 +20,7 @@ import RecentMatchStats from "@/components/RecentMatchStats.vue";
 import PositionAdvice from "@/components/PositionAdvice.vue";
 import FriendComparison from "@/components/FriendComparison.vue";
 import MatchHistory from "@/components/MatchHistory.vue";
-import Misplays from "@/components/Misplays.vue";
+import Situations from "@/components/Situations.vue";
 
 export default {
   components: {
@@ -28,7 +28,7 @@ export default {
     RecentMatchStats,
     PositionAdvice,
     FriendComparison,
-    Misplays,
+    Situations,
     MatchHistory,
   },
   mounted() {}

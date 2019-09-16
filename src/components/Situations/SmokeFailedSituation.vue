@@ -2,7 +2,7 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Failed Smokes</span>
+        <span class="misplay-title">Failed Smoke</span>
         
         <div class="misplay-explanation">
           Throwing smoke lineups accurately and consistently is vital. 

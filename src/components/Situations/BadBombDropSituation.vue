@@ -2,10 +2,12 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">TITLE</span>
+        <span class="misplay-title">Dying with Bomb</span>
         
         <div class="misplay-explanation">
-          EXPLANATION
+          Losing the bomb on the terrorist side makes it much harder to win the round. 
+          Consider dropping the bomb before facing CTs as a terrorist, to give your teammates a chance to plant it.
+          This is even more important when many teammates are alive but not close enough to get the refrag.
         </div>
       </div>
 
@@ -27,10 +29,10 @@
             Round
           </div>
           <div class="col centered">
-            Extra Detail
+            Teammates Alive
           </div>
           <div class="col centered">
-            Watch Misplay
+            Distance to closest teammate
           </div>
         </div>
 
@@ -55,10 +57,13 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.ExtraDetail}}
+            {{situation.TeammatesAlive}}
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            {{situation.ClosestTeammateDistance}} units
+          </div>
+          <div class="col centered">
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 1000)">videocam</i>
           </div>
         </div>
       </div>
