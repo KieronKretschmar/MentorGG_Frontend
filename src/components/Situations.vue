@@ -3,7 +3,9 @@
   <div class="bordered-box">
     <p>Your recent misplays</p>
   </div>
-
+    <div v-if="!loadingComplete" class="bordered-box no-misplays">
+      <AjaxLoader>Analyzing your playstyle</AjaxLoader>
+    </div>
     <!-- <div v-if="!loadingComplete">
       <div class="bordered-box no-misplays">
         <AjaxLoader>Computing your recent misplays</AjaxLoader>
@@ -22,7 +24,7 @@
         :key="situationCollection.Name"
       >
         <component
-        v-if="$options.components[situationCollection.Name + 'Situation']"
+        v-if="$options.components[situationCollection.Name + 'Situation'] && situationCollection.Situations.length"
         :is="situationCollection.Name + 'Situation'"
         :situationCollection="situationCollection"
         class="misplay bordered-box"
@@ -34,12 +36,14 @@
 </template>
 
 <script>
+import BadBombDropSituation from "@/components/Situations/BadBombDropSituation.vue";
 import DeathByBombSituation from "@/components/Situations/DeathByBombSituation.vue";
 import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
 import SmokeFailedSituation from "@/components/Situations/SmokeFailedSituation.vue";
 
 export default {
   components: {
+    BadBombDropSituation,
     DeathByBombSituation,
     ShotWhileMovingSituation,
     SmokeFailedSituation,
@@ -57,7 +61,7 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getMisplays(isDemo ? "76561198033880857" : "").then(result => {
+      this.$api.getMisplays(isDemo ? "76561198033880857" : "", 50).then(result => {
         console.log(result.data)
         this.situationCollections = result.data.SituationCollections;
         this.loadingComplete = true;

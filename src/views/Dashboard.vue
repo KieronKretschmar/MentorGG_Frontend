@@ -5,9 +5,9 @@
     <ProfileHeader />
     <div class="fixed-width-container">
       <RecentMatchStats />
+      <Situations />
       <PositionAdvice />
       <FriendComparison />
-      <Situations />
       <MatchHistory />
     </div>
   </div>
