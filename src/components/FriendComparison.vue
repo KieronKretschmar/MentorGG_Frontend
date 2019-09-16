@@ -23,6 +23,7 @@
         v-for="comparison in comparisons"
         :key="comparison.OtherSteamId"
         class="comparison bordered-box"
+        v-on:click="ToggleComparisonVisibility($event,comparison)"
       >
         <div class="header">
           <div class="left">
@@ -30,6 +31,7 @@
               <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
               <span class="name">
                 {{ comparison.OtherPlayerInfo.SteamName }}
+                <hr class="on-mobile" />
                 <span class="favorite-map mobile">
                   <div class="map-text">
                     <span>Favorite Map</span>
@@ -48,7 +50,7 @@
               <br />
               <span>Win - Tie - Loss</span>
             </span>
-            <hr class="on-mobile" />
+
             <span class="favorite-map desktop">
               <div class="map-text">
                 <span>Favorite Map</span>
@@ -97,20 +99,17 @@
                 <span class="loss">{{comparison.MostPlayedMapMatchesLost}}</span>
               </div>
             </span>
-            <hr class="on-mobile" />
           </div>
 
           <div class="right">
-            <button
-              class="button-variant-bordered comparison-btn"
-              @click="ToggleComparisonVisibility(comparison)"
-            >Friend details</button>
+            <i class="material-icons arrow">arrow_drop_down</i>
+            <i class="material-icons up arrow hide">arrow_drop_up</i>
           </div>
         </div>
 
         <transition name="slide">
           <div class="body" v-if="comparison.IsVisible">
-            <hr />
+            <hr class="on-desktop" />
 
             <div class="row">
               <div class="col">Who</div>
@@ -224,8 +223,12 @@ export default {
           this.loadingComplete = true;
         });
     },
-    ToggleComparisonVisibility: function(comparison) {
+    ToggleComparisonVisibility: function(event, comparison) {
+      let arrows = [
+        ...event.target.closest(".comparison").querySelectorAll(".arrow")
+      ];
       comparison.IsVisible = !comparison.IsVisible;
+      arrows.forEach(arrow => arrow.classList.toggle("hide"));
       this.$forceUpdate();
     }
   }
@@ -235,7 +238,13 @@ export default {
 <style lang="scss">
 .friend-comparison {
   margin-bottom: 20px;
+  .hide {
+    display: none;
+  }
 
+  .on-mobile {
+    display: none;
+  }
   p {
     color: white;
     font-weight: 500;
@@ -248,6 +257,7 @@ export default {
   .comparison {
     border-bottom: 1px solid $purple;
     margin-top: 10px;
+    cursor: pointer;
 
     .header {
       display: flex;
@@ -262,6 +272,7 @@ export default {
         width: 80%;
         .info {
           display: flex;
+          flex-basis: 30%;
           .name {
             width: 100%;
           }
@@ -415,22 +426,20 @@ export default {
           font-size: 1em;
 
           .left {
-            .on-mobile {
-              display: none;
-            }
-
             .avatar {
-              width: 2.5em;
+              width: 3.5em;
               height: auto;
               border-radius: 0.25em;
             }
 
             .name {
               margin-left: 1.2em;
+              font-size: 1.2em;
             }
 
             .winrate {
               margin-left: 1.2em;
+              font-size: 1.2em;
 
               &.good {
               }
@@ -441,7 +450,10 @@ export default {
                 font-size: 1em;
 
                 span {
-                  font-size: 1em;
+                }
+
+                h5 {
+                  font-size: 1.1em;
                 }
               }
             }
@@ -451,10 +463,21 @@ export default {
             .on-mobile {
               display: none;
             }
+
             .button-variant-bordered {
               &.comparison-btn {
                 font-size: 1.1em;
               }
+            }
+          }
+        }
+        .body {
+
+          .row {
+            font-size: 1.1em;
+
+            .col {
+              font-size: 1.1em;
             }
           }
         }
@@ -470,12 +493,27 @@ export default {
   .friend-comparison {
     font-size: 2.25vw;
 
+    .on-desktop {
+      display: none;
+    }
+
+    .on-mobile {
+      display: block;
+      width: 100%;
+      border: 0.5px solid $purple;
+    }
     .bordered-box {
+
       p {
       }
     }
+
     .comparison {
+      position: relative;
+
       &.bordered-box {
+        padding: 4em 2em;
+
         .header {
           display: flex;
           flex-direction: column;
@@ -483,23 +521,30 @@ export default {
           .left {
             flex-direction: column;
             align-items: flex-start;
+            width: 100%;
+
             .desktop {
               display: none;
             }
+
             .mobile {
               display: flex;
             }
+
             .info {
               display: flex;
               width: 100%;
+
               .avatar {
-                width: 4.5em;
-                height: auto;
+                width: 8vw;
+                height: 8vw;
               }
 
               .name {
                 font-size: 1.3em;
                 flex-grow: 1;
+                width: auto;
+
                 .favorite-map {
                   width: 100%;
                   border: none;
@@ -507,27 +552,24 @@ export default {
                   .map-text {
                     padding: 0;
                     color: $purple;
+
                     span {
                       font-size: 1em;
                     }
+
                     h5 {
                       margin-left: 1em;
                       color: rgb(255, 255, 255);
                       display: inline;
                       font-size: 1em;
                     }
+
                     br {
                       display: none;
                     }
                   }
                 }
               }
-            }
-
-            .on-mobile {
-              display: block;
-              width: 100%;
-              border: 0.5px solid $purple;
             }
 
             .winrate {
@@ -537,23 +579,30 @@ export default {
               text-align: left;
               margin: 0;
               flex-direction: column;
+              margin-top: 1em;
+
               &.mobile {
                 .result {
                   display: flex;
                   padding: 1em 0;
+
                   &.label {
                     span {
+
                       &:first-of-type {
                         color: white;
                         flex-basis: 40%;
                         text-align: left;
                       }
+
                       &.win {
                         color: $green;
                       }
+
                       &.tie {
                         color: $light-1;
                       }
+
                       &.loss {
                         color: $red;
                       }
@@ -561,6 +610,7 @@ export default {
                       text-align: center;
                     }
                   }
+
                   &.values {
                     span {
                       flex-basis: 20%;
@@ -570,16 +620,20 @@ export default {
                         text-align: left;
                         flex-basis: 40%;
                       }
+
                       &.win {
                         color: $green;
                       }
+
                       &.tie {
                         color: $light-1;
                       }
+
                       &.loss {
                         color: $red;
                       }
                     }
+
                     &.good {
                       span {
                         &:first-of-type {
@@ -590,21 +644,54 @@ export default {
                   }
                 }
               }
-
-            
             }
           }
+
           .right {
             flex-direction: column;
             align-items: flex-start;
-            .on-mobile {
-              display: block;
-              width: 100%;
-              border: 0.5px solid $purple;
+
+            .arrow {
+              position: absolute;
+              bottom: 0;
+              right: 0.4em;
+              font-size: 3.5em;
             }
+            
             .button-variant-bordered {
               &.comparison-btn {
                 font-size: 1.1em;
+              }
+            }
+          }
+        }
+
+        .body {
+          display: flex;
+          justify-content: space-between;
+
+          .row {
+            flex-direction: column;
+            border: none;
+            font-size: 1.1em;
+
+            &:first-of-type {
+              width: 50%;
+
+              .col {
+                &.centered {
+                  justify-content: flex-start;
+                }
+              }
+            }
+
+            .col {
+              width: auto;
+              flex-basis: 40px;
+              font-size: 1.1em;
+              
+              br {
+                display: none;
               }
             }
           }

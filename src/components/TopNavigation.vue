@@ -7,7 +7,7 @@
       <i class="material-icons toggle-nav-icon menu" @click="toggleNav">menu</i>
       <i class="material-icons toggle-nav-icon hide close" @click="toggleNav">close</i>
     </div>
-    <hr />
+
     <div class="nav-container closed">
       <div class="l">
         <router-link to="/" class="close-open">Overview</router-link>
@@ -135,25 +135,33 @@ export default {
       let closeOpen = document.querySelectorAll(".close-open");
       let navContainer = document.querySelectorAll(".nav-container");
       let menu = document.querySelectorAll(".menu");
-        let close = document.querySelectorAll(".close");
-      
+      let close = document.querySelectorAll(".close");
+
       for (var i = 0; i < closeOpen.length; i++) {
         closeOpen[i].addEventListener("click", function() {
           let dropdowns = document.querySelectorAll(".dropdown-hideables");
           for (var i = 0; i < dropdowns.length; i++) {
             dropdowns[i].classList.add("hide");
           }
-          navContainer[0].classList.add("closed")
-          menu[0].classList.remove("hide")
-          close[0].classList.add("hide")
+          navContainer[0].classList.add("closed");
+          menu[0].classList.remove("hide");
+          close[0].classList.add("hide");
         });
       }
     },
     toggleNav: function() {
       let nav = document.querySelectorAll(".nav-container")[0];
-      let icons = [...document.querySelectorAll(".toggle-nav-icon")];
+      let menu = document.querySelectorAll(".menu")[0];
+      let close = document.querySelectorAll(".close")[0];
       nav.classList.toggle("closed");
-      icons.forEach(icon => icon.classList.toggle("hide"));
+      let navClassList = [...nav.classList];
+      if (navClassList.includes("closed")) {
+        close.classList.add("hide");
+        menu.classList.remove("hide");
+      } else {
+        menu.classList.add("hide");
+        close.classList.remove("hide");
+      }
     }
   }
 };
@@ -369,7 +377,7 @@ nav {
 //=========================================================================================================================================
 @media (max-width: 1730px) {
   nav {
-    padding: 1em;
+    padding: 0.3em 0;
     align-items: flex-start;
     flex-direction: column;
 
@@ -383,6 +391,7 @@ nav {
 
     .nav-container {
       flex-direction: column;
+      padding: 1em;
 
       &.closed {
         display: none;

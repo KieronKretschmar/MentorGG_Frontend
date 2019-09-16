@@ -1,5 +1,5 @@
 <template>
-  <div class="bordered-box match">
+  <div class="bordered-box match" v-on:click="ToggleMatchVisibility($event,match)">
     <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
       <div class="left">
         <div class="map-thumbnail">
@@ -13,7 +13,7 @@
           <span class="map">{{ match.Map }}</span>
           <span class="datetime">{{ match.MatchDate|formatDate }}</span>
         </div>
-        <hr class="on-mobile" />
+
         <div class="match-score">
           <span
             class="score"
@@ -31,7 +31,6 @@
           <span class="kda-text">K / A / D</span>
         </div>
       </div>
-
       <div class="right">
         <i
           v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
@@ -39,16 +38,12 @@
           title="Watch in Browser"
           @click="WatchMatch(match)"
         >videocam</i>
-
-        <button
-          class="button-variant-bordered match-details-button"
-          @click="ToggleMatchVisibility(match)"
-        >Match details</button>
+        <i class="material-icons arrow">arrow_drop_down</i>
+        <i class="material-icons up arrow hide">arrow_drop_up</i>
       </div>
     </div>
     <transition name="slide">
       <div class="match-body" v-if="match.IsVisible">
-        <hr />
         <div class="team-table">
           <div
             v-for="team in match.Scoreboard.TeamInfos"
@@ -65,12 +60,15 @@
             </div>
             <div class="table-content">
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
-                <img class="avatar" :src="entry.Profile.Icon" />
-                <a
-                  class="name"
-                  :href="entry.Profile.Url"
-                  target="_blank"
-                >{{ entry.Profile.SteamName }}</a>
+                <div class="image-and-name">
+                  <img class="avatar" :src="entry.Profile.Icon" />
+                  <a
+                    class="name"
+                    :href="entry.Profile.Url"
+                    target="_blank"
+                  >{{ entry.Profile.SteamName }}</a>
+                </div>
+
                 <span
                   class="adr"
                 >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
@@ -79,6 +77,7 @@
                 <span class="d">{{ entry.Deaths }}</span>
               </div>
             </div>
+            <hr class="on-mobile" />
           </div>
         </div>
       </div>
@@ -94,8 +93,12 @@ export default {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", match.MatchId, 1);
     },
-    ToggleMatchVisibility: function() {
+    ToggleMatchVisibility: function(event) {
+      let arrows = [
+        ...event.target.closest(".match").querySelectorAll(".arrow")
+      ];
       this.match.IsVisible = !this.match.IsVisible;
+      arrows.forEach(arrow => arrow.classList.toggle("hide"));
       this.$forceUpdate();
     }
   }
@@ -105,12 +108,19 @@ export default {
 <style lang="scss" scoped>
 .match {
   margin-top: 10px;
+  .hide {
+    display: none;
+  }
+  .on-mobile {
+    display: none;
+  }
 
   .match-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
+    cursor: pointer;
 
     &.source-valve > .left > .map-thumbnail {
       border-left-color: $matchmaking-blue;
@@ -227,6 +237,7 @@ export default {
     .right {
       display: flex;
       align-items: center;
+      color: white;
 
       .watch-match-icon {
         color: $orange;
@@ -264,13 +275,15 @@ export default {
 
           span {
             display: inline-block;
-            width: 10%;
+            //width: 10%;
             text-align: center;
+            flex-basis: 12.5%;
 
             &:first-child {
               max-width: 264px;
-              flex: 0 1 264px;
-              margin-right: 10px;
+              //flex: 0 1 264px;
+              flex-basis: 50%;
+              //margin-right: 10px;
             }
           }
         }
@@ -283,6 +296,18 @@ export default {
             padding: 10px 0;
             justify-content: space-between;
 
+            .image-and-name {
+              flex-basis: 50%;
+              display: flex;
+              overflow: hidden;
+              align-items: center;
+              a {
+                text-overflow: ellipsis;
+              }
+            }
+            span {
+              flex-basis: 12.5%;
+            }
             &:last-child {
               border-bottom: none;
             }
@@ -312,7 +337,7 @@ export default {
             }
 
             .adr {
-              margin-left: 20px;
+              //margin-left: 20px;
             }
 
             .adr,
@@ -339,48 +364,82 @@ export default {
   .match {
     font-size: 1.2vw;
     margin-top: 1em;
+
     .match-header {
       padding: 0.5em 0;
+
       .left {
         .map-thumbnail {
           width: 10em;
           height: auto;
           border-radius: 0.5em;
         }
+
         .map-and-datetime {
           padding: 0 1.5em;
+
           .map {
             font-size: 1.2em;
           }
+
           .datetime {
             font-size: 1em;
           }
         }
         .match-score {
           padding: 0 1.5em;
+
           .score {
             font-size: 1.5em;
           }
         }
+
         .player-kda {
           padding: 0 1.5em;
 
           .kda {
             font-size: 1.25em;
           }
+
           .kda-text {
             font-size: 1.25em;
           }
         }
       }
+
       .right {
         .watch-match-icon {
           margin-right: 1em;
           font-size: 2.5em;
         }
+
         .match-details-button {
           font-size: 1.1em;
           border-radius: 2.5em;
+        }
+      }
+    }
+    .match-body {
+      .team-table {
+        .team {
+          .table-header {
+            font-size: 1.2em;
+          }
+
+          .table-content {
+            .table-entry {
+              .image-and-name {
+
+                a {
+                  font-size: 1.2em;
+                }
+              }
+
+              span {
+                font-size: 1.1em;
+              }
+            }
+          }
         }
       }
     }
@@ -393,42 +452,115 @@ export default {
 @media (max-width: 576px) {
   .match {
     font-size: 2.25vw;
+
+    .on-mobile {
+      display: block;
+      width: 100%;
+      border: 0.5px solid $purple;
+    }
+
     .match-header {
+      flex-direction: row;
+      align-items: flex-start;
+
       .left {
-        flex-wrap: wrap;
-        .on-mobile {
-          display: block;
-          width: 100%;
-          border: 0.5px solid $purple;
-        }
+        flex-basis: 75%;
+
         .map-thumbnail {
+          display: none;
         }
+
         .map-and-datetime {
           flex-basis: 50%;
+
           .map {
           }
+
           .datetime {
           }
         }
+
         .match-score {
           flex-basis: 45%;
 
           .score {
           }
         }
+
         .player-kda {
           flex-basis: 45%;
 
           .kda {
           }
+
           .kda-text {
           }
         }
       }
+
       .right {
+        flex-basis: 25%;
+        justify-content: flex-end;
+
         .watch-match-icon {
+          margin-right: 0;
         }
+
         .match-details-button {
+        }
+      }
+    }
+
+    .match-body {
+      hr {
+        border: 1px solid white;
+      }
+
+      .team-table {
+        flex-direction: column;
+
+        div {
+          &:last-of-type {
+            hr {
+              display: none;
+            }
+          }
+        }
+
+        .team {
+          width: 100%;
+          padding-bottom: 2em;
+          .table-header {
+
+            span {
+              &:first-of-type {
+                flex-basis: 50%;
+                flex: 1;
+              }
+              flex-basis: 12.5%;
+            }
+          }
+
+          .table-content {
+            .table-entry {
+
+              .image-and-name {
+                display: flex;
+                flex-basis: 50%;
+                overflow: hidden;
+
+                a {
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  flex-basis: 70%;
+                }
+              }
+              
+              span {
+                flex-basis: 12.5%;
+              }
+            }
+          }
         }
       }
     }

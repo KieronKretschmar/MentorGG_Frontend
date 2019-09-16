@@ -169,6 +169,7 @@ export default {
 @media (max-width: 1170px) {
   .recent-match-stats {
     font-size: 1.2vw;
+    margin-top: -3em;
 
     .bordered-box {
       padding: 1em 2em;
@@ -193,6 +194,7 @@ export default {
 @media (max-width: 576px) {
   .recent-match-stats {
     font-size: 2.25vw;
+    margin-top: -5em;
 
     .bordered-box {
       padding: 1em 0.5em;
