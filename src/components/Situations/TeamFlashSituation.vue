@@ -2,10 +2,13 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Self-Flash</span>
+        <span class="misplay-title">Team-Flash</span>
         
         <div class="misplay-explanation">
-          Save money on your next electricity bill by not watching straight into your own flashes. Easy, right?
+          Some people throw flashbangs without thinking of their teammates' positions. 
+          Don't be one of those guys.
+          <!-- Announcing flashes that might affect teammates does not only prevent them from having to look at a white screen, but also enables them to doublepeek with you after it pops. -->
+          Briefly announcing "flashing X" via voice makes all the difference between a pissed off teammate and strongly timed doublepeek right after the flash pops.
         </div>
       </div>
 
@@ -27,7 +30,10 @@
             Round
           </div>
           <div class="col centered">
-            Time flashed
+            Teammates flashed
+          </div>
+          <div class="col centered">
+            Total time flashed
           </div>
           <div class="col centered">
             Died while blinded
@@ -58,13 +64,16 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.TimeFlashed}}
+            {{situation.TeammatesFlashed}}
           </div>
           <div class="col centered">
-            {{situation.DiedBlind}}
+            {{situation.TimeFlashed}}ms
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            {{situation.DiedBlindCount}}
+          </div>
+          <div class="col centered">
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
           </div>
         </div>
       </div>
@@ -98,8 +107,10 @@ export default {
 
         &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4) {
-          width: 20%;
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(6) {
+          width: (80%/5);
         }
       }
     }

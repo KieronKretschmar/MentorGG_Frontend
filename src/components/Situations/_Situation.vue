@@ -58,7 +58,7 @@
             {{situation.ExtraDetail}}
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
           </div>
         </div>
       </div>

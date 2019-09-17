@@ -2,13 +2,11 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Team-Flash</span>
+        <span class="misplay-title">Self-Flash</span>
         
         <div class="misplay-explanation">
-          Some people throw flashbangs without thinking of their teammates' positions. 
-          Don't be one of those guys.
-          <!-- Announcing flashes that might affect teammates does not only prevent them from having to look at a white screen, but also enables them to doublepeek with you after it pops. -->
-          Briefly announcing "flashing X" via voice makes all the difference between pissed off teammates with white screens and strong doublepeeks right after the flash pops.
+          <!-- Save money on your next electricity bill by not watching straight into your own flashes. Easy, right? -->
+          Look, we know you like flashes. But they are even more effective when not used against yourself.
         </div>
       </div>
 
@@ -30,10 +28,7 @@
             Round
           </div>
           <div class="col centered">
-            Teammates flashed
-          </div>
-          <div class="col centered">
-            Total time flashed
+            Time flashed
           </div>
           <div class="col centered">
             Died while blinded
@@ -64,16 +59,13 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.TeammatesFlashed}}
+            {{situation.TimeFlashed}}ms
           </div>
           <div class="col centered">
-            {{situation.TimeFlashed}}
+            {{IsBetween(situation.DeathTime, situation.Time, situation.Time + situation.TimeFlashed) ? "Yes" : "No"}}
           </div>
           <div class="col centered">
-            {{situation.DiedBlindCount}}
-          </div>
-          <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
           </div>
         </div>
       </div>
@@ -89,9 +81,6 @@ export default {
   props: [
     "situationCollection",
     ],
-  
-  methods: {
-  }
 }
 </script>
 
@@ -107,7 +96,8 @@ export default {
 
         &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4) {
+        &:nth-child(4),
+        &:nth-child(5) {
           width: 20%;
         }
       }

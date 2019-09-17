@@ -2,10 +2,12 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Shot while moving</span>
+        <span class="misplay-title">Shooting while running</span>
         
         <div class="misplay-explanation">
-          EXPLANATION
+          Rifles shoot inaccurately when you move faster than a third of the maximum movement speed possible with the rifle.
+          So unless the enemy is right in your face and accuracy doesn't matter, stop to shoot.
+
         </div>
       </div>
 
@@ -27,7 +29,10 @@
             Round
           </div>
           <div class="col centered">
-            Extra Detail
+            Weapon
+          </div>
+          <div class="col centered">
+            Died After
           </div>
           <div class="col centered">
             Watch Misplay
@@ -55,10 +60,13 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.ExtraDetail}}
+            {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}}
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 2000)">videocam</i>
+            {{IsBetween(situation.DeathTime, situation.Time, situation.Time + 2000) ? (situation.DeathTime - situation.Time) + "ms" : "/" }}
+          </div>
+          <div class="col centered">
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
           </div>
         </div>
       </div>
