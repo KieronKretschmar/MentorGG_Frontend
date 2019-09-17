@@ -14,8 +14,11 @@ export default {
   },
   
   methods: {
+    IsBetween(x, start, end)
+    {
+      return end >= x && x >= start;
+    },
     ToggleMisplayVisibility: function() {
-      console.log("toggled " + this.isVisible)
       this.isVisible = !this.isVisible;
       this.$forceUpdate();
     },

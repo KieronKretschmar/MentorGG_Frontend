@@ -8,7 +8,7 @@
           <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
         </div>
         <div v-if="!playerStats && !loadingComplete" class="">
-          <AjaxLoader>Loading Molotovs</AjaxLoader>
+          <AjaxLoader>Computing statistics</AjaxLoader>
         </div>
         <div v-if="!playerStats && loadingComplete" class="">
           <DemoDataLoadRequest 

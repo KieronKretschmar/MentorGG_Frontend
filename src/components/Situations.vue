@@ -38,15 +38,19 @@
 <script>
 import BadBombDropSituation from "@/components/Situations/BadBombDropSituation.vue";
 import DeathByBombSituation from "@/components/Situations/DeathByBombSituation.vue";
+import SelfFlashSituation from "@/components/Situations/SelfFlashSituation.vue";
 import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
-import SmokeFailedSituation from "@/components/Situations/SmokeFailedSituation.vue";
+import SmokeFailSituation from "@/components/Situations/SmokeFailSituation.vue";
+import TeamFlashSituation from "@/components/Situations/TeamFlashSituation.vue";
 
 export default {
   components: {
     BadBombDropSituation,
     DeathByBombSituation,
+    SelfFlashSituation,
     ShotWhileMovingSituation,
-    SmokeFailedSituation,
+    SmokeFailSituation,
+    TeamFlashSituation,
   },
   mounted() {
     this.LoadData(false);
