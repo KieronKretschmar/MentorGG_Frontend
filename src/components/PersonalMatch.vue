@@ -33,6 +33,13 @@
 
     <div class="right">
 
+      <a :href="$api.matchUrl(match.MatchId)" v-if="match.AvailableForDownload" class="download-match-link"> 
+        <i 
+          class="material-icons download-match-icon"
+          title="Download Demo"
+        >get_app</i>
+      </a> 
+      
       <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
       class="material-icons watch-match-icon" title="Watch in Browser" @click="WatchMatch(match)">videocam</i>
 
@@ -232,6 +239,22 @@ export default {
 
         &:hover {
           color: $purple;
+        }
+      }
+
+      .download-match-link{
+        align-self: flex-end;
+
+        .download-match-icon{
+          color: $orange;
+          margin-right: 20px;
+          font-size: 26px;
+          transition: .35s;
+          cursor: pointer;
+
+          &:hover {
+            color: $purple;
+          }
         }
       }
     }
