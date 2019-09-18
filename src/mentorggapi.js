@@ -24,6 +24,10 @@ class MentorGGAPI {
     resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
     }    
+    
+    matchUrl(matchId){
+        return this.mvcEndpoint + 'Download/Demo?matchId=' + matchId;     
+    }
 
     getLoginStatus() {
         return axios.get(this.apiEndpoint + 'User/LoginStatus');
@@ -35,7 +39,7 @@ class MentorGGAPI {
             }
         });
     }
-    
+
     getFaceitStatus(playerId = "") {
         let params = {
         }                
