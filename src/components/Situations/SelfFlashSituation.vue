@@ -5,8 +5,12 @@
         <span class="misplay-title">Self-Flash</span>
 
         <div class="misplay-explanation">
+          {{ChooseRandom([
+          "Look, we know you like flashes. But they are even more effective when not used against yourself.",
+          "Save money on your next electricity bill by not watching straight into your own flashes. Easy, right?"
+          ])}}
           <!-- Save money on your next electricity bill by not watching straight into your own flashes. Easy, right? -->
-          Look, we know you like flashes. But they are even more effective when not used against yourself.
+          <!-- Look, we know you like flashes. But they are even more effective when not used against yourself. -->
         </div>
       </div>
 
