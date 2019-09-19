@@ -14,9 +14,11 @@
 
     <span>
       <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">        
-        <NoDataAvailableDisplay>
+        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           No misplays found for you. Either you haven't uploaded any matches, or we could not detect a single mistake you made!
-          </NoDataAvailableDisplay>
+          <br>
+          Wanna see somebody else's misplays? 
+        </DemoDataLoadRequest>
       </div>
       
       <div        
@@ -67,15 +69,28 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getMisplays(isDemo ? "76561198033880857" : "", 15).then(result => {
-        console.log(result.data)
-        this.situationCollections = result.data.SituationCollections;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      if(isDemo){
+        this.$api.getSingleMatchMisplays("76561198033880857", 20622).then(result => {
+          console.log(result.data)
+          this.situationCollections = result.data.SituationCollections;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+      }
+      else{
+        this.$api.getMisplays("", 50).then(result => {
+          console.log(result.data)
+          this.situationCollections = result.data.SituationCollections;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+      }
     },
   }
 };
