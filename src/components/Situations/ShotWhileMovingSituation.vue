@@ -63,7 +63,7 @@
             {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}}
           </div>
           <div class="col centered">
-            {{IsBetween(situation.DeathTime, situation.Time, situation.Time + 2000) ? (situation.DeathTime - situation.Time) + "ms" : "/" }}
+            {{IsBetween(situation.DeathTime, situation.Time, situation.Time + 2000) ? (situation.DeathTime - situation.Time) + " ms" : "/" }}
           </div>
           <div class="col centered">
             <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>

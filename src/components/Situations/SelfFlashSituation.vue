@@ -59,7 +59,7 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.TimeFlashed}}ms
+            {{situation.TimeFlashed}} ms
           </div>
           <div class="col centered">
             {{IsBetween(situation.DeathTime, situation.Time, situation.Time + situation.TimeFlashed) ? "Yes" : "No"}}

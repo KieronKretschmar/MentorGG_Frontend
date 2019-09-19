@@ -62,7 +62,7 @@
             {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}} ({{situation.AmmoBefore}})
           </div>
           <div class="col centered">
-            {{situation.TimeToNextDamageTaken > 0 ? situation.TimeToNextDamageTaken + "ms" : "/" }}
+            {{situation.TimeToNextDamageTaken >= 0 ? situation.TimeToNextDamageTaken + " ms" : "/" }}
           </div>
           <div class="col centered">
             <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>

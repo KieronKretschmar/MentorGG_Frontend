@@ -67,7 +67,7 @@
             {{situation.TeammatesFlashed}}
           </div>
           <div class="col centered">
-            {{situation.TimeFlashed}}ms
+            {{situation.TimeFlashed}} ms
           </div>
           <div class="col centered">
             {{situation.DiedBlindCount}}
