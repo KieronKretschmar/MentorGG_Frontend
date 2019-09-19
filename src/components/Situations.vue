@@ -42,6 +42,7 @@ import SelfFlashSituation from "@/components/Situations/SelfFlashSituation.vue";
 import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
 import SmokeFailSituation from "@/components/Situations/SmokeFailSituation.vue";
 import TeamFlashSituation from "@/components/Situations/TeamFlashSituation.vue";
+import UnnecessaryReloadSituation from "@/components/Situations/UnnecessaryReloadSituation.vue";
 
 export default {
   components: {
@@ -51,6 +52,7 @@ export default {
     ShotWhileMovingSituation,
     SmokeFailSituation,
     TeamFlashSituation,
+    UnnecessaryReloadSituation,
   },
   mounted() {
     this.LoadData(false);
@@ -65,7 +67,7 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getMisplays(isDemo ? "76561198033880857" : "", 50).then(result => {
+      this.$api.getMisplays(isDemo ? "76561198033880857" : "", 15).then(result => {
         console.log(result.data)
         this.situationCollections = result.data.SituationCollections;
         this.loadingComplete = true;

@@ -2,11 +2,13 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Unnecessary reload</span>
+        <span class="misplay-title">Death with grenade in hand</span>
         
         <div class="misplay-explanation">
-          It's a bad habit to reload your gun when you're not completely safe and still have many bullets left in the current mag. 
-          If you <i>really</i> depend on having a full mag to kill somebody, go practice tapping and bursting on an aim map. 
+          Most of the time dying while having a grenade in hand is avoidable. 
+          You should use keybinds for your nades so you can select them much faster, if you haven't already done that.
+          Also you should only take the nade in your hand if you either expect to throw it right away or are 100% sure that you are safe.
+          Don't let yourself get caught pants down! 
         </div>
       </div>
 
@@ -28,10 +30,7 @@
             Round
           </div>
           <div class="col centered">
-            Weapon (bullets left)
-          </div>
-          <div class="col centered">
-            Damage taken After
+            Type
           </div>
           <div class="col centered">
             Watch Misplay
@@ -59,10 +58,7 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}} ({{situation.AmmoBefore}})
-          </div>
-          <div class="col centered">
-            {{situation.TimeToNextDamageTaken > 0 ? situation.TimeToNextDamageTaken + "ms" : "/" }}
+            {{situation.NadeType}}
           </div>
           <div class="col centered">
             <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
@@ -99,8 +95,7 @@ export default {
 
         &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4),
-        &:nth-child(5) {
+        &:nth-child(4) {
           width: 20%;
         }
       }
