@@ -2,6 +2,7 @@
 <div class="bordered-box match">
   <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
     <div class="left">
+      <!-- could be done with MatchHeader component -->
       <div class="map-thumbnail">
         <img
           :src="$api.resolveResource(match.MapIcon)"
@@ -83,7 +84,12 @@
 </template>
 
 <script>
+import MatchHeader from "@/components/MatchHeader.vue";
+
 export default {
+    components: {
+    MatchHeader,
+  },
   props: [
     "match"
   ],

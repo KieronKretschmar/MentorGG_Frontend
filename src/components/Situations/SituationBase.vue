@@ -1,9 +1,12 @@
 <template></template>
 
 <script>
-export default {
-  props: ["situationCollection"],
+import MatchHeader from "@/components/MatchHeader.vue";
 
+export default {
+  components: {
+    MatchHeader,
+  },
   data() {
     return {
       isVisible: false
@@ -173,38 +176,6 @@ export default {
 
         img {
           margin-right: 5px;
-        }
-
-        .map-thumbnail {
-          height: 55px;
-          width: 135px;
-          border-radius: 5px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        .map-and-datetime {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 0 25px;
-
-          .map {
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-          }
-
-          .datetime {
-            font-size: 12px;
-            color: $dark-4;
-            margin-top: 5px;
-          }
         }
 
         .watch-match-icon {

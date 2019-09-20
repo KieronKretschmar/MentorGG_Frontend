@@ -36,17 +36,7 @@
         <div v-for="(situation, index) in situationCollection.Situations" :key="index" class="row">
           <div class="l">
             <div class="col">
-              <div class="map-thumbnail">
-                <img
-                  :src="$api.resolveResource('~/Content/Images/Overview/' + situation.Map +'.jpg')"
-                  :alt="situation.Map + ' Thumbnail'"
-                  :title="situation.Map"
-                />
-              </div>
-              <div class="map-and-datetime">
-                <span class="map">{{ situation.Map }}</span>
-                <span class="datetime">{{ situation.MatchDate|formatDate }}</span>
-              </div>
+              <MatchHeader :map="situation.Map" :matchDate="situation.MatchDate"/>
             </div>
             <div class="col centered">{{situation.Round}}</div>
             <div class="col centered">{{situation.TimeFlashed}} ms</div>

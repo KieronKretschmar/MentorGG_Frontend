@@ -82,7 +82,7 @@ class MentorGGAPI {
         });
     }
 
-    getMisplays(playerId = "", recentMatches = 50){
+    getMisplays(playerId = "", recentMatches){
         let params = {
             recentMatches: recentMatches
         }                
