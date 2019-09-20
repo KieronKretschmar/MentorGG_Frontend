@@ -80,7 +80,7 @@ export default {
         });
       }
       else{
-        this.$api.getMisplays("", 50).then(result => {
+        this.$api.getMisplays("", 1).then(result => {
           console.log(result.data)
           this.situationCollections = result.data.SituationCollections;
           this.loadingComplete = true;
