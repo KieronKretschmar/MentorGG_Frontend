@@ -460,6 +460,13 @@ class MentorGGAPI {
             }
         });
     }
+
+    postLookForMatches(){
+        return axios.post(this.apiEndpoint + 'User/LookForMatches', {
+            params: {
+            }
+        });
+    }
 }
 
 export default new MentorGGAPI();
