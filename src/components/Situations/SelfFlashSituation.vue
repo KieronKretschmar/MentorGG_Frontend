@@ -74,10 +74,10 @@
 </template>
 
 <script>
-import SituationCollectionBase from "@/components/Situations/SituationBase.vue";
+import SituationBase from "@/components/Situations/SituationBase.vue";
 
 export default {
-  extends: SituationCollectionBase,
+  extends: SituationBase,
   props: [
     "situationCollection",
     ],

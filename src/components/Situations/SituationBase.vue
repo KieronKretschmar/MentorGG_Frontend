@@ -64,6 +64,7 @@ export default {
         // white-space: nowrap;
         // overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 20px;
 
         
 
@@ -136,6 +137,10 @@ export default {
         &.centered {
           justify-content: center;
         }
+
+        // &:last-child(){
+        //   width: 5%;
+        // }
 
         img {
           margin-right: 5px;
