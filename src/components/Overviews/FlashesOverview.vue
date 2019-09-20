@@ -1,0 +1,92 @@
+<template>
+  <div>
+    <div v-if="mapSummaries == null" class="bordered-box no-data">
+      <AjaxLoader>Computing summaries for each map</AjaxLoader>
+    </div>
+    <div v-if="mapSummaries != null" class="performances">
+      <div
+        v-for="(mapSummary,index) in mapSummaries"
+        :key="index"
+        class="performance"
+        :class="{active: activeMap == mapSummary.Map}"
+        @click="OnActiveMapUpdated(mapSummary.Map)"
+      >
+        <img
+          class="map-image"
+          :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
+        />
+        <p class="map-name">{{mapSummary.Map}}</p>
+
+        <div class="z-layer-lo">
+          <span class="split-title">UNUSED</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
+            </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="z-layer-hi">
+          <span class="split-title">ASSISTS</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{(mapSummary.KillAssistChanceAsCt* 100).toFixed(0) }}%</span>
+            </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{(mapSummary.KillAssistChanceAsTerrorist* 100).toFixed(0) }}%</span>
+            </div>
+          </div>
+
+          <span class="split-title">BLINDED</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{mapSummary.AverageEnemiesFlashedAsCt.toFixed(2)}}</span>
+            </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{mapSummary.AverageEnemiesFlashedAsTerrorist.toFixed(2)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import OverviewBase from "@/components/Overviews/OverviewBase.vue";
+
+export default {
+  extends: OverviewBase,
+  name: "FlashesOverview",
+  data() {
+    return {
+      mapSummaries: null
+    };
+  },
+  props: ["activeMap"],
+  mounted() {
+    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
+  },
+  methods: {
+    LoadOverviews(matchCount) {
+      this.mapSummaries = null;
+      this.$api.getFlashesOverview("", matchCount).then(response => {
+        this.mapSummaries = response.data.MapSummaries;
+      });
+    }
+  }
+};
+</script>
+
+
+<style lang="scss" scoped>
+</style>

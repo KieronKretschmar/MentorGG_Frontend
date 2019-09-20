@@ -6,7 +6,7 @@
         
         <div class="misplay-explanation">
           Rifles shoot inaccurately when you move faster than a third of the maximum movement speed possible with the rifle.
-          So unless the enemy is right in your face and accuracy doesn't matter, stop to shoot.
+          So unless the enemy is right in your face and accuracy doesn't matter, stop firing.
 
         </div>
       </div>

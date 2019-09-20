@@ -2,27 +2,33 @@
   <div class="match-history">
     <div class="bordered-box tabs-header">
       <span class="title">Match History:</span>
-      <span :class="{ active: activeTab == 'all' }" @click="activeTab = 'all'" class="filter all">All</span>
-      <span :class="{ active: activeTab == 'valve' }" @click="activeTab = 'valve'" class="filter mm">Matchmaking</span>
-      <span :class="{ active: activeTab == 'faceit' }" @click="activeTab = 'faceit'" class="filter faceit">Faceit</span>
+      <span
+        :class="{ active: activeTab == 'all' }"
+        @click="activeTab = 'all'"
+        class="filter all"
+      >All</span>
+      <span
+        :class="{ active: activeTab == 'valve' }"
+        @click="activeTab = 'valve'"
+        class="filter mm"
+      >Matchmaking</span>
+      <span
+        :class="{ active: activeTab == 'faceit' }"
+        @click="activeTab = 'faceit'"
+        class="filter faceit"
+      >Faceit</span>
     </div>
 
-    <div class="match-list">      
+    <div class="match-list">
       <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadAppendMatches(5, true)">
+        <DemoDataLoadRequest @buttonClicked="LoadAppendMatches(5, true)">
           Couldn't find any matches for you.
-          <br>
-          Want so see what it looks like once you've understood how to upload demos?
-          </DemoDataLoadRequest>
+          <br />Want so see what it looks like once you've understood how to upload demos?
+        </DemoDataLoadRequest>
       </div>
 
-
-
       <div v-for="match in visibleMatches" :key="match.MatchId">
-        <PersonalMatch 
-          :match="match"
-          />
+        <PersonalMatch :match="match" />
       </div>
 
       <div v-if="loadingMatches">
@@ -32,8 +38,14 @@
       </div>
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5, false)">Load 5 More</button>
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25, false)">Load 25 More</button>
+      <button
+        class="button-variant-bordered purple"
+        @click="LoadAppendMatches(5, false)"
+      >Load 5 More</button>
+      <button
+        class="button-variant-bordered purple"
+        @click="LoadAppendMatches(25, false)"
+      >Load 25 More</button>
     </div>
   </div>
 </template>
@@ -42,7 +54,7 @@
 import PersonalMatch from "@/components/PersonalMatch.vue";
 export default {
   components: {
-    PersonalMatch,
+    PersonalMatch
   },
   mounted() {
     this.LoadAppendMatches(5, false);
@@ -50,40 +62,45 @@ export default {
   data() {
     return {
       matches: [],
-      activeTab: 'all',
-      loadingMatches: false,
+      activeTab: "all",
+      loadingMatches: false
     };
   },
   computed: {
     visibleMatches: function() {
-      if(this.activeTab == 'all'){
+      if (this.activeTab == "all") {
         return this.matches;
       }
-      if(this.activeTab == 'valve'){
-        return this.matches.filter(x=>x.Source=="Valve");
+      if (this.activeTab == "valve") {
+        return this.matches.filter(x => x.Source == "Valve");
       }
-      if(this.activeTab == 'faceit'){
-        return this.matches.filter(x=>x.Source=="Faceit");
+      if (this.activeTab == "faceit") {
+        return this.matches.filter(x => x.Source == "Faceit");
       }
-    },
+    }
   },
   methods: {
     LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;
-      this.$api.getMatches(isDemo ? "76561198033880857" : "", count, this.matches.length)
-      .then(response => {
-        for (let i = 0; i < response.data.MatchInfos.length; i++) {
-          let match = response.data.MatchInfos[i];
-          match.IsVisible = false;
-          this.matches.push(match);
-        }
-        this.loadingMatches = false;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingMatches = false
-      });
-    },
+      this.$api
+        .getMatches(
+          isDemo ? "76561198033880857" : "",
+          count,
+          this.matches.length
+        )
+        .then(response => {
+          for (let i = 0; i < response.data.MatchInfos.length; i++) {
+            let match = response.data.MatchInfos[i];
+            match.IsVisible = false;
+            this.matches.push(match);
+          }
+          this.loadingMatches = false;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingMatches = false;
+        });
+    }
   }
 };
 </script>
@@ -141,6 +158,58 @@ export default {
   button {
     &:first-child {
       margin-right: 10px;
+    }
+  }
+}
+
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+
+  .match-history {
+    font-size: 1.2vw;
+
+    .bordered-box {
+      padding: 1em 2em;
+
+      &.tabs-header {
+        font-size: 1em;
+        span {
+          font-size: 1em;
+
+          &.filter {
+            margin-left: 1.2em;
+          }
+        }
+      }
+    }
+
+    .match-list {
+
+      div {
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .match-history {
+    font-size: 2.25vw;
+    .bordered-box {
+      &.tabs-header {
+        span {
+          &.filter {
+          }
+        }
+      }
+    }
+    .match-list {
+      div {
+      }
     }
   }
 }
