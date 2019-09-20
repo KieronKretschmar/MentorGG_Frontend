@@ -1,74 +1,30 @@
 <template>
   <div class="view view-kills">
-    <div class="fixed-width-container">      
-      <div v-if="mapSummaries == null" class="bordered-box no-data">
-        <AjaxLoader>Computing summaries for each map</AjaxLoader>
-      </div>
-      <div v-if="mapSummaries != null" class="performances">
-        <div
-          v-for="(mapSummary,index) in mapSummaries"
-          :key="index"
-          class="performance"
-          :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
-        >
-          <img
-            class="map-image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
-          />
-          <p class="map-name">{{mapSummary.Map}}</p>
-
-          <div class="z-layer-lo">
-            <!-- TODO: Style -->
-            <span class="split-title">MatchWin Rate</span>
-            <div class="split">
-              <span style="color:white;">{{(mapSummary.MatchWinFraction * 100).toFixed(0) }}%</span>
-            </div>
-          </div>
-
-          <div class="z-layer-hi">
-            <span class="split-title">ROUNDWIN RATE</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.RoundWinFractionAsCt * 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.RoundWinFractionAsTerrorist * 100).toFixed(0) }}%</span>
-              </div>
-            </div>
-
-            <span class="split-title">KD RATIO</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.KDAsCt).toFixed(2) }}</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.KDAsTerrorist).toFixed(2) }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="fixed-width-container">
+      <KillsOverview :activeMap="activeMap" />
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Kills</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+        <DemoDataLoadRequest @buttonClicked="LoadSamples(activeMap, matchCount, true)">
           Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all.
-          <br>Wanna load someone else's kills?
-          </DemoDataLoadRequest>
-      </div>   
+          <br />Wanna load someone else's kills?
+        </DemoDataLoadRequest>
+      </div>
       <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
+            <button
+              class="button-variant-bordered"
+              :class="{active: showTrajectories}"
+              @click="OnShowTrajectories"
+            >Trajectories</button>
 
-            <button class="button-variant-bordered" @click="ToggleDetailView()" :disabled="!zonesEnabled">Toggle Zones</button>
+            <button
+              class="button-variant-bordered"
+              @click="ToggleDetailView()"
+              :disabled="!zonesEnabled"
+            >Toggle Zones</button>
 
             <div id="plantfilter">
               <button
@@ -108,8 +64,8 @@
               :options="matchCountSelectOptions"
               v-on:input="OnMatchCountUpdated"
             ></CustomSelect>
-          </div>   
-          <div>      
+          </div>
+          <div>
             <RadarImage
               v-if="samples.length"
               :mapInfo="mapInfo"
@@ -232,10 +188,13 @@
                     <p>Watch this round</p>
                   </div>
                   <div class="right">
-                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
-                  </div>    
+                    <i
+                      class="material-icons watch-match-icon"
+                      title="Watch in Browser"
+                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                    >videocam</i>
+                  </div>
                 </div>
-           
 
                 <!-- <div class="stat-row">
                   <div class="stat-description">Hier könnte man theoretisch noch sowas hin wie:</div>
@@ -243,7 +202,7 @@
                     "Tell us if you want additional information about this
                     {{selectedSample.UserWinner ? "Kill" : "Death"}}!"
                   </div>
-                </div> -->
+                </div>-->
               </div>
 
               <div v-if="selectedZone" class="selected-zone-stats">
@@ -252,21 +211,17 @@
                 + (this.activeFilterSettings.PlantStatus == 1 ? "before" : "after") + " the bomb was planted"}}:
                 <div class="stat-row">
                   <div class="stat-description">K/D ratio</div>
-                  <div class="stat-content">
-                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}}
-                  </div>
+                  <div
+                    class="stat-content"
+                  >{{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Kills</div>
-                  <div class="stat-content">
-                    {{userSelectedZonePerformance.Kills}}
-                  </div>
+                  <div class="stat-content">{{userSelectedZonePerformance.Kills}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Deaths</div>
-                  <div class="stat-content">
-                    {{userSelectedZonePerformance.Deaths}}
-                  </div>
+                  <div class="stat-content">{{userSelectedZonePerformance.Deaths}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Damage per Death</div>
@@ -277,22 +232,20 @@
               </div>
             </div>
             <div class="practice-tab">
-              <div v-show="!selectedZone">
-                Select a Zone to get advice on how to improve in that position!
-              </div>
+              <div
+                v-show="!selectedZone"
+              >Select a Zone to get advice on how to improve in that position!</div>
               <div v-if="selectedZone">
-                <div v-if="selectedZone.VideoUrl != ''"> 
-                  <p>Advice for this position: </p> 
-                  <VideoOverlay v-if="selectedZone && selectedZone.VideoUrl != ''"
-                  :url="selectedZone.VideoUrl"
-                  
-                  useThumbnail 
-                  style="width: 100%; height: 100%;">
-                  </VideoOverlay>                 
+                <div v-if="selectedZone.VideoUrl != ''">
+                  <p>Advice for this position:</p>
+                  <VideoOverlay
+                    v-if="selectedZone && selectedZone.VideoUrl != ''"
+                    :url="selectedZone.VideoUrl"
+                    useThumbnail
+                    style="width: 100%; height: 100%;"
+                  ></VideoOverlay>
                 </div>
-                <div v-else>
-                  Advice for this Zone is not yet available. 
-                </div>
+                <div v-else>Advice for this Zone is not yet available.</div>
               </div>
             </div>
           </div>
@@ -308,6 +261,8 @@ import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import VideoOverlay from "@/components/VideoOverlay.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import KillsOverview from "@/components/Overviews/KillsOverview.vue";
+
 
 export default {
   components: {
@@ -316,6 +271,7 @@ export default {
     RadarImage,
     VideoOverlay,
     Zone,
+    KillsOverview
   },
   data() {
     return {
@@ -330,7 +286,6 @@ export default {
         100: "Use last 100 matches"
       },
       showTrajectories: false,
-      mapSummaries: null,
       detailView: true,
 
       zonesEnabled: false,
@@ -349,58 +304,58 @@ export default {
     };
   },
   mounted() {
-    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
     // boolean in query param might be received as string
-    if('showCt' in this.$route.query){
-      this.showCt = this.$route.query.showCt == true ||  this.$route.query.showCt == "true";
+    if ("showCt" in this.$route.query) {
+      this.showCt =
+        this.$route.query.showCt == true || this.$route.query.showCt == "true";
     }
-    if(this.$route.query.map){
+    if (this.$route.query.map) {
       this.activeMap = this.$route.query.map;
     }
-    if(this.$route.query.matchCount){
+    if (this.$route.query.matchCount) {
       this.matchCount = this.$route.query.matchCount;
-      this.matchCountSelectOptions[this.$route.query.matchCount] = "Use last " + this.$route.query.matchCount + " matches"
+      this.matchCountSelectOptions[this.$route.query.matchCount] =
+        "Use last " + this.$route.query.matchCount + " matches";
     }
     this.LoadSamples(this.activeMap, this.matchCount, false);
 
-    if(this.$route.query.zoneId){
+    if (this.$route.query.zoneId) {
       this.detailView = false;
-      this.selectedZoneId = this.$route.query.zoneId;        
+      this.selectedZoneId = this.$route.query.zoneId;
     }
   },
+
   methods: {
-    LoadOverviews(matchCount) {
-      this.mapSummaries = null;
-      this.$api.getKillsOverview(matchCount).then(response => {
-        this.mapSummaries = response.data.MapSummaries;
-      });
-    },
     LoadSamples(map, matchCount, isDemo) {
       this.samples = [];
       this.loadingSamplesComplete = false;
-      this.$api.getKills(isDemo ? "76561198033880857" : "", map, matchCount)
-      .then(response => {
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.userPerformanceData = response.data.UserData;
-        this.activeFilterSettings = {PlantStatus : 0};
-        this.globalPerformanceData = response.data.GlobalData;
-        // Ignore zones where there are no samples for less clutter
-        this.zones = response.data.Zones
-        .filter(x => x.ParentZoneId != -1 && (this.activeUserData.ZonePerformances[x.ZoneId].Deaths != 0 || this.activeUserData.ZonePerformances[x.ZoneId].Kills != 0))
-        .sort((a,b) => a.Depth - b.Depth);
-        if (this.zones.length == 0) {
-          this.zonesEnabled = false;
-        } else {
-          this.zonesEnabled = true;
-        }
-        this.zoneDescendants = response.data.ZoneDescendants;
-        this.loadingSamplesComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingSamplesComplete = true;
-      });
+      this.$api
+        .getKills(isDemo ? "76561198033880857" : "", map, matchCount)
+        .then(response => {
+          this.mapInfo = response.data.MapInfo;
+          this.samples = response.data.Samples;
+          this.userPerformanceData = response.data.UserData;
+          this.activeFilterSettings = { PlantStatus: 0 };
+          this.globalPerformanceData = response.data.GlobalData;
+          // Ignore zones where there are no samples for less clutter
+          this.zones = response.data.Zones.filter(
+            x =>
+              x.ParentZoneId != -1 &&
+              (this.activeUserData.ZonePerformances[x.ZoneId].Deaths != 0 ||
+                this.activeUserData.ZonePerformances[x.ZoneId].Kills != 0)
+          ).sort((a, b) => a.Depth - b.Depth);
+          if (this.zones.length == 0) {
+            this.zonesEnabled = false;
+          } else {
+            this.zonesEnabled = true;
+          }
+          this.zoneDescendants = response.data.ZoneDescendants;
+          this.loadingSamplesComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingSamplesComplete = true;
+        });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
@@ -448,7 +403,7 @@ export default {
     Watch: function(matchId, round) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round);
-    },
+    }
     // Deactivated because userPerformances for different combinations of filtersettings don't need to be computed in JS;
     // All userPerformances for every FilterCombination are provided by api
     // // Takes an array of userDatas and returns the ones that match this.activeFilterSettings
@@ -520,7 +475,7 @@ export default {
         : this.activeGlobalData.TotalTerroristRounds;
     },
     selectedZone() {
-      if(this.selectedZoneId == 0){
+      if (this.selectedZoneId == 0) {
         return null;
       }
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
@@ -532,13 +487,17 @@ export default {
 
       let filteredKills = this.samples;
       // filter by zone (includes filtering by team)
-      if(this.selectedZoneId){
+      if (this.selectedZoneId) {
         let debug = filteredKills[0];
-        filteredKills = filteredKills.filter(x => 
-        this.zoneDescendants[this.selectedZoneId].includes(x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) 
-        || (x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) == this.selectedZoneId)
-      }
-      else{
+        filteredKills = filteredKills.filter(
+          x =>
+            this.zoneDescendants[this.selectedZoneId].includes(
+              x.UserWinner ? x.PlayerZoneId : x.VictimZoneId
+            ) ||
+            (x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) ==
+              this.selectedZoneId
+        );
+      } else {
         filteredKills = filteredKills.filter(x => x.UserIsCt == this.showCt);
       }
 
@@ -559,16 +518,18 @@ export default {
       if (this.detailView) return [];
 
       if (this.selectedZone != null) {
-        return this.zones.filter(x => 
-          x.ParentZoneId == this.selectedZone.ZoneId ||
-            this.selectedZone.ZoneId == x.ZoneId);
+        return this.zones.filter(
+          x =>
+            x.ParentZoneId == this.selectedZone.ZoneId ||
+            this.selectedZone.ZoneId == x.ZoneId
+        );
       } else {
         return this.zones.filter(
           x => x.IsCtZone == this.showCt && x.Depth == 1
         );
       }
     }
-  },
+  }
 };
 </script>
 
@@ -691,7 +652,7 @@ export default {
   }
 }
 
-.no-data {  
+.no-data {
   margin-top: 20px;
 }
 
@@ -730,7 +691,7 @@ export default {
         margin: 0 5px;
       }
 
-      :not(.active){
+      :not(.active) {
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -ms-filter: grayscale(100%);
@@ -741,9 +702,9 @@ export default {
         -webkit-filter: none;
         -moz-filter: none;
         -ms-filter: none;
-        filter: none;      
+        filter: none;
       }
-      
+
       .t {
         transition: 0.35s;
         cursor: pointer;
@@ -773,8 +734,8 @@ export default {
 
   .r {
     width: 30%;
-      
-    .sidebar{
+
+    .sidebar {
       color: white;
 
       .split {
@@ -793,7 +754,7 @@ export default {
             color: $orange;
             margin-right: 20px;
             font-size: 26px;
-            transition: .35s;
+            transition: 0.35s;
             cursor: pointer;
 
             &:hover {
@@ -802,7 +763,7 @@ export default {
           }
         }
       }
-    }  
+    }
   }
 }
 </style>
