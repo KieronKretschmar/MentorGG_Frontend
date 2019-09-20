@@ -1,7 +1,7 @@
 <template>
 <div class="misplays">
   <div class="bordered-box">
-    <p>Your recent misplays</p>
+    <p>Misplays from your last match</p>
   </div>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
       <AjaxLoader>Analyzing your playstyle</AjaxLoader>
@@ -71,7 +71,6 @@ export default {
       this.loadingComplete = false;
       if(isDemo){
         this.$api.getSingleMatchMisplays("76561198033880857", 20622).then(result => {
-          console.log(result.data)
           this.situationCollections = result.data.SituationCollections;
           this.loadingComplete = true;
         })
@@ -81,7 +80,7 @@ export default {
         });
       }
       else{
-        this.$api.getMisplays("", 50).then(result => {
+        this.$api.getMisplays("", 1).then(result => {
           console.log(result.data)
           this.situationCollections = result.data.SituationCollections;
           this.loadingComplete = true;
