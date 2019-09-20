@@ -6,9 +6,9 @@
         
         <div class="misplay-explanation">
           Each bombsite offers different positions to plant the bomb. 
-          Which position is best depends on how much map control and time you have. 
-          On each bombsite, there are a few well-known spots that offer protection from some angles when planting, while making it easy to interrupt defusing CTs.
-          Another advantage of your teammates knowing the exact location of the bomb, is that it's easier to kill CTs defusing within a smoke.
+          Which position is the best strongly depends on how much map control and time you have. 
+          On each bombsite, there are a few well-known spots that offer protection from certain angles when planting, while making it easy to interrupt defusing CTs.
+          Another advantage of your teammates knowing the exact location of the bomb is, that it's easier to kill CTs defusing within a smoke.
         </div>
       </div>
       <!-- <hr /> -->
