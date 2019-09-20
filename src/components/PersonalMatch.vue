@@ -3,7 +3,7 @@
     <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
       <div class="left">
       <!-- could be done with MatchHeader component -->
-      <div class = "image-thumbnail">
+      <div class = "map-thumbnail">
           <img
             :src="$api.resolveResource(match.MapIcon)"
             :alt="match.Map + ' Thumbnail'"
