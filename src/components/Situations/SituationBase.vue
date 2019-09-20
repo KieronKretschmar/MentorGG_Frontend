@@ -1,37 +1,35 @@
-<template>
-</template>
+<template></template>
 
 <script>
-export default {
-  props: [
-    "situationCollection"
-  ],
+import MatchHeader from "@/components/MatchHeader.vue";
 
+export default {
+  components: {
+    MatchHeader,
+  },
   data() {
     return {
-      "isVisible" : false,
-    }
+      isVisible: false
+    };
   },
-  
+
   methods: {
-    IsBetween(x, start, end)
-    {
+    IsBetween(x, start, end) {
       return end >= x && x >= start;
     },
     ToggleMisplayVisibility: function() {
       this.isVisible = !this.isVisible;
       this.$forceUpdate();
     },
-    Watch: function(matchId, round = 1, time=0) {
+    Watch: function(matchId, round = 1, time = 0) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round, Math.max(0,time));
-    },
+      demoviewer.Watch("", matchId, round, Math.max(0, time));
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 .misplay {
   border-bottom: 1px solid $purple;
   margin-top: 10px;
@@ -42,6 +40,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     justify-content: space-between;
+    padding: 10px 0;
 
     .left {
       display: flex;
@@ -50,23 +49,17 @@ export default {
 
       .misplay-title {
         width: 20%;
-        margin-left: 20px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
-      
       .misplay-explanation {
-        font-weight: 200;
+        font-weight: 300;
         width: 70%;
         margin-left: 20px;
-        // white-space: nowrap;
-        // overflow: hidden;
         text-overflow: ellipsis;
         line-height: 20px;
-
-        
 
         .link {
           &.link-inline {
@@ -94,16 +87,16 @@ export default {
   }
 
   .body {
-    
-    margin-top: 10px;
-    
+    // margin-top: 10px;
+    // border-top: 1px solid $purple;
+
     hr {
       border: 1px solid $purple;
       border-bottom: none;
       margin: 15px 0;
     }
 
-    .subtitle{        
+    .subtitle {
       color: $orange;
       text-transform: uppercase;
       font-size: 12px;
@@ -117,23 +110,62 @@ export default {
       &:first-child,
       &:last-child {
         border-bottom: none;
-      }        
+      }
 
       &:first-of-type {
+        // padding-top: 10px;
+        border-bottom: none;
+
         .col {
           color: $orange;
-          text-transform: uppercase;
+          // text-transform: uppercase;
           font-size: 12px;
         }
       }
-      
+
+      .l,
+      .r {
+        display: flex;
+      }
+
+      .l {
+        flex: 1 1 auto;
+
+        .col {
+          &:nth-child(1) {
+            width: 30%;
+          }
+
+          &:nth-child(2) {
+            width: 10%;
+          }
+        }
+      }
+
+      .r {
+        width: 10%;
+
+        .col {
+          width: 100%;
+        }
+      }
+
       .col {
         color: white;
         font-size: 14px;
         font-weight: 500;
         display: flex;
         align-items: center;
-        
+        // width: (1/5) * 100%;
+
+        // &:nth-child(1) {
+        //   width: 30% !important;
+        // }
+
+        // &:nth-child(2) {
+        //   width: 5% !important;
+        // }
+
         &.centered {
           justify-content: center;
         }
@@ -145,44 +177,9 @@ export default {
         img {
           margin-right: 5px;
         }
-        width:(1/5)*100%;
-
-        .map-thumbnail {
-        height: 55px;
-        width: 135px;
-        border-radius: 5px;
-        overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        .map-and-datetime {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          width: 20%;
-          padding: 0 25px;
-
-          .map {
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-          }
-          
-          .datetime {
-            font-size: 12px;
-            color: $dark-4;
-            margin-top: 5px;
-          }
-        }
 
         .watch-match-icon {
           color: $orange;
-          margin-right: 20px;
           font-size: 26px;
           transition: 0.35s;
           cursor: pointer;

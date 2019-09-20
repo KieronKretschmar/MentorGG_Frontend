@@ -63,7 +63,6 @@ export default {
     return {
       situationCollections: [],
       loadingComplete: true,
-
     };
   },
   methods: {
@@ -81,7 +80,7 @@ export default {
       }
       else{
         this.$api.getMisplays("", 1).then(result => {
-          console.log(result.data)
+          // console.log(result.data)
           this.situationCollections = result.data.SituationCollections;
           this.loadingComplete = true;
         })

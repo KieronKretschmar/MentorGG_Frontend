@@ -2,7 +2,7 @@
   <div class="bordered-box match" v-on:click="ToggleMatchVisibility($event,match)">
     <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
       <div class="left">
-        <div class="map-thumbnail">
+      <!-- could be done with MatchHeader component -->
           <img
             :src="$api.resolveResource(match.MapIcon)"
             :alt="match.Map + ' Thumbnail'"

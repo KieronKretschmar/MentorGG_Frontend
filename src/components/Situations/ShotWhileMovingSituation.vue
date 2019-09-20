@@ -6,7 +6,7 @@
         
         <div class="misplay-explanation">
           Rifles shoot inaccurately when you move faster than a third of the maximum movement speed possible with the rifle.
-          So unless the enemy is right in your face and accuracy doesn't matter, stop to shoot.
+          So unless the enemy is right in your face and accuracy doesn't matter, stop firing.
 
         </div>
       </div>
@@ -21,52 +21,42 @@
     
     <transition name="slide">
       <div class="body" v-if="isVisible">
+        <hr/>
         <div class="row">
-          <div class="col">
-            Match
+          <div class="l">
+            <div class="col">Match</div>
+            <div class="col centered">Round</div>
+            <div class="col centered">Weapon</div>
+            <div class="col centered">Died After</div>
           </div>
-          <div class="col centered">
-            Round
-          </div>
-          <div class="col centered">
-            Weapon
-          </div>
-          <div class="col centered">
-            Died After
-          </div>
-          <div class="col centered">
-            Watch Misplay
+          <div class="r">
+            <div class="col centered">Watch Misplay</div>
           </div>
         </div>
 
         <div v-for="(situation, index) in situationCollection.Situations" 
         :key="index"        
         class="row">
-
-          <div class="col">
-            <div class="map-thumbnail">
-              <img
-                :src="$api.resolveResource('~/Content/Images/Overview/' + situation.Map +'.jpg')"
-                :alt="situation.Map + ' Thumbnail'"
-                :title="situation.Map"
-              />
+          <div class="l">
+            <div class="col">
+              <MatchHeader :map="situation.Map" :matchDate="situation.MatchDate"/>
             </div>
-            <div class="map-and-datetime">
-              <span class="map">{{ situation.Map }}</span>
-              <span class="datetime">{{ situation.MatchDate|formatDate }}</span>
+            <div class="col centered">{{situation.Round}}</div>
+            <div class="col centered">
+              {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}}
+              </div>
+            <div class="col centered">
+              {{IsBetween(situation.DeathTime, situation.Time, situation.Time + 2000) ? (situation.DeathTime - situation.Time) + " ms" : "/" }}
             </div>
           </div>
-          <div class="col centered">
-            {{situation.Round}}
-          </div>
-          <div class="col centered">
-            {{situation.WeaponAsString.replace('_silencer', '-s').toUpperCase()}}
-          </div>
-          <div class="col centered">
-            {{IsBetween(situation.DeathTime, situation.Time, situation.Time + 2000) ? (situation.DeathTime - situation.Time) + " ms" : "/" }}
-          </div>
-          <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
+          <div class="r">
+            <div class="col centered">
+              <i
+                class="material-icons watch-match-icon"
+                title="Watch in Browser"
+                @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)"
+              >videocam</i>
+            </div>
           </div>
         </div>
       </div>
@@ -100,14 +90,10 @@ export default {
   .body{
     .row{
       .col{
-        
-        &:nth-child(1) {
-          width: 20%;
-        }
-
-        &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4) {
+        &:nth-child(4),
+        &:nth-child(5)
+        {
           width: 20%;
         }
       }
