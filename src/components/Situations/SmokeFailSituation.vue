@@ -62,7 +62,7 @@
             <a class="cell link" @click="NavigateToSmokes(situation.Map, situation.LineupId)">{{ situation.LineupName }}</a>
           </div>
           <div class="col centered">
-            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round)">videocam</i>
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 10000)">videocam</i>
           </div>
         </div>
       </div>
