@@ -7,7 +7,7 @@
         <div class="misplay-explanation">
           Throwing smoke lineups accurately and consistently is vital. 
           It seems like you have failed the lineup(s) below.
-          Practice them, so that you and your team will not get caught off guard by a failed smoke and possibly give away rounds you might have otherwise won.
+          Practice them, so that you and your team will not get caught off guard by a failed smoke and possibly give away rounds you may have won otherwise.
         </div>
       </div>
       <!-- <hr /> -->

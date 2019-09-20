@@ -8,7 +8,7 @@
           Some people throw flashbangs without thinking of their teammates' positions.
           Don't be one of those guys.
           <!-- Announcing flashes that might affect teammates does not only prevent them from having to look at a white screen, but also enables them to doublepeek with you after it pops. -->
-          Briefly announcing "flashing X" via voice makes all the difference between a pissed off teammate and a strongly timed doublepeek right after the flash pops.
+          Briefly announcing "flashing X" via voice makes all the difference between a pissed off teammate and a well timed double peek right after the flash pops.
         </div>
       </div>
 

@@ -5,8 +5,8 @@
         <span class="misplay-title">Unnecessary reload</span>
         
         <div class="misplay-explanation">
-          It's a bad habit to reload your gun when you're not completely safe and still have many bullets left in the current mag. 
-          If you <i>really</i> depend on having a full mag to kill somebody, go practice tapping and bursting on an aim map. 
+          It's a bad habit to reload your gun when you're not completely safe and still have plenty of bullets left in the current magazine. 
+          If you <i>really</i> depend on having a full magazine to kill somebody, go practice tapping and bursting on an aim map. 
         </div>
       </div>
 
