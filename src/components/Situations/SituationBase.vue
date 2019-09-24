@@ -24,7 +24,7 @@ export default {
     Watch: function(matchId, round = 1, time = 0) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round, Math.max(0, time));
-    }
+    },
     ChooseRandom(items){
       let randomItem = items[Math.floor(Math.random()*items.length)];
       return randomItem;
