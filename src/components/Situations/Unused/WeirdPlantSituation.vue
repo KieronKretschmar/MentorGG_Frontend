@@ -1,4 +1,66 @@
 <template>
+  <div class="misplay bordered-box">
+    <div class="header">
+      <div class="left">
+        <span class="misplay-title">{{ "Weird Bombplant" }}</span>
+        
+        <div class="misplay-explanation">
+          Each bombsite offers different positions to plant the bomb. 
+          Which position is best depends on how much map control and time you have. 
+          On each bombsite, there are a few well-known spots that offer protection from some angles when planting, while making it easy to interrupt defusing CTs.
+          Another advantage of your teammates knowing the exact location of the bomb, is that it's easier to kill CTs defusing within a smoke.
+        </div>
+      </div>
+      <!-- <hr /> -->
+      <div class="right">
+        <button
+          class="button-variant-bordered"
+          @click="ToggleMisplayVisibility(1)"
+        >Show {{situationCollection.length}} Occurrences</button>
+      </div>
+    </div>
+    
+    <transition name="slide">
+      <div class="body" v-if="true">
+        <hr />
+        <div class="row">
+          <div class="col">
+            Match
+          </div>
+          <div class="col centered">
+            Round
+          </div>
+          <div class="col centered">
+            Round time
+          </div>
+          <div class="col centered">
+            Details
+          </div>
+          <div class="col centered">
+            Watch Misplay
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="map-and-datetime"><span class="map">de_inferno</span><span class="datetime">24.8.2019, 12:34:27</span></div>
+          </div>
+          <div class="col centered">
+            12
+          </div>
+          <div class="col centered">
+            00:51
+          </div>
+          <div class="col centered">
+            Bomb defused while 2 teammates were alive.
+          </div>
+          <div class="col centered">
+            <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -14,22 +76,10 @@ export default {
   },
   
   methods: {
-    IsBetween(x, start, end)
-    {
-      return end >= x && x >= start;
-    },
-    ToggleMisplayVisibility: function() {
-      this.isVisible = !this.isVisible;
+    ToggleMisplayVisibility: function(misplay) {
+      this.IsVisible = !this.IsVisible;
       this.$forceUpdate();
     },
-    Watch: function(matchId, round = 1, time=0) {
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round, Math.max(0,time));
-    },
-    ChooseRandom(items){
-      let randomItem = items[Math.floor(Math.random()*items.length)];
-      return randomItem;
-    }
   }
 }
 </script>
@@ -68,25 +118,6 @@ export default {
         // white-space: nowrap;
         // overflow: hidden;
         text-overflow: ellipsis;
-
-        
-
-        .link {
-          &.link-inline {
-            // display: flex;
-            // align-items: center;
-            background: $dark-1;
-            color: white;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border: 1px solid $dark-1;
-            transition: 0.35s;
-            text-decoration: none;
-            cursor: pointer;
-
-            color: $orange;
-          }
-        }
       }
     }
 
@@ -97,9 +128,6 @@ export default {
   }
 
   .body {
-    
-    margin-top: 10px;
-    
     hr {
       border: 1px solid $purple;
       border-bottom: none;
@@ -151,6 +179,7 @@ export default {
         width: 135px;
         border-radius: 5px;
         overflow: hidden;
+        border-left-style: solid;
 
           img {
             width: 100%;
@@ -163,48 +192,20 @@ export default {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          width: 20%;
-          padding: 0 25px;
+          width: 100%;
+          // padding: 0 25px;
+          // border-right: 1px solid $purple;
 
           .map {
             color: white;
             font-size: 16px;
             font-weight: 500;
           }
-          
+
           .datetime {
             font-size: 12px;
             color: $dark-4;
             margin-top: 5px;
-          }
-        }
-
-        .watch-match-icon {
-          color: $orange;
-          margin-right: 20px;
-          font-size: 26px;
-          transition: 0.35s;
-          cursor: pointer;
-
-          &:hover {
-            color: $purple;
-          }
-        }
-
-        .link {
-          display: flex;
-          align-items: center;
-          background: $dark-1;
-          color: white;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          border: 1px solid $dark-1;
-          transition: 0.35s;
-          text-decoration: none;
-          cursor: pointer;
-
-          &:hover {
-            color: $orange;
           }
         }
       }

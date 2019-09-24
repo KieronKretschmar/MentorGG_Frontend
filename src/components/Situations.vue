@@ -1,7 +1,7 @@
 <template>
 <div class="misplays">
   <div class="bordered-box">
-    <p>Your recent misplays</p>
+    <p>Misplays from your last match</p>
   </div>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
       <AjaxLoader>Analyzing your playstyle</AjaxLoader>
@@ -14,9 +14,11 @@
 
     <span>
       <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">        
-        <NoDataAvailableDisplay>
+        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           No misplays found for you. Either you haven't uploaded any matches, or we could not detect a single mistake you made!
-          </NoDataAvailableDisplay>
+          <br>
+          Wanna see somebody else's misplays? 
+        </DemoDataLoadRequest>
       </div>
       
       <div        
@@ -42,6 +44,7 @@ import SelfFlashSituation from "@/components/Situations/SelfFlashSituation.vue";
 import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
 import SmokeFailSituation from "@/components/Situations/SmokeFailSituation.vue";
 import TeamFlashSituation from "@/components/Situations/TeamFlashSituation.vue";
+import UnnecessaryReloadSituation from "@/components/Situations/UnnecessaryReloadSituation.vue";
 
 export default {
   components: {
@@ -51,6 +54,7 @@ export default {
     ShotWhileMovingSituation,
     SmokeFailSituation,
     TeamFlashSituation,
+    UnnecessaryReloadSituation,
   },
   mounted() {
     this.LoadData(false);
@@ -65,15 +69,27 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getMisplays(isDemo ? "76561198033880857" : "", 50).then(result => {
-        console.log(result.data)
-        this.situationCollections = result.data.SituationCollections;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      if(isDemo){
+        this.$api.getSingleMatchMisplays("76561198033880857", 20622).then(result => {
+          this.situationCollections = result.data.SituationCollections;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+      }
+      else{
+        this.$api.getMisplays("", 1).then(result => {
+          console.log(result.data)
+          this.situationCollections = result.data.SituationCollections;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+      }
     },
   }
 };

@@ -7,7 +7,7 @@
         <div class="misplay-explanation">
           Losing the bomb on the terrorist side makes it much harder to win the round. 
           Consider dropping the bomb before facing CTs as a terrorist, to give your teammates a chance to plant it.
-          This is even more important when many teammates are alive but not close enough to get the refrag.
+          This is even more important when your teammates are too far away for a refrag.
         </div>
       </div>
 

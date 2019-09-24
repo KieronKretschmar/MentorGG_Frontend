@@ -2,13 +2,13 @@
   <div class="misplay bordered-box">
     <div class="header">
       <div class="left">
-        <span class="misplay-title">Team-Flash</span>
+        <span class="misplay-title">Death with grenade in hand</span>
         
         <div class="misplay-explanation">
-          Some people throw flashbangs without thinking of their teammates' positions. 
-          Don't be one of those guys.
-          <!-- Announcing flashes that might affect teammates does not only prevent them from having to look at a white screen, but also enables them to doublepeek with you after it pops. -->
-          Briefly announcing "flashing X" via voice makes all the difference between a pissed off teammate and strongly timed doublepeek right after the flash pops.
+          Most of the time dying while having a grenade in hand is avoidable. 
+          You should use keybinds for your nades so you can select them much faster, if you haven't already done that.
+          Also you should only take the nade in your hand if you either expect to throw it right away or are 100% sure that you are safe.
+          Don't let yourself get caught pants down! 
         </div>
       </div>
 
@@ -30,13 +30,7 @@
             Round
           </div>
           <div class="col centered">
-            Teammates flashed
-          </div>
-          <div class="col centered">
-            Total time flashed
-          </div>
-          <div class="col centered">
-            Died while blinded
+            Type
           </div>
           <div class="col centered">
             Watch Misplay
@@ -64,13 +58,7 @@
             {{situation.Round}}
           </div>
           <div class="col centered">
-            {{situation.TeammatesFlashed}}
-          </div>
-          <div class="col centered">
-            {{situation.TimeFlashed}} ms
-          </div>
-          <div class="col centered">
-            {{situation.DiedBlindCount}}
+            {{situation.NadeType}}
           </div>
           <div class="col centered">
             <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)">videocam</i>
@@ -107,10 +95,8 @@ export default {
 
         &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4),
-        &:nth-child(5),
-        &:nth-child(6) {
-          width: (80%/5);
+        &:nth-child(4) {
+          width: 20%;
         }
       }
     }

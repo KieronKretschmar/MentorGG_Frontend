@@ -10,6 +10,7 @@
           Practice them, so that you and your team will not get caught off guard by a failed smoke and possibly give away rounds you might have otherwise won.
         </div>
       </div>
+      <!-- <hr /> -->
 
       <div class="right">
         <button
@@ -21,6 +22,7 @@
     
     <transition name="slide">
       <div class="body" v-if="isVisible">
+        <hr />
         <div class="row">
           <div class="col">
             Match
@@ -28,7 +30,7 @@
           <div class="col centered">
             Round
           </div>
-          <div class="col">
+          <div class="col centered">
             Lineup
           </div>
           <div class="col centered">
@@ -56,7 +58,7 @@
           <div class="col centered">
             {{situation.Round}}
           </div>
-          <div class="col">
+          <div class="col centered">
             <a class="cell link" @click="NavigateToSmokes(situation.Map, situation.LineupId)">{{ situation.LineupName }}</a>
           </div>
           <div class="col centered">
@@ -99,8 +101,11 @@ export default {
           width: 20%;
         }
 
+        &:nth-child(3){
+          width: 40%;
+        }
+        
         &:nth-child(2),
-        &:nth-child(3),
         &:nth-child(4) {
           width: 20%;
         }

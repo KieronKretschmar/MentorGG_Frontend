@@ -55,10 +55,6 @@ export default {
     },
   },
   methods: {
-    WatchMatch: function(match) {
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", match.MatchId, 1);
-    },
     LoadEventInfo: function(eventName){
       this.$api.getEvent(this.selectedEventName)
       .then(response => {
