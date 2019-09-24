@@ -15,6 +15,7 @@ class MentorGGAPI {
             this.tldEndpoint = 'https://mentor.gg/';
             this.fixedSteamId = '76561198166019050'; //felix
             this.fixedSteamId = '76561198033880857'; //kieron
+            this.fixedSteamId = '76561198044966222'; //lasse
         }
         
         this.apiEndpoint = this.mvcEndpoint + 'api/';
@@ -228,6 +229,33 @@ class MentorGGAPI {
         }
 
         return axios.get(this.apiEndpoint + 'Flashes/Flashes', {
+            params: params
+        });
+    }
+
+    getBombPlants(playerId = "", map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }
+
+        if (playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId) {
+            params.playerId = this.fixedSteamId;
+        }
+
+        return axios.get(this.apiEndpoint + 'Bomb/Bombs', {
+            params: params });
+    }
+
+    getAllBombPlants( map, recentMatches = 50) {
+        let params = {
+            map: map,
+            recentMatches: recentMatches
+        }
+        return axios.get(this.apiEndpoint + 'Bomb/AllBombs', {
             params: params
         });
     }
