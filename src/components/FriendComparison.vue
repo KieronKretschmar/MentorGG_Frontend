@@ -11,12 +11,11 @@
     </div>
 
     <span>
-      <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">        
+      <div v-if="loadingComplete && !comparisons.length" class="bordered-box no-comparisons">
         <DemoDataLoadRequest @buttonClicked="LoadData(true)">
           You have no matches played with your steam-friends in the database :(
-          <br>
-          Wanna see somebody else's shitty ass random stats? 
-          </DemoDataLoadRequest>
+          <br />Wanna see somebody else's shitty ass random stats?
+        </DemoDataLoadRequest>
       </div>
 
       <div
@@ -24,63 +23,139 @@
         v-for="comparison in comparisons"
         :key="comparison.OtherSteamId"
         class="comparison bordered-box"
+        v-on:click="ToggleComparisonVisibility($event,comparison)"
       >
         <div class="header">
           <div class="left">
-            <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
-            <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
-            <span class="winrate" :class="{good: comparison.MatchesWon >= comparison.MatchesLost}">
+            <div class="info">
+              <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
+              <span class="name">
+                {{ comparison.OtherPlayerInfo.SteamName }}
+                <hr class="on-mobile" />
+                <span class="favorite-map mobile">
+                  <div class="map-text">
+                    <span>Favorite Map</span>
+                    <br />
+                    <h5>{{ comparison.MostPlayedMap }}</h5>
+                  </div>
+                </span>
+              </span>
+            </div>
+
+            <span
+              class="winrate desktop"
+              :class="{good: comparison.MatchesWon >= comparison.MatchesLost}"
+            >
               {{ comparison.MatchesWon + " - " + comparison.MatchesTied + " - " + comparison.MatchesLost }}
               <br />
               <span>Win - Tie - Loss</span>
             </span>
-            <span class="favorite-map">
+
+            <span class="favorite-map desktop">
               <div class="map-text">
                 <span>Favorite Map</span>
                 <br />
-                {{ comparison.MostPlayedMap }}
+                <h5>{{ comparison.MostPlayedMap }}</h5>
               </div>
             </span>
-            <div class="winrate" :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}">
+            <div
+              class="winrate desktop"
+              :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}"
+            >
               {{ comparison.MostPlayedMapMatchesWon + " - " + comparison.MostPlayedMapMatchesTied + " - " + comparison.MostPlayedMapMatchesLost }}
               <br />
               <span>Win - Tie - Loss</span>
             </div>
+
+            <span
+              class="winrate mobile"
+              :class="{good: comparison.MatchesWon >= comparison.MatchesLost}"
+            >
+              <div class="result label">
+                <span>Maps</span>
+                <span class="win">Win</span>
+                <span class="tie">Tie</span>
+                <span class="loss">Loss</span>
+              </div>
+              <hr class="on-mobile" />
+
+              <div
+                class="result values"
+                :class="{good: comparison.MatchesWon >= comparison.MatchesLost}"
+              >
+                <span>All Maps</span>
+                <span class="win">{{comparison.MatchesWon}}</span>
+                <span class="tie">{{comparison.MatchesTied}}</span>
+                <span class="loss">{{comparison.MatchesLost}}</span>
+              </div>
+              <hr class="on-mobile" />
+              <div
+                class="result values"
+                :class="{good: comparison.MatchesWon >= comparison.MatchesLost}"
+              >
+                <span>{{ comparison.MostPlayedMap }}</span>
+                <span class="win">{{comparison.MostPlayedMapMatchesWon}}</span>
+                <span class="tie">{{comparison.MostPlayedMapMatchesTied}}</span>
+                <span class="loss">{{comparison.MostPlayedMapMatchesLost}}</span>
+              </div>
+            </span>
           </div>
+
           <div class="right">
-            <button
-              class="button-variant-bordered"
-              @click="ToggleComparisonVisibility(comparison)"
-            >Friend details</button>
+            <i class="material-icons arrow">arrow_drop_down</i>
+            <i class="material-icons up arrow hide">arrow_drop_up</i>
           </div>
         </div>
+
         <transition name="slide">
           <div class="body" v-if="comparison.IsVisible">
-            <hr />
+            <hr class="on-desktop" />
 
             <div class="row">
               <div class="col">Who</div>
-              <div class="col centered"><img src="@/assets/t_logo.png"> K/D</div>
-              <div class="col centered"><img src="@/assets/ct_logo.png">K/D</div>
+              <div class="col centered">
+                <img src="@/assets/t_logo.png" /> K/D
+              </div>
+              <div class="col centered">
+                <img src="@/assets/ct_logo.png" />K/D
+              </div>
               <!-- <div class="col centered"><img src="@/assets/t_logo.png">Deaths</div>
-              <div class="col centered"><img src="@/assets/ct_logo.png">Deaths</div> -->
-              <div class="col centered"><img src="@/assets/t_logo.png">ADR</div>
-              <div class="col centered"><img src="@/assets/ct_logo.png">ADR</div>
+              <div class="col centered"><img src="@/assets/ct_logo.png">Deaths</div>-->
+              <div class="col centered">
+                <img src="@/assets/t_logo.png" />ADR
+              </div>
+              <div class="col centered">
+                <img src="@/assets/ct_logo.png" />ADR
+              </div>
               <!-- <div class="col centered">Flashes Thrown</div> -->
-              <div class="col centered">Enemies <br> Flashed</div>
-              <div class="col centered">Team <br> Flashed</div>
+              <div class="col centered">
+                Enemies
+                <br />Flashed
+              </div>
+              <div class="col centered">
+                Team
+                <br />Flashed
+              </div>
               <!-- <div class="col centered">Firenades Thrown</div>
               <div class="col centered">HEs Thrown</div>
-              <div class="col centered">Smokes Thrown</div> -->
+              <div class="col centered">Smokes Thrown</div>-->
               <div class="col centered">MVPs</div>
               <div class="col centered">Score</div>
             </div>
             <div class="row">
               <div class="col">You</div>
-              <div class="col centered">{{(comparison.UserData.TerroristKills / Math.max(1, comparison.UserData.TerroristDeaths)).toFixed(2)}}</div>
-              <div class="col centered">{{(comparison.UserData.CtKills / Math.max(1, comparison.UserData.CtDeaths)).toFixed(2)}}</div>
-              <div class="col centered">{{(comparison.UserData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div class="col centered">{{(comparison.UserData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.UserData.TerroristKills / Math.max(1, comparison.UserData.TerroristDeaths)).toFixed(2)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.UserData.CtKills / Math.max(1, comparison.UserData.CtDeaths)).toFixed(2)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.UserData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.UserData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
               <div class="col centered">{{comparison.UserData.EnemiesFlashed}}</div>
               <div class="col centered">{{comparison.UserData.TeammatesFlashed}}</div>
               <div class="col centered">{{comparison.UserData.MVPs}}</div>
@@ -88,16 +163,23 @@
             </div>
             <div class="row">
               <div class="col">Friend</div>
-              <div class="col centered">{{(comparison.OtherData.TerroristKills / Math.max(1, comparison.OtherData.TerroristDeaths)).toFixed(2)}}</div>
-              <div class="col centered">{{(comparison.OtherData.CtKills / Math.max(1, comparison.OtherData.CtDeaths)).toFixed(2)}}</div>
-              <div class="col centered">{{(comparison.OtherData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div class="col centered">{{(comparison.OtherData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.OtherData.TerroristKills / Math.max(1, comparison.OtherData.TerroristDeaths)).toFixed(2)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.OtherData.CtKills / Math.max(1, comparison.OtherData.CtDeaths)).toFixed(2)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.OtherData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+              <div
+                class="col centered"
+              >{{(comparison.OtherData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
               <div class="col centered">{{comparison.OtherData.EnemiesFlashed}}</div>
               <div class="col centered">{{comparison.OtherData.TeammatesFlashed}}</div>
               <div class="col centered">{{comparison.OtherData.MVPs}}</div>
               <div class="col centered">{{comparison.OtherData.Score}}</div>
             </div>
-
           </div>
         </transition>
       </div>
@@ -106,7 +188,6 @@
 </template>
 
 <script>
-
 export default {
   mounted() {
     this.LoadData(false);
@@ -114,37 +195,42 @@ export default {
   data() {
     return {
       comparisons: [],
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      this.$api.getFriendsComparison(isDemo ? "76561198033880857" : "").then(result => {
-        this.comparisons = result.data.Rows;
-        this.comparisons.forEach(comparison => {
-          comparison.WinRate =
-            (comparison.MatchesWon / comparison.MatchesPlayed) *
-            100;
+      this.$api
+        .getFriendsComparison(isDemo ? "76561198033880857" : "")
+        .then(result => {
+          this.comparisons = result.data.Rows;
+          this.comparisons.forEach(comparison => {
+            comparison.WinRate =
+              (comparison.MatchesWon / comparison.MatchesPlayed) * 100;
 
-          comparison.MapWinRate =
-            (comparison.MostPlayedMapMatchesWon /
-              comparison.MostPlayedMapMatchesPlayed) *
-            100;
+            comparison.MapWinRate =
+              (comparison.MostPlayedMapMatchesWon /
+                comparison.MostPlayedMapMatchesPlayed) *
+              100;
 
-          comparison.IsVisible = false;
+            comparison.IsVisible = false;
+          });
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
         });
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
     },
-    ToggleComparisonVisibility: function(comparison) {
+    ToggleComparisonVisibility: function(event, comparison) {
+      let arrows = [
+        ...event.target.closest(".comparison").querySelectorAll(".arrow")
+      ];
       comparison.IsVisible = !comparison.IsVisible;
+      arrows.forEach(arrow => arrow.classList.toggle("hide"));
       this.$forceUpdate();
-    },
+    }
   }
 };
 </script>
@@ -152,7 +238,13 @@ export default {
 <style lang="scss">
 .friend-comparison {
   margin-bottom: 20px;
+  .hide {
+    display: none;
+  }
 
+  .on-mobile {
+    display: none;
+  }
   p {
     color: white;
     font-weight: 500;
@@ -165,6 +257,7 @@ export default {
   .comparison {
     border-bottom: 1px solid $purple;
     margin-top: 10px;
+    cursor: pointer;
 
     .header {
       display: flex;
@@ -177,6 +270,16 @@ export default {
         display: flex;
         align-items: center;
         width: 80%;
+        .info {
+          display: flex;
+          flex-basis: 30%;
+          .name {
+            width: 100%;
+          }
+        }
+        .mobile {
+          display: none;
+        }
 
         .avatar {
           width: 32px;
@@ -190,6 +293,9 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          .mobile {
+            display: none;
+          }
         }
 
         .winrate {
@@ -257,7 +363,7 @@ export default {
         &:first-child,
         &:last-child {
           border-bottom: none;
-        }        
+        }
 
         &:first-of-type {
           .col {
@@ -266,14 +372,14 @@ export default {
             font-size: 12px;
           }
         }
-        
+
         .col {
           color: white;
           font-size: 14px;
           font-weight: 500;
           display: flex;
           align-items: center;
-          
+
           &.centered {
             justify-content: center;
           }
@@ -281,7 +387,7 @@ export default {
           img {
             margin-right: 5px;
           }
-          width:(1/9)*100%;
+          width: (1/9) * 100%;
           // &:nth-child(1) {
           //   width: 15%;
           // }
@@ -295,6 +401,303 @@ export default {
       }
     }
   }
+}
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .friend-comparison {
+    font-size: 1.2vw;
 
+    .bordered-box {
+      padding: 1em 2em;
+
+      p {
+        margin: 1.1em 0;
+        font-size: 1.25em;
+      }
+    }
+
+    .comparison {
+      &.bordered-box {
+        margin-top: 0.9em;
+
+        .header {
+          font-size: 1em;
+
+          .left {
+            .avatar {
+              width: 3.5em;
+              height: auto;
+              border-radius: 0.25em;
+            }
+
+            .name {
+              margin-left: 1.2em;
+              font-size: 1.2em;
+            }
+
+            .winrate {
+              margin-left: 1.2em;
+              font-size: 1.2em;
+
+              &.good {
+              }
+            }
+
+            .favorite-map {
+              .map-text {
+                font-size: 1em;
+
+                span {
+                }
+
+                h5 {
+                  font-size: 1.1em;
+                }
+              }
+            }
+          }
+
+          .right {
+            .on-mobile {
+              display: none;
+            }
+
+            .button-variant-bordered {
+              &.comparison-btn {
+                font-size: 1.1em;
+              }
+            }
+          }
+        }
+        .body {
+
+          .row {
+            font-size: 1.1em;
+
+            .col {
+              font-size: 1.1em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .friend-comparison {
+    font-size: 2.25vw;
+
+    .on-desktop {
+      display: none;
+    }
+
+    .on-mobile {
+      display: block;
+      width: 100%;
+      border: 0.5px solid $purple;
+    }
+    .bordered-box {
+
+      p {
+      }
+    }
+
+    .comparison {
+      position: relative;
+
+      &.bordered-box {
+        padding: 4em 2em;
+
+        .header {
+          display: flex;
+          flex-direction: column;
+
+          .left {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+
+            .desktop {
+              display: none;
+            }
+
+            .mobile {
+              display: flex;
+            }
+
+            .info {
+              display: flex;
+              width: 100%;
+
+              .avatar {
+                width: 8vw;
+                height: 8vw;
+              }
+
+              .name {
+                font-size: 1.3em;
+                flex-grow: 1;
+                width: auto;
+
+                .favorite-map {
+                  width: 100%;
+                  border: none;
+
+                  .map-text {
+                    padding: 0;
+                    color: $purple;
+
+                    span {
+                      font-size: 1em;
+                    }
+
+                    h5 {
+                      margin-left: 1em;
+                      color: rgb(255, 255, 255);
+                      display: inline;
+                      font-size: 1em;
+                    }
+
+                    br {
+                      display: none;
+                    }
+                  }
+                }
+              }
+            }
+
+            .winrate {
+              width: 100%;
+              border: none;
+              font-size: 2em;
+              text-align: left;
+              margin: 0;
+              flex-direction: column;
+              margin-top: 1em;
+
+              &.mobile {
+                .result {
+                  display: flex;
+                  padding: 1em 0;
+
+                  &.label {
+                    span {
+
+                      &:first-of-type {
+                        color: white;
+                        flex-basis: 40%;
+                        text-align: left;
+                      }
+
+                      &.win {
+                        color: $green;
+                      }
+
+                      &.tie {
+                        color: $light-1;
+                      }
+
+                      &.loss {
+                        color: $red;
+                      }
+                      flex-basis: 20%;
+                      text-align: center;
+                    }
+                  }
+
+                  &.values {
+                    span {
+                      flex-basis: 20%;
+                      text-align: center;
+                      color: $red;
+                      &:first-of-type {
+                        text-align: left;
+                        flex-basis: 40%;
+                      }
+
+                      &.win {
+                        color: $green;
+                      }
+
+                      &.tie {
+                        color: $light-1;
+                      }
+
+                      &.loss {
+                        color: $red;
+                      }
+                    }
+
+                    &.good {
+                      span {
+                        &:first-of-type {
+                          color: $green;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .right {
+            flex-direction: column;
+            align-items: flex-start;
+
+            .arrow {
+              position: absolute;
+              bottom: 0;
+              right: 0.4em;
+              font-size: 3.5em;
+            }
+            
+            .button-variant-bordered {
+              &.comparison-btn {
+                font-size: 1.1em;
+              }
+            }
+          }
+        }
+
+        .body {
+          display: flex;
+          justify-content: space-between;
+
+          .row {
+            flex-direction: column;
+            border: none;
+            font-size: 1.1em;
+
+            &:first-of-type {
+              width: 50%;
+
+              .col {
+                &.centered {
+                  justify-content: flex-start;
+                }
+              }
+            }
+
+            .col {
+              width: auto;
+              flex-basis: 40px;
+              font-size: 1.1em;
+              
+              br {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 </style>

@@ -377,6 +377,10 @@
     a {
       color: $orange;
     }
+
+    p {
+      font-weight: 300;
+    }
   }
 }
 </style>

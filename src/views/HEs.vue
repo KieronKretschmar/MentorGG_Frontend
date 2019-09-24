@@ -1,81 +1,31 @@
 <template>
   <div class="view view-hes">
-    <div class="fixed-width-container">      
-      <div v-if="mapSummaries == null" class="bordered-box no-data">
-        <AjaxLoader>Computing summaries for each map</AjaxLoader>
-      </div>
-      <div v-if="mapSummaries != null" class="performances">
-        <div
-          v-for="(mapSummary,index) in mapSummaries"
-          :key="index"
-          class="performance"
-          :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
-        >
-          <img
-            class="map-image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
-          />
-          <p class="map-name">{{mapSummary.Map}}</p>
-
-          <div class="z-layer-lo">
-            <span class="split-title">UNUSED</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="z-layer-hi">
-            <span class="split-title">DAMAGE</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{mapSummary.AverageDamageAsCt.toFixed(1)}}</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
-              </div>
-            </div>
-
-            <span class="split-title">KILLS</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="fixed-width-container">
+      <HESOverview :activeMap="activeMap" />
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading HEs</AjaxLoader>
       </div>
       <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-            Either you don't have any matches on this map, or you just don't use any he grenades at all. 
-            <br>Wanna load someone else's?
-          </DemoDataLoadRequest>
-      </div>   
+        <DemoDataLoadRequest @buttonClicked="LoadSamples(activeMap, matchCount, true)">
+          Either you don't have any matches on this map, or you just don't use any he grenades at all.
+          <br />Wanna load someone else's?
+        </DemoDataLoadRequest>
+      </div>
       <div v-if="samples.length" class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
-            <button class="button-variant-bordered" :class="{active: showTrajectories}" @click="OnShowTrajectories">Trajectories</button>
+            <button
+              class="button-variant-bordered"
+              :class="{active: showTrajectories}"
+              @click="OnShowTrajectories"
+            >Trajectories</button>
 
-            <button class="button-variant-bordered" @click="ToggleDetailView()" :disabled="!zonesEnabled">Toggle Zones</button>
+            <button
+              class="button-variant-bordered"
+              @click="ToggleDetailView()"
+              :disabled="!zonesEnabled"
+            >Toggle Zones</button>
 
             <div class="team-select">
               <img
@@ -124,7 +74,7 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <HE 
+                      <HE
                         :grenadeData="{
                           'Id':'HE-1-1',
                           'MatchId':1,
@@ -143,18 +93,18 @@
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="false" 
+                        :isSelected="false"
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    Grey markers represent HEs that did not hit enemies.
-                  </div>
+                  <div
+                    class="legend-description"
+                  >Grey markers represent HEs that did not hit enemies.</div>
                 </div>
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <HE 
+                      <HE
                         :grenadeData="{
                           'Id':'HE-1-1',
                           'MatchId':1,
@@ -173,18 +123,18 @@
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="false" 
+                        :isSelected="false"
                       />
                     </svg>
-                  </div>                
-                  <div class="legend-description">
-                    White markers indicate damaged enemies. Radius corresponds to damage.
                   </div>
+                  <div
+                    class="legend-description"
+                  >White markers indicate damaged enemies. Radius corresponds to damage.</div>
                 </div>
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <HE 
+                      <HE
                         :grenadeData="{
                           'Id':'Flash-1-1',
                           'MatchId':1,
@@ -203,18 +153,16 @@
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="false" 
+                        :isSelected="false"
                       />
                     </svg>
-                  </div>                
-                  <div class="legend-description">
-                    Green markers indicate fatal damage.
                   </div>
+                  <div class="legend-description">Green markers indicate fatal damage.</div>
                 </div>
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <HE 
+                      <HE
                         :grenadeData="{
                           'Id':'HE-1-1',
                           'MatchId':1,
@@ -235,23 +183,21 @@
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
-                        :isSelected="true" 
+                        :isSelected="true"
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    Click on a HE to see the victims' positions. 
-                  </div>
+                  <div class="legend-description">Click on a HE to see the victims' positions.</div>
                 </div>
               </div>
               <div class="zone-legend-section">
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
-                      <Zone 
+                      <Zone
                         :SetSelectedZone="function(){}"
                         :fillColor="'rgba(255, 255, 255, 0.15)'"
-                        :isSelected="false" 
+                        :isSelected="false"
                         :zoneData="{
                           'ZoneId':1,
                           'Name':'Legend_Zone',
@@ -265,82 +211,66 @@
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    A zone's color corresponds to the average damage of your HEs that detonated in it. 
-                  </div>
+                  <div
+                    class="legend-description"
+                  >A zone's color corresponds to the average damage of your HEs that detonated in it.</div>
                 </div>
               </div>
             </div>
             <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
-              <div v-if="selectedSample" class="selected-sample-stats"> 
+              <div v-if="selectedSample" class="selected-sample-stats">
                 About this HE:
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Round
-                  </div>
-                  <div class="stat-content">
-                    {{selectedSample.Round}}
-                  </div>
+                  <div class="stat-description">Round</div>
+                  <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Enemies Hit
-                  </div>
-                  <div class="stat-content">
-                    {{selectedSample.Hits.length}}
-                  </div>
+                  <div class="stat-description">Enemies Hit</div>
+                  <div class="stat-content">{{selectedSample.Hits.length}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Total damage dealt to enemies:
-                  </div>
-                  <div class="stat-content">
-                    {{selectedSample.Hits.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.AmountHealth, 0)}}
-                  </div>
+                  <div class="stat-description">Total damage dealt to enemies:</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedSample.Hits.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.AmountHealth, 0)}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Enemies killed:
-                  </div>
-                  <div class="stat-content">
-                    {{selectedSample.Hits.filter(x=>!x.TeamAttack && x.Kill).length}}
-                  </div>
+                  <div class="stat-description">Enemies killed:</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedSample.Hits.filter(x=>!x.TeamAttack && x.Kill).length}}</div>
                 </div>
                 <div class="split">
                   <div class="left">
                     <p>Watch this round</p>
                   </div>
                   <div class="right">
-                    <i class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(selectedSample.MatchId, selectedSample.Round)">videocam</i>
-                  </div>    
+                    <i
+                      class="material-icons watch-match-icon"
+                      title="Watch in Browser"
+                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                    >videocam</i>
+                  </div>
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-zone-stats"> 
+              <div v-if="selectedZone" class="selected-zone-stats">
                 About your HEs in the {{selectedZone.Name}}-Zone:
                 <div class="stat-row">
-                  <div class="stat-description">
-                    HEs thrown
-                  </div>
-                  <div class="stat-content">
-                    {{userSelectedZonePerformance.SampleCount}}
-                  </div>
+                  <div class="stat-description">HEs thrown</div>
+                  <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. damage
-                  </div>
-                  <div class="stat-content">
-                    {{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}                     
-                  </div>
+                  <div class="stat-description">Avg. damage</div>
+                  <div
+                    class="stat-content"
+                  >{{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}</div>
                 </div>
                 <div class="stat-row">
-                  <div class="stat-description">
-                    Avg. kills
-                  </div>
-                  <div class="stat-content">
-                    {{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}                     
-                  </div>
+                  <div class="stat-description">Avg. kills</div>
+                  <div
+                    class="stat-content"
+                  >{{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2)}}</div>
                 </div>
               </div>
             </div>
@@ -356,6 +286,7 @@ import CustomSelect from "@/components/CustomSelect.vue";
 import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
 import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
 import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import HESOverview from "@/components/Overviews/HESOverview.vue";
 
 export default {
   components: {
@@ -363,6 +294,7 @@ export default {
     HE,
     RadarImage,
     Zone,
+    HESOverview
   },
   data() {
     return {
@@ -377,7 +309,6 @@ export default {
         100: "Use last 100 matches"
       },
       showTrajectories: false,
-      mapSummaries: null,
       detailView: true,
 
       zonesEnabled: false,
@@ -394,54 +325,51 @@ export default {
     };
   },
   mounted() {
-    this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
-
-    if(this.$route.query.map){
+    if (this.$route.query.map) {
       this.activeMap = this.$route.query.map;
     }
-    if(this.$route.query.matchCount){
+    if (this.$route.query.matchCount) {
       this.matchCount = this.$route.query.matchCount;
-      this.matchCountSelectOptions[this.$route.query.matchCount] = "Use last " + this.$route.query.matchCount + " matches"
+      this.matchCountSelectOptions[this.$route.query.matchCount] =
+        "Use last " + this.$route.query.matchCount + " matches";
     }
     this.LoadSamples(this.activeMap, this.matchCount, false);
 
-    if(this.$route.query.zoneId){
+    if (this.$route.query.zoneId) {
       this.detailView = false;
-      this.selectedZoneId = this.$route.query.zoneId;        
+      this.selectedZoneId = this.$route.query.zoneId;
     }
   },
   methods: {
-    LoadOverviews(matchCount) {
-      this.mapSummaries = null;
-      this.$api.getHEsOverview(matchCount).then(response => {
-        this.mapSummaries = response.data.MapSummaries;
-      });
-    },
     LoadSamples(map, matchCount, isDemo) {
       this.samples = [];
       this.loadingSamplesComplete = false;
-      this.$api.getHEs(isDemo ? "76561198033880857" : "", map, matchCount)
-      .then(response => {
-        this.mapInfo = response.data.MapInfo;
-        this.samples = response.data.Samples;
-        this.userPerformanceData = response.data.UserData;
-        this.globalPerformanceData = response.data.GlobalData;
-        // Ignore zones where there are no samples for less clutter
-        this.zones = response.data.Zones
-        .filter(x => x.ParentZoneId != -1 && this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount != 0)
-        .sort((a,b) => a.Depth - b.Depth);
-        if (this.zones.length == 0) {
-          this.zonesEnabled = false;
-        } else {
-          this.zonesEnabled = true;
-        }
-        this.zoneDescendants = response.data.ZoneDescendants;
-        this.loadingSamplesComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingSamplesComplete = true;
-      });
+      this.$api
+        .getHEs(isDemo ? "76561198033880857" : "", map, matchCount)
+        .then(response => {
+          this.mapInfo = response.data.MapInfo;
+          this.samples = response.data.Samples;
+          this.userPerformanceData = response.data.UserData;
+          this.globalPerformanceData = response.data.GlobalData;
+          // Ignore zones where there are no samples for less clutter
+          this.zones = response.data.Zones.filter(
+            x =>
+              x.ParentZoneId != -1 &&
+              this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount !=
+                0
+          ).sort((a, b) => a.Depth - b.Depth);
+          if (this.zones.length == 0) {
+            this.zonesEnabled = false;
+          } else {
+            this.zonesEnabled = true;
+          }
+          this.zoneDescendants = response.data.ZoneDescendants;
+          this.loadingSamplesComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingSamplesComplete = true;
+        });
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
@@ -481,7 +409,7 @@ export default {
     Watch: function(matchId, round) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round);
-    },
+    }
   },
   computed: {
     activeUserData() {
@@ -507,7 +435,7 @@ export default {
         : this.activeGlobalData.TotalTerroristRounds;
     },
     selectedZone() {
-      if(this.selectedZoneId == 0){
+      if (this.selectedZoneId == 0) {
         return null;
       }
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
@@ -515,17 +443,23 @@ export default {
     visibleSamples() {
       if (!this.samples) return [];
       if (this.selectedSample != null) return [this.selectedSample];
-      if(this.selectedZoneId){
-        return this.samples.filter(x => this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) || x.ZoneId == this.selectedZoneId)
+      if (this.selectedZoneId) {
+        return this.samples.filter(
+          x =>
+            this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) ||
+            x.ZoneId == this.selectedZoneId
+        );
       }
       return this.samples.filter(x => x.UserIsCt == this.showCt);
-    },    
+    },
     visibleZones() {
       if (this.detailView) return [];
 
       if (this.selectedZone != null) {
         return this.zones.filter(
-          x => x.ParentZoneId == this.selectedZone.ZoneId || this.selectedZone.ZoneId == x.ZoneId
+          x =>
+            x.ParentZoneId == this.selectedZone.ZoneId ||
+            this.selectedZone.ZoneId == x.ZoneId
         );
       } else {
         return this.zones.filter(
@@ -544,119 +478,7 @@ export default {
   margin-top: 40px;
 }
 
-.performances {
-  display: flex;
-  flex-direction: row;
-  margin: 0 -10px;
-
-  .performance {
-    width: calc(100% / 7);
-    margin: 0 10px;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    border: 1px solid $purple;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &.active,
-    &:hover {
-      &:after {
-        background: rgba(0, 0, 0, 0.3);
-      }
-
-      .map-image {
-        filter: blur(2px) grayscale(0%);
-      }
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      pointer-events: none;
-      z-index: -1;
-      transition: 0.35s;
-    }
-
-    .map-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      object-fit: cover;
-      object-position: center;
-      transition: 0.35s;
-      filter: blur(2px) grayscale(100%);
-    }
-
-    .map-name {
-      color: white;
-      font-weight: 700;
-      font-size: 1.125rem;
-      margin: 5px 0;
-      padding: 10px;
-    }
-
-    .split-title {
-      color: $gray;
-      font-size: 8px;
-      margin-bottom: 1em;
-      display: block;
-      font-weight: 600;
-    }
-
-    .z-layer-lo {
-      padding: 0 10px;
-      padding-bottom: 20px;
-    }
-
-    .z-layer-hi {
-      background: $dark-1;
-      padding: 20px 10px;
-      opacity: 0.8;
-      position: relative;
-
-      .split {
-        &:first-of-type {
-          border-bottom: 1px solid $purple;
-          padding-bottom: 20px;
-          margin-bottom: 20px;
-        }
-      }
-    }
-
-    .split {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-
-      .ct,
-      .t {
-        display: flex;
-        align-items: center;
-
-        span {
-          margin-left: 5px;
-          color: white;
-        }
-
-        img {
-          width: 18px;
-          height: 18px;
-        }
-      }
-    }
-  }
-}
-
-.no-data {  
+.no-data {
   margin-top: 20px;
 }
 
@@ -675,7 +497,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
-      
+
       > button {
         margin-right: 20px;
       }
@@ -689,7 +511,7 @@ export default {
         margin: 0 5px;
       }
 
-      :not(.active){
+      :not(.active) {
         -webkit-filter: grayscale(100%);
         -moz-filter: grayscale(100%);
         -ms-filter: grayscale(100%);
@@ -700,7 +522,7 @@ export default {
         -webkit-filter: none;
         -moz-filter: none;
         -ms-filter: none;
-        filter: none;      
+        filter: none;
       }
 
       .t {
@@ -732,8 +554,8 @@ export default {
 
   .r {
     width: 30%;
-      
-    .sidebar{
+
+    .sidebar {
       color: white;
 
       .split {
@@ -752,7 +574,7 @@ export default {
             color: $orange;
             margin-right: 20px;
             font-size: 26px;
-            transition: .35s;
+            transition: 0.35s;
             cursor: pointer;
 
             &:hover {

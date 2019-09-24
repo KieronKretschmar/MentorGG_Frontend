@@ -86,6 +86,39 @@ class MentorGGAPI {
         });
     }
 
+    getMisplays(playerId = "", recentMatches){
+        let params = {
+            recentMatches: recentMatches
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
+        return axios.get(this.apiEndpoint + 'Situations/Misplays', {
+            params: params
+        });
+    }
+
+    
+    getSingleMatchMisplays(playerId = "", matchId){
+        let params = {
+            matchId: matchId
+        }                
+        if(playerId.length) {
+            params.playerId = playerId;
+        }
+        else if (this.sendFixedSteamId){
+            params.playerId = this.fixedSteamId;
+        }
+
+        return axios.get(this.apiEndpoint + 'Situations/Misplays', {
+            params: params
+        });
+    }
+
     getImportantPositions(playerId = "", showBest, count, forMatchesN) {
         let params = {
             showBest: showBest,
@@ -427,6 +460,13 @@ class MentorGGAPI {
     
     postRemoveFaceit(){
         return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
+            params: {
+            }
+        });
+    }
+
+    postLookForMatches(){
+        return axios.post(this.apiEndpoint + 'User/LookForMatches', {
             params: {
             }
         });

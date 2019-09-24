@@ -8,7 +8,7 @@
           <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
         </div>
         <div v-if="!playerStats && !loadingComplete" class="">
-          <AjaxLoader>Loading Molotovs</AjaxLoader>
+          <AjaxLoader>Computing statistics</AjaxLoader>
         </div>
         <div v-if="!playerStats && loadingComplete" class="">
           <DemoDataLoadRequest 
@@ -375,6 +375,41 @@ export default {
         }
       }
     }
+  }
+}
+
+//========================================================================================================================================
+//responsive
+//=========================================================================================================================================
+@media (max-width: 1170px) {
+  .view-statistics {
+    font-size: 1.2vw;
+    .sttistics{
+      .statistic{
+        .title{
+          font-size: 1.4em;
+        }
+        .statistic.entries{
+          .name{
+            font-size: 1.2em;
+          }
+          .value{
+            font-size: 1.2em;
+
+          }
+        }
+      }
+    }
+ 
+  }
+}
+//========================================================================================================================================
+//mobile
+//=========================================================================================================================================
+@media (max-width: 576px) {
+  .view-statistics {
+    font-size: 2.25vw;
+
   }
 }
 </style>

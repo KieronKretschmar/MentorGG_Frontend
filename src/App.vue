@@ -3,12 +3,12 @@
     <header>
       <TopNavigation />
     </header>
-    <main>
+    <main @click="hideNav">
       <transition name="page" mode="out-in">
         <router-view />
       </transition>
     </main>
-    <footer>
+    <footer @click="hideNav">
       <Footer />
     </footer>
     <DiscordHint />
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 import TopNavigation from "@/components/TopNavigation.vue";
 import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
@@ -38,6 +37,22 @@ export default {
       isLoggedIn: true
     };
   },
+  methods: {
+    hideNav: function() {
+      let navContainer = document.querySelector(".nav-container");
+      navContainer.classList.add("closed");
+      let menu = document.querySelectorAll(".menu")[0];
+      let close = document.querySelectorAll(".close")[0];
+      let navClassList = [...navContainer.classList];
+      if (navClassList.includes("closed")) {
+        close.classList.add("hide");
+        menu.classList.remove("hide");
+      } else {
+        menu.classList.add("hide");
+        close.classList.remove("hide");
+      }
+    }
+  }
 };
 </script>
 

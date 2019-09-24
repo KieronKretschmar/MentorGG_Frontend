@@ -19,6 +19,9 @@ body {
 }
 
 .fixed-width-container {
+    @media (max-width: 1170px) {
+        max-width:$mobile-container-width;
+    }
     max-width: $container-width;
     margin: 0 auto;
 }
@@ -28,6 +31,9 @@ body {
     border: 1px solid $purple;
     padding: 10px 25px;
     border-radius: 4px;
+    @media (max-width: 576px) {
+        margin-top: .9em;
+    }
 }
 
 .button-variant-bordered {

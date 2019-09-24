@@ -39,7 +39,7 @@
         <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
           class="material-icons watch-match-icon"
           title="Watch in Browser"
-          @click="WatchMatch(match)"
+          @click="Watch(match)"
         >videocam</i>
 
         <button class="button-variant-bordered" @click="ToggleMatchVisibility(match)">Match details</button>
@@ -89,7 +89,7 @@
 export default {
   props: ["match"],
   methods: {
-    WatchMatch: function(match) {
+    Watch: function(match) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", match.MatchId, 2);
     },
