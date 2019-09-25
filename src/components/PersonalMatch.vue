@@ -33,6 +33,12 @@
         </div>
       </div>
       <div class="right">
+      <a :href="$api.matchUrl(match.MatchId)" v-if="match.AvailableForDownload" class="download-match-link"> 
+        <i 
+          class="material-icons download-match-icon"
+          title="Download Demo"
+        >get_app</i>
+      </a> 
         <i
           v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
           class="material-icons watch-match-icon"
@@ -240,6 +246,22 @@ export default {
       align-items: center;
       color: white;
 
+      a.download-match-link{
+        
+        margin-right: 15px;
+
+        .download-match-icon {
+          color: $orange;
+          font-size: 26px;
+          transition: 0.35s;
+          cursor: pointer;
+
+          &:hover {
+            color: $purple;
+          }
+        }  
+      }
+
       .watch-match-icon {
         color: $orange;
         margin-right: 20px;
@@ -409,6 +431,13 @@ export default {
       }
 
       .right {
+          a.download-match-link{
+              margin-right: 1em;
+            .download-match-icon {
+              font-size: 2.5em;
+            }
+          }
+
         .watch-match-icon {
           margin-right: 1em;
           font-size: 2.5em;
@@ -502,6 +531,11 @@ export default {
       .right {
         flex-basis: 25%;
         justify-content: flex-end;
+
+        // mobile users don't need to download demos
+        a.download-match-link{
+          display: none;
+        }
 
         .watch-match-icon {
           margin-right: 0;
