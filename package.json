@@ -8,6 +8,7 @@
     "serve_test": "vue-cli-service serve --mode development_testdata",
     "serve_real": "vue-cli-service serve --mode development_realdata",
     "build": "vue-cli-service build --mode production",
+    "build_noauth": "vue-cli-service build --mode build_realdata_noauth",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

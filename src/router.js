@@ -11,7 +11,7 @@ Vue.use(Router);
 function authenticationGuard(to, from, next) {
 
   // OUTCOMMENT CODE BELOW IF YOU DO NOT WANT TO APPEAR LOGGED IN
-  if(process.env.NODE_ENV == 'development'){
+  if(process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH){
     next();
     return;
   }
