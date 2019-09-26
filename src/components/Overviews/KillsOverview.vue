@@ -82,14 +82,4 @@ export default {
 </script>
 
 <style  lang="scss" scoped>
-.performances {
-  .performance {
-    &.active,
-    .split {
-      .ct,
-      .t {
-      }
-    }
-  }
-}
 </style>

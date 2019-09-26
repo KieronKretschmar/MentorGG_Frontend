@@ -1,7 +1,9 @@
 <template>
   <div class="view view-kills">
     <div class="fixed-width-container">
-      <KillsOverview :activeMap="activeMap" />
+      <KillsOverview      
+      :activeMap="activeMap"
+      v-on:updatemap = "OnActiveMapUpdated"/>
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Kills</AjaxLoader>
       </div>

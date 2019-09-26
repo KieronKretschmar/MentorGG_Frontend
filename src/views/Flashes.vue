@@ -1,7 +1,9 @@
 <template>
   <div class="view view-flashes">
     <div class="fixed-width-container">
-      <FlashesOverview :activeMap="activeMap" />
+      <FlashesOverview 
+      :activeMap="activeMap"
+      v-on:updatemap = "OnActiveMapUpdated"/>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Flashes</AjaxLoader>
