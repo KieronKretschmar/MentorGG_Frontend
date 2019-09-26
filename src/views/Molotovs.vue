@@ -1,7 +1,9 @@
 <template>
   <div class="view view-molotovs">
     <div class="fixed-width-container">
-      <MolotovsOverview :activeMap="activeMap" />
+      <MolotovsOverview      
+      :activeMap="activeMap"
+      v-on:updatemap = "OnActiveMapUpdated"/>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Molotovs</AjaxLoader>

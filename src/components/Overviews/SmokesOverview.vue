@@ -72,23 +72,10 @@ export default {
       this.$api.getSmokesOverview(matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
-    }
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.performances {
-  .performance {
-    &.active,
-    .split {
-      .ct,
-      .t,
-      .unisex {
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-}
 </style>

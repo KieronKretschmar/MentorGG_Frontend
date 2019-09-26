@@ -1,7 +1,9 @@
 <template>
   <div class="view view-hes">
     <div class="fixed-width-container">
-      <HESOverview :activeMap="activeMap" />
+      <HESOverview      
+      :activeMap="activeMap"
+      v-on:updatemap = "OnActiveMapUpdated"/>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading HEs</AjaxLoader>

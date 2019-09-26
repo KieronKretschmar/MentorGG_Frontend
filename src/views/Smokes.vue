@@ -1,7 +1,9 @@
 <template>
   <div class="view view-smokes">
     <div class="fixed-width-container">
-      <SmokesOverview :activeMap="activeMap" />
+      <SmokesOverview      
+      :activeMap="activeMap"
+      v-on:updatemap = "OnActiveMapUpdated"/>
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Smokes</AjaxLoader>

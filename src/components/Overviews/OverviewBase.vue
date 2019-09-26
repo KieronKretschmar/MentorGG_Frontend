@@ -10,14 +10,11 @@ export default {
   },
   
   methods: {
-          OnActiveMapUpdated: function(map) {
-      if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
-        this.activeMap = map;
-      }
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-    }
+    OnActiveMapUpdated: function(map) {
+      console.log("emit");
+      console.log(map);
+      this.$emit('updatemap', map);
+    },
   }
 }
 </script>
