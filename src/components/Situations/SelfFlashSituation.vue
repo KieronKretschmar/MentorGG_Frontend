@@ -30,7 +30,7 @@
             <div class="col">Match</div>
             <div class="col centered">Round</div>
             <div class="col centered">Time flashed</div>
-            <div class="col centered">Angle to Crosshair</div>
+            <!-- <div class="col centered">Angle to Crosshair</div> -->
             <div class="col centered">Died while blinded</div>
           </div>
           <div class="r">
@@ -45,7 +45,7 @@
             </div>
             <div class="col centered">{{situation.Round}}</div>
             <div class="col centered">{{situation.TimeFlashed}} ms</div>
-            <div class="col centered">{{situation.AngleToCrosshair}}°</div>
+            <!-- <div class="col centered">{{situation.AngleToCrosshair}}°</div> -->
             <div
               class="col centered"
             >{{IsBetween(situation.DeathTime, situation.Time, situation.Time + situation.TimeFlashed) ? "Yes" : "No"}}</div>
