@@ -47,7 +47,7 @@
           <div class="r">
             <div class="col centered">
               <i 
-                v-if="this.$helpers.DemoViewerAvailable(situation.Map)"
+                v-if="$helpers.DemoViewerAvailable(situation.Map)"
                 class="material-icons watch-match-icon" 
                 title="Watch in Browser" 
                 @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)"
