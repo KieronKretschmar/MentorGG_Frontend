@@ -33,6 +33,9 @@
     </div>
 
     <div class="right">
+      
+      <i v-if="this.$helpers.DemoViewerAvailable(match.Map)"
+      class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(match)">videocam</i>
 
       <a :href="$api.matchUrl(match.MatchId)" v-if="match.AvailableForDownload" class="download-match-link"> 
         <i 
@@ -40,9 +43,6 @@
           title="Download Demo"
         >get_app</i>
       </a> 
-      
-      <i v-if="['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(match.Map)"
-      class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(match)">videocam</i>
 
       <button
         class="button-variant-bordered"
