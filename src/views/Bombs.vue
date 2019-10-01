@@ -1,55 +1,62 @@
 <template>
   <div class="view view-bombs">
     <div class="fixed-width-container">
-      <div class="tool_row">
-        <CustomSelect v-model="rankSelect"
-                      :options="rankOptions"
-                      v-on:input="redrawByRank"></CustomSelect>
-        <CustomSelect class="match-count-select"
-                      v-model="matchCount"
-                      :options="matchCountSelectOptions"
-                      v-on:input="OnMatchCountUpdated"></CustomSelect>
-      </div>
-      <div class="svg-wrapper">
-        <svg v-if="this.mapInfo.CropOffsets"
-             :viewBox="'0 0 2000 2000'"
-             id="svgView"
-             xmlns="http://www.w3.org/2000/svg"
-             preserveAspectRatio="xMidYMin"
-             oncontextmenu="return false;"
-             ref="svgElement">
+      <div class="bordered-box">
+        <div class="tool_row">
+          <CustomSelect v-model="rankSelect"
+                        :options="rankOptions"
+                        v-on:input="redrawByRank"></CustomSelect>
+          <CustomSelect class="match-count-select"
+                        v-model="matchCount"
+                        :options="matchCountSelectOptions"
+                        v-on:input="OnMatchCountUpdated"></CustomSelect>
 
-          <defs>
-            <pattern id="map-background-pattern-light"
-                     x="0"
-                     y="0"
-                     patternUnits="userSpaceOnUse"
-                     :height="imageSize"
-                     :width="imageSize">
-              <image x="0"
-                     y="0"
-                     v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}" />
-            </pattern>
-          </defs>
+          <button class="button-variant-bordered">
+            Toggle Zones
+          </button>
 
-          <image class="background-map-img"
-                 v-if="mapInfo.ImageURL"
-                 v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
-                 id="map-image"
-                 alt="Map Radar"
-                 x="0"
-                 y="0"
-                 :width="imageSize"
-                 :height="imageSize"
-                 :class="{tinted : !detailView && selectedZone}" />
-        </svg>
+        </div>
+        <div class="svg-wrapper">
+          <svg v-if="this.mapInfo.CropOffsets"
+               :viewBox="'0 0 2000 2000'"
+               id="svgView"
+               xmlns="http://www.w3.org/2000/svg"
+               preserveAspectRatio="xMidYMin"
+               oncontextmenu="return false;"
+               ref="svgElement">
 
-        <canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
-                x="0"
-                y="0"
-                :width="imageSize"
-                :height="imageSize">
-        </canvas>
+            <defs>
+              <pattern id="map-background-pattern-light"
+                       x="0"
+                       y="0"
+                       patternUnits="userSpaceOnUse"
+                       :height="imageSize"
+                       :width="imageSize">
+                <image x="0"
+                       y="0"
+                       v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}" />
+              </pattern>
+            </defs>
+
+            <image class="background-map-img"
+                   v-if="mapInfo.ImageURL"
+                   v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+                   id="map-image"
+                   alt="Map Radar"
+                   x="0"
+                   y="0"
+                   :width="imageSize"
+                   :height="imageSize"
+                   :class="{tinted : !detailView && selectedZone}" />
+          </svg>
+
+          <canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
+                  x="0"
+                  y="0"
+                  :width="imageSize"
+                  :height="imageSize">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -72,14 +79,18 @@
           5: "Use last 5 matches",
           10: "Use last 10 matches",
           50: "Use last 50 matches",
-          100: "Use last 100 matches"
+          100: "Use last 100 matches",
+          500: "Use last 500 matches",
+          1000: "Use last 1000 matches",
+          5000: "Use last 5000 matches",
+          10000: "Use last 10000 matches",
         },
 
         rankSelect: 5,
         rankOptions: {
           17: "Global Elite",
           16: "Supreme Master First Class",
-          15: "Leagendary Eagle Master",
+          15: "Legendary Eagle Master",
           14: "Legendary Eagle",
           13: "Distinguished Master Guardian",
           12: "Master Guardian Elite",
@@ -177,7 +188,7 @@
         heatmap.radius(10, 10);
 
         //TODO find explanation for hardcoded value
-        let max_limit = samples.length / 30;
+        let max_limit = samples.length;
         heatmap.max(max_limit);
         heatmap.draw();
       },
@@ -243,7 +254,10 @@
 
   .tool_row {
     display: flex;
+    width: calc(70% - 20px);
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
   }
 </style>
