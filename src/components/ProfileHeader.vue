@@ -42,9 +42,9 @@ export default {
 <style lang="scss">
 .profile-header {
   background: $dark-3;
-  padding: 50px 0;
+  padding: 40px 0;
   border-bottom: 1px solid $purple;
-  padding-bottom: 120px;
+  padding-bottom: 110px;
 
   .fixed-width-container {
     display: flex;
