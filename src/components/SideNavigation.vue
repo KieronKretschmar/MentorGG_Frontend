@@ -24,7 +24,7 @@
         <router-link to="/eventhes">HEs</router-link>
 
         <div class="nav-header">Acount</div>
-        <router-link to="/user-settings">Settings</router-link>
+        <!-- <router-link to="/user-settings">Settings</router-link> -->
         <div class="logout">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
             <button type="submit">Log out</button>
