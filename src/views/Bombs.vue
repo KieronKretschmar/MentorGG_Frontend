@@ -1,185 +1,263 @@
 <template>
-    <div class="view view-bombs">
-        <div class="fixed-width-container">
-            <div class="svg-wrapper">
-                <svg v-if="this.mapInfo.CropOffsets"
-                     :viewBox="'0 0 2000 2000'"
-                     id="svgView"
-                     xmlns="http://www.w3.org/2000/svg"
-                     preserveAspectRatio="xMidYMin"
-                     oncontextmenu="return false;"
-                     ref="svgElement">
+  <div class="view view-bombs">
+    <div class="fixed-width-container">
+      <div class="bordered-box">
+        <div class="tool_row">
+          <CustomSelect v-model="rankSelect"
+                        :options="rankOptions"
+                        v-on:input="redrawByRank"></CustomSelect>
+          <CustomSelect class="match-count-select"
+                        v-model="matchCount"
+                        :options="matchCountSelectOptions"
+                        v-on:input="OnMatchCountUpdated"></CustomSelect>
 
-                    <defs>
-                        <pattern id="map-background-pattern-light"
-                                 x="0"
-                                 y="0"
-                                 patternUnits="userSpaceOnUse"
-                                 :height="imageSize"
-                                 :width="imageSize">
-                            <image x="0"
-                                   y="0"
-                                   v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}" />
-                        </pattern>
-                    </defs>
+          <button class="button-variant-bordered">
+            Toggle Zones
+          </button>
 
-                    <image class="background-map-img"
-                           v-if="mapInfo.ImageURL"
-                           v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
-                           id="map-image"
-                           alt="Map Radar"
-                           x="0"
-                           y="0"
-                           :width="imageSize"
-                           :height="imageSize"
-                           :class="{tinted : !detailView && selectedZone}" />
-                </svg>
-
-                <canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
-                        x="0"
-                        y="0"
-                        :width="imageSize"
-                        :height="imageSize">
-                </canvas>
-
-            </div>
         </div>
+        <div class="svg-wrapper">
+          <svg v-if="this.mapInfo.CropOffsets"
+               :viewBox="'0 0 2000 2000'"
+               id="svgView"
+               xmlns="http://www.w3.org/2000/svg"
+               preserveAspectRatio="xMidYMin"
+               oncontextmenu="return false;"
+               ref="svgElement">
+
+            <defs>
+              <pattern id="map-background-pattern-light"
+                       x="0"
+                       y="0"
+                       patternUnits="userSpaceOnUse"
+                       :height="imageSize"
+                       :width="imageSize">
+                <image x="0"
+                       y="0"
+                       v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}" />
+              </pattern>
+            </defs>
+
+            <image class="background-map-img"
+                   v-if="mapInfo.ImageURL"
+                   v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+                   id="map-image"
+                   alt="Map Radar"
+                   x="0"
+                   y="0"
+                   :width="imageSize"
+                   :height="imageSize"
+                   :class="{tinted : !detailView && selectedZone}" />
+          </svg>
+
+          <canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
+                  x="0"
+                  y="0"
+                  :width="imageSize"
+                  :height="imageSize">
+          </canvas>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import simpleheat from "simpleheat";
-
-    export default {
-        components: {
-
-        },
-        data() {
-            return {
-                imageSize: 2000,
+  import simpleheat from "simpleheat";
+  import CustomSelect from "@/components/CustomSelect.vue";
 
 
-                loadingSamplesComplete: false,
-                activeMap: "de_mirage",
-
-                detailView: true,
-                zonesEnabled: false,
-                zones: [],
-                zoneDescendants: [],
-
-
-                mapInfo: {},
-                samples: [],
-
-                selectedSample: null,
-                selectedZoneId: 0,
-            };
+  export default {
+    components: {
+      CustomSelect
+    },
+    data() {
+      return {
+        imageSize: 2000,
+        matchCount: 10,
+        matchCountSelectOptions: {
+          5: "Use last 5 matches",
+          10: "Use last 10 matches",
+          50: "Use last 50 matches",
+          100: "Use last 100 matches",
+          500: "Use last 500 matches",
+          1000: "Use last 1000 matches",
+          5000: "Use last 5000 matches",
+          10000: "Use last 10000 matches",
         },
 
-        mounted() {
+        rankSelect: 5,
+        rankOptions: {
+          17: "Global Elite",
+          16: "Supreme Master First Class",
+          15: "Legendary Eagle Master",
+          14: "Legendary Eagle",
+          13: "Distinguished Master Guardian",
+          12: "Master Guardian Elite",
+          11: "Master Guardian 2",
+          10: "Master Guardian 1",
+          9: "Gold Nova 4",
+          8: "Gold Nova 3",
+          7: "Gold Nova 2",
+          6: "Gold Nova 1",
+          5: "Silver Elite Master",
+          4: "Silver Elite",
+          3: "Silver 4",
+          2: "Silver 3",
+          1: "Silver 2",
+          0: "Silver 1"
+        },
 
-            // boolean in query param might be received as string
-            if (this.$route.query.map) {
-                this.activeMap = this.$route.query.map;
+        loadingSamplesComplete: false,
+        activeMap: "de_mirage",
+
+        detailView: true,
+        zonesEnabled: false,
+        zones: [],
+        zoneDescendants: [],
+
+
+        mapInfo: {},
+        samples: [],
+
+        selectedSample: null,
+        selectedZoneId: 0,
+      };
+    },
+
+    mounted() {
+      // boolean in query param might be received as string
+      if (this.$route.query.map) {
+        this.activeMap = this.$route.query.map;
+      }
+      if (this.$route.query.matchCount) {
+        this.matchCount = this.$route.query.matchCount;
+        this.matchCountSelectOptions[this.$route.query.matchCount] =
+          "Use last " + this.$route.query.matchCount + " matches";
+      }
+
+      //TODO currently draws all samples on load
+      this.LoadSamples(this.activeMap, this.matchCount, false);
+    },
+
+    methods: {
+      LoadSamples(map, matchCount, isDemo) {
+        this.samples = [];
+        this.loadingSamplesComplete = false;
+        this.$api
+          .getAllBombPlants(map, matchCount)
+          .then(response => {
+            this.mapInfo = response.data.MapInfo;
+            this.samples = response.data.Samples;
+            if (this.zones.length == 0) {
+              this.zonesEnabled = false;
+            } else {
+              this.zonesEnabled = true;
             }
-            if (this.$route.query.matchCount) {
-                this.matchCount = this.$route.query.matchCount;
-                this.matchCountSelectOptions[this.$route.query.matchCount] =
-                    "Use last " + this.$route.query.matchCount + " matches";
-            }
-            this.LoadSamples(this.activeMap, this.matchCount, false);
-        },
 
-        methods: {
-            LoadSamples(map, matchCount, isDemo) {
-                this.samples = [];
-                this.loadingSamplesComplete = false;
-                this.$api
-                    .getAllBombPlants(map, matchCount)
-                    .then(response => {
-                        this.mapInfo = response.data.MapInfo;
-                        this.samples = response.data.Samples;
-                        if (this.zones.length == 0) {
-                            this.zonesEnabled = false;
-                        } else {
-                            this.zonesEnabled = true;
-                        }
+            this.loadingSamplesComplete = true;
+            this.drawSamplesToHeatmap(response.data.Samples);
+            console.log(response.data.Samples);
+          })
+          .catch(error => {
+            console.error(error); // eslint-disable-line no-console
+            this.loadingSamplesComplete = true;
+          });
+      },
 
-                        this.loadingSamplesComplete = true;
+      OnMatchCountUpdated: function () {
+        this.LoadSamples(this.activeMap, this.matchCount, false);
+      },
 
-                        //draw heatmap
-                        var heatmap = simpleheat('heatmap_overlay');
-                        heatmap = this.addPointsToHeatmap(heatmap, response.data.Samples);
-                        //heatmap.add([100, 100, 1]);
-                        heatmap.radius(10, 15);
-                        //TODO find explanation for hardcoded value
-                        var max_limit = response.data.Samples.length / 30;
-                        heatmap.max(max_limit);
-                        heatmap.draw();
+      redrawByRank() {
+        let ranked_samples = this.FilterSamplesByRank(this.samples, this.rankSelect);
+        console.log(this.rankSelect);
 
+        this.drawSamplesToHeatmap(ranked_samples);
+      },
 
-                    })
-                    .catch(error => {
-                        console.error(error); // eslint-disable-line no-console
-                        this.loadingSamplesComplete = true;
-                    });
-            },
+      FilterSamplesByRank(samples, rank) {
+        let ranked_samples = samples.filter(x => Math.round(x.AverageRank) == rank);
+        console.log({ ranked_samples });
+        return ranked_samples;
+      },
 
-            addPointsToHeatmap(heatmap, samples) {
-                if (typeof samples !== 'undefined') {
-                    for (var i = 0; i < samples.length; i++) {
-                        heatmap.add([samples[i].PlantPosX, samples[i].PlantPosY, 1]);
-                    }
-                    return heatmap;
-                }
-            },
-        },
-    };
+      drawSamplesToHeatmap(samples) {
+        let heatmap = simpleheat('heatmap_overlay');
+        heatmap = this.addPointsToHeatmap(heatmap, samples);
+        heatmap.radius(10, 10);
+
+        //TODO find explanation for hardcoded value
+        let max_limit = samples.length;
+        heatmap.max(max_limit);
+        heatmap.draw();
+      },
+
+      addPointsToHeatmap(heatmap, samples) {
+        if (typeof samples !== 'undefined') {
+          for (let i = 0; i < samples.length; i++) {
+            heatmap.add([samples[i].PlantPosX, samples[i].PlantPosY, 1]);
+          }
+          return heatmap;
+        }
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
-    @import "@/assets/scss/sidebar.scss";
+  @import "@/assets/scss/sidebar.scss";
 
-    .overlay {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 10;
-    }
+  .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
 
+  .map-image {
+    filter: blur(2px) grayscale(0%);
+  }
 
+  .map-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    transition: 0.35s;
+    filter: blur(2px) grayscale(100%);
+    top: 0;
+    left: 0;
+  }
 
-    .map-image {
-        filter: blur(2px) grayscale(0%);
-    }
+  .svg-wrapper {
+    position: relative;
+  }
 
-    .map-image {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: -2;
-        transition: 0.35s;
-        filter: blur(2px) grayscale(100%);
-        top: 0;
-        left: 0;
-    }
+  .match-count-select {
+    margin: 5px,5px,5px,5px;
+  }
 
-    .svg-wrapper {
-        position: relative;
-    }
+  #map-background-pattern-dark {
+    filter: brightness(50%);
+  }
 
-    #map-background-pattern-dark {
-        filter: brightness(50%);
-    }
+  #svgView {
+    width: 100%;
+  }
 
-    #svgView {
-        width: 100%;
-        .tinted
+  .tinted {
+    opacity: 0.2;
+  }
 
-    {
-        opacity: 0.2;
-    }
-    }
+  .tool_row {
+    display: flex;
+    width: calc(70% - 20px);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
 </style>

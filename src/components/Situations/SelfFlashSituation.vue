@@ -30,6 +30,7 @@
             <div class="col">Match</div>
             <div class="col centered">Round</div>
             <div class="col centered">Time flashed</div>
+            <!-- <div class="col centered">Angle to Crosshair</div> -->
             <div class="col centered">Died while blinded</div>
           </div>
           <div class="r">
@@ -44,15 +45,17 @@
             </div>
             <div class="col centered">{{situation.Round}}</div>
             <div class="col centered">{{situation.TimeFlashed}} ms</div>
+            <!-- <div class="col centered">{{situation.AngleToCrosshair}}°</div> -->
             <div
               class="col centered"
             >{{IsBetween(situation.DeathTime, situation.Time, situation.Time + situation.TimeFlashed) ? "Yes" : "No"}}</div>
           </div>
           <div class="r">
             <div class="col centered">
-              <i
-                class="material-icons watch-match-icon"
-                title="Watch in Browser"
+              <i 
+                v-if="$helpers.DemoViewerAvailable(situation.Map)"
+                class="material-icons watch-match-icon" 
+                title="Watch in Browser" 
                 @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)"
               >videocam</i>
             </div>

@@ -48,9 +48,10 @@
           </div>
           <div class="r">
             <div class="col centered">
-              <i
-                class="material-icons watch-match-icon"
-                title="Watch in Browser"
+              <i 
+                v-if="$helpers.DemoViewerAvailable(situation.Map)"
+                class="material-icons watch-match-icon" 
+                title="Watch in Browser" 
                 @click="Watch(situation.MatchId, situation.Round, situation.Time - 4000)"
               >videocam</i>
             </div>
