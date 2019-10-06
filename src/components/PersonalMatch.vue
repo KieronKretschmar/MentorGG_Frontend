@@ -1,105 +1,113 @@
 <template>
-<div class="bordered-box match">
-  <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
-    <div class="left">
-      <!-- could be done with MatchHeader component -->
-      <div class="map-thumbnail">
-        <img
-          :src="$api.resolveResource(match.MapIcon)"
-          :alt="match.Map + ' Thumbnail'"
-          :title="match.Map"
-        />
-      </div>
-      <div class="map-and-datetime">
-        <span class="map">{{ match.Map }}</span>
-        <span class="datetime">{{ match.MatchDate|formatDate }}</span>
-      </div>
-      <div class="match-score">
-        <span
-          class="score"
-          :type="match.WinLoseTie"
-        >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
-        <span class="score-text">SCORE</span>
-      </div>
-
-      <div class="player-kda">
-        <div class="kda">
-          <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
-          <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
-          <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
+  <div class="bordered-box match">
+    <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
+      <div class="left">
+        <!-- could be done with MatchHeader component -->
+        <div class="map-thumbnail">
+          <img
+            :src="$api.resolveResource(match.MapIcon)"
+            :alt="match.Map + ' Thumbnail'"
+            :title="match.Map"
+          />
         </div>
-        <span class="kda-text">K / A / D</span>
+        <div class="map-and-datetime">
+          <span class="map">{{ match.Map }}</span>
+          <span class="datetime">{{ match.MatchDate|formatDate }}</span>
+        </div>
+        <div class="match-score">
+          <span
+            class="score"
+            :type="match.WinLoseTie"
+          >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
+          <span class="score-text">SCORE</span>
+        </div>
+
+        <div class="player-kda">
+          <div class="kda">
+            <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
+            <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
+            <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
+          </div>
+          <span class="kda-text">K / A / D</span>
+        </div>
+      </div>
+
+      <div class="right">
+        <i
+          v-if="this.$helpers.DemoViewerAvailable(match.Map)"
+          class="material-icons watch-match-icon"
+          title="Watch in Browser"
+          @click="Watch(match)"
+        >videocam</i>
+
+        <a
+          :href="$api.matchUrl(match.MatchId)"
+          v-if="match.AvailableForDownload"
+          class="download-match-link"
+        >
+          <i class="material-icons download-match-icon" title="Download Demo">get_app</i>
+        </a>
+
+        <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility(match)"></i>
+        <!-- <button class="button-variant-bordered" ">Match details</button> -->
       </div>
     </div>
-
-    <div class="right">
-      
-      <i v-if="this.$helpers.DemoViewerAvailable(match.Map)"
-      class="material-icons watch-match-icon" title="Watch in Browser" @click="Watch(match)">videocam</i>
-
-      <a :href="$api.matchUrl(match.MatchId)" v-if="match.AvailableForDownload" class="download-match-link"> 
-        <i 
-          class="material-icons download-match-icon"
-          title="Download Demo"
-        >get_app</i>
-      </a> 
-
-      <button
-        class="button-variant-bordered"
-        @click="ToggleMatchVisibility(match)"
-      >Match details</button>
-    </div>
-  </div>
-  <transition name="slide">
-    <div class="match-body" v-if="match.IsVisible">
-      <hr />
-      <div class="team-table">
-        <div
-          v-for="team in match.Scoreboard.TeamInfos"
-          :key="team.TeamName"
-          class="team"
-          :name="team.TeamName"
-        >
-          <div class="table-header">
-            <span></span>
-            <span>ADR</span>
-            <span>K</span>
-            <span>A</span>
-            <span>D</span>
-          </div>
-          <div class="table-content">
-            <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
-              <img class="avatar" :src="entry.Profile.Icon" />
-              <a
-                class="name"
-                :href="entry.Profile.Url"
-                target="_blank"
-              >{{ entry.Profile.SteamName }}</a>
-              <span
-                class="adr"
-              >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
-              <span class="k">{{ entry.Kills }}</span>
-              <span class="a">{{ entry.Assists }}</span>
-              <span class="d">{{ entry.Deaths }}</span>
+    <transition name="slide">
+      <div class="match-body" v-if="match.IsVisible">
+        <hr />
+        <div class="team-table">
+          <div
+            v-for="team in match.Scoreboard.TeamInfos"
+            :key="team.TeamName"
+            class="team"
+            :name="team.TeamName"
+          >
+            <div class="table-header">
+              <span></span>
+              <span>ADR</span>
+              <span>K</span>
+              <span>A</span>
+              <span>D</span>
+              <span>EF</span>
+              <span>MVPs</span>
+              <span>Score</span>
+            </div>
+            <div class="table-content">
+              <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
+                <span class="name-avatar-wrapper">
+                  <img class="avatar" :src="entry.Profile.Icon" />
+                  <a
+                    class="name"
+                    :href="entry.Profile.Url"
+                    target="_blank"
+                  >{{ entry.Profile.SteamName }}</a>
+                </span>
+                <span
+                  class="adr"
+                >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                <span class="k">{{ entry.Kills }}</span>
+                <span class="a">{{ entry.Assists }}</span>
+                <span class="d">{{ entry.Deaths }}</span>
+                <span class="ef">n/a</span>
+                <span class="mvp">n/a</span>
+                <span class="score">n/a</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
-</div>  
+    </transition>
+  </div>
 </template>
 
 <script>
 import MatchHeader from "@/components/MatchHeader.vue";
 
 export default {
-    components: {
-    MatchHeader,
+  components: {
+    MatchHeader
   },
-  props: [
-    "match"
-  ],
+  props: ["match"],
   methods: {
     Watch: function(match) {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
@@ -108,9 +116,9 @@ export default {
     ToggleMatchVisibility: function() {
       this.match.IsVisible = !this.match.IsVisible;
       this.$forceUpdate();
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -123,24 +131,25 @@ export default {
     align-items: center;
     padding: 5px 0;
 
-    &.source-valve>.left>.map-thumbnail{
-          border-left-color: $matchmaking-blue;
+    &.source-valve > .left > .map-thumbnail {
+      border-left-color: $matchmaking-blue;
     }
-    
-    &.source-faceit>.left>.map-thumbnail{
-          border-left-color: $faceit-orange;
+
+    &.source-faceit > .left > .map-thumbnail {
+      border-left-color: $faceit-orange;
     }
 
     .left {
       display: flex;
-      width: 80%;
+      width: calc(80% - 20px);
 
       .map-thumbnail {
         height: 55px;
-        width: 135px;
         border-radius: 5px;
         overflow: hidden;
         border-left-style: solid;
+        flex: 0 0 8vw;
+        max-width: 150px;
 
         img {
           width: 100%;
@@ -153,9 +162,9 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 20%;
         padding: 0 25px;
         border-right: 1px solid $purple;
+        flex: 0 0 180px;
 
         .map {
           color: white;
@@ -176,7 +185,7 @@ export default {
         justify-content: center;
         text-align: center;
         padding: 0 50px;
-        width: 20%;
+        flex: 0 0 150px;
         border-right: 1px solid $purple;
 
         .score {
@@ -209,7 +218,7 @@ export default {
         justify-content: center;
         text-align: center;
         padding: 0 50px;
-        width: 20%;
+        flex: 0 0 180px;
 
         .kda {
           color: white;
@@ -236,11 +245,25 @@ export default {
       display: flex;
       align-items: center;
 
+      .fa-chevron-down {
+        color: $orange;
+        cursor: pointer;
+        transition: 0.35s;
+
+        &:hover {
+          color: $purple;
+        }
+
+        &.open {
+          transform: rotate(180deg);
+        }
+      }
+
       .watch-match-icon {
         color: $orange;
         margin-right: 20px;
         font-size: 26px;
-        transition: .35s;
+        transition: 0.35s;
         cursor: pointer;
 
         &:hover {
@@ -248,14 +271,14 @@ export default {
         }
       }
 
-      .download-match-link{
+      .download-match-link {
         align-self: flex-end;
 
-        .download-match-icon{
+        .download-match-icon {
           color: $orange;
           margin-right: 20px;
           font-size: 26px;
-          transition: .35s;
+          transition: 0.35s;
           cursor: pointer;
 
           &:hover {
@@ -267,6 +290,8 @@ export default {
   }
 
   .match-body {
+    overflow-x: auto;
+
     hr {
       border: 1px solid $purple;
       border-bottom: none;
@@ -276,9 +301,16 @@ export default {
       display: flex;
       justify-content: space-between;
       margin-top: 20px;
+      flex-direction: column;
 
       .team {
-        width: 49%;
+        width: 100%;
+
+        &:first-child {
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+          border-bottom: 1px solid $dark-4;
+        }
 
         .table-header {
           display: flex;
@@ -288,13 +320,11 @@ export default {
 
           span {
             display: inline-block;
-            width: 10%;
             text-align: center;
+            flex: 0 0 100px;
 
             &:first-child {
-              max-width: 264px;
-              flex: 0 1 264px;
-              margin-right: 10px;
+              flex: 0 0 200px;
             }
           }
         }
@@ -311,43 +341,110 @@ export default {
               border-bottom: none;
             }
 
-            .avatar {
-              width: 24px;
-              height: 24px;
-              border-radius: 3px;
-            }
+            .name-avatar-wrapper {
+              flex: 0 0 200px;
 
-            .name {
-              color: white;
-              font-weight: 500;
-              margin-left: 20px;
-              font-size: 14px;
-              max-width: 200px;
-              flex: 0 1 200px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              text-decoration: none;
-              transition: 0.35s;
-
-              &:hover {
-                color: $orange;
+              .avatar {
+                width: 24px;
+                height: 24px;
+                border-radius: 3px;
               }
-            }
 
-            .adr {
-              margin-left: 20px;
+              .name {
+                color: white;
+                font-weight: 500;
+                margin-left: 20px;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-decoration: none;
+                transition: 0.35s;
+
+                &:hover {
+                  color: $orange;
+                }
+              }
             }
 
             .adr,
             .k,
             .d,
-            .a {
+            .a,
+            .ef,
+            .mvp,
+            .score {
               font-size: 12px;
               font-weight: 500;
               color: white;
-              width: 10%;
+              // width: 10%;
               text-align: center;
+              min-width: 100px;
+              flex: 0 0 100px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//responsive
+@media(max-width: 780px) {
+  .match-history {
+    .match-list {
+      .match {
+        .match-header {
+          .left {
+            .player-kda {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 650px) {
+  .match-history {
+    .match-list {
+      .match {
+        .match-header {          
+          .left {
+            .map-thumbnail {
+              display: none;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//TODO: improve styling
+@media(max-width: 560px) {
+  .match-history {
+    .match-list {
+      .match {
+        .match-header {       
+          flex-direction: column;
+
+          .left {
+            margin-bottom: 20px;
+            justify-content: center;
+            width: 100%;
+
+            .match-score {
+              padding: 0 25px;
+              border-right: 0;
+              flex: 0 0 50%;
+            }
+
+            .map-thumbnail {
+              display: none;
+              justify-content: center;
             }
           }
         }

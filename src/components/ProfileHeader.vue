@@ -1,6 +1,6 @@
 <template>
   <div class="profile-header">
-    <div class="fixed-width-container" v-if="user">
+    <div class="fixed-width-container mc" v-if="user">
       <div class="avatar">
         <img :src="getFullSteamAvatarURL(user.Icon)" />
       </div>
@@ -42,7 +42,7 @@ export default {
 <style lang="scss">
 .profile-header {
   background: $dark-3;
-  padding: 40px 0;
+  padding: 40px 0px;
   border-bottom: 1px solid $purple;
   padding-bottom: 110px;
 
@@ -79,7 +79,7 @@ export default {
 
         &:last-child {
           color: white;
-          font-size: 2.25rem;
+          font-size: 1.75rem;
           font-weight: 700;
         }
       }
@@ -106,5 +106,10 @@ export default {
       }
     }
   }
+}
+
+//responsive
+@media(max-width: 1200px) {
+
 }
 </style>

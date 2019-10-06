@@ -3,7 +3,7 @@
     <div class="profile-section"></div>
 
     <ProfileHeader />
-    <div class="fixed-width-container">
+    <div class="fixed-width-container mc">
       <RecentMatchStats />
       <Situations />
       <PositionAdvice />
@@ -34,3 +34,13 @@ export default {
   mounted() {}
 };
 </script>
+
+<style lang="scss">
+  .view-dashboard {
+    .fixed-width-container {
+      &.mc {
+        padding: 0 20px;
+      }
+    }
+  }
+</style>

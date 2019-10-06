@@ -67,8 +67,6 @@ export default {
 
         .link {
           &.link-inline {
-            // display: flex;
-            // align-items: center;
             background: $dark-1;
             color: white;
             border-top-right-radius: 4px;
@@ -91,9 +89,6 @@ export default {
   }
 
   .body {
-    // margin-top: 10px;
-    // border-top: 1px solid $purple;
-
     hr {
       border: 1px solid $purple;
       border-bottom: none;
@@ -117,12 +112,10 @@ export default {
       }
 
       &:first-of-type {
-        // padding-top: 10px;
         border-bottom: none;
 
         .col {
           color: $orange;
-          // text-transform: uppercase;
           font-size: 12px;
         }
       }
@@ -160,23 +153,10 @@ export default {
         font-weight: 500;
         display: flex;
         align-items: center;
-        // width: (1/5) * 100%;
-
-        // &:nth-child(1) {
-        //   width: 30% !important;
-        // }
-
-        // &:nth-child(2) {
-        //   width: 5% !important;
-        // }
 
         &.centered {
           justify-content: center;
         }
-
-        // &:last-child(){
-        //   width: 5%;
-        // }
 
         img {
           margin-right: 5px;
@@ -213,4 +193,8 @@ export default {
     }
   }
 }
+
+//responsive
+
+
 </style>

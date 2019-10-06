@@ -242,4 +242,20 @@ export default {
     }
   }
 }
+
+//responsive
+@media(max-width: 800px) {
+  .position-advice {
+    flex-direction: column;
+
+    .advice {
+      width: 100%;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
 </style>

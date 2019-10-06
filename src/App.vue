@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <div class="l-app">
+    <div class="l-app" :class="{toggled: menuVisible}">
       <SideNavigation />
     </div>
     <div class="r-app">
       <header>
-        <!-- <TopNavigation /> -->
+        <router-link to="/" class="logo">
+          <img src="@/assets/logo_white.svg" />
+        </router-link>
+        
+        <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
       </header>
       <main>
         <transition name="page" mode="out-in">
@@ -41,7 +45,7 @@ export default {
   data() {
     return {
       //TODO: Proper login + check
-      isLoggedIn: true
+      menuVisible: false
     };
   }
 };
@@ -62,19 +66,38 @@ body {
 
 header {
   background: $dark-1;
-  // border-bottom: 1px solid $purple;
+  border-bottom: 1px solid $purple;
   position: fixed;
-  width: calc(100% - #{$sidebar-width});
-  left: $sidebar-width;
+  width: 100%;
+  left: 0;
   top: 0;
   z-index: 9999;
-  padding: 0 20px;
+  display: none;
+  align-items: center;
+  padding: 10px 20px;
+  justify-content: space-between;
+
+  a {
+    width: 150px;
+    display: block;
+    height: 28px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .fa-bars {
+    color: $orange;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
 
 main {
   background: $dark-2;
   flex: 1 1 auto;
-  // padding-top: 100px;
 
   .view {
     h1 {
@@ -101,4 +124,44 @@ main {
     min-height: 100vh;
   }
 }
+
+//responsive
+@media(max-width: 1100px) {
+  #app {
+    .l-app {
+      // display: none;
+      position: fixed;
+      top: 0;
+      z-index: 99999;
+      transition: 0.75s;
+      left: -100%;
+
+      .bottom-content {
+        left: -100%;
+        transition: 0.75s;
+      }
+
+      &.toggled {
+        left: 0%;
+
+        .bottom-content {
+          left: 0;
+        }
+      }
+    }
+
+    .r-app {
+      width: 100%;
+
+      header {
+        display: flex;
+      }
+
+      main {
+        padding-top: 50px;
+      }
+    }
+  }
+}
+
 </style>

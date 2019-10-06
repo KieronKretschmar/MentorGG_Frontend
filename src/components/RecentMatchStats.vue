@@ -108,21 +108,23 @@ export default {
   margin-top: -64px;
 
   .bordered-box {
-    padding: 30px 50px;
+    padding: 20px 50px;
   }
 
   .stats {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     .stat {
       display: flex;
       flex-direction: column;
       text-align: center;
+      margin: 10px;
 
       .val {
-        font-size: 2.25rem;
+        font-size: 1.75rem;
         font-weight: 700;
         color: white;
 
