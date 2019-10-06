@@ -49,7 +49,6 @@
         </a>
 
         <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility(match)"></i>
-        <!-- <button class="button-variant-bordered" ">Match details</button> -->
       </div>
     </div>
     <transition name="slide">
@@ -360,6 +359,8 @@ export default {
                 text-overflow: ellipsis;
                 text-decoration: none;
                 transition: 0.35s;
+                max-width: 150px;
+                display: inline-block;
 
                 &:hover {
                   color: $orange;
