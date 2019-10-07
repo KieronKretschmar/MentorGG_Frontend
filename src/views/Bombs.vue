@@ -5,7 +5,7 @@
         <div class="tool_row">
           <CustomSelect v-model="rankSelect"
                         :options="rankOptions"
-                        v-on:input="redrawByRank"></CustomSelect>
+                        v-on:input="OnRankChange"></CustomSelect>
           <CustomSelect class="match-count-select"
                         v-model="matchCount"
                         :options="matchCountSelectOptions"
@@ -201,12 +201,16 @@
       },
 
       OnMapChange() {
-        this.LoadSamples(this.mapSelect, this.matchCount, false);
+        this.LoadSamplesByRank(this.mapSelect,this.rankSelect, this.matchCount, false);
         this.activeMap = this.mapSelect;
       },
 
       OnMatchCountUpdated: function () {
-        this.LoadSamples(this.activeMap, this.matchCount, false);
+        this.LoadSamplesByRank(this.activeMap, this.rankSelect,this.matchCount, false);
+      },
+
+      OnRankChange() {
+         this.LoadSamplesByRank(this.activeMap, this.rankSelect,this.matchCount, false);
       },
 
       redrawByRank() {
