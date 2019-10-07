@@ -10,7 +10,9 @@
                         v-model="matchCount"
                         :options="matchCountSelectOptions"
                         v-on:input="OnMatchCountUpdated"></CustomSelect>
-
+          <CustomSelect v-model="mapSelect"
+                        :options="mapSelectOptions"
+                        v-on:input="OnMapChange"></CustomSelect>
           <button class="button-variant-bordered">
             Toggle Zones
           </button>
@@ -105,7 +107,17 @@
           3: "Silver 4",
           2: "Silver 3",
           1: "Silver 2",
-          0: "Silver 1"
+          0: "Silver 1",
+        },
+
+        mapSelect: "de_mirage",
+        mapSelectOptions: {
+          "de_mirage": "de_mirage",
+          "de_cache": "de_cache",
+          "de_inferno": "de_inferno",
+          "de_dust2": "de_dust2",
+          "de_overpass": "de_overpass",
+          "de_train": "de_train",
         },
 
         loadingSamplesComplete: false,
@@ -136,7 +148,6 @@
           "Use last " + this.$route.query.matchCount + " matches";
       }
 
-      //TODO currently draws all samples on load
       this.LoadSamples(this.activeMap, this.matchCount, false);
     },
 
@@ -156,13 +167,17 @@
             }
 
             this.loadingSamplesComplete = true;
-            this.drawSamplesToHeatmap(response.data.Samples);
-            console.log(response.data.Samples);
+            this.redrawByRank();
           })
           .catch(error => {
             console.error(error); // eslint-disable-line no-console
             this.loadingSamplesComplete = true;
           });
+      },
+
+      OnMapChange() {
+        this.LoadSamples(this.mapSelect, this.matchCount, false);
+        this.activeMap = this.mapSelect;
       },
 
       OnMatchCountUpdated: function () {
@@ -185,10 +200,11 @@
       drawSamplesToHeatmap(samples) {
         let heatmap = simpleheat('heatmap_overlay');
         heatmap = this.addPointsToHeatmap(heatmap, samples);
-        heatmap.radius(10, 10);
+        heatmap.radius(12, 1);
 
         //TODO find explanation for hardcoded value
-        let max_limit = samples.length;
+        let max_limit = samples.length / 15;
+        max_limit = (max_limit < 3) ? 3 : max_limit;
         heatmap.max(max_limit);
         heatmap.draw();
       },
