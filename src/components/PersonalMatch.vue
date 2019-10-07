@@ -87,9 +87,9 @@
                 <span class="k">{{ entry.Kills }}</span>
                 <span class="a">{{ entry.Assists }}</span>
                 <span class="d">{{ entry.Deaths }}</span>
-                <span class="ef">n/a</span>
-                <span class="mvp">n/a</span>
-                <span class="score">n/a</span>
+                <span class="ef">{{ entry.EnemiesFlashed }}</span>
+                <span class="mvp">{{ entry.MVPs }}</span>
+                <span class="score">{{ entry.Score }}</span>
               </div>
             </div>
           </div>
