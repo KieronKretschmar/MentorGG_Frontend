@@ -81,32 +81,32 @@ export default new Router({
           beforeEnter: authenticationGuard
     },
     {
-      path: '/eventhes',
+      path: '/event/hes',
       name: 'eventhes',
       component: () => import(/* webpackChunkName: "eventhes" */'./views/Event/EventHEs.vue')
     },
     {
-      path: '/eventflashes',
+      path: '/event/flashes',
       name: 'eventflashes',
       component: () => import(/* webpackChunkName: "eventflashes" */'./views/Event/EventFlashes.vue')
     },
     {
-      path: '/eventkills',
+      path: '/event/kills',
       name: 'eventkills',
       component: () => import(/* webpackChunkName: "eventkills" */'./views/Event/EventKills.vue')
     },
     {
-      path: '/eventmatchhistory',
+      path: '/event/matchhistory',
       name: 'eventmatchhistory',
       component: () => import(/* webpackChunkName: "eventmatchhistory" */'./views/Event/EventMatchHistory.vue')
     },
     {
-      path: '/eventmolotovs',
+      path: '/event/molotovs',
       name: 'eventmolotovs',
       component: () => import(/* webpackChunkName: "eventmolotovs" */'./views/Event/EventMolotovs.vue')
     },
     {
-      path: '/eventsmokes',
+      path: '/event/smokes',
       name: 'eventsmokes',
       component: () => import(/* webpackChunkName: "eventsmokes" */'./views/Event/EventSmokes.vue')
     },
@@ -132,9 +132,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "contact" */'./views/Contact.vue')
     },
     {
-      path: '/upload',
-      name: 'upload',
-      component: () => import(/* webpackChunkName: "upload" */'./views/Upload.vue'),
+      path: '/account/connections',
+      name: 'connections',
+      component: () => import(/* webpackChunkName: "connections" */'./views/Connections.vue'),
       beforeEnter: authenticationGuard
     },
     {

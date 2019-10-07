@@ -16,15 +16,15 @@
         <router-link to="/statistics">Statistics</router-link>
 
         <div class="nav-header">Starladder 2019</div>
-        <router-link to="/eventmatchhistory">Matches</router-link>
-        <router-link to="/eventkills">Kills</router-link>
-        <router-link to="/eventsmokes">Smokes</router-link>
-        <router-link to="/eventmolotovs">Molotovs</router-link>
-        <router-link to="/eventflashes">Flashes</router-link>
-        <router-link to="/eventhes">HEs</router-link>
+        <router-link to="/event/matchhistory">Matches</router-link>
+        <router-link to="/event/kills">Kills</router-link>
+        <router-link to="/event/smokes">Smokes</router-link>
+        <router-link to="/event/molotovs">Molotovs</router-link>
+        <router-link to="/event/flashes">Flashes</router-link>
+        <router-link to="/event/hes">HEs</router-link>
 
         <div class="nav-header">Acount</div>
-        <!-- <router-link to="/user-settings">Settings</router-link> -->
+        <router-link to="/account/connections">Connections</router-link>
         <div class="logout">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
             <button type="submit">Log out</button>

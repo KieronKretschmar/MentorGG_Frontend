@@ -1,7 +1,7 @@
 <template>
   <div class="view view-upload">
     <div class="fixed-width-container">
-      <div class="bordered-box">
+      <!-- <div class="bordered-box">
         <h2>MENTOR.GG Uploader as Browser Extension</h2>
         <div class="split">
           <div class="l">
@@ -46,6 +46,40 @@
             <p>And by the way, Valve has confirmed that this will not trigger VAC at all. You are completely safe using this!</p>
 
             <a href="/Downloads/MentorUploader.zip">Download</a>
+          </div>
+        </div>
+      </div> -->
+      <div class="bordered-box">
+        <h2>Connect your Steam account</h2>
+        <div class="split">
+          <div class="l">
+            <img src="@/assets/steam-logo.png" />
+          </div>
+          <div class="r">
+            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matche will be automatically uploaded to MENTOR.GG regularly.</p>
+            <div v-if="faceitStatus">
+              <div v-if="faceitStatus.IsConnected">
+                <p>
+                  Your MENTOR.GG account is currently connected to this Faceit Account: <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
+                  <br />
+                  <span v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed">
+                    Currently looking for new Faceit Matches
+                  </span>
+                  <span v-else>
+                    Last check for new Faceit matches at: 
+                    {{ faceitStatus.LastCheck|formatDate }}
+                  </span>
+                </p>
+                <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
+                <div class="button-wrapper">
+                  <button class="button-variant-bordered" @click="RefreshFaceit">Manual Refresh</button>
+                  <button class="button-variant-bordered" @click="RemoveFaceit">Disconnect</button>
+                </div>
+              </div>
+              <div v-else>
+                <button class="button-variant-bordered" @click="ConnectFaceit">Connect</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -100,10 +134,6 @@ export default {
     };
   },
   mounted() {
-    // let faceitScript = document.createElement('script')
-    // faceitScript.setAttribute('src', 'https://cdn.faceit.com/oauth/faceit-oauth-sdk-1.2.7.min.js')
-    // document.head.appendChild(faceitScript)
-
     // Activate FACEIT
     var initParams = {
       client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
@@ -113,7 +143,7 @@ export default {
       redirect_popup: false,
       debug: false
     };
-    FACEIT.init(initParams); // Hier habe ich Zugriff auf FACEIT
+    FACEIT.init(initParams);
 
     this.LoadFaceitStatus();
   },
