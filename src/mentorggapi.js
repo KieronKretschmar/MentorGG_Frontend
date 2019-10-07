@@ -261,6 +261,17 @@ class MentorGGAPI {
         return axios.get(this.apiEndpoint + 'Bomb/AllBombs', {
             params: params
         });
+  }
+
+    getAllBombPlantsByRank(map,rank, recentMatches = 50) {
+          let params = {
+              map: map,
+              rank: rank,
+              recentMatches: recentMatches,      
+          }
+          return axios.get(this.apiEndpoint + 'Bomb/AllBombsByRank', {
+            params: params
+          });
     }
 
     getHEsOverview(playerId = "", recentMatches = 50) {

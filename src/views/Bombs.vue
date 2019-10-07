@@ -148,7 +148,7 @@
           "Use last " + this.$route.query.matchCount + " matches";
       }
 
-      this.LoadSamples(this.activeMap, this.matchCount, false);
+      this.LoadSamplesByRank(this.activeMap,this.rankSelect, this.matchCount, false);
     },
 
     methods: {
@@ -175,6 +175,31 @@
           });
       },
 
+      LoadSamplesByRank(map, rankSelect, matchCount, isDemo) {
+        this.samples = [];
+        this.loadingSamplesComplete = false;
+        this.$api
+          .getAllBombPlantsByRank(map,rankSelect, matchCount)
+          .then(response => {
+            this.mapInfo = response.data.MapInfo;
+            this.samples = response.data.Samples;
+            if (this.zones.length == 0) {
+              this.zonesEnabled = false;
+            } else {
+              this.zonesEnabled = true;
+            }
+
+            this.loadingSamplesComplete = true;
+
+            console.log(response.data);
+            this.redrawByRank();
+          })
+          .catch(error => {
+            console.error(error); // eslint-disable-line no-console
+            this.loadingSamplesComplete = true;
+          });
+      },
+
       OnMapChange() {
         this.LoadSamples(this.mapSelect, this.matchCount, false);
         this.activeMap = this.mapSelect;
@@ -186,14 +211,12 @@
 
       redrawByRank() {
         let ranked_samples = this.FilterSamplesByRank(this.samples, this.rankSelect);
-        console.log(this.rankSelect);
 
         this.drawSamplesToHeatmap(ranked_samples);
       },
 
       FilterSamplesByRank(samples, rank) {
         let ranked_samples = samples.filter(x => Math.round(x.AverageRank) == rank);
-        console.log({ ranked_samples });
         return ranked_samples;
       },
 
