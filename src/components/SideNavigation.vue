@@ -40,8 +40,8 @@
           @click="optionsVisible = !optionsVisible"
           @mouseleave="optionsVisible = false"
         >
-          <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
-          <span class="username">{{ user.SteamName }}</span>
+          <!-- <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
+          <span class="username">{{ user.SteamName }}</span> -->
         </div>
       </div>
     </div>
