@@ -5,7 +5,7 @@ import MatchHeader from "@/components/MatchHeader.vue";
 
 export default {
   components: {
-    MatchHeader,
+    MatchHeader
   },
   data() {
     return {
@@ -25,8 +25,8 @@ export default {
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round, Math.max(0, time));
     },
-    ChooseRandom(items){
-      let randomItem = items[Math.floor(Math.random()*items.length)];
+    ChooseRandom(items) {
+      let randomItem = items[Math.floor(Math.random() * items.length)];
       return randomItem;
     }
   }
@@ -195,6 +195,4 @@ export default {
 }
 
 //responsive
-
-
 </style>
