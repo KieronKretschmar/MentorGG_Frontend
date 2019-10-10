@@ -280,6 +280,7 @@ export default {
       showCt: true,
       matchCount: 10,
       matchCountSelectOptions: {
+        1: "Use last match",
         5: "Use last 5 matches",
         10: "Use last 10 matches",
         50: "Use last 50 matches",
