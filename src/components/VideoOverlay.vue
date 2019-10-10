@@ -28,10 +28,9 @@ export default {
   mounted() {
     // Determine videoTimestamp
     if (this.startAt == undefined) {
-      if (this.url == undefined){
+      if (this.url == undefined) {
         this.videoTimestamp = 0;
-      }
-      else{
+      } else {
         this.videoTimestamp = this.timestampFromUrl(this.url);
       }
     } else {
@@ -47,63 +46,62 @@ export default {
     };
   },
   computed: {
-    a: function(){
+    a: function() {
       return this.getVideoId();
-    },
+    }
   },
   methods: {
     ToggleVisibility(visibility) {
-        this.overlayVisible = visibility;
+      this.overlayVisible = visibility;
 
-        if ( visibility ) {
-            document.body.classList.add('no-scroll');
-        } else {
-            document.body.classList.remove('no-scroll');
-        }
-    },
-    getVideoId(){
-      if(this.videoId){
-        return this.videoId;
+      if (visibility) {
+        document.body.classList.add("no-scroll");
+      } else {
+        document.body.classList.remove("no-scroll");
       }
-      else{
+    },
+    getVideoId() {
+      if (this.videoId) {
+        return this.videoId;
+      } else {
         return this.videoIdFromUrl(this.url);
       }
     },
-    videoIdFromUrl(url){
+    videoIdFromUrl(url) {
       if (url.includes("youtu.be")) {
-
         // cases https://youtu.be/mcpPyGl_5fw or https://youtu.be/mcpPyGl_5fw?t=39
-        let firstIndex = url.lastIndexOf('/') + 1;
-        let lastIndex = url.includes('?') ? url.lastIndexOf('?') : url.length;
+        let firstIndex = url.lastIndexOf("/") + 1;
+        let lastIndex = url.includes("?") ? url.lastIndexOf("?") : url.length;
         let identifier = url.substring(firstIndex, lastIndex);
         return identifier;
-      }
-      else if (url.includes("youtube")) {
+      } else if (url.includes("youtube")) {
         // case https://www.youtube.com/watch?v=mcpPyGl_5fw
-        let identifier = url.substring(url.lastIndexOf('v=') + 2, url.length);
+        let identifier = url.substring(url.lastIndexOf("v=") + 2, url.length);
         return identifier;
       }
       return "";
     },
-    timestampFromUrl(url){
+    timestampFromUrl(url) {
       if (url.includes("youtu.be")) {
         // cases https://youtu.be/mcpPyGl_5fw or https://youtu.be/mcpPyGl_5fw?t=39
 
-        // transform timeFormat from https://youtu.be/eKuvx1qfztY?t=1m53s -> 113 seconds 
+        // transform timeFormat from https://youtu.be/eKuvx1qfztY?t=1m53s -> 113 seconds
         var timeStart = url.search(/t=[\d]*m[\d]*s/i);
         if (timeStart !== -1) {
-          let timeEnd = url.substr(timeStart + 2).indexOf('s'); // +2 to avoid 't=' in "start"
+          let timeEnd = url.substr(timeStart + 2).indexOf("s"); // +2 to avoid 't=' in "start"
           let timeString = url.substr(timeStart + 2, timeEnd + 1); // "1m53s"
-          let minutes = parseInt(timeString.substr(0, timeString.indexOf('m'))); // 1
-          let secondsString = timeString.substr(timeString.indexOf('m') + 1); // "53s"
-          let seconds = parseInt(secondsString.substr(0, secondsString.length - 1)); // 53
+          let minutes = parseInt(timeString.substr(0, timeString.indexOf("m"))); // 1
+          let secondsString = timeString.substr(timeString.indexOf("m") + 1); // "53s"
+          let seconds = parseInt(
+            secondsString.substr(0, secondsString.length - 1)
+          ); // 53
           let timeInSeconds = minutes * 60 + seconds; // 113
           return timeInSeconds;
         }
         return 0;
       }
       return 0;
-    }    
+    }
   }
 };
 </script>
