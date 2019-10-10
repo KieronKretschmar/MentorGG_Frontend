@@ -31,7 +31,7 @@ Vue.component('NoDataAvailableDisplay', NoDataAvailableDisplay);
 Vue.filter('formatDate', function (val) {
   if (val) {
     let date = new Date(val);
-    return date.toLocaleString();
+    return date.toLocaleString([], { timeStyle: 'short', dateStyle: 'short' });
   }
 });
 
