@@ -1,54 +1,25 @@
 <template>
-  <div class="view view-upload">
-    <div class="fixed-width-container">
-      <!-- <div class="bordered-box">
-        <h2>MENTOR.GG Uploader as Browser Extension</h2>
-        <div class="split">
-          <div class="l">
-            <img src="@/assets/browser-extension-alternate.jpg" />
-          </div>
-          <div class="r">
-            <p>With our browser extension you are be able to upload your matchmaking matches right from within your browser.</p>
-            <p>
-              We highly recommend using this instead of the uploader for Windows,
-              as in the future the browser extension will receive seamless integration with our Website and give you access to features that you would normally not have access to.
-            </p>
-            <div class="download-links">
-              <a
-                target="_blank"
-                href="https://chrome.google.com/webstore/detail/mentorgg-uploader/anjgboggngeomdkapmhjodcbjjclalbg"
-              >
-                <img src="@/assets/browser-icons/chrome.png" />
-              </a>
-              <a
-                target="_blank"
-                href="https://addons.mozilla.org/de/firefox/addon/mentor-gg-uploader/"
-              >
-                <img src="@/assets/browser-icons/firefox.png" />
-              </a>
-            </div>
-          </div>
-        </div>
+  <div class="view view-connections">
+
+    <GenericOverlay class="valve-overlay" ref="valveOverlay" width="900px">
+      <p class="headline">Connect your Steam account</p>
+      <p>In order for you to connect your Steam account, we need you to login <a href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128" target="_blank">here.</a></p>
+      <p>After you have logged in, you will see the section <b>Access to Your Match History</b>.</p>
+      <p>You will either see a button prompting you to create an Authentication Code, or, if you had already created one in the past, your Authentication Code along with the share code from your very last official CS:GO match.</p>
+      <p>So, if you haven't yet, go ahead and create your authentication code. As soon as it's available to you, copy it into the box below. Then, copy your last share code into the second box.</p>
+
+      <div class="input-label-wrapper">
+        <label for="input-authcode">Authentication Code</label>
+        <input type="text" spellcheck="false" id="input-authcode" v-model="valveAuthToken"/>
       </div>
-      <div class="bordered-box">
-        <h2>MENTOR.GG Uploader for Windows</h2>
-        <div class="split">
-          <div class="l">
-            <img src="@/assets/windows-upload.jpg" />
-          </div>
-          <div class="r">
-            <p>
-              This will upload your matchmaking matches whenever you are done playing CS:GO. That's pretty much all there is to it.
-              <br />Just
-              <a target="_blank" href="https://www.7-zip.org/">unzip</a> it and run the *.exe file. You can also right-click the tray icon and have it start with Windows.
-            </p>
+      <div class="input-label-wrapper">
+        <label for="input-sharecode">Share Code</label>
+        <input type="text" spellcheck="false" id="input-sharecode" v-model="valveShareCode"/>
+      </div>
+      <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
+    </GenericOverlay>
 
-            <p>And by the way, Valve has confirmed that this will not trigger VAC at all. You are completely safe using this!</p>
-
-            <a href="/Downloads/MentorUploader.zip">Download</a>
-          </div>
-        </div>
-      </div> -->
+    <div class="fixed-width-container">
       <div class="bordered-box">
         <h2>Connect your Steam account</h2>
         <div class="split">
@@ -56,7 +27,7 @@
             <img src="@/assets/steam-logo.png" />
           </div>
           <div class="r">
-            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matche will be automatically uploaded to MENTOR.GG regularly.</p>
+            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be automatically uploaded to MENTOR.GG regularly.</p>
             <div v-if="faceitStatus">
               <div v-if="faceitStatus.IsConnected">
                 <p>
@@ -77,7 +48,7 @@
                 </div>
               </div>
               <div v-else>
-                <button class="button-variant-bordered" @click="ConnectFaceit">Connect</button>
+                <button class="button-variant-bordered" @click="ConnectValve">Connect</button>
               </div>
             </div>
           </div>
@@ -124,13 +95,21 @@
 
 <script>
 import FACEIT from "faceit";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
+  components: {
+    GenericOverlay
+  },
   data() {
     return {
       faceitStatus: null,
       faceit: FACEIT,
-      faceitJustRefreshed: false
+      faceitJustRefreshed: false,
+
+      valveOverlayVisible: false,
+      valveAuthToken: '',
+      valveShareCode: ''
     };
   },
   mounted() {
@@ -146,8 +125,21 @@ export default {
     FACEIT.init(initParams);
 
     this.LoadFaceitStatus();
+
+    this.$api.getConnections().then(result => {
+      console.log(result);
+    });
   },
   methods: {
+    ConnectValve() {
+      this.$refs.valveOverlay.Show();
+    },
+    AttemptValveConnect() {
+      console.log("Attempting Valve Connect", this.valveAuthToken, this.valveShareCode);
+      this.$api.updateSteamConnection(this.valveAuthToken, this.valveShareCode).then(response => {
+        console.log(response);
+      });
+    },
     LoadFaceitStatus() {
       this.$api.getFaceitStatus().then(response => {
         this.faceitStatus = response.data;
@@ -164,14 +156,49 @@ export default {
       });
     },
     ConnectFaceit() {
-      FACEIT.loginWithFaceit(); // Hier ist FACEIT undefined
+      FACEIT.loginWithFaceit();
     }
   }
 };
 </script>
 
 <style lang="scss">
-.view-upload {
+.view-connections {
+  position: relative;
+
+  .valve-overlay {
+    .input-label-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      label {
+        width: 100%;
+        color: $orange;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background: $purple;
+        color: white;
+        padding: 10px 20px;
+        border: 0;
+        outline: 0;
+        font-weight: 400;
+        font-family: inherit;
+      }
+    }
+
+    button {
+      width: 100%;
+      max-width: 200px;
+      padding: 10px 20px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
   .bordered-box {
     margin-top: 40px;
     padding: 20px;

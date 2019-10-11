@@ -1,5 +1,13 @@
 <template>
   <div class="side-navigation">
+
+    <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
+      <p class="headline">Manual Upload</p>
+      <p>Please select your demo file and click upload. This may take a while depending on the size of the demo.</p>
+      <input type="file" ref="manualUploadInput">
+      <button class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
+    </GenericOverlay>
+
     <div class="nav-content" data-simplebar>
       <nav>
         <router-link to="/" class="logo">
@@ -25,9 +33,10 @@
 
         <div class="nav-header">Acount</div>
         <router-link to="/account/connections">Connections</router-link>
+        <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
         <div class="logout">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
-            <button type="submit">Log out</button>
+            <button class="nav-button" type="submit">Log out</button>
           </form>
         </div>
       </nav>
@@ -40,7 +49,7 @@
           @click="optionsVisible = !optionsVisible"
           @mouseleave="optionsVisible = false"
         >
-          <!-- <img v-if="user" :src="getFullSteamAvatarURL(user.Icon)" />
+          G!-- <img v-if="user" :src="GetFullSteamAvatarURL(user.Icon)" />
           <span class="username">{{ user.SteamName }}</span> -->
         </div>
       </div>
@@ -50,10 +59,12 @@
 
 <script>
 import DiscordHint from "@/components/DiscordHint.vue";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
   components: {
-    DiscordHint
+    DiscordHint,
+    GenericOverlay
   },
   mounted() {
     this.$api.getPlayerInfo("").then(response => {
@@ -70,11 +81,28 @@ export default {
     OnUploadMatches: function() {
       this.$router.push({ name: "upload" });
     },
-    getFullSteamAvatarURL: function(url) {
+    GetFullSteamAvatarURL: function(url) {
       if (!url) {
         return "";
       }
       return url.split(".jpg")[0] + "_full.jpg";
+    },
+    TriggerManualUpload: function() {
+      let formData = new FormData();
+      let fileinput = this.$refs.manualUploadInput;
+
+      if (!fileinput.files.length) {
+        console.error('Tried to trigger manual upload without selecting a file first');
+        return;
+      }
+
+      formData.append("demo", fileinput.files[0]);
+
+      this.$api.uploadDemo(formData, (progressEvent) => {
+        console.log(progressEvent);
+      }).then(result => {
+        console.log(result);
+      });
     }
   }
 };
@@ -89,6 +117,27 @@ export default {
   width: $sidebar-width;
   padding: 0;
   z-index: 9999;
+
+  .manual-upload-overlay {
+    text-align: center;
+
+    input[type="file"] {
+      cursor: pointer;
+      background: $purple;
+      padding: 10px;
+      color: white;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      font-family: inherit;
+    }
+
+    button {
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
 
   .nav-content {
     height: 100%;
@@ -193,26 +242,24 @@ export default {
       }
     }
 
-    .logout {
-      button {
-        border: 0;
-        outline: 0;
-        color: white;
-        transition: 0.35s;
-        background: $dark-3;
-        cursor: pointer;
-        padding: 5px 40px;
-        margin: 0;
-        width: 100%;
-        font-family: "Montserrat", sans-serif;
-        -webkit-font-smoothing: antialiased;
-        font-weight: 500;
-        font-size: 14px;
-        text-align: left;
+    .nav-button {
+      border: 0;
+      outline: 0;
+      color: white;
+      transition: 0.35s;
+      background: $dark-3;
+      cursor: pointer;
+      padding: 5px 40px;
+      margin: 0;
+      width: 100%;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: 1px;
 
-        &:hover {
-          color: $orange;
-        }
+      &:hover {
+        color: $orange;
       }
     }
   }

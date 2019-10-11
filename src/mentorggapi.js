@@ -2,13 +2,13 @@ import axios from 'axios';
 
 class MentorGGAPI {
     constructor() {
-        if(process.env.NODE_ENV == 'production'){
+        if (process.env.NODE_ENV == 'production') {
             this.mvcEndpoint = document.location.origin + '/';
             this.tldEndpoint = this.mvcEndpoint;
             this.sendFixedSteamId = false;
         }
         // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
-        if(process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH){
+        if (process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH) {
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             this.sendFixedSteamId = true;
             this.tldEndpoint = 'https://mentor.gg/';
@@ -16,16 +16,16 @@ class MentorGGAPI {
             this.fixedSteamId = '76561198033880857'; //kieron
             // this.fixedSteamId = '76561198044966222'; //lasse
         }
-        
+
         this.apiEndpoint = this.mvcEndpoint + 'api/';
     }
 
     resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
-    }    
-    
-    matchUrl(matchId){
-        return this.mvcEndpoint + 'Download/Demo?matchId=' + matchId;     
+    }
+
+    matchUrl(matchId) {
+        return this.mvcEndpoint + 'Download/Demo?matchId=' + matchId;
     }
 
     getLoginStatus() {
@@ -41,11 +41,11 @@ class MentorGGAPI {
 
     getFaceitStatus(playerId = "") {
         let params = {
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -56,11 +56,11 @@ class MentorGGAPI {
 
     getPlayerInfo(playerId = "") {
         let params = {
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -73,11 +73,11 @@ class MentorGGAPI {
         let params = {
             recentMatches: count,
             offset: offset
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -86,14 +86,14 @@ class MentorGGAPI {
         });
     }
 
-    getMisplays(playerId = "", recentMatches){
+    getMisplays(playerId = "", recentMatches) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -102,15 +102,15 @@ class MentorGGAPI {
         });
     }
 
-    
-    getSingleMatchMisplays(playerId = "", matchId){
+
+    getSingleMatchMisplays(playerId = "", matchId) {
         let params = {
             matchId: matchId
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -124,14 +124,14 @@ class MentorGGAPI {
             showBest: showBest,
             nPositions: count,
             recentMatches: forMatchesN
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
-        
+
         return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
             params: params
         });
@@ -141,11 +141,11 @@ class MentorGGAPI {
         let params = {
             maxFriends: maxFriends,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -157,11 +157,11 @@ class MentorGGAPI {
     getRecentMatchData(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -173,11 +173,11 @@ class MentorGGAPI {
     getFireNadesOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -190,11 +190,11 @@ class MentorGGAPI {
         let params = {
             map: map,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -206,11 +206,11 @@ class MentorGGAPI {
     getFlashesOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -223,11 +223,11 @@ class MentorGGAPI {
         let params = {
             map: map,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -250,10 +250,11 @@ class MentorGGAPI {
         }
 
         return axios.get(this.apiEndpoint + 'Bomb/Bombs', {
-            params: params });
+            params: params
+        });
     }
 
-    getAllBombPlants( map, recentMatches = 50) {
+    getAllBombPlants(map, recentMatches = 50) {
         let params = {
             map: map,
             recentMatches: recentMatches
@@ -261,27 +262,27 @@ class MentorGGAPI {
         return axios.get(this.apiEndpoint + 'Bomb/AllBombs', {
             params: params
         });
-  }
+    }
 
-    getAllBombPlantsByRank(map,rank, recentMatches = 50) {
-          let params = {
-              map: map,
-              rank: rank,
-              recentMatches: recentMatches,      
-          }
-          return axios.get(this.apiEndpoint + 'Bomb/AllBombsByRank', {
+    getAllBombPlantsByRank(map, rank, recentMatches = 50) {
+        let params = {
+            map: map,
+            rank: rank,
+            recentMatches: recentMatches,
+        }
+        return axios.get(this.apiEndpoint + 'Bomb/AllBombsByRank', {
             params: params
-          });
+        });
     }
 
     getHEsOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -294,11 +295,11 @@ class MentorGGAPI {
         let params = {
             map: map,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -310,11 +311,11 @@ class MentorGGAPI {
     getKillsOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -327,27 +328,27 @@ class MentorGGAPI {
         let params = {
             map: map,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
         return axios.get(this.apiEndpoint + 'Kills/Kills', {
             params: params
         });
-    }    
+    }
 
     getSmokesOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
 
@@ -360,14 +361,14 @@ class MentorGGAPI {
         let params = {
             map: map,
             recentMatches: recentMatches
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
-        
+
         return axios.get(this.apiEndpoint + 'Smokes/Smokes', {
             params: params
         });
@@ -386,48 +387,48 @@ class MentorGGAPI {
         let params = {
             matchId: matchId,
             round: round
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
         return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
             params: params
         });
     }
-    
+
     getPlayerStats(playerId = "") {
         let params = {
-        }                
-        if(playerId.length) {
+        }
+        if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId){
+        else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
         return axios.get(this.apiEndpoint + 'Stats/Player', {
             params: params
         });
-    }    
-        
+    }
+
     getEvents() {
         return axios.get(this.apiEndpoint + 'Event/Events', {
             params: {
             }
         });
-    } 
-                      
+    }
+
     getEvent(eventName) {
         return axios.get(this.apiEndpoint + 'Event/Event', {
             params: {
                 eventName: eventName
             }
         });
-    } 
-     
-    getEventFlashes(eventName, teamName, map){
+    }
+
+    getEventFlashes(eventName, teamName, map) {
         return axios.get(this.apiEndpoint + 'Flashes/EventFlashes', {
             params: {
                 eventName: eventName,
@@ -436,8 +437,8 @@ class MentorGGAPI {
             }
         });
     }
-     
-    getEventHEs(eventName, teamName, map){
+
+    getEventHEs(eventName, teamName, map) {
         return axios.get(this.apiEndpoint + 'HEs/EventHEs', {
             params: {
                 eventName: eventName,
@@ -446,8 +447,8 @@ class MentorGGAPI {
             }
         });
     }
-         
-    getEventKills(eventName, teamName, map){
+
+    getEventKills(eventName, teamName, map) {
         return axios.get(this.apiEndpoint + 'Kills/EventKills', {
             params: {
                 eventName: eventName,
@@ -455,21 +456,21 @@ class MentorGGAPI {
                 map: map,
             }
         });
-    }       
+    }
 
     getEventMatches(eventName, count, offset = 0) {
         let params = {
             eventName: eventName,
             recentMatches: count,
             offset: offset
-        }      
+        }
 
         return axios.get(this.apiEndpoint + 'Matches/EventMatches', {
             params: params
         });
     }
 
-    getEventMolotovs(eventName, teamName, map){
+    getEventMolotovs(eventName, teamName, map) {
         return axios.get(this.apiEndpoint + 'FireNades/EventFireNades', {
             params: {
                 eventName: eventName,
@@ -478,8 +479,8 @@ class MentorGGAPI {
             }
         });
     }
-     
-    getEventSmokes(eventName, teamName, map){
+
+    getEventSmokes(eventName, teamName, map) {
         return axios.get(this.apiEndpoint + 'Smokes/EventSmokes', {
             params: {
                 eventName: eventName,
@@ -489,21 +490,48 @@ class MentorGGAPI {
         });
     }
 
-    postRefreshFaceit(){
+    getConnections() {
+        return axios.get(this.apiEndpoint + 'User/Connections');
+    }
+
+    uploadDemo(formData, callback) {
+        let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: function (progressEvent) {
+                let progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
+                console.log(progress);
+            }
+        };
+
+        return axios.post(this.mvcEndpoint + 'Upload/Demo', formData, config);
+    }
+
+    updateSteamConnection(authCode, shareCode) {
+        return axios.post(this.apiEndpoint + 'User/UpdateSteamApiAuthData', {
+            params: {
+                steamIdKey: authCode,
+                lastSharingCode: shareCode
+            }
+        });
+    }
+
+    postRefreshFaceit() {
         return axios.post(this.mvcEndpoint + 'Account/RefreshFaceit', {
             params: {
             }
         });
     }
-    
-    postRemoveFaceit(){
+
+    postRemoveFaceit() {
         return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
             params: {
             }
         });
     }
 
-    postLookForMatches(){
+    postLookForMatches() {
         return axios.post(this.apiEndpoint + 'User/LookForMatches', {
             params: {
             }
