@@ -490,7 +490,7 @@ class MentorGGAPI {
             }
         };
 
-        return axios.post(this.mvcEndpoint + 'Upload/Demo', formData, config);
+        return axios.post(this.apiEndpoint + 'Upload/Demo', formData, config);
     }
 
     updateSteamConnection(authCode, shareCode) {
