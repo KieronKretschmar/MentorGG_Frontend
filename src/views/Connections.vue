@@ -108,6 +108,7 @@ export default {
       faceitJustRefreshed: false,
 
       valveOverlayVisible: false,
+      valveStatus: null,
       valveAuthToken: '',
       valveShareCode: ''
     };
@@ -124,25 +125,21 @@ export default {
     };
     FACEIT.init(initParams);
 
-    this.LoadFaceitStatus();
-
-    this.$api.getConnections().then(result => {
-      console.log(result);
-    });
+    this.UpdateConnections();
   },
   methods: {
     ConnectValve() {
       this.$refs.valveOverlay.Show();
-    },
+    },    
     AttemptValveConnect() {
       console.log("Attempting Valve Connect", this.valveAuthToken, this.valveShareCode);
       this.$api.updateSteamConnection(this.valveAuthToken, this.valveShareCode).then(response => {
         console.log(response);
       });
     },
-    LoadFaceitStatus() {
-      this.$api.getFaceitStatus().then(response => {
-        this.faceitStatus = response.data;
+    RemoveValve() {
+      this.$api.postRemoveValve().then(response => {
+        this.UpdateConnections();
       });
     },
     RefreshFaceit() {
@@ -152,11 +149,17 @@ export default {
     },
     RemoveFaceit() {
       this.$api.postRemoveFaceit().then(response => {
-        this.LoadFaceitStatus();
+        this.UpdateConnections();
       });
     },
     ConnectFaceit() {
       FACEIT.loginWithFaceit();
+    },
+    UpdateConnections(){
+      this.$api.getConnections().then(response => {
+        this.faceitStatus = response.data.Faceit;
+        this.valveStatus = response.data.Valve;
+      });
     }
   }
 };
