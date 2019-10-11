@@ -39,21 +39,6 @@ class MentorGGAPI {
         });
     }
 
-    getFaceitStatus(playerId = "") {
-        let params = {
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'User/FaceitStatus', {
-            params: params
-        });
-    }
-
     getPlayerInfo(playerId = "") {
         let params = {
         }
