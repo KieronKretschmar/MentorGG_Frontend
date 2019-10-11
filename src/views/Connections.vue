@@ -5,7 +5,7 @@
       <p class="headline">Connect your Steam account</p>
       <p>In order for you to connect your Steam account, we need you to login <a href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128" target="_blank">here.</a></p>
       <p>After you have logged in, you will see the section <b>Access to Your Match History</b>.</p>
-      <p>You will either see a button prompting you to create an Authentication Code, or, if you had already created one in the past, your Authentication Code along with the share code from your very last official CS:GO match.</p>
+      <p>You will either see a button prompting you to create an Authentication Code, or, if you have already created one in the past, your Authentication Code along with the share code from your very last official CS:GO match.</p>
       <p>So, if you haven't yet, go ahead and create your authentication code. As soon as it's available to you, copy it into the box below. Then, copy your last share code into the second box.</p>
 
       <div class="input-label-wrapper">
