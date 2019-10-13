@@ -137,7 +137,7 @@ export default {
 
       loadedConnections: false,
       connectingValve: false,
-      valveConnectionFailed: true
+      valveConnectionFailed: false
     };
   },
   mounted() {
@@ -170,6 +170,8 @@ export default {
       this.$api
         .updateValveConnection(this.valveAuthToken, this.valveShareCode)
         .then(response => {
+          this.valveConnectionFailed = !response.data.IsValid;
+
           if (response.data.IsValid) {
             this.$api.startLookingForValveMatches();
           }
