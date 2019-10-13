@@ -12,8 +12,8 @@ class MentorGGAPI {
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             this.sendFixedSteamId = true;
             this.tldEndpoint = 'https://mentor.gg/';
-            this.fixedSteamId = '76561198166019050'; //felix
             this.fixedSteamId = '76561198033880857'; //kieron
+            this.fixedSteamId = '76561198166019050'; //felix
             // this.fixedSteamId = '76561198044966222'; //lasse
         }
 

@@ -74,6 +74,7 @@
             <div class="table-content">
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
+                  <img class="rank" :src="$api.resolveResource(entry.RankBeforeMatchIcon)">
                   <img class="avatar" :src="entry.Profile.Icon" />
                   <a
                     class="name"
@@ -105,6 +106,9 @@ import MatchHeader from "@/components/MatchHeader.vue";
 export default {
   components: {
     MatchHeader
+  },
+  mounted() {
+    console.log(this.match);
   },
   props: ["match"],
   methods: {
@@ -323,7 +327,7 @@ export default {
             flex: 0 0 100px;
 
             &:first-child {
-              flex: 0 0 200px;
+              flex: 0 0 250px;
             }
           }
         }
@@ -341,7 +345,14 @@ export default {
             }
 
             .name-avatar-wrapper {
-              flex: 0 0 200px;
+              flex: 0 0 250px;
+              display: flex;
+              align-items: center;
+
+              .rank {
+                height: 24px;
+                margin-right: 10px;
+              }
 
               .avatar {
                 width: 24px;
@@ -352,7 +363,7 @@ export default {
               .name {
                 color: white;
                 font-weight: 500;
-                margin-left: 20px;
+                margin-left: 10px;
                 font-size: 14px;
                 white-space: nowrap;
                 overflow: hidden;
