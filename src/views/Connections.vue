@@ -142,6 +142,7 @@ export default {
     RemoveValve() {
       this.$api.postRemoveValve().then(response => {
         this.UpdateConnections();
+        this.$api.stopLookingForValveMatches();
       });
     },
     RefreshFaceit() {
