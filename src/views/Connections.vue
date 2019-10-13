@@ -41,7 +41,7 @@
       <p
         v-if="valveConnectionFailed && !connectingValve"
         class="connection-error"
-      >Connection failed. Please make sure that you entered everything correctly and try again.</p>
+      >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
@@ -174,6 +174,8 @@ export default {
 
           if (response.data.IsValid) {
             this.$api.startLookingForValveMatches();
+            this.UpdateConnections();
+            this.$refs.valveOverlay.Hide();
           }
 
           this.connectingValve = false;
