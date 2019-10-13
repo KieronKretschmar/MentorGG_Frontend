@@ -1,20 +1,28 @@
 <template>
   <div class="view view-connections">
-
     <GenericOverlay class="valve-overlay" ref="valveOverlay" width="900px">
       <p class="headline">Connect your Steam account</p>
-      <p>In order for you to connect your Steam account, we need you to login <a href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128" target="_blank">here.</a></p>
-      <p>After you have logged in, you will see the section <b>Access to Your Match History</b>.</p>
+      <p>
+        In order for you to connect your Steam account, we need you to login
+        <a
+          href="https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid=730&issueid=128"
+          target="_blank"
+        >here.</a>
+      </p>
+      <p>
+        After you have logged in, you will see the section
+        <b>Access to Your Match History</b>.
+      </p>
       <p>You will either see a button prompting you to create an Authentication Code, or, if you have already created one in the past, your Authentication Code along with the share code from your very last official CS:GO match.</p>
       <p>So, if you haven't yet, go ahead and create your authentication code. As soon as it's available to you, copy it into the box below. Then, copy your last share code into the second box.</p>
 
       <div class="input-label-wrapper">
         <label for="input-authcode">Authentication Code</label>
-        <input type="text" spellcheck="false" id="input-authcode" v-model="valveAuthToken"/>
+        <input type="text" spellcheck="false" id="input-authcode" v-model="valveAuthToken" />
       </div>
       <div class="input-label-wrapper">
         <label for="input-sharecode">Share Code</label>
-        <input type="text" spellcheck="false" id="input-sharecode" v-model="valveShareCode"/>
+        <input type="text" spellcheck="false" id="input-sharecode" v-model="valveShareCode" />
       </div>
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
@@ -35,9 +43,7 @@
             <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be automatically uploaded to MENTOR.GG regularly.</p>
             <div v-if="valveStatus">
               <div v-if="valveStatus.IsConnected">
-                <p>
-                  Your MENTOR.GG account is currently connected. Your matches will automatically be fetched every now and then.
-                </p>                
+                <p>Your MENTOR.GG account is currently connected. Your matches will automatically be fetched every now and then.</p>
                 <div class="button-wrapper">
                   <button class="button-variant-bordered" @click="DisconnectValve">Disconnect</button>
                 </div>
@@ -60,13 +66,14 @@
             <div v-if="faceitStatus">
               <div v-if="faceitStatus.IsConnected">
                 <p>
-                  Your MENTOR.GG account is currently connected to this Faceit Account: <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
+                  Your MENTOR.GG account is currently connected to this Faceit Account:
+                  <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
                   <br />
-                  <span v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed">
-                    Currently looking for new Faceit Matches
-                  </span>
+                  <span
+                    v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed"
+                  >Currently looking for new Faceit Matches</span>
                   <span v-else>
-                    Last check for new Faceit matches at: 
+                    Last check for new Faceit matches at:
                     {{ faceitStatus.LastCheck|formatDate }}
                   </span>
                 </p>
@@ -104,8 +111,8 @@ export default {
 
       valveOverlayVisible: false,
       valveStatus: null,
-      valveAuthToken: '',
-      valveShareCode: '',
+      valveAuthToken: "",
+      valveShareCode: "",
 
       loadedConnections: false
     };
@@ -134,10 +141,16 @@ export default {
       });
     },
     AttemptValveConnect() {
-      console.log("Attempting Valve Connect", this.valveAuthToken, this.valveShareCode);
-      this.$api.updateValveConnection(this.valveAuthToken, this.valveShareCode).then(response => {
-        this.$api.startLookingForValveMatches();
-      });
+      console.log(
+        "Attempting Valve Connect",
+        this.valveAuthToken,
+        this.valveShareCode
+      );
+      this.$api
+        .updateValveConnection(this.valveAuthToken, this.valveShareCode)
+        .then(response => {
+          this.$api.startLookingForValveMatches();
+        });
     },
     RemoveValve() {
       this.$api.postRemoveValve().then(response => {
@@ -158,7 +171,7 @@ export default {
     ConnectFaceit() {
       FACEIT.loginWithFaceit();
     },
-    UpdateConnections(){
+    UpdateConnections() {
       this.$api.getConnections().then(response => {
         this.faceitStatus = response.data.Faceit;
         this.valveStatus = response.data.Valve;

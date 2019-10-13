@@ -8,7 +8,7 @@
         <router-link to="/" class="logo">
           <img src="@/assets/logo_white.svg" />
         </router-link>
-        
+
         <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
       </header>
       <main>
@@ -26,7 +26,12 @@
     <GenericOverlay ref="connectionHintOverlay" width="900px">
       <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
       <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be automatically imported to MENTOR.GG every now and then.</p>
-      <p>We highly recommend going to the <span @click="$refs.connectionHintOverlay.Hide()"><router-link to="/account/connections">Connections</router-link></span> page and setting up said connection right now!</p>
+      <p>
+        We highly recommend going to the
+        <span @click="$refs.connectionHintOverlay.Hide()">
+          <router-link to="/account/connections">Connections</router-link>
+        </span> page and setting up said connection right now!
+      </p>
     </GenericOverlay>
   </div>
 </template>
@@ -142,7 +147,7 @@ main {
 }
 
 //responsive
-@media(max-width: 1100px) {
+@media (max-width: 1100px) {
   #app {
     .l-app {
       // display: none;
@@ -179,5 +184,4 @@ main {
     }
   }
 }
-
 </style>
