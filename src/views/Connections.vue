@@ -41,7 +41,7 @@
       <p
         v-if="valveConnectionFailed && !connectingValve"
         class="connection-error"
-      >Connection failed. Please make sure that you entered everything correctly and try again.</p>
+      >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
@@ -59,10 +59,10 @@
             <img src="@/assets/steam-logo.png" />
           </div>
           <div class="r">
-            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be automatically uploaded to MENTOR.GG regularly.</p>
+            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be uploaded to MENTOR.GG automatically.</p>
             <div v-if="valveStatus">
               <div v-if="valveStatus.IsConnected">
-                <p>Your MENTOR.GG account is currently connected. Your matches will automatically be fetched every now and then.</p>
+                <p>Your account is currently connected.</p>
                 <div class="button-wrapper">
                   <button class="button-variant-bordered" @click="DisconnectValve">Disconnect</button>
                 </div>
@@ -174,6 +174,8 @@ export default {
 
           if (response.data.IsValid) {
             this.$api.startLookingForValveMatches();
+            this.UpdateConnections();
+            this.$refs.valveOverlay.Hide();
           }
 
           this.connectingValve = false;
