@@ -13,16 +13,16 @@
         After you have logged in, you will see the section
         <b>Access to Your Match History</b>.
       </p>
-      <p>You will either see a button prompting you to create an Authentication Code, or, if you have already created one in the past, your Authentication Code along with the share code from your very last official CS:GO match.</p>
-      <p>So, if you haven't yet, go ahead and create your authentication code. As soon as it's available to you, copy it into the box below. Then, copy your last share code into the second box.</p>
+      <p>You will either see a button prompting you to create an Authentication Code, or, if you have already created one in the past, your Authentication Code along with the share code (match token) from your very last official CS:GO match.</p>
+      <p>So, if you haven't yet, go ahead and create your authentication code. As soon as it's available to you, copy it into the box below. Then, copy your share code into the second box.</p>
 
       <div class="input-label-wrapper">
         <label for="input-authcode">Authentication Code</label>
-        <input type="text" spellcheck="false" id="input-authcode" v-model="valveAuthToken" />
+        <input type="text" spellcheck="false" id="input-authcode" placeholder="XXXX-XXXXX-XXXX" v-model="valveAuthToken" />
       </div>
       <div class="input-label-wrapper">
         <label for="input-sharecode">Share Code</label>
-        <input type="text" spellcheck="false" id="input-sharecode" v-model="valveShareCode" />
+        <input type="text" spellcheck="false" id="input-sharecode" placeholder="CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" v-model="valveShareCode" />
       </div>
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
