@@ -59,10 +59,10 @@
             <img src="@/assets/steam-logo.png" />
           </div>
           <div class="r">
-            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be automatically uploaded to MENTOR.GG regularly.</p>
+            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be uploaded to MENTOR.GG automatically.</p>
             <div v-if="valveStatus">
               <div v-if="valveStatus.IsConnected">
-                <p>Your MENTOR.GG account is currently connected. Your matches will automatically be fetched every now and then.</p>
+                <p>Your account is currently connected.</p>
                 <div class="button-wrapper">
                   <button class="button-variant-bordered" @click="DisconnectValve">Disconnect</button>
                 </div>

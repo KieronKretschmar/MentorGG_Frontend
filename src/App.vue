@@ -25,11 +25,11 @@
 
     <GenericOverlay ref="connectionHintOverlay" width="900px">
       <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
-      <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be automatically imported to MENTOR.GG every now and then.</p>
+      <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be imported to MENTOR.GG automatically every now and then.</p>
       <p>
         We highly recommend going to the
         <span @click="$refs.connectionHintOverlay.Hide()">
-          <router-link to="/account/connections">Connections</router-link>
+          <router-link to="/connections">Connections</router-link>
         </span> page and setting up said connection right now!
       </p>
     </GenericOverlay>
