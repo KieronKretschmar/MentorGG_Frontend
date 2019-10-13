@@ -19,7 +19,12 @@
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
 
-    <div class="fixed-width-container">
+    <div class="fixed-width-container" v-if="!loadedConnections">
+      <div class="bordered-box">
+        <AjaxLoader>Loading connection info</AjaxLoader>
+      </div>
+    </div>
+    <div class="fixed-width-container" v-else>
       <div class="bordered-box">
         <h2>Connect your Steam account</h2>
         <div class="split">
@@ -28,23 +33,13 @@
           </div>
           <div class="r">
             <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be automatically uploaded to MENTOR.GG regularly.</p>
-            <div v-if="faceitStatus">
-              <div v-if="faceitStatus.IsConnected">
+            <div v-if="valveStatus">
+              <div v-if="valveStatus.IsConnected">
                 <p>
-                  Your MENTOR.GG account is currently connected to this Faceit Account: <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
-                  <br />
-                  <span v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed">
-                    Currently looking for new Faceit Matches
-                  </span>
-                  <span v-else>
-                    Last check for new Faceit matches at: 
-                    {{ faceitStatus.LastCheck|formatDate }}
-                  </span>
-                </p>
-                <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
+                  Your MENTOR.GG account is currently connected. Your matches will automatically be fetched every now and then.
+                </p>                
                 <div class="button-wrapper">
-                  <button class="button-variant-bordered" @click="RefreshFaceit">Manual Refresh</button>
-                  <button class="button-variant-bordered" @click="RemoveFaceit">Disconnect</button>
+                  <button class="button-variant-bordered" @click="DisconnectValve">Disconnect</button>
                 </div>
               </div>
               <div v-else>
@@ -110,7 +105,9 @@ export default {
       valveOverlayVisible: false,
       valveStatus: null,
       valveAuthToken: '',
-      valveShareCode: ''
+      valveShareCode: '',
+
+      loadedConnections: false
     };
   },
   mounted() {
@@ -130,11 +127,16 @@ export default {
   methods: {
     ConnectValve() {
       this.$refs.valveOverlay.Show();
-    },    
+    },
+    DisconnectValve() {
+      this.$api.removeValveConnection().then(result => {
+        console.log("Disconnected Valve", result);
+      });
+    },
     AttemptValveConnect() {
       console.log("Attempting Valve Connect", this.valveAuthToken, this.valveShareCode);
-      this.$api.updateSteamConnection(this.valveAuthToken, this.valveShareCode).then(response => {
-        console.log(response);
+      this.$api.updateValveConnection(this.valveAuthToken, this.valveShareCode).then(response => {
+        this.$api.startLookingForValveMatches();
       });
     },
     RemoveValve() {
@@ -159,6 +161,8 @@ export default {
       this.$api.getConnections().then(response => {
         this.faceitStatus = response.data.Faceit;
         this.valveStatus = response.data.Valve;
+
+        this.loadedConnections = true;
       });
     }
   }

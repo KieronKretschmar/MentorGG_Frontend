@@ -72,6 +72,7 @@ export default {
     margin-top: -20vh;
     border-radius: 3px;
     overflow: hidden;
+    font-weight: 300;
 
     .close-button {
       width: 30px;
@@ -110,6 +111,7 @@ export default {
 
     a {
       color: $orange;
+      text-decoration: none;
     }
 
     b {

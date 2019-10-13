@@ -22,6 +22,12 @@
     </div>
     <!-- <DiscordHint /> -->
     <DemoViewer ref="demoviewer" />
+
+    <GenericOverlay ref="connectionHintOverlay" width="900px">
+      <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
+      <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be automatically imported to MENTOR.GG every now and then.</p>
+      <p>We highly recommend going to the <span @click="$refs.connectionHintOverlay.Hide()"><router-link to="/account/connections">Connections</router-link></span> page and setting up said connection right now!</p>
+    </GenericOverlay>
   </div>
 </template>
 
@@ -31,16 +37,26 @@ import SideNavigation from "@/components/SideNavigation.vue";
 import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
 import DemoViewer from "@/components/DemoViewer.vue";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
   name: "App",
-  mounted() {},
+  mounted() {
+    this.$api.getConnections().then(result => {
+      if (!result.data.Valve.IsConnected) {
+        this.$refs.connectionHintOverlay.Show();
+      } else {
+        this.$api.startLookingForValveMatches();
+      }
+    });
+  },
   components: {
     TopNavigation,
     SideNavigation,
     Footer,
     DiscordHint,
-    DemoViewer
+    DemoViewer,
+    GenericOverlay
   },
   data() {
     return {

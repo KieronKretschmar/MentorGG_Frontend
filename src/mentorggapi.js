@@ -18,6 +18,7 @@ class MentorGGAPI {
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
+        this.valveInterval = null;
     }
 
     resolveResource(resource) {
@@ -493,10 +494,24 @@ class MentorGGAPI {
         return axios.post(this.apiEndpoint + 'Upload/Demo', formData, config);
     }
 
-    updateSteamConnection(authCode, shareCode) {
+    updateValveConnection(authCode, shareCode) {
         return axios.post(this.apiEndpoint + 'User/UpdateSteamApiAuthData', {
             steamIdKey: authCode,
             lastSharingCode: shareCode
+        });
+    }
+
+    removeValveConnection() {
+        return axios.post(this.mvcEndpoint + 'Account/RemoveValve', {
+            params: {
+            }
+        });
+    }
+
+    lookForValveMatches() {
+        return axios.post(this.mvcEndpoint + 'User/LookForValveMatches', {
+            params: {
+            }
         });
     }
 
@@ -526,6 +541,29 @@ class MentorGGAPI {
             params: {
             }
         });
+    }
+
+    startLookingForValveMatches() {
+        if (this.valveInterval != null) {
+            return false;
+        }
+
+        this.valveInterval = setInterval(() => {
+            this.lookForValveMatches();
+        }, 1000 * 60 * 3);
+
+        return true;
+    }
+
+    stopLookingForValveMatches() {
+        if (this.valveInterval != null) {
+            clearInterval(this.valveInterval);
+            this.valveInterval = null;
+
+            return true;
+        }
+
+        return false;
     }
 }
 
