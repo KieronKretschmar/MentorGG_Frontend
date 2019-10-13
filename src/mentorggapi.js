@@ -548,6 +548,9 @@ class MentorGGAPI {
             return false;
         }
 
+        //initial check
+        this.lookForValveMatches();
+
         this.valveInterval = setInterval(() => {
             this.lookForValveMatches();
         }, 1000 * 60 * 3);
