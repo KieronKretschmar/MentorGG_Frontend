@@ -46,6 +46,13 @@
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
 
+    <div class="fixed-width-container">
+      <div class="bordered-box">
+        <h2>Automatic Upload</h2>
+        <p>By connecting your MENTOR.GG account with a service, you allow us to automatically fetch your matches from said service. Whenever you play a match, you will be able to analyze it on our site shortly after you've finished playing.</p>
+      </div>
+    </div>
+
     <div class="fixed-width-container" v-if="!loadedConnections">
       <div class="bordered-box">
         <AjaxLoader>Loading connection info</AjaxLoader>
@@ -53,13 +60,18 @@
     </div>
     <div class="fixed-width-container" v-else>
       <div class="bordered-box">
-        <h2>Connect your Steam account</h2>
         <div class="split">
           <div class="l">
-            <img src="@/assets/steam-logo.png" />
+            <img src="@/assets/steam-logo.jpg" />
           </div>
           <div class="r">
-            <p>If you connect your Steam Account to MENTOR.GG, your matchmaking matches will be uploaded to MENTOR.GG automatically.</p>
+            <h2>
+              Steam
+              <span
+                class="connection-status"
+                :class="{yes: valveStatus.IsConnected}"
+              >{{ valveStatus.IsConnected ? 'connected' : 'not connected' }}</span>
+            </h2>
             <div v-if="valveStatus">
               <div v-if="valveStatus.IsConnected">
                 <p>Your account is currently connected.</p>
@@ -75,13 +87,18 @@
         </div>
       </div>
       <div class="bordered-box">
-        <h2>Connect your FACEIT account</h2>
         <div class="split">
           <div class="l">
             <img src="@/assets/faceit-logo.jpg" />
           </div>
           <div class="r">
-            <p>If you connect your Faceit Account to MENTOR.GG, your Faceit matches from the last 2 weeks will be automatically uploaded to MENTOR.GG every few hours.</p>
+            <h2>
+              FACEIT
+              <span
+                class="connection-status"
+                :class="{yes: faceitStatus.IsConnected}"
+              >{{ faceitStatus.IsConnected ? 'connected' : 'not connected' }}</span>
+            </h2>
             <div v-if="faceitStatus">
               <div v-if="faceitStatus.IsConnected">
                 <p>
@@ -98,7 +115,6 @@
                     {{ faceitStatus.LastCheck|formatDate }}
                   </span>
                 </p>
-                <!-- <input name="__RequestVerificationToken" type="hidden" value="XsKml8MFCYXavXtfiIC86L1w5vD8CCJWMZ_lWNYBnUSK8ibRKo_stUPI953f2s28ZfFGvIalOxEVl5buZ6sttipGbA6Z60indV8j2yK3MRza1BzGJjqDn6QBoJ881ihlr79UP6zQ7FVKNGOyMElemA2">        <ul class="navbar-nav"> -->
                 <div class="button-wrapper">
                   <button class="button-variant-bordered" @click="RefreshFaceit">Manual Refresh</button>
                   <button class="button-variant-bordered" @click="RemoveFaceit">Disconnect</button>
@@ -135,23 +151,25 @@ export default {
       valveAuthToken: "",
       valveShareCode: "",
 
-      loadedConnections: false,
+      loadedConnections: true,
       connectingValve: false,
       valveConnectionFailed: false
     };
   },
   mounted() {
-    // Activate FACEIT
-    var initParams = {
+    // Init FACEIT
+    let initParams = {
       client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
       // client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
       response_type: "code",
-      state: "", //informationYouWantPassedToTheRedirectUri
+      state: "",
       redirect_popup: false,
       debug: false
     };
+
     FACEIT.init(initParams);
 
+    // Fetch connections
     this.UpdateConnections();
   },
   methods: {
@@ -255,16 +273,19 @@ export default {
     .split {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      // align-items: center;
 
       .l {
-        width: 20%;
+        width: 150px;
 
         img,
         .no-image {
           width: 100%;
           border: 1px solid $purple;
           border-radius: 3px;
+          height: 150px;
+          object-fit: cover;
+          object-position: center;
 
           p {
             color: $gray;
@@ -284,11 +305,31 @@ export default {
       }
 
       .r {
-        width: 75%;
+        width: calc(100% - 170px);
 
         a {
           color: $orange;
           text-decoration: none;
+        }
+
+        h2 {
+          font-weight: 400;
+          border-bottom: 1px solid $purple;
+          margin-top: 0;
+
+          span {
+            float: right;
+            background: crimson;
+            color: white;
+            font-size: 12px;
+            padding: 5px;
+            width: 100px;
+            text-align: center;
+
+            &.yes {
+              background: green;
+            }
+          }
         }
       }
     }
