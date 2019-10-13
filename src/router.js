@@ -132,9 +132,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "contact" */'./views/Contact.vue')
     },
     {
-      path: '/connections',
-      name: 'connections',
-      component: () => import(/* webpackChunkName: "connections" */'./views/Connections.vue'),
+      path: '/automatic-upload',
+      name: 'automatic-upload',
+      component: () => import(/* webpackChunkName: "automaticupload" */'./views/AutomaticUpload.vue'),
       beforeEnter: authenticationGuard
     },
     {

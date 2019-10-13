@@ -32,7 +32,7 @@
         <router-link to="/event/hes">HEs</router-link>
 
         <div class="nav-header">Acount</div>
-        <router-link to="/connections">Connections</router-link>
+        <router-link to="/automatic-upload">Automatic Upload</router-link>
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
         <div class="logout">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">

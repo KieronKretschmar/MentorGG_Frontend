@@ -108,7 +108,6 @@ export default {
     MatchHeader
   },
   mounted() {
-    console.log(this.match);
   },
   props: ["match"],
   methods: {

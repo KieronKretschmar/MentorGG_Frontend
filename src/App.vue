@@ -29,7 +29,7 @@
       <p>
         We highly recommend going to the
         <span @click="$refs.connectionHintOverlay.Hide()">
-          <router-link to="/connections">Connections</router-link>
+          <router-link to="/automatic-upload">Automatic Upload</router-link>
         </span> page and setting up said connection right now!
       </p>
     </GenericOverlay>
