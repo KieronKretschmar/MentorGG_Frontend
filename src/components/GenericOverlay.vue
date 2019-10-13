@@ -103,6 +103,7 @@ export default {
       width: 80%;
       font-weight: 500;
       padding-bottom: 5px;
+      text-align: left;
     }
 
     p {
