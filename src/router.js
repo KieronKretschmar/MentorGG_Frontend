@@ -132,7 +132,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "contact" */'./views/Contact.vue')
     },
     {
-      path: '/account/connections',
+      path: '/connections',
       name: 'connections',
       component: () => import(/* webpackChunkName: "connections" */'./views/Connections.vue'),
       beforeEnter: authenticationGuard
