@@ -528,20 +528,6 @@ class MentorGGAPI {
             }
         });
     }
-    
-    postRemoveValve() {
-        return axios.post(this.mvcEndpoint + 'Account/RemoveValve', {
-            params: {
-            }
-        });
-    }
-
-    postLookForMatches() {
-        return axios.post(this.apiEndpoint + 'User/LookForMatches', {
-            params: {
-            }
-        });
-    }
 
     startLookingForValveMatches() {
         if (this.valveInterval != null) {

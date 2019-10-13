@@ -18,12 +18,31 @@
 
       <div class="input-label-wrapper">
         <label for="input-authcode">Authentication Code</label>
-        <input type="text" spellcheck="false" id="input-authcode" placeholder="XXXX-XXXXX-XXXX" v-model="valveAuthToken" />
+        <input
+          type="text"
+          spellcheck="false"
+          id="input-authcode"
+          placeholder="XXXX-XXXXX-XXXX"
+          v-model="valveAuthToken"
+        />
       </div>
       <div class="input-label-wrapper">
         <label for="input-sharecode">Share Code</label>
-        <input type="text" spellcheck="false" id="input-sharecode" placeholder="CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" v-model="valveShareCode" />
+        <input
+          type="text"
+          spellcheck="false"
+          id="input-sharecode"
+          placeholder="CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+          v-model="valveShareCode"
+        />
       </div>
+
+      <AjaxLoader style="margin-bottom: 20px;" v-if="connectingValve">Connecting</AjaxLoader>
+      <p
+        v-if="valveConnectionFailed && !connectingValve"
+        class="connection-error"
+      >Connection failed. Please make sure that you entered everything correctly and try again.</p>
+
       <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
 
@@ -67,7 +86,9 @@
               <div v-if="faceitStatus.IsConnected">
                 <p>
                   Your MENTOR.GG account is currently connected to this Faceit Account:
-                  <span class="faceit-name">{{ faceitStatus.FaceitName }}</span>
+                  <span
+                    class="faceit-name"
+                  >{{ faceitStatus.FaceitName }}</span>
                   <br />
                   <span
                     v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed"
@@ -114,7 +135,9 @@ export default {
       valveAuthToken: "",
       valveShareCode: "",
 
-      loadedConnections: false
+      loadedConnections: false,
+      connectingValve: false,
+      valveConnectionFailed: true
     };
   },
   mounted() {
@@ -137,26 +160,22 @@ export default {
     },
     DisconnectValve() {
       this.$api.removeValveConnection().then(result => {
-        console.log("Disconnected Valve", result);
-      });
-    },
-    AttemptValveConnect() {
-      console.log(
-        "Attempting Valve Connect",
-        this.valveAuthToken,
-        this.valveShareCode
-      );
-      this.$api
-        .updateValveConnection(this.valveAuthToken, this.valveShareCode)
-        .then(response => {
-          this.$api.startLookingForValveMatches();
-        });
-    },
-    RemoveValve() {
-      this.$api.postRemoveValve().then(response => {
         this.UpdateConnections();
         this.$api.stopLookingForValveMatches();
       });
+    },
+    AttemptValveConnect() {
+      this.connectingValve = true;
+
+      this.$api
+        .updateValveConnection(this.valveAuthToken, this.valveShareCode)
+        .then(response => {
+          if (response.data.IsValid) {
+            this.$api.startLookingForValveMatches();
+          }
+
+          this.connectingValve = false;
+        });
     },
     RefreshFaceit() {
       this.$api.postRefreshFaceit().then(response => {
@@ -217,6 +236,11 @@ export default {
       padding: 10px 20px;
       margin: 0 auto;
       display: block;
+    }
+
+    .connection-error {
+      text-align: center;
+      color: crimson;
     }
   }
 
