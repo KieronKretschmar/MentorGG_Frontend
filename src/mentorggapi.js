@@ -495,10 +495,8 @@ class MentorGGAPI {
 
     updateSteamConnection(authCode, shareCode) {
         return axios.post(this.apiEndpoint + 'User/UpdateSteamApiAuthData', {
-            params: {
-                steamIdKey: authCode,
-                lastSharingCode: shareCode
-            }
+            steamIdKey: authCode,
+            lastSharingCode: shareCode
         });
     }
 
