@@ -502,14 +502,14 @@ class MentorGGAPI {
     }
 
     removeValveConnection() {
-        return axios.post(this.mvcEndpoint + 'Account/RemoveValve', {
+        return axios.post(this.apiEndpoint + 'User/RemoveValve', {
             params: {
             }
         });
     }
 
     lookForValveMatches() {
-        return axios.post(this.mvcEndpoint + 'User/LookForValveMatches', {
+        return axios.post(this.apiEndpoint + 'User/LookForValveMatches', {
             params: {
             }
         });
