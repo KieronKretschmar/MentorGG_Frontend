@@ -66,7 +66,7 @@
           </div>
           <div class="r">
             <h2>
-              Steam
+              CS:GO Matchmaking
               <span
                 class="connection-status"
                 :class="{yes: valveStatus.IsConnected}"

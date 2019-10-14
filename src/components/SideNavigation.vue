@@ -31,9 +31,9 @@
         <router-link to="/event/flashes">Flashes</router-link>
         <router-link to="/event/hes">HEs</router-link>
 
-        <div class="nav-header">Acount</div>
+        <div class="nav-header">Account</div>
         <router-link to="/automatic-upload">Automatic Upload</router-link>
-        <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+        <!-- <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button> -->
         <div class="logout">
           <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
             <button class="nav-button" type="submit">Log out</button>
