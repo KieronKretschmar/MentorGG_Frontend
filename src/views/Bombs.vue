@@ -5,7 +5,8 @@
         <div class="tool_row">
           <CustomSelect v-model="rankSelect"
                         :options="rankOptions"
-                        v-on:input="OnRankChange"></CustomSelect>
+                        v-on:input="OnRankChange"
+                        ></CustomSelect>
           <CustomSelect class="match-count-select"
                         v-model="matchCount"
                         :options="matchCountSelectOptions"
@@ -13,10 +14,10 @@
           <CustomSelect v-model="mapSelect"
                         :options="mapSelectOptions"
                         v-on:input="OnMapChange"></CustomSelect>
-          <button class="button-variant-bordered">
-            Toggle Zones
-          </button>
 
+          <span style="color:white">samples {{sampleCount}}</span>
+          <span style="color:white">matches {{matchesAnalyzed}}</span>
+         
         </div>
         <div class="svg-wrapper">
           <svg v-if="this.mapInfo.CropOffsets"
@@ -58,6 +59,11 @@
                   :width="imageSize"
                   :height="imageSize">
           </canvas>
+
+          <img :src="$api.resolveResource(this.GetRankIconURL())" alt="CS:GO Rank Image" class="overlay"
+               id="rankIconOverlay"/>
+
+
         </div>
       </div>
     </div>
@@ -76,7 +82,11 @@
     data() {
       return {
         imageSize: 2000,
-        matchCount: 10,
+        sampleCount: -1,
+        matchesAnalyzed:-1,
+
+
+        matchCount: 50,
         matchCountSelectOptions: {
           5: "Use last 5 matches",
           10: "Use last 10 matches",
@@ -88,7 +98,7 @@
           10000: "Use last 10000 matches",
         },
 
-        rankSelect: 5,
+        rankSelect: 1,
         rankOptions: {
           17: "Global Elite",
           16: "Supreme Master First Class",
@@ -147,8 +157,13 @@
         this.matchCountSelectOptions[this.$route.query.matchCount] =
           "Use last " + this.$route.query.matchCount + " matches";
       }
+      this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
 
-      this.LoadSamplesByRank(this.activeMap,this.rankSelect, this.matchCount, false);
+      //timer 
+      let interval = setInterval(() => {
+        this.rankSelect = (this.rankSelect + 1) % 18;
+        this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
+      }, 3000);
     },
 
     methods: {
@@ -175,6 +190,12 @@
           });
       },
 
+      GetRankIconURL() {
+        let prefixedRank = this.rankSelect > 9 ? this.rankSelect + "" : "0" + this.rankSelect;
+
+        return "~/Content/Images/Ranks/" + prefixedRank + ".png";
+      },
+
       LoadSamplesByRank(map, rankSelect, matchCount, isDemo) {
         this.samples = [];
         this.loadingSamplesComplete = false;
@@ -192,6 +213,8 @@
             this.loadingSamplesComplete = true;
 
             console.log(response.data);
+            this.sampleCount = response.data.Samples.length;
+            this.matchesAnalyzed = response.data.RecentMatchesAnalyzedCount;
             this.redrawByRank();
           })
           .catch(error => {
@@ -227,10 +250,10 @@
       drawSamplesToHeatmap(samples) {
         let heatmap = simpleheat('heatmap_overlay');
         heatmap = this.addPointsToHeatmap(heatmap, samples);
-        heatmap.radius(12, 1);
+        heatmap.radius(7, 1);
 
         //TODO find explanation for hardcoded value
-        let max_limit = samples.length / 15;
+        let max_limit = samples.length;
         max_limit = (max_limit < 3) ? 3 : max_limit;
         heatmap.max(max_limit);
         heatmap.draw();
@@ -252,8 +275,6 @@
   @import "@/assets/scss/sidebar.scss";
 
   .overlay {
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -291,16 +312,34 @@
     width: 100%;
   }
 
+  #rankIconOverlay{
+    left:auto;
+    top:auto;
+    padding-top:15px;
+    right:5%;
+    max-width:15%;
+    height:auto;
+  }
+
   .tinted {
     opacity: 0.2;
   }
 
   .tool_row {
-    display: flex;
+    display: inline-flex;
     width: calc(70% - 20px);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
+    > * {
+          margin-left: 20px;
+        }
   }
+
+  #heatmap_overlay{
+    width: 100%;
+    height: 100%;
+  }
+
 </style>
