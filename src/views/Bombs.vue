@@ -60,7 +60,7 @@
                   :height="imageSize">
           </canvas>
 
-          <img :src="$api.resolveResource(this.GetRankIconURL())" alt="CS:GO Rank Image" class="overlay"
+          <img :src="$api.resolveResource(CurrentRankIconURL)" alt="CS:GO Rank Image" class="overlay"
                id="rankIconOverlay"/>
 
 
@@ -86,12 +86,13 @@
         matchesAnalyzed:-1,
 
 
-        matchCount: 50,
+        matchCount: 300,
         matchCountSelectOptions: {
           5: "Use last 5 matches",
           10: "Use last 10 matches",
           50: "Use last 50 matches",
           100: "Use last 100 matches",
+          300: "Use last 300 matches",
           500: "Use last 500 matches",
           1000: "Use last 1000 matches",
           5000: "Use last 5000 matches",
@@ -99,6 +100,7 @@
         },
 
         rankSelect: 1,
+        currentRank: 1, // rank whose data is currently shown
         rankOptions: {
           17: "Global Elite",
           16: "Supreme Master First Class",
@@ -163,7 +165,7 @@
       let interval = setInterval(() => {
         this.rankSelect = (this.rankSelect + 1) % 18;
         this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
-      }, 3000);
+      }, 20000);
     },
 
     methods: {
@@ -190,11 +192,6 @@
           });
       },
 
-      GetRankIconURL() {
-        let prefixedRank = this.rankSelect > 9 ? this.rankSelect + "" : "0" + this.rankSelect;
-
-        return "~/Content/Images/Ranks/" + prefixedRank + ".png";
-      },
 
       LoadSamplesByRank(map, rankSelect, matchCount, isDemo) {
         this.samples = [];
@@ -216,6 +213,7 @@
             this.sampleCount = response.data.Samples.length;
             this.matchesAnalyzed = response.data.RecentMatchesAnalyzedCount;
             this.redrawByRank();
+            this.currentRank = rankSelect;
           })
           .catch(error => {
             console.error(error); // eslint-disable-line no-console
@@ -268,6 +266,14 @@
         }
       },
     },
+    computed: {
+      
+      CurrentRankIconURL() {
+        let prefixedRank = this.currentRank > 9 ? this.currentRank + "" : "0" + this.currentRank;
+
+        return "~/Content/Images/Ranks/" + prefixedRank + ".png";
+      },
+    }
   };
 </script>
 

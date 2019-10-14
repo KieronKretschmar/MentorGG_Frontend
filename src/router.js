@@ -75,8 +75,8 @@ export default new Router({
       beforeEnter: authenticationGuard
     },
     {
-          path: '/bomb',
-          name: 'bomb',
+          path: '/bombs',
+          name: 'bombs',
           component: () => import(/* webpackChunkName: "bombs" */'./views/Bombs.vue'),
           beforeEnter: authenticationGuard
     },
