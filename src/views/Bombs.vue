@@ -163,9 +163,9 @@
 
       //timer 
       let interval = setInterval(() => {
-        this.rankSelect = (this.rankSelect + 1) % 18;
+        this.rankSelect = (this.rankSelect + 1) % 19;
         this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
-      }, 20000);
+      }, 12000);
     },
 
     methods: {
@@ -248,7 +248,7 @@
       drawSamplesToHeatmap(samples) {
         let heatmap = simpleheat('heatmap_overlay');
         heatmap = this.addPointsToHeatmap(heatmap, samples);
-        heatmap.radius(7, 1);
+        heatmap.radius(3, 3);
 
         //TODO find explanation for hardcoded value
         let max_limit = samples.length;
