@@ -108,11 +108,6 @@ export default {
     MatchHeader
   },
   mounted() {
-    if (this.match.MapIcon) {
-      this.match.MapIcon = this.match.MapIcon.replace("_scrimmagemap", "");
-    }
-
-    this.match.Map = this.match.Map.replace("_scrimmagemap", "");
   },
   props: ["match"],
   methods: {
