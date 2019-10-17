@@ -9,11 +9,28 @@
     <div class="lower">
       <button
         class="accept-button"
-        @click="$emit('buttonClicked')"
+        @click="OnButtonClicked()"
       >Load sample data</button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    OnButtonClicked: function() {
+      // console.log(Vue.component('top'));
+      this.$ga.event({
+        eventCategory: 'DemoDataLoad',
+        eventAction: 'DemoDataLoad',
+        // eventLabel: ComponentTag if it's a component, route if it's a view
+        eventLabel: this.$parent.$options._componentTag ? this.$parent.$options._componentTag : this.$route.name, 
+      });
+      this.$emit('buttonClicked');
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .demodata-load-request {

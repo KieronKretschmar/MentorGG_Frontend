@@ -19,9 +19,20 @@ export default {
     },
     ToggleMisplayVisibility: function() {
       this.isVisible = !this.isVisible;
+      this.$ga.event({
+        eventCategory: 'Situation',
+        eventAction: this.isVisible ? 'ShowSituation' : 'HideSituation',
+        eventLabel: this.$parent.$options._componentTag,
+      });
       this.$forceUpdate();
     },
     Watch: function(matchId, round = 1, time = 0) {
+      this.$ga.event({
+        eventCategory: 'Situation',
+        eventAction: 'WatchSituation',
+        eventLabel: this.$parent.$options._componentTag,
+      });
+
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round, Math.max(0, time));
     },

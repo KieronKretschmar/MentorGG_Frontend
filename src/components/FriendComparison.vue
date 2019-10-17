@@ -178,6 +178,11 @@ export default {
     ToggleComparisonVisibility: function(comparison) {
       comparison.IsVisible = !comparison.IsVisible;
       this.$forceUpdate();
+        
+      this.$ga.event({
+        eventCategory: 'FriendComparison',
+        eventAction: comparison.IsVisible ? 'ShowComparison' : 'HideComparison',
+      });
     }
   }
 };

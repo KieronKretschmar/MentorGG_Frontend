@@ -48,7 +48,7 @@
           <i class="material-icons download-match-icon" title="Download Demo">get_app</i>
         </a>
 
-        <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility(match)"></i>
+        <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility()"></i>
       </div>
     </div>
     <transition name="slide">
@@ -112,12 +112,22 @@ export default {
   props: ["match"],
   methods: {
     Watch: function(match) {
+      this.$ga.event({
+        eventCategory: 'Match',
+        eventAction: 'WatchMatch',
+      });
+
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", match.MatchId, 1);
     },
     ToggleMatchVisibility: function() {
       this.match.IsVisible = !this.match.IsVisible;
       this.$forceUpdate();
+      
+      this.$ga.event({
+        eventCategory: 'PersonalMatch',
+        eventAction: this.match.IsVisible ? 'ShowScoreboard' : 'HideScoreboard',
+      });
     }
   }
 };

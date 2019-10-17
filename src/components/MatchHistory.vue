@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     LoadAppendMatches: function(count, isDemo) {
+
       this.loadingMatches = true;
       this.$api.getMatches(isDemo ? "76561198033880857" : "", count, this.matches.length)
       .then(response => {

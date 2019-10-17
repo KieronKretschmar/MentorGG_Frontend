@@ -15,6 +15,8 @@ import VueAnalytics from 'vue-analytics'
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
  
+const isProd = process.env.NODE_ENV === 'production';
+
 Vue.config.productionTip = false;
 Vue.use(VueMasonryPlugin);
 Vue.use(VueLazyLoad);
@@ -38,6 +40,10 @@ Vue.filter('formatDate', function (val) {
 Vue.use(VueAnalytics, {
   id: 'UA-121787145-1', 
   router,
+  debug: {
+    enabled: false, // !isProd,
+    sendHitTask: isProd
+  },
   beforeFirstHit () {
     Vue.$ga.set('anonymizeIp', true);
   }
