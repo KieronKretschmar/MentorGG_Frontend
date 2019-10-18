@@ -18,6 +18,7 @@
     "simplebar-vue": "^1.2.3",
     "simpleheat": "^0.4.0",
     "svg-pan-zoom": "^3.6.0",
+    "visual-heatmap": "^1.0.4",
     "vue": "^2.6.10",
     "vue-analytics": "^5.17.0",
     "vue-image-lightbox": "^6.3.1",

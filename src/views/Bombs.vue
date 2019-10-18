@@ -5,8 +5,7 @@
         <div class="tool_row">
           <CustomSelect v-model="rankSelect"
                         :options="rankOptions"
-                        v-on:input="OnRankChange"
-                        ></CustomSelect>
+                        v-on:input="OnRankChange"></CustomSelect>
           <CustomSelect class="match-count-select"
                         v-model="matchCount"
                         :options="matchCountSelectOptions"
@@ -17,7 +16,7 @@
 
           <span style="color:white">samples {{sampleCount}}</span>
           <span style="color:white">matches {{matchesAnalyzed}}</span>
-         
+
         </div>
         <div class="svg-wrapper">
           <svg v-if="this.mapInfo.CropOffsets"
@@ -53,15 +52,16 @@
                    :class="{tinted : !detailView && selectedZone}" />
           </svg>
 
-          <canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
+          <div id="containerId" class="overlay" :height="imageSize"></div>
+          <!--<canvas v-if="this.samples" id="heatmap_overlay" class="overlay"
                   x="0"
                   y="0"
                   :width="imageSize"
                   :height="imageSize">
-          </canvas>
+          </canvas>-->
 
           <img :src="$api.resolveResource(CurrentRankIconURL)" alt="CS:GO Rank Image" class="overlay"
-               id="rankIconOverlay"/>
+               id="rankIconOverlay" />
 
 
         </div>
@@ -73,6 +73,8 @@
 <script>
   import simpleheat from "simpleheat";
   import CustomSelect from "@/components/CustomSelect.vue";
+  //TODO import via npm
+  import webglHeatmap from 'visual-heatmap';
 
 
   export default {
@@ -83,7 +85,7 @@
       return {
         imageSize: 2000,
         sampleCount: -1,
-        matchesAnalyzed:-1,
+        matchesAnalyzed: -1,
 
 
         matchCount: 300,
@@ -161,11 +163,44 @@
       }
       this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
 
-      //timer 
-      let interval = setInterval(() => {
-        this.rankSelect = (this.rankSelect + 1) % 19;
-        this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
-      }, 12000);
+
+      let heatmap = webglHeatmap("#containerId", {
+        size: 30.0,
+        max: 100,
+        blur: 1.0,
+        gradient: [{
+          color: [0, 0, 255, 1.0],
+          offset: 0
+        }, {
+          color: [0, 0, 255, 1.0],
+          offset: 0.2
+        }, {
+          color: [0, 255, 0, 1.0],
+          offset: 0.45
+        }, {
+          color: [255, 255, 0, 1.0],
+          offset: 0.85
+        }, {
+          color: [255, 0, 0, 1.0],
+          offset: 1.0
+        }]
+      });
+
+      //WORKAROUND set attribute after canvas creation
+      //BUG breaks webgl texture
+      //Can be targeted over csss if not scoped
+      let canvas = document.getElementById("containerId").firstElementChild;
+      canvas.style.height ="100%";
+
+
+      heatmap.renderData([{ x: 50, y: 50, value: 30 }], false);
+
+
+      //timer
+      //let interval = setInterval(() => {
+      //  this.rankSelect = (this.rankSelect + 1) % 19;
+      //  this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
+      //}, 12000);
     },
 
     methods: {
@@ -197,7 +232,7 @@
         this.samples = [];
         this.loadingSamplesComplete = false;
         this.$api
-          .getAllBombPlantsByRank(map,rankSelect, matchCount)
+          .getAllBombPlantsByRank(map, rankSelect, matchCount)
           .then(response => {
             this.mapInfo = response.data.MapInfo;
             this.samples = response.data.Samples;
@@ -222,16 +257,16 @@
       },
 
       OnMapChange() {
-        this.LoadSamplesByRank(this.mapSelect,this.rankSelect, this.matchCount, false);
+        this.LoadSamplesByRank(this.mapSelect, this.rankSelect, this.matchCount, false);
         this.activeMap = this.mapSelect;
       },
 
       OnMatchCountUpdated: function () {
-        this.LoadSamplesByRank(this.activeMap, this.rankSelect,this.matchCount, false);
+        this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
       },
 
       OnRankChange() {
-         this.LoadSamplesByRank(this.activeMap, this.rankSelect,this.matchCount, false);
+        this.LoadSamplesByRank(this.activeMap, this.rankSelect, this.matchCount, false);
       },
 
       redrawByRank() {
@@ -267,7 +302,7 @@
       },
     },
     computed: {
-      
+
       CurrentRankIconURL() {
         let prefixedRank = this.currentRank > 9 ? this.currentRank + "" : "0" + this.currentRank;
 
@@ -277,7 +312,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "@/assets/scss/sidebar.scss";
 
   .overlay {
@@ -318,13 +353,13 @@
     width: 100%;
   }
 
-  #rankIconOverlay{
-    left:auto;
-    top:auto;
-    padding-top:15px;
-    right:5%;
-    max-width:15%;
-    height:auto;
+  #rankIconOverlay {
+    left: auto;
+    top: auto;
+    padding-top: 15px;
+    right: 5%;
+    max-width: 15%;
+    height: auto;
   }
 
   .tinted {
@@ -338,14 +373,27 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    > * {
-          margin-left: 20px;
-        }
+    > *
+
+  {
+    margin-left: 20px;
   }
 
-  #heatmap_overlay{
+  }
+
+  #heatmap_overlay {
     width: 100%;
     height: 100%;
   }
 
+  #containerId {
+    width: 100%;
+    height: 100%;
+    
+    > canvas{
+      height:100% !important;
+    }
+  }
+  
+  
 </style>
