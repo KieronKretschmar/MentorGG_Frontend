@@ -43,7 +43,7 @@
         class="connection-error"
       >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
-      <button class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
+      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
     </GenericOverlay>
 
     <div class="fixed-width-container">
@@ -67,7 +67,7 @@
           <div class="r">
             <h2>
               CS:GO Matchmaking
-              <span
+              <span v-if="valveStatus"
                 class="connection-status"
                 :class="{yes: valveStatus.IsConnected}"
               >{{ valveStatus.IsConnected ? 'connected' : 'not connected' }}</span>

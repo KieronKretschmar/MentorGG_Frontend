@@ -487,7 +487,7 @@ class MentorGGAPI {
             },
             onUploadProgress: function (progressEvent) {
                 let progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
-                console.log(progress);
+                callback(progress);
             }
         };
 

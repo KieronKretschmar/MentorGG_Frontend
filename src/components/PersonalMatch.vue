@@ -33,13 +33,6 @@
       </div>
 
       <div class="right">
-        <i
-          v-if="this.$helpers.DemoViewerAvailable(match.Map)"
-          class="material-icons watch-match-icon"
-          title="Watch in Browser"
-          @click="Watch(match)"
-        >videocam</i>
-
         <a
           :href="$api.matchUrl(match.MatchId)"
           v-if="match.AvailableForDownload"
@@ -47,6 +40,14 @@
         >
           <i class="material-icons download-match-icon" title="Download Demo">get_app</i>
         </a>
+        
+        <i
+          v-if="this.$helpers.DemoViewerAvailable(match.Map)"
+          class="material-icons watch-match-icon"
+          title="Watch in Browser"
+          @click="Watch(match)"
+        >videocam</i>
+
 
         <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility()"></i>
       </div>
@@ -114,7 +115,7 @@ export default {
     Watch: function(match) {
       this.$ga.event({
         eventCategory: 'Match',
-        eventAction: 'WatchMatch',
+        eventAction: 'Watch',
       });
 
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
@@ -125,7 +126,7 @@ export default {
       this.$forceUpdate();
       
       this.$ga.event({
-        eventCategory: 'PersonalMatch',
+        eventCategory: 'Match',
         eventAction: this.match.IsVisible ? 'ShowScoreboard' : 'HideScoreboard',
       });
     }

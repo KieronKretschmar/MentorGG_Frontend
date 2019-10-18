@@ -5,7 +5,9 @@
       <p class="headline">Manual Upload</p>
       <p>Please select your demo file and click upload. This may take a while depending on the size of the demo.</p>
       <input type="file" ref="manualUploadInput">
-      <button class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
+      <AjaxLoader v-if="uploadProgress">Uploading... {{this.uploadProgress}}%</AjaxLoader>
+      <button v-if="!uploadProgress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
+      <p v-if="uploadResult">{{uploadResult ? uploadResult : " "}}</p>
     </GenericOverlay>
 
     <div class="nav-content" data-simplebar>
@@ -74,7 +76,9 @@ export default {
   data() {
     return {
       user: null,
-      optionsVisible: false
+      optionsVisible: false,
+      uploadProgress: null,
+      uploadResult: null,
     };
   },
   methods: {
@@ -88,6 +92,7 @@ export default {
       return url.split(".jpg")[0] + "_full.jpg";
     },
     TriggerManualUpload: function() {
+      this.uploadResult = null;
       let formData = new FormData();
       let fileinput = this.$refs.manualUploadInput;
 
@@ -97,11 +102,13 @@ export default {
       }
 
       formData.append("demo", fileinput.files[0]);
-
       this.$api.uploadDemo(formData, (progressEvent) => {
-        console.log(progressEvent);
+        this.uploadProgress = progressEvent;
       }).then(result => {
-        console.log(result);
+        this.uploadProgress = null;
+        this.uploadResult = "Successfully uploaded " + result.data.SuccesfulFiles + (result.data.SuccesfulFiles > 1 ? " demos" :  " demo") + ".";
+      }).catch( error => {
+        this.uploadResult = "Error";
       });
     }
   }
