@@ -3,8 +3,8 @@
 
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
       <p class="headline">Manual Upload</p>
-      <p>Please select your demo file and click upload. This may take a while depending on the size of the demo.</p>
-      <input type="file" ref="manualUploadInput">
+      <p>Please select your GOTV demo file and click upload. This may take a while depending on the size of the demo.</p>
+      <input type="file" ref="manualUploadInput" accept=".dem,.bz2,.gz">
       <AjaxLoader v-if="uploadProgress">Uploading... {{this.uploadProgress}}%</AjaxLoader>
       <button v-if="!uploadProgress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
       <p v-if="uploadResult">{{uploadResult ? uploadResult : " "}}</p>
@@ -108,6 +108,7 @@ export default {
         this.uploadProgress = null;
         this.uploadResult = "Successfully uploaded " + result.data.SuccesfulFiles + (result.data.SuccesfulFiles > 1 ? " demos" :  " demo") + ".";
       }).catch( error => {
+        this.uploadProgress = null;
         this.uploadResult = "Error";
       });
     }
