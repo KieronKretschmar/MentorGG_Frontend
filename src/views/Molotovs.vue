@@ -357,7 +357,6 @@ export default {
       });
     },
     OnMatchCountUpdated: function() {
-
       this.$ga.event({
         eventCategory: 'Molotovs',
         eventAction: 'MatchCountUpdated',
@@ -425,8 +424,7 @@ export default {
         eventAction: this.detailView ? 'ShowDetails' : 'ShowZones',
       });
     },
-    Watch: function(matchId, round) {
-      
+    Watch: function(matchId, round) {      
       this.$ga.event({
         eventCategory: 'Molotovs',
         eventAction:  'Watch',

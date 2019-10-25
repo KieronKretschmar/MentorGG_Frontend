@@ -433,15 +433,35 @@ export default {
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
+      
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: this.showTrajectories ? 'ShowTrajectories' : 'HideTrajectories',
+      });
     },
     OnMatchCountUpdated: function() {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: 'MatchCountUpdated',
+        eventValue: this.matchCount
+      });
       this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: 'ClickBackground',
+        eventLabel: map,
+      });
     },
     OnActiveMapUpdated: function(map) {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: 'ActiveMapUpdated',
+        eventLabel: map,
+      });
       if (this.activeMap != map) {
         this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
@@ -450,13 +470,26 @@ export default {
       this.selectedZoneId = 0;
     },
     SetSelectedSample: function(id) {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: 'SampleSelected',
+      });
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedZone: function(zoneId) {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: 'ZoneSelected',
+        eventValue: zoneId
+      });
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     SetShowCt(showCt) {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction:  showCt ? 'ShowCt' : 'ShowTerrorists',
+      });
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.showCt = showCt;
@@ -465,8 +498,17 @@ export default {
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.detailView = !this.detailView;
+
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction: this.detailView ? 'ShowDetails' : 'ShowZones',
+      });
     },
     Watch: function(matchId, round) {
+      this.$ga.event({
+        eventCategory: 'Flashes',
+        eventAction:  'Watch',
+      });
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round);
     }

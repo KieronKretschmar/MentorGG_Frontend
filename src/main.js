@@ -42,7 +42,7 @@ Vue.use(VueAnalytics, {
   router,
   debug: {
     enabled: false, // !isProd,
-    sendHitTask: isProd
+    sendHitTask: isProd // only send data to google in production
   },
   beforeFirstHit () {
     Vue.$ga.set('anonymizeIp', true);
