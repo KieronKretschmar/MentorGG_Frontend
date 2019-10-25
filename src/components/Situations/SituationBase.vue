@@ -22,7 +22,7 @@ export default {
       this.$ga.event({
         eventCategory: 'Situation',
         eventAction: this.isVisible ? 'ShowSituation' : 'HideSituation',
-        eventLabel: this.$parent.$options._componentTag,
+        eventLabel: this.$options._componentTag,
       });
       this.$forceUpdate();
     },
@@ -30,7 +30,7 @@ export default {
       this.$ga.event({
         eventCategory: 'Situation',
         eventAction: 'WatchSituation',
-        eventLabel: this.$parent.$options._componentTag,
+        eventLabel: this.$options._componentTag,
       });
 
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
