@@ -165,7 +165,6 @@
                     </svg>
                   </div>
                   <div class="legend-description">
-                    Click on a FireNade to see the victims' path through the fire.
                     Click on a Molotov to see the victims' path through the fire.
                   </div>
                 </div>
@@ -370,6 +369,11 @@ export default {
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
+      this.$ga.event({
+        eventCategory: 'Molotovs',
+        eventAction: 'ClickBackground',
+        eventLabel: map,
+      });
     },
     OnActiveMapUpdated: function(map) {
       

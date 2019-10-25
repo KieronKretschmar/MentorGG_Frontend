@@ -3,7 +3,11 @@
 
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
       <p class="headline">Manual Upload</p>
-      <p>Please select your GOTV demo file and click upload. This may take a while depending on the size of the demo.</p>
+      <p>
+        Please select your GOTV demo file and click upload. 
+        <br>
+        This may take a while depending on the size of the demo.
+      </p>
       <input type="file" ref="manualUploadInput" accept=".dem,.bz2,.gz">
       <AjaxLoader v-if="uploadProgress">Uploading... {{this.uploadProgress}}%</AjaxLoader>
       <button v-if="!uploadProgress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>

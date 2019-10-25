@@ -427,16 +427,37 @@ export default {
     },
     OnShowTrajectories: function() {
       this.showTrajectories = !this.showTrajectories;
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: this.showTrajectories ? 'ShowTrajectories' : 'HideTrajectories',
+      });
     },
     OnMatchCountUpdated: function() {
       this.LoadSamples(this.activeMap, this.matchCount, false);
+      
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: 'MatchCountUpdated',
+        eventValue: this.matchCount
+      });
     },
     OnClickBackground: function() {
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.selectedLineupId = 0;
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: 'ClickBackground',
+        eventLabel: map,
+      });
     },
     OnActiveMapUpdated: function(map) {
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: 'ActiveMapUpdated',
+        eventLabel: map,
+      });
+
       if (this.activeMap != map) {
         this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
@@ -446,15 +467,28 @@ export default {
     },
     SetSelectedSample: function(id) {
       this.selectedSample = this.samples.find(x => x.Id == id);
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: 'SampleSelected',
+      });
     },
     SetSelectedLineup: function(lineupId) {
       this.selectedLineupId = lineupId;
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: 'LineupSelected',
+        eventValue: lineupId
+      });
     },
     SetSelectedZone: function(zoneId) {
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     SetShowCt(showCt) {
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction:  showCt ? 'ShowCt' : 'ShowTerrorists',
+      });
       this.selectedSample = null;
       this.selectedLineupId = 0;
       this.selectedZoneId = 0;
@@ -465,6 +499,11 @@ export default {
       this.selectedLineupId = 0;
       this.selectedZoneId = 0;
       this.detailView = !this.detailView;
+      
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction: this.detailView ? 'ShowDetails' : 'ShowLineups',
+      });
     },
     CopyTextToClipboard(text) {
       // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
@@ -498,6 +537,10 @@ export default {
       this.$refs.lightbox.showImage(0);
     },
     Watch: function(matchId, round) {
+      this.$ga.event({
+        eventCategory: 'Smokes',
+        eventAction:  'Watch',
+      });
       let demoviewer = this.$root.$children[0].$refs.demoviewer;
       demoviewer.Watch("", matchId, round);
     }
