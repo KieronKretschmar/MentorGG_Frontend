@@ -509,8 +509,10 @@ export default {
         eventCategory: 'Flashes',
         eventAction:  'Watch',
       });
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round);
+      
+      globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round)
+        .Load();
     }
   },
   computed: {

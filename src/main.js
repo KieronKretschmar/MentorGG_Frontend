@@ -8,16 +8,17 @@ import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
 import DemoDataLoadRequest from './components/DemoDataLoadRequest.vue';
 import NoDataAvailableDisplay from './components/NoDataAvailableDisplay.vue';
-import {VueMasonryPlugin} from 'vue-masonry';
+import { VueMasonryPlugin } from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
 
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
- 
+
 const isProd = process.env.NODE_ENV === 'production';
 
 Vue.config.productionTip = false;
+Vue.config.performance = true;
 Vue.use(VueMasonryPlugin);
 Vue.use(VueLazyLoad);
 
@@ -38,13 +39,13 @@ Vue.filter('formatDate', function (val) {
 });
 
 Vue.use(VueAnalytics, {
-  id: 'UA-121787145-1', 
+  id: 'UA-121787145-1',
   router,
   debug: {
     enabled: false, // !isProd,
     sendHitTask: isProd // only send data to google in production
   },
-  beforeFirstHit () {
+  beforeFirstHit() {
     Vue.$ga.set('anonymizeIp', true);
   }
 })
@@ -52,7 +53,7 @@ Vue.use(VueAnalytics, {
 
 let vapp = new Vue({
   router,
-  render: h => h(App)  
+  render: h => h(App)
 }).$mount('#app');
 
 Vue.prototype.$vapp = vapp;
@@ -65,12 +66,11 @@ Vue.prototype.$vapp = vapp;
 // using the "back" function of the browser
 router.beforeEach(demoViewerCloseGuard);
 function demoViewerCloseGuard(to, from, next) {
-  let demoviewer = vapp.$root.$children[0].$refs.demoviewer;
-  if(demoviewer && demoviewer.isVisible){
-    demoviewer.Hide();
+  if (globalThis.DemoViewer.isVisible) {
+    globalThis.DemoViewer.ToggleVisibility(false);
     next(false);
   }
-  else{
+  else {
     next(true)
   }
 }

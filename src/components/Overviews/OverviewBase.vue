@@ -11,8 +11,6 @@ export default {
   
   methods: {
     OnActiveMapUpdated: function(map) {
-      console.log("emit");
-      console.log(map);
       this.$emit('updatemap', map);
     },
   }

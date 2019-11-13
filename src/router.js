@@ -141,6 +141,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */'./views/Login.vue')
+    },
+    {
+      path: '/match/watch/:matchId',
+      name: 'dvtrigger',
+      component: () => import(/* webpackChunkName: "dvtrigger" */'./views/DemoViewerTrigger.vue')
     }
   ]
 });

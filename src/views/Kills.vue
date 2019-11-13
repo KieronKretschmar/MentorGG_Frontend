@@ -446,8 +446,10 @@ export default {
         eventCategory: 'Kills',
         eventAction:  'Watch',
       });
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round);
+      
+      globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round)
+        .Load();
     }
     // Deactivated because userPerformances for different combinations of filtersettings don't need to be computed in JS;
     // All userPerformances for every FilterCombination are provided by api

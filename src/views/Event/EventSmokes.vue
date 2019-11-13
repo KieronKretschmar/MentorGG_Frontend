@@ -539,8 +539,9 @@ export default {
       this.$refs.lightbox.showImage(0);
     },
     Watch: function(matchId, round) {
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round);
+      globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round)
+        .Load();
     },
     SetSelectedTeam(teamName) {
       if (teamName != this.selectedTeamName) {

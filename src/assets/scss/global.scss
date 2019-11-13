@@ -20,9 +20,22 @@ $ct-color: #1D7180;
 $success-color:$green;
 $failure-color:$red;
 
+$demoviewer-controls-height: 44px;
+
 //vars
 $container-width: 1170px;
 $sidebar-width: 300px;
+
+@mixin font-awesome {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+@mixin weapon-font {
+    font-family: 'csgo_icons';
+    font-weight: normal;
+    font-style: normal;
+}
 
 //lightbox fix
 .vue-lb-container {

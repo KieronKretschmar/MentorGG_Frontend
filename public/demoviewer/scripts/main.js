@@ -1,3 +1,0 @@
-$(function() {
-    DemoViewer.SetData(model);
-});

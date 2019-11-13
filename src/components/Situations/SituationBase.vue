@@ -33,8 +33,10 @@ export default {
         eventLabel: this.$options._componentTag,
       });
 
-      let demoviewer = this.$root.$children[0].$refs.demoviewer;
-      demoviewer.Watch("", matchId, round, Math.max(0, time));
+      globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round)
+        .SetTimestamp(Math.max(0, time))
+        .Load();
     },
     ChooseRandom(items) {
       let randomItem = items[Math.floor(Math.random() * items.length)];

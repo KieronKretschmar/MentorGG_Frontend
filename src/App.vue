@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <DemoViewer ref="demoViewer" />
     <div class="l-app" :class="{toggled: menuVisible}">
       <SideNavigation />
     </div>
@@ -21,7 +22,6 @@
       </footer>
     </div>
     <!-- <DiscordHint /> -->
-    <DemoViewer ref="demoviewer" />
 
     <GenericOverlay ref="connectionHintOverlay" width="900px">
       <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
@@ -41,8 +41,8 @@ import TopNavigation from "@/components/TopNavigation.vue";
 import SideNavigation from "@/components/SideNavigation.vue";
 import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
-import DemoViewer from "@/components/DemoViewer.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import DemoViewer from "@/components/DemoViewer.vue";
 
 export default {
   name: "App",
@@ -60,8 +60,8 @@ export default {
     SideNavigation,
     Footer,
     DiscordHint,
-    DemoViewer,
-    GenericOverlay
+    GenericOverlay,
+    DemoViewer
   },
   data() {
     return {
@@ -74,7 +74,6 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/styles.scss";
-@import "@/assets/scss/demoviewer.scss";
 
 body {
   margin: 0;
