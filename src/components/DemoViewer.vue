@@ -231,6 +231,9 @@ export default {
                   ? this.initialTimestamp
                   : this.initialTimestamp - this.roundStart
               );
+
+              this.initialTimestamp = 0;
+              this.initialTimestampRelative = false;
             });
           }
         });
