@@ -44,15 +44,15 @@
             </div>
           </div>
 
-          <span class="split-title">BLINDED</span>
+          <span class="split-title">AVG BLIND DURATION</span>
           <div class="split">
             <div class="ct">
               <img src="@/assets/ct_logo.png" />
-              <span>{{mapSummary.AverageEnemiesFlashedAsCt.toFixed(2)}}</span>
+              <span>{{(mapSummary.EnemiesTimeFlashedAsCt / 1000).toFixed(2)}}s</span>
             </div>
             <div class="t">
               <img src="@/assets/t_logo.png" />
-              <span>{{mapSummary.AverageEnemiesFlashedAsTerrorist.toFixed(2)}}</span>
+              <span>{{(mapSummary.EnemiesTimeFlashedAsTerrorist / 1000).toFixed(2)}}s</span>
             </div>
           </div>
         </div>

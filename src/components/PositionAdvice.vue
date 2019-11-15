@@ -18,7 +18,8 @@
           <span>Map</span>
           <span>Name</span>
           <span>Team</span>
-          <span>K/D</span>
+          <span>Kills</span>
+          <span>Deaths</span>
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
@@ -38,7 +39,8 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span class="cell">{{ entry.KillDeathRatio.toFixed(2) }}</span>
+            <span class="cell">{{ entry.Kills }}</span>
+            <span class="cell">{{ entry.Deaths }}</span>
           </div>
         </div>
       </div>
@@ -61,7 +63,8 @@
           <span>Map</span>
           <span>Name</span>
           <span>Team</span>
-          <span>K/D</span>
+          <span>Kills</span>
+          <span>Deaths</span>
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
@@ -81,7 +84,8 @@
                 title="Counter-Terrorists"
               />
             </span>
-            <span class="cell">{{ entry.KillDeathRatio.toFixed(2) }}</span>
+            <span class="cell">{{ entry.Kills }}</span>
+            <span class="cell">{{ entry.Deaths }}</span>
           </div>
         </div>
       </div>
@@ -167,17 +171,21 @@ export default {
 
         span {
           &:nth-child(1) {
-            width: 30%;
+            width: 25%;
           }
           &:nth-child(2) {
             width: 30%;
           }
           &:nth-child(3) {
-            width: 20%;
+            width: 15%;
             text-align: center;
           }
           &:nth-child(4) {
-            width: 20%;
+            width: 15%;
+            text-align: center;
+          }
+          &:nth-child(5) {
+            width: 15%;
             text-align: center;
           }
         }
@@ -201,17 +209,21 @@ export default {
 
           .cell {
             &:nth-child(1) {
-              width: 30%;
+              width: 25%;
             }
             &:nth-child(2) {
               width: 30%;
             }
             &:nth-child(3) {
-              width: 20%;
+              width: 15%;
               text-align: center;
             }
             &:nth-child(4) {
-              width: 20%;
+              width: 15%;
+              text-align: center;
+            }
+            &:nth-child(5) {
+              width: 15%;
               text-align: center;
             }
           }
