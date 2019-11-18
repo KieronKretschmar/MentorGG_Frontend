@@ -48,11 +48,11 @@
           <div class="split">
             <div class="ct">
               <img src="@/assets/ct_logo.png" />
-              <span>{{(mapSummary.EnemiesTimeFlashedAsCt / 1000).toFixed(2)}}s</span>
+              <span>{{(mapSummary.AverageEnemiesTimeFlashedAsCt / 1000).toFixed(2)}}s</span>
             </div>
             <div class="t">
               <img src="@/assets/t_logo.png" />
-              <span>{{(mapSummary.EnemiesTimeFlashedAsTerrorist / 1000).toFixed(2)}}s</span>
+              <span>{{(mapSummary.AverageEnemiesTimeFlashedAsTerrorist / 1000).toFixed(2)}}s</span>
             </div>
           </div>
         </div>
