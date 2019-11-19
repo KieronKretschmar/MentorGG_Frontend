@@ -174,7 +174,7 @@ export default {
       let resolve = this.$router.resolve({
         name: "dvtrigger",
         params: { matchId: this.match },
-        query: { r: this.round, t: t / 1000 }
+        query: { r: this.round, t: (t / 1000).toFixed(2) }
       });
 
       this.shareLink = document.location.origin + resolve.resolved.fullPath;
