@@ -102,6 +102,13 @@ export default {
           hit.Time >= this.tick &&
           hit.Time - this.tick < this.hitGivenIndicator.visibleTime
         ) {
+
+          //indicator must not be displayed for nades of all kind
+          //todo: refactor this magic number bullshit
+          if ([501, 502, 503, 504, 505, 506].indexOf(hit.Weapon) != -1) {
+            continue;
+          }
+
           let targetX = window.DemoViewer.RemapCoordinate(hit.VictimPos.PosX);
           let targetY = window.DemoViewer.RemapCoordinate(hit.VictimPos.PosY);
 
@@ -131,10 +138,14 @@ export default {
           hit.Time >= this.tick &&
           hit.Time - this.tick < this.hitTakenIndicator.visibleTime
         ) {
-          this.hitTakenIndicator.visible = true;
-          this.hitTakenIndicator.x = this.position.x;
-          this.hitTakenIndicator.y = this.position.y;
-          break;
+          //indicator must not be displayed for nades of all kind
+          //todo: refactor this magic number bullshit
+          if ([501, 502, 503, 504, 505, 506].indexOf(hit.Weapon) == -1) {
+            this.hitTakenIndicator.visible = true;
+            this.hitTakenIndicator.x = this.position.x;
+            this.hitTakenIndicator.y = this.position.y;
+            break;
+          }
         }
       }
     },
