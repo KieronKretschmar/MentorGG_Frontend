@@ -186,13 +186,13 @@ export default {
       };
     },
     health() {
-      return this.player.HitsTaken.reduce((acc, cur) => {
+      return Math.max(this.player.HitsTaken.reduce((acc, cur) => {
         if (cur.Time < this.tick) {
           return acc - cur.AmountHealth;
         } else {
           return acc;
         }
-      }, 100);
+      }, 100), 0);
     },
     whiteoutAlpha() {
       let curAlpha = 0;

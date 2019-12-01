@@ -109,13 +109,13 @@ export default {
       return this.player.AvatarURL.split(".jpg")[0] + "_full.jpg";
     },
     health() {
-      return this.player.HitsTaken.reduce((acc, cur) => {
+      return Math.max(this.player.HitsTaken.reduce((acc, cur) => {
         if (cur.Time < this.tick) {
           return acc - cur.AmountHealth;
         } else {
           return acc;
         }
-      }, 100);
+      }, 100), 0);
     },
     attacksWithSingleUseItem() {
       return this.player.Attacks.filter(e => {
