@@ -151,6 +151,7 @@ export default {
       loadingData: false,
       initialTimestamp: 0,
       initialTimestampRelative: false,
+      shouldAutoplay: false,
       match: -1,
       round: -1,
       timestamp: -1,
@@ -210,6 +211,11 @@ export default {
 
       return this;
     },
+    Autoplay() {
+      this.shouldAutoplay = true;
+
+      return this;
+    },
     Load() {
       this.ToggleVisibility(true);
       this.loadingData = true;
@@ -224,6 +230,7 @@ export default {
           Object.freeze(result.data);
           this.data = result.data;
 
+          //adjust for initial timestamp
           if (this.initialTimestamp != 0) {
             this.$nextTick(() => {
               this.$refs.playerControls.SetTimestamp(
@@ -234,6 +241,14 @@ export default {
 
               this.initialTimestamp = 0;
               this.initialTimestampRelative = false;
+            });
+          }
+
+          //adjust for autoplay
+          if (this.shouldAutoplay) {
+            this.$nextTick(() => {
+              this.$refs.playerControls.isPlaying = true;
+              this.shouldAutoplay = false;
             });
           }
         });
