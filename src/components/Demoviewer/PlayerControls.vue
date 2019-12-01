@@ -29,7 +29,7 @@
         <span @click="EmitShare(false)">Share from start</span>
         <span @click="EmitShare(true)">Share this moment</span>
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
     globalThis.document.addEventListener("keyup", this.OnGlobalKeyUp);
   },
   beforeDestroy() {
-    globalThis.document.removeEventListener("keyup", this.OnGlobalKeyUp)
+    globalThis.document.removeEventListener("keyup", this.OnGlobalKeyUp);
   },
   data() {
     return {
@@ -89,7 +89,7 @@ export default {
     },
     EmitShare(thisMoment) {
       this.shareMenuVisible = false;
-      this.$emit('share', thisMoment ? (this.cur - this.min) : 0);
+      this.$emit("share", thisMoment ? this.cur - this.min : 0);
     },
     ToggleFullscreenMode() {
       if (document.fullscreenElement) {
@@ -132,17 +132,23 @@ export default {
       }
     },
     LeaveFullscreen() {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        /* Firefox */
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        /* IE/Edge */
-        document.msExitFullscreen();
+      if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement
+      ) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          /* Firefox */
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          /* Chrome, Safari and Opera */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          /* IE/Edge */
+          document.msExitFullscreen();
+        }
       }
     },
     OnGlobalKeyUp(e) {
@@ -159,19 +165,19 @@ export default {
           break;
         case "Digit2":
         case "Numpad2":
-          this.SetSpeed(0.50);
+          this.SetSpeed(0.5);
           break;
         case "Digit3":
         case "Numpad3":
-          this.SetSpeed(1.00);
+          this.SetSpeed(1.0);
           break;
         case "Digit4":
         case "Numpad4":
-          this.SetSpeed(1.50);
+          this.SetSpeed(1.5);
           break;
         case "Digit5":
         case "Numpad5":
-          this.SetSpeed(2.00);
+          this.SetSpeed(2.0);
           break;
         case "KeyA":
         case "ArrowLeft":
@@ -339,7 +345,6 @@ export default {
           background: $purple;
         }
       }
-
     }
   }
 }
