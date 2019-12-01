@@ -41,6 +41,11 @@ export default {
     this.cur = parseInt(this.min);
     this.$emit("update", this.cur);
     this.PlayerLoop();
+
+    globalThis.document.addEventListener("keyup", this.OnGlobalKeyUp);
+  },
+  beforeDestroy() {
+    globalThis.document.removeEventListener("keyup", this.OnGlobalKeyUp)
   },
   data() {
     return {
@@ -138,6 +143,43 @@ export default {
       } else if (document.msExitFullscreen) {
         /* IE/Edge */
         document.msExitFullscreen();
+      }
+    },
+    OnGlobalKeyUp(e) {
+      switch (e.code) {
+        case "Escape":
+          globalThis.DemoViewer.ToggleVisibility(false);
+          break;
+        case "Space":
+          this.isPlaying = !this.isPlaying;
+          break;
+        case "Digit1":
+        case "Numpad1":
+          this.SetSpeed(0.25);
+          break;
+        case "Digit2":
+        case "Numpad2":
+          this.SetSpeed(0.50);
+          break;
+        case "Digit3":
+        case "Numpad3":
+          this.SetSpeed(1.00);
+          break;
+        case "Digit4":
+        case "Numpad4":
+          this.SetSpeed(1.50);
+          break;
+        case "Digit5":
+        case "Numpad5":
+          this.SetSpeed(2.00);
+          break;
+        case "KeyA":
+        case "ArrowLeft":
+          this.cur -= 5000; //increase current time by 5 seconds
+          break;
+        case "KeyD":
+        case "ArrowRight":
+          this.cur += 5000; //decrease current time by 5 seconds
       }
     }
   }
