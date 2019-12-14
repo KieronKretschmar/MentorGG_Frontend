@@ -69,7 +69,7 @@ export default {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
       if(isDemo){
-        this.$api.getSingleMatchMisplays("76561198033880857", 20622).then(result => {
+        this.$api.getMisplays("76561198033880857", 1).then(result => {
           this.situationCollections = result.data.SituationCollections;
           this.loadingComplete = true;
         })
