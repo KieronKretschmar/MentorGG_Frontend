@@ -323,6 +323,7 @@ export default {
       flex-direction: column;
       font-size: 14px;
       border-radius: 3px;
+      z-index: 10000;
 
       &:after {
         content: "";
