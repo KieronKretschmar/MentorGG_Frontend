@@ -10,7 +10,7 @@
         :key="color"
         :style="{background: color}"
         :class="{active: activeColor == color}"
-        @click="SetActiveColor(colors[0], true)"
+        @click="SetActiveColor(color, true)"
       ></div>
 
       <i class="material-icons" title="Clear All Drawings" @click="ClearCanvas()">clear</i>
