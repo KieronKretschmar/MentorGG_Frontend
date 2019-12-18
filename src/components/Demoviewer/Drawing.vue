@@ -6,15 +6,14 @@
       <div
         class="color-picker"
         title="Use color"
-
-        v-for="color in colors" :key="color"
-
+        v-for="color in colors"
+        :key="color"
         :style="{background: color}"
         :class="{active: activeColor == color}"
-        @click="SetActiveColor(color)"
+        @click="SetActiveColor(colors[0], true)"
       ></div>
 
-      <i class="material-icons" title="Clear All Drawings" @click="ClearCanvas">clear</i>
+      <i class="material-icons" title="Clear All Drawings" @click="ClearCanvas()">clear</i>
     </div>
   </div>
 </template>
@@ -29,7 +28,7 @@ export default {
     this.context2d.imageSmoothingQuality = "high";
     this.context2d.lineWidth = 2;
 
-    this.SetActiveColor(this.colors[0]);
+    this.SetActiveColor(this.colors[0], false);
     this.$refs.drawingCanvas.addEventListener("mousedown", e => {
       this.mouse.down = true;
 
@@ -55,17 +54,34 @@ export default {
       mouse: {
         down: false
       },
-      colors: ['#DC143C', '#725619', '#1D7180'],
+      colors: ["#DC143C", "#725619", "#1D7180"],
       activeColor: null
     };
   },
   methods: {
-    SetActiveColor(color) {
-        this.activeColor = color;
-        this.context2d.strokeStyle = this.activeColor;
+    SetActiveColor(color, byUser) {
+      this.activeColor = color;
+      this.context2d.strokeStyle = this.activeColor;
+
+      if (byUser) {
+        this.TriggerAnalytics("UseTool", color);
+      }
     },
     ClearCanvas() {
-        this.context2d.clearRect(0, 0, this.$refs.drawingCanvas.width, this.$refs.drawingCanvas.height);
+      this.context2d.clearRect(
+        0,
+        0,
+        this.$refs.drawingCanvas.width,
+        this.$refs.drawingCanvas.height
+      );
+      this.TriggerAnalytics("UseTool", "ClearCanvas");
+    },
+    TriggerAnalytics(action, label) {
+      this.$ga.event({
+        eventCategory: "DemoViewer",
+        eventAction: action,
+        eventLabel: label
+      });
     }
   }
 };
