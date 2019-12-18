@@ -6,6 +6,8 @@
     <div class="viewing-area" v-else>
       <div class="close-button" @click="ToggleVisibility(false)">×</div>
       <div class="l">
+        <Drawing />
+
         <div class="share-overlay" v-if="shareOverlayVisible">
           <div class="share-content">
             <div class="close-button" @click="shareOverlayVisible = false">×</div>
@@ -115,6 +117,7 @@ import RenderedMolotovObject from "@/components/Demoviewer/RenderedMolotovObject
 import RenderedBaseGrenadeObject from "@/components/Demoviewer/RenderedBaseGrenadeObject.vue";
 import RenderedBombObject from "@/components/Demoviewer/RenderedBombObject.vue";
 import PlayerFrameRenderer from "@/components/Demoviewer/PlayerFrameRenderer.vue";
+import Drawing from "@/components/Demoviewer/Drawing.vue";
 
 import Interpolate from "d3-interpolate";
 
@@ -130,7 +133,8 @@ export default {
     RenderedMolotovObject,
     RenderedBaseGrenadeObject,
     RenderedBombObject,
-    PlayerFrameRenderer
+    PlayerFrameRenderer,
+    Drawing
   },
   mounted() {
     // this component is loaded at the very top
