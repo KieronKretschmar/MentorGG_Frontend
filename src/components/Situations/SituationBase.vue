@@ -18,20 +18,14 @@ export default {
       return end >= x && x >= start;
     },
     ToggleMisplayVisibility: function() {
-      this.isVisible = !this.isVisible;
-      this.$ga.event({
-        eventCategory: 'Situation',
-        eventAction: this.isVisible ? 'ShowSituation' : 'HideSituation',
-        eventLabel: this.$options._componentTag,
-      });
+      let visibility = !this.isVisible;
+      this.$helpers.LogEvent(this, visibility ? 'ShowSituation' : 'HideSituation', {category: "Situation", label: this.$options._componentTag});
+
+      this.isVisible = visibility;
       this.$forceUpdate();
     },
     Watch: function(matchId, round = 1, time = 0) {
-      this.$ga.event({
-        eventCategory: 'Situation',
-        eventAction: 'WatchSituation',
-        eventLabel: this.$options._componentTag,
-      });
+      this.$helpers.LogEvent(this, "WatchSituation", {category: "Situation", label: this.$options._componentTag});
 
       globalThis.DemoViewer.SetMatch(matchId)
         .SetRound(round)

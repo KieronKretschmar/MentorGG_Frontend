@@ -426,84 +426,71 @@ export default {
         });
     },
     OnShowTrajectories: function() {
-      this.showTrajectories = !this.showTrajectories;
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: this.showTrajectories ? 'ShowTrajectories' : 'HideTrajectories',
-      });
+      let showTrajectories = !this.showTrajectories;
+      this.$helpers.LogEvent(this, showTrajectories ? 'ShowTrajectories' : 'HideTrajectories');
+
+      this.showTrajectories = showTrajectories;
     },
     OnMatchCountUpdated: function() {
+      this.$helpers.LogEvent(this, "MatchCountUpdated", {value: this.matchCount});
+
       this.LoadSamples(this.activeMap, this.matchCount, false);
-      
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: 'MatchCountUpdated',
-        eventValue: this.matchCount
-      });
     },
     OnClickBackground: function() {
+      this.$helpers.LogEvent(this, "ClickBackground");
+
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.selectedLineupId = 0;
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: 'ClickBackground',
-        eventLabel: map,
-      });
     },
     OnActiveMapUpdated: function(map) {
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: 'ActiveMapUpdated',
-        eventLabel: map,
-      });
+      this.$helpers.LogEvent(this, "ActiveMapUpdated", {label: map});
 
       if (this.activeMap != map) {
         this.LoadSamples(map, this.matchCount, false);
         this.activeMap = map;
       }
       this.selectedSample = null;
+      this.selectedZoneId = 0;
       this.selectedLineupId = 0;
     },
     SetSelectedSample: function(id) {
+      this.$helpers.LogEvent(this, "SampleSelected");
+
       this.selectedSample = this.samples.find(x => x.Id == id);
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: 'SampleSelected',
-      });
-    },
-    SetSelectedLineup: function(lineupId) {
-      this.selectedLineupId = lineupId;
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: 'LineupSelected',
-        eventValue: lineupId
-      });
     },
     SetSelectedZone: function(zoneId) {
+      this.$helpers.LogEvent(this, "ZoneSelected", {value: zoneId});
+
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     SetShowCt(showCt) {
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction:  showCt ? 'ShowCt' : 'ShowTerrorists',
-      });
+      this.$helpers.LogEvent(this, showCt ? 'ShowCt' : 'ShowTerrorists');
+
       this.selectedSample = null;
-      this.selectedLineupId = 0;
       this.selectedZoneId = 0;
+      this.selectedLineupId = 0;
       this.showCt = showCt;
     },
     ToggleDetailView() {
+      this.$helpers.LogEvent(this, this.detailView ? 'ShowDetails' : 'ShowZones');
+
       this.selectedSample = null;
-      this.selectedLineupId = 0;
       this.selectedZoneId = 0;
+      this.selectedLineupId = 0;
       this.detailView = !this.detailView;
+    },
+    Watch: function(matchId, round) {
+      this.$helpers.LogEvent(this, "Watch");
       
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction: this.detailView ? 'ShowDetails' : 'ShowLineups',
-      });
+      globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round)
+        .Load();
+    },
+    SetSelectedLineup: function(lineupId) {
+      this.$helpers.LogEvent(this, "LineupSelected", {value: lineupId});
+      this.selectedLineupId = lineupId;
     },
     CopyTextToClipboard(text) {
       // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
@@ -535,16 +522,6 @@ export default {
     },
     OpenLightbox() {
       this.$refs.lightbox.showImage(0);
-    },
-    Watch: function(matchId, round) {
-      this.$ga.event({
-        eventCategory: 'Smokes',
-        eventAction:  'Watch',
-      });
-      
-      globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round)
-        .Load();
     }
   },
   computed: {

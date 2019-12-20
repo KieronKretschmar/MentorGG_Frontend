@@ -349,38 +349,24 @@ export default {
         });
     },
     OnShowTrajectories: function() {
-      this.showTrajectories = !this.showTrajectories;
-      
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: this.showTrajectories ? 'ShowTrajectories' : 'HideTrajectories',
-      });
+      let showTrajectories = !this.showTrajectories;
+      this.$helpers.LogEvent(this, showTrajectories ? 'ShowTrajectories' : 'HideTrajectories');
+
+      this.showTrajectories = showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: 'MatchCountUpdated',
-        eventValue: this.matchCount
-      });
-      
+      this.$helpers.LogEvent(this, "MatchCountUpdated", {value: this.matchCount});
+
       this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
+      this.$helpers.LogEvent(this, "ClickBackground");
+
       this.selectedSample = null;
       this.selectedZoneId = 0;
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: 'ClickBackground',
-        eventLabel: map,
-      });
     },
     OnActiveMapUpdated: function(map) {
-      
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: 'ActiveMapUpdated',
-        eventLabel: map,
-      });
+      this.$helpers.LogEvent(this, "ActiveMapUpdated", {label: map});
 
       if (this.activeMap != map) {
         this.LoadSamples(map, this.matchCount, false);
@@ -390,46 +376,33 @@ export default {
       this.selectedZoneId = 0;
     },
     SetSelectedSample: function(id) {
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: 'SampleSelected',
-      });
+      this.$helpers.LogEvent(this, "SampleSelected");
+
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedZone: function(zoneId) {
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: 'ZoneSelected',
-        eventValue: zoneId
-      });
+      this.$helpers.LogEvent(this, "ZoneSelected", {value: zoneId});
+
       this.selectedSample = null;
       this.selectedZoneId = zoneId;
     },
     SetShowCt(showCt) {
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction:  showCt ? 'ShowCt' : 'ShowTerrorists',
-      });
+      this.$helpers.LogEvent(this, showCt ? 'ShowCt' : 'ShowTerrorists');
+
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.showCt = showCt;
     },
     ToggleDetailView() {
+      this.$helpers.LogEvent(this, this.detailView ? 'ShowDetails' : 'ShowZones');
+
       this.selectedSample = null;
       this.selectedZoneId = 0;
       this.detailView = !this.detailView;
-
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction: this.detailView ? 'ShowDetails' : 'ShowZones',
-      });
     },
-    Watch: function(matchId, round) {      
-      this.$ga.event({
-        eventCategory: 'Molotovs',
-        eventAction:  'Watch',
-      });
-
+    Watch: function(matchId, round) {
+      this.$helpers.LogEvent(this, "Watch");
+      
       globalThis.DemoViewer.SetMatch(matchId)
         .SetRound(round)
         .Load();

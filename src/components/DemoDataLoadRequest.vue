@@ -19,13 +19,11 @@
 export default {
   methods: {
     OnButtonClicked: function() {
-      // console.log(Vue.component('top'));
-      this.$ga.event({
-        eventCategory: 'DemoDataLoad',
-        eventAction: 'DemoDataLoad',
-        // eventLabel: ComponentTag if it's a component, route if it's a view
-        eventLabel: this.$parent.$options._componentTag ? this.$parent.$options._componentTag : this.$route.name, 
-      });
+      this.$helpers.LogEvent(
+        this, 
+        "DemoDataLoad",
+        {label:this.$parent.$options._componentTag ? this.$parent.$options._componentTag : this.$route.name}
+      );
       this.$emit('buttonClicked');
     }
   }

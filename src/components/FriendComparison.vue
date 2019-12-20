@@ -176,13 +176,9 @@ export default {
         });
     },
     ToggleComparisonVisibility: function(comparison) {
+      this.$helpers.LogEvent(this, comparison.IsVisible ? 'ShowComparison' : 'HideComparison');
       comparison.IsVisible = !comparison.IsVisible;
       this.$forceUpdate();
-        
-      this.$ga.event({
-        eventCategory: 'FriendComparison',
-        eventAction: comparison.IsVisible ? 'ShowComparison' : 'HideComparison',
-      });
     }
   }
 };

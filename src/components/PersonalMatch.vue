@@ -113,23 +113,16 @@ export default {
   props: ["match"],
   methods: {
     Watch: function(match) {
-      this.$ga.event({
-        eventCategory: 'Match',
-        eventAction: 'Watch',
-      });
+      this.$helpers.LogEvent(this, "Watch");
 
       globalThis.DemoViewer.SetMatch(match.MatchId)
         .SetRound(1)
         .Load();
     },
     ToggleMatchVisibility: function() {
+      this.$helpers.LogEvent(this, this.match.IsVisible ? 'ShowScoreboard' : 'HideScoreboard');
       this.match.IsVisible = !this.match.IsVisible;
-      this.$forceUpdate();
-      
-      this.$ga.event({
-        eventCategory: 'Match',
-        eventAction: this.match.IsVisible ? 'ShowScoreboard' : 'HideScoreboard',
-      });
+      this.$forceUpdate();      
     }
   }
 };
