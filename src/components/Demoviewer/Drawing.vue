@@ -60,28 +60,21 @@ export default {
   },
   methods: {
     SetActiveColor(color, byUser) {
+      if (byUser) {
+        this.$helpers.LogEvent(this, "SetActiveColor", {label:color});
+      }
+
       this.activeColor = color;
       this.context2d.strokeStyle = this.activeColor;
-
-      if (byUser) {
-        this.TriggerAnalytics("UseTool", color);
-      }
     },
     ClearCanvas() {
+      this.$helpers.LogEvent(this, "ClearCanvas");
       this.context2d.clearRect(
         0,
         0,
         this.$refs.drawingCanvas.width,
         this.$refs.drawingCanvas.height
       );
-      this.TriggerAnalytics("UseTool", "ClearCanvas");
-    },
-    TriggerAnalytics(action, label) {
-      this.$ga.event({
-        eventCategory: "DemoViewer",
-        eventAction: action,
-        eventLabel: label
-      });
     }
   }
 };

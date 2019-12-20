@@ -176,6 +176,8 @@ export default {
       this.currentTick = t;
     },
     OnShare(t) {
+      this.$helpers.LogEvent(this, "Share" + (t ? "ThisMoment" : "FromStart"));
+      
       let resolve = this.$router.resolve({
         name: "dvtrigger",
         params: { matchId: this.match },
@@ -186,12 +188,15 @@ export default {
       this.shareOverlayVisible = true;
     },
     CopySharelinkToClipboard() {
+      this.$helpers.LogEvent(this, "CopySharelinkToClipboard");
+
       //TODO: Give better animation feedback that copying was succesful
       let el = document.getElementById("copy-sharelink");
       el.select();
       document.execCommand("copy");
     },
     OnRoundChange(roundInfo) {
+      this.$helpers.LogEvent(this, "RoundChange", {value:roundInfo.Round});
       this.SetMatch(this.match)
         .SetRound(roundInfo.Round)
         .Load();
@@ -258,6 +263,8 @@ export default {
         });
     },
     ToggleVisibility(visibility) {
+      this.$helpers.LogEvent(this, "ToggleVisibility", {value:+visibility});
+
       this.isVisible = visibility;
       document.body.classList.toggle("no-scroll", this.isVisible);
 
@@ -310,6 +317,8 @@ export default {
       return lerped;
     },
     OnSkipFreezetime() {
+      this.$helpers.LogEvent(this, "SkipFreezeTime");
+
       this.$refs.playerControls.SetTimestamp(15 * 1000 + 1); //15 seconds for freezetime
     }
   },
