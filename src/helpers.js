@@ -60,6 +60,27 @@ class Helpers {
     
         return mapping[equipmentId];
     }    
+    
+    // Logs event using google analytics.
+    // If not specified, category defaults to component's name 
+    LogEvent(component, action, {category, label, value} = {}) {
+
+        let data = {
+            eventAction : action,
+            // If provided use category, otherwise use this component's name or view's route, respectively
+            eventCategory : category || (component.$options._componentTag || component.$route.name),
+        };
+
+        if(label !== undefined){
+          data.eventLabel = label;
+        }
+
+        if(value !== undefined){
+          data.eventValue = value;
+        }        
+
+        component.$ga.event(data);
+      }
 }
 
 export default new Helpers();
