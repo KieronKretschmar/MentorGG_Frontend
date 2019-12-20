@@ -126,7 +126,7 @@ export default {
     outline: 0;
     cursor: pointer;
     padding: 5px 10px;
-    z-index: 9;
+    z-index: 10001;
     transition: 0.75s;
     left: 10px;
 
