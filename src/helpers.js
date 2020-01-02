@@ -72,12 +72,12 @@ class Helpers {
         };
 
         if(label !== undefined){
-          data.eventLabel = label;
+          data.eventLabel = String(label);
         }
 
         if(value !== undefined){
           data.eventValue = value;
-        }        
+        }
 
         component.$ga.event(data);
       }

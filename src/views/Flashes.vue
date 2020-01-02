@@ -438,7 +438,7 @@ export default {
       this.showTrajectories = showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.$helpers.LogEvent(this, "MatchCountUpdated", {value: this.matchCount});
+      this.$helpers.LogEvent(this, "MatchCountUpdated", {label: this.matchCount});
 
       this.LoadSamples(this.activeMap, this.matchCount, false);
     },
@@ -464,7 +464,7 @@ export default {
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetSelectedZone: function(zoneId) {
-      this.$helpers.LogEvent(this, "ZoneSelected", {value: zoneId});
+      this.$helpers.LogEvent(this, "ZoneSelected", {label: zoneId});
 
       this.selectedSample = null;
       this.selectedZoneId = zoneId;

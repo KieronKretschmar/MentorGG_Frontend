@@ -196,7 +196,7 @@ export default {
       document.execCommand("copy");
     },
     OnRoundChange(roundInfo) {
-      this.$helpers.LogEvent(this, "RoundChange", {value:roundInfo.Round});
+      this.$helpers.LogEvent(this, "RoundChange", {label: roundInfo.Round});
       this.SetMatch(this.match)
         .SetRound(roundInfo.Round)
         .Load();
@@ -263,7 +263,7 @@ export default {
         });
     },
     ToggleVisibility(visibility) {
-      this.$helpers.LogEvent(this, "ToggleVisibility", {value:+visibility});
+      this.$helpers.LogEvent(this, "ToggleVisibility", {label:visibility ? "Show" : "Hide"});
 
       this.isVisible = visibility;
       document.body.classList.toggle("no-scroll", this.isVisible);
