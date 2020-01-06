@@ -440,19 +440,14 @@ class MentorGGAPI {
         });
     }
 
-    // Triggers the server to look for new matches of the user for all of his automatic-upload connections.
-    // Returns a bool indicating whether a new match was uploaded since the last time this was called for the user.
-    // Note that this method also returns true for matches that were already uploaded by somebody else but are new for the user.
-    lookForMatches() {
-        // uncomment the lines below for testing different scenarios
-        // return true; // New matches were found for this user
-        return false; // No new matches were found for this user
-        
-        // TODO: Update this endpoint correctly
-        return axios.post(this.apiEndpoint + 'User/lookForMatches', {
-            params: {
-            }
-        });
+    // Returns status about the players' matches in the queue
+    getQueueStatus(){
+        return {
+            MatchesInQueue: 11,
+            FirstMatchPosition: 7,
+            QueueLength: 1000,
+        }
+        // TODO: Implement this endpoint correctly
     }
 
     postRemoveFaceit() {
