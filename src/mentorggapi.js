@@ -440,15 +440,16 @@ class MentorGGAPI {
         });
     }
 
-    lookForValveMatches() {
-        return axios.post(this.apiEndpoint + 'User/LookForValveMatches', {
-            params: {
-            }
-        });
-    }
-
-    postRefreshFaceit() {
-        return axios.post(this.mvcEndpoint + 'Account/RefreshFaceit', {
+    // Triggers the server to look for new matches of the user for all of his automatic-upload connections.
+    // Returns a bool indicating whether a new match was uploaded since the last time this was called for the user.
+    // Note that this method also returns true for matches that were already uploaded by somebody else but are new for the user.
+    lookForMatches() {
+        // uncomment the lines below for testing different scenarios
+        // return true; // New matches were found for this user
+        return false; // No new matches were found for this user
+        
+        // TODO: Update this endpoint correctly
+        return axios.post(this.apiEndpoint + 'User/lookForMatches', {
             params: {
             }
         });
@@ -467,32 +468,6 @@ class MentorGGAPI {
             params: {
             }
         });
-    }
-
-    startLookingForValveMatches() {
-        if (this.valveInterval != null) {
-            return false;
-        }
-
-        //initial check
-        this.lookForValveMatches();
-
-        this.valveInterval = setInterval(() => {
-            this.lookForValveMatches();
-        }, 1000 * 60 * 3);
-
-        return true;
-    }
-
-    stopLookingForValveMatches() {
-        if (this.valveInterval != null) {
-            clearInterval(this.valveInterval);
-            this.valveInterval = null;
-
-            return true;
-        }
-
-        return false;
     }
 }
 
