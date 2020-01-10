@@ -145,6 +145,11 @@ export default new Router({
       path: '/match/watch/:matchId',
       name: 'dvtrigger',
       component: () => import(/* webpackChunkName: "dvtrigger" */'./views/DemoViewerTrigger.vue')
-    }
+    },
+    {
+      path: '/landingpage',
+      name: 'landingpage',
+      component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
+    },
   ]
 });

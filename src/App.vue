@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <!-- Workaround for showing landingpage without SideNavigation Pt. 1 -->
+  <div id="app" v-if="this.$route.name != 'landingpage'">
     <DemoViewer ref="demoViewer" />
     <div class="l-app" :class="{toggled: menuVisible}">
       <SideNavigation />
@@ -18,7 +19,9 @@
         </transition>
       </main>
       <footer>
-        <Footer />
+        <Footer 
+          :showPartnerships="false"
+        />
       </footer>
     </div>
     <!-- <DiscordHint /> -->
@@ -33,6 +36,16 @@
         </span> page and setting up said connection right now!
       </p>
     </GenericOverlay>
+  </div>
+  <!-- Workaround for showing landingpage without SideNavigation Pt. 2 -->
+  <div v-else>
+    <main>
+      <router-view />
+      
+      <Footer 
+      :showPartnerships="true"
+      />
+    </main>
   </div>
 </template>
 
@@ -66,7 +79,7 @@ export default {
   data() {
     return {
       //TODO: Proper login + check
-      menuVisible: false
+      menuVisible: false,
     };
   }
 };
