@@ -652,38 +652,45 @@ table {
       background-color: $dark-5;
     }
 
+    .section-desc-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
     .section-desc {
       max-width: 320px;
       width: 100%;
       margin-left: auto;
-    }
 
-    .section-desc-img-wrap {
-      display: flex;
-      align-items: center;
-      height: 105px;
-    }
+      .section-desc-title {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 0.75em;
+        margin-bottom: 0.875em;
+      }
 
-    .section-desc-img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
-      height: auto;
-      left: 0;
+      .section-desc-img-wrap {
+        display: flex;
+        align-items: flex-end;
+        height: 105px;
+      }
+      .section-desc-text {
+        font-size: 14px;
+        line-height: 1.357;
+        font-weight: 400;
+        max-width: 280px;
+      }
     }
 
     .section-desc--right {
       margin-left: auto;
       text-align: right;
-    }
-
-    .section-desc--right {
       .section-desc-img-wrap {
         justify-content: flex-end;
       }
-    }
-
-    .section-desc--right {
       .section-desc-text {
         margin-left: auto;
       }
@@ -692,47 +699,12 @@ table {
     .section-desc--left {
       margin-right: auto;
       text-align: left;
-    }
-
-    .section-desc--left {
       .section-desc-img-wrap {
         justify-content: flex-start;
       }
-    }
-
-    .section-desc--left {
       .section-desc-text {
         margin-right: auto;
       }
-    }
-
-    .section-desc-title {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-top: 0.75em;
-      margin-bottom: 0.875em;
-    }
-
-    .section-desc-text {
-      font-size: 14px;
-      line-height: 1.357;
-      font-weight: 400;
-      max-width: 280px;
-    }
-
-    .section-desc-link {
-      margin-top: 30px;
-      border-radius: 2.5em;
-      display: inline-flex;
-      font-weight: 500;
-    }
-
-    .section-desc-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
     }
 
     .demoviewer-section {
@@ -747,7 +719,6 @@ table {
     .demoviewer-section {
       .section-desc-img {
         max-width: 60%;
-        margin: 0 -60px -60px 0;
       }
     }
 
