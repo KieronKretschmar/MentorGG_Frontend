@@ -8,7 +8,7 @@
     </div>
 
     <div class="match-list">      
-      <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-comparisons">
+      <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-matches">
         <DemoDataLoadRequest 
         @buttonClicked="LoadAppendMatches(5, true)">
           Couldn't find any matches for you.
