@@ -28,10 +28,12 @@
         <router-link to="/hes">HEs</router-link>
         <router-link to="/kills">Kills</router-link>
 
-        <div class="nav-header">Account</div>
-        <router-link :to="{name: 'subscription'}">Subscription</router-link>
+        <div class="nav-header">UPLOAD DEMOS</div>
         <router-link to="/automatic-upload">Automatic Upload</router-link>
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+
+        <div class="nav-header">Account</div>
+        <router-link :to="{name: 'subscription'}">Subscription</router-link>
         <div class="logout">
           <button @click="signOut()" class="nav-button">
             Logout
@@ -39,7 +41,9 @@
         </div>
       </nav>
 
+
       <div class="bottom-content">
+        <QueueStatusDisplay/>
         <DiscordHint/>
         <div
           class="user-profile"
@@ -58,11 +62,13 @@
 <script>
 import DiscordHint from "@/components/DiscordHint.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import QueueStatusDisplay from "@/components/QueueStatusDisplay.vue";
 
 export default {
   components: {
     DiscordHint,
-    GenericOverlay
+    GenericOverlay,
+    QueueStatusDisplay
   },
   mounted() {
     let params = {
@@ -161,7 +167,6 @@ export default {
     left: 0;
     // height: 50px;
     width: calc(#{$sidebar-width} - 1px);
-    background: $dark-3;
 
     .discord-hint {
       position: static;
