@@ -4,10 +4,11 @@
       <div class="nav-header-2">ANALYZING MATCHES</div>
 
       <div class="demo-feedback">
-        <div class="demo-text">
+
+        <div class="demo-text" v-if="UploadLimitReached === false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
-          <div v-if="MatchesInQueue == 0">
+          <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
             (pos.
             <span class="orange-bold">{{queueStatus.FirstMatchPosition}}</span>
             / {{queueStatus.QueueLength}})
@@ -18,7 +19,11 @@
             </div>
           </div>
         </div>
+
+        <div class="demo-text-bold" v-if="UploadLimitReached === true">UPLOAD LIMIT REACHED</div>
+        
       </div>
+      
     </div>
   </div>
 </template>
@@ -29,10 +34,11 @@ export default {
   data() {
     return {
       queueStatus: {
-        MatchesInQueue: 0,
+        MatchesInQueue: 1,
         FirstMatchPosition: 7,
         QueueLength: 1000
       },
+      UploadLimitReached: true,
       loadingComplete: true
     };
   },
@@ -50,6 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// demo upload feedback
 .demo-feedback-wrapper {
   width: 282px;
   height: 57px;
@@ -67,8 +74,12 @@ export default {
   position: absolute;
 }
 
+.demo-element {
+  display: inline-block;
+}
+
 .nav-header-2 {
-  font-family: Montserrat;
+  font-family: Montserrat, sans-serif;
   font-weight: 600;
   font-size: 12px;
   width: 100%;
@@ -78,12 +89,19 @@ export default {
 }
 
 .demo-text {
-  font-family: Montserrat;
+  font-family: Montserrat, sans-serif;
   font-weight: 300;
   font-size: 14px;
   color: $light-1;
   text-align: center;
   padding-top: 8px;
+}
+
+.demo-text-bold {
+  @extend .demo-text;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .orange-bold {
@@ -104,7 +122,6 @@ export default {
   width: 8px;
   height: 8px;
   background-color: $light-1;
-
   border-radius: 100%;
   display: inline-block;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
