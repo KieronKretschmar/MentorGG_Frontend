@@ -26,8 +26,8 @@
   text-decoration: none;
 
   img {
-    width: 40px;
-    margin-right: 8px;    
+    width: 35px;
+    margin: 3px 8px 0 3px;    
   }
 
   &:hover {
