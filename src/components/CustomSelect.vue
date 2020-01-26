@@ -51,6 +51,7 @@ export default {
     width: 100%;
     top: calc(100% - 2px);
     left: 0;
+    background: $dark-1;
 
     li {
       background: $dark-4;
