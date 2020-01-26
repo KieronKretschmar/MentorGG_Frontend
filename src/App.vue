@@ -24,7 +24,15 @@
         />
       </footer>
     </div>
-    <!-- <DiscordHint /> -->
+    
+    <div class="open-filters">
+      <i class="material-icons" title="Open Match Filters" @click="OnOpenFilters">settings_applications</i>
+    </div>
+
+    <GenericOverlay ref="globalFiltersOverlay" width="900px">
+      <p class="headline">Global Match Filters</p>
+      <GlobalFilters/>
+    </GenericOverlay>    
 
     <GenericOverlay ref="connectionHintOverlay" width="900px">
       <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
@@ -56,6 +64,7 @@ import Footer from "@/components/Footer.vue";
 import DiscordHint from "@/components/DiscordHint.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import DemoViewer from "@/components/DemoViewer.vue";
+import GlobalFilters from "@/components/GlobalFilters.vue";
 
 export default {
   name: "App",
@@ -74,13 +83,19 @@ export default {
     Footer,
     DiscordHint,
     GenericOverlay,
-    DemoViewer
+    DemoViewer,
+    GlobalFilters
   },
   data() {
     return {
       //TODO: Proper login + check
       menuVisible: false,
     };
+  },
+  methods: {
+    OnOpenFilters: function() {
+      this.$refs.globalFiltersOverlay.Show();
+    }
   }
 };
 </script>
@@ -155,6 +170,19 @@ main {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+  }
+
+  .open-filters {
+    position: fixed;
+    right: 0;
+    top: 20%;
+    color: $orange;
+    user-select: none;
+    cursor: pointer;
+
+    i {
+      font-size: 40px;
+    }
   }
 }
 

@@ -48,6 +48,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   transition: 0.35s all;
+  z-index: 9999;
 
   &.visible {
     opacity: 1;

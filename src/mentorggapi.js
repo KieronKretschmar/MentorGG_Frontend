@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Enums from "@/enums";
+import Vue from 'vue';
+import MatchSelector from './matchselector';
 
 class MentorGGAPI {
     constructor() {
@@ -19,7 +21,10 @@ class MentorGGAPI {
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
-        this.valveInterval = null;
+        this.valveInterval = null;        
+
+        this.MatchSelector = new MatchSelector();
+        console.log(this);
     }
 
     resolveResource(resource) {
