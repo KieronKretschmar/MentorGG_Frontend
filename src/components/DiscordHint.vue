@@ -1,7 +1,7 @@
 <template>
   <a href="https://discord.gg/X29FEKG" target="_blank" class="discord-hint">
     <img src="@/assets/Discord-Logo-Color.svg" alt="Discord Logo" title="Join us on Discord" />
-    <p>Join us on discord</p>
+    <p class="two">Join us on discord</p>
   </a>
 </template>
 

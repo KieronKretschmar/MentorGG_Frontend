@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="footer-content-one">
+    <div v-if="showPartnerships" class="footer-content-one">
       <div class="fixed-width-container">
         <strong class="hero-subtitle">supported by</strong>
 
@@ -50,8 +50,8 @@ export default {
 <style lang="scss">
 .footer {
   .hero-subtitle {
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 300;
     color: $gray;
     display: flex;
     flex-direction: column;
@@ -78,7 +78,6 @@ export default {
   }
 
   .supporter-logo-wrap {
-    max-width: 1200px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -88,21 +87,17 @@ export default {
 
   .supporter-logo {
     width: auto;
-    height: 70px;
+    height: 50px;
     flex: 0 1 auto;
 
-    &:first-child {
-      margin-left: -10px;
-    }
-
     &:last-child {
-      margin-right: -10px;
+      height: 45px;
     }
   }
 
   .footer-content-two {
     height: 115px;
-    background: $dark-2;
+    background: $dark-6;
     padding: 20px 0;
 
     .fixed-width-container {
