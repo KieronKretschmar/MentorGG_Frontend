@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     ToggleVisibility(visibility) {
+      this.$helpers.LogEvent(this, visibility ? 'ShowVideo' : 'HideVideo', {label: this.a});
       this.overlayVisible = visibility;
 
       if (visibility) {
