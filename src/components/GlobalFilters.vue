@@ -49,6 +49,10 @@
       </div>
     </div>
 
+    <p class="how-many">
+      Your currently selected filters result in <span class="orange">{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
+    </p>
+
     <p class="note">
         *Please note that you can only filter for maps that you have actually played matches on.
     </p>
@@ -62,7 +66,9 @@ export default {
   components: {
     CustomSelect
   },
-  mounted() {},
+  mounted() {
+    console.log(this.$api.MatchSelector.Build());
+  },
   data() {
     return {
       matchCount: "-1",
@@ -95,6 +101,15 @@ export default {
           font-weight: normal;
           font-size: 14px;
       }
+
+      &.how-many {
+        font-weight: normal;
+        margin-top: 20px;
+
+        .orange {
+          color: $orange;
+        }
+      }
   }
 
   .match-count {
@@ -116,7 +131,7 @@ export default {
       margin: -5px;
 
       .source {
-        width: 150px;
+        width: 180px;
         position: relative;
         border-radius: 3px;
         overflow: hidden;
@@ -176,7 +191,7 @@ export default {
       margin: -5px;
 
       .map {
-        width: 150px;
+        width: 180px;
         position: relative;
         border-radius: 3px;
         overflow: hidden;

@@ -23,8 +23,7 @@ class MentorGGAPI {
         this.apiEndpoint = this.mvcEndpoint + 'api/';
         this.valveInterval = null;        
 
-        this.MatchSelector = new MatchSelector();
-        console.log(this);
+        this.MatchSelector = new MatchSelector(this);
     }
 
     resolveResource(resource) {
@@ -434,6 +433,15 @@ class MentorGGAPI {
     postRemoveFaceit() {
         return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
             params: {
+            }
+        });
+    }
+
+    getMetaMatchHistory() {
+        return axios.get('https://test.mentor.gg/api/MatchSelectionHistory/GetHistory', {
+            params: {
+                steamId: '76561198033880857',
+                dailyLimit: 3
             }
         });
     }

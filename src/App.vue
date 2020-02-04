@@ -31,7 +31,7 @@
 
     <GenericOverlay ref="globalFiltersOverlay" width="900px">
       <p class="headline">Global Match Filters</p>
-      <GlobalFilters/>
+      <GlobalFilters v-if="$api.MatchSelector.ready"/>
     </GenericOverlay>    
 
     <GenericOverlay ref="connectionHintOverlay" width="900px">
