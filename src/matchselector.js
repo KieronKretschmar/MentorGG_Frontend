@@ -45,7 +45,7 @@ export default class MatchSelector {
             },
 
             Override(what, data) {
-                let validOverrides = ['sources', 'maps', 'count'];
+                let validOverrides = ['sources', 'maps', 'matchCount'];
                 if (validOverrides.indexOf(what) == -1) {
                     throw new Error("Invalid override type. Valid types are: " + validOverrides);
                 }
@@ -144,3 +144,4 @@ export default class MatchSelector {
         return this.filters.sources.indexOf(sourceName) != -1;
     }
 }
+

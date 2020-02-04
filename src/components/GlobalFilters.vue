@@ -67,7 +67,7 @@ export default {
     CustomSelect
   },
   mounted() {
-    console.log(this.$api.MatchSelector.Build());
+
   },
   data() {
     return {
