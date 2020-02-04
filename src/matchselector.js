@@ -1,40 +1,65 @@
 export default class MatchSelector {
-    constructor() {
-        this.matchList = [
-            {
-                matchId: 1,
-                map: "de_dust2",
-                source: "Valve"
-            },
-            {
-                matchId: 2,
-                map: "de_inferno",
-                source: "FACEIT"
-            },
-            {
-                matchId: 3,
-                map: "de_mirage",
-                source: "Valve"
-            },
-            {
-                matchId: 4,
-                map: "de_mirage",
-                source: "Valve"
-            },
-            {
-                matchId: 4,
-                map: "de_overpass",
-                source: "Valve"
-            }
-        ];
+    constructor(api) {
+        this.$api = api;
 
-        //Todo: After the initial retrieving of the matchList, maps and source as to be filled with their unique reductions
-        //This is because we want all sources and maps to be selected by default
         this.filters = {
             maps: [],
             sources: [],
             matchCount: -1
         };
+
+        this.ready = false;
+
+        this.$api.getMetaMatchHistory().then(result => {
+            this.matchList = result.data.Matches;
+
+            //fix ugly enum name for displaying purposes
+            for (let match of this.matchList) {
+                if (match.Source == "Manualupload") {
+                    match.Source = "Manual Upload";
+                }
+            }
+
+            this.filters.maps = this.GetAvailableMapsUnique();
+            this.filters.sources = this.GetAvailableSourcesUnique();
+
+            this.ready = true;
+        })
+    }
+
+    Build() {        
+        let r = {
+            matches: [],
+            filters: [],
+
+            GetMatchIds() {
+                return this.matches.reduce((acc, match) => {
+                    if (this.filters.matchCount == -1 || acc.length < this.filters.matchCount) {
+                        if (this.filters.sources.indexOf(match.Source) != -1 && this.filters.maps.indexOf(match.Map) != -1) {
+                            acc.push(match.MatchId);
+                        }
+                    }
+
+                    return acc;
+                }, []);
+            },
+
+            Override(what, data) {
+                let validOverrides = ['sources', 'maps', 'count'];
+                if (validOverrides.indexOf(what) == -1) {
+                    throw new Error("Invalid override type. Valid types are: " + validOverrides);
+                }
+
+                this.filters[what] = data;
+
+                return this;
+            }
+        };
+
+        Object.assign(r.matches, this.matchList);
+        Object.assign(r.filters, this.filters);
+
+        return r;
     }
 
     GetMatchList() {
@@ -43,8 +68,8 @@ export default class MatchSelector {
 
     GetAvailableSourcesUnique() {
         return this.matchList.reduce((acc, el) => {
-            if (acc.indexOf(el.source) == -1) {
-                acc.push(el.source);
+            if (acc.indexOf(el.Source) == -1) {
+                acc.push(el.Source);
             }
 
             return acc;
@@ -53,8 +78,8 @@ export default class MatchSelector {
 
     GetAvailableMapsUnique() {
         return this.matchList.reduce((acc, el) => {
-            if (acc.indexOf(el.map) == -1) {
-                acc.push(el.map);
+            if (acc.indexOf(el.Map) == -1) {
+                acc.push(el.Map);
             }
 
             return acc;
