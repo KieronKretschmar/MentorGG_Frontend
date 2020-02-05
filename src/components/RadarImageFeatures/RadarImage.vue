@@ -279,16 +279,15 @@ export default {
       let zonePerformanceColors = {};
       switch (this.zoneType) {
         case "FireNade":
-
-          for (let zoneId in this.userPerformanceData.ZonePerformances) {
-            const performance = this.userPerformanceData.ZonePerformances[zoneId];
+          for (let zone of this.zones) {
+            const performance = this.userPerformanceData.ZonePerformances[
+              zone.ZoneId
+            ];
 
             if (performance.SampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zone.ZoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
-              let rounds = performance.IsCtZone
+              let rounds = zone.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
               let samplesRequiredForMaxOpacity = rounds / 10;
@@ -300,10 +299,10 @@ export default {
               );
 
               let hitEnemyRatio =
-                performance.DamagingNadesCount / Math.max(1, performance.SampleCount);
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.performanceColorGivenOpacity(
+                performance.DamagingNadesCount /
+                Math.max(1, performance.SampleCount);
+              zonePerformanceColors[zone.ZoneId] = this
+              .$performanceColors.performanceColorGivenOpacity(
                 hitEnemyRatio,
                 greenHitEnemyRatio,
                 redHitEnemyRatio,
@@ -314,14 +313,14 @@ export default {
           break;
 
         case "Flash":
-          for (let zoneId in this.userPerformanceData.ZonePerformances) {
-            const performance = this.userPerformanceData.ZonePerformances[zoneId];
+          for (let zone of this.zones) {
+            const performance = this.userPerformanceData.ZonePerformances[
+              zone.ZoneId
+            ];
             if (performance.SampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zone.ZoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
-              let rounds = performance.IsCtZone
+              let rounds = zone.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
               let samplesRequiredForMaxOpacity = rounds / 10;
@@ -332,12 +331,10 @@ export default {
                 samplesRequiredForMaxOpacity
               );
 
-
               let blindDuration =
                 performance.TotalEnemyTimeFlashed / performance.SampleCount;
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.performanceColorGivenOpacity(
+              zonePerformanceColors[zone.ZoneId] = this
+              .$performanceColors.performanceColorGivenOpacity(
                 blindDuration,
                 greenBlindDuration,
                 redBlindDuration,
@@ -348,14 +345,14 @@ export default {
           break;
 
         case "HE":
-          for (let zoneId in this.userPerformanceData.ZonePerformances) {
-            const performance = this.userPerformanceData.ZonePerformances[zoneId];
+          for (let zone of this.zones) {
+            const performance = this.userPerformanceData.ZonePerformances[
+              zone.ZoneId
+            ];
             if (performance.SampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zone.ZoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
-              let rounds = performance.IsCtZone
+              let rounds = zone.IsCtZone
                 ? this.userPerformanceData.CtRounds
                 : this.userPerformanceData.TerroristRounds;
               let opacity = this.$performanceColors.opacityFromSampleSize(
@@ -365,10 +362,10 @@ export default {
                 rounds / 10
               );
 
-              let avgDamage = performance.AmountHealth / performance.SampleCount;
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.performanceColorGivenOpacity(
+              let avgDamage =
+                performance.AmountHealth / performance.SampleCount;
+              zonePerformanceColors[zone.ZoneId] = this
+              .$performanceColors.performanceColorGivenOpacity(
                 avgDamage,
                 greenDamageDealt,
                 redDamageDealt,
@@ -379,21 +376,18 @@ export default {
           break;
 
         case "Kill":
-          for (let zoneId in this.userPerformanceData.ZonePerformances) {
-            const performance = this.userPerformanceData.ZonePerformances[zoneId];
+          for (let zone of this.zones) {
+            const performance = this.userPerformanceData.ZonePerformances[zone.ZoneId];
             let sampleCount = performance.Deaths + performance.Kills;
             if (sampleCount == 0) {
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.neutralColor(0.15);
+              zonePerformanceColors[zone.ZoneId] = this.$performanceColors.neutralColor(0.15);
             } else {
               // Rounds are currently not computed, thus using fixed opacity for now. Could use matches instead of rounds
               // let opacity = this.$performanceColors.opacityFromSampleSize(0.15, 0.4, sampleCount, rounds/10)
               let opacity = 0.3;
               let kdRatio = performance.Kills / Math.max(1, performance.Deaths);
-              zonePerformanceColors[
-                zoneId
-              ] = this.$performanceColors.performanceColorGivenOpacity(
+              zonePerformanceColors[zone.ZoneId] = this
+              .$performanceColors.performanceColorGivenOpacity(
                 kdRatio,
                 greenKillDeathRatio,
                 redKillDeathRatio,
@@ -409,20 +403,19 @@ export default {
     },
     lineupPerformanceColors() {
       let lineupPerformanceColors = {};
-      for (let lineupId in this.userPerformanceData.LineupPerformances) {
-        const performance = this.userPerformanceData.LineupPerformances[lineupId];
+      for (let lineup of this.lineups) {
+        const performance = this.userPerformanceData.LineupPerformances[
+          lineup.LineupId
+        ];
         let opacity = 1;
         if (performance.TotalAttemptsCount == 0) {
-          lineupPerformanceColors[
-            lineupId
-          ] = this.$performanceColors.neutralColor(opacity);
+          lineupPerformanceColors[lineup.LineupId] = this.$performanceColors.neutralColor(opacity);
         } else {
           let targetHitRatio =
             performance.SuccessfulAttemptsCount /
             Math.max(1, performance.TotalAttemptsCount);
-          lineupPerformanceColors[
-            lineupId
-          ] = this.$performanceColors.performanceColorGivenOpacity(
+          lineupPerformanceColors[lineup.LineupId] = this
+          .$performanceColors.performanceColorGivenOpacity(
             targetHitRatio,
             1,
             0.8,
