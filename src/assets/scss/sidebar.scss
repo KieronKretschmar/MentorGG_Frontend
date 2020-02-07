@@ -50,26 +50,27 @@
     border-top: 1px solid $purple;
     padding-top: 20px;
 
-    .stat-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-        background: $purple;
-        padding: 10px 10px;
-        border-radius: 3px;
 
-        .stat-description {
-            width: calc(70% - 20px);
-        }
-
-        .stat-content {
-            width: 30%;
-            text-align: right;
-        }
-    }
 }
 
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    background: $purple;
+    padding: 10px 10px;
+    border-radius: 3px;
+
+    .stat-description {
+        width: calc(63% - 15px);
+    }
+
+    .stat-content {
+        width: 37%;
+        text-align: right;
+    }
+}
 
 .setpos-wrapper {
     display: flex;

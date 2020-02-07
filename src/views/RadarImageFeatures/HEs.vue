@@ -1,7 +1,7 @@
 <template>
-  <div class="view view-hes">
+  <div class="view view-radarimage-feature view-hes">
     <div class="fixed-width-container">
-      <HESOverview      
+      <HEsOverview      
       :activeMap="activeMap"
       v-on:updatemap = "OnActiveMapUpdated"/>
 
@@ -25,9 +25,10 @@
 
             <button
               class="button-variant-bordered"
-              @click="ToggleDetailView()"
+              :class="{active: viewType == Enums.RadarViewTypes.Zone}"
+              @click="ToggleZones()"
               :disabled="!zonesEnabled"
-            >Toggle Zones</button>
+            >Zones</button>
 
             <div class="team-select">
               <img
@@ -61,7 +62,7 @@
               :selectedZone="selectedZone"
               :SetSelectedZone="SetSelectedZone"
               :OnClickBackground="OnClickBackground"
-              :detailView="detailView"
+              :viewType="viewType"
               :zoneType="'HE'"
               :zones="visibleZones"
               :userPerformanceData="userPerformanceData"
@@ -284,329 +285,41 @@
 </template>
 
 <script>
-import CustomSelect from "@/components/CustomSelect.vue";
-import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
-import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
-import HESOverview from "@/components/Overviews/HESOverview.vue";
+import Enums from "@/enums";
+import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import HE from "@/components/RadarImageFeatures/HE.vue";
+import HEsOverview from "@/components/Overviews/HEsOverview.vue";
 
 export default {
+  extends: RadarImageFeature,
   components: {
-    CustomSelect,
     HE,
-    RadarImage,
-    Zone,
-    HESOverview
+    HEsOverview,
+  },
+  mounted() {
+    this.init();
   },
   data() {
     return {
-      loadingSamplesComplete: false,
-      activeMap: "de_mirage",
-      showCt: true,
-      matchCount: 10,
-      matchCountSelectOptions: {
-        1: "Use last match",
-        5: "Use last 5 matches",
-        10: "Use last 10 matches",
-        50: "Use last 50 matches",
-        100: "Use last 100 matches"
+      config: {
+        sampleType: Enums.SampleType.HE,
+        features: {
+          "zones" : true,
+          "lineups" : false,
+          "filterablezones" : false,
+        },
       },
-      showTrajectories: false,
-      detailView: true,
-
-      zonesEnabled: false,
-      zones: [],
-      zoneDescendants: [],
-      userPerformanceData: [],
-      globalPerformanceData: [],
-
-      mapInfo: {},
-      samples: [],
-
-      selectedSample: null,
-      selectedZoneId: 0
     };
   },
-  mounted() {
-    if (this.$route.query.map) {
-      this.activeMap = this.$route.query.map;
-    }
-    if (this.$route.query.matchCount) {
-      this.matchCount = this.$route.query.matchCount;
-      this.matchCountSelectOptions[this.$route.query.matchCount] =
-        "Use last " + this.$route.query.matchCount + " matches";
-    }
-    this.LoadSamples(this.activeMap, this.matchCount, false);
-
-    if (this.$route.query.zoneId) {
-      this.detailView = false;
-      this.selectedZoneId = this.$route.query.zoneId;
-    }
-  },
-  methods: {
-    LoadSamples(map, matchCount, isDemo) {
-      this.samples = [];
-      this.loadingSamplesComplete = false;
-      this.$api
-        .getHEs(isDemo ? "76561198033880857" : "", map, matchCount)
-        .then(response => {
-          this.mapInfo = response.data.MapInfo;
-          this.samples = response.data.Samples;
-          this.userPerformanceData = response.data.UserData;
-          this.globalPerformanceData = response.data.GlobalData;
-          // Ignore zones where there are no samples for less clutter
-          this.zones = response.data.Zones.filter(
-            x =>
-              x.ParentZoneId != -1 &&
-              this.userPerformanceData.ZonePerformances[x.ZoneId].SampleCount !=
-                0
-          ).sort((a, b) => a.Depth - b.Depth);
-          if (this.zones.length == 0) {
-            this.zonesEnabled = false;
-          } else {
-            this.zonesEnabled = true;
-          }
-          this.zoneDescendants = response.data.ZoneDescendants;
-          this.loadingSamplesComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingSamplesComplete = true;
-        });
-    },
-    OnShowTrajectories: function() {
-      let showTrajectories = !this.showTrajectories;
-      this.$helpers.LogEvent(this, showTrajectories ? 'ShowTrajectories' : 'HideTrajectories');
-
-      this.showTrajectories = showTrajectories;
-    },
-    OnMatchCountUpdated: function() {
-      this.$helpers.LogEvent(this, "MatchCountUpdated", {label: this.matchCount});
-
-      this.LoadSamples(this.activeMap, this.matchCount, false);
-    },
-    OnClickBackground: function() {
-      this.$helpers.LogEvent(this, "ClickBackground");
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-    },
-    OnActiveMapUpdated: function(map) {
-      this.$helpers.LogEvent(this, "ActiveMapUpdated", {label: map});
-
-      if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
-        this.activeMap = map;
-      }
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-    },
-    SetSelectedSample: function(id) {
-      this.$helpers.LogEvent(this, "SampleSelected");
-
-      this.selectedSample = this.samples.find(x => x.Id == id);
-    },
-    SetSelectedZone: function(zoneId) {
-      this.$helpers.LogEvent(this, "ZoneSelected", {label: zoneId});
-
-      this.selectedSample = null;
-      this.selectedZoneId = zoneId;
-    },
-    SetShowCt(showCt) {
-      this.$helpers.LogEvent(this, showCt ? 'ShowCt' : 'ShowTerrorists');
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.showCt = showCt;
-    },
-    ToggleDetailView() {
-      this.$helpers.LogEvent(this, this.detailView ? 'ShowDetails' : 'ShowZones');
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.detailView = !this.detailView;
-    },
-    Watch: function(matchId, round) {
-      this.$helpers.LogEvent(this, "Watch");
-      
-      globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round)
-        .Load();
-    }
-  },
-  computed: {
-    activeUserData() {
-      // Filter (if applicable)
-      return this.userPerformanceData;
-    },
-    userSelectedZonePerformance() {
-      if (this.selectedZone == null) return null;
-      return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
-    },
-    userTotalRounds() {
-      return this.showCt
-        ? this.activeUserData.TotalCtRounds
-        : this.activeUserData.TotalTerroristRounds;
-    },
-    globalSelectedZonePerformance() {
-      if (this.selectedZone == null) return null;
-      return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
-    },
-    globalTotalRounds() {
-      return this.showCt
-        ? this.activeGlobalData.TotalCtRounds
-        : this.activeGlobalData.TotalTerroristRounds;
-    },
-    selectedZone() {
-      if (this.selectedZoneId == 0) {
-        return null;
-      }
-      return this.zones.find(x => x.ZoneId == this.selectedZoneId);
-    },
-    visibleSamples() {
-      if (!this.samples) return [];
-      if (this.selectedSample != null) return [this.selectedSample];
-      if (this.selectedZoneId) {
-        return this.samples.filter(
-          x =>
-            this.zoneDescendants[this.selectedZoneId].includes(x.ZoneId) ||
-            x.ZoneId == this.selectedZoneId
-        );
-      }
-      return this.samples.filter(x => x.UserIsCt == this.showCt);
-    },
-    visibleZones() {
-      if (this.detailView) return [];
-
-      if (this.selectedZone != null) {
-        return this.zones.filter(
-          x =>
-            x.ParentZoneId == this.selectedZone.ZoneId ||
-            this.selectedZone.ZoneId == x.ZoneId
-        );
-      } else {
-        return this.zones.filter(
-          x => x.IsCtZone == this.showCt && x.Depth == 1
-        );
-      }
+  methods:{
+    ToggleZones(){
+      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Zone : Enums.RadarViewTypes.Sample;
+      this.SetViewType(newViewType);
     }
   }
-};
+}
 </script>
 
-<style lang="scss" scoped>
-@import "@/assets/scss/sidebar.scss";
+<style lang="scss">
 
-.view-hes {
-  margin-top: 40px;
-}
-
-.no-data {
-  margin-top: 20px;
-}
-
-.interactive-area {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-
-  .l {
-    width: calc(70% - 20px);
-    // display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .tool-menu {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      > button {
-        margin-right: 20px;
-      }
-    }
-
-    .team-select {
-      display: flex;
-      margin: 0 20px;
-
-      img {
-        margin: 0 5px;
-      }
-
-      :not(.active) {
-        -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        filter: grayscale(100%);
-      }
-
-      :hover {
-        -webkit-filter: none;
-        -moz-filter: none;
-        -ms-filter: none;
-        filter: none;
-      }
-
-      .t {
-        transition: 0.35s;
-        cursor: pointer;
-
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
-        }
-      }
-
-      .ct {
-        transition: 0.35s;
-        cursor: pointer;
-
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
-        }
-      }
-    }
-
-    .match-count-select {
-      width: 100%;
-      // max-width: 400px;
-    }
-  }
-
-  .r {
-    width: 30%;
-
-    .sidebar {
-      color: white;
-
-      .split {
-        display: flex;
-
-        .left {
-          display: flex;
-          width: 80%;
-        }
-
-        .right {
-          display: flex;
-          align-items: center;
-
-          .watch-match-icon {
-            color: $orange;
-            margin-right: 20px;
-            font-size: 26px;
-            transition: 0.35s;
-            cursor: pointer;
-
-            &:hover {
-              color: $purple;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 </style>

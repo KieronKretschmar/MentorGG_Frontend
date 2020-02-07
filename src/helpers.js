@@ -80,6 +80,36 @@ class Helpers {
         }
 
         component.$ga.event(data);
+    }
+    
+    CopyTextToClipboard(text) {
+        // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+        if (!navigator.clipboard) {
+          this.fallbackCopyTextToClipboard(text);
+          return;
+        }
+        navigator.clipboard.writeText(text).then(
+          function() {},
+          function(error) {
+            console.error(error); // eslint-disable-line no-console
+          }
+        );
+      }
+
+      fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+  
+        try {
+          document.execCommand("copy");
+        } catch (error) {
+          console.error(error); // eslint-disable-line no-console
+        }
+  
+        document.body.removeChild(textArea);
       }
 }
 

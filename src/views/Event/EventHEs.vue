@@ -360,9 +360,9 @@
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
 import TeamSelection from "@/components/TeamSelection.vue";
-import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
-import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import HE from "@/components/RadarImageFeatures/HE.vue";
+import RadarImage from "@/components/RadarImageFeatures/RadarImage.vue";
+import Zone from "@/components/RadarImageFeatures/Zone.vue";
 
 export default {
   components: {

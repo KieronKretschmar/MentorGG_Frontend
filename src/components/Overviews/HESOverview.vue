@@ -63,11 +63,12 @@
 </template>
 
 <script>
+import Enums from "@/enums";
 import OverviewBase from "@/components/Overviews/OverviewBase.vue";
 
 export default {
   extends: OverviewBase,
-  name: "HESOverview",
+  name: "HEsOverview",
   data() {
     return {
       mapSummaries: null
@@ -80,7 +81,7 @@ export default {
   methods: {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getHEsOverview(matchCount).then(response => {
+      this.$api.getOverview(Enums.SampleType.HE, "", matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },

@@ -404,9 +404,9 @@
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
 import TeamSelection from "@/components/TeamSelection.vue";
-import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
-import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
+import RadarImage from "@/components/RadarImageFeatures/RadarImage.vue";
+import Flash from "@/components/RadarImageFeatures/Flash.vue";
+import Zone from "@/components/RadarImageFeatures/Zone.vue";
 
 export default {
   components: {

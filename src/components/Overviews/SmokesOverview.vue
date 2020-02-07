@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import Enums from "@/enums";
 import OverviewBase from "@/components/Overviews/OverviewBase.vue";
 
 export default {
@@ -69,7 +70,7 @@ export default {
   methods: {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getSmokesOverview(matchCount).then(response => {
+      this.$api.getOverview(Enums.SampleType.Smoke, "", matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },

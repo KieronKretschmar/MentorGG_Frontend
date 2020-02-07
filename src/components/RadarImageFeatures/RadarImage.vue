@@ -38,7 +38,7 @@
         y="0"
         :width="imageSize"
         :height="imageSize"
-        :class="{tinted : !detailView && selectedZone}"
+        :class="{tinted : tintBackground}"
       />
 
       <!-- Zones -->
@@ -152,16 +152,17 @@
 
 
 <script>
+import Enums from "@/enums";
 import svgPanZoom from "svg-pan-zoom";
 
-import Zone from "@/components/GrenadesAndKills/RadarImage/Zone.vue";
-import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
-import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
-import Molotov from "@/components/GrenadesAndKills/RadarImage/Molotov.vue";
-import Flash from "@/components/GrenadesAndKills/RadarImage/Flash.vue";
-import HE from "@/components/GrenadesAndKills/RadarImage/HE.vue";
-import Kill from "@/components/GrenadesAndKills/RadarImage/Kill.vue";
-import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
+import Zone from "@/components/RadarImageFeatures/Zone.vue";
+import Target from "@/components/RadarImageFeatures/Target.vue";
+import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
+import Molotov from "@/components/RadarImageFeatures/Molotov.vue";
+import Flash from "@/components/RadarImageFeatures/Flash.vue";
+import HE from "@/components/RadarImageFeatures/HE.vue";
+import Kill from "@/components/RadarImageFeatures/Kill.vue";
+import Smoke from "@/components/RadarImageFeatures/Smoke.vue";
 export default {
   components: {
     Zone,
@@ -203,7 +204,7 @@ export default {
 
     "showTrajectories",
     "showCt",
-    "detailView",
+    "viewType",
     "SetSelectedSample",
     "selectedSample",
     "SetSelectedZone",
@@ -243,6 +244,9 @@ export default {
     }
   },
   computed: {
+    tintBackground() {
+      return this.viewType == Enums.RadarViewTypes.Zone && this.selectedZone;
+    },
     viewBox() {
       return (
         this.mapInfo.CropOffsets.MinX +

@@ -46,40 +46,39 @@ export default new Router({
     {
       path: '/hes',
       name: 'hes',
-      component: () => import(/* webpackChunkName: "hes" */'./views/HEs.vue'),
+      component: () => import(/* webpackChunkName: "hes" */'./views/RadarImageFeatures/HEs.vue'),
       beforeEnter: authenticationGuard
     },
     {
       path: '/flashes',
       name: 'flashes',
-      component: () => import(/* webpackChunkName: "flashes" */'./views/Flashes.vue'),
+      component: () => import(/* webpackChunkName: "flashes" */'./views/RadarImageFeatures/Flashes.vue'),
       beforeEnter: authenticationGuard
     },
     {
       path: '/kills',
       name: 'kills',
-      component: () => import(/* webpackChunkName: "kills" */'./views/Kills.vue'),
+      component: () => import(/* webpackChunkName: "kills" */'./views/RadarImageFeatures/Kills.vue'),
       beforeEnter: authenticationGuard
-
     },
     {
       path: '/molotovs',
       name: 'molotovs',
-      component: () => import(/* webpackChunkName: "molotovs" */'./views/Molotovs.vue'),
+      component: () => import(/* webpackChunkName: "molotovs" */'./views/RadarImageFeatures/Molotovs.vue'),
       beforeEnter: authenticationGuard
     },
     {
       path: '/smokes',
       name: 'smokes',
-      component: () => import(/* webpackChunkName: "smokes" */'./views/Smokes.vue'),
+      component: () => import(/* webpackChunkName: "smokes" */'./views/RadarImageFeatures/Smokes.vue'),
       beforeEnter: authenticationGuard
     },
-    {
-          path: '/bombs',
-          name: 'bombs',
-          component: () => import(/* webpackChunkName: "bombs" */'./views/Bombs.vue'),
-          beforeEnter: authenticationGuard
-    },
+    // {
+    //   path: '/bombs',
+    //   name: 'bombs',
+    //   component: () => import(/* webpackChunkName: "bombs" */'./views/Bombs.vue'),
+    //   beforeEnter: authenticationGuard
+    // },
     {
       path: '/event/hes',
       name: 'eventhes',

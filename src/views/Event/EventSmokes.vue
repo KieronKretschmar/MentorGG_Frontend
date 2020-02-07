@@ -368,10 +368,10 @@
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
 import TeamSelection from "@/components/TeamSelection.vue";
-import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
-import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
-import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
+import RadarImage from "@/components/RadarImageFeatures/RadarImage.vue";
+import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
+import Target from "@/components/RadarImageFeatures/Target.vue";
+import Smoke from "@/components/RadarImageFeatures/Smoke.vue";
 import LightBox from 'vue-image-lightbox'
 require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 

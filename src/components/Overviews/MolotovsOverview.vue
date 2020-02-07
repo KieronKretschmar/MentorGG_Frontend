@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import Enums from "@/enums";
 import OverviewBase from "@/components/Overviews/OverviewBase.vue";
 
 export default {
@@ -80,7 +81,7 @@ export default {
   methods: {
   LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getFireNadesOverview(matchCount).then(response => {
+      this.$api.getOverview(Enums.SampleType.Moltov, "", matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     },

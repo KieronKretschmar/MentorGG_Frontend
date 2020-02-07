@@ -1,5 +1,5 @@
 <template>
-  <div class="view view-smokes">
+  <div class="view view-radarimage-feature view-smokes">
     <div class="fixed-width-container">
       <SmokesOverview      
       :activeMap="activeMap"
@@ -22,11 +22,11 @@
               :class="{active: showTrajectories}"
               @click="OnShowTrajectories"
             >Trajectories</button>
-            <div v-if="zonesEnabled">
+            <div v-if="lineupsEnabled">
               <button
                 class="button-variant-bordered"
-                :class="{active: !detailView}"
-                @click="ToggleDetailView"
+                :class="{active: this.viewType == Enums.RadarViewTypes.Lineup}"
+                @click="ToggleLineups()"
               >Lineups</button>
             </div>
 
@@ -34,13 +34,13 @@
               <img
                 class="t"
                 src="@/assets/t_logo.png"
-                :class="{active: !showCt || !detailView}"
+                :class="{active: !showCt || ShowBothTeams}"
                 @click="SetShowCt(false)"
               />
               <img
                 class="ct"
                 src="@/assets/ct_logo.png"
-                :class="{active: showCt || !detailView}"
+                :class="{active: showCt || ShowBothTeams}"
                 @click="SetShowCt(true)"
               />
             </div>
@@ -64,7 +64,7 @@
               :selectedZone="selectedZone"
               :SetSelectedZone="SetSelectedZone"
               :OnClickBackground="OnClickBackground"
-              :detailView="detailView"
+              :viewType="viewType"
               :zoneType="'Smoke'"
               :zones="visibleZones"
               :lineups="visibleLineups"
@@ -173,7 +173,7 @@
                   </div>
                 </div>
               </div>
-              <div class="zone-legend-section">
+              <div class="lineup-legend-section">
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <svg height="50" width="50">
@@ -311,8 +311,10 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   data-original-title="Copy to clipboard"
-                  @click="CopyTextToClipboard(selectedLineup.Setpos)"
+                  @click="this.$helpers.CopyTextToClipboard(selectedLineup.Setpos)" 
                 >
+                <!-- TODO: Check if copytext works -->
+                
                   <i class="material-icons">file_copy</i>
                 </button>
               </div>
@@ -331,415 +333,46 @@
 </template>
 
 <script>
-import CustomSelect from "@/components/CustomSelect.vue";
-import RadarImage from "@/components/GrenadesAndKills/RadarImage/RadarImage.vue";
-import Lineup from "@/components/GrenadesAndKills/RadarImage/Lineup.vue";
-import Target from "@/components/GrenadesAndKills/RadarImage/Target.vue";
-import Smoke from "@/components/GrenadesAndKills/RadarImage/Smoke.vue";
-import LightBox from "vue-image-lightbox";
+import Enums from "@/enums";
+import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import Smoke from "@/components/RadarImageFeatures/Smoke.vue";
 import SmokesOverview from "@/components/Overviews/SmokesOverview.vue";
-require("vue-image-lightbox/dist/vue-image-lightbox.min.css");
 
 export default {
+  extends: RadarImageFeature,
   components: {
-    CustomSelect,
-    RadarImage,
-    Lineup,
-    Target,
     Smoke,
-    LightBox,
-    SmokesOverview
+    SmokesOverview,
+  },
+  mounted() {
+    this.init();
   },
   data() {
     return {
-      loadingSamplesComplete: false,
-      activeMap: "de_mirage",
-      showCt: true,
-      matchCount: 10,
-      matchCountSelectOptions: {
-        1: "Use last match",
-        5: "Use last 5 matches",
-        10: "Use last 10 matches",
-        50: "Use last 50 matches",
-        100: "Use last 100 matches"
+      config: {
+        sampleType: Enums.SampleType.Smoke,
+        features: {
+          "zones" : false,
+          "lineups" : true,
+          "filterable" : false,
+        },
       },
-      showTrajectories: false,
-      detailView: true,
-
-      zonesEnabled: false,
-      zones: [],
-      lineups: [],
-
-      userPerformanceData: [],
-      globalPerformanceData: [],
-
-      mapInfo: {},
-      samples: [],
-
-      selectedSample: null,
-      selectedLineupId: 0,
-      selectedZoneId: 0
     };
   },
-  mounted() {
-    if (this.$route.query.map) {
-      this.activeMap = this.$route.query.map;
-    }
-
-    if (this.$route.query.matchCount) {
-      this.matchCount = this.$route.query.matchCount;
-      this.matchCountSelectOptions[this.$route.query.matchCount] =
-        "Use last " + this.$route.query.matchCount + " matches";
-    }
-    this.LoadSamples(this.activeMap, this.matchCount, false);
-
-    if (this.$route.query.lineupId) {
-      this.SetSelectedLineup(this.$route.query.lineupId);
-      this.detailView = false;
-    }
-  },
-  methods: {
-    LoadSamples(map, matchCount, isDemo) {
-      this.samples = [];
-      this.loadingSamplesComplete = false;
-      this.$api
-        .getSmokes(isDemo ? "76561198033880857" : "", map, matchCount)
-        .then(response => {
-          this.mapInfo = response.data.MapInfo;
-          this.samples = response.data.Samples;
-          this.lineups = response.data.Lineups;
-          this.zones = response.data.Zones.filter(
-            x => x.CategoryIds.length > 0
-          );
-          this.userPerformanceData = response.data.UserData; // Filtered (if applicable)
-          this.globalPerformanceData = response.data.GlobalData;
-          if (this.zones.length == 0) {
-            this.zonesEnabled = false;
-          } else {
-            this.zonesEnabled = true;
-          }
-          this.loadingSamplesComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingSamplesComplete = true;
-        });
-    },
-    OnShowTrajectories: function() {
-      let showTrajectories = !this.showTrajectories;
-      this.$helpers.LogEvent(this, showTrajectories ? 'ShowTrajectories' : 'HideTrajectories');
-
-      this.showTrajectories = showTrajectories;
-    },
-    OnMatchCountUpdated: function() {
-      this.$helpers.LogEvent(this, "MatchCountUpdated", {label: this.matchCount});
-
-      this.LoadSamples(this.activeMap, this.matchCount, false);
-    },
-    OnClickBackground: function() {
-      this.$helpers.LogEvent(this, "ClickBackground");
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.selectedLineupId = 0;
-    },
-    OnActiveMapUpdated: function(map) {
-      this.$helpers.LogEvent(this, "ActiveMapUpdated", {label: map});
-
-      if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
-        this.activeMap = map;
-      }
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.selectedLineupId = 0;
-    },
-    SetSelectedSample: function(id) {
-      this.$helpers.LogEvent(this, "SampleSelected");
-
-      this.selectedSample = this.samples.find(x => x.Id == id);
-    },
-    SetSelectedZone: function(zoneId) {
-      this.$helpers.LogEvent(this, "ZoneSelected", {label: zoneId});
-
-      this.selectedSample = null;
-      this.selectedZoneId = zoneId;
-    },
-    SetShowCt(showCt) {
-      this.$helpers.LogEvent(this, showCt ? 'ShowCt' : 'ShowTerrorists');
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.selectedLineupId = 0;
-      this.showCt = showCt;
-    },
-    ToggleDetailView() {
-      this.$helpers.LogEvent(this, this.detailView ? 'ShowDetails' : 'ShowZones');
-
-      this.selectedSample = null;
-      this.selectedZoneId = 0;
-      this.selectedLineupId = 0;
-      this.detailView = !this.detailView;
-    },
-    Watch: function(matchId, round) {
-      this.$helpers.LogEvent(this, "Watch");
-      
-      globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round)
-        .Load();
-    },
-    SetSelectedLineup: function(lineupId) {
-      this.$helpers.LogEvent(this, "LineupSelected", {label: lineupId});
-      this.selectedLineupId = lineupId;
-    },
-    CopyTextToClipboard(text) {
-      // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-      if (!navigator.clipboard) {
-        this.fallbackCopyTextToClipboard(text);
-        return;
-      }
-      navigator.clipboard.writeText(text).then(
-        function() {},
-        function(error) {
-          console.error(error); // eslint-disable-line no-console
-        }
-      );
-    },
-    fallbackCopyTextToClipboard(text) {
-      var textArea = document.createElement("textarea");
-      textArea.value = text;
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-
-      try {
-        document.execCommand("copy");
-      } catch (error) {
-        console.error(error); // eslint-disable-line no-console
-      }
-
-      document.body.removeChild(textArea);
-    },
-    OpenLightbox() {
-      this.$refs.lightbox.showImage(0);
+  methods:{
+    ToggleLineups(){
+      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Lineup : Enums.RadarViewTypes.Sample;
+      this.SetViewType(newViewType);
     }
   },
   computed: {
-    activeUserData() {
-      // Filter (if applicable)
-      return this.userPerformanceData;
-    },
-    userSelectedZonePerformance() {
-      if (this.selectedZone == null) return null;
-      return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
-    },
-    userSelectedLineupPerformance() {
-      if (this.selectedLineup == null) return null;
-      return this.activeUserData.LineupPerformances[
-        this.selectedLineup.LineupId
-      ];
-    },
-    userTotalRounds() {
-      return this.showCt
-        ? this.activeUserData.TotalCtRounds
-        : this.activeUserData.TotalTerroristRounds;
-    },
-    globalSelectedZonePerformance() {
-      if (this.selectedZone == null) return null;
-      return this.activeGlobalData.ZonePerformances[this.selectedZone.ZoneId];
-    },
-    globalSelectedLineupPerformance() {
-      if (this.selectedLineup == null) return null;
-      return this.activeGlobalData.LineupPerformances[
-        this.selectedLineup.LineupId
-      ];
-    },
-    globalTotalRounds() {
-      return this.showCt
-        ? this.activeGlobalData.TotalCtRounds
-        : this.activeGlobalData.TotalTerroristRounds;
-    },
-    selectedZone() {
-      if (this.selectedZoneId == 0) {
-        return null;
-      }
-      return this.zones.find(x => x.ZoneId == this.selectedZoneId);
-    },
-    selectedLineup() {
-      if (this.selectedLineupId == 0) {
-        return null;
-      }
-      return this.lineups.find(x => x.LineupId == this.selectedLineupId);
-    },
-    visibleSamples() {
-      if (!this.detailView) {
-        if (this.selectedLineup != null) {
-          return this.samples.filter(
-            x => x.LineupId == this.selectedLineup.LineupId
-          );
-        }
-        return [];
-      }
-      if (!this.samples) return [];
-      if (this.selectedSample != null) return [this.selectedSample];
-      return this.samples.filter(x => x.UserIsCt == this.showCt);
-    },
-    visibleLineups() {
-      if (this.detailView) return [];
-      if (!this.lineups) return [];
-      if (this.selectedLineup != null) return [this.selectedLineup];
-      if (this.selectedZone != null)
-        return this.lineups.filter(x => x.TargetId == this.selectedZone.ZoneId);
-      return this.lineups;
-    },
-    visibleZones() {
-      if (this.detailView) return [];
-      if (this.selectedZone != null) return [this.selectedZone];
-      if (this.selectedLineup != null)
-        return [this.zones.find(x => x.ZoneId == this.selectedLineup.TargetId)];
-      return this.zones;
-    },
-    lineupImages() {
-      let ret = [];
-      if (this.selectedLineup == null) {
-        return ret;
-      }
-
-      if (
-        this.selectedLineup.Images.length !=
-        this.selectedLineup.Thumbnails.length
-      ) {
-        return ret;
-      }
-
-      for (let i = 0; i < this.selectedLineup.Images.length; i++) {
-        ret.push({
-          src: this.$api.resolveResource("~" + this.selectedLineup.Images[i]),
-          thumb: this.$api.resolveResource(
-            "~" + this.selectedLineup.Thumbnails[i]
-          )
-        });
-      }
-
-      return ret;
+    ShowBothTeams() {
+      return this.viewType == Enums.RadarViewTypes.Lineup;
     }
   }
-};
+}
 </script>
 
-<style lang="scss" scoped>
-@import "@/assets/scss/sidebar.scss";
+<style lang="scss">
 
-.view-smokes {
-  margin-top: 40px;
-}
-
-.no-data {
-  margin-top: 20px;
-}
-
-.interactive-area {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-
-  .l {
-    width: calc(70% - 20px);
-    // display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .tool-menu {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      > button {
-        margin-right: 20px;
-      }
-    }
-
-    .team-select {
-      display: flex;
-      margin: 0 20px;
-
-      img {
-        margin: 0 5px;
-      }
-
-      :not(.active) {
-        -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        filter: grayscale(100%);
-      }
-
-      :hover {
-        -webkit-filter: none;
-        -moz-filter: none;
-        -ms-filter: none;
-        filter: none;
-      }
-
-      .t {
-        transition: 0.35s;
-        cursor: pointer;
-
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
-        }
-      }
-
-      .ct {
-        transition: 0.35s;
-        cursor: pointer;
-
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
-        }
-      }
-    }
-
-    .match-count-select {
-      width: 100%;
-      // max-width: 400px;
-    }
-  }
-
-  .r {
-    width: 30%;
-
-    .sidebar {
-      color: white;
-
-      .split {
-        display: flex;
-
-        .left {
-          display: flex;
-          width: 80%;
-        }
-
-        .right {
-          display: flex;
-          align-items: center;
-
-          .watch-match-icon {
-            color: $orange;
-            margin-right: 20px;
-            font-size: 26px;
-            transition: 0.35s;
-            cursor: pointer;
-
-            &:hover {
-              color: $purple;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 </style>

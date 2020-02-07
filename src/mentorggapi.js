@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Enums from "@/enums";
 
 class MentorGGAPI {
     constructor() {
@@ -13,7 +14,7 @@ class MentorGGAPI {
             this.sendFixedSteamId = true;
             this.tldEndpoint = 'https://mentor.gg/';
             this.fixedSteamId = '76561198033880857'; //kieron
-            this.fixedSteamId = '76561198166019050'; //felix
+            // this.fixedSteamId = '76561198166019050'; //felix
             // this.fixedSteamId = '76561198044966222'; //lasse
         }
 
@@ -156,7 +157,7 @@ class MentorGGAPI {
         });
     }
 
-    getFireNadesOverview(playerId = "", recentMatches = 50) {
+    getOverview(type, playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
         }
@@ -167,12 +168,29 @@ class MentorGGAPI {
             params.playerId = this.fixedSteamId;
         }
 
-        return axios.get(this.apiEndpoint + 'FireNades/FireNadesOverview', {
+        let route = this.apiEndpoint;
+        if(type == Enums.SampleType.FireNade){
+            route += 'FireNades/FireNadesOverview';
+        }
+        else if(type == Enums.SampleType.Flash){
+            route += 'Flashes/FlashesOverview';
+        }
+        else if(type == Enums.SampleType.HE){
+            route += 'HEs/HEsOverview';
+        }
+        else if(type == Enums.SampleType.Smoke){
+            route += 'Smokes/SmokesOverview';
+        }
+        else if(type == Enums.SampleType.Kill){
+            route += 'Kills/KillsOverview';
+        }
+        
+        return axios.get(route, {
             params: params
         });
     }
 
-    getFireNades(playerId = "", map, recentMatches = 50) {
+    getSamples(type, playerId = "", map, recentMatches = 50){
         let params = {
             map: map,
             recentMatches: recentMatches
@@ -184,58 +202,27 @@ class MentorGGAPI {
             params.playerId = this.fixedSteamId;
         }
 
-        return axios.get(this.apiEndpoint + 'FireNades/FireNades', {
-            params: params
-        });
-    }
-
-    getFlashesOverview(playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
+        let route = this.apiEndpoint;
+        if(type == Enums.SampleType.Flash){
+            route += 'Flashes/Flashes';
         }
-        if (playerId.length) {
-            params.playerId = playerId;
+        if(type == Enums.SampleType.HE){
+            route += 'HEs/HEs';
         }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
+        if(type == Enums.SampleType.FireNade){
+            route += 'FireNades/FireNades';
         }
-
-        return axios.get(this.apiEndpoint + 'Flashes/FlashesOverview', {
-            params: params
-        });
-    }
-
-    getFlashes(playerId = "", map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
+        if(type == Enums.SampleType.Kill){
+            route += 'Kills/Kills';
         }
-        if (playerId.length) {
-            params.playerId = playerId;
+        if(type == Enums.SampleType.Smoke){
+            route += 'Smokes/Smokes';
         }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
+        if(type == Enums.SampleType.Bomb){
+            route += 'Bomb/Bombs';
         }
 
-        return axios.get(this.apiEndpoint + 'Flashes/Flashes', {
-            params: params
-        });
-    }
-
-    getBombPlants(playerId = "", map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Bomb/Bombs', {
+        return axios.get(route, {
             params: params
         });
     }
@@ -261,39 +248,6 @@ class MentorGGAPI {
         });
     }
 
-    getHEsOverview(playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'HEs/HEsOverview', {
-            params: params
-        });
-    }
-
-    getHEs(playerId = "", map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'HEs/HEs', {
-            params: params
-        });
-    }
-
     getKillsOverview(playerId = "", recentMatches = 50) {
         let params = {
             recentMatches: recentMatches
@@ -306,56 +260,6 @@ class MentorGGAPI {
         }
 
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
-            params: params
-        });
-    }
-
-    getKills(playerId = "", map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Kills/Kills', {
-            params: params
-        });
-    }
-
-    getSmokesOverview(playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Smokes/SmokesOverview', {
-            params: params
-        });
-    }
-
-    getSmokes(playerId = "", map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Smokes/Smokes', {
             params: params
         });
     }
