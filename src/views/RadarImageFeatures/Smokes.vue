@@ -20,11 +20,12 @@
               :class="{active: showTrajectories}"
               @click="OnShowTrajectories"
             >Trajectories</button>
-            <div v-if="lineupsEnabled">
+            <div>
               <button
                 class="button-variant-bordered"
                 :class="{active: this.viewType == Enums.RadarViewTypes.Lineup}"
                 @click="ToggleLineups()"
+                :disabled="!lineupsEnabled"
               >Lineups</button>
             </div>
 
