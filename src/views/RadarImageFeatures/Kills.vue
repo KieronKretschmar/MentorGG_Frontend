@@ -197,7 +197,7 @@
                 </div>
               </div>
 
-              <div v-if="!selectedSample" class="selected-zone-stats">
+              <div v-if="!selectedSample" class="selection">   
                 <h4>Selection</h4>
 
                 <div class="stat-row">
@@ -224,8 +224,10 @@
                     : "After Plant")
                     }}
                   </div>
-                </div>
+                </div>                
+              </div>
 
+              <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
 
                 </div>

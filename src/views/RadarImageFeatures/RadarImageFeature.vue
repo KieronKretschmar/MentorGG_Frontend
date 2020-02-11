@@ -1,11 +1,10 @@
-<template>
-</template>
+<template></template>
 
 <script>
 /**
- * This is a base class for Radar Image Features, i.e. features centered around 
- * drawing samples (e.g. grenades or kills) on a radar image. 
- * 
+ * This is a base class for Radar Image Features, i.e. features centered around
+ * drawing samples (e.g. grenades or kills) on a radar image.
+ *
  */
 
 // General
@@ -21,8 +20,7 @@ import Zone from "@/components/RadarImageFeatures/Zone.vue";
 import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
 import Target from "@/components/RadarImageFeatures/Target.vue";
 
-
-export default {  
+export default {
   components: {
     // General
     CustomSelect,
@@ -33,19 +31,19 @@ export default {
     Zone,
     // Lineups
     Lineup,
-    Target,
+    Target
   },
   data() {
     return {
       // overriden by inheriting class
       config: {
         // Enums.SampleType
-        sampleType: null, 
+        sampleType: null,
         features: {
-          "zones" : false,
-          "lineups" : false,
-          "filterable" : false,
-        },
+          zones: false,
+          lineups: false,
+          filterable: false
+        }
       },
 
       // General
@@ -61,7 +59,7 @@ export default {
       },
       showTrajectories: false,
       viewType: Enums.RadarViewTypes.Sample,
-      activeMap: "de_mirage",      
+      activeMap: "de_mirage",
       mapInfo: {},
       samples: [],
       selectedSample: null,
@@ -83,15 +81,14 @@ export default {
       selectedLineupId: null,
 
       // Filters
-      activeFilterSettings: null,
+      activeFilterSettings: null
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    // use init() to be called by inheriting class instead of mounted(), 
+    // use init() to be called by inheriting class instead of mounted(),
     // because this way it uses this.config of the inheriting class instead of this classes default config
-    init(){
+    init() {
       if (this.$route.query.map) {
         this.activeMap = this.$route.query.map;
       }
@@ -107,7 +104,12 @@ export default {
       this.samples = [];
       this.loadingSamplesComplete = false;
       this.$api
-        .getSamples(this.config.sampleType, isDemo ? "76561198033880857" : "", map, matchCount) // TODO: Change api to accept type
+        .getSamples(
+          this.config.sampleType,
+          isDemo ? "76561198033880857" : "",
+          map,
+          matchCount
+        ) // TODO: Change api to accept type
         .then(response => {
           // General
           this.mapInfo = response.data.MapInfo;
@@ -115,16 +117,17 @@ export default {
           this.userPerformanceData = response.data.UserData;
 
           // (hierarchichal) Zones
-          if(this.config.features.zones){
-            
+          if (this.config.features.zones) {
             // Ignore zones where there are no samples for less clutter
-            this.zones = response.data.Zones
-            .filter(x =>
+            this.zones = response.data.Zones.filter(x =>
               // TODO: Kills does not have samplecount yet. Remove conditional computation and replace Kills+Deaths with SampleCount for new backend
-              (this.config.sampleType == Enums.SampleType.Kill 
-              ? (this.activeUserData.ZonePerformances[x.ZoneId].Kills + this.activeUserData.ZonePerformances[x.ZoneId].Deaths != 0)
-              : (this.activeUserData.ZonePerformances[x.ZoneId].SampleCount != 0))) 
-            .sort((a, b) => a.Depth - b.Depth);
+              this.config.sampleType == Enums.SampleType.Kill
+                ? this.activeUserData.ZonePerformances[x.ZoneId].Kills +
+                    this.activeUserData.ZonePerformances[x.ZoneId].Deaths !=
+                  0
+                : this.activeUserData.ZonePerformances[x.ZoneId].SampleCount !=
+                  0
+            ).sort((a, b) => a.Depth - b.Depth);
             if (this.zones.length == 0) {
               this.zonesEnabled = false; // TODO: rename to hierarchicalZones?
             } else {
@@ -132,23 +135,22 @@ export default {
             }
 
             // Compute mainZones (CT and T)
-            this.mainZones = this.zones.filter(x=> x.ParentZoneId == -1);
+            this.mainZones = this.zones.filter(x => x.ParentZoneId == -1);
 
             this.zoneDescendants = response.data.ZoneDescendants;
           }
 
           // Filterable
-          if(this.config.features.filterable){
-            
+          if (this.config.features.filterable) {
           }
 
           // Lineups & target Zones
-          if(this.config.features.lineups){
+          if (this.config.features.lineups) {
             this.lineups = response.data.Lineups;
             this.zones = response.data.Zones.filter(
               x => x.CategoryIds.length > 0
             );
-            
+
             if (this.lineups.length == 0) {
               this.lineupsEnabled = false;
             } else {
@@ -165,12 +167,17 @@ export default {
     },
     OnShowTrajectories: function() {
       let showTrajectories = !this.showTrajectories;
-      this.$helpers.LogEvent(this, showTrajectories ? 'ShowTrajectories' : 'HideTrajectories');
+      this.$helpers.LogEvent(
+        this,
+        showTrajectories ? "ShowTrajectories" : "HideTrajectories"
+      );
 
       this.showTrajectories = showTrajectories;
     },
     OnMatchCountUpdated: function() {
-      this.$helpers.LogEvent(this, "MatchCountUpdated", {label: this.matchCount});
+      this.$helpers.LogEvent(this, "MatchCountUpdated", {
+        label: this.matchCount
+      });
 
       this.LoadSamples(this.activeMap, this.matchCount, false);
     },
@@ -180,7 +187,7 @@ export default {
       this.ResetSelection();
     },
     OnActiveMapUpdated: function(map) {
-      this.$helpers.LogEvent(this, "ActiveMapUpdated", {label: map});
+      this.$helpers.LogEvent(this, "ActiveMapUpdated", { label: map });
 
       if (this.activeMap != map) {
         this.LoadSamples(map, this.matchCount, false);
@@ -188,7 +195,7 @@ export default {
       }
       this.ResetSelection();
     },
-    ResetSelection(){
+    ResetSelection() {
       this.selectedSample = null;
       this.selectedZoneId = null;
       this.selectedLineupId = null;
@@ -199,47 +206,46 @@ export default {
       this.selectedSample = this.samples.find(x => x.Id == id);
     },
     SetShowCt(showCt) {
-      this.$helpers.LogEvent(this, showCt ? 'ShowCt' : 'ShowTerrorists');
+      this.$helpers.LogEvent(this, showCt ? "ShowCt" : "ShowTerrorists");
 
       this.ResetSelection();
       this.showCt = showCt;
     },
     SetViewType(viewType) {
-      this.$helpers.LogEvent(this, "SetViewType", {label:viewType});
+      this.$helpers.LogEvent(this, "SetViewType", { label: viewType });
 
       this.ResetSelection();
       this.viewType = viewType;
     },
     Watch: function(matchId, round, time = null) {
       this.$helpers.LogEvent(this, "Watch");
-      
-      let dv = globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round);
-      if(time){
-        dv.SetTimestamp(Math.max(0, time))
+
+      let dv = globalThis.DemoViewer.SetMatch(matchId).SetRound(round);
+      if (time) {
+        dv.SetTimestamp(Math.max(0, time));
       }
       dv.Load();
     },
 
     // Zones
     SetSelectedZone: function(zoneId) {
-      this.$helpers.LogEvent(this, "ZoneSelected", {label: zoneId});
+      this.$helpers.LogEvent(this, "ZoneSelected", { label: zoneId });
 
       this.ResetSelection();
       this.selectedZoneId = zoneId;
     },
 
-    // Lineups   
+    // Lineups
     OpenLightbox() {
       this.$refs.lightbox.showImage(0);
     },
     SetSelectedLineup: function(lineupId) {
-      this.$helpers.LogEvent(this, "LineupSelected", {label: lineupId});
+      this.$helpers.LogEvent(this, "LineupSelected", { label: lineupId });
       this.selectedLineupId = lineupId;
     },
 
     // Filterable
-    applyFilters(){
+    applyFilters() {
       // To be overriden by inheriting class
     }
   },
@@ -250,7 +256,6 @@ export default {
       return this.userPerformanceData;
     },
     visibleSamples() {
-      
       if (!this.samples) return [];
 
       // If a sample is selected, return it
@@ -258,7 +263,7 @@ export default {
 
       let res;
       // SampleView
-      if (this.viewType == Enums.RadarViewTypes.Sample){
+      if (this.viewType == Enums.RadarViewTypes.Sample) {
         // All samples of the given team
         res = this.samples.filter(x => x.UserIsCt == this.showCt);
       }
@@ -269,9 +274,9 @@ export default {
         res = this.samples.filter(x => x.UserIsCt == this.showCt);
 
         // If a zone is selected, remove all samples not included
-        if(this.selectedZoneId){
+        if (this.selectedZoneId) {
           // Filtering by KillZones is different than by other zones
-          if(this.config.sampleType == Enums.SampleType.Kill){
+          if (this.config.sampleType == Enums.SampleType.Kill) {
             // Filter by Player or VictimZone, depending on whether the user was killer or victim
             res = res.filter(
               x =>
@@ -281,8 +286,7 @@ export default {
                 (x.UserWinner ? x.PlayerZoneId : x.VictimZoneId) ==
                   this.selectedZoneId
             );
-          }
-          else{
+          } else {
             // Filter by whether the sample is included in the selected Zone
             res = this.samples.filter(
               x =>
@@ -297,18 +301,15 @@ export default {
       if (this.viewType == Enums.RadarViewTypes.Lineup) {
         // If a lineup is selected, return all the samples of this lineup (no matter the team)
         if (this.selectedLineup != null) {
-          res = this.samples.filter(
-            x => x.LineupId == this.selectedLineupId
-          );
-        }
-        else{
+          res = this.samples.filter(x => x.LineupId == this.selectedLineupId);
+        } else {
           // If no lineup is selected, return no samples
           res = [];
         }
       }
 
-      if (this.config.features.filterable){
-        // apply filter on 
+      if (this.config.features.filterable) {
+        // apply filter on
         // applyFilters() is implemented by inherting class
         res = this.applyFilters(res);
       }
@@ -317,14 +318,14 @@ export default {
     },
 
     // Zones
-    mainZoneId(){
-      if(!this.mainZones.length > 0){
+    mainZoneId() {
+      if (!this.mainZones.length > 0) {
         return null;
       }
-      return this.mainZones.find(x=>x.IsCtZone == this.showCt).ZoneId;
+      return this.mainZones.find(x => x.IsCtZone == this.showCt).ZoneId;
     },
     userSelectedZonePerformance() {
-      if (this.selectedZoneId == null){
+      if (this.selectedZoneId == null) {
         return this.activeUserData.ZonePerformances[this.mainZoneId];
       }
       return this.activeUserData.ZonePerformances[this.selectedZone.ZoneId];
@@ -341,10 +342,14 @@ export default {
       return this.zones.find(x => x.ZoneId == this.selectedZoneId);
     },
     visibleZones() {
-      if (this.viewType != Enums.RadarViewTypes.Zone && this.viewType != Enums.RadarViewTypes.Lineup) return [];
+      if (
+        this.viewType != Enums.RadarViewTypes.Zone &&
+        this.viewType != Enums.RadarViewTypes.Lineup
+      )
+        return [];
 
       // ZoneView
-      if(this.viewType == Enums.RadarViewTypes.Zone){
+      if (this.viewType == Enums.RadarViewTypes.Zone) {
         // If a zone is selected, return its subzones
         if (this.selectedZone != null) {
           return this.zones.filter(
@@ -361,14 +366,16 @@ export default {
       }
 
       // LineupView
-      if(this.viewType == Enums.RadarViewTypes.Lineup){
+      if (this.viewType == Enums.RadarViewTypes.Lineup) {
         // If a zone is selected, return it
         if (this.selectedZone != null) return [this.selectedZone];
         // If a lineup is selected, return its target zone
         if (this.selectedLineup != null)
-          return [this.zones.find(x => x.ZoneId == this.selectedLineup.TargetId)];
+          return [
+            this.zones.find(x => x.ZoneId == this.selectedLineup.TargetId)
+          ];
         // If none are selected, return all target zones
-        return this.zones;        
+        return this.zones;
       }
     },
 
@@ -420,9 +427,9 @@ export default {
       }
 
       return ret;
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -512,6 +519,6 @@ export default {
     .sidebar {
       color: white;
     }
-  }          
+  }
 }
 </style>

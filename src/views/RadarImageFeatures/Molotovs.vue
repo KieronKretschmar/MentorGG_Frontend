@@ -1,9 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-molotovs">
     <div class="fixed-width-container">
-      <MolotovsOverview      
-      :activeMap="activeMap"
-      v-on:updatemap = "OnActiveMapUpdated"/>
+      <MolotovsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Molotovs</AjaxLoader>
@@ -165,9 +163,9 @@
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    Click on a Molotov to see the victims' path through the fire.
-                  </div>
+                  <div
+                    class="legend-description"
+                  >Click on a Molotov to see the victims' path through the fire.</div>
                 </div>
               </div>
               <div class="zone-legend-section">
@@ -191,9 +189,9 @@
                       />
                     </svg>
                   </div>
-                  <div class="legend-description">
-                    A zone's color corresponds to the chance of your Molotovs burning at least one enemy.
-                  </div>
+                  <div
+                    class="legend-description"
+                  >A zone's color corresponds to the chance of your Molotovs burning at least one enemy.</div>
                 </div>
               </div>
             </div>
@@ -232,7 +230,7 @@
                 </div>
               </div>
 
-              <div v-if="!selectedSample" class="selected-zone-stats">
+              <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
 
                 <div class="stat-row">
@@ -249,7 +247,8 @@
                     class="stat-content"
                   >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
                 </div>
-
+              </div>
+              <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
 
                 <div v-if="userSelectedZonePerformance" class="stat-row">
@@ -289,7 +288,7 @@ export default {
   extends: RadarImageFeature,
   components: {
     Molotov,
-    MolotovsOverview,
+    MolotovsOverview
   },
   mounted() {
     this.init();
@@ -299,22 +298,24 @@ export default {
       config: {
         sampleType: Enums.SampleType.Moltov,
         features: {
-          "zones" : true,
-          "lineups" : false,
-          "filterablezones" : false,
-        },
-      },
+          zones: true,
+          lineups: false,
+          filterablezones: false
+        }
+      }
     };
   },
-  methods:{
-    ToggleZones(){
-      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Zone : Enums.RadarViewTypes.Sample;
+  methods: {
+    ToggleZones() {
+      let newViewType =
+        this.viewType == Enums.RadarViewTypes.Sample
+          ? Enums.RadarViewTypes.Zone
+          : Enums.RadarViewTypes.Sample;
       this.SetViewType(newViewType);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 </style>

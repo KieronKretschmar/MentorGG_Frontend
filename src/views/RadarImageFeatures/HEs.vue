@@ -257,7 +257,7 @@
                 </div>
               </div>
 
-              <div v-if="!selectedSample" class="selected-zone-stats">
+              <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
 
                 <div class="stat-row">
@@ -274,7 +274,9 @@
                     class="stat-content"
                   >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
                 </div>
+              </div>
 
+              <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
 
                 <div v-if="userSelectedZonePerformance" class="stat-row">

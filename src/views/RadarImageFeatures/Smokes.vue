@@ -277,6 +277,25 @@
                   </div>
                 </div>
               </div>
+              
+              <div v-if="!selectedSample" class="selection">
+                <h4>Selection</h4>
+
+                <div class="stat-row">
+                  <div class="stat-description">Side</div>
+                  <div class="stat-content">
+                    <img v-if="showCt" class="ct" src="@/assets/ct_logo.png" />
+                    <img v-else class="t" src="@/assets/t_logo.png" />
+                  </div>
+                </div>
+
+                <div class="stat-row">
+                  <div class="stat-description">Zone</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
+                </div>
+              </div>
 
               <div v-if="selectedLineup" class="selected-lineup-stats">
                 {{selectedLineup.Name}}-Lineup

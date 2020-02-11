@@ -1,9 +1,7 @@
 <template>
   <div class="view view-radarimage-feature">
     <div class="fixed-width-container">
-      <FlashesOverview 
-      :activeMap="activeMap"
-      v-on:updatemap = "OnActiveMapUpdated"/>
+      <FlashesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Flashes</AjaxLoader>
@@ -255,21 +253,19 @@
                     class="stat-content"
                   >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}</div>
                 </div>
-                
-                <div class="stat-row watch-row"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+
+                <div
+                  class="stat-row watch-row"
+                  @click="Watch(selectedSample.MatchId, selectedSample.Round)"
                 >
                   <div class="stat-description">Watch</div>
                   <div class="stat-content">
-                    <i
-                      class="material-icons watch-match-icon"
-                      title="Watch in Browser"
-                    >videocam</i>
+                    <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
                   </div>
                 </div>
               </div>
 
-              <div v-if="!selectedSample" class="selected-zone-stats">
+              <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
 
                 <div class="stat-row">
@@ -286,10 +282,10 @@
                     class="stat-content"
                   >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
                 </div>
+              </div>
 
-                <h4>
-                  Summary
-                </h4>
+              <div v-if="!selectedSample" class="selected-zone-stats">
+                <h4>Summary</h4>
 
                 <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Flashes thrown</div>
@@ -335,7 +331,7 @@ export default {
   extends: RadarImageFeature,
   components: {
     Flash,
-    FlashesOverview,
+    FlashesOverview
   },
   mounted() {
     this.init();
@@ -345,22 +341,24 @@ export default {
       config: {
         sampleType: Enums.SampleType.Flash,
         features: {
-          "zones" : true,
-          "lineups" : false,
-          "filterablezones" : false,
-        },
-      },
+          zones: true,
+          lineups: false,
+          filterablezones: false
+        }
+      }
     };
   },
-  methods:{
-    ToggleZones(){
-      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Zone : Enums.RadarViewTypes.Sample;
+  methods: {
+    ToggleZones() {
+      let newViewType =
+        this.viewType == Enums.RadarViewTypes.Sample
+          ? Enums.RadarViewTypes.Zone
+          : Enums.RadarViewTypes.Sample;
       this.SetViewType(newViewType);
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 </style>
