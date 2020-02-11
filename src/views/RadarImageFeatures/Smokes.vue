@@ -277,15 +277,15 @@
                   </div>
                 </div>
               </div>
-              
+
               <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
 
                 <div class="stat-row">
                   <div class="stat-description">Side</div>
                   <div class="stat-content">
-                    <img v-if="showCt" class="ct" src="@/assets/ct_logo.png" />
-                    <img v-else class="t" src="@/assets/t_logo.png" />
+                    <img v-if="showCt || ShowBothTeams" class="ct" src="@/assets/ct_logo.png" />
+                    <img v-if="!showCt || ShowBothTeams" class="t" src="@/assets/t_logo.png" />
                   </div>
                 </div>
 
