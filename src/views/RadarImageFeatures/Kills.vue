@@ -179,24 +179,24 @@
             </div>
             <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this {{selectedSample.UserWinner ? "Kill" : "Death"}} of yours:
+                <h4>About this {{selectedSample.UserWinner ? "Kill" : "Death"}}</h4>
+
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
-                <div class="split">
-                  <div class="left">
-                    <p>Watch this round</p>
-                  </div>
-                  <div class="right">
-                    <i
-                      class="material-icons watch-match-icon"
-                      title="Watch in Browser"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
-                    >videocam</i>
+
+                <div
+                  class="stat-row watch-row"
+                  @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                >
+                  <div class="stat-description">Watch</div>
+                  <div class="stat-content">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
                   </div>
                 </div>
               </div>
+
               <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Selection</h4>
 
@@ -228,19 +228,20 @@
 
                 <h4>Summary</h4>
 
-                <div class="stat-row">
+                </div>
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">K/D ratio</div>
                   <div
                     class="stat-content"
                   >{{(userSelectedZonePerformance.Kills / Math.max(1, userSelectedZonePerformance.Deaths)).toFixed(2)}}</div>
                 </div>
 
-                <div class="stat-row">
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Kills</div>
                   <div class="stat-content">{{userSelectedZonePerformance.Kills}}</div>
                 </div>
 
-                <div class="stat-row">
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Deaths</div>
                   <div class="stat-content">{{userSelectedZonePerformance.Deaths}}</div>
                 </div>
@@ -255,22 +256,17 @@
                 </div>
               </div>
             </div>
-            <div class="practice-tab">
-              <div
-                v-show="!selectedZone"
-              >Select a Zone to get advice on how to improve in that position!</div>
-              <div v-if="selectedZone">
-                <div v-if="selectedZone.VideoUrl != ''">
-                  <p>Advice for this position:</p>
-                  <VideoOverlay
-                    v-if="selectedZone && selectedZone.VideoUrl != ''"
-                    :url="selectedZone.VideoUrl"
-                    useThumbnail
-                    style="width: 100%; height: 100%;"
-                  ></VideoOverlay>
-                </div>
-                <div v-else>Advice for this Zone is not yet available.</div>
+            <div v-if="selectedZone" class="practice-tab">
+              <div v-if="selectedZone.VideoUrl != ''">
+                <p>Advice for this position:</p>
+                <VideoOverlay
+                  v-if="selectedZone && selectedZone.VideoUrl != ''"
+                  :url="selectedZone.VideoUrl"
+                  useThumbnail
+                  style="width: 100%; height: 100%;"
+                ></VideoOverlay>
               </div>
+              <div v-else>Advice for this Zone is not yet available.</div>
             </div>
           </div>
         </div>

@@ -210,12 +210,15 @@ export default {
       this.ResetSelection();
       this.viewType = viewType;
     },
-    Watch: function(matchId, round) {
+    Watch: function(matchId, round, time = null) {
       this.$helpers.LogEvent(this, "Watch");
       
-      globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round)
-        .Load();
+      let dv = globalThis.DemoViewer.SetMatch(matchId)
+        .SetRound(round);
+      if(time){
+        dv.SetTimestamp(Math.max(0, time))
+      }
+      dv.Load();
     },
 
     // Zones
@@ -315,6 +318,9 @@ export default {
 
     // Zones
     mainZoneId(){
+      if(!this.mainZones.length > 0){
+        return null;
+      }
       return this.mainZones.find(x=>x.IsCtZone == this.showCt).ZoneId;
     },
     userSelectedZonePerformance() {
@@ -505,33 +511,7 @@ export default {
 
     .sidebar {
       color: white;
-
-      .split {
-        display: flex;
-
-        .left {
-          display: flex;
-          width: 80%;
-        }
-
-        .right {
-          display: flex;
-          align-items: center;
-
-          .watch-match-icon {
-            color: $orange;
-            margin-right: 20px;
-            font-size: 26px;
-            transition: 0.35s;
-            cursor: pointer;
-
-            &:hover {
-              color: $purple;
-            }
-          }
-        }
-      }
     }
-  }
+  }          
 }
 </style>

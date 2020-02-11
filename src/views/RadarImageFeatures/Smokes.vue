@@ -1,9 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-smokes">
     <div class="fixed-width-container">
-      <SmokesOverview      
-      :activeMap="activeMap"
-      v-on:updatemap = "OnActiveMapUpdated"/>
+      <SmokesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Smokes</AjaxLoader>
@@ -260,27 +258,21 @@
                 </div>
               </div>
             </div>
-            <div
-              v-if="selectedSample || selectedLineup"
-              id="analysis-tab"
-              class="sidebar-tabcontent"
-            >
+            <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this smoke of yours:
+                <h4>About this Smoke</h4>
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
-                <div class="split">
-                  <div class="left">
-                    <p>Watch this round</p>
-                  </div>
-                  <div class="right">
-                    <i
-                      class="material-icons watch-match-icon"
-                      title="Watch in Browser"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
-                    >videocam</i>
+
+                <div
+                  class="stat-row watch-row"
+                  @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                >
+                  <div class="stat-description">Watch</div>
+                  <div class="stat-content">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
                   </div>
                 </div>
               </div>
@@ -300,9 +292,6 @@
               </div>
             </div>
             <div v-if="selectedLineup" class="practice-tab">
-              <!-- <div v-show="!selectedLineup">
-                Select a Lineup to see how it's done!
-              </div>-->
               <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.Setpos != ''">
                 <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly />
                 <button
@@ -311,10 +300,8 @@
                   data-toggle="tooltip"
                   data-placement="top"
                   data-original-title="Copy to clipboard"
-                  @click="this.$helpers.CopyTextToClipboard(selectedLineup.Setpos)" 
+                  @click="$helpers.CopyTextToClipboard(selectedLineup.Setpos)"
                 >
-                <!-- TODO: Check if copytext works -->
-                
                   <i class="material-icons">file_copy</i>
                 </button>
               </div>
@@ -342,7 +329,7 @@ export default {
   extends: RadarImageFeature,
   components: {
     Smoke,
-    SmokesOverview,
+    SmokesOverview
   },
   mounted() {
     this.init();
@@ -352,16 +339,19 @@ export default {
       config: {
         sampleType: Enums.SampleType.Smoke,
         features: {
-          "zones" : false,
-          "lineups" : true,
-          "filterable" : false,
-        },
-      },
+          zones: false,
+          lineups: true,
+          filterable: false
+        }
+      }
     };
   },
-  methods:{
-    ToggleLineups(){
-      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Lineup : Enums.RadarViewTypes.Sample;
+  methods: {
+    ToggleLineups() {
+      let newViewType =
+        this.viewType == Enums.RadarViewTypes.Sample
+          ? Enums.RadarViewTypes.Lineup
+          : Enums.RadarViewTypes.Sample;
       this.SetViewType(newViewType);
     }
   },
@@ -370,9 +360,8 @@ export default {
       return this.viewType == Enums.RadarViewTypes.Lineup;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 </style>

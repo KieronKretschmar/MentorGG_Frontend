@@ -226,65 +226,91 @@
                 </div>
               </div>
             </div>
-            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
+            <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this Flash:
+                <h4>About this Flash</h4>
+
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
+
                 <div class="stat-row">
                   <div class="stat-description">Enemies Flashed</div>
                   <div
                     class="stat-content"
                   >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack).length}}</div>
                 </div>
+
                 <div class="stat-row">
                   <div class="stat-description">Time enemies flashed:</div>
                   <div
                     class="stat-content"
                   >{{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.TimeFlashed, 0) / 1000).toFixed(2) + "s"}}</div>
                 </div>
+
                 <div class="stat-row">
                   <div class="stat-description">Flashed Enemies died</div>
                   <div
                     class="stat-content"
                   >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}</div>
                 </div>
-                <div class="split">
-                  <div class="left">
-                    <p>Watch this round</p>
-                  </div>
-                  <div class="right">
+                
+                <div class="stat-row watch-row"
+                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                >
+                  <div class="stat-description">Watch</div>
+                  <div class="stat-content">
                     <i
                       class="material-icons watch-match-icon"
                       title="Watch in Browser"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
                     >videocam</i>
                   </div>
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-zone-stats">
-                About your Flashes in the {{selectedZone.Name}}-Zone:
+              <div v-if="!selectedSample" class="selected-zone-stats">
+                <h4>Selection</h4>
+
                 <div class="stat-row">
+                  <div class="stat-description">Side</div>
+                  <div class="stat-content">
+                    <img v-if="showCt" class="ct" src="@/assets/ct_logo.png" />
+                    <img v-else class="t" src="@/assets/t_logo.png" />
+                  </div>
+                </div>
+
+                <div class="stat-row">
+                  <div class="stat-description">Zone</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
+                </div>
+
+                <h4>
+                  Summary
+                </h4>
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Flashes thrown</div>
                   <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
                 </div>
-                <!-- Temp version: -->
-                <div class="stat-row">
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Avg. Enemy flashed</div>
                   <div
                     class="stat-content"
                   >{{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
                 </div>
-                <div class="stat-row">
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Avg. Team flashed</div>
                   <div
                     class="stat-content"
                   >{{(userSelectedZonePerformance.TotalTeamTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
                 </div>
-                <div class="stat-row">
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Avg. assisted Kills</div>
                   <div
                     class="stat-content"

@@ -1,9 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-hes">
     <div class="fixed-width-container">
-      <HEsOverview      
-      :activeMap="activeMap"
-      v-on:updatemap = "OnActiveMapUpdated"/>
+      <HEsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
 
       <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading HEs</AjaxLoader>
@@ -220,56 +218,78 @@
                 </div>
               </div>
             </div>
-            <div v-if="selectedSample || selectedZone" id="analysis-tab" class="sidebar-tabcontent">
+            <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                About this HE:
+                <h4>About this HE</h4>
+
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
+
                 <div class="stat-row">
                   <div class="stat-description">Enemies Hit</div>
                   <div class="stat-content">{{selectedSample.Hits.length}}</div>
                 </div>
+
                 <div class="stat-row">
                   <div class="stat-description">Total damage dealt to enemies:</div>
                   <div
                     class="stat-content"
                   >{{selectedSample.Hits.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.AmountHealth, 0)}}</div>
                 </div>
+
                 <div class="stat-row">
-                  <div class="stat-description">Enemies killed:</div>
+                  <div class="stat-description">Enemies killed</div>
                   <div
                     class="stat-content"
                   >{{selectedSample.Hits.filter(x=>!x.TeamAttack && x.Kill).length}}</div>
                 </div>
-                <div class="split">
-                  <div class="left">
-                    <p>Watch this round</p>
-                  </div>
-                  <div class="right">
-                    <i
-                      class="material-icons watch-match-icon"
-                      title="Watch in Browser"
-                      @click="Watch(selectedSample.MatchId, selectedSample.Round)"
-                    >videocam</i>
+
+                <div
+                  class="stat-row watch-row"
+                  @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                >
+                  <div class="stat-description">Watch</div>
+                  <div class="stat-content">
+                    <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
                   </div>
                 </div>
               </div>
 
-              <div v-if="selectedZone" class="selected-zone-stats">
-                About your HEs in the {{selectedZone.Name}}-Zone:
+              <div v-if="!selectedSample" class="selected-zone-stats">
+                <h4>Selection</h4>
+
                 <div class="stat-row">
+                  <div class="stat-description">Side</div>
+                  <div class="stat-content">
+                    <img v-if="showCt" class="ct" src="@/assets/ct_logo.png" />
+                    <img v-else class="t" src="@/assets/t_logo.png" />
+                  </div>
+                </div>
+
+                <div class="stat-row">
+                  <div class="stat-description">Zone</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
+                </div>
+
+                <h4>Summary</h4>
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">HEs thrown</div>
                   <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
                 </div>
-                <div class="stat-row">
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Avg. damage</div>
                   <div
                     class="stat-content"
                   >{{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}</div>
                 </div>
-                <div class="stat-row">
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Avg. kills</div>
                   <div
                     class="stat-content"
@@ -294,7 +314,7 @@ export default {
   extends: RadarImageFeature,
   components: {
     HE,
-    HEsOverview,
+    HEsOverview
   },
   mounted() {
     this.init();
@@ -304,22 +324,24 @@ export default {
       config: {
         sampleType: Enums.SampleType.HE,
         features: {
-          "zones" : true,
-          "lineups" : false,
-          "filterablezones" : false,
-        },
-      },
+          zones: true,
+          lineups: false,
+          filterablezones: false
+        }
+      }
     };
   },
-  methods:{
-    ToggleZones(){
-      let newViewType = this.viewType == Enums.RadarViewTypes.Sample ? Enums.RadarViewTypes.Zone : Enums.RadarViewTypes.Sample;
+  methods: {
+    ToggleZones() {
+      let newViewType =
+        this.viewType == Enums.RadarViewTypes.Sample
+          ? Enums.RadarViewTypes.Zone
+          : Enums.RadarViewTypes.Sample;
       this.SetViewType(newViewType);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-
 </style>

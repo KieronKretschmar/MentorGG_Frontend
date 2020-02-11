@@ -283,7 +283,6 @@
             </div>
             <div class="practice-tab">
               <div v-show="!selectedZone">
-                Select a Zone to get advice on how to improve in that position!
               </div>
               <div v-if="selectedZone">
                 <div v-if="selectedZone.VideoUrl != ''"> 
