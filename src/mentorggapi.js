@@ -2,6 +2,7 @@ import axios from 'axios';
 import Enums from "@/enums";
 import Vue from 'vue';
 import MatchSelector from './matchselector';
+import MentorUser from './mentoruser';
 
 class MentorGGAPI {
     constructor() {
@@ -24,6 +25,17 @@ class MentorGGAPI {
         this.valveInterval = null;        
 
         this.MatchSelector = new MatchSelector(this);
+        this.User = null; //On AppCreation (App::mounted i guess), this needs to be populated with data from /api/GetUser or something the likes
+
+        // this.User = new MentorUser();
+        // console.log("User steamId: " + this.User.GetSteamId());
+        // console.log("Applying override");
+        // this.User.ApplyOverride(new MentorUser());
+        // console.log("User steamId: " + this.User.GetSteamId());
+        // console.log("Real steamId: " + this.User.GetSteamId(false));
+        // console.log("Clearing override");
+        // this.User.ClearOverride();
+        // console.log("User steamId: " + this.User.GetSteamId());
     }
 
     resolveResource(resource) {
