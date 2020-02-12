@@ -230,7 +230,6 @@
               <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
 
-                </div>
                 <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">K/D ratio</div>
                   <div
@@ -248,12 +247,26 @@
                   <div class="stat-content">{{userSelectedZonePerformance.Deaths}}</div>
                 </div>
 
-                <div v-if="selectedZone == null">
-                  <div v-for="(count, multi) of multiKills" :key="multi" class="multikill">
-                    <div class="stat-row">
-                      <div class="stat-description">{{multi == 5 ? "Ace" : multi+"k"}}</div>
-                      <div class="stat-content">{{count}}</div>
-                    </div>
+                <div v-if="selectedZone == null" class="multikills">
+                  <div class="stat-row">
+                    <div class="stat-description">{{1}}k</div>
+                    <div class="stat-content">{{multiKills[1] || 0}}</div>
+                  </div>
+                  <div class="stat-row">
+                    <div class="stat-description">{{2}}k</div>
+                    <div class="stat-content">{{multiKills[2] || 0}}</div>
+                  </div>
+                  <div class="stat-row">
+                    <div class="stat-description">{{3}}k</div>
+                    <div class="stat-content">{{multiKills[3] || 0}}</div>
+                  </div>
+                  <div class="stat-row">
+                    <div class="stat-description">{{4}}k</div>
+                    <div class="stat-content">{{multiKills[4] || 0}}</div>
+                  </div>
+                  <div class="stat-row">
+                    <div class="stat-description">Aces</div>
+                    <div class="stat-content">{{multiKills[5] || 0}}</div>
                   </div>
                 </div>
               </div>
