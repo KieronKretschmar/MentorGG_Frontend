@@ -245,7 +245,7 @@
                   <div class="stat-description">Zone</div>
                   <div
                     class="stat-content"
-                  >{{selectedZone == null ? activeMap : selectedZone.Name.replace("_", " ") }}</div>
+                  >{{selectedZone == null ? activeMap : selectedZone.Name.split("_").join(" ") }}</div>
                 </div>
               </div>
               <div v-if="!selectedSample" class="selected-zone-stats">
