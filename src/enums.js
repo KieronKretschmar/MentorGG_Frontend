@@ -17,6 +17,23 @@ class Enums {
         Lineup: 3,
     };
   }
+
+  static get SubscriptionStatus() {
+    return {
+        Free: 1,
+        Premium: 2,
+        Ultimate: 3,
+    };
+  }
+
+
+  static get DemoViewerQuality() {
+    return {
+        Low: 1,
+        Medium: 2,
+        High: 3,
+    };
+  }
 }
 
 export default Enums;
