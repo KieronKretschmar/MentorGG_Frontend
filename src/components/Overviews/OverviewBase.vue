@@ -25,7 +25,7 @@ export default {
 
   .performance {
     width: calc(100% / 7);
-    margin: 0 10px;
+    margin: 0 5px;
     background-position: center;
     background-size: cover;
     position: relative;
