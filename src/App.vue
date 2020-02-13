@@ -1,58 +1,63 @@
 <template>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 1 -->
   <div id="app" v-if="this.$route.name != 'landingpage'">
-    <DemoViewer ref="demoViewer" />
-    <div class="l-app" :class="{toggled: menuVisible}">
-      <SideNavigation />
-    </div>
-    <div class="r-app">
-      <header>
-        <router-link to="/" class="logo">
-          <img src="@/assets/logo_white.svg" />
-        </router-link>
+    <template v-if="$api.User">
+      <DemoViewer ref="demoViewer" />
+      <div class="l-app" :class="{toggled: menuVisible}">
+        <SideNavigation />
+      </div>
+      <div class="r-app">
+        <header>
+          <router-link to="/" class="logo">
+            <img src="@/assets/logo_white.svg" />
+          </router-link>
 
-        <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
-      </header>
-      <main>
-        <transition name="page" mode="out-in">
-          <router-view />
-        </transition>
-      </main>
-      <footer>
-        <Footer 
-          :showPartnerships="false"
-        />
-      </footer>
-    </div>
-    
-    <div class="open-filters">
-      <i class="material-icons" title="Open Match Filters" @click="OnOpenFilters">settings_applications</i>
-    </div>
+          <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
+        </header>
+        <main>
+          <transition name="page" mode="out-in">
+            <router-view />
+          </transition>
+        </main>
+        <footer>
+          <Footer :showPartnerships="false" />
+        </footer>
+      </div>
 
-    <GenericOverlay ref="globalFiltersOverlay" width="900px">
-      <p class="headline">Global Match Filters</p>
-      <GlobalFilters v-if="$api.MatchSelector.ready"/>
-    </GenericOverlay>    
+      <div class="open-filters">
+        <i
+          class="material-icons"
+          title="Open Match Filters"
+          @click="OnOpenFilters"
+        >settings_applications</i>
+      </div>
 
-    <GenericOverlay ref="connectionHintOverlay" width="900px">
-      <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
-      <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be imported to MENTOR.GG automatically every now and then.</p>
-      <p>
-        We highly recommend going to the
-        <span @click="$refs.connectionHintOverlay.Hide()">
-          <router-link to="/automatic-upload">Automatic Upload</router-link>
-        </span> page and setting up said connection right now!
-      </p>
-    </GenericOverlay>
+      <GenericOverlay ref="globalFiltersOverlay" width="900px">
+        <p class="headline">Global Match Filters</p>
+        <GlobalFilters v-if="$api.MatchSelector.ready" />
+      </GenericOverlay>
+
+      <GenericOverlay ref="connectionHintOverlay" width="900px">
+        <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
+        <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be imported to MENTOR.GG automatically every now and then.</p>
+        <p>
+          We highly recommend going to the
+          <span @click="$refs.connectionHintOverlay.Hide()">
+            <router-link to="/automatic-upload">Automatic Upload</router-link>
+          </span> page and setting up said connection right now!
+        </p>
+      </GenericOverlay>
+    </template>
+    <template v-else>
+      <InputBlock>Preparing Application State</InputBlock>
+    </template>
   </div>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 2 -->
   <div v-else>
     <main>
       <router-view />
-      
-      <Footer 
-      :showPartnerships="true"
-      />
+
+      <Footer :showPartnerships="true" />
     </main>
   </div>
 </template>
@@ -65,16 +70,20 @@ import DiscordHint from "@/components/DiscordHint.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import DemoViewer from "@/components/DemoViewer.vue";
 import GlobalFilters from "@/components/GlobalFilters.vue";
+import InputBlock from "@/components/InputBlock.vue";
 
 export default {
   name: "App",
   mounted() {
-    this.$api.getConnections().then(result => {
-      if (!result.data.Valve.IsConnected) {
-        this.$refs.connectionHintOverlay.Show();
-      } else {
-        this.$api.startLookingForValveMatches();
-      }
+    //TODO: Replace with actual GetUser request
+    this.$api.getPlayerStats().then(result => {
+
+      //add artifical delay to prevent screen flash on fast connections
+      setTimeout(() => {
+        //TODO: Pass result.data to setUser
+        this.$api.setUser({});
+        this.InitConnectionsCallback();
+      }, 1500);
     });
   },
   components: {
@@ -84,17 +93,27 @@ export default {
     DiscordHint,
     GenericOverlay,
     DemoViewer,
-    GlobalFilters
+    GlobalFilters,
+    InputBlock
   },
   data() {
     return {
       //TODO: Proper login + check
-      menuVisible: false,
+      menuVisible: false
     };
   },
   methods: {
     OnOpenFilters: function() {
       this.$refs.globalFiltersOverlay.Show();
+    },
+    InitConnectionsCallback() {
+      this.$api.getConnections().then(result => {
+        if (!result.data.Valve.IsConnected) {
+          this.$refs.connectionHintOverlay.Show();
+        } else {
+          this.$api.startLookingForValveMatches();
+        }
+      });
     }
   }
 };

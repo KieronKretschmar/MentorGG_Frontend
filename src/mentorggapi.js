@@ -38,6 +38,11 @@ class MentorGGAPI {
         // console.log("User steamId: " + this.User.GetSteamId());
     }
 
+    setUser(user) {
+        this.User = user;
+        return this.User;
+    }
+
     resolveResource(resource) {
         return resource.replace('~/', this.tldEndpoint);
     }
