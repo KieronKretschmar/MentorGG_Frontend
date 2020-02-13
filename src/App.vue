@@ -2,7 +2,8 @@
   <!-- Workaround for showing landingpage without SideNavigation Pt. 1 -->
   <div id="app" v-if="this.$route.name != 'landingpage'">
     <template v-if="$api.User">
-      <DemoViewer ref="demoViewer" />
+      <DemoViewer />
+      <NotAuthorized />
       <div class="l-app" :class="{toggled: menuVisible}">
         <SideNavigation />
       </div>
@@ -34,7 +35,7 @@
 
       <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
-        <GlobalFilters v-if="$api.MatchSelector.ready"/>
+        <GlobalFilters v-if="$api.MatchSelector.ready" />
       </GenericOverlay>
 
       <GenericOverlay ref="connectionHintOverlay" width="900px">
@@ -71,13 +72,14 @@ import GenericOverlay from "@/components/GenericOverlay.vue";
 import DemoViewer from "@/components/DemoViewer.vue";
 import GlobalFilters from "@/components/GlobalFilters.vue";
 import InputBlock from "@/components/InputBlock.vue";
+import NotAuthorized from "@/components/NotAuthorized.vue";
+import Enums from "./enums";
 
 export default {
   name: "App",
   mounted() {
     //TODO: Replace with actual GetUser request
     this.$api.getPlayerStats().then(result => {
-
       //add artifical delay to prevent screen flash on fast connections
       setTimeout(() => {
         //TODO: Pass result.data to setUser
@@ -94,7 +96,8 @@ export default {
     GenericOverlay,
     DemoViewer,
     GlobalFilters,
-    InputBlock
+    InputBlock,
+    NotAuthorized
   },
   data() {
     return {
@@ -105,7 +108,11 @@ export default {
   },
   methods: {
     OnOpenFilters: function() {
-      this.$refs.globalFiltersOverlay.Show();
+      this.$api.User.AuthorizationGate(
+        Enums.SubscriptionStatus.Premium,
+        () => {
+          this.$refs.globalFiltersOverlay.Show();
+        });
     },
     InitConnectionsCallback() {
       this.$api.getConnections().then(result => {
