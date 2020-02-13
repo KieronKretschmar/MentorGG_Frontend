@@ -26,9 +26,11 @@ export default {
   methods: {
     Show() {
       this.isVisible = true;
+      this.$emit('show');
     },
     Hide() {
       this.isVisible = false;
+      this.$emit('hide');
     }
   }
 };
