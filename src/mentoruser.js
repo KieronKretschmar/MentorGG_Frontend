@@ -3,7 +3,7 @@ import Enums from "./enums";
 export default class MentorUser {
     constructor() {
         //needs to be populated from api request
-        this.subscriptionStatus = Enums.SubscriptionStatus.Free;
+        this.subscriptionStatus = Enums.SubscriptionStatus.Premium;
         this.steamId = Math.random() * 10000;
 
         //internal usage
