@@ -1,6 +1,6 @@
 <template>
   <div class="dv-roundtime-display">
-    <img src="@/assets/logo_fullgray.svg" />
+    <router-link :to="{name: 'landingpage'}" class="logo"><img src="@/assets/logo_fullgray.svg" /></router-link>
     <div class="text-time">
       <p class="text">
         {{ map }} // {{ state.text }}
@@ -89,12 +89,16 @@ export default {
 .dv-roundtime-display {
   color: white;
 
-  img {
+  .logo {
     position: absolute;
-    bottom: 55px;
+    bottom: 50px;
     left: 10px;
-    width: 128px;
     user-select: none;
+    z-index: 9999;
+
+    img {
+      width: 128px;
+    }
   }
 
   .text-time {
