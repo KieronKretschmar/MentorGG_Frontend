@@ -16,7 +16,7 @@
         </header>
         <main>
           <transition name="page" mode="out-in">
-            <router-view />
+            <router-view :key="reloadHack" />
           </transition>
         </main>
         <footer>
@@ -99,7 +99,8 @@ export default {
   data() {
     return {
       //TODO: Proper login + check
-      menuVisible: false
+      menuVisible: false,
+      reloadHack: false
     };
   },
   methods: {
@@ -114,6 +115,9 @@ export default {
           this.$api.startLookingForValveMatches();
         }
       });
+    },
+    ForceViewReload() {
+      this.reloadHack = !this.reloadHack;
     }
   }
 };
