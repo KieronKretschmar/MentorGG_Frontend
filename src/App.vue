@@ -32,9 +32,9 @@
         >settings_applications</i>
       </div>
 
-      <GenericOverlay ref="globalFiltersOverlay" width="900px">
+      <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
-        <GlobalFilters v-if="$api.MatchSelector.ready" />
+        <GlobalFilters v-if="$api.MatchSelector.ready"/>
       </GenericOverlay>
 
       <GenericOverlay ref="connectionHintOverlay" width="900px">
