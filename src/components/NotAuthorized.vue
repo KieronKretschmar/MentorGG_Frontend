@@ -10,7 +10,9 @@
       </p>
       <p class="upgrade-wrapper">
         <!-- TODO: Replace with link to actual Subscription Upgrade view -->
-        <router-link :to="{name: 'dashboard'}" class="button-variant-bordered">Upgrade Now</router-link>
+        <span @click="Hide">
+          <router-link :to="{name: 'dashboard'}" class="button-variant-bordered">Upgrade Now</router-link>
+        </span>
       </p>
     </GenericOverlay>
   </div>
@@ -26,7 +28,6 @@ export default {
   },
   mounted() {
     globalThis.NotAuthorized = this;
-    console.log(globalThis);
   },
   data() {
     return {
@@ -37,6 +38,9 @@ export default {
     Show(minimumAccessLevel) {
       this.minimumAccessLevel = minimumAccessLevel;
       this.$refs.overlay.Show();
+    },
+    Hide() {
+      this.$refs.overlay.Hide();
     }
   },
   computed: {
