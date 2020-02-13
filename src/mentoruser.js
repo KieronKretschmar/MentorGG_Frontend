@@ -1,7 +1,9 @@
+import Enums from "./enums";
+
 export default class MentorUser {
     constructor() {
         //needs to be populated from api request
-        this.subscriptionStatus = 1;
+        this.subscriptionStatus = Enums.SubscriptionStatus.Free;
         this.steamId = Math.random() * 10000;
 
         //internal usage
@@ -26,5 +28,21 @@ export default class MentorUser {
         }
 
         return this.IsOverridden() ? this.userOverride.GetSteamId(false) : this.steamId;
+    }
+
+    AuthorizationGate(minimumAccessLevel, fnAuthorized, fnUnauthorized) {
+        if (!fnAuthorized) {
+            throw new Error("Invalid callback value in authorization gate for argument fnAuthorized");
+        }
+
+        if (this.subscriptionStatus >= minimumAccessLevel) {
+            fnAuthorized();
+        } else {
+            if (fnUnauthorized) {
+                fnUnauthorized();
+            } else {
+                globalThis.NotAuthorized.Show(minimumAccessLevel);
+            }
+        }
     }
 }

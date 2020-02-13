@@ -39,7 +39,7 @@ class MentorGGAPI {
     }
 
     setUser(user) {
-        this.User = user;
+        this.User = new MentorUser(user);
         return this.User;
     }
 
