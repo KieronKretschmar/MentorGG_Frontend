@@ -39,6 +39,8 @@ Vue.filter('formatDate', function (val) {
   }
 });
 
+router.reloadHack = Vue.observable(0);
+
 Vue.use(VueAnalytics, {
   id: 'UA-121787145-1',
   router,
