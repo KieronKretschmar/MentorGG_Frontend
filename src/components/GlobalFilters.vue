@@ -56,6 +56,11 @@
     <p class="note">
         *Please note that you can only filter for maps that you have actually played matches on.
     </p>
+
+    <!-- TODO: styling is trash -->
+    <p>
+      <router-link :to="{name: 'individual-match-filters'}">Open Individual Match Filters</router-link>
+    </p>
   </div>
 </template>
 

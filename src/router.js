@@ -151,5 +151,10 @@ export default new Router({
       name: 'landingpage',
       component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
     },
+    {
+      path: '/filters/matches',
+      name: 'individual-match-filters',
+      component: () => import(/* webpackChunkName: "individualmatchfilters" */'./views/IndividualMatchFilters.vue')
+    }
   ]
 });

@@ -5,7 +5,8 @@ export default class MatchSelector {
         this.filters = {
             maps: [],
             sources: [],
-            matchCount: -1
+            matchCount: -1,
+            blacklist: []
         };
 
         this.ready = false;
@@ -27,7 +28,7 @@ export default class MatchSelector {
         })
     }
 
-    Build() {        
+    Build() {
         let r = {
             matches: [],
             filters: [],
@@ -41,7 +42,7 @@ export default class MatchSelector {
                     }
 
                     return acc;
-                }, []);
+                }, []).filter(matchId => this.filters.blacklist.indexOf(matchId) == -1);
             },
 
             Override(what, data) {
@@ -142,6 +143,28 @@ export default class MatchSelector {
 
     HasSourcesFilter(sourceName) {
         return this.filters.sources.indexOf(sourceName) != -1;
+    }
+
+    IsBlacklisted(matchId) {
+        return this.filters.blacklist.indexOf(matchId) != -1;
+    }
+
+    AddToBlacklist(matchId) {
+        if (!this.IsBlacklisted(matchId)) {
+            this.filters.blacklist.push(matchId);
+        }
+    }
+
+    RemoveFromBlacklist(matchId) {
+        this.filters.blacklist = this.filters.blacklist.filter(_matchId => _matchId != matchId);
+    }
+
+    ToggleBlacklist(matchId) {
+        if (!this.IsBlacklisted(matchId)) {
+            this.AddToBlacklist(matchId);
+        } else {
+            this.RemoveFromBlacklist(matchId);
+        }
     }
 }
 
