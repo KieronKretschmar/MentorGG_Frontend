@@ -45,6 +45,10 @@ export default class MatchSelector {
                 }, []).filter(matchId => this.filters.blacklist.indexOf(matchId) == -1);
             },
 
+            GetMatchIdsCsv() {
+                return this.GetMatchIds().toString();
+            },
+
             Override(what, data) {
                 let validOverrides = ['sources', 'maps', 'matchCount'];
                 if (validOverrides.indexOf(what) == -1) {
