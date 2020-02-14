@@ -13,7 +13,7 @@
       >
         <img
           class="map-image"
-          :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
+          :src="GetOverviewImage(mapSummary.Map)"
         />
         <p class="map-name">{{mapSummary.Map}}</p>
 
@@ -58,6 +58,8 @@
 <script>
 import Enums from "@/enums";
 import OverviewBase from "@/components/Overviews/OverviewBase.vue";
+// require('src/assets/maps');
+
 
 export default {
   extends: OverviewBase,
@@ -77,7 +79,7 @@ export default {
       this.$api.getOverview(Enums.SampleType.Kill, "", matchCount).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
-    }
+    },
   }
 };
 </script>

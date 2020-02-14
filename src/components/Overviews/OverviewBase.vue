@@ -10,6 +10,10 @@ export default {
   },
   
   methods: {
+    GetOverviewImage(map){
+      var overViewImages = require.context('@/assets/maps/previews', false, /\.jpg$/)
+      return overViewImages("./" + map + ".jpg");
+    },
     OnActiveMapUpdated: function(map) {
       this.$emit('updatemap', map);
     },

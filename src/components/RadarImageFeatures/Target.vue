@@ -2,7 +2,7 @@
   <g v-if="zoneData" class="target" @click="SetSelectedZone(zoneData.ZoneId)">
 
     <!-- Images for smoke targets -->
-    <image class="smoke target" v-bind="{'xlink:href':this.$api.resolveResource(filename)}"  :x="posX" :y="posY"
+    <image class="smoke target" v-bind="{'xlink:href':require('@/assets/radarimagefeatures/Smoke_Clear.png')}"  :x="posX" :y="posY"
             :width="width" :height="height" color="#002220"/>
 
   </g>
@@ -23,9 +23,6 @@ export default {
       }
   },
   computed: {
-      filename() {
-          return '~/Content/Images/Icons/Smoke_Clear.png';
-      },
       posX() {
           return this.zoneData.GrenadePosXPixel - (this.width /2);
       },

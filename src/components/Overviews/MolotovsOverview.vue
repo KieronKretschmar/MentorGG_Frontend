@@ -13,7 +13,7 @@
       >
         <img
           class="map-image"
-          :src="$api.resolveResource('~/Content/Images/Overview/' + mapSummary.Map +'.jpg')"
+          :src="GetOverviewImage(mapSummary.Map)"
         />
         <p class="map-name">{{mapSummary.Map}}</p>
 

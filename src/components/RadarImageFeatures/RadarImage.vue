@@ -21,7 +21,7 @@
           <image
             x="0"
             y="0"
-            v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+            v-bind="{'xlink:href':getRadarImage(this.mapInfo.Name)}"
           />
         </pattern>
       </defs>
@@ -30,7 +30,7 @@
       <image
         class="background-map-img"
         v-if="mapInfo.ImageURL"
-        v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+        v-bind="{'xlink:href':getRadarImage(this.mapInfo.Name)}"
         id="map-image"
         @click="OnClickBackground"
         alt="Map Radar"
@@ -225,7 +225,11 @@ export default {
     "smokeGrenades"
   ],
   watch: {},
-  methods: {
+  methods: {    
+    getRadarImage(map){
+      var radarImages = require.context('@/assets/maps/radarimages', false, /\.png$/)
+      return radarImages("./" + map + ".png");
+    },
     Zoom: function(x) {
       if (x == 1) {
         this.svgReference.zoomIn();
