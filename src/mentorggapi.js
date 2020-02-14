@@ -22,6 +22,7 @@ class MentorGGAPI {
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
+        this.newApiEndpoint = 'https://localhost:44369';
         this.valveInterval = null;        
 
         this.MatchSelector = new MatchSelector(this);
@@ -319,7 +320,7 @@ class MentorGGAPI {
         else if (this.sendFixedSteamId) {
             params.playerId = this.fixedSteamId;
         }
-        return axios.get(this.apiEndpoint + 'Stats/Player', {
+        return axios.get('https://test.mentor.gg/v1/Stats/Player', {
             params: params
         });
     }
