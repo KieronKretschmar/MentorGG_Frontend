@@ -54,6 +54,22 @@ class Enums {
       HLTV: 5,
       Esea: 6,
       Cevo: 7,
+
+      
+      ToString(n) {
+        switch (n) {
+          case 0: return "Unknown";
+          case 1: return "Valve";
+          case 2: return "Faceit";
+          case 3: return "Manual Upload";
+          case 4: return "Scrimmage";
+          case 5: return "HLTV";
+          case 6: return "Esea";
+          case 7: return "Cevo";
+        }
+
+        return "Unknown";
+      }
     };
   }
 }

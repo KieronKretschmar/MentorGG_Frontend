@@ -11,11 +11,13 @@
       <div class="left">
         <!-- could be done with MatchHeader component -->
         <div class="map-thumbnail">
-          <img
+          <!-- TODO: migrate resources -->
+          <!-- TODO: What if mapIcon is unavailable? -->
+          <!-- <img
             :src="$api.resolveResource(match.MapIcon)"
             :alt="match.Map + ' Thumbnail'"
             :title="match.Map"
-          />
+          /> -->
         </div>
         <div class="map-and-datetime">
           <span class="map">{{ match.Map }}</span>
@@ -24,16 +26,16 @@
         <div class="match-score">
           <span
             class="score"
-            :type="match.WinLoseTie"
-          >{{ match.Scoreboard.CtStarterRounds }} : {{ match.Scoreboard.TerroristStarterRounds }}</span>
+            :class="[('score-'+UserData.WinLossTie)]"
+          >{{ match.Scoreboard.TeamInfos.CtStarter.WonRounds }} : {{ match.Scoreboard.TeamInfos.TerroristStarter.WonRounds }}</span>
           <span class="score-text">SCORE</span>
         </div>
 
         <div class="player-kda">
           <div class="kda">
-            <span class="k">{{ match.UserScoreboardEntry.Kills }}</span>
-            <span class="a">{{ match.UserScoreboardEntry.Assists }}</span>
-            <span class="d">{{ match.UserScoreboardEntry.Deaths }}</span>
+            <span class="k">{{ UserData.ScoreboardEntry.Kills }}</span>
+            <span class="a">{{ UserData.ScoreboardEntry.Assists }}</span>
+            <span class="d">{{ UserData.ScoreboardEntry.Deaths }}</span>
           </div>
           <span class="kda-text">K / A / D</span>
         </div>
@@ -85,7 +87,8 @@
             <div class="table-content">
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
-                  <img class="rank" :src="$api.resolveResource(entry.RankBeforeMatchIcon)" />
+                  <!-- TODO: migrate resources -->
+                  <img class="rank" :src="`@/assets/ranks/${entry.RankBeforeMatch}.jpg`">
                   <img class="avatar" :src="entry.Profile.Icon" />
                   <a
                     class="name"
@@ -95,7 +98,7 @@
                 </span>
                 <span
                   class="adr"
-                >{{ (entry.DamageDealt / (match.Scoreboard.CtStarterRounds + match.Scoreboard.TerroristStarterRounds)).toFixed(0) }}</span>
+                >{{ (entry.DamageDealt / (match.Scoreboard.TeamInfos.CtStarter.WonRounds + match.Scoreboard.TeamInfos.TerroristStarter.WonRounds)).toFixed(0) }}</span>
                 <span class="k">{{ entry.Kills }}</span>
                 <span class="a">{{ entry.Assists }}</span>
                 <span class="d">{{ entry.Deaths }}</span>
@@ -113,12 +116,18 @@
 
 <script>
 import MatchHeader from "@/components/MatchHeader.vue";
+import Enums from "@/enums";
 
 export default {
   components: {
     MatchHeader
   },
-  mounted() {},
+  data() {
+    return {
+      // Add enums so we can reference it in template
+      Enums: Enums,
+    }
+  },
   props: [
     "match",
     "isAboveLimit", // expect full data except for a negative matchId
@@ -142,11 +151,30 @@ export default {
     },
     OpenSubscriptionPage() {
       alert('Not Implemented!\nTODO: Open Subscription Page');
-    }
-  },
+    },
+    GetUserData(){
+      let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(this.match.Scoreboard.TeamInfos.TerroristStarter.Players);
+      let playerScoreboardEntry = allScoreboardEntries.find(x=>x.SteamId == this.$api.User.GetSteamId());
+
+      let userIsCtStarter = this.match.Scoreboard.TeamInfos.CtStarter.Players.some(p=>p.SteamId == this.$api.User.GetSteamId());
+
+      let userRoundsWon = (userIsCtStarter ? this.match.Scoreboard.TeamInfos.CtStarter : this.match.Scoreboard.TeamInfos.TerroristStarter).WonRounds;
+      let userRoundsLost = (!userIsCtStarter ? this.match.Scoreboard.TeamInfos.CtStarter : this.match.Scoreboard.TeamInfos.TerroristStarter).WonRounds;
+
+      let winLossTie = userRoundsWon == userRoundsLost ? "tie" : (userRoundsWon > userRoundsLost ? "win" : "loss")
+
+      return {
+        ScoreboardEntry: playerScoreboardEntry,
+        WinLossTie: winLossTie
+      }
+    },
+  }, 
   computed: {
     sourceClassName() {
       return "source-" + this.match.Source.toLowerCase();
+    },
+    UserData() {
+      return this.GetUserData();
     }
   }
 };
@@ -259,15 +287,15 @@ export default {
           font-weight: 500;
           font-size: 16px;
 
-          &[type="0"] {
+          &.score-win {
             color: $green;
           }
 
-          &[type="1"] {
+          &.score-loss {
             color: $red;
           }
 
-          &[type="2"] {
+          &.score-tie {
             color: orange;
           }
         }

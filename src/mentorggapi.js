@@ -78,20 +78,14 @@ class MentorGGAPI {
         });
     }
 
-    getMatches(playerId = "", count, offset = 0) {
-        let params = {
-            recentMatches: count,
-            offset: offset
+    getMatches(params, overrides = {}) {
+        let formattedParams = {
+            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
+            count: params.count,
+            offset: params.offset
         }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Matches/Matches', {
-            params: params
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/matches`, {
+            params: formattedParams
         });
     }
 

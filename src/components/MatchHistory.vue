@@ -8,7 +8,7 @@
     </div>
 
     <div class="match-list">      
-      <div v-if="!loadingMatches && matches.length == 0" class="bordered-box no-matches">
+      <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
         <DemoDataLoadRequest 
         @buttonClicked="LoadAppendMatches(5, true)">
           Couldn't find any matches for you.
@@ -23,8 +23,8 @@
         <!-- TODO: insert actual values for :isAboveLimit and :failed -->
         <PersonalMatch 
           :match="match"
-          :isAboveLimit="false" 
-          :failed="false"
+          :isAboveLimit="IsAboveLimit(match)"
+          :failed="MatchFailed(match)"
           />
       </div>
 
@@ -43,6 +43,8 @@
 
 <script>
 import PersonalMatch from "@/components/PersonalMatch.vue";
+import Enums from "@/enums";
+
 export default {
   components: {
     PersonalMatch,
@@ -52,35 +54,59 @@ export default {
   },
   data() {
     return {
-      matches: [],
+      analyzedMatches: [],
+      // TODO Kieron: Replace stub with real data from democentral
+      failedMatches: [
+        {"MatchId" : 101, "Source" : "Valve" , "MatchDate" : "2019-02-03T14:37:47.231352"},
+        {"MatchId" : 102, "Source" : "Valve" , "MatchDate" : "2021-02-03T14:37:47.231352"}
+      ],
       activeTab: 'all',
       loadingMatches: false,
+      desiredVisibleMatchesCount: 0,
     };
   },
   computed: {
+    allRelevantMatches: function() {
+      // return the desiredVisibleMatchesCount newest matches, including failed matches
+      let allMatches = this.analyzedMatches.concat(this.failedMatches);
+      let sorted = allMatches.sort((a,b)=>new Date(b.MatchDate)-new Date(a.MatchDate));
+      return sorted.slice(0,this.desiredVisibleMatchesCount);
+    },
     visibleMatches: function() {
+      console.log(this.allRelevantMatches);
       if(this.activeTab == 'all'){
-        return this.matches;
+        return this.allRelevantMatches;
       }
       if(this.activeTab == 'valve'){
-        return this.matches.filter(x=>x.Source=="Valve");
+        return this.allRelevantMatches.filter(x=>x.Source==Enums.Source.Valve);
       }
       if(this.activeTab == 'faceit'){
-        return this.matches.filter(x=>x.Source=="Faceit");
+        return this.allRelevantMatches.filter(x=>x.Source==Enums.Source.Faceit);
       }
     },
   },
   methods: {
+    IsAboveLimit: function(match){
+      return match.MatchId < 0;
+    },
+    MatchFailed: function(match){
+      return this.failedMatches.some(x=>x.MatchId == match.MatchId);
+    },
     LoadAppendMatches: function(count, isDemo) {
-
       this.loadingMatches = true;
-      this.$api.getMatches(isDemo ? "76561198033880857" : "", count, this.matches.length)
+      let params = {
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        count: count,
+        offset: this.analyzedMatches.length
+      }
+      this.$api.getMatches(params)
       .then(response => {
         for (let i = 0; i < response.data.MatchInfos.length; i++) {
           let match = response.data.MatchInfos[i];
           match.IsVisible = false;
-          this.matches.push(match);
+          this.analyzedMatches.push(match);
         }
+        this.desiredVisibleMatchesCount += count;
         this.loadingMatches = false;
       })
       .catch(error => {
