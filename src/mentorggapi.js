@@ -63,17 +63,11 @@ class MentorGGAPI {
         });
     }
 
-    getPlayerInfo(playerId = "") {
+    getPlayerInfo(playerId) {
         let params = {
         }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
 
-        return axios.get(this.apiEndpoint + 'User/PlayerInfo', {
+        return axios.get(`${this.newApiEndpoint}v1/single/${playerId}/playerinfo`, {
             params: params
         });
     }

@@ -2,15 +2,16 @@
   <div class="profile-header">
     <div class="fixed-width-container mc" v-if="user">
       <div class="avatar">
-        <img :src="getFullSteamAvatarURL(user.Icon)" />
+        <img :src="getFullSteamAvatarURL(user.SteamUser.ImageUrl)" />
       </div>
       <div class="name">
         <span>PROFILE NAME</span>
-        <span>{{ user.SteamName }}</span>
+        <span>{{ user.SteamUser.SteamName }}</span>
       </div>
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
-        <img :src="$api.resolveResource(user.RankIcon)" alt="CS:GO Rank Image" />
+        <!-- TODO: migrate resources -->
+        <img :src="`@/assets/ranks/${user.Rank}.jpg`" alt="CS:GO Rank Image" />
       </div>
     </div>    
   </div>
@@ -19,7 +20,7 @@
 <script>
 export default {
   mounted() {
-    this.$api.getPlayerInfo("").then(response => {
+    this.$api.getPlayerInfo(this.$api.User.GetSteamId()).then(response => {
       this.user = response.data;
     });
   },
