@@ -38,9 +38,9 @@ class Enums {
 
   static get DemoViewerQuality() {
     return {
-      Low: 1,
-      Medium: 2,
-      High: 3,
+      Low: 10,
+      Medium: 20,
+      High: 30,
     };
   }
 
