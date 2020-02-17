@@ -110,7 +110,11 @@ export default {
   },
   mounted() {
   },
-  props: ["match"],
+  props: [
+    "match",
+    "isAboveLimit", // expect full data except for a negative matchId
+    "failed", // expect no data except for match.MatchDate and match.Source
+    ],
   methods: {
     Watch: function(match) {
       this.$helpers.LogEvent(this, "Watch");
