@@ -24,3 +24,5 @@ node_modules
 /.vs/VSWorkspaceState.json
 /.vs/slnx.sqlite
 /.vs
+
+.now
