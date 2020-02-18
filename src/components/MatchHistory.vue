@@ -20,8 +20,11 @@
 
 
       <div v-for="match in visibleMatches" :key="match.MatchId">
+        <!-- TODO: insert actual values for :isAboveLimit and :failed -->
         <PersonalMatch 
           :match="match"
+          :isAboveLimit="false" 
+          :failed="false"
           />
       </div>
 
