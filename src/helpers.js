@@ -6,7 +6,7 @@ class Helpers {
     }
     
     DemoViewerAvailable(map){
-        return ['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train'].includes(map);
+        return ['de_dust2', 'de_mirage', 'de_nuke', 'de_inferno', 'de_cache', 'de_overpass', 'de_train', 'de_vertigo'].includes(map);
     }
 
     EquipmentIdToFontCharacter(equipmentId) {
