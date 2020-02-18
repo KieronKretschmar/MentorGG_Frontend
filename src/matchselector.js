@@ -11,7 +11,8 @@ export default class MatchSelector {
 
         this.ready = false;
 
-        this.$api.getMetaMatchHistory().then(result => {
+        // Workaround until impersonate works
+        this.$api.getMetaMatchHistory('76561198033880857').then(result => {
             this.matchList = result.data.Matches;
 
             //fix ugly enum name for displaying purposes

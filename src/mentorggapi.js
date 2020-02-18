@@ -443,11 +443,10 @@ class MentorGGAPI {
         });
     }
 
-    getMetaMatchHistory() {
-        return axios.get('https://test.mentor.gg/api/MatchSelectionHistory/GetHistory', {
+    // Workaround until impersonate works
+    getMetaMatchHistory(playerId) {
+        return axios.get(this.newApiEndpoint + "/v1/single/" + (playerId.length ? playerId : this.fixedSteamId) + "/matchselection", {
             params: {
-                steamId: '76561198033880857',
-                dailyLimit: 3
             }
         });
     }

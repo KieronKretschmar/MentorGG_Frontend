@@ -4,7 +4,7 @@ export default class MentorUser {
     constructor() {
         //needs to be populated from api request
         this.subscriptionStatus = Enums.SubscriptionStatus.Free;
-        this.steamId = Math.random() * 10000;
+        this.steamId = '76561198033880857'; // Workaround until MentorInterface.GetUser() is implemented
 
         //internal usage
         this.userOverride = null;
