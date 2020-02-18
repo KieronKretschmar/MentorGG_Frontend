@@ -1,6 +1,13 @@
 <template>
-  <div class="bordered-box match">
-    <div class="match-header" :class="'source-' + match.Source.toLowerCase()">
+  <div class="bordered-box match" :class="{failed: failed}">
+    <div v-if="isAboveLimit" class="limit-display">
+      <p>Daily upload limit exceeded. Get Premium to bypass this limit.</p>
+      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade to Premium</button>
+    </div>
+    <div v-if="failed" class="failed-display">
+      <p class="two">{{ match.MatchDate|formatDate }} &mdash; Analysis failed. This can happen when a demo file got corrupted at some point.</p>
+    </div>
+    <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
       <div class="left">
         <!-- could be done with MatchHeader component -->
         <div class="map-thumbnail">
@@ -40,7 +47,7 @@
         >
           <i class="material-icons download-match-icon" title="Download Demo">get_app</i>
         </a>
-        
+
         <i
           v-if="this.$helpers.DemoViewerAvailable(match.Map)"
           class="material-icons watch-match-icon"
@@ -48,8 +55,11 @@
           @click="Watch(match)"
         >videocam</i>
 
-
-        <i class="fas fa-chevron-down" :class="{open: match.IsVisible}" @click="ToggleMatchVisibility()"></i>
+        <i
+          class="fas fa-chevron-down"
+          :class="{open: match.IsVisible}"
+          @click="ToggleMatchVisibility()"
+        ></i>
       </div>
     </div>
     <transition name="slide">
@@ -75,7 +85,7 @@
             <div class="table-content">
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
-                  <img class="rank" :src="$api.resolveResource(entry.RankBeforeMatchIcon)">
+                  <img class="rank" :src="$api.resolveResource(entry.RankBeforeMatchIcon)" />
                   <img class="avatar" :src="entry.Profile.Icon" />
                   <a
                     class="name"
@@ -108,13 +118,12 @@ export default {
   components: {
     MatchHeader
   },
-  mounted() {
-  },
+  mounted() {},
   props: [
     "match",
     "isAboveLimit", // expect full data except for a negative matchId
-    "failed", // expect no data except for match.MatchDate and match.Source
-    ],
+    "failed" // expect no data except for match.MatchDate and match.Source
+  ],
   methods: {
     Watch: function(match) {
       this.$helpers.LogEvent(this, "Watch");
@@ -124,9 +133,20 @@ export default {
         .Load();
     },
     ToggleMatchVisibility: function() {
-      this.$helpers.LogEvent(this, this.match.IsVisible ? 'ShowScoreboard' : 'HideScoreboard');
+      this.$helpers.LogEvent(
+        this,
+        this.match.IsVisible ? "ShowScoreboard" : "HideScoreboard"
+      );
       this.match.IsVisible = !this.match.IsVisible;
-      this.$forceUpdate();      
+      this.$forceUpdate();
+    },
+    OpenSubscriptionPage() {
+      alert('Not Implemented!\nTODO: Open Subscription Page');
+    }
+  },
+  computed: {
+    sourceClassName() {
+      return "source-" + this.match.Source.toLowerCase();
     }
   }
 };
@@ -135,12 +155,48 @@ export default {
 <style lang="scss" scoped>
 .match {
   margin-top: 10px;
+  position: relative;
+
+  &.failed {
+    background: rgba(220, 20, 60, 0.4);
+  }
+
+  .limit-display {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: space-between;
+    border-radius: 3px;
+
+    p {
+      font-weight: 400;
+    }
+  }
+
+  .failed-display {
+    color: white;
+    font-weight: 500 !important;
+  }
 
   .match-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
+
+    &.above-limit {
+      filter: blur(4px);
+      pointer-events: none;
+      user-select: none;
+    }
 
     &.source-valve > .left > .map-thumbnail {
       border-left-color: $matchmaking-blue;
@@ -410,7 +466,7 @@ export default {
 }
 
 //responsive
-@media(max-width: 780px) {
+@media (max-width: 780px) {
   .match-history {
     .match-list {
       .match {
@@ -426,11 +482,11 @@ export default {
   }
 }
 
-@media(max-width: 650px) {
+@media (max-width: 650px) {
   .match-history {
     .match-list {
       .match {
-        .match-header {          
+        .match-header {
           .left {
             .map-thumbnail {
               display: none;
@@ -444,11 +500,11 @@ export default {
 }
 
 //TODO: improve styling
-@media(max-width: 560px) {
+@media (max-width: 560px) {
   .match-history {
     .match-list {
       .match {
-        .match-header {       
+        .match-header {
           flex-direction: column;
 
           .left {
