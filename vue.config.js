@@ -17,5 +17,9 @@ module.exports = {
             },
             devtool: 'source-map'
         }
+    },
+    devServer: {
+        // enable ngrok to fake mentor.gg origin instead of localhost
+        disableHostCheck: true,
     }
 };
