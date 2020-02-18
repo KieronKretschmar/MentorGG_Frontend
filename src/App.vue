@@ -1,7 +1,7 @@
 <template>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 1 -->
   <div id="app" v-if="this.$route.name != 'landingpage'">
-    <template v-if="$api.User">
+    <template v-if="$api.User && $api.MatchSelector.ready">
       <DemoViewer />
       <NotAuthorized />
       <div class="l-app" :class="{toggled: menuVisible}">
