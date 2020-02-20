@@ -78,6 +78,7 @@ export default {
   }
 
   .supporter-logo-wrap {
+    max-width: 1200px;
     height: auto;
     display: flex;
     flex-wrap: wrap;

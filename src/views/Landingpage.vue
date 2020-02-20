@@ -280,7 +280,6 @@ table {
 }
 
 .view-landingpage {
-  margin-bottom: 0;
   .full-width-container {
     color: #fff;
     margin: 0 auto;

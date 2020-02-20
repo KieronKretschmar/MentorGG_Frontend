@@ -155,6 +155,16 @@ export default new Router({
       path: '/filters/matches',
       name: 'individual-match-filters',
       component: () => import(/* webpackChunkName: "individualmatchfilters" */'./views/IndividualMatchFilters.vue')
-    }
+    },
+    {
+      path: '/subscription',
+      name: 'subscription',
+      component: () => import(/* webpackChunkName: "subscription" */'./views/Subscription.vue')
+    },
+    {
+      path: '/subscriptionpremium',
+      name: 'subscriptionpremium',
+      component: () => import(/* webpackChunkName: "subscriptionpremium" */'./views/SubscriptionPremium.vue')
+    },
   ]
 });
