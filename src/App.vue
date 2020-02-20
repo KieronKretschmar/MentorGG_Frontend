@@ -61,6 +61,7 @@
       <Footer :showPartnerships="true" />
     </main>
   </div>
+  <!-- Workaround for showing landingpage without SideNavigation Pt. 2 -->
 </template>
 
 <script>
