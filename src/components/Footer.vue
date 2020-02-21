@@ -49,6 +49,8 @@ export default {
 
 <style lang="scss">
 .footer {
+  padding-top: 10px;
+  background-color: $dark-2;
   .hero-subtitle {
     font-size: 16px;
     font-weight: 300;
