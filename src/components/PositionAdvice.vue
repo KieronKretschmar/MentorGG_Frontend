@@ -108,7 +108,7 @@ export default {
   methods : {
     LoadData: function(isDemo) {
       this.loadingComplete = false,
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 3, 50)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 5, 50)
       .then(response => {
         this.best = response.data;
         this.loadingComplete = true;
@@ -118,7 +118,7 @@ export default {
         this.loadingComplete = true;
       });
 
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 3, 50)
+      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 5, 50)
       .then(response => {
         this.worst = response.data;
         this.loadingComplete = true;
