@@ -301,7 +301,7 @@
 
   .large {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 500;
     padding: 3px 0;
   }
 
@@ -340,7 +340,7 @@
     font-weight: 700;
     color: #fff;
     border-radius: 10px;
-    padding: 0.65em 1.785em 0.75em 1.785em;
+    padding: 0.65em 1.785em 0.65em 1.785em;
     background-color: $green-2;
     border: 1px solid $green;
     line-height: 1;
@@ -422,7 +422,7 @@
       &:nth-child(3) {
         width: 25%;
       }
-      
+
       &:nth-child(4) {
         width: 25%;
       }
