@@ -160,11 +160,6 @@ export default new Router({
       path: '/subscription',
       name: 'subscription',
       component: () => import(/* webpackChunkName: "subscription" */'./views/Subscription.vue')
-    },
-    {
-      path: '/subscriptionpremium',
-      name: 'subscriptionpremium',
-      component: () => import(/* webpackChunkName: "subscriptionpremium" */'./views/SubscriptionPremium.vue')
-    },
+    }
   ]
 });

@@ -2,7 +2,7 @@
   <div class="generic-overlay" :class="{visible: isVisible}">
     <div class="background" @click="Hide"></div>
 
-    <div class="content" :style="{width: w, height: h}">
+    <div class="ov-content" :style="{width: w, height: h}">
       <div class="close-button" @click="Hide">×</div>
       <slot></slot>
     </div>
@@ -66,7 +66,7 @@ export default {
     height: 100%;
   }
 
-  .content {
+  .ov-content {
     background: $dark-1;
     padding: 20px;
     position: relative;
@@ -130,7 +130,7 @@ export default {
     width: 100%;
     left: 0;
 
-    .content {
+    .ov-content {
       margin-top: 0;
     }
   }
