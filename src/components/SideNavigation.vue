@@ -38,6 +38,7 @@
         <router-link to="/event/hes">HEs</router-link>
 
         <div class="nav-header">Account</div>
+        <router-link :to="{name: 'subscription'}">Subscription</router-link>
         <router-link to="/automatic-upload">Automatic Upload</router-link>
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
         <div class="logout">
