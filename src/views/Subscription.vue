@@ -34,7 +34,7 @@
           <p class="strong">View Features</p>
         </div>
         <div class="content-three">
-          <button class="button">Subscribe</button>
+          <button class="button" @click="OpenDurationPicker">Subscribe</button>
         </div>
       </div>
       <div class="bordered-box offer">
@@ -54,7 +54,7 @@
           <p class="strong">View Features</p>
         </div>
         <div class="content-three">
-          <button class="button">Subscribe</button>
+          <button class="button" @click="OpenDurationPicker">Subscribe</button>
         </div>
       </div>
     </div>
@@ -209,8 +209,29 @@
         </div>
       </div>
     </div>
+
+    <GenericOverlay ref="durationPicker" width="1070px">
+      <SubscriptionDurationPicker />
+    </GenericOverlay>
   </div>
 </template>
+
+<script>
+import GenericOverlay from "@/components/GenericOverlay.vue";
+import SubscriptionDurationPicker from "@/components/SubscriptionDurationPicker.vue";
+
+export default {
+  components: {
+    GenericOverlay,
+    SubscriptionDurationPicker
+  },
+  methods: {
+    OpenDurationPicker() {
+      this.$refs.durationPicker.Show();
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 .view-subscription {
