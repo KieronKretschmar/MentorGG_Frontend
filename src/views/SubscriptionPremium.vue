@@ -7,7 +7,8 @@
         </div>
         <div class="content">
           <p>
-            <span class="large">$ 7.99</span><br>
+            <span class="large">$ 7.99</span>
+            <br />
             <span>per month</span>
           </p>
         </div>
@@ -21,7 +22,8 @@
         </div>
         <div class="content-highlight">
           <p>
-            <span class="large-highlight">$ 5.99</span><br>
+            <span class="large-highlight">$ 5.99</span>
+            <br />
             <span class="highlight">per month</span>
           </p>
         </div>
@@ -35,7 +37,8 @@
         </div>
         <div class="content">
           <p>
-            <span class="large">$ 6.99</span><br>
+            <span class="large">$ 6.99</span>
+            <br />
             <span>per month</span>
           </p>
         </div>
