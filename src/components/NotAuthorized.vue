@@ -11,7 +11,7 @@
       <p class="upgrade-wrapper">
         <!-- TODO: Replace with link to actual Subscription Upgrade view -->
         <span @click="Hide">
-          <router-link :to="{name: 'dashboard'}" class="button-variant-bordered">Upgrade Now</router-link>
+          <router-link :to="{name: 'subscription'}" class="button-variant-bordered">Upgrade Now</router-link>
         </span>
       </p>
     </GenericOverlay>
