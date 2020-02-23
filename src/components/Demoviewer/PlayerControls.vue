@@ -300,6 +300,7 @@ export default {
         margin: 0;
         width: 50px;
         border-bottom: 1px solid $dark-2;
+        z-index: 99999;
 
         li {
           padding: 3px 5px;
