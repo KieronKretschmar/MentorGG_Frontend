@@ -6,6 +6,9 @@ import MentorUser from './mentoruser';
 
 class MentorGGAPI {
     constructor() {
+        // tell the webapp to add credentials from IdentityCookie to request headers 
+        axios.defaults.withCredentials = true;
+
         if (process.env.NODE_ENV == 'production') {
             this.mvcEndpoint = document.location.origin + '/';
             this.tldEndpoint = this.mvcEndpoint;
