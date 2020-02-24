@@ -67,18 +67,6 @@ export default {
     flex-wrap: wrap;
   }
 
-  .social-logo-wrap {
-    width: 150px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .social-logo {
-    width: 25px;
-    height: 25px;
-    flex: 0 1 auto;
-  }
-
   .supporter-logo-wrap {
     max-width: 1200px;
     height: auto;
@@ -120,6 +108,18 @@ export default {
           max-width: 150px;
           margin-bottom: 5px;
         }
+      }
+
+      .social-logo-wrap {
+        width: 150px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .social-logo {
+        width: 25px;
+        height: 25px;
+        flex: 0 1 auto;
       }
 
       .r {
