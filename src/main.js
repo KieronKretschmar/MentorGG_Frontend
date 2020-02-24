@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import authManager from './authmanager';
 import mentorGGAPI from './mentorggapi';
 import helpers from './helpers';
 import performanceColors from './performancecolors';
@@ -23,7 +22,6 @@ Vue.config.performance = true;
 Vue.use(VueMasonryPlugin);
 Vue.use(VueLazyLoad);
 
-Vue.prototype.$authManager = authManager;
 Vue.prototype.$api = Vue.observable(mentorGGAPI);
 Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
