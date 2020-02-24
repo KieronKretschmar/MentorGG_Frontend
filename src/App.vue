@@ -75,19 +75,21 @@ import GlobalFilters from "@/components/GlobalFilters.vue";
 import InputBlock from "@/components/InputBlock.vue";
 import NotAuthorized from "@/components/NotAuthorized.vue";
 import Enums from "./enums";
+import MentorUser from './mentoruser';
 
 export default {
   name: "App",
   mounted() {
-    //TODO: Replace with actual GetUser request
-    this.$api.getPlayerStats().then(result => {
+    this.$api.getUserIdentity().then(result => {
       //add artifical delay to prevent screen flash on fast connections
       setTimeout(() => {
-        //TODO: Pass result.data to setUser
-        this.$api.setUser({});
+        let user = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType)
+        this.$api.setUser(user);
+
         this.InitConnectionsCallback();
       }, 1500);
     });
+
   },
   components: {
     TopNavigation,

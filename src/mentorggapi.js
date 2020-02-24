@@ -29,7 +29,6 @@ class MentorGGAPI {
         this.valveInterval = null;        
 
         this.MatchSelector = new MatchSelector(this);
-        this.User = null; //On AppCreation (App::mounted i guess), this needs to be populated with data from /api/GetUser or something the likes
 
         // this.User = new MentorUser();
         // console.log("User steamId: " + this.User.GetSteamId());
@@ -64,6 +63,10 @@ class MentorGGAPI {
             params: {
             }
         });
+    }
+
+    getUserIdentity() {        
+        return axios.get(`${this.newApiEndpoint}/identity`, {});
     }
 
     getPlayerInfo(playerId) {
