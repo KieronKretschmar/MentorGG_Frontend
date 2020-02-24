@@ -1,10 +1,10 @@
 import Enums from "./enums";
 
 export default class MentorUser {
-    constructor() {
-        //needs to be populated from api request
-        this.subscriptionStatus = Enums.SubscriptionStatus.Free;
-        this.steamId = '76561198033880857'; // Workaround until MentorInterface.GetUser() is implemented
+    constructor(applicationUserId, steamId, subscriptionStatus) {
+        this.applicationUserId = applicationUserId;
+        this.subscriptionStatus = subscriptionStatus;
+        this.steamId = steamId; 
 
         //internal usage
         this.userOverride = null;
