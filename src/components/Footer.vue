@@ -48,9 +48,11 @@ export default {
 </script>
 
 <style lang="scss">
+
 .footer {
   padding-top: 20px;
   background-color: $dark-2;
+
   .hero-subtitle {
     font-size: 16px;
     font-weight: 300;
@@ -65,24 +67,24 @@ export default {
     background: $dark-1;
     padding: 20px 0;
     flex-wrap: wrap;
-  }
 
-  .supporter-logo-wrap {
-    max-width: 1200px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .supporter-logo-wrap {
+      max-width: 1200px;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
 
-  .supporter-logo {
-    width: auto;
-    height: 50px;
-    flex: 0 1 auto;
+      .supporter-logo {
+        width: auto;
+        height: 50px;
+        flex: 0 1 auto;
 
-    &:last-child {
-      height: 45px;
+        &:last-child {
+          height: 45px;
+        }
+      }
     }
   }
 
@@ -114,12 +116,12 @@ export default {
         width: 150px;
         display: flex;
         justify-content: space-between;
-      }
 
-      .social-logo {
-        width: 25px;
-        height: 25px;
-        flex: 0 1 auto;
+        .social-logo {
+          width: 25px;
+          height: 25px;
+          flex: 0 1 auto;
+        }
       }
 
       .r {
@@ -145,7 +147,49 @@ export default {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+
+  .footer-content-one {
+    background: $dark-1;
+    padding: 20px 0;
+    flex-wrap: wrap;
+
+    .supporter-logo-wrap {
+      max-width: 1200px;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .supporter-logo {
+        min-width: 181px;
+        flex: 0 1 auto;
+
+        &:first-child {
+          height: 52px;
+          margin-bottom: 7px;
+        }
+
+        &:nth-child(2) {
+          height: 57px;
+          margin-bottom: 11px;
+        }
+
+        &:nth-child(3) {
+          height: 49px;
+          margin-bottom: 14px;
+        }
+
+        &:last-child {
+          height: 45px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+
   .footer-content-two {
     min-height: 235px;
 
@@ -174,13 +218,13 @@ export default {
         width: 100%;
         flex-direction: row;
         justify-content: center;
-      }
 
-      .social-logo {
-        width: 25px;
-        height: 25px;
-        flex: 0 1 auto;
-        margin: 25px 5px 20px 5px;
+        .social-logo {
+          width: 25px;
+          height: 25px;
+          flex: 0 1 auto;
+          margin: 25px 5px 20px 5px;
+        }
       }
 
       .r {
@@ -206,5 +250,6 @@ export default {
       }
     }
   }
+
 }
 </style>
