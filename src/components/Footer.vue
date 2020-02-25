@@ -100,12 +100,12 @@ export default {
       padding: 0 22px 0 16px;
 
       .l {
+        width: 152px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         color: $purple;
         font-size: 12px;
-        width: 152px;
 
         img {
           max-width: 150px;
@@ -130,10 +130,10 @@ export default {
       }
 
       .r {
+        width: 152px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        width: 152px;
 
         a {
           color: white;
