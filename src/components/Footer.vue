@@ -75,6 +75,7 @@ export default {
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      padding: 0 15px;
 
       .supporter-logo {
         width: auto;
@@ -147,7 +148,7 @@ export default {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
   .footer-content-one {
     background: $dark-1;
