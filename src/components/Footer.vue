@@ -229,7 +229,7 @@ export default {
           width: 25px;
           height: 25px;
           flex: 0 1 auto;
-          margin: 25px 5px 20px 5px;
+          margin: 25px 5px 19px 5px;
         }
       }
 
