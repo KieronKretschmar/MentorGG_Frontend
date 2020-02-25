@@ -258,6 +258,10 @@ section {
   display: block;
 }
 
+.view {
+    margin-bottom: 0;
+}
+
 body {
   line-height: 1;
 }
