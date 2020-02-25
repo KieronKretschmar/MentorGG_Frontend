@@ -50,7 +50,6 @@ export default {
 <style lang="scss">
 
 .footer {
-  padding-top: 20px;
   background-color: $dark-2;
 
   .hero-subtitle {
@@ -75,7 +74,7 @@ export default {
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      padding: 0 15px;
+      padding: 0 15px 0 13px;
 
       .supporter-logo {
         width: auto;
@@ -98,7 +97,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      padding: 0 22px 0 16px;
 
       .l {
         display: flex;
@@ -106,10 +105,15 @@ export default {
         align-items: flex-start;
         color: $purple;
         font-size: 12px;
+        width: 152px;
 
         img {
           max-width: 150px;
           margin-bottom: 5px;
+        }
+
+        span {
+          align-self: center;
         }
       }
 
@@ -129,6 +133,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        width: 152px;
 
         a {
           color: white;
