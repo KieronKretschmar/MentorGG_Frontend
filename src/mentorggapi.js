@@ -44,6 +44,9 @@ class MentorGGAPI {
     setUser(user) {
         this.User = new MentorUser(user);
         return this.User;
+
+    getSignInUrl(returnUrl = "/"){
+        return `${this.newApiEndpoint}/authentication/signin/steam?returnUrl=${returnUrl}`
     }
 
     resolveResource(resource) {

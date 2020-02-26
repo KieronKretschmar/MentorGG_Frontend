@@ -5,8 +5,14 @@
         <i class="material-icons lock">lock</i>
         <h2>Please log in to proceed</h2>
         <p>Since the requested page contains user specific data, you will have to log in in order for the whole thing to make sense.</p>
-        <div class="button-group">
-          <button class="button-variant-bordered active" @click="RedirectToLogin">Login</button>
+        <div class="button-group">                      
+          <button
+            @click="signIn()"
+            class="button-variant-bordered active"
+            title="Log in using your Steam account"
+          >
+            Login
+          </button>
           <button class="button-variant-bordered" @click="NavigateBack">Back</button>
         </div>
       </div>
@@ -38,7 +44,10 @@ export default {
       setTimeout(() => {
           this.isShaking = false;
       }, 820);
-    }
+    },
+    signIn() {
+      location.href = this.$api.getSignInUrl(window.location.origin);    
+    },
   }
 };
 </script>

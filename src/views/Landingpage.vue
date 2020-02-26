@@ -8,13 +8,10 @@
             <a href="/" class="logo logo-header">
               <img class="logo" src="@/assets/logo_white.svg" alt="CS:GO Mentor" />
             </a>
-
+            
             <button
-              type="submit"
+              @click="signIn()"
               class="button-gray-transparent login-steam"
-              id="Steam"
-              name="provider"
-              value="Steam"
               title="Log in using your Steam account"
             >
               Sign in through STEAM
@@ -38,11 +35,8 @@
               <strong class="hero-subtitle">Helping you improve your gameplay</strong>
 
               <button
-                type="submit"
+                @click="signIn()"
                 class="login-steam login-steam--green"
-                id="Steam"
-                name="provider"
-                value="Steam"
                 title="Log in using your Steam account"
               >
                 Sign in through STEAM
@@ -199,11 +193,8 @@
               <h4 class="title">Do you want to improve your game?</h4>
               <p class="subtitle">Join the beta by signing in</p>
               <button
-                type="submit"
+                @click="signIn()"
                 class="login-steam login-steam--orange"
-                id="Steam"
-                name="provider"
-                value="Steam"
                 title="Log in using your Steam account"
               >
                 Sign in through STEAM
@@ -224,7 +215,18 @@
 <script>
 export default {
   mounted() {},
-  data() {}
+  data() {
+    return {
+
+    };
+  },
+  computed: {
+  },
+  methods: {    
+    signIn() {
+      location.href = this.$api.getSignInUrl(window.location.origin);    
+    },
+  }
 };
 </script>
 
