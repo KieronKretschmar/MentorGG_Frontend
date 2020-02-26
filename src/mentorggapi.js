@@ -45,6 +45,10 @@ class MentorGGAPI {
         this.User = new MentorUser(user);
         return this.User;
 
+    getSignOutUrl(returnUrl = "/"){
+        return `${this.newApiEndpoint}/authentication/signout?returnUrl=${returnUrl}`
+    }
+
     getSignInUrl(returnUrl = "/"){
         return `${this.newApiEndpoint}/authentication/signin/steam?returnUrl=${returnUrl}`
     }

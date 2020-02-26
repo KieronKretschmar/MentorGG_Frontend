@@ -33,9 +33,9 @@
         <router-link to="/automatic-upload">Automatic Upload</router-link>
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
         <div class="logout">
-          <form action="/Account/LogOff/logoutForm" class="form-inline" method="post">
-            <button class="nav-button" type="submit">Log out</button>
-          </form>
+          <button @click="signOut()" class="nav-button">
+            Logout
+          </button>
         </div>
       </nav>
 
@@ -107,6 +107,9 @@ export default {
         this.uploadProgress = null;
         this.uploadResult = "Error";
       });
+    },
+    signOut(){
+      location.href = this.$api.getSignOutUrl(window.location.origin);
     }
   }
 };
