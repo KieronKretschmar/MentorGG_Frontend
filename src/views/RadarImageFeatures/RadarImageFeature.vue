@@ -418,11 +418,10 @@ export default {
       }
 
       for (let i = 0; i < this.selectedLineup.Images.length; i++) {
+        let basePath = `~/assets/radarimagefeatures/lineups/${Enums.SampleType.ToString(this.sampleType).toLowerCase()}/${this.activeMap}/${this.selectedLineup.LineupId}`;
         ret.push({
-          src: this.$api.resolveResource("~" + this.selectedLineup.Images[i]),
-          thumb: this.$api.resolveResource(
-            "~" + this.selectedLineup.Thumbnails[i]
-          )
+          src: this.$api.resolveResource(`${basePath}/${i}.jpg`),
+          thumb: this.$api.resolveResource(`${basePath}/${i}_thumb.jpg`),
         });
       }
 

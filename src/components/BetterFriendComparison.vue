@@ -98,7 +98,7 @@
           <div class="name">Favorite Map: {{ comparison.MostPlayedMap }}</div>
           <img
             class="image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + comparison.MostPlayedMap +'.jpg')"
+            :src="$helpers.resolveMapPreview(comparison.MostPlayedMap)"
           />
           <div class="wtl">
             <div class="w">{{ comparison.MostPlayedMapMatchesWon }}</div>

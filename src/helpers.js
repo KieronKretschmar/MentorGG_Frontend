@@ -81,7 +81,8 @@ class Helpers {
 
         component.$ga.event(data);
     }
-    
+
+
     CopyTextToClipboard(text) {
         // See https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
         if (!navigator.clipboard) {
@@ -96,21 +97,56 @@ class Helpers {
         );
       }
 
-      fallbackCopyTextToClipboard(text) {
-        var textArea = document.createElement("textarea");
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-  
-        try {
-          document.execCommand("copy");
-        } catch (error) {
-          console.error(error); // eslint-disable-line no-console
-        }
-  
-        document.body.removeChild(textArea);
+    fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand("copy");
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
       }
+
+      document.body.removeChild(textArea);
+    }
+
+      
+    // Begin asset management
+    resolveResource(resource) {
+      // using require here makes webpack parse all assets at compiletime so that they're available
+      return require('./assets/'+resource.replace("~/assets/", ''))
+    }
+
+    // returns the map preview image or a default placeholder if unavailable
+    resolveMapPreview(map){
+      try {
+        return require(`./assets/maps/previews/${map}.jpg`);
+      }
+      catch(err){
+        // do not log / throw error
+      }
+      
+      return require(`./assets/maps/previews/unknown.png`);      
+    }
+    resolveRankImage(rank){
+      try {
+        return require(`./assets/ranks/${rank}.png`);
+      }
+      catch(err){
+        // do not log / throw error
+      }
+      
+      return require(`./assets/ranks/none.png`);
+    }
+
+    getDefaultSteamProfileImageUrl(){
+      return require('./assets/unknown_steamprofile_full.jpg');
+    }
+
+    // End asset management
 }
 
 export default new Helpers();

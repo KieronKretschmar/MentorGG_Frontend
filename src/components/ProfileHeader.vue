@@ -2,7 +2,7 @@
   <div class="profile-header">
     <div class="fixed-width-container mc" v-if="user">
       <div class="avatar">
-        <img :src="getFullSteamAvatarURL(user.SteamUser.ImageUrl)" />
+        <img :src="user.SteamUser.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
       </div>
       <div class="name">
         <span>PROFILE NAME</span>
@@ -11,7 +11,7 @@
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
         <!-- TODO: migrate resources -->
-        <img :src="`@/assets/ranks/${user.Rank}.jpg`" alt="CS:GO Rank Image" />
+        <img :src="$helpers.resolveRankImage(user.Rank)" alt="CS:GO Rank Image" />
       </div>
     </div>    
   </div>
@@ -30,12 +30,6 @@ export default {
     };
   },
   methods: {
-    getFullSteamAvatarURL: function(url) {
-      if (!url) {
-        return "";
-      }
-      return url.split(".jpg")[0] + "_full.jpg";
-    }
   }
 };
 </script>

@@ -11,13 +11,11 @@
       <div class="left">
         <!-- could be done with MatchHeader component -->
         <div class="map-thumbnail">
-          <!-- TODO: migrate resources -->
-          <!-- TODO: What if mapIcon is unavailable? -->
-          <!-- <img
-            :src="$api.resolveResource(match.MapIcon)"
-            :alt="match.Map + ' Thumbnail'"
-            :title="match.Map"
-          /> -->
+          <img
+            :src="this.$helpers.resolveMapPreview(match.Map)"
+            :alt="match.map + ' Thumbnail'"
+            :title="match.map"
+          />
         </div>
         <div class="map-and-datetime">
           <span class="map">{{ match.Map }}</span>
@@ -88,11 +86,11 @@
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
                   <!-- TODO: migrate resources -->
-                  <img class="rank" :src="`@/assets/ranks/${entry.RankBeforeMatch}.jpg`">
-                  <img class="avatar" :src="entry.Profile.Icon" />
+                  <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)">
+                  <img class="avatar" :src="entry.Profile.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
                   <a
                     class="name"
-                    :href="entry.Profile.Url"
+                    :href="`https://steamcommunity.com/profiles/${entry.SteamId}`"
                     target="_blank"
                   >{{ entry.Profile.SteamName }}</a>
                 </span>

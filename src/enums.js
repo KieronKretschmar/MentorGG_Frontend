@@ -7,7 +7,20 @@ class Enums {
       Smoke: 4,
       Kill: 5,
       Bomb: 6,
+
+      ToString(n){
+        switch (n) {
+          case 1: return "Molotov";
+          case 2: return "Flash";
+          case 3: return "HE";
+          case 4: return "Smoke";
+          case 5: return "Kill";
+          case 6: return "Bomb";
+        }
+        return "Unknown";
+      }
     };
+
   }
 
   static get RadarViewTypes() {

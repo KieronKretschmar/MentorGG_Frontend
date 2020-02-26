@@ -94,10 +94,6 @@ class MentorGGAPI {
         return `${this.newApiEndpoint}/authentication/signin/steam?returnUrl=${returnUrl}`
     }
 
-    resolveResource(resource) {
-        return resource.replace('~/', this.tldEndpoint);
-    }
-
     matchUrl(matchId) {
         return this.mvcEndpoint + 'Download/Demo?matchId=' + matchId;
     }

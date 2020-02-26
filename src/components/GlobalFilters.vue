@@ -39,7 +39,7 @@
         >
           <img
             class="image"
-            :src="$api.resolveResource('~/Content/Images/Overview/' + map +'.jpg')"
+            :src="$helpers.resolveResource('~/assets/maps/previews/' + map +'.jpg')"
           />
           <div class="name">
             <span>{{ map }}</span>

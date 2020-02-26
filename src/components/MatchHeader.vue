@@ -2,7 +2,7 @@
   <div class="match-header">
     <div class="map-thumbnail">
       <img
-        :src="$api.resolveResource('~/Content/Images/Overview/' + map +'.jpg')"
+        :src="this.$helpers.resolveMapPreview(match.Map)"
         :alt="map + ' Thumbnail'"
         :title="map"
       />
