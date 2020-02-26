@@ -1,7 +1,9 @@
 <template>
     <div class="input-block">
-        <img src="@/assets/logo_white.svg" />
-        <AjaxLoader><slot/></AjaxLoader>
+        <div class="fade-in">
+            <img src="@/assets/logo_white.svg" />
+            <AjaxLoader><slot/></AjaxLoader>
+        </div>
     </div>
 </template>
 
@@ -25,5 +27,15 @@
         padding-bottom: 30px;
         border-bottom: 1px solid $purple;
     }
+}
+
+.fade-in {
+    animation: fadein 3s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    50% { opacity: 0; }
+    to   { opacity: 1; }
 }
 </style>
