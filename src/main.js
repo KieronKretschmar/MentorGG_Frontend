@@ -66,7 +66,7 @@ Vue.prototype.$vapp = vapp;
 // using the "back" function of the browser
 router.beforeEach(demoViewerCloseGuard);
 function demoViewerCloseGuard(to, from, next) {
-  if (globalThis.DemoViewer.isVisible) {
+  if (globalThis.DemoViewer && globalThis.DemoViewer.isVisible) {
     globalThis.DemoViewer.ToggleVisibility(false);
     next(false);
   }
