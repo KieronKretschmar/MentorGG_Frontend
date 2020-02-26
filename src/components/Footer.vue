@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .footer {
   background-color: $dark-2;
 
@@ -154,7 +153,6 @@ export default {
 }
 
 @media (max-width: 800px) {
-
   .footer-content-one {
     background: $dark-1;
     padding: 20px 0;
