@@ -524,7 +524,7 @@ table {
       height: 30px;
       font-size: 18px;
       text-align: center;
-      padding-bottom: 15px;
+      padding-bottom: 3px;
       display: inline-block;
     }
 
