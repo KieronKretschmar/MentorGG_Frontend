@@ -521,12 +521,11 @@ table {
     }
 
     .offer-title {
-      max-height: 48px;
+      height: 30px;
       font-size: 18px;
       text-align: center;
-      padding-top: 15px;
-      display: block;
-      flex: 0 1 100%;
+      padding-bottom: 15px;
+      display: inline-block;
     }
 
     .offer-text {
