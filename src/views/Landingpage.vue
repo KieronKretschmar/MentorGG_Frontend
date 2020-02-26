@@ -474,7 +474,7 @@ table {
       .subtitle {
         text-align: center;
         max-width: 360px;
-        margin: 0.5em auto 0;
+        margin: 0.3em auto 0;
         color: $light-1;
         font-size: 16px;
         font-weight: 500;
