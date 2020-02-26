@@ -9,27 +9,57 @@ Vue.use(Router);
 // Will redirect to login if the user is currently not logged in
 // eslint-disable-next-line
 function authenticationGuard(to, from, next) {
+  // at this point, the user tries to open a non-whitelisted view
 
-  // OUTCOMMENT CODE BELOW IF YOU DO NOT WANT TO APPEAR LOGGED IN
-  if(process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH){
+  // if the api is ready (user is logged in and matchselection has loaded) just let him pass
+  if(Vue.prototype.$api.ready){
+    Vue.prototype.$inputBlock = Vue.observable(false); 
     next();
     return;
   }
 
-  Vue.prototype.$api.getLoginStatus().then(response => {
-    if(response.data.IsLoggedIn == true){
+  // if not, show inputblock and validate login
+  Vue.prototype.$inputBlock = Vue.observable(true);
+
+  Vue.prototype.$api.ensureLogin()
+  .then(response => {
+    // if the user is logged in, attempt to init MatchSelector
+    Vue.prototype.$api.initMatchSelector()
+    .then(r => {
+      // MatchSelector is ready so stop showing inputBlock and let the user pass 
+      Vue.prototype.$inputBlock = Vue.observable(false);
       next();
+      return;
+    })
+    .catch(r => {
+      // User logged in but MatchSelector failed. This should not happen.
+      Vue.prototype.$inputBlock = Vue.observable(false);
+      next('/landingpage');
+      return;
+    });
+  })
+  .catch(error => {
+    // at this point the user is not logged in
+
+    Vue.prototype.$inputBlock = Vue.observable(false);
+
+    // If the user just wanted to see mentor.gg, show him the landingpage
+    if(from.name == null){
+      next('/landingpage');
+      return;
     }
-    else{
-      if (from.name == "login") {
-        Vue.prototype.$vapp.$emit('shakeLogin');
-      } else {
-        next('/login');
-      }
-    }
-  }).catch(error => {
+
+    // if the user is already on /login, do shake animation
+    if (from.name == "login") {
+      Vue.prototype.$vapp.$emit('shakeLogin');
+    } 
+    // otherwise send him to login gate
+    else {
       next('/login');
-  });
+      return;
+    }
+  })
+  
 }
 
 

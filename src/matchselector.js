@@ -1,5 +1,5 @@
 export default class MatchSelector {
-    constructor(api) {
+    constructor(api, matchList) {
         this.$api = api;
 
         this.filters = {
@@ -8,25 +8,18 @@ export default class MatchSelector {
             matchCount: -1,
             blacklist: []
         };
+        
+        this.matchList = matchList;
 
-        this.ready = false;
-
-        // Workaround until impersonate works
-        this.$api.getMetaMatchHistory('76561198033880857').then(result => {
-            this.matchList = result.data.Matches;
-
-            //fix ugly enum name for displaying purposes
-            for (let match of this.matchList) {
-                if (match.Source == "Manualupload") {
-                    match.Source = "Manual Upload";
-                }
+        //fix ugly enum name for displaying purposes
+        for (let match of this.matchList) {
+            if (match.Source == "Manualupload") {
+                match.Source = "Manual Upload";
             }
+        }
 
-            this.filters.maps = this.GetAvailableMapsUnique();
-            this.filters.sources = this.GetAvailableSourcesUnique();
-
-            this.ready = true;
-        })
+        this.filters.maps = this.GetAvailableMapsUnique();
+        this.filters.sources = this.GetAvailableSourcesUnique();          
     }
 
     Build() {

@@ -1,7 +1,7 @@
 <template>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 1 -->
   <div id="app" v-if="this.$route.name != 'landingpage'">
-    <template v-if="$api.User && $api.MatchSelector.ready">
+    <template v-if="!this.$inputBlock">
       <DemoViewer />
       <NotAuthorized />
       <div class="l-app" :class="{toggled: menuVisible}">
@@ -35,7 +35,7 @@
 
       <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
-        <GlobalFilters v-if="$api.MatchSelector.ready" />
+        <GlobalFilters v-if="this.$api.MatchSelector" />
       </GenericOverlay>
 
       <GenericOverlay ref="connectionHintOverlay" width="900px">
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import TopNavigation from "@/components/TopNavigation.vue";
 import SideNavigation from "@/components/SideNavigation.vue";
 import Footer from "@/components/Footer.vue";
@@ -80,16 +81,8 @@ import MentorUser from './mentoruser';
 export default {
   name: "App",
   mounted() {
-    this.$api.getUserIdentity().then(result => {
-      //add artifical delay to prevent screen flash on fast connections
-      setTimeout(() => {
-        let user = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType)
-        this.$api.setUser(user);
-
-        this.InitConnectionsCallback();
-      }, 1500);
-    });
-
+    // Initialize without showing inputBlock. It will be shown by router / authenticationGuard if necessary.
+    this.$inputBlock = Vue.observable(false);
   },
   components: {
     TopNavigation,
@@ -104,10 +97,11 @@ export default {
   },
   data() {
     return {
-      //TODO: Proper login + check
       menuVisible: false,
-      reloadHack: false
+      reloadHack: false,
     };
+  },
+  computed: {
   },
   methods: {
     OnOpenFilters: function() {
@@ -128,7 +122,7 @@ export default {
     },
     ForceViewReload() {
       this.reloadHack = !this.reloadHack;
-    }
+    },
   }
 };
 </script>

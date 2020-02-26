@@ -28,7 +28,8 @@ class MentorGGAPI {
         this.newApiEndpoint = 'https://localhost:44369';
         this.valveInterval = null;        
 
-        this.MatchSelector = new MatchSelector(this);
+        // whether or not this.User and this.MatchSelector are loaded
+        this.ready = false;
 
         // this.User = new MentorUser();
         // console.log("User steamId: " + this.User.GetSteamId());
@@ -41,9 +42,49 @@ class MentorGGAPI {
         // console.log("User steamId: " + this.User.GetSteamId());
     }
 
-    setUser(user) {
-        this.User = new MentorUser(user);
-        return this.User;
+    // Ensures that this.User is set. If not (e.g. because the user is not logged in) the promise is rejected.
+    ensureLogin(){
+        return new Promise((resolve, reject) => {
+            // If this.User is already set, resolve right away
+            if(this.User){
+                resolve();
+            }
+
+            // Attempt to load the logged-in user's identity from server
+            axios.get(`${this.newApiEndpoint}/identity`, {})
+            .then(result => {
+                // User is logged in
+                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType);
+                resolve();
+            })
+            .catch(error => {
+                // User is not logged in
+                this.User = null;
+                this.ready = false;
+                reject();
+            });
+        });
+    }
+
+    // Initializes this.MatchSelector. Make sure this.User is set when calling this.
+    initMatchSelector(){
+        return new Promise((resolve, reject) => {
+            let steamId = this.User.GetSteamId();
+            this.getMetaMatchHistory(steamId)
+            .then(result => {
+                let matchList = result.data.Matches;
+                this.MatchSelector = new MatchSelector(this, matchList);
+
+                // this.User and this.MatchSelector are loaded, therefore api is ready to make ajax calls.
+                this.ready = true;
+                resolve();
+            })
+            .catch(e => {
+                this.ready = false;
+                reject("Could not load getMetaMatchHistory");
+            });
+        });
+    }
 
     getSignOutUrl(returnUrl = "/"){
         return `${this.newApiEndpoint}/authentication/signout?returnUrl=${returnUrl}`
@@ -72,14 +113,9 @@ class MentorGGAPI {
         });
     }
 
-    getUserIdentity() {        
-        return axios.get(`${this.newApiEndpoint}/identity`, {});
-    }
-
     getPlayerInfo(playerId) {
         let params = {
         }
-
         return axios.get(`${this.newApiEndpoint}v1/single/${playerId}/playerinfo`, {
             params: params
         });

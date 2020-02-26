@@ -25,6 +25,7 @@ Vue.use(VueLazyLoad);
 Vue.prototype.$api = Vue.observable(mentorGGAPI);
 Vue.prototype.$helpers = helpers;
 Vue.prototype.$performanceColors = performanceColors;
+Vue.prototype.$inputBlock = {visible: true};
 
 Vue.component('AjaxLoader', AjaxLoader);
 Vue.component('DemoDataLoadRequest', DemoDataLoadRequest);
