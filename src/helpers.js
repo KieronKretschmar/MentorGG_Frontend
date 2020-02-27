@@ -131,6 +131,7 @@ class Helpers {
       
       return require(`./assets/maps/previews/unknown.png`);      
     }
+
     resolveRankImage(rank){
       try {
         return require(`./assets/ranks/${rank}.png`);

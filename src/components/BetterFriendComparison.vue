@@ -17,9 +17,9 @@
       >
         <div class="avatar-and-name">
           <div class="avatar">
-            <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
+            <img class="avatar" :src="comparison.OtherPlayerInfo.SteamUser.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
           </div>
-          <div class="name">{{ comparison.OtherPlayerInfo.SteamName }}</div>
+          <div class="name">{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</div>
         </div>
         <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>
         <div class="comparison-table">
@@ -176,7 +176,7 @@ export default {
                   barPercentage: 1,
                   label: "",
                   backgroundColor: ["#72a233", "#f39c12", "#db143c"],
-                  data: [1, 2, 3] //[comparison.MatchesWon, comparison.MatchesTied, comparison.MatchesLost]
+                  data: [comparison.MatchesWon, comparison.MatchesTied, comparison.MatchesLost]
                 }
               ]
             };
@@ -223,6 +223,8 @@ export default {
         margin-bottom: 10px;
 
         .avatar {
+          width: 24px;
+          height: 24px;
           border-radius: 3px;
         }
 
