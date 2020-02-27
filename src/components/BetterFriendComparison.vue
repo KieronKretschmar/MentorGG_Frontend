@@ -149,10 +149,16 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
+
+      let params = {
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        count: 3,
+        offset: this.comparisons.length
+      };
       this.$api
-        .getFriendsComparison(isDemo ? "76561198033880857" : "")
+        .getFriendsComparison(params)
         .then(result => {
-          this.comparisons = result.data.Rows;
+          this.comparisons = result.data.Comparisons;
           this.comparisons.forEach(comparison => {
             comparison.WinRate =
               (comparison.MatchesWon / comparison.MatchesPlayed) * 100;

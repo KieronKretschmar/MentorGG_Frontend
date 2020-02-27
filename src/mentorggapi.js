@@ -167,7 +167,7 @@ class MentorGGAPI {
             showBest: showBest,
             nPositions: count,
             recentMatches: forMatchesN
-        }
+        };
         if (playerId.length) {
             params.playerId = playerId;
         }
@@ -180,20 +180,15 @@ class MentorGGAPI {
         });
     }
 
-    getFriendsComparison(playerId = "", maxFriends = 3, recentMatches = 50) {
-        let params = {
-            maxFriends: maxFriends,
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
+    getFriendsComparison(params, overrides = {}) {
+        let formattedParams = {
+            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
+            count: params.count,
+            offset: params.offset
         }
 
-        return axios.get(this.apiEndpoint + 'Compare/FriendsComparison', {
-            params: params
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/friendscomparison`, {
+            params: formattedParams
         });
     }
 
