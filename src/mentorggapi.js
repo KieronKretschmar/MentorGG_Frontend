@@ -110,11 +110,11 @@ class MentorGGAPI {
         });
     }
 
-    getPlayerInfo(playerId) {
-        let params = {
+    getPlayerInfo(params) {
+        let formattedParams = {
         }
-        return axios.get(`${this.newApiEndpoint}v1/single/${playerId}/playerinfo`, {
-            params: params
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/playerinfo`, {
+            params: formattedParams
         });
     }
 

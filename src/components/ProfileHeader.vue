@@ -12,14 +12,17 @@
         <span>CS:GO RANK</span>
         <img :src="$helpers.resolveRankImage(user.Rank)" alt="CS:GO Rank Image" />
       </div>
-    </div>    
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    this.$api.getPlayerInfo(this.$api.User.GetSteamId()).then(response => {
+    let params = {
+      steamId: this.$api.User.GetSteamId()
+    };
+    this.$api.getPlayerInfo(params).then(response => {
       this.user = response.data;
     });
   },

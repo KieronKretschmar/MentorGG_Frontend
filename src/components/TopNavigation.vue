@@ -11,7 +11,10 @@
 <script>
 export default {
   mounted() {
-    this.$api.getPlayerInfo("").then(response => {
+    let params = {
+      steamId: this.$api.User.GetSteamId()
+    };
+    this.$api.getPlayerInfo(params).then(response => {
       this.user = response.data;
     });
   },
