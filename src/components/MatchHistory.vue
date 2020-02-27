@@ -57,8 +57,8 @@ export default {
       analyzedMatches: [],
       // TODO Kieron: Replace stub with real data from democentral
       failedMatches: [
-        {"MatchId" : 101, "Source" : "Valve" , "MatchDate" : "2019-02-03T14:37:47.231352"},
-        {"MatchId" : 102, "Source" : "Valve" , "MatchDate" : "2021-02-03T14:37:47.231352"}
+        {"MatchId" : 101, "Source" : 2 , "MatchDate" : "2019-02-03T14:37:47.231352"},
+        {"MatchId" : 102, "Source" : 3 , "MatchDate" : "2021-02-03T14:37:47.231352"}
       ],
       activeTab: 'all',
       loadingMatches: false,
