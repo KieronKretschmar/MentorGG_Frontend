@@ -106,7 +106,6 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .profile-header {
-    background: $dark-3;
     padding: 20px 0 0 0;
     border-bottom: 1px solid $purple;
     padding-bottom: 90px;
