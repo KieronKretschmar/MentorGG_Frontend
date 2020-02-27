@@ -25,8 +25,9 @@ class MentorGGAPI {
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
-        this.newApiEndpoint = 'https://localhost:44369';
-        this.valveInterval = null;        
+        // this.newApiEndpoint = 'https://234a2859.ngrok.io';
+        this.newApiEndpoint = 'https://localhost:44310';
+        this.valveInterval = null;
 
         // whether or not this.User and this.MatchSelector are loaded
         this.ready = false;
