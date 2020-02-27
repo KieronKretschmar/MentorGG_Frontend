@@ -10,7 +10,6 @@
       </div>
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
-        <!-- TODO: migrate resources -->
         <img :src="$helpers.resolveRankImage(user.Rank)" alt="CS:GO Rank Image" />
       </div>
     </div>    
@@ -104,7 +103,6 @@ export default {
 }
 
 //responsive
-@media(max-width: 1200px) {
-
+@media (max-width: 1200px) {
 }
 </style>

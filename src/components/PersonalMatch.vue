@@ -169,7 +169,6 @@ export default {
   }, 
   computed: {
     sourceClassName() {
-      console.log(this.match.Source);
       return "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase();
     },
     UserData() {

@@ -73,7 +73,6 @@ export default {
       return sorted.slice(0,this.desiredVisibleMatchesCount);
     },
     visibleMatches: function() {
-      console.log(this.allRelevantMatches);
       if(this.activeTab == 'all'){
         return this.allRelevantMatches;
       }
