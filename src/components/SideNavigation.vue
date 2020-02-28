@@ -27,15 +27,6 @@
         <router-link to="/flashes">Flashes</router-link>
         <router-link to="/hes">HEs</router-link>
         <router-link to="/kills">Kills</router-link>
-        <router-link to="/statistics">Statistics</router-link>
-
-        <div class="nav-header">Starladder 2019</div>
-        <router-link to="/event/matchhistory">Matches</router-link>
-        <router-link to="/event/kills">Kills</router-link>
-        <router-link to="/event/smokes">Smokes</router-link>
-        <router-link to="/event/molotovs">Molotovs</router-link>
-        <router-link to="/event/flashes">Flashes</router-link>
-        <router-link to="/event/hes">HEs</router-link>
 
         <div class="nav-header">Account</div>
         <router-link to="/automatic-upload">Automatic Upload</router-link>
