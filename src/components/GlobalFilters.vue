@@ -20,7 +20,7 @@
           :class="{active: $api.MatchSelector.HasSourcesFilter(source)}"
         >
           <div class="name">
-            <span>{{ source }}</span>
+            <span>{{ Enums.Source.ToString(source) }}</span>
             <i class="material-icons">check</i>
           </div>
         </div>
@@ -66,16 +66,18 @@
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import Enums from "@/enums";
 
 export default {
   components: {
-    CustomSelect
+    CustomSelect,
   },
   mounted() {
 
   },
   data() {
     return {
+      Enums,
       matchCount: "-1",
       matchCountOptions: {
         "-1": "all",
