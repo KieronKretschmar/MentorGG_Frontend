@@ -39,8 +39,8 @@ export default class MatchSelector {
                 }, []).filter(matchId => this.filters.blacklist.indexOf(matchId) == -1);
             },
 
-            GetMatchIdsCsv() {
-                return this.GetMatchIds().toString();
+            GetMostRecentMatchId(){
+                return this.matches.sort((a,b)=>new Date(b.MatchDate)-new Date(a.MatchDate)).map(x=>x.MatchId)[0];
             },
 
             Override(what, data) {
