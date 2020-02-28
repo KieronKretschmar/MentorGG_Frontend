@@ -2,22 +2,17 @@
   <div class="recent-match-stats">
     <div class="bordered-box">
       <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
-      <DemoDataLoadRequest 
-      v-if="loadingComplete && !recentMatchStats"
-      @buttonClicked="LoadData(true)">
-        Unfortunately, you haven't uploaded any matches yet.
-        </DemoDataLoadRequest>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
-          <div class="val">{{recentMatchStats.GamesUploaded}}</div>
-          <div class="txt">Matches uploaded</div>
+          <div class="val">{{recentMatchStats.GamesTotal}}</div>
+          <div class="txt">Matches</div>
         </div>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
           <div class="txt">K/D Ratio</div>
         </div>
         <div class="stat">
-          <div class="val">{{ recentMatchStats.AverageHLTVRating.toFixed(2) }}</div>
+          <div class="val">{{ recentMatchStats.AverageHltvRating.toFixed(2) }}</div>
           <div class="txt">HLTV Rating</div>
         </div>
         <div class="stat">
@@ -25,7 +20,7 @@
           <div class="txt">Winrate</div>
         </div>
         <div class="stat">
-          <div class="val">{{(recentMatchStats.HSKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
+          <div class="val">{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
           <div class="txt">Headshot</div>
         </div>
         <div class="stat">
@@ -88,7 +83,10 @@ export default {
       this.rankGraphVisible = true;
     },
     LoadData: function(isDemo) {
-      this.$api.getRecentMatchData(isDemo ? "76561198033880857" : "")
+      let params = {
+        steamId: this.$api.User.GetSteamId()
+      };
+      this.$api.getRecentMatchData(params)
       .then(response => {
         this.recentMatchStats = response.data;
           this.loadingComplete = true;

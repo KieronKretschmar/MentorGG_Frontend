@@ -192,19 +192,13 @@ class MentorGGAPI {
         });
     }
 
-    getRecentMatchData(playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
+    // this endpoint returns data for all the user's matches, disregarding filter settings and matchselector
+    getRecentMatchData(params) {
+        let formattedParams = {
         }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'User/RecentMatchResults', {
-            params: params
+        
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/playersummary`, {
+            params: formattedParams
         });
     }
 
