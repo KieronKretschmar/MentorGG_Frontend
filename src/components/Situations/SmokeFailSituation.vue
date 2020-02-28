@@ -16,7 +16,7 @@
         <button
           class="button-variant-bordered"
           @click="ToggleMisplayVisibility()"
-        >Show {{situationCollection.Situations.length}} Occurrences</button>
+        >Show {{situationCollection.Misplays.length}} Occurrences</button>
       </div>
     </div>
     
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div v-for="(situation, index) in situationCollection.Situations" 
+        <div v-for="(situation, index) in situationCollection.Misplays" 
         :key="index"
         
         class="row">

@@ -26,7 +26,7 @@
         :key="situationCollection.Name"
       >
         <component
-        v-if="$options.components[situationCollection.Name + 'Situation'] && situationCollection.Situations.length"
+        v-if="$options.components[situationCollection.Name + 'Situation'] && situationCollection.Misplays.length"
         :is="situationCollection.Name + 'Situation'"
         :situationCollection="situationCollection"
         class="misplay bordered-box"
@@ -68,27 +68,20 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
-      if(isDemo){
-        this.$api.getMisplays("76561198033880857", 1).then(result => {
-          this.situationCollections = result.data.SituationCollections;
-          this.loadingComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingComplete = true;
-        });
-      }
-      else{
-        this.$api.getMisplays("", 1).then(result => {
-          // console.log(result.data)
-          this.situationCollections = result.data.SituationCollections;
-          this.loadingComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingComplete = true;
-        });
-      }
+      
+      let params = {
+        steamId: this.$api.User.GetSteamId(),
+      };
+
+      this.$api.getSingleMatchMisplays(params).then(result => {
+        this.situationCollections = result.data.SituationCollections;
+        this.loadingComplete = true;
+      })
+      .catch(error => {
+        console.error(error); // eslint-disable-line no-console
+        this.loadingComplete = true;
+      });
+      
     },
   }
 };

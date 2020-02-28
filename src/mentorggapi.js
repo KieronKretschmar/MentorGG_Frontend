@@ -129,36 +129,9 @@ class MentorGGAPI {
         });
     }
 
-    getMisplays(playerId = "", recentMatches) {
-        let params = {
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Situations/Misplays', {
-            params: params
-        });
-    }
-
-
-    getSingleMatchMisplays(playerId = "", matchId) {
-        let params = {
-            matchId: matchId
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Situations/Misplays', {
-            params: params
+    getSingleMatchMisplays(params, overrides = {}) {
+        let matchId = this.MatchSelector.Build().GetMostRecentMatchId();
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/misplays/match/${matchId}`, {
         });
     }
 
