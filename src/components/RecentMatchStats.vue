@@ -161,4 +161,32 @@ export default {
     height: 100%;
   }
 }
+
+//responsive
+@media (max-width: 800px) {
+  .recent-match-stats {
+    margin-bottom: 20px;
+    margin-top: -64px;
+
+  .bordered-box {
+    padding: 20px 20px;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin: 10px;
+      flex: 1 1 43%;
+    }
+  }
+
+}
+}
 </style>
