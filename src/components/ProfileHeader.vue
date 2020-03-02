@@ -111,7 +111,6 @@ export default {
     padding-bottom: 90px;
 
     .fixed-width-container {
-      display: flex;
       align-items: flex-start;
       height: 60px;
 
@@ -126,8 +125,6 @@ export default {
       }
 
       .name {
-        display: flex;
-        flex-direction: column;
         margin-left: 10px;
         padding-right: 10px;
         border-right: none;
@@ -138,12 +135,10 @@ export default {
           margin: 5px;
 
           &:first-child {
-            color: $orange;
             font-size: 10px;
           }
 
           &:last-child {
-            color: white;
             font-size: 12px;
             font-weight: 700;
           }
@@ -164,14 +159,12 @@ export default {
           margin: 5px 0;
 
           &:first-child {
-            color: $orange;
             font-size: 10px;
           }
         }
 
         img {
           height: 30px;
-          margin: 5px 0;
         }
       }
     }
