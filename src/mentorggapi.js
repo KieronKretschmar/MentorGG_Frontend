@@ -310,7 +310,7 @@ class MentorGGAPI {
             }
         };
 
-        return axios.post(this.apiEndpoint + 'Upload/Demo', formData, config);
+        return axios.post('https://api.mentor.gg/v1/public/Manual', formData, config);
     }
 
     updateValveConnection(authCode, shareCode) {        
