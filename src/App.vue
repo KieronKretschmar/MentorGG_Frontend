@@ -83,6 +83,8 @@ export default {
   mounted() {
     // Initialize without showing inputBlock. It will be shown by router / authenticationGuard if necessary.
     this.$inputBlock = Vue.observable(false);
+    // Init connections after $api.User is loaded
+    this.$api.ensureLogin().then(() => {this.InitConnectionsCallback()});
   },
   components: {
     TopNavigation,
