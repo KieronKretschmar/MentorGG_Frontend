@@ -23,17 +23,17 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(worst.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.ZoneName }}</a>
             <span class="cell">
               <img
-                v-if="entry.Team == 2"
+                v-if="!entry.IsCtZone"
                 src="@/assets/t_logo.png"
                 alt="Terrorists Logo"
                 title="Terrorists"
               />
               <img
-                v-if="entry.Team == 3"
+                v-if="entry.IsCtZone"
                 src="@/assets/ct_logo.png"
                 alt="Counter-Terrorists Logo"
                 title="Counter-Terrorists"
@@ -68,17 +68,17 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(best.RecentMatchesAnalyzedCountByMap[entry.Map], entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.Name }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.ZoneName }}</a>
             <span class="cell">
               <img
-                v-if="entry.Team == 2"
+                v-if="!entry.IsCtZone"
                 src="@/assets/t_logo.png"
                 alt="Terrorists Logo"
                 title="Terrorists"
               />
               <img
-                v-if="entry.Team == 3"
+                v-if="entry.IsCtZone"
                 src="@/assets/ct_logo.png"
                 alt="Counter-Terrorists Logo"
                 title="Counter-Terrorists"
@@ -107,9 +107,16 @@ export default {
   },
   methods : {
     LoadData: function(isDemo) {
-      this.loadingComplete = false,
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", true, 5, 50)
+      this.loadingComplete = false;
+      // Load best positions
+      let params = {
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        count: 3,
+        showBest: true
+      };
+      this.$api.getImportantPositions(params)
       .then(response => {
+        this.formatResponse(response.data)
         this.best = response.data;
         this.loadingComplete = true;
       })
@@ -118,8 +125,15 @@ export default {
         this.loadingComplete = true;
       });
 
-      this.$api.getImportantPositions(isDemo ? "76561198033880857" : "", false, 5, 50)
+      // Load worst positions
+      params = {
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        count: 3,
+        showBest: false
+      };
+      this.$api.getImportantPositions(params)
       .then(response => {
+        this.formatResponse(response.data)
         this.worst = response.data;
         this.loadingComplete = true;
       })
@@ -128,13 +142,10 @@ export default {
         this.loadingComplete = true;
       });
     },
-    NavigateToKills: function(matchCount = 0, map = "", showCt = true, zoneId = 0){
+    NavigateToKills: function(map = "", showCt = true, zoneId = 0){
       let params = {
         showCt: showCt,
       };
-      if(matchCount){
-        params.matchCount = matchCount;
-      }
       if(map){
         params.map = map;  
 
@@ -144,6 +155,14 @@ export default {
       }
       this.$router.push({ path: 'kills', query: params });
     },
+    // Formats json response by writing data from ZoneInfos into the corresponding Performances
+    formatResponse(data){
+      for (let performance of data.Performances){
+        let zoneInfo = data.ZoneInfos[performance.ZoneId];
+        performance["ZoneName"] = zoneInfo.Name;
+        performance["Map"] = zoneInfo.MapString;
+      }
+    }
   }
 };
 </script>

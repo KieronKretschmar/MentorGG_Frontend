@@ -135,21 +135,15 @@ class MentorGGAPI {
         });
     }
 
-    getImportantPositions(playerId = "", showBest, count, forMatchesN) {
-        let params = {
-            showBest: showBest,
-            nPositions: count,
-            recentMatches: forMatchesN
-        };
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
+    getImportantPositions(params, overrides = {}) {
+        let formattedParams = {
+            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
+            showBest: params.showBest,
+            count: params.count,
         }
 
-        return axios.get(this.apiEndpoint + 'Kills/ImportantPositions', {
-            params: params
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/importantpositions`, {
+            params: formattedParams
         });
     }
 
