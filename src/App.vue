@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 import TopNavigation from "@/components/TopNavigation.vue";
 import SideNavigation from "@/components/SideNavigation.vue";
 import Footer from "@/components/Footer.vue";
@@ -76,7 +76,7 @@ import GlobalFilters from "@/components/GlobalFilters.vue";
 import InputBlock from "@/components/InputBlock.vue";
 import NotAuthorized from "@/components/NotAuthorized.vue";
 import Enums from "./enums";
-import MentorUser from './mentoruser';
+import MentorUser from "./mentoruser";
 
 export default {
   name: "App",
@@ -84,7 +84,9 @@ export default {
     // Initialize without showing inputBlock. It will be shown by router / authenticationGuard if necessary.
     this.$inputBlock = Vue.observable(false);
     // Init connections after $api.User is loaded
-    this.$api.ensureLogin().then(() => {this.InitConnectionsCallback()});
+    this.$api.ensureLogin().then(() => {
+      this.InitConnectionsCallback();
+    });
   },
   components: {
     TopNavigation,
@@ -124,7 +126,7 @@ export default {
     },
     ForceViewReload() {
       this.reloadHack = !this.reloadHack;
-    },
+    }
   }
 };
 </script>
