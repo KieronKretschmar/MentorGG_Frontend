@@ -202,40 +202,35 @@ class MentorGGAPI {
         });
     }
 
-    getSamples(type, playerId = "", map, recentMatches = 50){
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
+    getSamples(params, overrides = {}){
+        let route = `${this.newApiEndpoint}/v1/single/${params.steamId}/`;
+        let formattedParams = {
+            map: params.map,
+            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
         }
 
-        let route = this.apiEndpoint;
-        if(type == Enums.SampleType.Flash){
-            route += 'Flashes/Flashes';
+        // Determine route according to params.type
+        if(params.type == Enums.SampleType.Flash){
+            route += 'flashes';
         }
-        if(type == Enums.SampleType.HE){
-            route += 'HEs/HEs';
+        if(params.type == Enums.SampleType.HE){
+            route += 'hes';
         }
-        if(type == Enums.SampleType.FireNade){
-            route += 'FireNades/FireNades';
+        if(params.type == Enums.SampleType.FireNade){
+            route += 'firenades';
         }
-        if(type == Enums.SampleType.Kill){
-            route += 'Kills/Kills';
+        if(params.type == Enums.SampleType.Kill){
+            route += 'filterablekills';
         }
-        if(type == Enums.SampleType.Smoke){
-            route += 'Smokes/Smokes';
+        if(params.type == Enums.SampleType.Smoke){
+            route += 'smokes';
         }
-        if(type == Enums.SampleType.Bomb){
-            route += 'Bomb/Bombs';
+        if(params.type == Enums.SampleType.Bomb){
+            route += 'bombs';
         }
 
         return axios.get(route, {
-            params: params
+            params: formattedParams
         });
     }
 

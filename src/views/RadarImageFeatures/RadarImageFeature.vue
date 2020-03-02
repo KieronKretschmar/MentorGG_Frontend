@@ -103,13 +103,14 @@ export default {
     LoadSamples(map, matchCount, isDemo) {
       this.samples = [];
       this.loadingSamplesComplete = false;
-      this.$api
-        .getSamples(
-          this.config.sampleType,
-          isDemo ? "76561198033880857" : "",
-          map,
-          matchCount
-        ) // TODO: Change api to accept type
+
+      let params = {
+        type: this.config.sampleType,
+        map: map,
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+      };
+
+      this.$api.getSamples(params)
         .then(response => {
           // General
           this.mapInfo = response.data.MapInfo;
