@@ -97,6 +97,22 @@ export default {
   p {
     color: white;
     font-weight: 500;
+  }
+
+  .no-misplays {
+    margin-top: 10px;
+  }
+
+}
+
+//responsive
+@media (max-width: 800px) {
+  .misplays {
+  margin-bottom: 20px;
+
+  p {
+    color: white;
+    font-weight: 500;
     text-align: center;
   }
 
@@ -104,5 +120,6 @@ export default {
     margin-top: 10px;
   }
 
+}
 }
 </style>
