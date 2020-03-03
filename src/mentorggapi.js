@@ -35,6 +35,7 @@ class MentorGGAPI {
             // this.fixedSteamId = '76561198044966222'; //lasse            
         }
 
+        this.uploadEndpoint = "https://upload.mentor.gg/v1/demo"
         this.apiEndpoint = this.mvcEndpoint + 'api/';
 
         this.valveRefreshInterval = null;
@@ -310,7 +311,7 @@ class MentorGGAPI {
             }
         };
 
-        return axios.post('https://api.mentor.gg/v1/public/Manual', formData, config);
+        return axios.post(this.uploadEndpoint, formData, config);
     }
 
     updateValveConnection(authCode, shareCode) {        
