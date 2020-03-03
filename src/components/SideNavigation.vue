@@ -4,16 +4,19 @@
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
       <p class="headline">Manual Upload</p>
       <p>
-        Please select your GOTV demo file and click upload.
-        This may take a while depending on the size of the demo.
+        Please select your <strong>GOTV</strong> demo file and click upload. 
         For manually uploaded demos, we use the timestamp of the upload as the matchdate.
       </p>
       <input type="file" ref="manualUploadInput" accept=".dem,.bz2,.gz">
-      <AjaxLoader v-if="uploadProgress">Uploading... {{this.uploadProgress}}%</AjaxLoader>
-      <button v-if="!uploadProgress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
-      <p v-if="uploadResult">{{uploadResult ? uploadResult : " "}}</p>
-      <p>
-      </p>
+      <AjaxLoader v-if="uploadInfo.progress">Uploading... {{this.uploadInfo.progress}}%</AjaxLoader>
+      <button v-if="!uploadInfo.progress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
+
+      <span v-if="uploadInfo.success == true" class="upload-message">
+        Successfully uploaded <strong>{{uploadInfo.message}}</strong>
+      </span>
+      <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
+         Sorry, There seems to be a problem: <strong>{{uploadInfo.message}}</strong>
+      </span>
     </GenericOverlay>
 
     <div class="nav-content" data-simplebar>
@@ -84,8 +87,11 @@ export default {
     return {
       user: null,
       optionsVisible: false,
-      uploadProgress: null,
-      uploadResult: null,
+      uploadInfo: {
+          progress: null,
+          success: null,
+          message: null
+      },
     };
   },
   methods: {
@@ -99,7 +105,11 @@ export default {
       return url.split(".jpg")[0] + "_full.jpg";
     },
     TriggerManualUpload: function() {
-      this.uploadResult = null;
+      this.uploadInfo = {
+          progress: null,
+          success: null,
+          message: null
+      };
       let formData = new FormData();
       let fileinput = this.$refs.manualUploadInput;
 
@@ -110,13 +120,15 @@ export default {
 
       formData.append("demo", fileinput.files[0]);
       this.$api.uploadDemo(formData, (progressEvent) => {
-        this.uploadProgress = progressEvent;
+        this.uploadInfo.progress = progressEvent;
       }).then(result => {
-        this.uploadProgress = null;
-        this.uploadResult = "Successfully uploaded " + result.data.SuccesfulFiles + (result.data.SuccesfulFiles > 1 ? " demos" :  " demo") + ".";
+        this.uploadInfo.progress = null;
+        this.uploadInfo.success = true;
+        this.uploadInfo.message = result.data.SuccesfulFiles + (result.data.SuccesfulFiles > 1 ? " demos" :  " demo");
       }).catch( error => {
-        this.uploadProgress = null;
-        this.uploadResult = "Error";
+        this.uploadInfo.progress = null;
+        this.uploadInfo.success = false;
+        this.uploadInfo.message = error;
       });
     },
     signOut(){
@@ -145,16 +157,36 @@ export default {
       padding: 10px;
       color: white;
       border-radius: 3px;
-      margin-bottom: 20px;
+      margin: 0.5em;
       font-family: inherit;
+      width: 60%;
     }
 
     button {
-      width: 100%;
-      max-width: 200px;
+      width: 20%;
+      min-width: 100px;
       margin: 0 auto;
-      display: block;
+      display: inline-block;
     }
+
+    span.upload-message {
+        display: block;
+        color: white;
+        border: 1px solid $purple;
+        padding: 1em;
+        margin: 0.5em;
+
+        strong {
+            font-weight: 500;
+        }
+    }
+
+    span.upload-failure{
+        strong {
+            color: $orange;
+        }
+    }
+    
   }
 
   .nav-content {
