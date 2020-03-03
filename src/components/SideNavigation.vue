@@ -179,6 +179,26 @@ export default {
         strong {
             font-weight: 500;
         }
+
+        animation: message-pop 0.5s;
+
+        @keyframes message-pop {
+            from {
+                opacity: 0;
+            }
+            10% {
+                scale: 1;
+            }
+            30% {
+                opacity: 1;
+                scale: 1.2;
+                border-color: $orange;
+                border-width: 5px;
+            }
+            to {
+                scale: 1;
+            }
+        }
     }
 
     span.upload-failure{
@@ -186,7 +206,6 @@ export default {
             color: $orange;
         }
     }
-    
   }
 
   .nav-content {
