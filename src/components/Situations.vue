@@ -108,16 +108,11 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .misplays {
-  margin-bottom: 20px;
 
   p {
     color: white;
     font-weight: 500;
     text-align: center;
-  }
-
-  .no-misplays {
-    margin-top: 10px;
   }
 
 }
