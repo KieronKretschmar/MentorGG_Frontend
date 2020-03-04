@@ -46,12 +46,23 @@ export default class MatchSelector {
             Override(what, data) {
                 let validOverrides = ['sources', 'maps', 'matchCount'];
                 if (validOverrides.indexOf(what) == -1) {
-                    throw new Error("Invalid override type. Valid types are: " + validOverrides);
+                    throw new Error(`Invalid override type '${what}'. Valid types are: ${validOverrides}`);
                 }
 
                 this.filters[what] = data;
 
                 return this;
+            },
+
+            // example: overrides = {"maps" : ["de_mirage"], "matchCount" : 2} 
+            OverrideMultiple(overrides){
+                for (const key in overrides) {
+                    if (overrides.hasOwnProperty(key)) {
+                        const data = overrides[key];
+                        this.Override(key, data);
+                    }
+                }
+                return this;   
             }
         };
 
