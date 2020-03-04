@@ -126,8 +126,8 @@ export default {
       }).then(result => {
         this.uploadInfo.progress = null;
         this.uploadInfo.success = true;
-        this.uploadInfo.message = result.data.SuccesfulFiles + (result.data.SuccesfulFiles > 1 ? " demos" :  " demo");
-      }).catch( error => {
+        this.uploadInfo.message = result.data.DemoCount + (result.data.DemoCount > 1 ? " demos" :  " demo");
+      }).catch(error => {
         this.uploadInfo.progress = null;
         this.uploadInfo.success = false;
         this.uploadInfo.message = error;
