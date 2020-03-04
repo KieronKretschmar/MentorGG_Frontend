@@ -114,7 +114,8 @@ export default {
       let fileinput = this.$refs.manualUploadInput;
 
       if (!fileinput.files.length) {
-        console.error('Tried to trigger manual upload without selecting a file first');
+        this.uploadInfo.success = false;
+        this.uploadInfo.message = "No file selected";
         return;
       }
 
