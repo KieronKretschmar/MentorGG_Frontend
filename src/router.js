@@ -110,36 +110,6 @@ export default new Router({
     //   beforeEnter: authenticationGuard
     // },
     {
-      path: '/event/hes',
-      name: 'eventhes',
-      component: () => import(/* webpackChunkName: "eventhes" */'./views/Event/EventHEs.vue')
-    },
-    {
-      path: '/event/flashes',
-      name: 'eventflashes',
-      component: () => import(/* webpackChunkName: "eventflashes" */'./views/Event/EventFlashes.vue')
-    },
-    {
-      path: '/event/kills',
-      name: 'eventkills',
-      component: () => import(/* webpackChunkName: "eventkills" */'./views/Event/EventKills.vue')
-    },
-    {
-      path: '/event/matchhistory',
-      name: 'eventmatchhistory',
-      component: () => import(/* webpackChunkName: "eventmatchhistory" */'./views/Event/EventMatchHistory.vue')
-    },
-    {
-      path: '/event/molotovs',
-      name: 'eventmolotovs',
-      component: () => import(/* webpackChunkName: "eventmolotovs" */'./views/Event/EventMolotovs.vue')
-    },
-    {
-      path: '/event/smokes',
-      name: 'eventsmokes',
-      component: () => import(/* webpackChunkName: "eventsmokes" */'./views/Event/EventSmokes.vue')
-    },
-    {
       path: '/statistics',
       name: 'statistics',
       component: () => import(/* webpackChunkName: "statistics" */'./views/Statistics.vue'),
