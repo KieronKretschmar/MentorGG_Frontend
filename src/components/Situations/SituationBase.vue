@@ -202,4 +202,39 @@ export default {
 }
 
 //responsive
+@media (max-width: 800px) {
+
+  .misplay {
+
+  .header {
+    display: block;
+    text-align: center;
+
+    .left {
+      display: block;
+      align-items: center;
+      width: 100%;
+
+      .misplay-title {
+        line-height: 2.5;
+      }
+
+      .misplay-explanation {
+        width: 100%;
+        margin: 0 auto;
+        line-height: 20px;
+      }
+    }
+
+    .right {
+      display: block;
+      align-items: center;
+      padding: 20px 0 5px 0;
+    }
+    
+  }
+
+}
+
+}
 </style>
