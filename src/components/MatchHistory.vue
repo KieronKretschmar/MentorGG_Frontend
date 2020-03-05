@@ -51,6 +51,7 @@ export default {
   },
   mounted() {
     this.LoadAppendMatches(5, false);
+    this.LoadFailedMatches();
   },
   data() {
     return {
@@ -90,6 +91,20 @@ export default {
     },
     MatchFailed: function(match){
       return this.failedMatches.some(x=>x.MatchId == match.MatchId);
+    },
+    LoadFailedMatches: function(){
+      this.loadingMatches = true;
+      let params = {
+        steamId: this.$api.User.GetSteamId(),
+        count: 1000, // just load all at once
+        offset: 0
+      }
+      this.$api.getFailedDemos(params)
+      .then(response => {
+        response.data.Entries.forEach(element => {
+          this.failedMatches.push(element);
+        });
+      })
     },
     LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;

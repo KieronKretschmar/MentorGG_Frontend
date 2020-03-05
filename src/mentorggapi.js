@@ -129,6 +129,27 @@ class MentorGGAPI {
         });
     }
 
+    getFailedDemos(params, overrides = {}) {
+        let formattedParams = {
+            count: params.count,
+            offset: params.offset
+        }
+        console.log(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/failed-demos`);
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/failed-demos`, {
+            params: formattedParams
+        });
+    }
+
+    getPosition(matchId){
+        return axios.get(`${this.newApiEndpoint}/v1/match/${matchId}/demostatus/queue-position`, {
+        });
+    }
+
+    getMatchesInQueue(matchId){
+        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/matches-in-queue`, {
+        });
+    }
+
     getSingleMatchMisplays(params, overrides = {}) {
         let matchId = this.MatchSelector.Build().GetMostRecentMatchId();
         return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/misplays/match/${matchId}`, {
