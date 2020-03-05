@@ -203,9 +203,7 @@ export default {
 
 //responsive
 @media (max-width: 800px) {
-
   .misplay {
-
   .header {
     display: block;
     text-align: center;
@@ -232,6 +230,138 @@ export default {
       padding: 20px 0 5px 0;
     }
     
+  }
+
+  .body {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    
+    hr {
+      border: 1px solid $purple;
+      border-bottom: none;
+      margin: 15px 0;
+    }
+
+    .subtitle {
+      color: $orange;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .row {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid $purple; /* Border not full width!!! */
+
+      &:first-child,
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:first-of-type {
+        border-bottom: none;
+
+        .col {
+          color: $orange;
+          font-size: 12px;
+        }
+      }
+
+      .l,
+      .r {
+        display: flex;
+      }
+
+      .l {
+        flex: 1 1 auto;
+
+        .col {
+          min-width: 150px;
+
+          &:nth-child(1) {
+            min-width: 280px;
+          }
+
+          &:nth-child(2) {
+            min-width: 80px;
+          }
+        }
+      }
+
+      .r {
+        min-width: 125px;
+
+        .col {
+          width: 100%;
+        }
+      }
+
+      .col {
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+
+        &.centered {
+          justify-content: center;
+        }
+
+        img {
+          margin-right: 5px;
+        }
+
+        .map-and-datetime {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 145px;
+            padding: 0 25px;
+            border-right: none;
+
+            .map {
+              color: white;
+              font-size: 14px;
+              font-weight: 500;
+            }
+
+            .datetime {
+              font-size: 12px;
+              color: $dark-4;
+              margin-top: 5px;
+            }
+          }
+
+        .watch-match-icon {
+          color: $orange;
+          font-size: 26px;
+          transition: 0.35s;
+          cursor: pointer;
+
+          &:hover {
+            color: $purple;
+          }
+        }
+
+        .link {
+          display: flex;
+          align-items: center;
+          background: $dark-1;
+          color: white;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+          border: 1px solid $dark-1;
+          transition: 0.35s;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover {
+            color: $orange;
+          }
+        }
+      }
+    }
   }
 
 }
