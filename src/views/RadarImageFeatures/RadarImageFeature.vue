@@ -9,7 +9,6 @@
 
 // General
 import Enums from "@/enums";
-import CustomSelect from "@/components/CustomSelect.vue";
 import RadarImage from "@/components/RadarImageFeatures/RadarImage.vue";
 import VideoOverlay from "@/components/VideoOverlay.vue";
 require("vue-image-lightbox/dist/vue-image-lightbox.min.css");
@@ -23,7 +22,6 @@ import Target from "@/components/RadarImageFeatures/Target.vue";
 export default {
   components: {
     // General
-    CustomSelect,
     RadarImage,
     VideoOverlay,
     LightBox,
@@ -49,18 +47,9 @@ export default {
       // General
       loadingSamplesComplete: false,
       showCt: true,
-      matchCount: 10,
-      matchCountSelectOptions: {
-        1: "Use last match",
-        5: "Use last 5 matches",
-        10: "Use last 10 matches",
-        50: "Use last 50 matches",
-        100: "Use last 100 matches"
-      },
       showTrajectories: false,
       viewType: Enums.RadarViewTypes.Sample,
       activeMap: "de_mirage",
-      mapInfo: {},
       samples: [],
       selectedSample: null,
       // Add enums so we can reference it in template
@@ -77,8 +66,10 @@ export default {
       // Lineup
       lineupsEnabled: false,
       lineups: [],
+      targets: [],
       selectedSample: null,
       selectedLineupId: null,
+      selectedTargetId: null,
 
       // Filters
       activeFilterSettings: null
@@ -92,43 +83,33 @@ export default {
       if (this.$route.query.map) {
         this.activeMap = this.$route.query.map;
       }
-      if (this.$route.query.matchCount) {
-        this.matchCount = this.$route.query.matchCount;
-        this.matchCountSelectOptions[this.$route.query.matchCount] =
-          "Use last " + this.$route.query.matchCount + " matches";
-      }
-      this.LoadSamples(this.activeMap, this.matchCount, false);
+      this.LoadSamples(this.activeMap, false);
     },
     // General
-    LoadSamples(map, matchCount, isDemo) {
+    LoadSamples(map, isDemo) {
       this.samples = [];
       this.loadingSamplesComplete = false;
 
       let params = {
         type: this.config.sampleType,
         map: map,
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
       };
+      let overrides = { maps: [map] };
 
-      this.$api.getSamples(params)
+      this.$api
+        .getSamples(params, overrides)
         .then(response => {
           // General
-          this.mapInfo = response.data.MapInfo;
           this.samples = response.data.Samples;
-          this.userPerformanceData = response.data.UserData;
 
           // (hierarchichal) Zones
           if (this.config.features.zones) {
-            // Ignore zones where there are no samples for less clutter
-            this.zones = response.data.Zones.filter(x =>
-              // TODO: Kills does not have samplecount yet. Remove conditional computation and replace Kills+Deaths with SampleCount for new backend
-              this.config.sampleType == Enums.SampleType.Kill
-                ? this.activeUserData.ZonePerformances[x.ZoneId].Kills +
-                    this.activeUserData.ZonePerformances[x.ZoneId].Deaths !=
-                  0
-                : this.activeUserData.ZonePerformances[x.ZoneId].SampleCount !=
-                  0
-            ).sort((a, b) => a.Depth - b.Depth);
+            this.userPerformanceData = response.data.ZonePerformanceSummary;
+
+            // Ignore zones where there are no samples, as they won't be shown anyway
+            this.zones = response.data.ZoneInfos
+              .sort((a, b) => a.ZoneDepth - b.ZoneDepth);
             if (this.zones.length == 0) {
               this.zonesEnabled = false; // TODO: rename to hierarchicalZones?
             } else {
@@ -137,8 +118,15 @@ export default {
 
             // Compute mainZones (CT and T)
             this.mainZones = this.zones.filter(x => x.ParentZoneId == -1);
+            console.log("mainZones:")
+            console.log(this.mainZones)
 
-            this.zoneDescendants = response.data.ZoneDescendants;
+            this.zoneDescendants = this.getZoneDescendants(this.zones);
+
+            // sort zones to guarantee that those with the lowest depth come first
+            // if the zones are unordered, they will be rendered in the wrong order, which will cause unexpected behaviour when clicking on a zone
+            // this is because the order in which items are rendered in an <svg> acts like a z-index
+            this.zones.sort((a, b) => a.ZoneDepth - b.ZoneDepth);
           }
 
           // Filterable
@@ -147,16 +135,25 @@ export default {
 
           // Lineups & target Zones
           if (this.config.features.lineups) {
-            this.lineups = response.data.Lineups;
-            this.zones = response.data.Zones.filter(
-              x => x.CategoryIds.length > 0
+            this.userPerformanceData = response.data.LineupPerformanceSummary;
+            // store targets as list instead of json
+            let targetList = [];
+            for (const id in response.data.LineupCollection.Targets) {
+              targetList.push(response.data.LineupCollection.Targets[id]);
+            }
+            // ignore targets that don't have lineups pointing to them
+            this.targets = targetList.filter(
+              x => x.LineupIds.length > 0
             );
 
-            if (this.lineups.length == 0) {
-              this.lineupsEnabled = false;
-            } else {
-              this.lineupsEnabled = true;
+            // store lineups as list instead of json
+            let lineupList = [];
+            for (const id in response.data.LineupCollection.Lineups) {
+              lineupList.push(response.data.LineupCollection.Lineups[id]);
             }
+            this.lineups = lineupList;
+
+            this.lineupsEnabled = this.lineups.length > 0 ? true : false;
           }
 
           this.loadingSamplesComplete = true;
@@ -166,6 +163,14 @@ export default {
           this.loadingSamplesComplete = true;
         });
     },
+    ResetSelection() {
+      this.selectedSample = null;
+      this.selectedZoneId = null;
+      this.selectedLineupId = null;
+      this.selectedTargetId = null;
+    },
+
+    // Event handlers
     OnShowTrajectories: function() {
       let showTrajectories = !this.showTrajectories;
       this.$helpers.LogEvent(
@@ -174,13 +179,6 @@ export default {
       );
 
       this.showTrajectories = showTrajectories;
-    },
-    OnMatchCountUpdated: function() {
-      this.$helpers.LogEvent(this, "MatchCountUpdated", {
-        label: this.matchCount
-      });
-
-      this.LoadSamples(this.activeMap, this.matchCount, false);
     },
     OnClickBackground: function() {
       this.$helpers.LogEvent(this, "ClickBackground"); // TODO: Check ob component richtig geloggt wird
@@ -191,16 +189,13 @@ export default {
       this.$helpers.LogEvent(this, "ActiveMapUpdated", { label: map });
 
       if (this.activeMap != map) {
-        this.LoadSamples(map, this.matchCount, false);
+        this.LoadSamples(map, false);
         this.activeMap = map;
       }
       this.ResetSelection();
     },
-    ResetSelection() {
-      this.selectedSample = null;
-      this.selectedZoneId = null;
-      this.selectedLineupId = null;
-    },
+
+    // Setters
     SetSelectedSample: function(id) {
       this.$helpers.LogEvent(this, "SampleSelected");
 
@@ -228,12 +223,41 @@ export default {
       dv.Load();
     },
 
-    // Zones
+    // Zone
     SetSelectedZone: function(zoneId) {
       this.$helpers.LogEvent(this, "ZoneSelected", { label: zoneId });
 
       this.ResetSelection();
       this.selectedZoneId = zoneId;
+    },
+    // returns an object mapping each zone to all its descendants {<zoneId> : [<descendantZoneId>, <descendantZoneId>, ...], <zoneId> : [...], ...}
+    getZoneDescendants(zones) {
+      let zoneDescendants = {};
+
+      // Create empty entry for each zone
+      zones.forEach(zone => {
+        zoneDescendants[zone.ZoneId] = [];
+      });
+
+      // Iterate through zones from highest depth to lowest depth
+      zones
+        .sort((a, b) => b.ZoneDepth - a.ZoneDepth)
+        .forEach(zone => {
+          // skip main zones, as they're not descendants of any other zone
+          if (this.mainZones.some(x => x.ZoneId == zone.ZoneId)) {
+            return;
+          }
+
+          // add this zone as a descendant of its parent zone
+          zoneDescendants[zone.ParentZoneId].push(zone.ZoneId);
+
+          // add all descendants of this zone as descendants of its parent zone
+          zoneDescendants[zone.ParentZoneId].push(
+            ...zoneDescendants[zone.ZoneId]
+          );
+        });
+      zones.sort((a, b) => a.ZoneDepth - b.ZoneDepth);
+      return zoneDescendants;
     },
 
     // Lineups
@@ -243,6 +267,12 @@ export default {
     SetSelectedLineup: function(lineupId) {
       this.$helpers.LogEvent(this, "LineupSelected", { label: lineupId });
       this.selectedLineupId = lineupId;
+    },
+    SetSelectedTarget: function(targetId) {
+      this.$helpers.LogEvent(this, "TargetSelected", { label: targetId });
+
+      this.ResetSelection();
+      this.selectedTargetId = targetId;
     },
 
     // Filterable
@@ -323,7 +353,7 @@ export default {
       if (!this.mainZones.length > 0) {
         return null;
       }
-      return this.mainZones.find(x => x.IsCtZone == this.showCt).ZoneId;
+      return this.mainZones.find(x => x.IsCt == this.showCt).ZoneId;
     },
     userSelectedZonePerformance() {
       if (this.selectedZoneId == null) {
@@ -346,52 +376,64 @@ export default {
       if (
         this.viewType != Enums.RadarViewTypes.Zone &&
         this.viewType != Enums.RadarViewTypes.Lineup
-      )
+      ) {
         return [];
+      }
 
       // ZoneView
       if (this.viewType == Enums.RadarViewTypes.Zone) {
-        // If a zone is selected, return its subzones
+        // If a zone is selected, return itself, and all its direct subzones that contain samples
         if (this.selectedZone != null) {
           return this.zones.filter(
             x =>
-              x.ParentZoneId == this.selectedZone.ZoneId ||
-              this.selectedZone.ZoneId == x.ZoneId
+              this.selectedZone.ZoneId == x.ZoneId || (x.ParentZoneId == this.selectedZone.ZoneId 
+               && this.activeUserData.ZonePerformances[x.ZoneId].SampleCount != 0)
           );
           // If not, return all subzones of the main zone
         } else {
           return this.zones.filter(
-            x => x.IsCtZone == this.showCt && x.Depth == 1
+            x => x.IsCt == this.showCt && x.ZoneDepth == 1
           );
         }
       }
-
-      // LineupView
-      if (this.viewType == Enums.RadarViewTypes.Lineup) {
-        // If a zone is selected, return it
-        if (this.selectedZone != null) return [this.selectedZone];
-        // If a lineup is selected, return its target zone
-        if (this.selectedLineup != null)
-          return [
-            this.zones.find(x => x.ZoneId == this.selectedLineup.TargetId)
-          ];
-        // If none are selected, return all target zones
-        return this.zones;
-      }
     },
-
     // Lineups
+    visibleTargets(){      
+      if (this.viewType != Enums.RadarViewTypes.Lineup) {
+        return [];
+      }
+
+      // If a zone is selected, return it
+      if (this.selectedTarget != null) return [this.selectedTarget];
+      // If a lineup is selected, return its target zone
+      if (this.selectedLineup != null)
+        return [
+          this.targets.find(x => x.TargetId == this.selectedLineup.TargetId)
+        ];
+      // If none are selected, return all target zones
+      return this.targets;
+    },
     userSelectedLineupPerformance() {
       if (this.selectedLineup == null) return null;
-      return this.activeUserData.LineupPerformances[
-        this.selectedLineup.LineupId
-      ];
+      if(this.activeUserData.LineupPerformances.hasOwnProperty(this.selectedLineup.LineupId)){
+        return this.activeUserData.LineupPerformances[this.selectedLineup.LineupId];
+      }
+      else {
+        // return empty performance if performance is not available
+        return {"LineupId":this.selectedLineup.LineupId,"Attempts":0,"Misses":0,"Insides":0}
+      }
     },
     selectedLineup() {
       if (this.selectedLineupId == null) {
         return null;
       }
       return this.lineups.find(x => x.LineupId == this.selectedLineupId);
+    },
+    selectedTarget() {
+      if (this.selectedTargetId == null) {
+        return null;
+      }
+      return this.targets.find(x => x.Id == this.selectedTargetId);
     },
     visibleLineups() {
       // If lineups are not enabled, hide them
@@ -419,10 +461,13 @@ export default {
       }
 
       for (let i = 0; i < this.selectedLineup.Images.length; i++) {
-        let basePath = `~/assets/radarimagefeatures/lineups/${Enums.SampleType.ToString(this.sampleType).toLowerCase()}/${this.activeMap}/${this.selectedLineup.LineupId}`;
+        let sampleTypeString = Enums.SampleType.ToString(
+          this.sampleType
+        ).toLowerCase();
+        let basePath = `~/assets/radarimagefeatures/lineups/${sampleTypeString}/${this.activeMap}/${this.selectedLineup.LineupId}`;
         ret.push({
           src: this.$api.resolveResource(`${basePath}/${i}.jpg`),
-          thumb: this.$api.resolveResource(`${basePath}/${i}_thumb.jpg`),
+          thumb: this.$api.resolveResource(`${basePath}/${i}_thumb.jpg`)
         });
       }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="svg-wrapper">
     <svg
-      v-if="this.mapInfo.CropOffsets"
+      v-if="true"
       :viewBox="'0 0 2000 2000'"
       id="svgView"
       xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@
           <image
             x="0"
             y="0"
-            v-bind="{'xlink:href':getRadarImage(this.mapInfo.Name)}"
+            v-bind="{'xlink:href':getRadarImage(this.map)}"
           />
         </pattern>
       </defs>
@@ -29,8 +29,7 @@
       <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
         class="background-map-img"
-        v-if="mapInfo.ImageURL"
-        v-bind="{'xlink:href':getRadarImage(this.mapInfo.Name)}"
+        v-bind="{'xlink:href':getRadarImage(this.map)}"
         id="map-image"
         @click="OnClickBackground"
         alt="Map Radar"
@@ -44,7 +43,7 @@
       <!-- Zones -->
       <g v-if="zoneType != 'Smoke'">
         <Zone
-          v-for="zoneData in zones"
+          v-for="zoneData in enrichedZones"
           :key="zoneData.ZoneId"
           :zoneType="zoneType"
           :zoneData="zoneData"
@@ -56,12 +55,12 @@
       <!-- Smoke Zones (Targets) -->
       <g v-if="zoneType == 'Smoke'">
         <Target
-          v-for="zoneData in zones"
-          :key="zoneData.ZoneId"
+          v-for="targetData in enrichedTargets"
+          :key="targetData.ZoneId"
           :zoneType="zoneType"
-          :zoneData="zoneData"
-          :SetSelectedZone="SetSelectedZone"
-          :fillColor="zonePerformanceColors[zoneData.ZoneId]"
+          :targetData="targetData"
+          :SetSelectedTarget="SetSelectedTarget"
+          :fillColor="zonePerformanceColors[targetData.ZoneId]"
           :scaleFactor="1"
         />
       </g>
@@ -69,10 +68,10 @@
       <!-- Lineups (currently for smokes only)-->
       <g v-if="zoneType == 'Smoke'">
         <Lineup
-          v-for="lineupData in lineups"
+          v-for="lineupData in enrichedLineups"
           :key="lineupData.LineupId"
           :lineupData="lineupData"
-          :zoneData="zones.find(x=>x.ZoneId == lineupData.TargetId)"
+          :zoneData="targets.find(x=>x.TargetId == lineupData.TargetId)"
           :scaleFactor="scaleFactor"
           :SetSelectedLineup="SetSelectedLineup"
           :fillColor="lineupPerformanceColors[lineupData.LineupId]"
@@ -80,21 +79,9 @@
       </g>
 
       <!-- Samples -->
-      <g id="molotovs-group">
-        <Molotov
-          v-for="grenadeData in molotovs"
-          :key="grenadeData.Id"
-          :grenadeData="grenadeData"
-          :scaleFactor="scaleFactor"
-          :showTrajectories="showTrajectories"
-          :SetSelectedSample="SetSelectedSample"
-          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
-        />
-      </g>
-
       <g id="flashes-group">
         <Flash
-          v-for="grenadeData in flashGrenades"
+          v-for="grenadeData in enrichedFlashGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
           :scaleFactor="scaleFactor"
@@ -106,7 +93,7 @@
 
       <g id="hes-group">
         <HE
-          v-for="grenadeData in heGrenades"
+          v-for="grenadeData in enrichedHeGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
           :scaleFactor="scaleFactor"
@@ -128,9 +115,21 @@
         />
       </g>
 
+      <g id="molotovs-group">
+        <Molotov
+          v-for="grenadeData in enrichedMolotovs"
+          :key="grenadeData.Id"
+          :grenadeData="grenadeData"
+          :scaleFactor="scaleFactor"
+          :showTrajectories="showTrajectories"
+          :SetSelectedSample="SetSelectedSample"
+          :isSelected="selectedSample && selectedSample.Id==grenadeData.Id"
+        />
+      </g>
+
       <g id="smokes-group">
         <Smoke
-          v-for="grenadeData in smokeGrenades"
+          v-for="grenadeData in enrichedSmokeGrenades"
           :key="grenadeData.Id"
           :grenadeData="grenadeData"
           :scaleFactor="scaleFactor"
@@ -152,6 +151,7 @@
 
 
 <script>
+import Vue from "vue";
 import Enums from "@/enums";
 import svgPanZoom from "svg-pan-zoom";
 
@@ -194,13 +194,14 @@ export default {
   },
   data() {
     return {
+      ready: false,
       scaleFactor: 1,
       svgReference: null,
       imageSize: 2000,
     };
   },
   props: [
-    "mapInfo",
+    "map",
 
     "showTrajectories",
     "showCt",
@@ -208,6 +209,7 @@ export default {
     "SetSelectedSample",
     "selectedSample",
     "SetSelectedZone",
+    "SetSelectedTarget",
     "selectedZone",
     "SetSelectedLineup",
     "selectedLineup",
@@ -216,12 +218,13 @@ export default {
     "zoneType",
     "zones",
     "lineups",
+    "targets",
     "userPerformanceData",
 
-    "molotovs",
     "flashGrenades",
     "heGrenades",
     "kills",
+    "molotovs",
     "smokeGrenades"
   ],
   watch: {},
@@ -245,23 +248,137 @@ export default {
         this.svgReference.resetZoom();
         this.svgReference.resetPan();
       }
+    },
+    enrichTrajectory(element){      
+        for (let i = 0; i < element.Trajectory.length; i++) {
+          const trajectoryPoint = element.Trajectory[i];
+
+          // Add PosPixel
+          var vec = {'X':trajectoryPoint.X, 'Y':trajectoryPoint.Y};
+          trajectoryPoint.PosPixel = this.$coordinateConverter.IngameToPixel(vec, this.map);
+        }
+        element.isEnriched = true;
     }
   },
   computed: {
     tintBackground() {
       return this.viewType == Enums.RadarViewTypes.Zone && this.selectedZone;
     },
-    viewBox() {
-      return (
-        this.mapInfo.CropOffsets.MinX +
-        " " +
-        this.mapInfo.CropOffsets.MinY +
-        " " +
-        (this.mapInfo.CropOffsets.MaxX - this.mapInfo.CropOffsets.MinX) +
-        " " +
-        (this.mapInfo.CropOffsets.MaxY - this.mapInfo.CropOffsets.MinY)
-      );
+    isReady(){
+      return this.ready;
     },
+
+    // enriched drawables
+    enrichedZones(){
+      if(!this.zones){
+        return [];
+      }
+      this.zones.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        element.GeometryPixel = element.Geometry.map(vec=> this.$coordinateConverter.IngameToPixel(vec, this.map));
+        element.isEnriched = true;
+      });
+
+      return this.zones;
+    },
+
+    enrichedLineups(){
+      if(!this.lineups){
+        return [];
+      }
+      this.lineups.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        let releasePosPixel = this.$coordinateConverter.IngameToPixel(element.ExampleGrenade.PlayerPos, this.map);
+        let target = this.targets.find(x=>x.TargetId == element.TargetId);
+        let targetPosPixel = this.$coordinateConverter.IngameToPixel(target.Center, this.map);
+        element.Trajectory = [{'Time':0, 'PosPixel':releasePosPixel},{'Time':1,'PosPixel':targetPosPixel}]
+
+      })
+      return this.lineups;
+    },
+
+    enrichedTargets(){
+      if(!this.targets){
+        return [];
+      }
+      this.targets.forEach(element => {
+        element.CenterPixel = this.$coordinateConverter.IngameToPixel(element.Center, this.map);
+      })      
+      return this.targets;
+    },
+
+    enrichedFlashGrenades(){
+      if(!this.flashGrenades){
+        return [];
+      }
+      this.flashGrenades.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        this.enrichTrajectory(element);
+        element.Flasheds.forEach(flashed => {
+          flashed.VictimPosPixel = this.$coordinateConverter.IngameToPixel(flashed.VictimPos, this.map);
+        });
+      });
+      return this.flashGrenades;
+    },
+
+    enrichedHeGrenades(){
+      if(!this.heGrenades){
+        return [];
+      }
+      this.heGrenades.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        this.enrichTrajectory(element);
+        element.Hits.forEach(hit => {
+          hit.VictimPosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
+        });
+      });
+      return this.heGrenades;
+    },
+
+    // "kills",
+    
+    enrichedMolotovs(){
+      if(!this.molotovs){
+        return [];
+      }
+      this.molotovs.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        this.enrichTrajectory(element);
+        element.Victims.forEach(victim => {
+          victim.Hits.forEach(hit => {
+            hit.VictimPosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
+          });
+        });
+      });
+      return this.molotovs;
+    },
+
+    enrichedSmokeGrenades(){
+      if(!this.smokeGrenades){
+        return [];
+      }
+      this.smokeGrenades.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        this.enrichTrajectory(element);
+      });
+      return this.smokeGrenades;
+    },
+
+    // "smokeGrenades"
+
+
 
     // Zones
     zonePerformanceColors() {
@@ -407,17 +524,22 @@ export default {
     },
     lineupPerformanceColors() {
       let lineupPerformanceColors = {};
+      console.log(this.userPerformanceData.LineupPerformances)
       for (let lineup of this.lineups) {
+        let opacity = 1;
         const performance = this.userPerformanceData.LineupPerformances[
           lineup.LineupId
         ];
-        let opacity = 1;
-        if (performance.TotalAttemptsCount == 0) {
+        // use default colors if no userperformance is available for this lineup
+        if(typeof performance === "undefined"){
           lineupPerformanceColors[lineup.LineupId] = this.$performanceColors.neutralColor(opacity);
-        } else {
+        }
+        // if the user attempted the lineup, compute color
+        else {
           let targetHitRatio =
-            performance.SuccessfulAttemptsCount /
-            Math.max(1, performance.TotalAttemptsCount);
+            performance.Insides /
+            Math.max(1, performance.Attempts);
+            
           lineupPerformanceColors[lineup.LineupId] = this
           .$performanceColors.performanceColorGivenOpacity(
             targetHitRatio,
@@ -425,7 +547,7 @@ export default {
             0.8,
             opacity
           );
-        }
+        }      
       }
       return lineupPerformanceColors;
     }
@@ -466,6 +588,10 @@ export default {
 #svgView {
   margin-top: 40px;
   width: 100%;
+
+  #map-image{
+    z-index: 1000;
+  }
 
   .tinted {
     opacity: 0.2;

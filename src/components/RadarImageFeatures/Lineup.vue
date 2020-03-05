@@ -7,15 +7,15 @@
   >
     <circle
       class="release-circle "
-      :cx="lineupData.PlayerPosXPixel"
-      :cy="lineupData.PlayerPosYPixel"
+      :cx="releasePosPixel.X"
+      :cy="releasePosPixel.Y"
       :r="releaseRadius +'px'"
       :style="{fill: fillColor}"
     />
     <polyline
       class="trajectory"
       vector-effect="non-scaling-stroke"
-      :points="trajectory"
+      :points="trajectoryString"
       :style="{stroke: fillColor}"
     ></polyline>
   </g>
@@ -28,23 +28,25 @@ export default {
     "SetSelectedLineup",
     "scaleFactor",
     "fillColor",
-    "zoneData",
+    "targetData",
   ],
   computed: {
     releaseRadius() {
         return  20 / this.scaleFactor;
     },
-    trajectory() {
-        // Currently there are no trajectories for lineups stored in db
-        // for (let i = 0; i < this.lineupData.Trajectory.length; i++) {
-        // const element = this.lineupData.Trajectory[i];
-        // trajectoryString += element.X + "," + element.Y + " ";
-        // }       
-        let trajectoryString = "";
-        trajectoryString += this.lineupData.PlayerPosXPixel + "," + this.lineupData.PlayerPosYPixel + " ";
-        trajectoryString += this.zoneData.GrenadePosXPixel + "," + this.zoneData.GrenadePosYPixel + " ";
-
-        return trajectoryString;
+    detonationPosPixel(){
+      return this.lineupData.Trajectory[this.lineupData.Trajectory.length - 1].PosPixel;
+    },
+    releasePosPixel() {
+      return this.lineupData.Trajectory[0].PosPixel;
+    },
+    trajectoryString() {
+      let trajectoryString = "";
+      for (let i = 0; i < this.lineupData.Trajectory.length; i++) {
+        const element = this.lineupData.Trajectory[i];
+        trajectoryString += element.PosPixel.X + "," + element.PosPixel.Y + " ";
+      }
+      return trajectoryString;
     }
   }
 };

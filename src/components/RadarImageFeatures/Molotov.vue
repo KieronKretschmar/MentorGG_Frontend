@@ -1,6 +1,5 @@
 <template>
   <g
-    v-if="grenadeData"
     class="molotov"
     :class="[{ 'enemies-hit': damageDealtToEnemies > 0}, grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
@@ -8,8 +7,8 @@
   >    
     <circle
       class="detonation"
-      :cx="grenadeData.DetonationX"
-      :cy="grenadeData.DetonationY"
+      :cx="detonationPosPixel.X"
+      :cy="detonationPosPixel.Y"
       data-toggle="tooltip"
       data-placement="top"
       title="@(tooltipTitle)"
@@ -18,15 +17,15 @@
     <circle
       v-if="isSelected || showTrajectories"
       class="attacker-circle is-user"
-      :cx="grenadeData.ReleaseX"
-      :cy="grenadeData.ReleaseY"
+      :cx="releasePosPixel.X"
+      :cy="releasePosPixel.Y"
       :r="releaseRadius +'px'"
     />
     <polyline
       v-if="isSelected || showTrajectories"
       class="trajectory"
       vector-effect="non-scaling-stroke"
-      :points="trajectory"
+      :points="trajectoryString"
     ></polyline>
 
 
@@ -80,14 +79,20 @@ export default {
       return this.grenadeData.Victims.filter(x => !x.TeamAttack && x.Hits).reduce((acc, v) => 
         v.Hits.reduce((acc, obj) => obj.AmountHealth + acc, 0), 0);
     },
-    trajectory() {
-      var trajectoryString = "";
+    detonationPosPixel(){
+      return this.grenadeData.Trajectory[this.grenadeData.Trajectory.length - 1].PosPixel;
+    },
+    releasePosPixel() {
+      return this.grenadeData.Trajectory[0].PosPixel;
+    },
+    trajectoryString() {
+      let trajectoryString = "";
       for (let i = 0; i < this.grenadeData.Trajectory.length; i++) {
         const element = this.grenadeData.Trajectory[i];
-        trajectoryString += element.X + "," + element.Y + " ";
+        trajectoryString += element.PosPixel.X + "," + element.PosPixel.Y + " ";
       }
       return trajectoryString;
-    }
+    },
   }
 };
 </script>

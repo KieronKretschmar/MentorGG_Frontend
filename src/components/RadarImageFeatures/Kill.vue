@@ -1,6 +1,5 @@
 <template>
   <g
-    v-if="killData"
     class="kill"
     :class="[ killData.UserWinner ? 'userkiller' : 'uservictim', killData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="killData.Id"

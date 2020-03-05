@@ -1,6 +1,5 @@
 <template>
   <g
-    v-if="grenadeData"
     class="smoke"
     :class="[
     { 'not-rated': grenadeData.Result == 0 || grenadeData.Result == 4}, 
@@ -13,20 +12,20 @@
     <circle
       v-if="showTrajectories"
       class="attacker-circle is-user"
-      :cx="grenadeData.ReleaseX"
-      :cy="grenadeData.ReleaseY"
+      :cx="releasePosPixel.X"
+      :cy="releasePosPixel.Y"
       :r="releaseRadius +'px'"
     />
     <polyline
       v-if="showTrajectories"
       class="trajectory"
       vector-effect="non-scaling-stroke"
-      :points="trajectory"
+      :points="trajectoryString"
     ></polyline>
     <circle
       class="detonation"
-      :cx="grenadeData.DetonationX"
-      :cy="grenadeData.DetonationY"
+      :cx="detonationPosPixel.X"
+      :cy="detonationPosPixel.Y"
       :r="detonationRadius +'px'"
     />
   </g>
@@ -50,14 +49,20 @@ export default {
       if(this.fixedDetonationRadius) return this.fixedDetonationRadius;
       return 80 / this.scaleFactor;
     },
-    trajectory() {
-      var trajectoryString = "";
+    detonationPosPixel(){
+      return this.grenadeData.Trajectory[this.grenadeData.Trajectory.length - 1].PosPixel;
+    },
+    releasePosPixel() {
+      return this.grenadeData.Trajectory[0].PosPixel;
+    },
+    trajectoryString() {
+      let trajectoryString = "";
       for (let i = 0; i < this.grenadeData.Trajectory.length; i++) {
         const element = this.grenadeData.Trajectory[i];
-        trajectoryString += element.X + "," + element.Y + " ";
+        trajectoryString += element.PosPixel.X + "," + element.PosPixel.Y + " ";
       }
       return trajectoryString;
-    }
+    },
   }
 };
 </script>

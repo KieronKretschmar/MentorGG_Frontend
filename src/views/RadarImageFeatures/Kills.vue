@@ -59,17 +59,11 @@
                 @click="SetShowCt(true)"
               />
             </div>
-            <CustomSelect
-              class="match-count-select"
-              v-model="matchCount"
-              :options="matchCountSelectOptions"
-              v-on:input="OnMatchCountUpdated"
-            ></CustomSelect>
           </div>
           <div>
             <RadarImage
               v-if="samples.length"
-              :mapInfo="mapInfo"
+              :map="activeMap"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
               :SetSelectedSample="SetSelectedSample"

@@ -43,17 +43,11 @@
                 @click="SetShowCt(true)"
               />
             </div>
-            <CustomSelect
-              class="match-count-select"
-              v-model="matchCount"
-              :options="matchCountSelectOptions"
-              v-on:input="OnMatchCountUpdated"
-            ></CustomSelect>
           </div>
           <div>
             <RadarImage
               v-if="samples.length"
-              :mapInfo="mapInfo"
+              :map="activeMap"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
               :SetSelectedSample="SetSelectedSample"
@@ -62,10 +56,11 @@
               :selectedLineup="selectedLineup"
               :selectedZone="selectedZone"
               :SetSelectedZone="SetSelectedZone"
+              :SetSelectedTarget="SetSelectedTarget"
               :OnClickBackground="OnClickBackground"
               :viewType="viewType"
               :zoneType="'Smoke'"
-              :zones="visibleZones"
+              :targets="visibleTargets"
               :lineups="visibleLineups"
               :userPerformanceData="userPerformanceData"
               :smokeGrenades="visibleSamples"
@@ -90,11 +85,9 @@
                           'Result':2,
                           'TargetId':0,
                           'LineupId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}]}"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
@@ -123,11 +116,9 @@
                           'Result':1,
                           'TargetId':0,
                           'LineupId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}]}"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
@@ -152,11 +143,9 @@
                           'Result':0,
                           'TargetId':0,
                           'LineupId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}]}"
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}]}"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
                         :SetSelectedSample="function(){}"
@@ -183,28 +172,26 @@
                           'LineupId':1,
                           'TargetId':1,
                           'Name':'Legend Example',
-                          'PlayerPosXPixel':9,
-                          'PlayerPosYPixel':22,
+                          'ReleasePosPixel':{'X':9,'Y':22},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
                           'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
                           'ThrowTypeString':'left-click',
                           'Images':null,
                           'Thumbnails':null}"
-                        :zoneData="{
+                        :targetData="{
                           'ZoneId':1,
                           'CategoryIds':[1],
                           'Name':'Legend Example',
-                          'GrenadePosXPixel':33,
-                          'GrenadePosYPixel':27}"
+                          'CenterPixel':{'X':33,'Y':27}}"
                         :scaleFactor="2.5"
                       />
                       <Target
                         :fillcolor="'rgba(0, 255, 0, 1)'"
-                        :zoneData="{
+                        :targetData="{
                         'ZoneId':1,
                         'CategoryIds':[1],
                         'Name':'Legend Example',
-                        'GrenadePosXPixel':33,
-                        'GrenadePosYPixel':27}"
+                        'CenterPixel':{'X':33,'Y':27}}"
                         :zoneType="'Smoke'"
                         :scaleFactor="3"
                       />
@@ -225,28 +212,26 @@
                           'LineupId':1,
                           'TargetId':1,
                           'Name':'Legend Example',
-                          'PlayerPosXPixel':9,
-                          'PlayerPosYPixel':22,
+                          'ReleasePosPixel':{'X':9,'Y':22},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
                           'Setpos':'setpos -160.031250 887.968750 -135.26556399999998; setang -44.269619 -134.435654 0.0;',
                           'ThrowTypeString':'left-click',
                           'Images':null,
                           'Thumbnails':null}"
-                        :zoneData="{
+                        :targetData="{
                           'ZoneId':1,
                           'CategoryIds':[1],
                           'Name':'Legend Example',
-                          'GrenadePosXPixel':33,
-                          'GrenadePosYPixel':27}"
+                          'CenterPixel':{'X':33,'Y':27}}"
                         :scaleFactor="2.5"
                       />
                       <Target
                         :fillcolor="'rgba(0, 255, 0, 1)'"
-                        :zoneData="{
+                        :targetData="{
                         'ZoneId':1,
                         'CategoryIds':[1],
                         'Name':'Legend Example',
-                        'GrenadePosXPixel':33,
-                        'GrenadePosYPixel':27}"
+                        'CenterPixel':{'X':33,'Y':27}}"
                         :zoneType="'Smoke'"
                         :scaleFactor="3"
                       />
@@ -288,39 +273,35 @@
                     <img v-if="!showCt || ShowBothTeams" class="t" src="@/assets/t_logo.png" />
                   </div>
                 </div>
-
-                <div class="stat-row">
-                  <div class="stat-description">Zone</div>
-                  <div
-                    class="stat-content"
-                  >{{selectedZone == null ? activeMap : selectedZone.Name.split("_").join(" ") }}</div>
-                </div>
               </div>
 
               <div v-if="selectedLineup" class="selected-lineup-stats">
-                {{selectedLineup.Name}}-Lineup
+                <div class="stat-row">
+                  <div class="stat-description">Lineup</div>
+                  <div class="stat-content">{{selectedLineup.Name}}</div>
+                </div>
                 <div class="stat-row">
                   <div class="stat-description">Attempts</div>
-                  <div class="stat-content">{{userSelectedLineupPerformance.TotalAttemptsCount}}</div>
+                  <div class="stat-content">{{userSelectedLineupPerformance.Attempts}}</div>
                 </div>
                 <div class="stat-row">
                   <div class="stat-description">Accuracy</div>
                   <div
                     class="stat-content"
-                  >{{(userSelectedLineupPerformance.SuccessfulAttemptsCount / Math.max(1, userSelectedLineupPerformance.TotalAttemptsCount ) * 100).toFixed(0)+ '%'}}</div>
+                  >{{(userSelectedLineupPerformance.Insides / Math.max(1, userSelectedLineupPerformance.Attempts ) * 100).toFixed(0)+ '%'}}</div>
                 </div>
               </div>
             </div>
             <div v-if="selectedLineup" class="practice-tab">
-              <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.Setpos != ''">
-                <input id="setpos-text" type="text" :value="selectedLineup.Setpos" readonly />
+              <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.SetposCommand != ''">
+                <input id="setpos-text" type="text" :value="selectedLineup.SetposCommand" readonly />
                 <button
                   id="setpos-copy"
                   type="button"
                   data-toggle="tooltip"
                   data-placement="top"
                   data-original-title="Copy to clipboard"
-                  @click="$helpers.CopyTextToClipboard(selectedLineup.Setpos)"
+                  @click="$helpers.CopyTextToClipboard(selectedLineup.SetposCommand)"
                 >
                   <i class="material-icons">file_copy</i>
                 </button>

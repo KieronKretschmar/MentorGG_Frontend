@@ -4,14 +4,13 @@
     <polyline v-show="!isSelected"
       vector-effect="non-scaling-stroke"
       :style="{fill:fillColor}"
-      :points="polygonPoints"
+      :points="polygonPointsPixel"
     ></polyline>
 
     
     <polyline v-show="isSelected" class="selected"
       vector-effect="non-scaling-stroke"
-      :style="{DEBUGstroke:fillColor}"
-      :points="polygonPoints"
+      :points="polygonPointsPixel"
     ></polyline>
 
   </g>
@@ -26,14 +25,10 @@ export default {
     "isSelected"
   ],
   computed: {
-    polygonPoints() {
+    polygonPointsPixel() {
       var polygonPoints = "";
-      for (let i = 0; i < this.zoneData.PolygonPointsX.length; i++) {
-        polygonPoints +=
-          this.zoneData.PolygonPointsX[i] +
-          "," +
-          this.zoneData.PolygonPointsY[i] +
-          " ";
+      for (var point of this.zoneData.GeometryPixel) {
+        polygonPoints += point.X + ',' + point.Y + " ";
       }
       return polygonPoints;
     }

@@ -206,7 +206,7 @@ class MentorGGAPI {
         let route = `${this.newApiEndpoint}/v1/single/${params.steamId}/`;
         let formattedParams = {
             map: params.map,
-            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
+            matchIds: this.MatchSelector.Build().OverrideMultiple(overrides).GetMatchIds().toString(),
         }
 
         // Determine route according to params.type

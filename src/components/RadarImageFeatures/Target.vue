@@ -1,9 +1,15 @@
 <template>
-  <g v-if="zoneData" class="target" @click="SetSelectedZone(zoneData.ZoneId)">
+  <g v-if="targetData" class="target" @click="SetSelectedTarget(targetData.ZoneId)">
 
     <!-- Images for smoke targets -->
-    <image class="smoke target" v-bind="{'xlink:href':require('@/assets/radarimagefeatures/Smoke_Clear.png')}"  :x="posX" :y="posY"
-            :width="width" :height="height" color="#002220"/>
+    <image class="smoke target" 
+      v-bind="{'xlink:href':require('@/assets/radarimagefeatures/Smoke_Clear.png')}"  
+      :x="x" 
+      :y="y" 
+      :width="width" 
+      :height="height" 
+      color="#002220"
+      />
 
   </g>
 </template>
@@ -12,8 +18,8 @@
 export default {
   props: [
     "zoneType",
-    "zoneData",
-    "SetSelectedZone",
+    "targetData",
+    "SetSelectedTarget",
     "scaleFactor",
   ],
   data(){
@@ -23,12 +29,12 @@ export default {
       }
   },
   computed: {
-      posX() {
-          return this.zoneData.GrenadePosXPixel - (this.width /2);
-      },
-      posY() {
-          return this.zoneData.GrenadePosYPixel - (this.height/2);
-      },
+    x() {
+      return this.targetData.CenterPixel.X - (this.width /2);
+    },
+    y() {
+      return this.targetData.CenterPixel.Y - (this.height /2);
+    }
   }
 };
 </script>

@@ -42,17 +42,11 @@
                 @click="SetShowCt(true)"
               />
             </div>
-            <CustomSelect
-              class="match-count-select"
-              v-model="matchCount"
-              :options="matchCountSelectOptions"
-              v-on:input="OnMatchCountUpdated"
-            ></CustomSelect>
           </div>
           <div>
             <RadarImage
               v-if="samples.length"
-              :mapInfo="mapInfo"
+              :map="activeMap"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
               :SetSelectedSample="SetSelectedSample"
@@ -84,11 +78,9 @@
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
                           'Hits':[]
                         }"
                         :scaleFactor="2"
@@ -114,12 +106,10 @@
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':20,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false}]
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
+                          'Hits':[{'VictimPosPixel':{'X':42,'Y':12},'AmountHealth':20,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
@@ -144,12 +134,10 @@
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
-                          'Hits':[{'VictimPosX':42,'VictimPosY':12,'AmountHealth':40,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false}]
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
+                          'Hits':[{'VictimPosPixel':{'X':42,'Y':12},'AmountHealth':40,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
@@ -172,14 +160,12 @@
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleaseX':5,
-                          'ReleaseY':22,
-                          'DetonationX':33,
-                          'DetonationY':27,
-                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0},{'Time':1,'X':33,'Y':27,'Z':0}],
+                          'ReleasePosPixel':{'X':5,'Y':22},
+                          'DetonationPosPixel':{'X':33,'Y':27},
+                          'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
                           'Hits':[
-                          {'VictimPosX':42,'VictimPosY':12,'AmountHealth':15,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimPosX':39,'VictimPosY':39,'AmountHealth':35,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false},]
+                          {'VictimPosPixel':{'X':42,'Y':12},'AmountHealth':15,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimPosPixel':{'X':39,'Y':39},'AmountHealth':35,'Kill':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
                         :scaleFactor="2"
                         :showTrajectories="showTrajectories"
@@ -204,8 +190,7 @@
                           'Name':'Legend_Zone',
                           'CenterXPixel':15,
                           'CenterYPixel':15,
-                          'PolygonPointsX':[10,50,50,30,30,10,10],
-                          'PolygonPointsY':[10,10,50,50,30,30,10],
+                          'GeometryPixel': [{'X':10,'Y':10},{'X':50,'Y':10},{'X':50,'Y':50},{'X':30,'Y':50},{'X':30,'Y':30},{'X':10,'Y':30},{'X':10,'Y':10}],
                           'ParentZoneId':230000,
                           'Depth':1,
                           }"
