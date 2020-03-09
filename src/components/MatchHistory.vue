@@ -177,9 +177,10 @@ export default {
 .match-history-controls {
   margin-top: 10px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 
   button {
+    font-size: 12px;
     &:first-child {
       margin-right: 10px;
     }
