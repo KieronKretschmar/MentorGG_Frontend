@@ -532,14 +532,27 @@ export default {
 
             .match-score {
               padding: 0 25px;
-              border-right: 0;
-              flex: 0 0 50%;
-            }
 
-            .map-thumbnail {
-              display: none;
-              justify-content: center;
+              .score {
+                font-size: 14px;
+              }
+
+              .score-text {
+                font-size: 12px;
+              }
             }
+          }
+        }
+
+        .map-and-datetime {
+          text-align: center;
+
+          .map {
+            font-size: 14px;
+          }
+
+          .datetime {
+            font-size: 12px;
           }
         }
       }

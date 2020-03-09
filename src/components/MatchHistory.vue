@@ -185,4 +185,65 @@ export default {
     }
   }
 }
+
+//responsive
+@media (max-width: 800px) {
+  .match-history {
+  .tabs-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+
+    .title,
+    .filter {
+      color: white;
+      font-weight: 500;
+    }
+
+    .filter {
+      cursor: pointer;
+      margin-left: 10px;
+      transition: 0.75s all;
+
+      &:hover,
+      &.active {
+        //TODO: Improve underline animation with :after
+        text-decoration: underline;
+        opacity: 0.7;
+      }
+
+      &.all {
+        color: $dark-4;
+      }
+
+      &.faceit {
+        color: $faceit-orange;
+      }
+
+      &.mm {
+        color: $matchmaking-blue;
+      }
+    }
+  }
+
+  .match-list {
+    .no-matches {
+      margin-top: 10px;
+    }
+  }
+}
+
+.match-history-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+}
 </style>
