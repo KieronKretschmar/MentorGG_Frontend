@@ -291,13 +291,13 @@ export default {
       }
 
       .position-table {
-        min-width: 500px;
+        min-width: 580px;
         .table-header {
           margin-right: 25px;
 
           span {
             &:nth-child(n + 1) {
-              width: 100px;
+              width: 140px;
             }
             &:nth-child(n + 3) {
               width: 100px;
@@ -311,6 +311,7 @@ export default {
 
           .entry {
             margin-right: 25px;
+            font-size: 12px !important;
 
             &:last-child {
               border-bottom: none;
@@ -318,7 +319,7 @@ export default {
 
             .cell {
               &:nth-child(n + 1) {
-                width: 100px;
+                width: 140px;
               }
               &:nth-child(n + 3) {
                 width: 100px;
