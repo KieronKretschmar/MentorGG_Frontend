@@ -159,7 +159,8 @@ export default new Router({
     {
       path: '/subscription',
       name: 'subscription',
-      component: () => import(/* webpackChunkName: "subscription" */'./views/Subscription.vue')
+      component: () => import(/* webpackChunkName: "subscription" */'./views/Subscription.vue'),
+      beforeEnter: authenticationGuard
     }
   ]
 });
