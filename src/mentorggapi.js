@@ -55,7 +55,7 @@ class MentorGGAPI {
             axios.get(`${this.newApiEndpoint}/identity`, {})
             .then(result => {
                 // User is logged in
-                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType);
+                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyUploadLimit);
                 resolve();
             })
             .catch(error => {
@@ -74,7 +74,7 @@ class MentorGGAPI {
             this.getMetaMatchHistory(steamId)
             .then(result => {
                 let matchList = result.data.Matches;
-                this.MatchSelector = new MatchSelector(this, matchList);
+                this.MatchSelector = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReachedToday);
 
                 // this.User and this.MatchSelector are loaded, therefore api is ready to make ajax calls.
                 this.ready = true;
@@ -134,7 +134,6 @@ class MentorGGAPI {
             count: params.count,
             offset: params.offset
         }
-        console.log(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/failed-demos`);
         return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/failed-demos`, {
             params: formattedParams
         });

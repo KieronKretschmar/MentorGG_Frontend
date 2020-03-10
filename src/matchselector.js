@@ -1,7 +1,7 @@
 export default class MatchSelector {
-    constructor(api, matchList) {
+    constructor(api, matchList, dailyLimitReachedToday) {
         this.$api = api;
-
+        
         this.filters = {
             maps: [],
             sources: [],
@@ -10,7 +10,8 @@ export default class MatchSelector {
         };
         
         this.matchList = matchList;
-
+        this.dailyLimitReachedToday = dailyLimitReachedToday;
+        
         //fix ugly enum name for displaying purposes
         for (let match of this.matchList) {
             if (match.Source == "Manualupload") {

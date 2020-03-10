@@ -1,10 +1,11 @@
 import Enums from "./enums";
 
 export default class MentorUser {
-    constructor(applicationUserId, steamId, subscriptionStatus) {
+    constructor(applicationUserId, steamId, subscriptionStatus, dailyUploadLimit) {
         this.applicationUserId = applicationUserId;
         this.subscriptionStatus = subscriptionStatus;
         this.steamId = steamId; 
+        this.dailyUploadLimit = dailyUploadLimit; 
 
         //internal usage
         this.userOverride = null;
