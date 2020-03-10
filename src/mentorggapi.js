@@ -144,8 +144,8 @@ class MentorGGAPI {
         });
     }
 
-    getMatchesInQueue(matchId){
-        return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/demostatus/matches-in-queue`, {
+    getMatchesInQueue(uploaderId){
+        return axios.get(`${this.newApiEndpoint}/v1/single/${uploaderId}/demostatus/matches-in-queue`, {
         });
     }
 

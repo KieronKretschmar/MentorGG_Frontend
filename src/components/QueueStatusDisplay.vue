@@ -5,7 +5,7 @@
 
       <div class="demo-feedback">
 
-        <div class="demo-text" v-if="UploadLimitReached === false">
+        <div class="demo-text" v-if="uploadLimitReached === false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold" v-if="UploadLimitReached === true">UPLOAD LIMIT REACHED</div>
+        <div class="demo-text-bold" v-if="uploadLimitReached === true">DAILY LIMIT REACHED</div>
         
       </div>
       
@@ -29,28 +29,50 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
   components: {},
   data() {
     return {
       queueStatus: {
-        MatchesInQueue: 1,
-        FirstMatchPosition: 7,
-        QueueLength: 1000
+        MatchesInQueue: 0,
+        FirstMatchPosition: -1,
+        QueueLength: 0
       },
-      UploadLimitReached: true,
-      loadingComplete: true
+      uploadLimitReached: false,
+      loadingComplete: false,
     };
   },
   mounted() {
-    // TODO: Load queue status
-    // TODO: Load data regularly
+    this.ContinueRefreshingQueueStatus();
   },
   props: [],
   methods: {
-    LoadQueueStatus: function() {
-      // TODO call api
+    // Regularly refreshes the QueueStatus data. Shorter intervals if matches are in queue 
+    ContinueRefreshingQueueStatus: function() {
+      const defaultRefreshInterval = 10000;
+      const shortRefreshInterval = 1000;
+
+      // Call api ignoring overrides
+      this.$api.getMatchesInQueue(this.$api.User.GetSteamId(false))
+      .then(response => {
+        this.queueStatus = {
+          QueueLength: response.data.TotalQueueLength,
+          MatchesInQueue: response.data.MatchIds.length,
+          FirstMatchPosition: response.data.FirstMatchPosition
+        };
+      });
+
+      this.uploadLimitReached = this.$api.MatchSelector.dailyLimitReachedToday;
+
+      // Plan next refresh. Do it quicker if matches were found in queue
+      var delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
+      setTimeout(() => {
+          this.ContinueRefreshingQueueStatus();
+      }, delay);
     }
+  },
+  computed: {
   }
 };
 </script>
