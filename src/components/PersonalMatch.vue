@@ -86,6 +86,7 @@
                     target="_blank"
                   >{{ entry.Profile.SteamName }}</a>
                 </span>
+                <i class="material-icons eye">remove_red_eye</i>
                 <span
                   class="adr"
                 >{{ (entry.DamageDealt / (match.Scoreboard.TeamInfos.CtStarter.WonRounds + match.Scoreboard.TeamInfos.TerroristStarter.WonRounds)).toFixed(0) }}</span>
@@ -390,6 +391,7 @@ export default {
 
       .team {
         width: 100%;
+        min-width: 1078px;
 
         &:first-child {
           padding-bottom: 15px;
@@ -402,14 +404,15 @@ export default {
           color: $orange;
           font-size: 12px;
           justify-content: space-between;
+          min-width: 1078px;
 
           span {
-            display: inline-block;
             text-align: center;
             flex: 0 0 100px;
 
             &:first-child {
-              flex: 0 0 250px;
+              flex: 0 0 286px;
+              min-width: 286px;
             }
           }
         }
@@ -421,6 +424,7 @@ export default {
             border-bottom: 1px solid $purple;
             padding: 10px 0;
             justify-content: space-between;
+            min-width: 1078px;
 
             &:last-child {
               border-bottom: none;
@@ -428,6 +432,7 @@ export default {
 
             .name-avatar-wrapper {
               flex: 0 0 250px;
+              min-width: 250px;
               display: flex;
               align-items: center;
 
@@ -461,6 +466,12 @@ export default {
               }
             }
 
+            .eye {
+              width: 24px;
+              height: 24px;
+              color: $purple;
+            }
+
             .adr,
             .k,
             .d,
@@ -473,7 +484,6 @@ export default {
               color: white;
               // width: 10%;
               text-align: center;
-              min-width: 100px;
               flex: 0 0 100px;
             }
           }
