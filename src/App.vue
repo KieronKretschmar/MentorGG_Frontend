@@ -33,6 +33,10 @@
         >settings_applications</i>
       </div>
 
+      <img class="feature-icon" src="@/assets/eye-icon.svg" alt="Impersonate Mode Icon"/>
+
+      <div class="impersonate-name">CLAN NAME NICK</div>
+
       <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
         <GlobalFilters v-if="$api.MatchSelector.ready" />
@@ -206,7 +210,7 @@ main {
   .open-filters {
     position: fixed;
     right: 0;
-    top: 20%;
+    top: 100px;
     color: $orange;
     user-select: none;
     cursor: pointer;
@@ -214,6 +218,31 @@ main {
     i {
       font-size: 40px;
     }
+  }
+
+  .feature-icon {
+    position: fixed;
+    right: 0;
+    top: 138px;
+    height: 40px;
+    width: auto;
+    padding: 5px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .impersonate-name {
+    position: fixed;
+    right: 43px;
+    top: 142px;
+    color: $orange;
+    border-radius: 5px;
+    background-color: $purple;
+    padding: 0.55em 1.785em 0.55em 1.785em;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
   }
 }
 
