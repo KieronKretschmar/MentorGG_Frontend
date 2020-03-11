@@ -470,6 +470,8 @@ export default {
               width: 24px;
               height: 24px;
               color: $purple;
+              user-select: none;
+              cursor: pointer;
             }
 
             .adr,
