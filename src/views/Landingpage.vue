@@ -386,27 +386,27 @@ table {
       color: #fff;
       font-size: 13px;
       padding: 0.6em 1.785em 0.75em 1.785em;
-    }
 
-    .login-steam--green {
-      @extend .login-steam;
-      background-color: $green-2;
-      border: 1px solid $green-2;
-      box-shadow: 0px 0px 20px 5px $green-2;
+      &--green {
+        @extend .login-steam;
+        background-color: $green-2;
+        border: 1px solid $green-2;
+        box-shadow: 0px 0px 20px 5px $green-2;
 
-      &:hover {
-        box-shadow: 0px 0px 30px 10px $green-2;
+        &:hover {
+          box-shadow: 0px 0px 30px 10px $green-2;
+        }
       }
-    }
 
-    .login-steam--orange {
-      @extend .login-steam;
-      background-color: $orange;
-      border: 1px solid $orange;
-      box-shadow: 0px 0px 20px 5px $orange;
+      &--orange {
+        @extend .login-steam;
+        background-color: $orange;
+        border: 1px solid $orange;
+        box-shadow: 0px 0px 20px 5px $orange;
 
-      &:hover {
-        box-shadow: 0px 0px 30px 10px $orange;
+        &:hover {
+          box-shadow: 0px 0px 30px 10px $orange;
+        }
       }
     }
 
@@ -787,5 +787,7 @@ table {
   }
 }
 
-//responsive here
+//responsive
+@media (max-width: 800px) {
+}
 </style>
