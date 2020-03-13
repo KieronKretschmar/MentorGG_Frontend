@@ -86,7 +86,7 @@
                     target="_blank"
                   >{{ entry.Profile.SteamName }}</a>
                 </span>
-                <i class="material-icons eye">remove_red_eye</i>
+                <i class="material-icons eye" @click="StartImpersonate">remove_red_eye</i>
                 <span
                   class="adr"
                 >{{ (entry.DamageDealt / (match.Scoreboard.TeamInfos.CtStarter.WonRounds + match.Scoreboard.TeamInfos.TerroristStarter.WonRounds)).toFixed(0) }}</span>
@@ -102,16 +102,20 @@
         </div>
       </div>
     </transition>
+    <GenericOverlay ref="impersonateOverlay" width="900px">
+      <p class="headline">Do you want to impersonate XXX and see MENTOR.GG with their data?</p>
+    </GenericOverlay>
   </div>
 </template>
 
 <script>
 import MatchHeader from "@/components/MatchHeader.vue";
-import Enums from "@/enums";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
   components: {
-    MatchHeader
+    MatchHeader,
+    GenericOverlay
   },
   data() {
     return {
@@ -125,6 +129,9 @@ export default {
     "failed" // expect no data except for match.MatchDate and match.Source
   ],
   methods: {
+    StartImpersonate() {
+      this.$refs.impersonateOverlay.Show();
+    },
     Watch: function(match) {
       this.$helpers.LogEvent(this, "Watch");
 
