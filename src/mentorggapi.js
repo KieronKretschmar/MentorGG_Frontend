@@ -6,16 +6,18 @@ import MentorUser from './mentoruser';
 
 class MentorGGAPI {
     constructor() {
-        // tell the webapp to add credentials from IdentityCookie to request headers 
-        axios.defaults.withCredentials = true;
-
         if (process.env.NODE_ENV == 'production') {
+            // tell the webapp to add credentials from IdentityCookie to request headers 
+            axios.defaults.withCredentials = true;
             this.mvcEndpoint = document.location.origin + '/';
             this.tldEndpoint = this.mvcEndpoint;
             this.sendFixedSteamId = false;
         }
         // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
         if (process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH) {
+            // auth via Bearer token
+            axios.defaults.headers.common['Authorization'] = `Bearer 6736860962` 
+    
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             this.sendFixedSteamId = true;
             this.tldEndpoint = 'https://mentor.gg/';
@@ -25,8 +27,8 @@ class MentorGGAPI {
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
-        // this.newApiEndpoint = 'https://234a2859.ngrok.io';
         this.newApiEndpoint = 'https://localhost:44310';
+        this.newApiEndpoint = 'https://api.mentor.gg';
         this.valveInterval = null;
 
         // whether or not this.User and this.MatchSelector are loaded
