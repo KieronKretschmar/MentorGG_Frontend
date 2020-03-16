@@ -241,6 +241,7 @@ export default {
       border: 1px solid $purple;
       border-bottom: none;
       margin: 15px 0;
+      width: 810px;
     }
 
     .subtitle {
@@ -252,7 +253,8 @@ export default {
     .row {
       display: flex;
       padding: 10px 0;
-      border-bottom: 1px solid $purple; /* Border not full width!!! */
+      border-bottom: 1px solid $purple;
+      width: 810px;
 
       &:first-child,
       &:last-child {
@@ -280,17 +282,21 @@ export default {
           min-width: 150px;
 
           &:nth-child(1) {
-            min-width: 280px;
+            width: 280px;
           }
 
           &:nth-child(2) {
             min-width: 80px;
           }
+
+          &:nth-child(n+3) {
+            min-width: 150px;
+          }
         }
       }
 
       .r {
-        min-width: 125px;
+        width: 125px;
 
         .col {
           width: 100%;
