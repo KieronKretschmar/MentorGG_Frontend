@@ -388,6 +388,7 @@ export default {
     hr {
       border: 1px solid $purple;
       border-bottom: none;
+      min-width: 1078px;
     }
 
     .team-table {
