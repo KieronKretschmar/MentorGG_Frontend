@@ -501,6 +501,10 @@ export default {
       }
     }
   }
+
+  .headline {
+    text-align: center;
+  }
 }
 
 //responsive
