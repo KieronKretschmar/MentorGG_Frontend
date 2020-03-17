@@ -6,33 +6,37 @@ import MentorUser from './mentoruser';
 
 class MentorGGAPI {
     constructor() {
+
+        this.ready = false; // whether or not this.User and this.MatchSelector are loaded
+        this.newApiEndpoint = 'https://api.mentor.gg';        
+
+        // tell the webapp to add credentials from IdentityCookie to request headers 
+        axios.defaults.withCredentials = true;
+
+        // Settings based on mode
         if (process.env.NODE_ENV == 'production') {
-            // tell the webapp to add credentials from IdentityCookie to request headers 
-            axios.defaults.withCredentials = true;
             this.mvcEndpoint = document.location.origin + '/';
-            this.tldEndpoint = this.mvcEndpoint;
-            this.sendFixedSteamId = false;
         }
-        // In development, we use fixedSteamIds to prevent 401 errors caused by the api not being able to identify the user
-        if (process.env.NODE_ENV == 'development' || process.env.VUE_APP_NOAUTH) {
-            // auth via Bearer token
-            axios.defaults.headers.common['Authorization'] = `Bearer 6736860962` 
+        else if (process.env.NODE_ENV == 'development') {
+            // Auth with bearer token instead of cookie if token is found
+            if(process.env.VUE_APP_BEARER_TOKEN){
+                // auth via Bearer token
+                axios.defaults.headers.common['Authorization'] = "Bearer " + process.env.VUE_APP_BEARER_TOKEN
+                axios.defaults.withCredentials = false;
+            }
+
+            if(process.env.VUE_APP_OVERRIDE_API_URL){
+                this.newApiEndpoint = process.env.VUE_APP_OVERRIDE_API_URL;
+            }
     
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
-            this.sendFixedSteamId = true;
-            this.tldEndpoint = 'https://mentor.gg/';
-            this.fixedSteamId = '76561198033880857'; //kieron
+            // this.fixedSteamId = '76561198033880857'; //kieron
             // this.fixedSteamId = '76561198166019050'; //felix
-            // this.fixedSteamId = '76561198044966222'; //lasse
+            // this.fixedSteamId = '76561198044966222'; //lasse            
         }
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
-        this.newApiEndpoint = 'https://localhost:44310';
-        this.newApiEndpoint = 'https://api.mentor.gg';
-        this.valveInterval = null;
 
-        // whether or not this.User and this.MatchSelector are loaded
-        this.ready = false;
 
         // this.User = new MentorUser();
         // console.log("User steamId: " + this.User.GetSteamId());
@@ -198,9 +202,6 @@ class MentorGGAPI {
         if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
 
         let route = this.apiEndpoint;
         if(type == Enums.SampleType.FireNade){
@@ -284,9 +285,6 @@ class MentorGGAPI {
         if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
 
         return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
             params: params
@@ -310,9 +308,6 @@ class MentorGGAPI {
         if (playerId.length) {
             params.playerId = playerId;
         }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
-        }
         return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
             params: params
         });
@@ -323,9 +318,6 @@ class MentorGGAPI {
         }
         if (playerId.length) {
             params.playerId = playerId;
-        }
-        else if (this.sendFixedSteamId) {
-            params.playerId = this.fixedSteamId;
         }
         return axios.get('https://test.mentor.gg/v1/Stats/Player', {
             params: params
