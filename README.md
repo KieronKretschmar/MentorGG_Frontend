@@ -57,7 +57,7 @@ For secrets, which should neither be accessible in the production build, nor in 
 Example:  `VUE_APP_BEARER_TOKEN=123456789abc`
 
 - `VUE_APP_OVERRIDE_API_URL`: If set, this URL will be used instead of the official mentor.gg API.
-Example: `VUE_APP_OVERRIDE_API_URL=https://localhost:43310`
+Example: `VUE_APP_OVERRIDE_API_URL=https://localhost:44310`
 
 
 

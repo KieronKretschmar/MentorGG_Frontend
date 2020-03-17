@@ -80,22 +80,28 @@
           <span>Unlimited</span>
         </div>
         <div class="table-content">
-          <span>Matches are deleted after</span>
+          <span>Match storage</span>
           <span>2 weeks</span>
           <span>2 months</span>
-          <span>6 months</span>
+          <span>Unlimited</span>
         </div>
         <div class="table-content">
           <span>2D DemoViewer</span>
           <span>Low quality (1 FPS)</span>
-          <span>Medium quality (8 FPS)</span>
-          <span>High quality (16 FPS)</span>
+          <span>Medium quality (4 FPS)</span>
+          <span>High quality (8 FPS)</span>
         </div>
         <div class="table-content">
           <span>Demo upload</span>
           <span>Up to 20 demos manually</span>
           <span>Unlimited manual uploads</span>
           <span>Unlimited manual uploads</span>
+        </div>
+        <div class="table-content">
+          <span>Filter matches by</span>
+          <span>Map</span>
+          <span>Map, Source, Selection</span>
+          <span>Map, Source, Selection</span>
         </div>
         <div class="table-content">
           <span>Automatic upload</span>
@@ -134,19 +140,7 @@
           </span>
         </div>
         <div class="table-content">
-          <span>Misplays from your last match</span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-        </div>
-        <div class="table-content">
-          <span>Basic match filters</span>
+          <span>Misplay detection</span>
           <span class="check">
             <i class="material-icons">check</i>
           </span>
@@ -170,16 +164,6 @@
           </span>
         </div>
         <div class="table-content">
-          <span>Additional match filters</span>
-          <span class="cross"></span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-        </div>
-        <div class="table-content">
           <span>Extended kill analysis</span>
           <span class="cross"></span>
           <span class="check">
@@ -190,19 +174,11 @@
           </span>
         </div>
         <div class="table-content">
-          <span>Premium support in discord</span>
+          <span>Premium support in our Discord</span>
           <span class="cross"></span>
           <span class="check">
             <i class="material-icons">check</i>
           </span>
-          <span class="check">
-            <i class="material-icons">check</i>
-          </span>
-        </div>
-        <div class="table-content">
-          <span>Priority queue for demo analysis</span>
-          <span class="cross"></span>
-          <span class="cross"></span>
           <span class="check">
             <i class="material-icons">check</i>
           </span>
