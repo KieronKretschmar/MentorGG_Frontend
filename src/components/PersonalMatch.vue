@@ -86,7 +86,7 @@
                     target="_blank"
                   >{{ entry.Profile.SteamName }}</a>
                 </span>
-                <i class="material-icons eye" @click="StartImpersonate">remove_red_eye</i>
+                <i class="material-icons eye" @click="OpenImpersonateOverlay(entry.Profile)">remove_red_eye</i>
                 <span
                   class="adr"
                 >{{ (entry.DamageDealt / (match.Scoreboard.TeamInfos.CtStarter.WonRounds + match.Scoreboard.TeamInfos.TerroristStarter.WonRounds)).toFixed(0) }}</span>
@@ -103,7 +103,7 @@
       </div>
     </transition>
     <GenericOverlay ref="impersonateOverlay" width="900px">
-      <p class="headline">Do you want to impersonate XXX and see MENTOR.GG with their data?</p>
+      <p class="headline">Do you want to impersonate {{selectedProfileForImpersonate.SteamName}} and see MENTOR.GG with their data?</p>
     </GenericOverlay>
   </div>
 </template>
@@ -119,18 +119,23 @@ export default {
   },
   data() {
     return {
-      // Add enums so we can reference it in template
-      Enums: Enums,
-    }
+      selectedProfileForImpersonate: null,
+    };
   },
+  mounted() {},
   props: [
     "match",
     "isAboveLimit", // expect full data except for a negative matchId
     "failed" // expect no data except for match.MatchDate and match.Source
   ],
   methods: {
-    StartImpersonate() {
+    OpenImpersonateOverlay(profile) {
+      this.selectedProfileForImpersonate = profile;
       this.$refs.impersonateOverlay.Show();
+    },
+    StartImpersonate(steamId){
+      console.log("STARTING IMPERSONATION FOR " + steamId);
+      this.$api.Impersonate(steamId);
     },
     Watch: function(match) {
       this.$helpers.LogEvent(this, "Watch");
