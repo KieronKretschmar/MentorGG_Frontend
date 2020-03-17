@@ -103,7 +103,7 @@
       </div>
     </transition>
     <GenericOverlay ref="impersonateOverlay" width="900px">
-      <p class="headline">Do you want to impersonate {{selectedProfileForImpersonate.SteamName}} and see MENTOR.GG with their data?</p>
+      <p class="headline">Do you want to impersonate {{selectedProfileForImpersonate ? selectedProfileForImpersonate.SteamName : ""}} and see MENTOR.GG with their data?</p>
     </GenericOverlay>
   </div>
 </template>
