@@ -107,8 +107,10 @@
     </transition>
     <GenericOverlay ref="impersonateOverlay" width="900px">
       <p class="headline">Do you want to impersonate {{selectedProfileForImpersonate ? selectedProfileForImpersonate.SteamName : ""}} and see MENTOR.GG with their data?</p>
-      <button>Yes</button>
-      <button @click="Hide">Cancel</button>
+      <div class="button-wrapper">
+      <button class="button-variant-bordered" @click="StartImpersonate(steamId)">Yes</button>
+      <button class="button-variant-bordered" @click="Hide">Cancel</button>
+      </div>
     </GenericOverlay>
   </div>
 </template>
@@ -516,7 +518,17 @@ export default {
   }
 
   .headline {
+    width: 100%;
     text-align: center;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: space-evenly
+  }
+
+  .button-variant-bordered {
+    
   }
 }
 
