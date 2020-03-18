@@ -112,7 +112,7 @@
                   >Currently looking for new Faceit Matches</span>
                   <span v-else>
                     Last check for new Faceit matches at:
-                    {{ faceitStatus.LastCheck|formatDate }}
+                    {{ faceitStatus.LastCheck|formatDateAndTime }}
                   </span>
                 </p>
                 <div class="button-wrapper">

@@ -9,7 +9,7 @@
     </div>
     <div class="map-and-datetime">
       <span class="map">{{ map }}</span>
-      <span class="datetime">{{ matchDate|formatDate }}</span>
+      <span class="datetime">{{ matchDate|formatDateAndTime }}</span>
     </div>
   </div>
 </template>

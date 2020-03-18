@@ -5,7 +5,7 @@
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade to Premium</button>
     </div>
     <div v-if="failed" class="failed-display">
-      <p class="two">{{ match.MatchDate|formatDate }} &mdash; Analysis failed. This can happen when a demo file got corrupted at some point.</p>
+      <p class="two">{{ match.MatchDate|formatDateAndTime }} &mdash; Analysis failed. This can happen when a demo file got corrupted at some point.</p>
     </div>
     <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
       <div class="left">
@@ -19,7 +19,7 @@
         </div>
         <div class="map-and-datetime">
           <span class="map">{{ match.Map }}</span>
-          <span class="datetime">{{ match.MatchDate|formatDate }}</span>
+          <span class="datetime">{{ match.MatchDate|formatDateAndTime }}</span>
         </div>
         <div class="match-score">
           <span
