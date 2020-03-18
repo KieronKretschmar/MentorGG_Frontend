@@ -1242,7 +1242,7 @@ table {
 
     .demoviewer-section {
       .section-desc-img-wrap {
-        height: 162px;
+        height: auto;
       }
     }
 
