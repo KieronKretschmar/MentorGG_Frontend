@@ -11,7 +11,7 @@
         </div>
         <div class="map-and-datetime">
           <span class="map">{{ match.Map }}</span>
-          <!-- <span class="datetime">{{ match.MatchDate|formatDate }}</span> -->
+          <!-- <span class="datetime">{{ match.MatchDate|formatDateAndTime }}</span> -->
         </div>
 
         <div class="versus">

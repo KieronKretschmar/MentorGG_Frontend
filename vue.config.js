@@ -8,18 +8,21 @@ module.exports = {
         }
     },
     devServer: {
-        host: 'localhost'
+        host: 'localhost',
+        // https: true,
+        // https: {
+        //   key: fs.readFileSync('./certs/rootCA.pem'),
+        //   cert: fs.readFileSync('./certs/example.com+5.pem'),
+        // },
+        // public: 'https://localhost:8080/'
     },
     configureWebpack: (env) => {
         return {
             externals: {
-                faceit: 'FACEIT'
+                faceit: 'FACEIT',
+                paddle: 'Paddle'
             },
             devtool: 'source-map'
         }
-    },
-    devServer: {
-        // enable ngrok to fake mentor.gg origin instead of localhost
-        disableHostCheck: true,
     }
 };

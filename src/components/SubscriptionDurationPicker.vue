@@ -1,55 +1,69 @@
 <template>
-  <div class="subscription">
+  <div v-if="data" class="subscription">
     <div class="wrapper-top">
       <div class="bordered-box offer">
         <div class="subheadline">
-          <p>1 Month</p>
+          <p>{{data.Plans[0].Months + ' ' + (data.Plans[0].Months > 0 ? 'Months' : 'Month')}}</p>
         </div>
         <div class="content">
           <p>
-            <span class="large">$ 7.99</span>
+            <span class="large">$ {{data.Plans[0].MonthlyPrice}}</span>
             <br />
             <span>per month</span>
           </p>
         </div>
         <div class="content-three">
-          <button class="button">Subscribe</button>
+          <button class="button" @click="$emit('paddleCheckout', 0)">Subscribe</button>
         </div>
       </div>
       <div class="bordered-box offer-highlight">
         <div class="subheadline-highlight">
-          <p>6 Months</p>
+          <p>{{data.Plans[1].Months + ' ' + (data.Plans[1].Months > 0 ? 'Months' : 'Month')}}</p>
         </div>
         <div class="content-highlight">
           <p>
-            <span class="large-highlight">$ 5.99</span>
+            <span class="large-highlight">$ {{data.Plans[1].MonthlyPrice}}</span>
             <br />
             <span class="highlight">per month</span>
           </p>
         </div>
         <div class="content-three-highlight">
-          <button class="button-blue">Subscribe</button>
+          <button class="button-blue" @click="$emit('paddleCheckout', 1)">Subscribe</button>
         </div>
       </div>
       <div class="bordered-box offer">
         <div class="subheadline">
-          <p>3 Months</p>
+          <p>{{data.Plans[2].Months + ' ' + (data.Plans[2].Months > 0 ? 'Months' : 'Month')}}</p>
         </div>
         <div class="content">
           <p>
-            <span class="large">$ 6.99</span>
+            <span class="large">$ {{data.Plans[2].MonthlyPrice}}</span>
             <br />
             <span>per month</span>
           </p>
         </div>
         <div class="content-three">
-          <button class="button">Subscribe</button>
+          <button class="button" @click="$emit('paddleCheckout', 2)">Subscribe</button>
         </div>
       </div>
     </div>
     <!-- wrapper top end -->
   </div>
 </template>
+
+<script>
+import Paddle from "paddle";
+
+export default {
+  props: [
+    "data"
+  ],
+  mounted() {
+  },
+  methods: {
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .view-subscription {

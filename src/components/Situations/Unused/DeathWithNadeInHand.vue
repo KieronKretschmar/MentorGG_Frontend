@@ -51,7 +51,7 @@
             </div>
             <div class="map-and-datetime">
               <span class="map">{{ situation.Map }}</span>
-              <span class="datetime">{{ situation.MatchDate|formatDate }}</span>
+              <span class="datetime">{{ situation.MatchDate|formatDateAndTime }}</span>
             </div>
           </div>
           <div class="col centered">
