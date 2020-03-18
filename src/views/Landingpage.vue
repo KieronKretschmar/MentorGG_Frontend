@@ -793,5 +793,131 @@ table {
 
 //responsive
 @media (max-width: 1000px) {
+  .desc-section {
+    padding: 45px 0;
+    background-color: $dark-5;
+
+    .section-desc-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      border: 1px solid salmon;
+    }
+
+    .section-desc {
+      max-width: 320px;
+      width: 100%;
+      margin-left: auto;
+
+      .section-desc-title {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 0.75em;
+        margin-bottom: 0.875em;
+      }
+
+      .section-desc-img-wrap {
+        display: flex;
+        align-items: flex-end;
+        height: auto;
+      }
+      .section-desc-text {
+        font-size: 14px;
+        line-height: 1.357;
+        font-weight: 400;
+        max-width: 280px;
+      }
+    }
+
+    .section-desc--right {
+      margin-left: auto;
+      text-align: right;
+      .section-desc-img-wrap {
+        justify-content: flex-end;
+      }
+      .section-desc-text {
+        margin-left: auto;
+      }
+    }
+
+    .section-desc--left {
+      margin-left: 0;
+      text-align: left;
+      .section-desc-img-wrap {
+        justify-content: flex-start;
+      }
+      .section-desc-text {
+        margin-right: auto;
+      }
+    }
+  }
+
+  .demoviewer-section {
+    padding-top: 140px;
+    background-image: url(../assets/stats-bg.png);
+    background-position: 15vw center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .positions-section {
+    background-image: url(../assets/positions-bg.png);
+    background-position: calc(100% - 7.5vw) center;
+    background-size: auto;
+    background-repeat: no-repeat;
+  }
+
+  .smokes-section {
+    background-color: $dark-5;
+    background-image: url(../assets/smokes-bg.png);
+    background-position: 15vw center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .ready-section {
+    padding: 60px 0;
+    padding-bottom: 220px;
+    background-image: url(../assets/fire-bg.png);
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .ready-section {
+    .title {
+      text-align: center;
+      font-size: 2.25rem;
+      letter-spacing: 0.021em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  .ready-section {
+    .subtitle {
+      text-align: center;
+      max-width: 360px;
+      margin: 1em auto 0;
+      font-size: 16px;
+      color: $light-1;
+      font-weight: 500;
+    }
+  }
+
+  .ready-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .login-steam {
+      margin-top: 30px;
+    }
+  }
 }
 </style>
