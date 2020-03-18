@@ -680,7 +680,7 @@ table {
       .section-desc-img-wrap {
         display: flex;
         align-items: flex-end;
-        height: 105px;
+        height: auto;
       }
       .section-desc-text {
         font-size: 14px;
@@ -729,7 +729,7 @@ table {
 
     .demoviewer-section {
       .section-desc-img-wrap {
-        height: 162px;
+        height: auto;
       }
     }
 
@@ -809,8 +809,7 @@ table {
         background-color: $dark-1;
         padding: 20px 0px;
         display: flex;
-
-        position: fixed; //
+        position: fixed;
       }
 
       .header-wrap {
@@ -1194,7 +1193,7 @@ table {
       .section-desc-img-wrap {
         display: flex;
         align-items: flex-end;
-        height: 105px;
+        height: auto;
       }
       .section-desc-text {
         font-size: 14px;
