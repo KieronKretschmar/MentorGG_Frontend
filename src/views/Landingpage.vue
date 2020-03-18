@@ -712,7 +712,7 @@ table {
       }
 
       .section-desc--left {
-        margin-right: auto;
+        margin-left: 0;
         text-align: left;
         .section-desc-img-wrap {
           justify-content: flex-start;
@@ -726,7 +726,7 @@ table {
     .demoviewer-section {
       padding-top: 140px;
       background-image: url(../assets/stats-bg.png);
-      background-position: center;
+      background-position: 15vw center;
       background-size: auto;
       background-repeat: no-repeat;
       position: relative;
@@ -745,6 +745,7 @@ table {
       background-position: 15vw center;
       background-size: auto;
       background-repeat: no-repeat;
+      position: relative;
     }
 
     .ready-section {
@@ -791,6 +792,6 @@ table {
 }
 
 //responsive
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
 }
 </style>
