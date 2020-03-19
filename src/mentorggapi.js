@@ -37,6 +37,8 @@ class MentorGGAPI {
 
         this.apiEndpoint = this.mvcEndpoint + 'api/';
 
+        this.valveRefreshInterval = null;
+        this.faceitRefreshInterval = null;
 
         // this.User = new MentorUser();
         // console.log("User steamId: " + this.User.GetSteamId());
@@ -274,8 +276,30 @@ class MentorGGAPI {
         });
     }
 
-    getConnections() {
-        return axios.get(this.apiEndpoint + 'User/Connections');
+    // Gets an object with a property for each connection
+    getConnectionsObject() {
+        return new Promise((resolve, reject) => {
+            let res = {};
+            let connections = [
+                axios.get(`${this.newApiEndpoint}/v1/automatic-upload/connections/valve`)
+                    .then(response => {
+                        res[Enums.Source.Valve] = response.data;
+                    })
+                    .catch(error => {
+                    }),
+                axios.get(`${this.newApiEndpoint}/v1/automatic-upload/connections/faceit`)
+                    .then(response => {
+                        res[Enums.Source.Faceit] = response.data;
+                    })
+                    .catch(error => {
+                    })
+            ]
+            // wait for all requests to finish
+            Promise.allSettled(connections)
+                .finally(() => {
+                    resolve(res);
+                });
+        });
     }
 
     uploadDemo(formData, callback) {
@@ -292,28 +316,82 @@ class MentorGGAPI {
         return axios.post(this.apiEndpoint + 'Upload/Demo', formData, config);
     }
 
-    updateValveConnection(authCode, shareCode) {
-        return axios.post(this.apiEndpoint + 'User/UpdateSteamApiAuthData', {
-            steamIdKey: authCode,
-            lastSharingCode: shareCode
+    updateValveConnection(authCode, shareCode) {        
+        let formattedParams = {
+            steamAuthToken: authCode,
+            lastKnownSharingCode: shareCode
+        };
+        return axios.post(`${this.newApiEndpoint}/v1/automatic-upload/connections/valve`, {}, {
+            params: formattedParams
         });
     }
 
     removeValveConnection() {
-        return axios.post(this.apiEndpoint + 'User/RemoveValve', {
-            params: {
-            }
-        });
+        return axios.delete(`${this.newApiEndpoint}/v1/automatic-upload/connections/valve`, {});
     }
 
-    postRemoveFaceit() {
-        return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
-            params: {
-            }
-        });
+    lookForMatchesValve(){
+        return axios.post(`${this.newApiEndpoint}/v1/automatic-upload/valve/look`, {});
     }
 
-    getMetaMatchHistory(playerId) {        
+    removeFaceitConnection() {
+        return axios.delete(`${this.newApiEndpoint}/v1/automatic-upload/connections/faceit`, {});
+    }
+
+    lookForMatchesFaceit(){
+        return axios.post(`${this.newApiEndpoint}/v1/automatic-upload/faceit/look`, {});
+    }
+
+    // Automatically look for matches    
+    startLookingForValveMatches() {
+        if (this.valveRefreshInterval != null) {
+            return false;
+        }
+
+        //initial check
+        this.lookForMatchesValve();
+
+        this.valveRefreshInterval = setInterval(() => {
+            this.lookForMatchesValve();
+        }, 1000 * 60 * 3);
+        return true;
+    }
+
+    stopLookingForValveMatches() {
+        if (this.valveRefreshInterval != null) {
+            clearInterval(this.valveRefreshInterval);
+            this.valveRefreshInterval = null;
+
+            return true;
+        }
+        return false;
+    }    
+    
+    startLookingForFaceitMatches() {
+        if (this.faceitRefreshInterval != null) {
+            return false;
+        }
+
+        //initial check
+        this.lookForMatchesFaceit();
+
+        this.faceitRefreshInterval = setInterval(() => {
+            this.lookForMatchesFaceit();
+        }, 1000 * 60 * 3);
+        return true;
+    }
+
+    stopLookingForFaceitMatches() {
+        if (this.faceitRefreshInterval != null) {
+            clearInterval(this.faceitRefreshInterval);
+            this.faceitRefreshInterval = null;
+
+            return true;
+        }
+        return false;
+    }
+
+    getMetaMatchHistory(playerId) {
         return axios.get(`${this.newApiEndpoint}/v1/single/${playerId}/matchselection`, {
             params: {
             }

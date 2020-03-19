@@ -67,13 +67,13 @@
           <div class="r">
             <h2>
               CS:GO Matchmaking
-              <span v-if="valveStatus"
+              <span v-if="loadedConnections"
                 class="connection-status"
-                :class="{yes: valveStatus.IsConnected}"
-              >{{ valveStatus.IsConnected ? 'connected' : 'not connected' }}</span>
+                :class="{yes: valveStatus}"
+              >{{ valveStatus ? 'connected' : 'not connected' }}</span>
             </h2>
-            <div v-if="valveStatus">
-              <div v-if="valveStatus.IsConnected">
+            <div>
+              <div v-if="valveStatus">
                 <p>Your account is currently connected.</p>
                 <div class="button-wrapper">
                   <button class="button-variant-bordered" @click="DisconnectValve">Disconnect</button>
@@ -96,11 +96,11 @@
               FACEIT
               <span
                 class="connection-status"
-                :class="{yes: faceitStatus.IsConnected}"
-              >{{ faceitStatus.IsConnected ? 'connected' : 'not connected' }}</span>
+                :class="{yes: faceitStatus}"
+              >{{ faceitStatus ? 'connected' : 'not connected' }}</span>
             </h2>
-            <div v-if="faceitStatus">
-              <div v-if="faceitStatus.IsConnected">
+            <div>
+              <div v-if="faceitStatus">
                 <p>
                   Your MENTOR.GG account is currently connected to this Faceit Account:
                   <span
@@ -108,11 +108,11 @@
                   >{{ faceitStatus.FaceitName }}</span>
                   <br />
                   <span
-                    v-if="Date.parse(faceitStatus.LastCheck) ==  Date.parse('1970') || faceitJustRefreshed"
+                    v-if="Date.parse(faceitStatus.lastChecked) ==  Date.parse('1970') || faceitJustRefreshed"
                   >Currently looking for new Faceit Matches</span>
                   <span v-else>
                     Last check for new Faceit matches at:
-                    {{ faceitStatus.LastCheck|formatDateAndTime }}
+                    {{ faceitStatus.lastChecked|formatDateAndTime }}
                   </span>
                 </p>
                 <div class="button-wrapper">
@@ -135,6 +135,7 @@
 <script>
 import FACEIT from "faceit";
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import Enums from "@/enums";
 
 export default {
   components: {
@@ -159,11 +160,11 @@ export default {
   mounted() {
     // Init FACEIT
     let initParams = {
-      client_id: "d7044f7f-caeb-4a36-9013-9111563d3dd3", // redirects to mentor.gg
-      // client_id: "98dfbe01-bc76-4148-90f0-a9221c963a9f", // redirects to localhost
+      client_id: "11558ac9-0b02-4ad2-9e8e-8d908e837433", // redirects to api.mentor.gg
+      // client_id: "4b10b353-9e78-4c81-81a8-438b1258bf16", // redirects to localhost
       response_type: "code",
       state: "",
-      redirect_popup: false,
+      redirect_popup: true,
       debug: false
     };
 
@@ -188,24 +189,24 @@ export default {
       this.$api
         .updateValveConnection(this.valveAuthToken, this.valveShareCode)
         .then(response => {
-          this.valveConnectionFailed = !response.data.IsValid;
-
-          if (response.data.IsValid) {
-            this.$api.startLookingForValveMatches();
-            this.UpdateConnections();
-            this.$refs.valveOverlay.Hide();
-          }
-
+          this.valveConnectionFailed = false;
+          this.$api.startLookingForValveMatches();
+          this.UpdateConnections();
+          this.$refs.valveOverlay.Hide();
           this.connectingValve = false;
-        });
+        })
+        .catch(response => {
+          this.valveConnectionFailed = true;
+          this.connectingValve = false;
+        })
     },
     RefreshFaceit() {
-      this.$api.postRefreshFaceit().then(response => {
-        if (response.data.status == "success") this.faceitJustRefreshed = true;
+      this.$api.lookForMatchesFaceit().then(response => {
+        this.UpdateConnections();
       });
     },
     RemoveFaceit() {
-      this.$api.postRemoveFaceit().then(response => {
+      this.$api.removeFaceitConnection().then(response => {
         this.UpdateConnections();
       });
     },
@@ -213,9 +214,9 @@ export default {
       FACEIT.loginWithFaceit();
     },
     UpdateConnections() {
-      this.$api.getConnections().then(response => {
-        this.faceitStatus = response.data.Faceit;
-        this.valveStatus = response.data.Valve;
+      this.$api.getConnectionsObject().then(connectionsObj => {
+        this.valveStatus = connectionsObj[Enums.Source.Valve] || null;
+        this.faceitStatus = connectionsObj[Enums.Source.Faceit] || null;
 
         this.loadedConnections = true;
       });

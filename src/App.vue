@@ -116,11 +116,17 @@ export default {
         });
     },
     InitConnectionsCallback() {
-      this.$api.getConnections().then(result => {
-        if (!result.data.Valve.IsConnected) {
-          this.$refs.connectionHintOverlay.Show();
-        } else {
+      // Start looking for matches for all configured automatic uploads, 
+      // and show overlay if valve automatic-upload is not configured 
+      this.$api.getConnectionsObject().then(result => {
+        if (result[Enums.Source.Valve]) {
           this.$api.startLookingForValveMatches();
+        } else {
+          this.$refs.connectionHintOverlay.Show();
+        }
+
+        if (result[Enums.Source.Faceit]) {
+          this.$api.startLookingForFaceitMatches();
         }
       });
     },
