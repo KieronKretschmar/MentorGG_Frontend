@@ -55,6 +55,7 @@ class MentorGGAPI {
             // If this.User is already set, resolve right away
             if(this.User){
                 resolve();
+                return;
             }
 
             // Attempt to load the logged-in user's identity from server
@@ -63,12 +64,14 @@ class MentorGGAPI {
                 // User is logged in
                 this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyUploadLimit);
                 resolve();
+                return;
             })
             .catch(error => {
                 // User is not logged in
                 this.User = null;
                 this.ready = false;
                 reject();
+                return;
             });
         });
     }
