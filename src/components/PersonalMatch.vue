@@ -40,14 +40,6 @@
       </div>
 
       <div class="right">
-        <a
-          :href="$api.matchUrl(match.MatchId)"
-          v-if="match.AvailableForDownload"
-          class="download-match-link"
-        >
-          <i class="material-icons download-match-icon" title="Download Demo">get_app</i>
-        </a>
-
         <i
           v-if="this.$helpers.DemoViewerAvailable(match.Map)"
           class="material-icons watch-match-icon"
