@@ -77,10 +77,10 @@ class MentorGGAPI {
     }
 
     getSubscriptions(){
-        // this.ensureLogin().then(() => {
+        return this.ensureLogin().then(response => {
             // Attempt to load the logged-in user's identity from server
             return axios.get(`${this.newApiEndpoint}/subscriptions`, {});
-        // })
+        });
     }
 
     // Initializes this.MatchSelector. Make sure this.User is set when calling this.
