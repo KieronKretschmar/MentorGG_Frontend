@@ -108,21 +108,6 @@ class MentorGGAPI {
         return `${this.newApiEndpoint}/authentication/signin/steam?returnUrl=${returnUrl}`
     }
 
-    matchUrl(matchId) {
-        return this.mvcEndpoint + 'Download/Demo?matchId=' + matchId;
-    }
-
-    getLoginStatus() {
-        return axios.get(this.apiEndpoint + 'User/LoginStatus');
-    }
-
-    getSrcMap() {
-        return axios.get(this.apiEndpoint + 'Image/SrcMap', {
-            params: {
-            }
-        });
-    }
-
     getPlayerInfo(params) {
         let formattedParams = {
         }
@@ -192,7 +177,7 @@ class MentorGGAPI {
         });
     }
 
-    // this endpoint returns data for all the user's matches, disregarding filter settings and matchselector
+    // this endpoint returns data for a summary of all the user's matches, disregarding filter settings and matchselector
     getRecentMatchData(params) {
         let formattedParams = {
         }
@@ -264,40 +249,6 @@ class MentorGGAPI {
         });
     }
 
-    getAllBombPlants(map, recentMatches = 50) {
-        let params = {
-            map: map,
-            recentMatches: recentMatches
-        }
-        return axios.get(this.apiEndpoint + 'Bomb/AllBombs', {
-            params: params
-        });
-    }
-
-    getAllBombPlantsByRank(map, rank, recentMatches = 50) {
-        let params = {
-            map: map,
-            rank: rank,
-            recentMatches: recentMatches,
-        }
-        return axios.get(this.apiEndpoint + 'Bomb/AllBombsByRank', {
-            params: params
-        });
-    }
-
-    getKillsOverview(playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-
-        return axios.get(this.apiEndpoint + 'Kills/KillsOverview', {
-            params: params
-        });
-    }
-
     getDVRound(matchId, round) {
         return axios.get(this.apiEndpoint + 'DemoViewer/Round', {
             params: {
@@ -317,94 +268,6 @@ class MentorGGAPI {
         }
         return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
             params: params
-        });
-    }
-
-    getPlayerStats(playerId = "") {
-        let params = {
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        return axios.get('https://test.mentor.gg/v1/Stats/Player', {
-            params: params
-        });
-    }
-
-    getEvents() {
-        return axios.get(this.apiEndpoint + 'Event/Events', {
-            params: {
-            }
-        });
-    }
-
-    getEvent(eventName) {
-        return axios.get(this.apiEndpoint + 'Event/Event', {
-            params: {
-                eventName: eventName
-            }
-        });
-    }
-
-    getEventFlashes(eventName, teamName, map) {
-        return axios.get(this.apiEndpoint + 'Flashes/EventFlashes', {
-            params: {
-                eventName: eventName,
-                teamName: teamName,
-                map: map,
-            }
-        });
-    }
-
-    getEventHEs(eventName, teamName, map) {
-        return axios.get(this.apiEndpoint + 'HEs/EventHEs', {
-            params: {
-                eventName: eventName,
-                teamName: teamName,
-                map: map,
-            }
-        });
-    }
-
-    getEventKills(eventName, teamName, map) {
-        return axios.get(this.apiEndpoint + 'Kills/EventKills', {
-            params: {
-                eventName: eventName,
-                teamName: teamName,
-                map: map,
-            }
-        });
-    }
-
-    getEventMatches(eventName, count, offset = 0) {
-        let params = {
-            eventName: eventName,
-            recentMatches: count,
-            offset: offset
-        }
-
-        return axios.get(this.apiEndpoint + 'Matches/EventMatches', {
-            params: params
-        });
-    }
-
-    getEventMolotovs(eventName, teamName, map) {
-        return axios.get(this.apiEndpoint + 'FireNades/EventFireNades', {
-            params: {
-                eventName: eventName,
-                teamName: teamName,
-                map: map,
-            }
-        });
-    }
-
-    getEventSmokes(eventName, teamName, map) {
-        return axios.get(this.apiEndpoint + 'Smokes/EventSmokes', {
-            params: {
-                eventName: eventName,
-                teamName: teamName,
-                map: map,
-            }
         });
     }
 
@@ -440,16 +303,6 @@ class MentorGGAPI {
         });
     }
 
-    // Returns status about the players' matches in the queue
-    getQueueStatus(){
-        return {
-            MatchesInQueue: 11,
-            FirstMatchPosition: 7,
-            QueueLength: 1000,
-        }
-        // TODO: Implement this endpoint correctly
-    }
-
     postRemoveFaceit() {
         return axios.post(this.mvcEndpoint + 'Account/RemoveFaceit', {
             params: {
@@ -457,9 +310,8 @@ class MentorGGAPI {
         });
     }
 
-    // Workaround until impersonate works
-    getMetaMatchHistory(playerId) {
-        return axios.get(this.newApiEndpoint + "/v1/single/" + (playerId.length ? playerId : this.fixedSteamId) + "/matchselection", {
+    getMetaMatchHistory(playerId) {        
+        return axios.get(`${this.newApiEndpoint}/v1/single/${playerId}/matchselection`, {
             params: {
             }
         });
