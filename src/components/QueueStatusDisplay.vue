@@ -61,15 +61,16 @@ export default {
           MatchesInQueue: response.data.MatchIds.length,
           FirstMatchPosition: response.data.FirstMatchPosition
         };
+
+
+        // Plan next refresh. Do it quicker if matches were found in queue
+        var delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
+        setTimeout(() => {
+            this.ContinueRefreshingQueueStatus();
+        }, delay);
       });
 
       this.uploadLimitReached = this.$api.MatchSelector.dailyLimitReachedToday;
-
-      // Plan next refresh. Do it quicker if matches were found in queue
-      var delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
-      setTimeout(() => {
-          this.ContinueRefreshingQueueStatus();
-      }, delay);
     }
   },
   computed: {
