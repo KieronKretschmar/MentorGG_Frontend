@@ -299,7 +299,7 @@ export default {
     this.LoadData();
     this.$nextTick(() => {
       // setup paddle with our vendor id
-      Paddle.Setup({ vendor: 108109 });
+      Paddle.Setup({ vendor: 110217 });
     });
   },
   components: {
