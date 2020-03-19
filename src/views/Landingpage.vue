@@ -664,8 +664,8 @@ table {
     }
 
     .desc-section {
-      padding: 45px 0;
-      background-color: $dark-5;
+      padding: 50px 0;
+      background-color: $dark-2;
 
       .section-desc-wrap {
         display: flex;
@@ -744,7 +744,7 @@ table {
     }
 
     .smokes-section {
-      background-color: $dark-5;
+      background-color: $dark-2;
       background-image: url(../assets/smokes-bg.png);
       background-position: 15vw center;
       background-size: auto;
@@ -1051,7 +1051,6 @@ table {
             width: auto;
             margin: 0 auto;
             padding: 0;
-            border: 1px solid gold;
 
             ul {
               list-style: none;
@@ -1127,15 +1126,13 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
-        border: 1px solid dodgerblue;
+        background-color: $dark-2;
 
         .section-desc-wrap {
           display: flex;
           align-items: center;
           justify-content: space-between;
           position: relative;
-          border: 1px solid hotpink;
         }
 
         .section-desc {
@@ -1208,7 +1205,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -1484,8 +1481,6 @@ table {
               text-align: center;
               padding-bottom: 3px;
               display: block;
-
-             
             }
 
             .offer-text {
@@ -1592,7 +1587,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 40px;
 
         .section-desc-wrap {
@@ -1672,7 +1667,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2058,7 +2053,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 40px;
 
         .section-desc-wrap {
@@ -2138,7 +2133,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2524,7 +2519,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 120px;
 
         .section-desc-wrap {
@@ -2604,7 +2599,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2990,7 +2985,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 120px;
 
         .section-desc-wrap {
@@ -3070,7 +3065,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -3413,6 +3408,7 @@ table {
                 bottom: 0;
                 width: 100%;
                 height: 0;
+                background: orange;
                 transition: height 0.3s;
               }
 
@@ -3428,6 +3424,7 @@ table {
                 bottom: -5px;
                 width: 0;
                 height: 5px;
+                background: orange;
                 transition: width 0.3s;
               }
 
@@ -3456,7 +3453,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 160px;
 
         .section-desc-wrap {
@@ -3536,7 +3533,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -3873,6 +3870,7 @@ table {
                 bottom: 0;
                 width: 100%;
                 height: 0;
+                background: orange;
                 transition: height 0.3s;
               }
 
@@ -3888,6 +3886,7 @@ table {
                 bottom: -5px;
                 width: 0;
                 height: 5px;
+                background: orange;
                 transition: width 0.3s;
               }
 
@@ -3916,7 +3915,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 160px;
 
         .section-desc-wrap {
@@ -3996,7 +3995,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -4267,7 +4266,6 @@ table {
             }
 
             .offer-title {
-
               &.first-title {
                 height: 5px; //
               }
@@ -4334,6 +4332,7 @@ table {
                 bottom: 0;
                 width: 100%;
                 height: 0;
+                background: orange;
                 transition: height 0.3s;
               }
 
@@ -4349,6 +4348,7 @@ table {
                 bottom: -5px;
                 width: 0;
                 height: 5px;
+                background: orange;
                 transition: width 0.3s;
               }
 
@@ -4377,7 +4377,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 160px;
 
         .section-desc-wrap {
@@ -4457,7 +4457,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -4788,6 +4788,7 @@ table {
                 bottom: 0;
                 width: 100%;
                 height: 0;
+                background: orange;
                 transition: height 0.3s;
               }
 
@@ -4803,6 +4804,7 @@ table {
                 bottom: -5px;
                 width: 0;
                 height: 5px;
+                background: orange;
                 transition: width 0.3s;
               }
 
@@ -4831,7 +4833,7 @@ table {
 
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-5;
+        background-color: $dark-2;
         margin-top: 160px;
 
         .section-desc-wrap {
@@ -4911,7 +4913,7 @@ table {
       }
 
       .smokes-section {
-        background-color: $dark-5;
+        background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
         background-size: auto;
