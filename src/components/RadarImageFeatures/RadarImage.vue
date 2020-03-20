@@ -369,7 +369,7 @@ export default {
         this.enrichTrajectory(element);
         element.Victims.forEach(victim => {
           victim.Hits.forEach(hit => {
-            hit.VictimPosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
+            hit.VictimPos.PosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
           });
         });
       });

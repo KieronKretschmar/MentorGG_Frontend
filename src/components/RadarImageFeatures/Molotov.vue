@@ -42,8 +42,8 @@
             {'team-attack' : hit.TeamAttack},
             {'is-user' : hit.VictimIsAttacker},
             victimData.TeamAttack == grenadeData.UserIsCt ? 'ct' : 'terrorist']"
-          :cx="hit.VictimPosX"
-          :cy="hit.VictimPosY"
+          :cx="hit.VictimPos.PosPixel.X"
+          :cy="hit.VictimPos.PosPixel.Y"
           :r="victimRadius + 'px'"
         />
       </g>

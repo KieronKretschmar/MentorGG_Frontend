@@ -137,10 +137,10 @@
                           'DetonationPosPixel':{'X':33,'Y':27},
                           'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
                           'Victims':[{'Hits': [
-                          {'VictimId':1,'VictimPosX':43,'VictimPosY':27,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPosX':37,'VictimPosY':25,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPosX':32,'VictimPosY':21,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPosX':27,'VictimPosY':15,'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:43, Y:27}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:37, Y:25}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:32, Y:21}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:27, Y:15}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
                           ]}]
                         }"
                         :scaleFactor="2"
