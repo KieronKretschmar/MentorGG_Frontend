@@ -105,7 +105,7 @@
 
       <g id="kills-group">
         <Kill
-          v-for="killData in kills"
+          v-for="killData in enrichedKills"
           :key="killData.Id"
           :killData="killData"
           :scaleFactor="scaleFactor"
@@ -258,7 +258,7 @@ export default {
           trajectoryPoint.PosPixel = this.$coordinateConverter.IngameToPixel(vec, this.map);
         }
         element.isEnriched = true;
-    }
+    },
   },
   computed: {
     tintBackground() {
@@ -344,6 +344,19 @@ export default {
     },
 
     // "kills",
+    enrichedKills(){
+      if(!this.kills){
+        return [];
+      }
+      this.kills.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        element.PlayerPos.PosPixel = this.$coordinateConverter.IngameToPixel(element.PlayerPos, this.map);
+        element.VictimPos.PosPixel = this.$coordinateConverter.IngameToPixel(element.VictimPos, this.map);
+      });
+      return this.kills;
+    },
     
     enrichedMolotovs(){
       if(!this.molotovs){

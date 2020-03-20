@@ -7,15 +7,15 @@
   >
     <circle v-if="killData.UserWinner"
       class="user-circle"
-      :cx="killData.PlayerPosX"
-      :cy="killData.PlayerPosY"
+      :cx="killData.PlayerPos.PosPixel.X"
+      :cy="killData.PlayerPos.PosPixel.Y"
       :r="userRadius +'px'"
     />
 
     <circle v-if="!killData.UserWinner"
       class="user-circle"
-      :cx="killData.VictimPosX"
-      :cy="killData.VictimPosY"
+      :cx="killData.VictimPos.PosPixel.X"
+      :cy="killData.VictimPos.PosPixel.Y"
       :r="userRadius +'px'"
     />
 
@@ -43,13 +43,13 @@ export default {
     },
     killConnection() {
       return (
-        this.killData.PlayerPosX +
+        this.killData.PlayerPos.PosPixel.X +
         "," +
-        this.killData.PlayerPosY +
+        this.killData.PlayerPos.PosPixel.Y +
         " " +
-        this.killData.VictimPosX +
+        this.killData.VictimPos.PosPixel.X +
         "," +
-        this.killData.VictimPosY
+        this.killData.VictimPos.PosPixel.Y
       );
     }
   }

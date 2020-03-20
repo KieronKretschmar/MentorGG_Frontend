@@ -112,6 +112,8 @@ export default {
 
           // Filterable
           if (this.config.features.filterable) {
+            this.userPerformanceData = response.data.FilterableZonePerformanceData;
+            this.AssignZones(response.data.ZoneInfos);
           }
 
           // Lineups & target Zones

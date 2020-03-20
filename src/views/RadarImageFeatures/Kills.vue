@@ -118,28 +118,6 @@
                 <div class="legend-row">
                   <div class="legend-depiction">
                     <div class="legend-circle red"></div>
-                    <!-- <svg height="50" width="50">
-                      <Kill
-                        :killData="{
-                          'Id':'Kill-1-1',
-                          'MatchId':1,
-                          'KillId':1,
-                          'Round':1,
-                          'UserIsCt':showCt,
-                          'PlayerPosX':5,
-                          'PlayerPosY':22,
-                          'VictimPosX':33,
-                          'VictimPosY':27,
-                          'UserWinner':false,
-                          'PlayerZoneId':0,
-                          'VictimZoneId':0,
-                          'FilterSettings':{'PlantStatus':0}}"
-                        :scaleFactor="1"
-                        :showTrajectories="showTrajectories"
-                        :SetSelectedSample="function(){}"
-                        :isSelected="false"
-                      />
-                    </svg>-->
                   </div>
                   <div class="legend-description">Your position when you died.</div>
                 </div>
@@ -147,7 +125,7 @@
               <div class="zone-legend-section">
                 <div class="legend-row">
                   <div class="legend-depiction">
-                    <svg height="40" width="40">
+                    <svg height="50" width="50">
                       <Zone
                         :SetSelectedZone="function(){}"
                         :fillColor="'rgba(255, 255, 255, 0.15)'"
@@ -155,10 +133,9 @@
                         :zoneData="{
                           'ZoneId':1,
                           'Name':'Legend_Zone',
-                          'CenterXPixel':20,
-                          'CenterYPixel':20,
-                          'PolygonPointsX':[0,40,40,20,20,0,0],
-                          'PolygonPointsY':[0,0,40,40,20,20,0],
+                          'CenterXPixel':15,
+                          'CenterYPixel':15,
+                          'GeometryPixel': [{'X':10,'Y':10},{'X':50,'Y':10},{'X':50,'Y':50},{'X':30,'Y':50},{'X':30,'Y':30},{'X':10,'Y':30},{'X':10,'Y':10}],
                           'ParentZoneId':230000,
                           'Depth':1,
                           }"
@@ -352,7 +329,7 @@ export default {
         x =>
           JSON.stringify(x.FilterSettings) ==
           JSON.stringify(this.activeFilterSettings)
-      );
+      ).ZonePerformances;
     },
     multiKills() {
       // Get all samples for the entire map and current setting (CT/T, filter)
