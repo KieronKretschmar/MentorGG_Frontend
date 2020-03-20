@@ -283,7 +283,7 @@ export default {
   data() {
     return {
       config: {
-        sampleType: Enums.SampleType.Moltov,
+        sampleType: Enums.SampleType.Molotov,
         features: {
           zones: true,
           lineups: false,

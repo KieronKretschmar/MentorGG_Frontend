@@ -209,7 +209,6 @@
 
             this.loadingSamplesComplete = true;
 
-            console.log(response.data);
             this.sampleCount = response.data.Samples.length;
             this.matchesAnalyzed = response.data.RecentMatchesAnalyzedCount;
             this.redrawByRank();
