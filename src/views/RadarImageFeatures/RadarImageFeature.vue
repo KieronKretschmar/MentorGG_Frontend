@@ -107,26 +107,7 @@ export default {
           if (this.config.features.zones) {
             this.userPerformanceData = response.data.ZonePerformanceSummary;
 
-            // Ignore zones where there are no samples, as they won't be shown anyway
-            this.zones = response.data.ZoneInfos
-              .sort((a, b) => a.ZoneDepth - b.ZoneDepth);
-            if (this.zones.length == 0) {
-              this.zonesEnabled = false; // TODO: rename to hierarchicalZones?
-            } else {
-              this.zonesEnabled = true;
-            }
-
-            // Compute mainZones (CT and T)
-            this.mainZones = this.zones.filter(x => x.ParentZoneId == -1);
-            console.log("mainZones:")
-            console.log(this.mainZones)
-
-            this.zoneDescendants = this.getZoneDescendants(this.zones);
-
-            // sort zones to guarantee that those with the lowest depth come first
-            // if the zones are unordered, they will be rendered in the wrong order, which will cause unexpected behaviour when clicking on a zone
-            // this is because the order in which items are rendered in an <svg> acts like a z-index
-            this.zones.sort((a, b) => a.ZoneDepth - b.ZoneDepth);
+            this.AssignZones(response.data.ZoneInfos);
           }
 
           // Filterable
@@ -136,24 +117,8 @@ export default {
           // Lineups & target Zones
           if (this.config.features.lineups) {
             this.userPerformanceData = response.data.LineupPerformanceSummary;
-            // store targets as list instead of json
-            let targetList = [];
-            for (const id in response.data.LineupCollection.Targets) {
-              targetList.push(response.data.LineupCollection.Targets[id]);
-            }
-            // ignore targets that don't have lineups pointing to them
-            this.targets = targetList.filter(
-              x => x.LineupIds.length > 0
-            );
 
-            // store lineups as list instead of json
-            let lineupList = [];
-            for (const id in response.data.LineupCollection.Lineups) {
-              lineupList.push(response.data.LineupCollection.Lineups[id]);
-            }
-            this.lineups = lineupList;
-
-            this.lineupsEnabled = this.lineups.length > 0 ? true : false;
+            this.AssignLineups(response.data.LineupCollection);
           }
 
           this.loadingSamplesComplete = true;
@@ -162,6 +127,42 @@ export default {
           console.error(error); // eslint-disable-line no-console
           this.loadingSamplesComplete = true;
         });
+    },
+    AssignLineups(lineupCollection){
+      // store targets as list instead of json
+      let targetList = [];
+      for (const id in lineupCollection.Targets) {
+        targetList.push(lineupCollection.Targets[id]);
+      }
+      // ignore targets that don't have lineups pointing to them
+      this.targets = targetList.filter(
+        x => x.LineupIds.length > 0
+      );
+
+      // store lineups as list instead of json
+      let lineupList = [];
+      for (const id in lineupCollection.Lineups) {
+        lineupList.push(lineupCollection.Lineups[id]);
+      }
+      this.lineups = lineupList;
+
+      this.lineupsEnabled = this.lineups.length > 0 ? true : false;
+    },
+    AssignZones(zoneInfos){
+      // sort zones to guarantee that those with the lowest depth come first
+      // if the zones are unordered, they will be rendered in the wrong order, which will cause unexpected behaviour when clicking on a zone
+      // this is because the order in which items are rendered in an <svg> acts like a z-index
+      this.zones = zoneInfos
+        .sort((a, b) => a.ZoneDepth - b.ZoneDepth);
+      if (this.zones.length == 0) {
+        this.zonesEnabled = false; // TODO: rename to hierarchicalZones?
+      } else {
+        this.zonesEnabled = true;
+      }
+
+      // Compute mainZones (CT and T) 
+      this.mainZones = this.zones.filter(x => x.ParentZoneId == -1);
+      this.zoneDescendants = this.getZoneDescendants(this.zones);
     },
     ResetSelection() {
       this.selectedSample = null;
