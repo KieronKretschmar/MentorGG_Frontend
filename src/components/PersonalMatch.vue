@@ -79,7 +79,7 @@
                 <span class="name-avatar-wrapper">
                   <!-- TODO: migrate resources -->
                   <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)">
-                  <img class="avatar" :src="entry.Profile.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
+                  <img class="avatar" :src="$helpers.getSteamProfileImageUrl(entry.Profile.ImageUrl)" />
                   <a
                     class="name"
                     :href="`https://steamcommunity.com/profiles/${entry.SteamId}`"

@@ -143,10 +143,13 @@ class Helpers {
       return require(`./assets/ranks/none.png`);
     }
 
-    getDefaultSteamProfileImageUrl(){
+    // returns high quality imageUrl or default image if null
+    getSteamProfileImageUrl(imageUrl){
+      if(imageUrl){
+        return imageUrl.replace(".jpg", "_full.jpg");
+      }
       return require('./assets/unknown_steamprofile_full.jpg');
     }
-
     // End asset management
 }
 

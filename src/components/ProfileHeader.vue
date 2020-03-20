@@ -2,7 +2,7 @@
   <div class="profile-header">
     <div class="fixed-width-container mc" v-if="user">
       <div class="avatar">
-        <img :src="user.SteamUser.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
+        <img :src="$helpers.getSteamProfileImageUrl(user.SteamUser.ImageUrl)" />
       </div>
       <div class="name">
         <span>PROFILE NAME</span>

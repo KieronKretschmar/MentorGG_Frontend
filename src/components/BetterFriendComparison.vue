@@ -17,7 +17,7 @@
       >
         <div class="avatar-and-name">
           <div class="avatar">
-            <img class="avatar" :src="comparison.OtherPlayerInfo.SteamUser.ImageUrl || $helpers.getDefaultSteamProfileImageUrl()" />
+            <img class="avatar" :src="$helpers.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)" />
           </div>
           <div class="name">{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</div>
         </div>
