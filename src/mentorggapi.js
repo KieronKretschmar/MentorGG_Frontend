@@ -192,33 +192,30 @@ class MentorGGAPI {
         });
     }
 
-    getOverview(type, playerId = "", recentMatches = 50) {
-        let params = {
-            recentMatches: recentMatches
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
+    getOverview(params, overrides = {}) {
+        let formattedParams = {
+            matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
         }
 
-        let route = this.apiEndpoint;
-        if(type == Enums.SampleType.FireNade){
-            route += 'FireNades/FireNadesOverview';
+        let route = `${this.newApiEndpoint}/v1/single/${params.steamId}`;
+        if(params.type == Enums.SampleType.Molotov){
+            route += '/firenadesoverview';
         }
-        else if(type == Enums.SampleType.Flash){
-            route += 'Flashes/FlashesOverview';
+        else if(params.type == Enums.SampleType.Flash){
+            route += '/flashesoverview';
         }
-        else if(type == Enums.SampleType.HE){
-            route += 'HEs/HEsOverview';
+        else if(params.type == Enums.SampleType.HE){
+            route += '/hesoverview';
         }
-        else if(type == Enums.SampleType.Smoke){
-            route += 'Smokes/SmokesOverview';
+        else if(params.type == Enums.SampleType.Smoke){
+            route += '/smokesoverview';
         }
-        else if(type == Enums.SampleType.Kill){
-            route += 'Kills/KillsOverview';
+        else if(params.type == Enums.SampleType.Kill){
+            route += '/killsoverview';
         }
         
         return axios.get(route, {
-            params: params
+            params: formattedParams
         });
     }
 
@@ -236,7 +233,7 @@ class MentorGGAPI {
         if(params.type == Enums.SampleType.HE){
             route += 'hes';
         }
-        if(params.type == Enums.SampleType.FireNade){
+        if(params.type == Enums.SampleType.Molotov){
             route += 'firenades';
         }
         if(params.type == Enums.SampleType.Kill){

@@ -1,24 +1,19 @@
-<template>
-</template>
+<template></template>
 
 <script>
 export default {
   data() {
     return {
-      "isVisible" : false,
-    }
+      isVisible: false
+    };
   },
-  
+
   methods: {
-    GetOverviewImage(map){
-      var overViewImages = require.context('@/assets/maps/previews', false, /\.jpg$/)
-      return overViewImages("./" + map + ".jpg");
-    },
     OnActiveMapUpdated: function(map) {
-      this.$emit('updatemap', map);
-    },
+      this.$emit("updatemap", map);
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -116,7 +111,8 @@ export default {
       font-size: 12px;
 
       .ct,
-      .t,.unisex {
+      .t,
+      .unisex {
         display: flex;
         align-items: center;
 
@@ -131,6 +127,6 @@ export default {
         }
       }
     }
-  }}
-
+  }
+}
 </style>

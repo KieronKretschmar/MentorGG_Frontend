@@ -5,17 +5,14 @@
     </div>
     <div v-if="mapSummaries != null" class="performances">
       <div
-        v-for="(mapSummary,index) in mapSummaries"
-        :key="index"
+        v-for="(mapSummary,map) in mapSummaries"
+        :key="map"
         class="performance"
-        :class="{active: activeMap == mapSummary.Map}"
-        @click="OnActiveMapUpdated(mapSummary.Map)"
+        :class="{active: activeMap == map}"
+        @click="OnActiveMapUpdated(map)"
       >
-        <img
-          class="map-image"
-          :src="GetOverviewImage(mapSummary.Map)"
-        />
-        <p class="map-name">{{mapSummary.Map}}</p>
+        <img class="map-image" :src="$helpers.resolveMapPreview(map)" />
+        <p class="map-name">{{map}}</p>
 
         <div class="z-layer-lo">
           <span class="split-title">UNUSED</span>
@@ -80,7 +77,11 @@ export default {
   methods: {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getOverview(Enums.SampleType.Flash, "", matchCount).then(response => {
+      let params = {
+        steamId: this.$api.User.GetSteamId(),
+        type: Enums.SampleType.Flash
+      };
+      this.$api.getOverview(params, {}).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
     }

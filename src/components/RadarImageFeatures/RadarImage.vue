@@ -537,7 +537,6 @@ export default {
     },
     lineupPerformanceColors() {
       let lineupPerformanceColors = {};
-      console.log(this.userPerformanceData.LineupPerformances)
       for (let lineup of this.lineups) {
         let opacity = 1;
         const performance = this.userPerformanceData.LineupPerformances[

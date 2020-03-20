@@ -1,65 +1,61 @@
 <template>
-<div>
-   <div v-if="mapSummaries == null" class="bordered-box no-data">
-        <AjaxLoader>Computing summaries for each map</AjaxLoader>
-      </div>
-       <div class="performances">
-       <div
-          v-for="(mapSummary,index) in mapSummaries"
-          :key="index"
-          class="performance"
-          :class="{active: activeMap == mapSummary.Map}"
-          @click="OnActiveMapUpdated(mapSummary.Map)"
-        >
-          <img
-            class="map-image"
-          :src="GetOverviewImage(mapSummary.Map)"
-          />
-          <p class="map-name">{{mapSummary.Map}}</p>
+  <div>
+    <div v-if="mapSummaries == null" class="bordered-box no-data">
+      <AjaxLoader>Computing summaries for each map</AjaxLoader>
+    </div>
+    <div class="performances">
+      <div
+        v-for="(mapSummary,map) in mapSummaries"
+        :key="map"
+        class="performance"
+        :class="{active: activeMap == map}"
+        @click="OnActiveMapUpdated(map)"
+      >
+        <img class="map-image" :src="$helpers.resolveMapPreview(map)" />
+        <p class="map-name">{{map}}</p>
 
-          <div class="z-layer-lo">
-            <span class="split-title">UNUSED</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
-              </div>
+        <div class="z-layer-lo">
+          <span class="split-title">UNUSED</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
             </div>
-          </div>
-
-          <div class="z-layer-hi">
-            <span class="split-title">DAMAGE</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{mapSummary.AverageDamageAsCt.toFixed(1)}}</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
-              </div>
-            </div>
-
-            <span class="split-title">KILLS</span>
-            <div class="split">
-              <div class="ct">
-                <img src="@/assets/ct_logo.png" />
-                <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
-              </div>
-              <div class="t">
-                <img src="@/assets/t_logo.png" />
-                <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
-              </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
             </div>
           </div>
         </div>
+
+        <div class="z-layer-hi">
+          <span class="split-title">DAMAGE</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{mapSummary.AverageDamageAsCt.toFixed(1)}}</span>
+            </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{mapSummary.AverageDamageAsTerrorist.toFixed(1)}}</span>
+            </div>
+          </div>
+
+          <span class="split-title">KILLS</span>
+          <div class="split">
+            <div class="ct">
+              <img src="@/assets/ct_logo.png" />
+              <span>{{(mapSummary.KillChanceAsCt* 100).toFixed(0) }}%</span>
+            </div>
+            <div class="t">
+              <img src="@/assets/t_logo.png" />
+              <span>{{(mapSummary.KillChanceAsTerrorist* 100).toFixed(0) }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
- 
 </template>
 
 <script>
@@ -81,10 +77,14 @@ export default {
   methods: {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getOverview(Enums.SampleType.HE, "", matchCount).then(response => {
+      let params = {
+        steamId: this.$api.User.GetSteamId(),
+        type: Enums.SampleType.HE
+      };
+      this.$api.getOverview(params, {}).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
-    },
+    }
   }
 };
 </script>
