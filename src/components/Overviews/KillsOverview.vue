@@ -5,17 +5,14 @@
     </div>
     <div class="performances">
       <div
-        v-for="(mapSummary,index) in mapSummaries"
-        :key="index"
+        v-for="(mapSummary,map) in mapSummaries"
+        :key="map"
         class="performance"
-        :class="{active: activeMap == mapSummary.Map}"
-        @click="OnActiveMapUpdated(mapSummary.Map)"
+        :class="{active: activeMap == map}"
+        @click="OnActiveMapUpdated(map)"
       >
-        <img
-          class="map-image"
-          :src="GetOverviewImage(mapSummary.Map)"
-        />
-        <p class="map-name">{{mapSummary.Map}}</p>
+        <img class="map-image" :src="$helpers.resolveMapPreview(map)" />
+        <p class="map-name">{{map}}</p>
 
         <div class="z-layer-lo">
           <!-- TODO: Style -->
@@ -60,7 +57,6 @@ import Enums from "@/enums";
 import OverviewBase from "@/components/Overviews/OverviewBase.vue";
 // require('src/assets/maps');
 
-
 export default {
   extends: OverviewBase,
   name: "KillsOverview",
@@ -76,10 +72,14 @@ export default {
   methods: {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
-      this.$api.getOverview(Enums.SampleType.Kill, "", matchCount).then(response => {
+      let params = {
+        steamId: this.$api.User.GetSteamId(),
+        type: Enums.SampleType.Kill
+      };
+      this.$api.getOverview(params, {}).then(response => {
         this.mapSummaries = response.data.MapSummaries;
       });
-    },
+    }
   }
 };
 </script>

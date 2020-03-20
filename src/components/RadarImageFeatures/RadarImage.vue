@@ -105,7 +105,7 @@
 
       <g id="kills-group">
         <Kill
-          v-for="killData in kills"
+          v-for="killData in enrichedKills"
           :key="killData.Id"
           :killData="killData"
           :scaleFactor="scaleFactor"
@@ -258,7 +258,7 @@ export default {
           trajectoryPoint.PosPixel = this.$coordinateConverter.IngameToPixel(vec, this.map);
         }
         element.isEnriched = true;
-    }
+    },
   },
   computed: {
     tintBackground() {
@@ -344,6 +344,19 @@ export default {
     },
 
     // "kills",
+    enrichedKills(){
+      if(!this.kills){
+        return [];
+      }
+      this.kills.forEach(element => {
+        if(element.isEnriched){
+          return;
+        }
+        element.PlayerPos.PosPixel = this.$coordinateConverter.IngameToPixel(element.PlayerPos, this.map);
+        element.VictimPos.PosPixel = this.$coordinateConverter.IngameToPixel(element.VictimPos, this.map);
+      });
+      return this.kills;
+    },
     
     enrichedMolotovs(){
       if(!this.molotovs){
@@ -356,7 +369,7 @@ export default {
         this.enrichTrajectory(element);
         element.Victims.forEach(victim => {
           victim.Hits.forEach(hit => {
-            hit.VictimPosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
+            hit.VictimPos.PosPixel = this.$coordinateConverter.IngameToPixel(hit.VictimPos, this.map);
           });
         });
       });
@@ -524,7 +537,6 @@ export default {
     },
     lineupPerformanceColors() {
       let lineupPerformanceColors = {};
-      console.log(this.userPerformanceData.LineupPerformances)
       for (let lineup of this.lineups) {
         let opacity = 1;
         const performance = this.userPerformanceData.LineupPerformances[
