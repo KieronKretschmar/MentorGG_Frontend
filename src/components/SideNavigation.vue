@@ -120,7 +120,7 @@ export default {
       }
 
       formData.append("demos", fileinput.files[0]);
-      formData.append("steamId", 1234);
+      formData.append("steamId", this.$api.User.GetSteamId(false));
       this.$api.uploadDemo(formData, (progressEvent) => {
         this.uploadInfo.progress = progressEvent;
       }).then(result => {
