@@ -1160,6 +1160,10 @@ table {
           justify-content: space-between;
           position: relative;
 
+          &:first-child {
+            padding-top: 120px;
+          }
+
           .section-desc {
             max-width: 320px;
             width: 100%;
@@ -3486,6 +3490,10 @@ table {
           align-items: center;
           justify-content: space-between;
           position: relative;
+
+          &:first-child {
+            padding-top: 20px;
+          }
 
           .section-desc {
             max-width: 320px;
