@@ -1107,7 +1107,6 @@ table {
           }
 
           @mixin games-nav-active {
-            margin: 8px;
             padding-top: 5px;
             filter: opacity(1);
           }
@@ -1119,11 +1118,11 @@ table {
             &--cs-go {
               @include games-nav-active;
               height: 40px;
+              margin-top: 15px;
             }
           }
 
           @mixin games-nav-inactive {
-            margin: 8px;
             padding-top: 5px;
             filter: opacity(0.4) grayscale(1);
             transition: all 0.3s;
@@ -1133,16 +1132,19 @@ table {
             &--pubg {
               @include games-nav-inactive;
               height: 38px;
+              margin: 13px 0 15px 0;
             }
 
             &--fortnite {
               @include games-nav-inactive;
               height: 34px;
+              margin: 8px 0;
             }
 
             &--dota-2 {
               @include games-nav-inactive;
               height: 35px;
+              margin: 10px 0 15px 0;
             }
           }
         }
@@ -1561,6 +1563,7 @@ table {
               background-color: $dark-3;
               border: 1px solid $dark-4;
               border-radius: 3px;
+              max-width: 360px;
 
               li {
                 display: inline-block;
@@ -3468,48 +3471,6 @@ table {
                 width: 100%;
                 transition: width 0.3s;
               }
-            }
-          }
-
-          @mixin games-nav-active {
-            padding-top: 5px;
-            filter: opacity(1);
-          }
-
-          .games-nav-active {
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-
-            &--cs-go {
-              @include games-nav-active;
-              height: 40px;
-              margin-top: 15px;
-            }
-          }
-
-          @mixin games-nav-inactive {
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            &--pubg {
-              @include games-nav-inactive;
-              height: 38px;
-              margin: 15px 0;
-            }
-
-            &--fortnite {
-              @include games-nav-inactive;
-              height: 34px;
-              margin: 8px 0;
-            }
-
-            &--dota-2 {
-              @include games-nav-inactive;
-              height: 35px;
-              margin: 10px 0 15px 0;
             }
           }
         }
