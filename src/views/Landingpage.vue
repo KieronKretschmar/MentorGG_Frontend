@@ -351,7 +351,7 @@ table {
         max-width: 480px;
         height: auto;
         object-fit: contain;
-        padding-top: 50px;
+        padding: 50px 20px 0 20px;
       }
 
       .title {
