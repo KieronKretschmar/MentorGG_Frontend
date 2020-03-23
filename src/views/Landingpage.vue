@@ -623,37 +623,42 @@ table {
           }
         }
 
-        .games-nav-active {
+        @mixin games-nav-active {
           margin: 8px;
           padding-top: 5px;
+          filter: opacity(1);
+        }
+
+        .games-nav-active {
           filter: opacity(0.4) grayscale(1);
           transition: all 0.3s;
 
           &--cs-go {
-            @extend .games-nav-active;
+            @include games-nav-active;
             height: 40px;
-            filter: opacity(1);
           }
         }
 
-        .games-nav-inactive {
+        @mixin games-nav-inactive {
           margin: 8px;
           padding-top: 5px;
           filter: opacity(0.4) grayscale(1);
           transition: all 0.3s;
+        }
 
+        .games-nav-inactive {
           &--pubg {
-            @extend .games-nav-inactive;
+            @include games-nav-inactive;
             height: 38px;
           }
 
           &--fortnite {
-            @extend .games-nav-inactive;
+            @include games-nav-inactive;
             height: 34px;
           }
 
           &--dota-2 {
-            @extend .games-nav-inactive;
+            @include games-nav-inactive;
             height: 35px;
           }
         }
@@ -1101,7 +1106,23 @@ table {
             }
           }
 
+          @mixin games-nav-active {
+            margin: 8px;
+            padding-top: 5px;
+            filter: opacity(1);
+          }
+
           .games-nav-active {
+            filter: opacity(0.4) grayscale(1);
+            transition: all 0.3s;
+
+            &--cs-go {
+              @include games-nav-active;
+              height: 40px;
+            }
+          }
+
+          @mixin games-nav-inactive {
             margin: 8px;
             padding-top: 5px;
             filter: opacity(0.4) grayscale(1);
@@ -1109,10 +1130,20 @@ table {
           }
 
           .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
+            &--pubg {
+              @include games-nav-inactive;
+              height: 38px;
+            }
+
+            &--fortnite {
+              @include games-nav-inactive;
+              height: 34px;
+            }
+
+            &--dota-2 {
+              @include games-nav-inactive;
+              height: 35px;
+            }
           }
         }
       }
@@ -1190,10 +1221,10 @@ table {
         position: relative;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 70%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 70%;
         }
       }
 
@@ -1204,10 +1235,10 @@ table {
         background-repeat: no-repeat;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 50%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 50%;
         }
       }
 
@@ -1220,10 +1251,10 @@ table {
         position: relative;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 50%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 50%;
         }
       }
 
@@ -3057,10 +3088,10 @@ table {
         position: relative;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 60%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 60%;
         }
       }
 
@@ -3153,7 +3184,6 @@ table {
 
         .logo {
           display: inline-flex;
-
         }
       }
 
@@ -3531,10 +3561,10 @@ table {
         position: relative;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 50%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 50%;
         }
       }
 
@@ -4862,10 +4892,10 @@ table {
         position: relative;
 
         .section-desc-img {
-        object-fit: contain;
-        height: auto;
-        max-height: auto;
-        max-width: 40%;
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
         }
       }
 
