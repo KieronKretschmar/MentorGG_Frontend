@@ -3471,18 +3471,46 @@ table {
             }
           }
 
+          @mixin games-nav-active {
+            padding-top: 5px;
+            filter: opacity(1);
+          }
+
           .games-nav-active {
-            margin: 8px;
+            filter: opacity(0.4) grayscale(1);
+            transition: all 0.3s;
+
+            &--cs-go {
+              @include games-nav-active;
+              height: 40px;
+              margin-top: 15px;
+            }
+          }
+
+          @mixin games-nav-inactive {
             padding-top: 5px;
             filter: opacity(0.4) grayscale(1);
             transition: all 0.3s;
           }
 
           .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
+            &--pubg {
+              @include games-nav-inactive;
+              height: 38px;
+              margin: 15px 0;
+            }
+
+            &--fortnite {
+              @include games-nav-inactive;
+              height: 34px;
+              margin: 8px 0;
+            }
+
+            &--dota-2 {
+              @include games-nav-inactive;
+              height: 35px;
+              margin: 10px 0 15px 0;
+            }
           }
         }
       }
