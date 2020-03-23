@@ -319,10 +319,7 @@ table {
 
       .logo {
         display: inline-flex;
-
-        &logo--header {
-          margin-right: 20px;
-        }
+        margin-right: 20px;
       }
     }
 
@@ -823,10 +820,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -1305,10 +1298,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -1767,10 +1756,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -2233,10 +2218,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -2701,10 +2682,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -3177,9 +3154,6 @@ table {
         .logo {
           display: inline-flex;
 
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -3653,10 +3627,6 @@ table {
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -4112,15 +4082,11 @@ table {
         .header-wrap {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
         }
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -4219,32 +4185,7 @@ table {
       }
 
       .button-gray-transparent {
-        font-size: 14px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0.5em 1.785em 0.75em 1.785em;
-        background-color: $purple;
-        border: 1px solid $purple;
-        background-color: transparent;
-        color: #fff;
-        line-height: 1;
-
-        &.button-gray-transparent:hover {
-          background-color: $purple;
-        }
-
-        &.button-gray-transparent:focus {
-          outline: 1px solid $dark-1;
-        }
-
-        &.button-gray-transparent--round {
-          border-radius: 2.5em;
-        }
-
-        &.button-gray-transparent--small {
-          padding: 0.5em 1.5em;
-          min-width: 95px;
-        }
+        display: none;
       }
 
       .offer-section {
@@ -4576,15 +4517,11 @@ table {
         .header-wrap {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
         }
 
         .logo {
           display: inline-flex;
-
-          &logo--header {
-            margin-right: 20px;
-          }
         }
       }
 
@@ -4683,32 +4620,7 @@ table {
       }
 
       .button-gray-transparent {
-        font-size: 14px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0.5em 1.785em 0.75em 1.785em;
-        background-color: $purple;
-        border: 1px solid $purple;
-        background-color: transparent;
-        color: #fff;
-        line-height: 1;
-
-        &.button-gray-transparent:hover {
-          background-color: $purple;
-        }
-
-        &.button-gray-transparent:focus {
-          outline: 1px solid $dark-1;
-        }
-
-        &.button-gray-transparent--round {
-          border-radius: 2.5em;
-        }
-
-        &.button-gray-transparent--small {
-          padding: 0.5em 1.5em;
-          min-width: 95px;
-        }
+        display: none;
       }
 
       .offer-section {
