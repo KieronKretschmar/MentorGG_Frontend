@@ -67,21 +67,24 @@ export default {
   },
   methods: {
     LoadData: function(isDemo) {
-      this.loadingComplete = false;
-      
-      let params = {
-        steamId: this.$api.User.GetSteamId(),
-      };
+      // make sure at least one match is available before loading
+      if(this.$api.MatchSelector.Build().GetMostRecentMatchId())
+      {
+        this.loadingComplete = false;
+        
+        let params = {
+          steamId: this.$api.User.GetSteamId(),
+        };
 
-      this.$api.getSingleMatchMisplays(params).then(result => {
-        this.situationCollections = result.data.SituationCollections;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
-      
+        this.$api.getSingleMatchMisplays(params).then(result => {
+          this.situationCollections = result.data.SituationCollections;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
+      }      
     },
   }
 };
