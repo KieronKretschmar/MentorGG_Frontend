@@ -1201,7 +1201,7 @@ table {
         height: auto;
         max-height: auto;
         max-width: 70%;
-      }
+        }
       }
 
       .positions-section {
@@ -1215,7 +1215,7 @@ table {
         height: auto;
         max-height: auto;
         max-width: 50%;
-      }
+        }
       }
 
       .smokes-section {
@@ -1231,7 +1231,7 @@ table {
         height: auto;
         max-height: auto;
         max-width: 50%;
-      }
+        }
       }
 
       .ready-section {
@@ -3076,6 +3076,13 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+
+        .section-desc-img {
+        object-fit: contain;
+        height: auto;
+        max-height: auto;
+        max-width: 60%;
+        }
       }
 
       .positions-section {
@@ -3544,6 +3551,13 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+
+        .section-desc-img {
+        object-fit: contain;
+        height: auto;
+        max-height: auto;
+        max-width: 50%;
+        }
       }
 
       .positions-section {
@@ -4924,6 +4938,13 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+
+        .section-desc-img {
+        object-fit: contain;
+        height: auto;
+        max-height: auto;
+        max-width: 40%;
+        }
       }
 
       .positions-section {
