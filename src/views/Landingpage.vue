@@ -2604,7 +2604,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 60px;
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2617,6 +2617,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 40px;
       }
 
       .smokes-section {
@@ -2626,11 +2627,12 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 40px;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 20px 0;
+        padding-bottom: 120px;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -3070,7 +3072,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 60px;
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -3090,6 +3092,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 40px;
       }
 
       .smokes-section {
@@ -3099,11 +3102,12 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 40px;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 20px 0;
+        padding-bottom: 120px;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -3545,7 +3549,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 120px;
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -3565,6 +3569,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 20px;
       }
 
       .smokes-section {
@@ -3574,11 +3579,12 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 20px;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 20px 0;
+        padding-bottom: 120px;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -4014,7 +4020,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 120px;
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -4027,6 +4033,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 0;
       }
 
       .smokes-section {
@@ -4036,11 +4043,12 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 0;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 30px 0;
+        padding-bottom: 120px;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -4489,6 +4497,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 0;
       }
 
       .smokes-section {
@@ -4498,11 +4507,12 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 0;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 25px 0;
+        padding-bottom: 120px;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -4952,6 +4962,7 @@ table {
         background-position: calc(100% - 7.5vw) center;
         background-size: auto;
         background-repeat: no-repeat;
+        margin-top: 0;
       }
 
       .smokes-section {
@@ -4961,11 +4972,11 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+        margin-top: 0;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 0;
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -4983,6 +4994,7 @@ table {
       }
 
       .ready-section {
+        padding-bottom: 100px;
         .subtitle {
           text-align: center;
           max-width: 360px;
