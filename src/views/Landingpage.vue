@@ -293,6 +293,10 @@ table {
   border-spacing: 0;
 }
 
+h4 {
+  margin: 0;
+}
+
 .view-landingpage {
   .full-width-container {
     color: #fff;
@@ -1122,7 +1126,7 @@ table {
             &--cs-go {
               @include games-nav-active;
               height: 40px;
-              margin-top: 15px;
+              //margin-top: 15px;
             }
           }
 
@@ -1136,26 +1140,26 @@ table {
             &--pubg {
               @include games-nav-inactive;
               height: 38px;
-              margin: 13px 0 15px 0;
+              //margin: 13px 0 15px 0;
             }
 
             &--fortnite {
               @include games-nav-inactive;
               height: 34px;
-              margin: 8px 0;
+              //margin: 8px 0;
             }
 
             &--dota-2 {
               @include games-nav-inactive;
               height: 35px;
-              margin: 10px 0 15px 0;
+              //margin: 10px 0 15px 0;
             }
           }
         }
       }
 
       .desc-section {
-        padding: 45px 0;
+        padding: 0; //
         background-color: $dark-2;
 
         .section-desc-wrap {
@@ -1163,10 +1167,7 @@ table {
           align-items: center;
           justify-content: space-between;
           position: relative;
-
-          &:first-child {
-            padding-top: 120px;
-          }
+          // padding-top: 80px; 
 
           .section-desc {
             max-width: 320px;
@@ -1240,15 +1241,15 @@ table {
 
       .positions-section {
         background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
+        background-position: calc(100% - 4.5vw) center; //
+        background-size: 60%; //
         background-repeat: no-repeat;
 
         .section-desc-img {
           object-fit: contain;
           height: auto;
           max-height: auto;
-          max-width: 50%;
+          max-width: 70%;
         }
       }
 
@@ -1264,13 +1265,12 @@ table {
           object-fit: contain;
           height: auto;
           max-height: auto;
-          max-width: 50%;
+          max-width: 70%;
         }
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 100px 0 220px 0; //
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -1571,7 +1571,7 @@ table {
               background-color: $dark-3;
               border: 1px solid $dark-4;
               border-radius: 3px;
-              max-width: 360px;
+              max-width: 360px; //
 
               li {
                 display: inline-block;
@@ -1621,26 +1621,54 @@ table {
             }
           }
 
+          @mixin games-nav-active {
+            padding-top: 5px;
+            filter: opacity(1);
+          }
+
           .games-nav-active {
-            margin: 8px;
+            filter: opacity(0.4) grayscale(1);
+            transition: all 0.3s;
+
+            &--cs-go {
+              @include games-nav-active;
+              height: 40px;
+              margin-top: 15px; //
+            }
+          }
+
+          @mixin games-nav-inactive {
             padding-top: 5px;
             filter: opacity(0.4) grayscale(1);
             transition: all 0.3s;
           }
 
           .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
+            &--pubg {
+              @include games-nav-inactive;
+              height: 38px;
+              margin: 13px 0 15px 0; //
+            }
+
+            &--fortnite {
+              @include games-nav-inactive;
+              height: 34px;
+              margin: 8px 0; //
+            }
+
+            &--dota-2 {
+              @include games-nav-inactive;
+              height: 35px;
+              margin: 10px 0 15px 0; //
+            }
           }
         }
       }
 
       .desc-section {
-        padding: 45px 0;
+        padding: 0; //
         background-color: $dark-2;
-        margin-top: 40px;
+        margin-top: 80px;//
 
         .section-desc-wrap {
           display: flex;
@@ -1703,7 +1731,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 220px; //
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -1713,8 +1741,8 @@ table {
 
       .positions-section {
         background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
+        //
+        //
         background-repeat: no-repeat;
       }
 
@@ -1728,8 +1756,7 @@ table {
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        padding: 100px 0 220px 0; //
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -2100,9 +2127,9 @@ table {
       }
 
       .desc-section {
-        padding: 45px 0;
+        padding: 0; //
         background-color: $dark-2;
-        margin-top: 40px;
+        margin-top: 90px; //
 
         .section-desc-wrap {
           display: flex;
@@ -2165,7 +2192,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 140px;
+        padding-top: 220px; //
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2175,8 +2202,8 @@ table {
 
       .positions-section {
         background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
+        //
+        //
         background-repeat: no-repeat;
       }
 
@@ -2184,14 +2211,13 @@ table {
         background-color: $dark-2;
         background-image: url(../assets/smokes-bg.png);
         background-position: 15vw center;
-        background-size: auto;
+        //
         background-repeat: no-repeat;
         position: relative;
       }
 
       .ready-section {
-        padding: 60px 0;
-        padding-bottom: 220px;
+        //
         background-image: url(../assets/fire-bg.png);
         background-position: center bottom;
         background-size: cover;
@@ -2627,7 +2653,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 60px;
+        padding-top: 220px; //
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -2637,8 +2663,8 @@ table {
 
       .positions-section {
         background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
+        //
+        //
         background-repeat: no-repeat;
         margin-top: 40px;
       }
@@ -3091,7 +3117,7 @@ table {
       }
 
       .demoviewer-section {
-        padding-top: 60px;
+        padding-top: 200px; //
         background-image: url(../assets/stats-bg.png);
         background-position: 15vw center;
         background-size: auto;
@@ -3108,8 +3134,8 @@ table {
 
       .positions-section {
         background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
+        //
+        //
         background-repeat: no-repeat;
         margin-top: 40px;
       }
@@ -3121,7 +3147,7 @@ table {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
-        margin-top: 40px;
+        margin-top: 20px;//
       }
 
       .ready-section {
