@@ -4053,6 +4053,13 @@ h4 {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .positions-section {
@@ -4061,6 +4068,13 @@ h4 {
         background-size: auto;
         background-repeat: no-repeat;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .smokes-section {
@@ -4071,6 +4085,13 @@ h4 {
         background-repeat: no-repeat;
         position: relative;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .ready-section {
@@ -4488,6 +4509,13 @@ h4 {
         background-size: auto;
         background-repeat: no-repeat;
         position: relative;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .positions-section {
@@ -4496,6 +4524,13 @@ h4 {
         background-size: auto;
         background-repeat: no-repeat;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .smokes-section {
@@ -4506,6 +4541,13 @@ h4 {
         background-repeat: no-repeat;
         position: relative;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .ready-section {
@@ -4932,6 +4974,13 @@ h4 {
         background-size: auto;
         background-repeat: no-repeat;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .smokes-section {
@@ -4942,6 +4991,13 @@ h4 {
         background-repeat: no-repeat;
         position: relative;
         margin-top: 0;
+
+        .section-desc-img {
+          object-fit: contain;
+          height: auto;
+          max-height: auto;
+          max-width: 40%;
+        }
       }
 
       .ready-section {
