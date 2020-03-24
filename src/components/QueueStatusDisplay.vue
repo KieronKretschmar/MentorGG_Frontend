@@ -10,7 +10,7 @@
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
             (pos.
-            <span class="orange-bold">{{queueStatus.FirstMatchPosition}}</span>
+            <span class="orange-bold">{{queueStatus.FirstDemoPosition}}</span>
             / {{queueStatus.QueueLength}})
             <div class="spinner">
               <div class="bounce1"></div>
@@ -36,7 +36,7 @@ export default {
     return {
       queueStatus: {
         MatchesInQueue: 0,
-        FirstMatchPosition: -1,
+        FirstDemoPosition: -1,
         QueueLength: 0
       },
       uploadLimitReached: false,
@@ -59,7 +59,7 @@ export default {
         this.queueStatus = {
           QueueLength: response.data.TotalQueueLength,
           MatchesInQueue: response.data.MatchIds.length,
-          FirstMatchPosition: response.data.FirstMatchPosition
+          FirstDemoPosition: response.data.FirstDemoPosition
         };
 
 
