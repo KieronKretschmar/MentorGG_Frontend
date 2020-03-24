@@ -311,6 +311,10 @@ h4 {
 
     header {
       background-color: $dark-1;
+      padding: 20px 0px;
+      display: flex;
+      position: relative;
+
       .header-wrap {
         display: flex;
         align-items: center;
@@ -805,504 +809,26 @@ h4 {
 @media (max-width: 1000px) {
   .view-landingpage {
     .full-width-container {
-      color: #fff;
-      margin: 0 auto;
-
-      .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
-      }
-
-      header {
-        background-color: $dark-1;
-        padding: 20px 0px;
-        display: flex;
-        position: relative;
-
-        .header-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .logo {
-          display: inline-flex;
-        }
-      }
-
-      .steam-logo {
-        width: 16px;
-        height: 16px;
-      }
-
-      .hero-section {
-        padding: 0 0 40px 0;
-        background-color: $dark-2;
-        background-image: url(../assets/hero-map-bg.png),
-          url(../assets/hero-bg.png);
-        background-repeat: no-repeat;
-        background-position: center left, center;
-
-        .hero-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .login-steam {
-          margin-top: 40px;
-        }
-
-        .logo-hero {
-          width: 100%;
-          max-width: 480px;
-          height: auto;
-          object-fit: contain;
-          padding-top: 50px;
-        }
-
-        .title {
-          margin: 0;
-        }
-
-        @mixin hero-title {
-          font-size: 28px;
-          margin-top: 1.2em;
-          color: $light-1;
-          text-align: center;
-          max-width: 750px;
-          font-weight: 500;
-        }
-
-        .hero-title {
-          @include hero-title;
-        }
-
-        .hero-subtitle {
-          @include hero-title;
-          font-size: 18px;
-          margin-top: 0;
-          padding-top: 4px;
-        }
-
-        .hero-img {
-          margin-top: 45px;
-          object-fit: contain;
-          max-width: 100%;
-          height: auto;
-        }
-      }
-
-      .login-steam {
-        border-radius: 2.5em;
-        min-width: 240px;
-        padding: 0.75em 1.25em;
-        padding-top: 0.5em;
-        text-decoration: none;
-        text-align: center;
-        transition: 0.3s;
-        color: #fff;
-        font-size: 13px;
-        padding: 0.6em 1.785em 0.75em 1.785em;
-      }
-
-      .login-steam .steam-logo {
-        fill: #fff;
-        margin-left: 10px;
-        position: relative;
-        top: 2px;
-      }
-
-      button {
-        text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-
-      [class*="button"] {
-        text-decoration: none;
-        transition: 0.3s;
-      }
-
-      .button-gray-transparent {
-        font-size: 14px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0.5em 1.785em 0.75em 1.785em;
-        background-color: $purple;
-        border: 1px solid $purple;
-        background-color: transparent;
-        color: #fff;
-        line-height: 1;
-
-        &.button-gray-transparent:hover {
-          background-color: $purple;
-        }
-
-        &.button-gray-transparent:focus {
-          outline: 1px solid $dark-1;
-        }
-
-        &.button-gray-transparent--round {
-          border-radius: 2.5em;
-        }
-
-        &.button-gray-transparent--small {
-          padding: 0.5em 1.5em;
-          min-width: 95px;
-        }
-      }
-
       .offer-section {
         padding: 0;
-        background-image: url(../assets/offer-blur.png);
-        background-size: cover;
-        background-position: center bottom;
-        background-repeat: no-repeat;
         padding-bottom: 130px;
-        background-color: $dark-2;
-
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          margin-bottom: 0;
-        }
-
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 0.3em auto 0;
-          color: $light-1;
-          font-size: 16px;
-          font-weight: 500;
-        }
-
-        .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
-          .offer {
-            max-width: calc(100% / 3 - 20px);
-            margin: 20px 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .offer-img-wrap {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-              position: relative;
-
-              &.offer-img-wrap:before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 1px;
-                height: 1px;
-                border-radius: 50%;
-                box-shadow: 0px 0px 45px 30px $red-2;
-              }
-            }
-
-            .offer-img {
-              width: 80px;
-              height: 64px;
-            }
-
-            .offer-title {
-              height: 25px;
-              font-size: 18px;
-              text-align: center;
-              padding-bottom: 3px;
-              display: block;
-            }
-
-            .offer-text {
-              font-size: 14px;
-              font-weight: 500;
-              text-align: center;
-              max-width: 240px;
-              margin: 0 auto;
-              flex: 0 1 100%;
-              color: $light-1;
-            }
-          }
-        }
-      }
-
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-
-          @mixin games-nav-active {
-            padding-top: 5px;
-            filter: opacity(1);
-          }
-
-          .games-nav-active {
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-
-            &--cs-go {
-              @include games-nav-active;
-              height: 40px;
-              //margin-top: 15px;
-            }
-          }
-
-          @mixin games-nav-inactive {
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            &--pubg {
-              @include games-nav-inactive;
-              height: 38px;
-              //margin: 13px 0 15px 0;
-            }
-
-            &--fortnite {
-              @include games-nav-inactive;
-              height: 34px;
-              //margin: 8px 0;
-            }
-
-            &--dota-2 {
-              @include games-nav-inactive;
-              height: 35px;
-              //margin: 10px 0 15px 0;
-            }
-          }
-        }
       }
 
       .desc-section {
-        padding: 0; //
-        background-color: $dark-2;
-
-        .section-desc-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-          // padding-top: 80px; 
-
-          .section-desc {
-            max-width: 320px;
-            width: 100%;
-            margin-left: auto;
-
-            .section-desc-title {
-              display: block;
-              font-size: 1.5rem;
-              font-weight: bold;
-              margin-top: 0.75em;
-              margin-bottom: 0.875em;
-            }
-
-            .section-desc-img-wrap {
-              display: flex;
-              align-items: flex-end;
-              height: auto;
-            }
-
-            .section-desc-text {
-              font-size: 14px;
-              line-height: 1.357;
-              font-weight: 400;
-              max-width: 280px;
-            }
-          }
-
-          .section-desc--right {
-            margin-left: auto;
-            text-align: right;
-
-            .section-desc-img-wrap {
-              justify-content: flex-end;
-            }
-
-            .section-desc-text {
-              margin-left: auto;
-            }
-          }
-
-          .section-desc--left {
-            margin-left: 0;
-            text-align: left;
-
-            .section-desc-img-wrap {
-              justify-content: flex-start;
-            }
-            .section-desc-text {
-              margin-right: auto;
-            }
-          }
-        }
+        padding: 20px;
       }
 
       .demoviewer-section {
         padding-top: 140px;
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 70%;
-        }
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 4.5vw) center; //
-        background-size: 60%; //
-        background-repeat: no-repeat;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 70%;
-        }
-      }
-
-      .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 70%;
-        }
+        background-position: calc(100% - 4.5vw) center;
+        background-size: 60%;
       }
 
       .ready-section {
-        padding: 100px 0 220px 0; //
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      .ready-section {
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
+        padding: 100px 0 220px 0;
       }
     }
   }
@@ -1449,10 +975,26 @@ h4 {
 
       .demoviewer-section {
         padding-top: 220px;
+
+        .section-desc-img {
+          max-width: 60%;
+        }
       }
 
-      .ready-section {
-        padding: 100px 0 220px 0;
+      .positions-section {
+        margin-top: 40px;
+
+        .section-desc-img {
+          max-width: 60%;
+        }
+      }
+
+      .smokes-section {
+        margin-top: 40px;
+
+        .section-desc-img {
+          max-width: 60%;
+        }
       }
     }
   }
@@ -1476,15 +1018,6 @@ h4 {
             }
           }
         }
-      }
-
-      .desc-section {
-        padding: 0;
-        margin-top: 90px;
-      }
-
-      .demoviewer-section {
-        padding-top: 220px;
       }
     }
   }
@@ -1528,7 +1061,7 @@ h4 {
       }
 
       .smokes-section {
-        margin-top: 40px;
+        margin-top: 20px;
       }
     }
   }
@@ -1554,12 +1087,13 @@ h4 {
         }
       }
 
+      .desc-section {
+        padding: 45px 0;
+        margin-top: 100px;
+      }
+
       .demoviewer-section {
         padding-top: 200px;
-
-        .section-desc-img {
-          max-width: 60%;
-        }
       }
 
       .positions-section {
@@ -1618,12 +1152,19 @@ h4 {
 
       .positions-section {
         margin-top: 20px;
+
+        .section-desc-img {
+          max-width: 40%;
+        }
       }
 
       .smokes-section {
         margin-top: 20px;
-      }
 
+        .section-desc-img {
+          max-width: 40%;
+        }
+      }
     }
   }
 }
@@ -1709,26 +1250,14 @@ h4 {
 
       .demoviewer-section {
         padding-top: 140px;
-
-        .section-desc-img {
-          max-width: 40%;
-          }
       }
 
       .positions-section {
         margin-top: 0;
-
-        .section-desc-img {
-          max-width: 40%;
-          }
       }
 
       .smokes-section {
         margin-top: 0;
-
-        .section-desc-img {
-          max-width: 40%;
-          }
       }
     }
   }
@@ -1743,7 +1272,6 @@ h4 {
         .offer-wrap {
           .offer {
             .offer-title {
-
               &.first-title {
                 height: 25px;
               }
