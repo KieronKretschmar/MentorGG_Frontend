@@ -311,10 +311,6 @@ h4 {
 
     header {
       background-color: $dark-1;
-      padding: 20px 0px;
-      display: flex;
-      position: relative;
-
       .header-wrap {
         display: flex;
         align-items: center;
@@ -3115,80 +3111,21 @@ h4 {
           }
         }
       }
-
+// // //
       .demoviewer-section {
-        padding-top: 200px; //
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
+        padding-top: 200px;
 
         .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
           max-width: 60%;
         }
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        //
-        //
-        background-repeat: no-repeat;
         margin-top: 40px;
       }
 
       .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-        margin-top: 20px;//
-      }
-
-      .ready-section {
-        padding: 20px 0;
-        padding-bottom: 120px;
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      .ready-section {
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
+        margin-top: 20px;
       }
     }
   }
@@ -3197,224 +3134,13 @@ h4 {
 @media (max-width: 500px) {
   .view-landingpage {
     .full-width-container {
-      color: #fff;
-      margin: 0 auto;
-
-      .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
-      }
-
-      header {
-        background-color: $dark-1;
-        padding: 20px 0px;
-        display: flex;
-        position: relative;
-
-        .header-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .logo {
-          display: inline-flex;
-        }
-      }
-
-      .steam-logo {
-        width: 16px;
-        height: 16px;
-      }
-
-      .hero-section {
-        padding: 0 0 40px 0;
-        background-color: $dark-2;
-        background-image: url(../assets/hero-map-bg.png),
-          url(../assets/hero-bg.png);
-        background-repeat: no-repeat;
-        background-position: center left, center;
-
-        .hero-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .login-steam {
-          margin-top: 40px;
-        }
-
-        .logo-hero {
-          width: 100%;
-          max-width: 480px;
-          height: auto;
-          object-fit: contain;
-          padding-top: 50px;
-        }
-
-        .title {
-          margin: 0;
-        }
-
-        @mixin hero-title {
-          font-size: 28px;
-          margin-top: 1.2em;
-          color: $light-1;
-          text-align: center;
-          max-width: 750px;
-          font-weight: 500;
-        }
-
-        .hero-title {
-          @include hero-title;
-        }
-
-        .hero-subtitle {
-          @include hero-title;
-          font-size: 18px;
-          margin-top: 0;
-          padding-top: 4px;
-        }
-
-        .hero-img {
-          margin-top: 45px;
-          object-fit: contain;
-          max-width: 100%;
-          height: auto;
-        }
-      }
-
-      .login-steam {
-        border-radius: 2.5em;
-        min-width: 240px;
-        padding: 0.75em 1.25em;
-        padding-top: 0.5em;
-        text-decoration: none;
-        text-align: center;
-        transition: 0.3s;
-        color: #fff;
-        font-size: 13px;
-        padding: 0.6em 1.785em 0.75em 1.785em;
-      }
-
-      .login-steam .steam-logo {
-        fill: #fff;
-        margin-left: 10px;
-        position: relative;
-        top: 2px;
-      }
-
-      button {
-        text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-
-      [class*="button"] {
-        text-decoration: none;
-        transition: 0.3s;
-      }
-
-      .button-gray-transparent {
-        font-size: 14px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0.5em 1.785em 0.75em 1.785em;
-        background-color: $purple;
-        border: 1px solid $purple;
-        background-color: transparent;
-        color: #fff;
-        line-height: 1;
-
-        &.button-gray-transparent:hover {
-          background-color: $purple;
-        }
-
-        &.button-gray-transparent:focus {
-          outline: 1px solid $dark-1;
-        }
-
-        &.button-gray-transparent--round {
-          border-radius: 2.5em;
-        }
-
-        &.button-gray-transparent--small {
-          padding: 0.5em 1.5em;
-          min-width: 95px;
-        }
-      }
-
       .offer-section {
         padding: 0;
-        background-image: url(../assets/offer-blur.png);
-        background-size: cover;
-        background-position: center bottom;
-        background-repeat: no-repeat;
         padding-bottom: 130px;
-        background-color: $dark-2;
-
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          margin-bottom: 0;
-        }
-
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 0.3em auto 0;
-          color: $light-1;
-          font-size: 16px;
-          font-weight: 500;
-        }
 
         .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
           .offer {
-            max-width: calc(100% / 3 - 20px);
-            margin: 20px 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .offer-img-wrap {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-              position: relative;
-
-              &.offer-img-wrap:before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 1px;
-                height: 1px;
-                border-radius: 50%;
-                box-shadow: 0px 0px 45px 30px $red-2;
-              }
-            }
-
-            .offer-img {
-              width: 80px;
-              height: 64px;
-            }
-
             .offer-title {
-              height: 23px;
-              font-size: 18px;
-              text-align: center;
-              padding-bottom: 3px;
-              display: block;
-
               &.first-title {
                 height: 20px;
               }
@@ -3435,224 +3161,27 @@ h4 {
         }
       }
 
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-        }
-      }
-
       .desc-section {
         padding: 45px 0;
-        background-color: $dark-2;
         margin-top: 160px;
-
-        .section-desc-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-
-          &:first-child {
-            padding-top: 20px;
-          }
-
-          .section-desc {
-            max-width: 320px;
-            width: 100%;
-            margin-left: auto;
-
-            .section-desc-title {
-              display: block;
-              font-size: 1.5rem;
-              font-weight: bold;
-              margin-top: 0.75em;
-              margin-bottom: 0.875em;
-            }
-
-            .section-desc-img-wrap {
-              display: flex;
-              align-items: flex-end;
-              height: auto;
-            }
-
-            .section-desc-text {
-              font-size: 14px;
-              line-height: 1.357;
-              font-weight: 400;
-              max-width: 280px;
-            }
-          }
-
-          .section-desc--right {
-            margin-left: auto;
-            text-align: right;
-
-            .section-desc-img-wrap {
-              justify-content: flex-end;
-            }
-
-            .section-desc-text {
-              margin-left: auto;
-            }
-          }
-
-          .section-desc--left {
-            margin-left: 0;
-            text-align: left;
-
-            .section-desc-img-wrap {
-              justify-content: flex-start;
-            }
-            .section-desc-text {
-              margin-right: auto;
-            }
-          }
-        }
       }
 
       .demoviewer-section {
         padding-top: 120px;
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
 
         .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 50%;
+          max-width: 40%;
         }
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
-        background-repeat: no-repeat;
         margin-top: 20px;
       }
 
       .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
         margin-top: 20px;
       }
 
-      .ready-section {
-        padding: 20px 0;
-        padding-bottom: 120px;
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      .ready-section {
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
-      }
     }
   }
 }
@@ -3660,228 +3189,22 @@ h4 {
 @media (max-width: 415px) {
   .view-landingpage {
     .full-width-container {
-      color: #fff;
-      margin: 0 auto;
-
-      .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
-      }
-
-      header {
-        background-color: $dark-1;
-        padding: 20px 0px;
-        display: flex;
-        position: relative;
-
-        .header-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .logo {
-          display: inline-flex;
-        }
-      }
-
-      .steam-logo {
-        width: 16px;
-        height: 16px;
-      }
-
-      .hero-section {
-        padding: 0 0 40px 0;
-        background-color: $dark-2;
-        background-image: url(../assets/hero-map-bg.png),
-          url(../assets/hero-bg.png);
-        background-repeat: no-repeat;
-        background-position: center left, center;
-
-        .hero-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .login-steam {
-          margin-top: 40px;
-        }
-
-        .logo-hero {
-          width: 100%;
-          max-width: 480px;
-          height: auto;
-          object-fit: contain;
-          padding-top: 50px;
-        }
-
-        .title {
-          margin: 0;
-        }
-
-        @mixin hero-title {
-          font-size: 28px;
-          margin-top: 1.2em;
-          color: $light-1;
-          text-align: center;
-          max-width: 750px;
-          font-weight: 500;
-        }
-
-        .hero-title {
-          @include hero-title;
-        }
-
-        .hero-subtitle {
-          @include hero-title;
-          font-size: 18px;
-          margin-top: 0;
-          padding-top: 4px;
-        }
-
-        .hero-img {
-          margin-top: 45px;
-          object-fit: contain;
-          max-width: 100%;
-          height: auto;
-        }
-      }
-
-      .login-steam {
-        border-radius: 2.5em;
-        min-width: 240px;
-        padding: 0.75em 1.25em;
-        padding-top: 0.5em;
-        text-decoration: none;
-        text-align: center;
-        transition: 0.3s;
-        color: #fff;
-        font-size: 13px;
-        padding: 0.6em 1.785em 0.75em 1.785em;
-      }
-
-      .login-steam .steam-logo {
-        fill: #fff;
-        margin-left: 10px;
-        position: relative;
-        top: 2px;
-      }
-
-      button {
-        text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-
-      [class*="button"] {
-        text-decoration: none;
-        transition: 0.3s;
-      }
-
-      .button-gray-transparent {
-        font-size: 14px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 0.5em 1.785em 0.75em 1.785em;
-        background-color: $purple;
-        border: 1px solid $purple;
-        background-color: transparent;
-        color: #fff;
-        line-height: 1;
-
-        &.button-gray-transparent:hover {
-          background-color: $purple;
-        }
-
-        &.button-gray-transparent:focus {
-          outline: 1px solid $dark-1;
-        }
-
-        &.button-gray-transparent--round {
-          border-radius: 2.5em;
-        }
-
-        &.button-gray-transparent--small {
-          padding: 0.5em 1.5em;
-          min-width: 95px;
-        }
-      }
-
       .offer-section {
-        padding: 0;
-        background-image: url(../assets/offer-blur.png);
-        background-size: cover;
-        background-position: center bottom;
-        background-repeat: no-repeat;
         padding-bottom: 130px;
-        background-color: $dark-2;
-
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          margin-bottom: 0;
-        }
-
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 0.3em auto 0;
-          color: $light-1;
-          font-size: 16px;
-          font-weight: 500;
-        }
 
         .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
           .offer {
-            max-width: calc(100% / 3 - 20px);
-            margin: 20px 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .offer-img-wrap {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-              position: relative;
-
-              &.offer-img-wrap:before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 1px;
-                height: 1px;
-                border-radius: 50%;
-                box-shadow: 0px 0px 45px 30px $red-2;
-              }
-            }
-
-            .offer-img {
-              width: 80px;
-              height: 64px;
-            }
-
             .offer-title {
               &.first-title {
-                height: 0; //
+                height: 0;
               }
 
               &.middle-title {
-                height: 24px; //
+                height: 24px;
               }
 
               &.last-title {
-                height: 0; //
+                height: 0;
               }
             }
 
@@ -3892,247 +3215,16 @@ h4 {
         }
       }
 
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-
-          .games-nav-active {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        background-color: $dark-2;
-        margin-top: 160px;
-
-        .section-desc-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-
-          .section-desc {
-            max-width: 320px;
-            width: 100%;
-            margin-left: auto;
-
-            .section-desc-title {
-              display: block;
-              font-size: 1.5rem;
-              font-weight: bold;
-              margin-top: 0.75em;
-              margin-bottom: 0.875em;
-            }
-
-            .section-desc-img-wrap {
-              display: flex;
-              align-items: flex-end;
-              height: auto;
-            }
-
-            .section-desc-text {
-              font-size: 14px;
-              line-height: 1.357;
-              font-weight: 400;
-              max-width: 280px;
-            }
-          }
-
-          .section-desc--right {
-            margin-left: auto;
-            text-align: right;
-
-            .section-desc-img-wrap {
-              justify-content: flex-end;
-            }
-
-            .section-desc-text {
-              margin-left: auto;
-            }
-          }
-
-          .section-desc--left {
-            margin-left: 0;
-            text-align: left;
-
-            .section-desc-img-wrap {
-              justify-content: flex-start;
-            }
-            .section-desc-text {
-              margin-right: auto;
-            }
-          }
-        }
-      }
-
       .demoviewer-section {
         padding-top: 120px;
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
-        background-repeat: no-repeat;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
       }
 
       .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
-      }
-
-      .ready-section {
-        padding: 30px 0;
-        padding-bottom: 120px;
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      .ready-section {
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
       }
     }
   }
@@ -4141,125 +3233,12 @@ h4 {
 @media (max-width: 395px) {
   .view-landingpage {
     .full-width-container {
-      color: #fff;
-      margin: 0 auto;
-
-      .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
-      }
-
       header {
-        background-color: $dark-1;
-        padding: 20px 0px;
-        display: flex;
-        position: relative;
-
         .header-wrap {
           display: flex;
           align-items: center;
           justify-content: center;
         }
-
-        .logo {
-          display: inline-flex;
-        }
-      }
-
-      .steam-logo {
-        width: 16px;
-        height: 16px;
-      }
-
-      .hero-section {
-        padding: 0 0 40px 0;
-        background-color: $dark-2;
-        background-image: url(../assets/hero-map-bg.png),
-          url(../assets/hero-bg.png);
-        background-repeat: no-repeat;
-        background-position: center left, center;
-
-        .hero-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .login-steam {
-          margin-top: 40px;
-        }
-
-        .logo-hero {
-          width: 100%;
-          max-width: 480px;
-          height: auto;
-          object-fit: contain;
-          padding-top: 50px;
-        }
-
-        .title {
-          margin: 0;
-        }
-
-        @mixin hero-title {
-          font-size: 28px;
-          margin-top: 1.2em;
-          color: $light-1;
-          text-align: center;
-          max-width: 750px;
-          font-weight: 500;
-        }
-
-        .hero-title {
-          @include hero-title;
-        }
-
-        .hero-subtitle {
-          @include hero-title;
-          font-size: 18px;
-          margin-top: 0;
-          padding-top: 4px;
-        }
-
-        .hero-img {
-          margin-top: 45px;
-          object-fit: contain;
-          max-width: 100%;
-          height: auto;
-        }
-      }
-
-      .login-steam {
-        border-radius: 2.5em;
-        min-width: 240px;
-        padding: 0.75em 1.25em;
-        padding-top: 0.5em;
-        text-decoration: none;
-        text-align: center;
-        transition: 0.3s;
-        color: #fff;
-        font-size: 13px;
-        padding: 0.6em 1.785em 0.75em 1.785em;
-      }
-
-      .login-steam .steam-logo {
-        fill: #fff;
-        margin-left: 10px;
-        position: relative;
-        top: 2px;
-      }
-
-      button {
-        text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-
-      [class*="button"] {
-        text-decoration: none;
-        transition: 0.3s;
       }
 
       .button-gray-transparent {
@@ -4267,236 +3246,20 @@ h4 {
       }
 
       .offer-section {
-        padding: 0;
-        background-image: url(../assets/offer-blur.png);
-        background-size: cover;
-        background-position: center bottom;
-        background-repeat: no-repeat;
-        padding-bottom: 130px;
-        background-color: $dark-2;
-
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          margin-bottom: 0;
-        }
-
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 0.3em auto 0;
-          color: $light-1;
-          font-size: 16px;
-          font-weight: 500;
-        }
-
         .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
           .offer {
-            max-width: calc(100% / 3 - 20px);
-            margin: 20px 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .offer-img-wrap {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-              position: relative;
-
-              &.offer-img-wrap:before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 1px;
-                height: 1px;
-                border-radius: 50%;
-                box-shadow: 0px 0px 45px 30px $red-2;
-              }
-            }
-
-            .offer-img {
-              width: 80px;
-              height: 64px;
-            }
-
             .offer-title {
               &.first-title {
-                height: 5px; //
+                height: 5px;
               }
 
               &.middle-title {
-                height: 25px; //
+                height: 25px;
               }
 
               &.last-title {
-                height: 25px; //
+                height: 25px;
               }
-            }
-
-            .offer-text {
-              margin-top: 50px;
-            }
-          }
-        }
-      }
-
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-
-          .games-nav-active {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        background-color: $dark-2;
-        margin-top: 160px;
-
-        .section-desc-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-
-          .section-desc {
-            max-width: 320px;
-            width: 100%;
-            margin-left: auto;
-
-            .section-desc-title {
-              display: block;
-              font-size: 1.5rem;
-              font-weight: bold;
-              margin-top: 0.75em;
-              margin-bottom: 0.875em;
-            }
-
-            .section-desc-img-wrap {
-              display: flex;
-              align-items: flex-end;
-              height: auto;
-            }
-
-            .section-desc-text {
-              font-size: 14px;
-              line-height: 1.357;
-              font-weight: 400;
-              max-width: 280px;
-            }
-          }
-
-          .section-desc--right {
-            margin-left: auto;
-            text-align: right;
-
-            .section-desc-img-wrap {
-              justify-content: flex-end;
-            }
-
-            .section-desc-text {
-              margin-left: auto;
-            }
-          }
-
-          .section-desc--left {
-            margin-left: 0;
-            text-align: left;
-
-            .section-desc-img-wrap {
-              justify-content: flex-start;
-            }
-            .section-desc-text {
-              margin-right: auto;
             }
           }
         }
@@ -4504,91 +3267,14 @@ h4 {
 
       .demoviewer-section {
         padding-top: 140px;
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
-        background-repeat: no-repeat;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
       }
 
       .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
-      }
-
-      .ready-section {
-        padding: 25px 0;
-        padding-bottom: 120px;
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-      }
-
-      .ready-section {
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
       }
     }
   }
@@ -4597,448 +3283,35 @@ h4 {
 @media (max-width: 350px) {
   .view-landingpage {
     .full-width-container {
-      color: #fff;
-      margin: 0 auto;
-
-      .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
-      }
-
-      header {
-        background-color: $dark-1;
-        padding: 20px 0px;
-        display: flex;
-        position: relative;
-
-        .header-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .logo {
-          display: inline-flex;
-        }
-      }
-
-      .steam-logo {
-        width: 16px;
-        height: 16px;
-      }
-
-      .hero-section {
-        padding: 0 0 40px 0;
-        background-color: $dark-2;
-        background-image: url(../assets/hero-map-bg.png),
-          url(../assets/hero-bg.png);
-        background-repeat: no-repeat;
-        background-position: center left, center;
-
-        .hero-wrap {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .login-steam {
-          margin-top: 40px;
-        }
-
-        .logo-hero {
-          width: 100%;
-          max-width: 480px;
-          height: auto;
-          object-fit: contain;
-          padding-top: 50px;
-        }
-
-        .title {
-          margin: 0;
-        }
-
-        @mixin hero-title {
-          font-size: 28px;
-          margin-top: 1.2em;
-          color: $light-1;
-          text-align: center;
-          max-width: 750px;
-          font-weight: 500;
-        }
-
-        .hero-title {
-          @include hero-title;
-        }
-
-        .hero-subtitle {
-          @include hero-title;
-          font-size: 18px;
-          margin-top: 0;
-          padding-top: 4px;
-        }
-
-        .hero-img {
-          margin-top: 45px;
-          object-fit: contain;
-          max-width: 100%;
-          height: auto;
-        }
-      }
-
-      .login-steam {
-        border-radius: 2.5em;
-        min-width: 240px;
-        padding: 0.75em 1.25em;
-        padding-top: 0.5em;
-        text-decoration: none;
-        text-align: center;
-        transition: 0.3s;
-        color: #fff;
-        font-size: 13px;
-        padding: 0.6em 1.785em 0.75em 1.785em;
-      }
-
-      .login-steam .steam-logo {
-        fill: #fff;
-        margin-left: 10px;
-        position: relative;
-        top: 2px;
-      }
-
-      button {
-        text-decoration: none;
-        transition: 0.3s;
-        cursor: pointer;
-      }
-
-      [class*="button"] {
-        text-decoration: none;
-        transition: 0.3s;
-      }
-
-      .button-gray-transparent {
-        display: none;
-      }
-
       .offer-section {
-        padding: 0;
-        background-image: url(../assets/offer-blur.png);
-        background-size: cover;
-        background-position: center bottom;
-        background-repeat: no-repeat;
         padding-bottom: 130px;
-        background-color: $dark-2;
-
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          margin-bottom: 0;
-        }
-
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 0.3em auto 0;
-          color: $light-1;
-          font-size: 16px;
-          font-weight: 500;
-        }
 
         .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
           .offer {
-            max-width: calc(100% / 3 - 20px);
-            margin: 20px 10px 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            .offer-img-wrap {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-bottom: 20px;
-              position: relative;
-
-              &.offer-img-wrap:before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 1px;
-                height: 1px;
-                border-radius: 50%;
-                box-shadow: 0px 0px 45px 30px $red-2;
-              }
-            }
-
-            .offer-img {
-              width: 80px;
-              height: 64px;
-            }
-
             .offer-title {
-              height: 25px; //
 
               &.first-title {
-                height: 25px; //
+                height: 25px;
               }
-            }
-
-            .offer-text {
-              margin-top: 50px;
-            }
-          }
-        }
-      }
-
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-
-          .games-nav-active {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            margin: 8px;
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        background-color: $dark-2;
-        margin-top: 160px;
-
-        .section-desc-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
-
-          .section-desc {
-            max-width: 320px;
-            width: 100%;
-            margin-left: auto;
-
-            .section-desc-title {
-              display: block;
-              font-size: 1.5rem;
-              font-weight: bold;
-              margin-top: 0.75em;
-              margin-bottom: 0.875em;
-            }
-
-            .section-desc-img-wrap {
-              display: flex;
-              align-items: flex-end;
-              height: auto;
-            }
-
-            .section-desc-text {
-              font-size: 14px;
-              line-height: 1.357;
-              font-weight: 400;
-              max-width: 280px;
-            }
-          }
-
-          .section-desc--right {
-            margin-left: auto;
-            text-align: right;
-
-            .section-desc-img-wrap {
-              justify-content: flex-end;
-            }
-
-            .section-desc-text {
-              margin-left: auto;
-            }
-          }
-
-          .section-desc--left {
-            margin-left: 0;
-            text-align: left;
-
-            .section-desc-img-wrap {
-              justify-content: flex-start;
-            }
-            .section-desc-text {
-              margin-right: auto;
             }
           }
         }
       }
 
       .demoviewer-section {
-        padding-top: 140px;
-        background-image: url(../assets/stats-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
+        padding-top: 120px;
       }
 
       .positions-section {
-        background-image: url(../assets/positions-bg.png);
-        background-position: calc(100% - 7.5vw) center;
-        background-size: auto;
-        background-repeat: no-repeat;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
       }
 
       .smokes-section {
-        background-color: $dark-2;
-        background-image: url(../assets/smokes-bg.png);
-        background-position: 15vw center;
-        background-size: auto;
-        background-repeat: no-repeat;
-        position: relative;
         margin-top: 0;
-
-        .section-desc-img {
-          object-fit: contain;
-          height: auto;
-          max-height: auto;
-          max-width: 40%;
-        }
-      }
-
-      .ready-section {
-        padding: 0;
-        background-image: url(../assets/fire-bg.png);
-        background-position: center bottom;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
-      .ready-section {
-        .title {
-          text-align: center;
-          font-size: 2.25rem;
-          letter-spacing: 0.021em;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
       }
 
       .ready-section {
         padding-bottom: 100px;
-        .subtitle {
-          text-align: center;
-          max-width: 360px;
-          margin: 1em auto 0;
-          font-size: 16px;
-          color: $light-1;
-          font-weight: 500;
-        }
-      }
-
-      .ready-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
-        .login-steam {
-          margin-top: 30px;
-        }
       }
     }
   }
