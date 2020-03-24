@@ -692,6 +692,10 @@ table {
             display: flex;
             align-items: flex-end;
             height: auto;
+
+            img {
+              max-width: 160px;
+            }
           }
 
           .section-desc-text {
