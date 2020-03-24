@@ -10,7 +10,7 @@
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
             (pos.
-            <span class="orange-bold">{{queueStatus.FirstDemoPosition}}</span>
+            <span class="orange-bold">{{queueStatus.FirstDemoPosition + 1}}</span>
             / {{queueStatus.QueueLength}})
             <div class="spinner">
               <div class="bounce1"></div>
