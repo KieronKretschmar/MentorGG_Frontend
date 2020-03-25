@@ -974,7 +974,7 @@ h4 {
       }
 
       .demoviewer-section {
-        padding-top: 220px;
+        padding-top: 225px;
 
         .section-desc-img {
           max-width: 60%;
@@ -1199,7 +1199,7 @@ h4 {
       }
 
       .demoviewer-section {
-        padding-top: 120px;
+        padding-top: 135px;
       }
 
       .positions-section {
@@ -1281,7 +1281,7 @@ h4 {
       }
 
       .demoviewer-section {
-        padding-top: 120px;
+        padding-top: 130px;
       }
 
       .positions-section {
