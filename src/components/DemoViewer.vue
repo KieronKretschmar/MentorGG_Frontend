@@ -177,7 +177,7 @@ export default {
     },
     OnShare(t) {
       this.$helpers.LogEvent(this, "Share" + (t ? "ThisMoment" : "FromStart"));
-      
+
       let resolve = this.$router.resolve({
         name: "dvtrigger",
         params: { matchId: this.match },
@@ -196,7 +196,7 @@ export default {
       document.execCommand("copy");
     },
     OnRoundChange(roundInfo) {
-      this.$helpers.LogEvent(this, "RoundChange", {label: roundInfo.Round});
+      this.$helpers.LogEvent(this, "RoundChange", { label: roundInfo.Round });
       this.SetMatch(this.match)
         .SetRound(roundInfo.Round)
         .Load();
@@ -228,42 +228,47 @@ export default {
     Load() {
       this.ToggleVisibility(true);
       this.loadingData = true;
-      this.$api
-        .getDVMatch(
-          this.playerId,
-          this.match,
-          this.round == -1 ? 1 : this.round
-        )
-        .then(result => {
-          this.loadingData = false;
-          Object.freeze(result.data);
-          this.data = result.data;
 
-          //adjust for initial timestamp
-          if (this.initialTimestamp != 0) {
-            this.$nextTick(() => {
-              this.$refs.playerControls.SetTimestamp(
-                this.initialTimestampRelative
-                  ? this.initialTimestamp
-                  : this.initialTimestamp - this.roundStart
-              );
+      this.$api.getDVMatch(this.match).then(result => {
+        this.$api
+          .getDVRound(this.match, this.round == -1 ? 1 : this.round)
+          .then(roundResult => {
+            this.loadingData = false;
 
-              this.initialTimestamp = 0;
-              this.initialTimestampRelative = false;
-            });
-          }
+            result.data.Round = roundResult.data;
 
-          //adjust for autoplay
-          if (this.shouldAutoplay) {
-            this.$nextTick(() => {
-              this.$refs.playerControls.isPlaying = true;
-              this.shouldAutoplay = false;
-            });
-          }
-        });
+            result.data = this.ConvertCoordinates(result.data);
+            Object.freeze(result.data);
+            this.data = result.data;
+
+            //adjust for initial timestamp
+            if (this.initialTimestamp != 0) {
+              this.$nextTick(() => {
+                this.$refs.playerControls.SetTimestamp(
+                  this.initialTimestampRelative
+                    ? this.initialTimestamp
+                    : this.initialTimestamp - this.roundStart
+                );
+
+                this.initialTimestamp = 0;
+                this.initialTimestampRelative = false;
+              });
+            }
+
+            //adjust for autoplay
+            if (this.shouldAutoplay) {
+              this.$nextTick(() => {
+                this.$refs.playerControls.isPlaying = true;
+                this.shouldAutoplay = false;
+              });
+            }
+          });
+      });
     },
     ToggleVisibility(visibility) {
-      this.$helpers.LogEvent(this, "ToggleVisibility", {label:visibility ? "Show" : "Hide"});
+      this.$helpers.LogEvent(this, "ToggleVisibility", {
+        label: visibility ? "Show" : "Hide"
+      });
 
       this.isVisible = visibility;
       document.body.classList.toggle("no-scroll", this.isVisible);
@@ -288,6 +293,44 @@ export default {
       }
 
       this.renderAreaSq = rr;
+    },
+    ConvertCoordinates(data) {
+      let map = data.MatchStats.Map;
+
+      //player positions
+      for (let playerId in data.Round.PlayerPositions) {
+        for (
+          let idx = 0;
+          idx < data.Round.PlayerPositions[playerId].length;
+          idx++
+        ) {
+          data.Round.PlayerPositions[playerId][
+            idx
+          ].PlayerPos = this.$coordinateConverter.IngameToPixel(
+            data.Round.PlayerPositions[playerId][idx].PlayerPos,
+            map
+          );
+        }
+      }
+
+      //nades
+      let nadeKeys = ["Flashes", "Smokes", "HEs", "Decoys", "FireNades"];
+      for (let key of nadeKeys) {
+        for (let i = 0; i < data.Round[key].length; i++) {
+          for (let k = 0; k < data.Round[key][i].Trajectory.length; k++) {
+            data.Round[key][i].Trajectory[k].X = this.$coordinateConverter.IngameToPixelX(data.Round[key][i].Trajectory[k].X, map);
+            data.Round[key][i].Trajectory[k].Y = this.$coordinateConverter.IngameToPixelY(data.Round[key][i].Trajectory[k].Y, map);
+          }          
+        }
+      }
+
+      //damages
+      for (let idx = 0; idx < data.Round.Damages.length; idx++) {
+        data.Round.Damages[idx].PlayerPos = this.$coordinateConverter.IngameToPixel(data.Round.Damages[idx].PlayerPos, map);
+        data.Round.Damages[idx].VictimPos = this.$coordinateConverter.IngameToPixel(data.Round.Damages[idx].VictimPos, map);
+      }
+
+      return data;
     },
     RemapCoordinate(coordinate) {
       return (coordinate / 2000) * this.renderAreaSq;
@@ -328,7 +371,9 @@ export default {
         return "";
       }
 
-      return this.data.ImageUrl.replace("~", "");
+      return this.$helpers.resolveResource(
+        "maps/radarimages/" + this.data.MatchStats.Map + ".png"
+      );
     },
     roundStart() {
       if (!this.data) {
@@ -378,6 +423,10 @@ export default {
 
         // interpolate player positions for smoother gameplay
         let positions = this.data.Round.PlayerPositions[pms.PlayerId];
+        if (positions == undefined) {
+          continue;
+        }
+
         let d3Polated = [];
 
         for (let idx = 0; idx < positions.length; idx++) {
@@ -395,12 +444,12 @@ export default {
 
             var lerp_t = d3.interpolateNumber(entry.Time, nextEntry.Time);
             var lerp_x = d3.interpolateNumber(
-              entry.PlayerPos.PosX,
-              nextEntry.PlayerPos.PosX
+              entry.PlayerPos.X,
+              nextEntry.PlayerPos.X
             );
             var lerp_y = d3.interpolateNumber(
-              entry.PlayerPos.PosY,
-              nextEntry.PlayerPos.PosY
+              entry.PlayerPos.Y,
+              nextEntry.PlayerPos.Y
             );
             var lerp_v = d3.interpolateNumber(
               entry.PlayerView,

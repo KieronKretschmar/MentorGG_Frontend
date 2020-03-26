@@ -109,8 +109,8 @@ export default {
             continue;
           }
 
-          let targetX = window.DemoViewer.RemapCoordinate(hit.VictimPos.PosX);
-          let targetY = window.DemoViewer.RemapCoordinate(hit.VictimPos.PosY);
+          let targetX = window.DemoViewer.RemapCoordinate(hit.VictimPos.X);
+          let targetY = window.DemoViewer.RemapCoordinate(hit.VictimPos.Y);
 
           this.hitGivenIndicator.distance = Math.sqrt(
             Math.pow(this.position.x - targetX, 2) +

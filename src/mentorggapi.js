@@ -253,25 +253,11 @@ class MentorGGAPI {
     }
 
     getDVRound(matchId, round) {
-        return axios.get(this.apiEndpoint + 'DemoViewer/Round', {
-            params: {
-                matchId: matchId,
-                round: round
-            }
-        });
+        return axios.get(`${this.newApiEndpoint}/v1/watch/match/${matchId}/round/${round}`);
     }
 
-    getDVMatch(playerId = "", matchId, round) {
-        let params = {
-            matchId: matchId,
-            round: round
-        }
-        if (playerId.length) {
-            params.playerId = playerId;
-        }
-        return axios.get(this.apiEndpoint + 'DemoViewer/Match', {
-            params: params
-        });
+    getDVMatch(matchId) {
+        return axios.get(`${this.newApiEndpoint}/v1/watch/match/${matchId}`);
     }
 
     // Gets an object with a property for each connection
