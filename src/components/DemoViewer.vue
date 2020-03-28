@@ -330,6 +330,11 @@ export default {
         data.Round.Damages[idx].VictimPos = this.$coordinateConverter.IngameToPixel(data.Round.Damages[idx].VictimPos, map);
       }
 
+      //bomb
+      if (data.Round.BombPlant) {
+        data.Round.BombPlant.Pos = this.$coordinateConverter.IngameToPixel(data.Round.BombPlant.Pos, map);
+      }
+
       return data;
     },
     RemapCoordinate(coordinate) {

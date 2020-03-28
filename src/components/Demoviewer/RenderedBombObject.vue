@@ -58,8 +58,8 @@ export default {
       }
 
       return {
-        x: window.DemoViewer.RemapCoordinate(this.bomb.plant.Pos.PosX),
-        y: window.DemoViewer.RemapCoordinate(this.bomb.plant.Pos.PosY)
+        x: window.DemoViewer.RemapCoordinate(this.bomb.plant.Pos.X),
+        y: window.DemoViewer.RemapCoordinate(this.bomb.plant.Pos.Y)
       };
     }
   }
