@@ -130,6 +130,7 @@ export default {
         }
       });
     },
+    //abuses :key attribute to trigger a component reload in vue
     ForceViewReload() {
       this.reloadHack = !this.reloadHack;
     }
