@@ -12,7 +12,10 @@
       >
         <div class="avatar-and-name">
           <div class="avatar">
-            <img class="avatar" :src="$helpers.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)" />
+            <img
+              class="avatar"
+              :src="$helpers.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)"
+            />
           </div>
           <div class="name">{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</div>
         </div>
@@ -91,10 +94,7 @@
 
         <div class="favorite-map">
           <div class="name">Favorite Map: {{ comparison.MostPlayedMap }}</div>
-          <img
-            class="image"
-            :src="$helpers.resolveMapPreview(comparison.MostPlayedMap)"
-          />
+          <img class="image" :src="$helpers.resolveMapPreview(comparison.MostPlayedMap)" />
           <div class="wtl">
             <div class="w">{{ comparison.MostPlayedMapMatchesWon }}</div>
             <div class="t">{{ comparison.MostPlayedMapMatchesTied }}</div>
@@ -162,7 +162,7 @@ export default {
 
       this.$api
         .getFriendsComparison(params)
-        .then(result => {          
+        .then(result => {
           result.data.Comparisons.forEach(comparison => {
             comparison.WinRate =
               (comparison.MatchesWon / comparison.MatchesPlayed) * 100;
@@ -180,7 +180,11 @@ export default {
                   barPercentage: 1,
                   label: "",
                   backgroundColor: ["#72a233", "#f39c12", "#db143c"],
-                  data: [comparison.MatchesWon, comparison.MatchesTied, comparison.MatchesLost]
+                  data: [
+                    comparison.MatchesWon,
+                    comparison.MatchesTied,
+                    comparison.MatchesLost
+                  ]
                 }
               ]
             };
@@ -206,12 +210,12 @@ export default {
   margin-bottom: 20px;
 
   .headline {
-      font-weight: 500 !important;
-      color: white;
+    font-weight: 500 !important;
+    color: white;
   }
 
   .no-comparisons {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   .controls {
@@ -230,7 +234,7 @@ export default {
       width: calc(33.33% - 5px);
       margin-bottom: 10px;
 
-      &:nth-last-child(-n+3) {
+      &:nth-last-child(-n + 3) {
         margin-bottom: 0px;
       }
 
@@ -303,8 +307,8 @@ export default {
         margin-top: 20px;
 
         .name {
-            color: white;
-            margin-bottom: 5px;
+          color: white;
+          margin-bottom: 5px;
         }
 
         .image {
@@ -341,6 +345,28 @@ export default {
           .l {
             background: $red;
           }
+        }
+      }
+    }
+  }
+}
+
+//responsive
+@media (max-width: 800px) {
+  .better-friend-comparison {
+    .headline {
+      text-align: center;
+    }
+
+    .comparisons {
+      flex-wrap: wrap;
+
+      .comparison {
+        width: 100%;
+        margin-bottom: 10px !important;
+
+        .favorite-map {
+          margin-bottom: 10px;
         }
       }
     }
