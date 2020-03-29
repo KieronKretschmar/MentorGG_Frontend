@@ -17,7 +17,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <button v-if="activeSubscription === null" class="button-disabled">Owned</button>
@@ -47,7 +47,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -93,7 +93,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -322,7 +322,7 @@ export default {
     },
     ScrollToFeaturesTable(){
       var container = this.$el.querySelector(".wrapper-bottom");
-      container.scrollIntoView();
+      container.scrollIntoView({ block: 'start',  behavior: 'smooth' });
     },
     LoadData(){
       this.$api.getSubscriptions().then( response => {
@@ -372,6 +372,10 @@ export default {
 <style lang="scss">
 .view-subscription {
   margin: 20px 20px 60px 20px;
+
+  .scroll-to-features {
+    cursor: pointer;
+  }
 
   .bordered-box {
     background: $dark-1;
