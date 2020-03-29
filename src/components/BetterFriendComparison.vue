@@ -4,12 +4,7 @@
       <p>Performance when playing with friends</p>
     </div>
 
-    <div v-if="!loadingComplete">
-      <div class="bordered-box no-comparisons">
-        <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
-      </div>
-    </div>
-    <div v-else class="comparisons">
+    <div class="comparisons">
       <div
         class="comparison bordered-box"
         v-for="comparison in comparisons"
@@ -108,6 +103,15 @@
         </div>
       </div>
     </div>
+
+    <div v-if="!loadingComplete">
+      <div class="bordered-box no-comparisons">
+        <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
+      </div>
+    </div>
+    <div class="controls" v-else>
+      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
+    </div>
   </div>
 </template>
 
@@ -155,11 +159,11 @@ export default {
         count: 3,
         offset: this.comparisons.length
       };
+
       this.$api
         .getFriendsComparison(params)
-        .then(result => {
-          this.comparisons = result.data.Comparisons;
-          this.comparisons.forEach(comparison => {
+        .then(result => {          
+          result.data.Comparisons.forEach(comparison => {
             comparison.WinRate =
               (comparison.MatchesWon / comparison.MatchesPlayed) * 100;
 
@@ -182,7 +186,10 @@ export default {
             };
 
             comparison.IsVisible = false;
+            this.comparisons.push(comparison);
           });
+
+          //this.comparisons = result.data.Comparisons;
           this.loadingComplete = true;
         })
         .catch(error => {
@@ -207,13 +214,25 @@ export default {
       margin-top: 10px;
   }
 
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
   .comparisons {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    flex-wrap: wrap;
 
     .comparison {
       width: calc(33.33% - 10px);
+      margin-bottom: 20px;
+
+      &:nth-last-child(-n+3) {
+        margin-bottom: 0px;
+      }
 
       .avatar-and-name {
         display: flex;
