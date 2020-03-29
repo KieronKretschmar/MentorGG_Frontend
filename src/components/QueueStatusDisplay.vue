@@ -50,8 +50,8 @@ export default {
   methods: {
     // Regularly refreshes the QueueStatus data. Shorter intervals if matches are in queue 
     ContinueRefreshingQueueStatus: function() {
-      const defaultRefreshInterval = 10000;
-      const shortRefreshInterval = 1000;
+      const defaultRefreshInterval = 60000;
+      const shortRefreshInterval = 15000;
 
       // Call api ignoring overrides
       this.$api.getMatchesInQueue(this.$api.User.GetSteamId(false))
@@ -64,7 +64,8 @@ export default {
 
 
         // Plan next refresh. Do it quicker if matches were found in queue
-        var delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
+        // TODO: if request fails, setTimeout will never get called again and thus queue status updates are dismissed until the user reloads the app
+        let delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
         setTimeout(() => {
             this.ContinueRefreshingQueueStatus();
         }, delay);
