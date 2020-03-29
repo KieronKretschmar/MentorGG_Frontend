@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-player-frame" :class="{dead: health <= 0}">
+  <div class="dv-player-frame" :class="{dead: health <= 0}" @click="SetAsHighlight">
     <div class="col-1">
       <div class="avatar">
         <img :src="`https://mentor.gg/Content/Images/Ranks/${rankImageName}.png`" />
@@ -102,6 +102,9 @@ export default {
           break;
         }
       }
+    },
+    SetAsHighlight() {
+      globalThis.DemoViewer.highlightedPlayer = this.player.Id;
     }
   },
   computed: {
@@ -289,6 +292,7 @@ export default {
   display: flex;
   align-items: center;
   padding-right: 20px;
+  cursor: pointer;
 
   &.dead {
     filter: grayscale(100%);

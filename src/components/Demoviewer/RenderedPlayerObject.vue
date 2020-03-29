@@ -1,5 +1,5 @@
 <template>
-  <div class="rendered-player-object">
+  <div class="rendered-player-object" :class="{highlighted: isHighlighted}">
     <div class="death-marker" v-if="!health" :team="player.IsCT ? 'ct' : 't'" :style="style">×</div>
     <div class="player-circle" v-if="health" :team="player.IsCT ? 'ct' : 't'" :style="style">
       <div class="rotation-indicator" :class="{attacking: attackIndicator.visible}"></div>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  props: ["player", "tick", "hasBomb"],
+  props: ["player", "tick", "hasBomb", "isHighlighted"],
   mounted() {},
   data() {
     return {
@@ -235,6 +235,12 @@ export default {
 
     &[team="t"] {
       color: $terrorist-color;
+    }
+  }
+
+  &.highlighted {
+    .player-circle {
+      background: $green !important;
     }
   }
 

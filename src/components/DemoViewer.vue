@@ -44,6 +44,7 @@
             :tick="currentTick"
             :player="player"
             :hasBomb="bombFieldset[player.Id]"
+            :isHighlighted="highlightedPlayer == player.Id"
           />
 
           <RenderedSmokeObject
@@ -98,6 +99,7 @@
           :tick="currentTick"
           :equipmentInfo="data.EquipmentInfo"
           :partialScoreboard="data.Round.PartialScoreboard"
+          :highlightedPlayer="highlightedPlayer"
           v-if="data"
         />
       </div>
@@ -165,7 +167,8 @@ export default {
       currentTick: 0,
       bombFieldset: {},
       shareOverlayVisible: false,
-      shareLink: ""
+      shareLink: "",
+      highlightedPlayer: null
     };
   },
   methods: {
@@ -262,6 +265,9 @@ export default {
                 this.shouldAutoplay = false;
               });
             }
+
+            //set current user as highlight regardless of him being in the match
+            this.highlightedPlayer = this.$api.User.GetSteamId();
           });
       });
     },

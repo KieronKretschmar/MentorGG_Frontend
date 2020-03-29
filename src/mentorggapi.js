@@ -40,6 +40,7 @@ class MentorGGAPI {
 
         this.valveRefreshInterval = null;
         this.faceitRefreshInterval = null;
+        this.User = null;
 
         // this.User = new MentorUser();
         // console.log("User steamId: " + this.User.GetSteamId());

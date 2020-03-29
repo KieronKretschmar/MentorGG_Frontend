@@ -47,6 +47,7 @@
         :player="player"
         :tick="tick"
         :equipmentInfo="equipmentInfo"
+        :isHighlighted="highlightedPlayer == player.Id"
       />
     </div>
   </div>
@@ -59,7 +60,7 @@ export default {
   components: {
     PlayerFrame
   },
-  props: ["players", "tick", "equipmentInfo", "partialScoreboard"],
+  props: ["players", "tick", "equipmentInfo", "partialScoreboard", "highlightedPlayer"],
   mounted() {},
   data() {
     return {};
