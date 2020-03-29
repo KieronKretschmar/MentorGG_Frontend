@@ -227,8 +227,8 @@ export default {
     flex-wrap: wrap;
 
     .comparison {
-      width: calc(33.33% - 10px);
-      margin-bottom: 20px;
+      width: calc(33.33% - 5px);
+      margin-bottom: 10px;
 
       &:nth-last-child(-n+3) {
         margin-bottom: 0px;
