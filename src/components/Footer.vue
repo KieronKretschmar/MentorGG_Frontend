@@ -49,6 +49,8 @@ export default {
 
 <style lang="scss">
 .footer {
+  background-color: $dark-2;
+
   .hero-subtitle {
     font-size: 16px;
     font-weight: 300;
@@ -63,36 +65,25 @@ export default {
     background: $dark-1;
     padding: 20px 0;
     flex-wrap: wrap;
-  }
 
-  .social-logo-wrap {
-    width: 150px;
-    display: flex;
-    justify-content: space-between;
-  }
+    .supporter-logo-wrap {
+      max-width: 1200px;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px 0 13px;
 
-  .social-logo {
-    width: 25px;
-    height: 25px;
-    flex: 0 1 auto;
-  }
+      .supporter-logo {
+        width: auto;
+        height: 50px;
+        flex: 0 1 auto;
 
-  .supporter-logo-wrap {
-    max-width: 1200px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .supporter-logo {
-    width: auto;
-    height: 50px;
-    flex: 0 1 auto;
-
-    &:last-child {
-      height: 45px;
+        &:last-child {
+          height: 45px;
+        }
+      }
     }
   }
 
@@ -105,9 +96,10 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0;
+      padding: 0 22px 0 16px;
 
       .l {
+        width: 152px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -118,9 +110,26 @@ export default {
           max-width: 150px;
           margin-bottom: 5px;
         }
+
+        span {
+          align-self: center;
+        }
+      }
+
+      .social-logo-wrap {
+        width: 150px;
+        display: flex;
+        justify-content: space-between;
+
+        .social-logo {
+          width: 25px;
+          height: 25px;
+          flex: 0 1 auto;
+        }
       }
 
       .r {
+        width: 152px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -141,5 +150,110 @@ export default {
       }
     }
   }
+}
+
+@media (max-width: 800px) {
+  .footer-content-one {
+    background: $dark-1;
+    padding: 20px 0;
+    flex-wrap: wrap;
+
+    .supporter-logo-wrap {
+      max-width: 1200px;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .supporter-logo {
+        min-width: 181px;
+        flex: 0 1 auto;
+
+        &:first-child {
+          height: 52px;
+          margin-bottom: 7px;
+        }
+
+        &:nth-child(2) {
+          height: 57px;
+          margin-bottom: 11px;
+        }
+
+        &:nth-child(3) {
+          height: 49px;
+          margin-bottom: 14px;
+        }
+
+        &:last-child {
+          height: 45px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+
+  .footer-content-two {
+    min-height: 235px;
+
+    .fixed-width-container {
+      min-height: auto;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      .l {
+        display: flex;
+        width: auto;
+        flex-direction: row;
+        justify-content: center;
+
+        img {
+          max-width: 150px;
+        }
+
+        span {
+          align-self: center;
+        }
+      }
+
+      .social-logo-wrap {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+
+        .social-logo {
+          width: 25px;
+          height: 25px;
+          flex: 0 1 auto;
+          margin: 25px 5px 19px 5px;
+        }
+      }
+
+      .r {
+        display: flex;
+        width: auto;
+        flex-direction: row;
+        justify-content: center;
+
+        a {
+          color: white;
+          font-size: 12px;
+          font-weight: 500;
+          text-decoration: none;
+          transition: 0.35s;
+          margin: 5px 0;
+          align-self: center;
+
+          &:hover {
+            text-decoration: none;
+            color: $orange;
+          }
+        }
+      }
+    }
+  }
+
 }
 </style>

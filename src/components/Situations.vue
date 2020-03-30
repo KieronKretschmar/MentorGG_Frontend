@@ -104,4 +104,17 @@ export default {
   }
 
 }
+
+//responsive
+@media (max-width: 800px) {
+  .misplays {
+
+  p {
+    color: white;
+    font-weight: 500;
+    text-align: center;
+  }
+
+}
+}
 </style>

@@ -48,14 +48,12 @@ export default {
     align-items: center;
 
     .avatar {
-      width: 110px;
-      height: 110px;
       border-radius: 5px;
       overflow: hidden;
 
       img {
-        width: 100%;
-        height: 100%;
+        width: 110px;
+        height: 110px;
       }
     }
 
@@ -106,6 +104,70 @@ export default {
 }
 
 //responsive
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
+  .profile-header {
+    padding: 20px 0 0 0;
+    border-bottom: 1px solid $purple;
+    padding-bottom: 90px;
+
+    .fixed-width-container {
+      align-items: flex-start;
+      height: 60px;
+
+      .avatar {
+        border-radius: 5px;
+        overflow: hidden;
+
+        img {
+          max-width: 60px;
+          height: 60px;
+        }
+      }
+
+      .name {
+        margin-left: 10px;
+        padding-right: 10px;
+        border-right: none;
+        height: 60px;
+        max-width: 125px;
+
+        span {
+          margin: 5px;
+
+          &:first-child {
+            font-size: 10px;
+          }
+
+          &:last-child {
+            font-size: 12px;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .csgo-rank {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+        padding-left: 10px;
+        text-align: center;
+        border-left: 1px solid $purple;
+        max-width: 125px;
+        height: 60px;
+
+        span {
+          margin: 5px 0;
+
+          &:first-child {
+            font-size: 10px;
+          }
+        }
+
+        img {
+          height: 30px;
+        }
+      }
+    }
+  }
 }
 </style>
