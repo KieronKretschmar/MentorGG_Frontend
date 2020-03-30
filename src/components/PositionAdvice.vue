@@ -261,7 +261,7 @@ export default {
 
             img {
               width: 40px;
-              margin-right: 8px;    
+              margin-right: 8px;
             }
 
             &:hover {
@@ -275,16 +275,58 @@ export default {
 }
 
 //responsive
-@media(max-width: 800px) {
+@media (max-width: 800px) {
   .position-advice {
     flex-direction: column;
 
     .advice {
       width: 100%;
       margin-bottom: 10px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
 
       &:last-child {
         margin-bottom: 0;
+      }
+
+      .position-table {
+        min-width: 500px;
+        .table-header {
+          margin-right: 25px;
+
+          span {
+            &:nth-child(n + 1) {
+              width: 100px;
+            }
+            &:nth-child(n + 3) {
+              width: 100px;
+              text-align: center;
+            }
+          }
+        }
+
+        .table-content {
+          margin-top: 10px;
+
+          .entry {
+            margin-right: 25px;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .cell {
+              &:nth-child(n + 1) {
+                width: 100px;
+              }
+              &:nth-child(n + 3) {
+                width: 100px;
+                text-align: center;
+              }
+            }
+          }
+        }
       }
     }
   }
