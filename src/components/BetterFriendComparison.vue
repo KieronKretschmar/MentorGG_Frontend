@@ -239,6 +239,10 @@ export default {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+
+    .button-variant-bordered {
+      font-size: 12px;
+    }
   }
 
   .comparisons {
