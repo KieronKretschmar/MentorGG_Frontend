@@ -29,6 +29,7 @@ function authenticationGuard(to, from, next) {
     $api.initMatchSelector()
     .then(r => {
 
+      //modify target to correctly display own steamid
       if (to.name == 'dashboard' && to.params.steamId == 'own') {
         to.params.steamId = $api.User.GetSteamId();
         return next(to);
