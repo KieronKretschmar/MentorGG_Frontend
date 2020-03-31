@@ -105,7 +105,7 @@ export default {
       // Load best positions
       let params = {
         steamId: this.steamId,//this.$api.User.GetSteamId(),
-        count: 3,
+        count: 5,
         showBest: true
       };
       this.$api.getImportantPositions(params)
@@ -122,7 +122,7 @@ export default {
       // Load worst positions
       params = {
         steamId: this.steamId,//this.$api.User.GetSteamId(),
-        count: 3,
+        count: 5,
         showBest: false
       };
       this.$api.getImportantPositions(params)
