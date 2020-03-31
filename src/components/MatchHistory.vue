@@ -21,10 +21,7 @@
 
     <div class="match-list">
       <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
-        <DemoDataLoadRequest @buttonClicked="LoadAppendMatches(5, true)">
-          Couldn't find any matches for you.
-          <br />Want so see what it looks like once you've understood how to upload demos?
-        </DemoDataLoadRequest>
+        <p>No data available</p>
       </div>
 
       <div v-for="match in visibleMatches" :key="match.MatchId">
@@ -103,8 +100,8 @@ export default {
   },
   methods: {
     Init() {
-    this.LoadAppendMatches(5, false);
-    this.LoadFailedMatches();
+      this.LoadAppendMatches(5);
+      this.LoadFailedMatches();
     },
     IsAboveLimit: function(match) {
       return match.MatchId < 0;
@@ -114,8 +111,7 @@ export default {
     },
     LoadFailedMatches: function() {
       this.loadingMatches = true;
-      this.failedMatches = [];
-
+      
       let params = {
         steamId: this.$api.User.GetSteamId(),
         count: 1000, // just load all at once
@@ -127,12 +123,11 @@ export default {
         });
       });
     },
-    LoadAppendMatches: function(count, isDemo) {
-      this.loadingMatches = true;
-      this.analyzedMatches = [];
+    LoadAppendMatches: function(count) {
+      this.loadingMatches = true;      
 
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
+        steamId: this.steamId, //this.$api.User.GetSteamId(),
         count: count,
         offset: this.analyzedMatches.length
       };
@@ -155,6 +150,8 @@ export default {
   },
   watch: {
     steamId: function(val) {
+      this.failedMatches = [];
+      this.analyzedMatches = [];
       this.Init();
     }
   }
@@ -202,6 +199,7 @@ export default {
   .match-list {
     .no-matches {
       margin-top: 10px;
+      color: white;
     }
   }
 }

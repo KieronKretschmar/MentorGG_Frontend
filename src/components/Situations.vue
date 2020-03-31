@@ -14,11 +14,7 @@
 
     <span>
       <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">        
-        <DemoDataLoadRequest @buttonClicked="LoadData(true)">
-          No misplays found for you. Either you haven't uploaded any matches, or we could not detect a single mistake you made!
-          <br>
-          Wanna see somebody else's misplays? 
-        </DemoDataLoadRequest>
+        <p>No data available</p>
       </div>
       
       <div        
@@ -58,7 +54,7 @@ export default {
     UnnecessaryReloadSituation,
   },
   mounted() {
-    this.LoadData(false);
+    this.LoadData();
   },
   data() {
     return {
@@ -67,7 +63,7 @@ export default {
     };
   },
   methods: {
-    LoadData: function(isDemo) {
+    LoadData: function() {
       this.loadingComplete = false;
       this.situationCollections = [];      
 
@@ -110,6 +106,10 @@ export default {
 
   .no-misplays {
     margin-top: 10px;
+
+    p {
+      font-weight: 400;
+    }
   }
 
 }

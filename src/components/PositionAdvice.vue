@@ -6,12 +6,7 @@
         <AjaxLoader>Computing Worst Positions</AjaxLoader>
       </div>
       <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadData(true)">
-          No data available for you.
-          <br>
-          Wanna see where somebody else keeps dying all the time?
-          </DemoDataLoadRequest>
+        <p>No data available</p>
       </div>
       <div class="position-table" v-if="worst.Performances && worst.Performances.length">
         <div class="table-header">
@@ -51,12 +46,7 @@
         <AjaxLoader>Computing Best Positions</AjaxLoader>
       </div>
       <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadData(true)">
-          No data available for you.
-          <br>
-          Want to see where somebody else plays really good?
-          </DemoDataLoadRequest>
+        <p>No data available</p>
       </div>
       <div class="position-table" v-if="best.Performances && best.Performances.length">
         <div class="table-header">
@@ -107,14 +97,14 @@ export default {
     };
   },
   methods : {
-    LoadData: function(isDemo) {
+    LoadData: function() {
       this.loadingComplete = false;
       this.best = [];
       this.worst = [];
 
       // Load best positions
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
+        steamId: this.steamId,//this.$api.User.GetSteamId(),
         count: 3,
         showBest: true
       };
@@ -131,7 +121,7 @@ export default {
 
       // Load worst positions
       params = {
-        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
+        steamId: this.steamId,//this.$api.User.GetSteamId(),
         count: 3,
         showBest: false
       };
@@ -170,7 +160,7 @@ export default {
   },
   watch: {
     steamId: function(val) {
-      this.LoadData(false);
+      this.LoadData();
     }
   }
 };

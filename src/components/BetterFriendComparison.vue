@@ -109,6 +109,13 @@
         <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
       </div>
     </div>
+
+    <div v-if="loadingComplete && comparisons.length == 0">
+      <div class="bordered-box no-comparisons">
+        <p>No data available</p>
+      </div>
+    </div>
+
     <div class="controls" v-else>
       <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
     </div>
@@ -124,7 +131,7 @@ export default {
     BarChart
   },
   mounted() {
-    this.LoadData(false);
+    this.LoadData(true);
   },
   data() {
     return {
@@ -152,12 +159,14 @@ export default {
     };
   },
   methods: {
-    LoadData: function(isDemo) {
+    LoadData: function(reset = false) {
       this.loadingComplete = false;
-      this.comparisons = [];
+      if (reset) {
+        this.comparisons = [];
+      }
 
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.steamId, //this.$api.User.GetSteamId(),
+        steamId: this.steamId, //this.$api.User.GetSteamId(),
         count: 3,
         offset: this.comparisons.length
       };
@@ -206,7 +215,7 @@ export default {
   },
   watch: {
     steamId: function(val) {
-      this.LoadData(false);
+      this.LoadData(true);
     }
   }
 };
@@ -223,6 +232,7 @@ export default {
 
   .no-comparisons {
     margin-top: 10px;
+    color: white;
   }
 
   .controls {
