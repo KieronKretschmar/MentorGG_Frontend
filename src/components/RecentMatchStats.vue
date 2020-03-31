@@ -44,7 +44,7 @@
 export default {
   props: ['steamId'],
   mounted() {
-    this.LoadData(false);
+    this.LoadData();
   },
   data() {
     return {
@@ -83,7 +83,7 @@ export default {
     OpenRankGraph: function() {
       this.rankGraphVisible = true;
     },
-    LoadData: function(isDemo) {
+    LoadData: function() {
 
       this.recentMatchStats = null;
       this.loadingComplete = false;
@@ -104,7 +104,7 @@ export default {
   },
   watch: {
     steamId: function(val) {
-      this.LoadData(false);
+      this.LoadData();
     }
   }
 };
