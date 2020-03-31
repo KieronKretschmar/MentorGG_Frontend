@@ -107,18 +107,19 @@
     </div>
 
     <div v-if="!loadingComplete">
-      <div class="bordered-box no-comparisons">
+      <div class="bordered-box no-comparisons" :class="{'loading-more': comparisons.length > 0}">
         <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
       </div>
-    </div>
-    <div v-else class="controls">
-      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
     </div>
 
     <div v-if="loadingComplete && comparisons.length == 0">
       <div class="bordered-box no-comparisons">
         <p>No data available</p>
       </div>
+    </div>
+
+    <div v-if="loadingComplete && comparisons.length > 0" class="controls">
+      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
     </div>
   </div>
 </template>
@@ -232,8 +233,11 @@ export default {
   }
 
   .no-comparisons {
-    margin-top: 10px;
     color: white;
+
+    &.loading-more {
+      margin-top: 10px;
+    }
   }
 
   .controls {
