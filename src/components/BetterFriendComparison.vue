@@ -109,6 +109,9 @@
         <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
       </div>
     </div>
+    <div v-else class="controls">
+      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
+    </div>
 
     <div v-if="loadingComplete && comparisons.length == 0">
       <div class="bordered-box no-comparisons">
@@ -116,9 +119,6 @@
       </div>
     </div>
 
-    <div class="controls" v-else>
-      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
-    </div>
   </div>
 </template>
 
