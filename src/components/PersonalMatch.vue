@@ -80,11 +80,12 @@
                   <!-- TODO: migrate resources -->
                   <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)">
                   <img class="avatar" :src="$helpers.getSteamProfileImageUrl(entry.Profile.ImageUrl)" />
-                  <a
+                  <!-- <a
                     class="name"
                     :href="`https://steamcommunity.com/profiles/${entry.SteamId}`"
                     target="_blank"
-                  >{{ entry.Profile.SteamName }}</a>
+                  >{{ entry.Profile.SteamName }}</a> -->
+                  <router-link class="name" :to="{name: dashboard, params: {steamId: entry.SteamId}}">{{ entry.Profile.SteamName }}</router-link>
                 </span>
                 <span
                   class="adr"
