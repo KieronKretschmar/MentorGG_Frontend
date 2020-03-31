@@ -17,7 +17,9 @@
               :src="$helpers.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)"
             />
           </div>
-          <div class="name">{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</div>
+            <router-link class="name"
+              :to="{name: 'dashboard', params: {steamId: comparison.OtherPlayerInfo.SteamUser.SteamId }}"
+            >{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</router-link>
         </div>
         <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>
         <div class="comparison-table">
@@ -118,7 +120,6 @@
         <p>No data available</p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -277,6 +278,7 @@ export default {
           font-weight: 500;
           font-size: 12px;
           margin-left: 10px;
+          text-decoration: none;
         }
       }
 

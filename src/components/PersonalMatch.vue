@@ -85,7 +85,7 @@
                     :href="`https://steamcommunity.com/profiles/${entry.SteamId}`"
                     target="_blank"
                   >{{ entry.Profile.SteamName }}</a> -->
-                  <router-link class="name" :to="{name: dashboard, params: {steamId: entry.SteamId}}">{{ entry.Profile.SteamName }}</router-link>
+                  <router-link class="name" :to="{name: 'dashboard', params: {steamId: entry.SteamId}}">{{ entry.Profile.SteamName }}</router-link>
                 </span>
                 <span
                   class="adr"
