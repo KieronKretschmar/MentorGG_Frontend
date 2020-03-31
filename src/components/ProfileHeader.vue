@@ -18,20 +18,30 @@
 
 <script>
 export default {
+  props: ['steamId'],
   mounted() {
-    let params = {
-      steamId: this.$api.User.GetSteamId()
-    };
-    this.$api.getPlayerInfo(params).then(response => {
-      this.user = response.data;
-    });
+    this.Init();
+  },
+  methods: {
+    Init() {
+      let params = {
+        steamId: this.steamId //this.$api.User.GetSteamId()
+      };
+
+      this.$api.getPlayerInfo(params).then(response => {
+        this.user = response.data;
+      });
+    }
   },
   data() {
     return {
       user: null
     };
   },
-  methods: {
+  watch: {
+    steamId: function(val) {
+      this.Init();
+    }
   }
 };
 </script>

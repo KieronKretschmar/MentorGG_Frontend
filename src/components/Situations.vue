@@ -4,7 +4,7 @@
     <p>Misplays from your last match</p>
   </div>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
-      <AjaxLoader>Analyzing your playstyle</AjaxLoader>
+      <AjaxLoader>Analyzing playstyle</AjaxLoader>
     </div>
     <!-- <div v-if="!loadingComplete">
       <div class="bordered-box no-misplays">
@@ -47,6 +47,7 @@ import TeamFlashSituation from "@/components/Situations/TeamFlashSituation.vue";
 import UnnecessaryReloadSituation from "@/components/Situations/UnnecessaryReloadSituation.vue";
 
 export default {
+  props: ['steamId'],
   components: {
     BadBombDropSituation,
     DeathByBombSituation,
@@ -67,13 +68,16 @@ export default {
   },
   methods: {
     LoadData: function(isDemo) {
+      this.loadingComplete = false;
+      this.situationCollections = [];      
+
       // make sure at least one match is available before loading
       if(this.$api.MatchSelector.Build().GetMostRecentMatchId())
       {
         this.loadingComplete = false;
         
         let params = {
-          steamId: this.$api.User.GetSteamId(),
+          steamId: this.steamId//this.$api.User.GetSteamId(),
         };
 
         this.$api.getSingleMatchMisplays(params).then(result => {
@@ -86,6 +90,11 @@ export default {
         });
       }      
     },
+  },
+  watch: {
+    steamId: function(val) {      
+      this.LoadData(false);
+    }
   }
 };
 </script>

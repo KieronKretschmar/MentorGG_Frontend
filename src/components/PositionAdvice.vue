@@ -95,6 +95,7 @@
 
 <script>
 export default {
+  props: ['steamId'],
   mounted() {
     this.LoadData(false);
   },
@@ -108,9 +109,12 @@ export default {
   methods : {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
+      this.best = [];
+      this.worst = [];
+
       // Load best positions
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
         count: 3,
         showBest: true
       };
@@ -127,7 +131,7 @@ export default {
 
       // Load worst positions
       params = {
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
         count: 3,
         showBest: false
       };
@@ -162,6 +166,11 @@ export default {
         performance["ZoneName"] = zoneInfo.Name;
         performance["Map"] = zoneInfo.MapString;
       }
+    }
+  },
+  watch: {
+    steamId: function(val) {
+      this.LoadData(false);
     }
   }
 };

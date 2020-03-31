@@ -42,6 +42,7 @@
 
 <script>
 export default {
+  props: ['steamId'],
   mounted() {
     this.LoadData(false);
   },
@@ -83,8 +84,12 @@ export default {
       this.rankGraphVisible = true;
     },
     LoadData: function(isDemo) {
+
+      this.recentMatchStats = null;
+      this.loadingComplete = false;
+
       let params = {
-        steamId: this.$api.User.GetSteamId()
+        steamId: this.steamId//this.$api.User.GetSteamId()
       };
       this.$api.getRecentMatchData(params)
       .then(response => {
@@ -96,6 +101,11 @@ export default {
           this.loadingComplete = true;
         });
     },
+  },
+  watch: {
+    steamId: function(val) {
+      this.LoadData(false);
+    }
   }
 };
 </script>

@@ -119,6 +119,7 @@
 import BarChart from "@/components/BarChart.vue";
 
 export default {
+  props: ["steamId"],
   components: {
     BarChart
   },
@@ -153,9 +154,10 @@ export default {
   methods: {
     LoadData: function(isDemo) {
       this.loadingComplete = false;
+      this.comparisons = [];
 
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        steamId: isDemo ? "76561198033880857" : this.steamId, //this.$api.User.GetSteamId(),
         count: 3,
         offset: this.comparisons.length
       };
@@ -200,6 +202,11 @@ export default {
           console.error(error); // eslint-disable-line no-console
           this.loadingComplete = true;
         });
+    }
+  },
+  watch: {
+    steamId: function(val) {
+      this.LoadData(false);
     }
   }
 };

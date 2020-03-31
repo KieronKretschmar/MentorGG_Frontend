@@ -2,15 +2,17 @@
   <div class="view view-dashboard">
     <div class="profile-section"></div>
 
-    <ProfileHeader />
-    <div class="fixed-width-container mc">
-      <RecentMatchStats />
-      <Situations />
-      <PositionAdvice />
-      <!-- <FriendComparison /> -->
-      <BetterFriendComparison />
-      <MatchHistory />
-    </div>
+    <template v-if="steamId">
+      <ProfileHeader :steamId="steamId" />
+      <div class="fixed-width-container mc">
+        <RecentMatchStats :steamId="steamId" />
+        <Situations :steamId="steamId" />
+        <PositionAdvice :steamId="steamId" />
+        <!-- <FriendComparison /> -->
+        <BetterFriendComparison :steamId="steamId" />
+        <MatchHistory :steamId="steamId" />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -32,18 +34,24 @@ export default {
     FriendComparison,
     BetterFriendComparison,
     Situations,
-    MatchHistory,
+    MatchHistory
   },
-  mounted() {}
+  mounted() {},
+  computed: {
+    steamId() {
+      let steamIdParam = this.$route.params.steamId;
+      return steamIdParam == 'own' ? this.$api.User.GetSteamId() : steamIdParam;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-  .view-dashboard {
-    .fixed-width-container {
-      &.mc {
-        padding: 0 20px;
-      }
+.view-dashboard {
+  .fixed-width-container {
+    &.mc {
+      padding: 0 20px;
     }
   }
+}
 </style>

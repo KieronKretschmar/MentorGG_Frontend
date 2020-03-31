@@ -2,30 +2,38 @@
   <div class="match-history">
     <div class="bordered-box tabs-header">
       <span class="title">Match History:</span>
-      <span :class="{ active: activeTab == 'all' }" @click="activeTab = 'all'" class="filter all">All</span>
-      <span :class="{ active: activeTab == 'valve' }" @click="activeTab = 'valve'" class="filter mm">Matchmaking</span>
-      <span :class="{ active: activeTab == 'faceit' }" @click="activeTab = 'faceit'" class="filter faceit">Faceit</span>
+      <span
+        :class="{ active: activeTab == 'all' }"
+        @click="activeTab = 'all'"
+        class="filter all"
+      >All</span>
+      <span
+        :class="{ active: activeTab == 'valve' }"
+        @click="activeTab = 'valve'"
+        class="filter mm"
+      >Matchmaking</span>
+      <span
+        :class="{ active: activeTab == 'faceit' }"
+        @click="activeTab = 'faceit'"
+        class="filter faceit"
+      >Faceit</span>
     </div>
 
-    <div class="match-list">      
+    <div class="match-list">
       <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
-        <DemoDataLoadRequest 
-        @buttonClicked="LoadAppendMatches(5, true)">
+        <DemoDataLoadRequest @buttonClicked="LoadAppendMatches(5, true)">
           Couldn't find any matches for you.
-          <br>
-          Want so see what it looks like once you've understood how to upload demos?
-          </DemoDataLoadRequest>
+          <br />Want so see what it looks like once you've understood how to upload demos?
+        </DemoDataLoadRequest>
       </div>
-
-
 
       <div v-for="match in visibleMatches" :key="match.MatchId">
         <!-- TODO: insert actual values for :isAboveLimit and :failed -->
-        <PersonalMatch 
+        <PersonalMatch
           :match="match"
           :isAboveLimit="IsAboveLimit(match)"
           :failed="MatchFailed(match)"
-          />
+        />
       </div>
 
       <div v-if="loadingMatches">
@@ -35,8 +43,14 @@
       </div>
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(5, false)">Load 5 More</button>
-      <button class="button-variant-bordered purple" @click="LoadAppendMatches(25, false)">Load 25 More</button>
+      <button
+        class="button-variant-bordered purple"
+        @click="LoadAppendMatches(5, false)"
+      >Load 5 More</button>
+      <button
+        class="button-variant-bordered purple"
+        @click="LoadAppendMatches(25, false)"
+      >Load 25 More</button>
     </div>
   </div>
 </template>
@@ -46,85 +60,103 @@ import PersonalMatch from "@/components/PersonalMatch.vue";
 import Enums from "@/enums";
 
 export default {
+  props: ["steamId"],
   components: {
-    PersonalMatch,
+    PersonalMatch
   },
   mounted() {
-    this.LoadAppendMatches(5, false);
-    this.LoadFailedMatches();
+    this.Init();
   },
   data() {
     return {
       analyzedMatches: [],
-      failedMatches: [
-      ],
-      activeTab: 'all',
+      failedMatches: [],
+      activeTab: "all",
       loadingMatches: false,
-      desiredVisibleMatchesCount: 0,
+      desiredVisibleMatchesCount: 0
     };
   },
   computed: {
     allRelevantMatches: function() {
       // return the desiredVisibleMatchesCount newest matches, including failed matches
       let allMatches = this.analyzedMatches.concat(this.failedMatches);
-      let sorted = allMatches.sort((a,b)=>new Date(b.MatchDate)-new Date(a.MatchDate));
-      return sorted.slice(0,this.desiredVisibleMatchesCount);
+      let sorted = allMatches.sort(
+        (a, b) => new Date(b.MatchDate) - new Date(a.MatchDate)
+      );
+      return sorted.slice(0, this.desiredVisibleMatchesCount);
     },
     visibleMatches: function() {
-      if(this.activeTab == 'all'){
+      if (this.activeTab == "all") {
         return this.allRelevantMatches;
       }
-      if(this.activeTab == 'valve'){
-        return this.allRelevantMatches.filter(x=>x.Source==Enums.Source.Valve);
+      if (this.activeTab == "valve") {
+        return this.allRelevantMatches.filter(
+          x => x.Source == Enums.Source.Valve
+        );
       }
-      if(this.activeTab == 'faceit'){
-        return this.allRelevantMatches.filter(x=>x.Source==Enums.Source.Faceit);
+      if (this.activeTab == "faceit") {
+        return this.allRelevantMatches.filter(
+          x => x.Source == Enums.Source.Faceit
+        );
       }
-    },
+    }
   },
   methods: {
-    IsAboveLimit: function(match){
+    Init() {
+    this.LoadAppendMatches(5, false);
+    this.LoadFailedMatches();
+    },
+    IsAboveLimit: function(match) {
       return match.MatchId < 0;
     },
-    MatchFailed: function(match){
-      return this.failedMatches.some(x=>x.MatchId == match.MatchId);
+    MatchFailed: function(match) {
+      return this.failedMatches.some(x => x.MatchId == match.MatchId);
     },
-    LoadFailedMatches: function(){
+    LoadFailedMatches: function() {
       this.loadingMatches = true;
+      this.failedMatches = [];
+
       let params = {
         steamId: this.$api.User.GetSteamId(),
         count: 1000, // just load all at once
         offset: 0
-      }
-      this.$api.getFailedDemos(params)
-      .then(response => {
+      };
+      this.$api.getFailedDemos(params).then(response => {
         response.data.Entries.forEach(element => {
           this.failedMatches.push(element);
         });
-      })
+      });
     },
     LoadAppendMatches: function(count, isDemo) {
       this.loadingMatches = true;
+      this.analyzedMatches = [];
+
       let params = {
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId(),
+        steamId: isDemo ? "76561198033880857" : this.steamId,//this.$api.User.GetSteamId(),
         count: count,
         offset: this.analyzedMatches.length
-      }
-      this.$api.getMatches(params)
-      .then(response => {
-        for (let i = 0; i < response.data.MatchInfos.length; i++) {
-          let match = response.data.MatchInfos[i];
-          match.IsVisible = false;
-          this.analyzedMatches.push(match);
-        }
-        this.desiredVisibleMatchesCount += count;
-        this.loadingMatches = false;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingMatches = false
-      });
-    },
+      };
+      this.$api
+        .getMatches(params)
+        .then(response => {
+          for (let i = 0; i < response.data.MatchInfos.length; i++) {
+            let match = response.data.MatchInfos[i];
+            match.IsVisible = false;
+            this.analyzedMatches.push(match);
+          }
+          this.desiredVisibleMatchesCount += count;
+          this.loadingMatches = false;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingMatches = false;
+        });
+    }
+  },
+  watch: {
+    steamId: function(val) {
+      this.Init();
+    }
   }
 };
 </script>
@@ -190,61 +222,61 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .match-history {
-  .tabs-header {
+    .tabs-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+
+      .title,
+      .filter {
+        color: white;
+        font-weight: 500;
+      }
+
+      .filter {
+        cursor: pointer;
+        margin-left: 10px;
+        transition: 0.75s all;
+
+        &:hover,
+        &.active {
+          //TODO: Improve underline animation with :after
+          text-decoration: underline;
+          opacity: 0.7;
+        }
+
+        &.all {
+          color: $dark-4;
+        }
+
+        &.faceit {
+          color: $faceit-orange;
+        }
+
+        &.mm {
+          color: $matchmaking-blue;
+        }
+      }
+    }
+
+    .match-list {
+      .no-matches {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .match-history-controls {
+    margin-top: 10px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
+    justify-content: flex-end;
 
-    .title,
-    .filter {
-      color: white;
-      font-weight: 500;
-    }
-
-    .filter {
-      cursor: pointer;
-      margin-left: 10px;
-      transition: 0.75s all;
-
-      &:hover,
-      &.active {
-        //TODO: Improve underline animation with :after
-        text-decoration: underline;
-        opacity: 0.7;
-      }
-
-      &.all {
-        color: $dark-4;
-      }
-
-      &.faceit {
-        color: $faceit-orange;
-      }
-
-      &.mm {
-        color: $matchmaking-blue;
+    button {
+      &:first-child {
+        margin-right: 10px;
       }
     }
   }
-
-  .match-list {
-    .no-matches {
-      margin-top: 10px;
-    }
-  }
-}
-
-.match-history-controls {
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-
-  button {
-    &:first-child {
-      margin-right: 10px;
-    }
-  }
-}
 }
 </style>

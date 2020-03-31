@@ -21,12 +21,12 @@
 
     <div class="nav-content" data-simplebar>
       <nav>
-        <router-link to="/" class="logo">
+        <router-link :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId()}}" class="logo">
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
         <div class="nav-header">Personal Data</div>
-        <router-link to="/">Overview</router-link>
+        <router-link :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId()}}">Profile</router-link>
         <router-link to="/smokes">Smokes</router-link>
         <router-link to="/molotovs">Molotovs</router-link>
         <router-link to="/flashes">Flashes</router-link>

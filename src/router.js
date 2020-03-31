@@ -9,25 +9,33 @@ Vue.use(Router);
 // Will redirect to login if the user is currently not logged in
 // eslint-disable-next-line
 function authenticationGuard(to, from, next) {
+  let $api = Vue.prototype.$api;
+  let $inputBlock = Vue.prototype.$inputBlock;
   // at this point, the user tries to open a non-whitelisted view
 
   // if the api is ready (user is logged in and matchselection has loaded) just let him pass
-  if(Vue.prototype.$api.ready){
-    Vue.prototype.$inputBlock = Vue.observable(false); 
+  if($api.ready){
+    $inputBlock = Vue.observable(false); 
     next();
     return;
   }
 
   // if not, show inputblock and validate login
-  Vue.prototype.$inputBlock = Vue.observable(true);
+  $inputBlock = Vue.observable(true);
 
-  Vue.prototype.$api.ensureLogin()
+  $api.ensureLogin()
   .then(response => {
     // if the user is logged in, attempt to init MatchSelector
-    Vue.prototype.$api.initMatchSelector()
+    $api.initMatchSelector()
     .then(r => {
+
+      if (to.name == 'dashboard' && to.params.steamId == 'own') {
+        to.params.steamId = $api.User.GetSteamId();
+        return next(to);
+      }
+
       // MatchSelector is ready so stop showing inputBlock and let the user pass 
-      Vue.prototype.$inputBlock = Vue.observable(false);
+      $inputBlock = Vue.observable(false);
       next();
       return;
     })
@@ -69,6 +77,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/profile/own'
+    },
+    {
+      path: '/profile/:steamId',
       name: 'dashboard',
       component: Dashboard,
       beforeEnter: authenticationGuard
