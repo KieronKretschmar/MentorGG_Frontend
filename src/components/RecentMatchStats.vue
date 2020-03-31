@@ -20,12 +20,14 @@
           <div class="txt">Winrate</div>
         </div>
         <div class="stat">
-          <div class="val">{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
+          <div
+            class="val"
+          >{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
           <div class="txt">Headshot</div>
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
-            {{  (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
+            {{ (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
             <!-- <i class="material-icons" @click="OpenRankGraph">timeline</i> -->
           </div>
           <div class="txt">W/L balance on this rank</div>
@@ -42,7 +44,7 @@
 
 <script>
 export default {
-  props: ['steamId'],
+  props: ["steamId"],
   mounted() {
     this.LoadData();
   },
@@ -50,7 +52,7 @@ export default {
     return {
       recentMatchStats: null,
       rankGraphVisible: false,
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
   computed: {
@@ -84,23 +86,26 @@ export default {
       this.rankGraphVisible = true;
     },
     LoadData: function() {
-
       this.recentMatchStats = null;
       this.loadingComplete = false;
 
       let params = {
-        steamId: this.steamId//this.$api.User.GetSteamId()
+        steamId: this.steamId //this.$api.User.GetSteamId()
       };
-      this.$api.getRecentMatchData(params)
-      .then(response => {
-        this.recentMatchStats = response.data;
+
+      this.$api
+        .getRecentMatchData(params)
+        .then(response => {
+          this.recentMatchStats = response.data;
           this.loadingComplete = true;
+
+          this.$emit('gamesTotal', this.recentMatchStats.GamesTotal);
         })
         .catch(error => {
-        console.error(error); // eslint-disable-line no-console
+          console.error(error); // eslint-disable-line no-console
           this.loadingComplete = true;
         });
-    },
+    }
   },
   watch: {
     steamId: function(val) {
@@ -178,25 +183,24 @@ export default {
     margin-bottom: 20px;
     margin-top: -64px;
 
-  .bordered-box {
-    padding: 20px 20px;
-  }
+    .bordered-box {
+      padding: 20px 20px;
+    }
 
-  .stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    .stat {
+    .stats {
       display: flex;
-      flex-direction: column;
-      text-align: center;
-      margin: 10px;
-      flex: 1 1 43%;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 10px;
+        flex: 1 1 43%;
+      }
     }
   }
-
-}
 }
 </style>
