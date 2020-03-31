@@ -2,10 +2,16 @@
   <div class="position-advice">
     <div class="bordered-box advice">
       <p>Positions you should practice or avoid</p>
-      <div v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete" class="no-positions">
+      <div
+        v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
+        class="no-positions"
+      >
         <AjaxLoader>Computing Worst Positions</AjaxLoader>
       </div>
-      <div v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete " class="no-positions">
+      <div
+        v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete "
+        class="no-positions"
+      >
         <p>No data available</p>
       </div>
       <div class="position-table" v-if="worst.Performances && worst.Performances.length">
@@ -18,8 +24,11 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.ZoneName }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)">{{ entry.Map }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)"
+            >{{ entry.ZoneName }}</a>
             <span class="cell">
               <img
                 v-if="!entry.IsCtZone"
@@ -42,10 +51,16 @@
     </div>
     <div class="bordered-box advice">
       <p>Positions you are performing best in</p>
-      <div v-if="(!best.Performances || !best.Performances.length) && !loadingComplete" class="no-positions">
+      <div
+        v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
+        class="no-positions"
+      >
         <AjaxLoader>Computing Best Positions</AjaxLoader>
       </div>
-      <div v-if="(!best.Performances || !best.Performances.length) && loadingComplete" class="no-positions">
+      <div
+        v-if="(!best.Performances || !best.Performances.length) && loadingComplete"
+        class="no-positions"
+      >
         <p>No data available</p>
       </div>
       <div class="position-table" v-if="best.Performances && best.Performances.length">
@@ -58,8 +73,11 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)" >{{ entry.Map }}</a>
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)">{{ entry.ZoneName }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)">{{ entry.Map }}</a>
+            <a
+              class="cell link"
+              @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)"
+            >{{ entry.ZoneName }}</a>
             <span class="cell">
               <img
                 v-if="!entry.IsCtZone"
@@ -85,7 +103,7 @@
 
 <script>
 export default {
-  props: ['steamId'],
+  props: ["steamId"],
   mounted() {
     this.LoadData(false);
   },
@@ -93,10 +111,10 @@ export default {
     return {
       best: [],
       worst: [],
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
-  methods : {
+  methods: {
     LoadData: function() {
       this.loadingComplete = false;
       this.best = [];
@@ -104,54 +122,56 @@ export default {
 
       // Load best positions
       let params = {
-        steamId: this.steamId,//this.$api.User.GetSteamId(),
+        steamId: this.steamId, //this.$api.User.GetSteamId(),
         count: 5,
         showBest: true
       };
-      this.$api.getImportantPositions(params)
-      .then(response => {
-        this.formatResponse(response.data)
-        this.best = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      this.$api
+        .getImportantPositions(params)
+        .then(response => {
+          this.formatResponse(response.data);
+          this.best = response.data;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
 
       // Load worst positions
       params = {
-        steamId: this.steamId,//this.$api.User.GetSteamId(),
+        steamId: this.steamId, //this.$api.User.GetSteamId(),
         count: 5,
         showBest: false
       };
-      this.$api.getImportantPositions(params)
-      .then(response => {
-        this.formatResponse(response.data)
-        this.worst = response.data;
-        this.loadingComplete = true;
-      })
-      .catch(error => {
-        console.error(error); // eslint-disable-line no-console
-        this.loadingComplete = true;
-      });
+      this.$api
+        .getImportantPositions(params)
+        .then(response => {
+          this.formatResponse(response.data);
+          this.worst = response.data;
+          this.loadingComplete = true;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+          this.loadingComplete = true;
+        });
     },
-    NavigateToKills: function(map = "", showCt = true, zoneId = 0){
+    NavigateToKills: function(map = "", showCt = true, zoneId = 0) {
       let params = {
-        showCt: showCt,
+        showCt: showCt
       };
-      if(map){
-        params.map = map;  
+      if (map) {
+        params.map = map;
 
-        if(zoneId){
+        if (zoneId) {
           params.zoneId = zoneId;
         }
       }
-      this.$router.push({ path: 'kills', query: params });
+      this.$router.push({ path: "kills", query: params });
     },
     // Formats json response by writing data from ZoneInfos into the corresponding Performances
-    formatResponse(data){
-      for (let performance of data.Performances){
+    formatResponse(data) {
+      for (let performance of data.Performances) {
         let zoneInfo = data.ZoneInfos[performance.ZoneId];
         performance["ZoneName"] = zoneInfo.Name;
         performance["Map"] = zoneInfo.MapString;
@@ -231,6 +251,7 @@ export default {
             }
             &:nth-child(2) {
               width: 30%;
+              display: block;
             }
             &:nth-child(3) {
               width: 15%;
@@ -257,6 +278,9 @@ export default {
             transition: 0.35s;
             text-decoration: none;
             cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
 
             img {
               width: 40px;
