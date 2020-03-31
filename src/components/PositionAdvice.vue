@@ -167,7 +167,7 @@ export default {
           params.zoneId = zoneId;
         }
       }
-      this.$router.push({ path: "kills", query: params });
+      this.$router.push({ name: "kills", query: params });
     },
     // Formats json response by writing data from ZoneInfos into the corresponding Performances
     formatResponse(data) {
