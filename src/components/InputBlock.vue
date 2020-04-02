@@ -38,4 +38,13 @@
     50% { opacity: 0; }
     to   { opacity: 1; }
 }
+
+//responsive
+@media(max-width: 460px) {
+    .input-block {
+    img {
+        max-width: 250px;
+    }
+}
+}
 </style>
