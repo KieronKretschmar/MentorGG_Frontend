@@ -113,7 +113,7 @@ export default {
       this.loadingMatches = true;
       
       let params = {
-        steamId: this.$api.User.GetSteamId(),
+        steamId: this.steamId,
         count: 1000, // just load all at once
         offset: 0
       };
