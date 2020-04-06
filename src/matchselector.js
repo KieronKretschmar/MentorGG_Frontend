@@ -1,3 +1,5 @@
+import Enums from './enums';
+
 export default class MatchSelector {
     constructor(api, matchList, dailyLimitReachedToday) {
         this.$api = api;
@@ -120,8 +122,6 @@ export default class MatchSelector {
         } else {
             this.AddMapFilter(mapName);
         }
-
-        console.log(this.filters.maps);
     }
 
     HasMapFilter(mapName) {
@@ -141,14 +141,14 @@ export default class MatchSelector {
         this.filters.sources = this.filters.sources.filter(name => name != sourceName);
     }
 
-    ToggleSourcesFilter(sourceName) {
-        if (this.HasSourcesFilter(sourceName)) {
-            this.RemoveSourcesFilter(sourceName);
-        } else {
-            this.AddSourcesFilter(sourceName);
-        }
-
-        console.log(this.filters.sources);
+    ToggleSourcesFilter(sourceName) {        
+        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+            if (this.HasSourcesFilter(sourceName)) {
+                this.RemoveSourcesFilter(sourceName);
+            } else {
+                this.AddSourcesFilter(sourceName);
+            }
+        });
     }
 
     HasSourcesFilter(sourceName) {
@@ -170,11 +170,13 @@ export default class MatchSelector {
     }
 
     ToggleBlacklist(matchId) {
-        if (!this.IsBlacklisted(matchId)) {
-            this.AddToBlacklist(matchId);
-        } else {
-            this.RemoveFromBlacklist(matchId);
-        }
+        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+            if (!this.IsBlacklisted(matchId)) {
+                this.AddToBlacklist(matchId);
+            } else {
+                this.RemoveFromBlacklist(matchId);
+            }
+        });
     }
 }
 

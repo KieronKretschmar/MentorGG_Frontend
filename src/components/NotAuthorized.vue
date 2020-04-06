@@ -3,7 +3,7 @@
     <GenericOverlay ref="overlay" width="900px">
       <p class="headline">YOU SHALL NOT PASS!</p>
       <p>
-        Unfortunately, this area is only accessible to
+        Unfortunately, this area/functionality is only accessible to
         <span
           class="orange-bold"
         >{{ minimumAccessLevelDisplayName }}</span> members.
@@ -59,6 +59,8 @@ export default {
   }
 
   .generic-overlay {
+    z-index: 10000;
+
     .headline {
       margin: 0 auto;
       text-align: center;
