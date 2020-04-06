@@ -34,7 +34,7 @@ export default {
     MatchHeader
   },
   mounted() {
-    console.log(this.$api.MatchSelector.GetMatchList());
+
   },
   data() {
     return {};
