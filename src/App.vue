@@ -214,6 +214,7 @@ main {
     color: $orange;
     user-select: none;
     cursor: pointer;
+    z-index: 9999;
 
     i {
       font-size: 40px;
@@ -229,6 +230,7 @@ main {
     padding: 5px;
     user-select: none;
     cursor: pointer;
+    z-index: 9999;
   }
 
   .impersonate-name {
@@ -243,6 +245,7 @@ main {
     font-size: 15px;
     line-height: 1;
     cursor: pointer;
+    z-index: 9999;
   }
 }
 
