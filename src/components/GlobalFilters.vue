@@ -39,7 +39,7 @@
         >
           <img
             class="image"
-            :src="$helpers.resolveResource('~/assets/maps/previews/' + map +'.jpg')"
+            :src="$helpers.resolveMapPreview(map)"
           />
           <div class="name">
             <span>{{ map }}</span>
