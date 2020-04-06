@@ -156,16 +156,6 @@
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
-
-                <div
-                  class="stat-row watch-row"
-                  @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)"
-                >
-                  <div class="stat-description">Watch</div>
-                  <div class="stat-content">
-                    <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
-                  </div>
-                </div>
               </div>
 
               <div v-if="!selectedSample" class="selection">   
@@ -254,6 +244,15 @@
               </div>
               <div v-else>Advice for this Zone is not yet available.</div>
             </div>
+            
+            <div
+              v-if="selectedSample"
+              class="watch-button"
+              @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)">
+                <div class="stat-description">Watch</div>
+                <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
+            </div>
+
           </div>
         </div>
       </div>

@@ -570,6 +570,27 @@ export default {
     .sidebar {
       color: white;
     }
+
+    .watch-button {
+      margin-top: auto;
+      justify-self: flex-end;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 10px;
+      border-radius: 3px;
+      background: $dark-3;
+      border: 1px solid $orange;
+      
+      cursor: pointer;
+
+      .watch-match-icon {
+          color: $orange;
+          font-size: 26px;
+          transition: 0.35s;
+          cursor: pointer;
+      }
+    }
   }
 }
 </style>
