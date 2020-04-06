@@ -72,7 +72,6 @@ export default {
     position: relative;
     max-width: 100%;
     max-height: 100%;
-    margin-top: -20vh;
     border-radius: 3px;
     overflow: hidden;
     font-weight: 300;
