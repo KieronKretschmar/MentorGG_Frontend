@@ -316,9 +316,11 @@ export default {
     },
     // Filterable
     SetPlantStatus(status) {
-      this.$helpers.LogEvent(this, "PlantStatus", { label: status });
-
-      this.activeFilterSettings.PlantStatus = status;
+      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$helpers.LogEvent(this, "PlantStatus", { label: status });
+  
+        this.activeFilterSettings.PlantStatus = status;
+      });
     }
   },
   computed: {
