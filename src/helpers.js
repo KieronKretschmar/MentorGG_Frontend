@@ -120,6 +120,11 @@ class Helpers {
       return require('./assets/'+resource.replace("~/assets/", ''))
     }
 
+    // returns the map's radarimages   
+    resolveRadarImage(map){
+      return require(`./assets/maps/radarimages/${map}.png`);     
+    }
+
     // returns the map preview image or a default placeholder if unavailable
     resolveMapPreview(map){
       try {
