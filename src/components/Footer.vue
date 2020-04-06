@@ -31,7 +31,7 @@
         </div>-->
 
         <div class="r">
-          <router-link to="/terms-of-service">Terms Of Service</router-link>
+          <router-link to="/terms-and-conditions">Terms And Conditions</router-link>
           <router-link to="/contact">Contact / About</router-link>
           <router-link to="/privacy-policy">Privacy Policy</router-link>
         </div>

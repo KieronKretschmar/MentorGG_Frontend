@@ -134,9 +134,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "privacypolicy" */'./views/PrivacyPolicy.vue')
     },
     {
-      path: '/terms-of-service',
-      name: 'terms-of-service',
-      component: () => import(/* webpackChunkName: "termsofservice" */'./views/TermsOfService.vue')
+      path: '/terms-and-conditions',
+      name: 'terms-and-conditions',
+      component: () => import(/* webpackChunkName: "termsandconditions" */'./views/TermsAndConditions.vue')
     },
     {
       path: '/contact',
