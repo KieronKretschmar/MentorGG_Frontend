@@ -72,7 +72,10 @@ export default {
       selectedTargetId: null,
 
       // Filters
-      activeFilterSettings: null
+      activeFilterSettings: null,
+
+      // DemoViewer
+      watchTimePrepend: 4000,
     };
   },
   mounted() {},

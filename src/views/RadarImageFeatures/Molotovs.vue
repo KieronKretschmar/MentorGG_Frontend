@@ -208,7 +208,7 @@
 
                 <div
                   class="stat-row watch-row"
-                  @click="Watch(selectedSample.MatchId, selectedSample.Round)"
+                  @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)"
                 >
                   <div class="stat-description">Watch</div>
                   <div class="stat-content">
