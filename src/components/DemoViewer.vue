@@ -467,7 +467,12 @@ export default {
               nextEntry.PlayerView
             );
 
-            let strength = 20;
+            const desiredLerpedFps = 32;
+            let timeDelta = nextEntry.Time - entry.Time;
+            let strengthToGainDesiredFps = desiredLerpedFps * (timeDelta / 1000);
+
+            // Take at least strength 20, or the strength required to gain 32 (lerped) points per second
+            let strength = Math.max(20, strengthToGainDesiredFps);
             for (let i = 0; i < strength; i++) {
               d3Polated.push({
                 Time: lerp_t(i / strength),
