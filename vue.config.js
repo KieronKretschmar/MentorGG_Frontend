@@ -1,5 +1,5 @@
 module.exports = {
-	outputDir: 'webapp_build',
+	outputDir: 'build',
     css: {
         loaderOptions: {
             sass: {
