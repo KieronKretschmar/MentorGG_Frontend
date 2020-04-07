@@ -453,16 +453,16 @@ export default {
               }
             }
 
-            var lerp_t = d3.interpolateNumber(entry.Time, nextEntry.Time);
-            var lerp_x = d3.interpolateNumber(
+            let lerp_t = d3.interpolateNumber(entry.Time, nextEntry.Time);
+            let lerp_x = d3.interpolateNumber(
               entry.PlayerPos.X,
               nextEntry.PlayerPos.X
             );
-            var lerp_y = d3.interpolateNumber(
+            let lerp_y = d3.interpolateNumber(
               entry.PlayerPos.Y,
               nextEntry.PlayerPos.Y
             );
-            var lerp_v = d3.interpolateNumber(
+            let lerp_v = d3.interpolateNumber(
               entry.PlayerView,
               nextEntry.PlayerView
             );
