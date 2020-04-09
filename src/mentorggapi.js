@@ -92,7 +92,7 @@ class MentorGGAPI {
     initMatchSelector(){
         return new Promise((resolve, reject) => {
             let steamId = this.User.GetSteamId();
-            this.getMetaMatchHistory(steamId)
+            this.getMatchSelection(steamId)
             .then(result => {
                 let matchList = result.data.Matches;
                 this.MatchSelector = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReachedToday);
@@ -103,7 +103,7 @@ class MentorGGAPI {
             })
             .catch(e => {
                 this.ready = false;
-                reject("Could not load getMetaMatchHistory");
+                reject("Could not get MatchSelection");
             });
         });
     }
@@ -377,7 +377,7 @@ class MentorGGAPI {
         return false;
     }
 
-    getMetaMatchHistory(playerId) {
+    getMatchSelection(playerId) {
         return axios.get(`${this.newApiEndpoint}/v1/single/${playerId}/matchselection`, {
             params: {
             }
