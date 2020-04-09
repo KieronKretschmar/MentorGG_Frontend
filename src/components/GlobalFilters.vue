@@ -7,7 +7,10 @@
         :options="matchCountOptions"
         v-on:input="OnPreferedMatchCountChanged"
       ></CustomSelect>
-      <p>matches from the following <span class="orange">sources</span>:</p>
+      <p>
+        matches from the following
+        <span class="orange">sources</span>:
+      </p>
     </div>
 
     <div class="sources">
@@ -28,7 +31,10 @@
     </div>
 
     <div class="maps">
-      <p>Which have been played on the following <span class="orange">maps*</span>:</p>
+      <p>
+        Which have been played on the following
+        <span class="orange">maps*</span>:
+      </p>
       <div class="map-list">
         <div
           class="map"
@@ -37,10 +43,7 @@
           @click="$api.MatchSelector.ToggleMapFilter(map)"
           :class="{active: $api.MatchSelector.HasMapFilter(map)}"
         >
-          <img
-            class="image"
-            :src="$helpers.resolveMapPreview(map)"
-          />
+          <img class="image" :src="$helpers.resolveMapPreview(map)" />
           <div class="name">
             <span>{{ map }}</span>
             <i class="material-icons">check</i>
@@ -50,16 +53,19 @@
     </div>
 
     <p class="how-many">
-      Your currently selected filters result in <span class="orange">{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
+      Your currently selected filters result in
+      <span class="orange">{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
     </p>
 
-    <p class="note">
-        *Please note that you can only filter for maps that you have actually played matches on.
-    </p>
+    <p
+      class="note"
+    >*Please note that you can only filter for maps that you have actually played matches on.</p>
 
     <!-- TODO: styling is trash -->
     <p>
-      <router-link :to="{name: 'individual-match-filters'}">Open Individual Match Filters</router-link>
+      <router-link :to="{name: 'individual-match-filters'}">
+        <span @click="$emit('close-self')">Open Individual Match Filters</span>
+      </router-link>
     </p>
   </div>
 </template>
@@ -70,11 +76,9 @@ import Enums from "@/enums";
 
 export default {
   components: {
-    CustomSelect,
+    CustomSelect
   },
-  mounted() {
-
-  },
+  mounted() {},
   data() {
     return {
       Enums,
@@ -102,21 +106,21 @@ export default {
   }
 
   p {
-      font-weight: 500;
+    font-weight: 500;
 
-      &.note {
-          font-weight: normal;
-          font-size: 14px;
+    &.note {
+      font-weight: normal;
+      font-size: 14px;
+    }
+
+    &.how-many {
+      font-weight: normal;
+      margin-top: 20px;
+
+      .orange {
+        color: $orange;
       }
-
-      &.how-many {
-        font-weight: normal;
-        margin-top: 20px;
-
-        .orange {
-          color: $orange;
-        }
-      }
+    }
   }
 
   .match-count {

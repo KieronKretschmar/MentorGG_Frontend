@@ -35,7 +35,7 @@
 
       <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
-        <GlobalFilters v-if="this.$api.MatchSelector" />
+        <GlobalFilters v-if="this.$api.MatchSelector" @close-self="$refs.globalFiltersOverlay.Hide()"/>
       </GenericOverlay>
 
       <GenericOverlay ref="connectionHintOverlay" width="900px">
