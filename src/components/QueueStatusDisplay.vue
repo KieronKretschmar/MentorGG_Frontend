@@ -5,7 +5,7 @@
 
       <div class="demo-feedback">
 
-        <div class="demo-text" v-if="uploadLimitReached === false">
+        <div class="demo-text" v-if="dailyLimitReached === false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold" v-if="uploadLimitReached === true">DAILY LIMIT REACHED</div>
+        <div class="demo-text-bold" v-if="dailyLimitReached === true">DAILY LIMIT REACHED</div>
         
       </div>
       
@@ -39,7 +39,7 @@ export default {
         FirstDemoPosition: -1,
         QueueLength: 0
       },
-      uploadLimitReached: false,
+      dailyLimitReached: false,
       loadingComplete: false,
     };
   },
@@ -71,7 +71,7 @@ export default {
         }, delay);
       });
 
-      this.uploadLimitReached = this.$api.MatchSelector.dailyLimitReachedToday;
+      this.dailyLimitReached = this.$api.MatchSelector.dailyLimitReached;
     }
   },
   computed: {

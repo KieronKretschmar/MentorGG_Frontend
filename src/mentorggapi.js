@@ -95,7 +95,7 @@ class MentorGGAPI {
             this.getMatchSelection(steamId)
             .then(result => {
                 let matchList = result.data.Matches;
-                this.MatchSelector = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReachedToday);
+                this.MatchSelector = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReached);
 
                 // this.User and this.MatchSelector are loaded, therefore api is ready to make ajax calls.
                 this.ready = true;
