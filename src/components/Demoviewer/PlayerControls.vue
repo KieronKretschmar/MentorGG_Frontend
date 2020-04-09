@@ -23,6 +23,7 @@
         </ul>
         x{{ this.speed.toFixed(2) }}
       </span>
+      <span class="quality">{{ Enums.DemoViewerQuality.ToString(quality) }}</span>
       <i class="material-icons fullscreen-btn" @click="ToggleFullscreenMode">fullscreen</i>
       <i class="material-icons share-btn" @click="OnShare">share</i>
       <div class="share-menu" v-if="shareMenuVisible">
@@ -35,8 +36,10 @@
 
 <script>
 //TODO: Add hotkeys for controlling the player
+import Enums from "@/enums";
+
 export default {
-  props: ["min", "max"],
+  props: ["min", "max", "quality"],
   mounted() {
     this.cur = parseInt(this.min);
     this.$emit("update", this.cur);
@@ -49,6 +52,7 @@ export default {
   },
   data() {
     return {
+      Enums,
       isPlaying: false,
       cur: 0,
       speed: 1.0,
@@ -276,6 +280,16 @@ export default {
       &:hover {
         color: $purple;
       }
+    }
+
+    .quality {
+      background: $purple;
+      position: relative;
+      color: white;
+      font-size: 14px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      margin-left: 10px;
     }
 
     .speed-button {

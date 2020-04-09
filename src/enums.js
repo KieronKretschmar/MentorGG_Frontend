@@ -54,6 +54,16 @@ class Enums {
       Low: 10,
       Medium: 20,
       High: 30,
+
+      ToString(n) {
+        switch (n) {
+          case 10: return "SD";
+          case 20: return "MD";
+          case 30: return "HD";
+        }
+
+        return "SD";
+      }
     };
   }
 

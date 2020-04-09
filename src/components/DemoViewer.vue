@@ -79,6 +79,7 @@
         <PlayerControls
           :min="roundStart"
           :max="roundEnd"
+          :quality="currentQuality"
           @update="OnUpdate($event)"
           @warp="OnWarp($event)"
           @share="OnShare($event)"
@@ -120,6 +121,7 @@ import RenderedBaseGrenadeObject from "@/components/Demoviewer/RenderedBaseGrena
 import RenderedBombObject from "@/components/Demoviewer/RenderedBombObject.vue";
 import PlayerFrameRenderer from "@/components/Demoviewer/PlayerFrameRenderer.vue";
 import Drawing from "@/components/Demoviewer/Drawing.vue";
+import Enums from "@/enums";
 
 import Interpolate from "d3-interpolate";
 
@@ -243,6 +245,8 @@ export default {
             result.data = this.ConvertCoordinates(result.data);
             Object.freeze(result.data);
             this.data = result.data;
+
+            console.log(this.data);
 
             //adjust for initial timestamp
             if (this.initialTimestamp != 0) {
@@ -608,6 +612,13 @@ export default {
         bomb: this.bombData.plant ? this.bombData : null,
         kills: this.killData
       };
+    },
+    currentQuality() {
+      if (!this.data) {
+        return Enums.DemoViewerQuality.Low;
+      }
+
+      return this.data.Round.Config.Quality;
     }
   }
 };
