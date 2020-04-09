@@ -67,7 +67,7 @@ class MentorGGAPI {
             axios.get(`${this.newApiEndpoint}/identity`, {})
             .then(result => {
                 // User is logged in
-                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyUploadLimit);
+                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyMatchesLimit);
                 resolve();
                 return;
             })

@@ -1,8 +1,10 @@
 <template>
   <div class="bordered-box match" :class="{failed: failed}">
     <div v-if="isAboveLimit" class="limit-display">
-      <p>Daily upload limit exceeded. Get Premium to bypass this limit.</p>
-      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade to Premium</button>
+      <p> 
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches uploaded within a 24h period.
+      </p>
+      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Subscription</button>
     </div>
     <div v-if="failed" class="failed-display">
       <p class="two">{{ match.MatchDate|formatDateAndTime }} &mdash; Analysis failed. This can happen when a demo file got corrupted at some point.</p>
@@ -141,7 +143,7 @@ export default {
       this.$forceUpdate();
     },
     OpenSubscriptionPage() {
-      alert('Not Implemented!\nTODO: Open Subscription Page');
+      this.$router.push({ name: "subscription" });
     },
     GetUserData(){
       let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(this.match.Scoreboard.TeamInfos.TerroristStarter.Players);
