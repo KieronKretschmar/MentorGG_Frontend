@@ -19,7 +19,7 @@
           class="source"
           v-for="source in $api.MatchSelector.GetAvailableSourcesUnique()"
           :key="source"
-          @click="$api.MatchSelector.ToggleSourcesFilter(source)"
+          @click="OnToggleSourcesFilter(source)"
           :class="{active: $api.MatchSelector.HasSourcesFilter(source)}"
         >
           <div class="name">
@@ -40,7 +40,7 @@
           class="map"
           v-for="map in $api.MatchSelector.GetAvailableMapsUnique()"
           :key="map"
-          @click="$api.MatchSelector.ToggleMapFilter(map)"
+          @click="OnToggleMapFilter(map)"
           :class="{active: $api.MatchSelector.HasMapFilter(map)}"
         >
           <img class="image" :src="$helpers.resolveMapPreview(map)" />
@@ -94,6 +94,20 @@ export default {
   methods: {
     OnPreferedMatchCountChanged: function(n) {
       this.$api.MatchSelector.SetMatchCountFilter(+n);
+    },
+    OnToggleMapFilter: function(map) {
+      this.$api.User.AuthorizationGate(
+        Enums.SubscriptionStatus.Premium,
+        () => {
+          this.$api.MatchSelector.ToggleMapFilter(map)
+        });
+    },
+    OnToggleSourcesFilter: function(map) {
+      this.$api.User.AuthorizationGate(
+        Enums.SubscriptionStatus.Premium,
+        () => {
+          this.$api.MatchSelector.ToggleSourcesFilter(source)
+        });
     }
   }
 };

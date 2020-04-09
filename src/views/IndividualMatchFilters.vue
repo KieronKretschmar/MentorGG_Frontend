@@ -11,7 +11,7 @@
           class="match"
           v-for="match in $api.MatchSelector.GetMatchList()"
           :key="match.MatchId"
-          @click="$api.MatchSelector.ToggleBlacklist(match.MatchId)"
+          @click="OnToggleBlacklist(match.MatchId)"
           :class="{active: !$api.MatchSelector.IsBlacklisted(match.MatchId)}"
         >
           <div class="bordered-box">
@@ -28,6 +28,7 @@
 
 <script>
 import MatchHeader from "@/components/MatchHeader.vue";
+import Enums from "@/enums";
 
 export default {
   components: {
@@ -38,6 +39,15 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    OnToggleBlacklist(matchId){      
+      this.$api.User.AuthorizationGate(
+        Enums.SubscriptionStatus.Premium,
+        () => {
+          this.$api.MatchSelector.ToggleBlacklist(matchId);
+        });
+    }
   }
 };
 </script>

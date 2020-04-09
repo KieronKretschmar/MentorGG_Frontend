@@ -109,11 +109,7 @@ export default {
   },
   methods: {
     OnOpenFilters: function() {
-      this.$api.User.AuthorizationGate(
-        Enums.SubscriptionStatus.Premium,
-        () => {
-          this.$refs.globalFiltersOverlay.Show();
-        });
+      this.$refs.globalFiltersOverlay.Show();
     },
     InitConnectionsCallback() {
       // Start looking for matches for all configured automatic uploads, 
