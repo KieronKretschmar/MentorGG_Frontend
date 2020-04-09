@@ -130,6 +130,12 @@ class MentorGGAPI {
             count: params.count,
             offset: params.offset
         }
+        
+        let ignoredMatchIds = this.MatchSelector.Build().GetIgnoredMatchIds().toString();
+        if(ignoredMatchIds){
+            formattedParams.ignoredMatchIds = ignoredMatchIds;
+        }
+
         return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/matches`, {
             params: formattedParams
         });

@@ -42,6 +42,13 @@ export default class MatchSelector {
                 }, []).filter(matchId => this.filters.blacklist.indexOf(matchId) == -1);
             },
 
+            // Returns all matchids that were filtered out
+            GetIgnoredMatchIds() {
+                let selectedMatchIds = this.GetMatchIds();
+                let ignoredMatches = this.matches.map(x=>x.MatchId).filter(x=> !selectedMatchIds.includes(x));
+                return ignoredMatches;
+            },
+
             GetMostRecentMatchId(){
                 return this.matches.sort((a,b)=>new Date(b.MatchDate)-new Date(a.MatchDate)).map(x=>x.MatchId)[0];
             },
