@@ -190,7 +190,7 @@ export default {
     width: 100%;
     height: 100%;
     color: white;
-    z-index: 9999;
+    z-index: 500;
     display: flex;
     align-items: center;
     padding: 20px;
