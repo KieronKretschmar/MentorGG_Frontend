@@ -170,9 +170,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "individualmatchfilters" */'./views/IndividualMatchFilters.vue')
     },
     {
-      path: '/subscription',
-      name: 'subscription',
-      component: () => import(/* webpackChunkName: "subscription" */'./views/Subscription.vue'),
+      path: '/membership',
+      name: 'membership',
+      component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue'),
       beforeEnter: authenticationGuard
     }
   ]

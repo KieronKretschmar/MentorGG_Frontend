@@ -46,12 +46,12 @@
         </p>
         <h2>Membership &amp; subscription</h2>
         <p>
-          If you want to get a member of MENTOR.GG, you can choose between different
-          subscription plans. Please check the list of subscription plans to find out
+          If you want to become a member of MENTOR.GG, you can choose between different
+          membership plans. Please check the list of membership plans to find out
           which plans are available and what they contain.
         </p>
         <p>
-          Through the subscription, MENTOR.GG grants you access to certain benefits
+          Through the membership, MENTOR.GG grants you access to certain benefits
           of the MENTOR.GG website. Benefits include access to additional analytics
           features and fewer limitations regarding the download or upload of data.
           Those benefits are subject to change as the development of the service
@@ -80,17 +80,17 @@
         </p>
         <p>
           MENTOR.GG, in its sole discretion and at any time, may modify the
-          Subscription fees for the Subscriptions. Any Subscription fee change will
+          Membership fees for the Membership. Any Membership fee change will
           become effective at the end of the then-current Billing Cycle.
         </p>
         <p>
           MENTOR.GG will provide you with a reasonable prior notice of any change in
-          Subscription fees to give you an opportunity to terminate your Subscription
+          Membership fees to give you an opportunity to terminate your Membership
           before such change becomes effective.
         </p>
         <p>
-          Your continued use of the Service after the Subscription fee change comes
-          into effect constitutes your agreement to pay the modified Subscription fee
+          Your continued use of the Service after the Membership fee change comes
+          into effect constitutes your agreement to pay the modified Membership fee
           amount.
         </p>
         <h2>Handling payments by Paddle.com Market Limited</h2>
@@ -107,11 +107,11 @@
         </p>
         <p>
           A valid payment method, including credit card or PayPal, is required to
-          process the payment for your Subscription. You shall provide "Paddle.com
+          process the payment for your Membership. You shall provide "Paddle.com
           Market Limited" with accurate and complete billing information including
           full name, address, state, zip code and a valid payment method information.
           By submitting such payment information, you automatically authorize
-          "Paddle.com Market Limited" to charge all Subscription fees incurred
+          "Paddle.com Market Limited" to charge all Membership fees incurred
           through your account to any such payment instruments.
         </p>
         <h2>Right of withdrawal</h2>
@@ -159,7 +159,7 @@
         <h2>Warranty</h2>
         <p>
           MENTOR.GG warrants for 95% availability of the service for paying
-          subscription members.
+          members.
         </p>
         <h2>Links to Other Websites</h2>
         <p>

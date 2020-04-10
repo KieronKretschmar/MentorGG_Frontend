@@ -4,7 +4,7 @@
       <p> 
         {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches uploaded within a 24h period.
       </p>
-      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Subscription</button>
+      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
     <div v-if="failed" class="failed-display">
       <p class="two">{{ match.MatchDate|formatDateAndTime }} &mdash; Analysis failed. This can happen when a demo file got corrupted at some point.</p>
@@ -143,7 +143,7 @@ export default {
       this.$forceUpdate();
     },
     OpenSubscriptionPage() {
-      this.$router.push({ name: "subscription" });
+      this.$router.push({ name: "membership" });
     },
     GetUserData(){
       let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(this.match.Scoreboard.TeamInfos.TerroristStarter.Players);

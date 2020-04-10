@@ -38,7 +38,7 @@
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
 
         <div class="nav-header">Account</div>
-        <router-link :to="{name: 'subscription'}">Subscription</router-link>
+        <router-link :to="{name: 'membership'}">Membership</router-link>
         <div class="logout">
           <button @click="signOut()" class="nav-button">
             Logout
