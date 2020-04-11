@@ -143,6 +143,8 @@ export default {
       this.$forceUpdate();
     },
     OpenSubscriptionPage() {
+      this.$helpers.LogEvent(this, "DailyLimitUpgrade");
+
       this.$router.push({ name: "membership" });
     },
     GetUserData(){
