@@ -2,7 +2,7 @@
   <div class="bordered-box match" :class="{failed: failed}">
     <div v-if="isAboveLimit" class="limit-display">
       <p> 
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches uploaded within a 24h period.
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches played within a 24h period.
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
