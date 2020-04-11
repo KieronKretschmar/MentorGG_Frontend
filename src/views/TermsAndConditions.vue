@@ -243,7 +243,7 @@
                   service (*)
                 </p>
                 <p>Ordered on (*)/received on (*)</p>
-                <p>Your name and adresse</p>
+                <p>Your name and address</p>
                 <p>Sign (only necessary on paper form)</p>
                 <p>Date</p>
               </td>
