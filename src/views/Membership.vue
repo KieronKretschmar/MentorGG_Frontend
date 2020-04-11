@@ -308,13 +308,19 @@ export default {
   },
   methods: {
     OnClickSubscribe(subscriptionType){
+      this.$helpers.LogEvent(this, "SelectSubscriptionType", { label: subscriptionType});
+
       this.selectedSubscription = subscriptionType;
       this.OpenDurationPicker(subscriptionType);
     },
     OnClickCancel(){
+      this.$helpers.LogEvent(this, "ShowCancel");
+
       this.$refs.confirmCancellationOverlay.Show();
     },
     OnCancelConfirmed(){
+      this.$helpers.LogEvent(this, "ConfirmCancel");
+
       window.open(this.activeSubscription.CancelUrl, "_blank")
     },
     OpenDurationPicker(subscriptionType) {
@@ -336,6 +342,9 @@ export default {
     },
     openCheckout(offerIndex) {
       let offer = this.selectedSubscriptionData.Plans[offerIndex];
+
+      this.$helpers.LogEvent(this, "OpenCheckout", {label: offer.ProductId});
+
       Paddle.Checkout.open(
         { 
           product: offer.ProductId,
