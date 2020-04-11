@@ -2,7 +2,7 @@
   <div class="dv-player-frame" :class="{dead: health <= 0}" @click="SetAsHighlight">
     <div class="col-1">
       <div class="avatar">
-        <img :src="`https://mentor.gg/Content/Images/Ranks/${rankImageName}.png`" />
+        <img :src="this.$helpers.resolveRankImage(rankImageName)" />
       </div>
       <div class="health-loadout">
         <div class="healthbar-bg">

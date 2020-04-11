@@ -270,7 +270,7 @@
       CurrentRankIconURL() {
         let prefixedRank = this.currentRank > 9 ? this.currentRank + "" : "0" + this.currentRank;
 
-        return "~/Content/Images/Ranks/" + prefixedRank + ".png";
+        return this.$helpers.resolveRankImage(prefixedRank);
       },
     }
   };

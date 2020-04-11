@@ -44,7 +44,7 @@
           <div class="col">
             <div class="map-thumbnail">
               <img
-                :src="$api.resolveResource('~/Content/Images/Overview/' + situation.Map +'.jpg')"
+                :src="this.$helpers.resolveRankImage(situation.Map)"
                 :alt="situation.Map + ' Thumbnail'"
                 :title="situation.Map"
               />
