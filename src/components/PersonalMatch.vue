@@ -7,7 +7,7 @@
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
     <div v-if="failed" class="failed-display">
-      <p class="two"><span class="red-text"> Analysis failed !</span> {{ match.MatchDate|formatDateAndTime }} &mdash; This can happen when a demo file got corrupted at some point.</p>
+      <p class="two"><span class="grey-text"> Analysis failed &mdash; This can happen when a demo file got corrupted at some point. {{ match.MatchDate|formatDateAndTime }}</span></p>
     </div>
     <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
       <div class="left">
@@ -184,6 +184,7 @@ export default {
     background: $dark-1;
     border: 1px solid  $purple;
     padding: 0 25px;
+    text-align: center;
   }
 
   .limit-display {
