@@ -453,7 +453,8 @@ export default {
               .name {
                 color: white;
                 font-weight: 500;
-                margin-left: 10px;
+                margin-left: 0;
+                padding-left: 10px;
                 font-size: 14px;
                 white-space: nowrap;
                 overflow: hidden;
