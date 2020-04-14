@@ -116,7 +116,7 @@
           <!-- Upgrade Option if the user has a premium subscription -->
           <button v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Premium) && this.availableSubscriptions.some(x=> x.SubscriptionType == Enums.SubscriptionStatus.Ultimate)"
             class="button"
-            @click="$refs.upgradeOverlay.Show()">
+            @click="OpenUpgradeOverlay()">
             Upgrade
           </button>
         </div>
@@ -325,6 +325,11 @@ export default {
     },
     OpenDurationPicker(subscriptionType) {
       this.$refs.durationPicker.Show();
+    },
+    OpenUpgradeOverlay(){
+      this.$helpers.LogEvent(this, "AttemptUpgrade");
+      // Upgrade is not yet implemented. Show message in overlay instead.
+      this.$refs.upgradeOverlay.Show();
     },
     ScrollToFeaturesTable(){
       var container = this.$el.querySelector(".wrapper-bottom");

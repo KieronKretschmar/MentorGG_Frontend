@@ -10,7 +10,7 @@
       </p>
       <p class="upgrade-wrapper">
         <span @click="Hide">
-          <router-link :to="{name: 'membership'}" class="button-variant-bordered">Upgrade Now</router-link>
+          <a class="button-variant-bordered" @click="OnClickUpgrade()">Upgrade Now</a>
         </span>
       </p>
     </GenericOverlay>
@@ -40,6 +40,10 @@ export default {
     },
     Hide() {
       this.$refs.overlay.Hide();
+    },
+    OnClickUpgrade(){
+      this.$helpers.LogEvent(this.$parent, "NotAuthorizedClickUpgrade", );
+      this.$router.push({ name: "membership"});
     }
   },
   computed: {
