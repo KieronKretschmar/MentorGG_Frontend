@@ -1,7 +1,7 @@
 <template>
   <div class="position-advice">
     <div class="bordered-box advice">
-      <p>Postitions with worst performance</p>
+      <p>Positions with worst performance</p>
       <div
         v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
         class="no-positions"
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="bordered-box advice">
-      <p>Postitions with best performance</p>
+      <p>Positions with best performance</p>
       <div
         v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
         class="no-positions"
