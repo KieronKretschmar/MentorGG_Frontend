@@ -24,10 +24,10 @@
         </div>
         <div class="table-content">
           <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)">{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
             <a
               class="cell link"
-              @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)"
+              @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
             >{{ entry.ZoneName }}</a>
             <span class="cell">
               <img
@@ -73,10 +73,10 @@
         </div>
         <div class="table-content">
           <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.Team==3)">{{ entry.Map }}</a>
+            <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
             <a
               class="cell link"
-              @click="NavigateToKills(entry.Map, entry.Team==3, entry.ZoneId)"
+              @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
             >{{ entry.ZoneName }}</a>
             <span class="cell">
               <img

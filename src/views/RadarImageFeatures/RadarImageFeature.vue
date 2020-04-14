@@ -86,52 +86,65 @@ export default {
       if (this.$route.query.map) {
         this.activeMap = this.$route.query.map;
       }
-      this.LoadSamples(this.activeMap, false);
+      this.LoadSamples(this.activeMap, false).then(() => {
+        if (this.$route.query.showCt != null) {
+          this.showCt = this.$route.query.showCt;
+        }
+
+        if (this.$route.query.zoneId) {
+          this.selectedZoneId = this.$route.query.zoneId;
+          this.viewType = Enums.RadarViewTypes.Zone;
+        }
+      })
     },
     // General
     LoadSamples(map, isDemo) {
-      this.samples = [];
-      this.loadingSamplesComplete = false;
+      return new Promise((resolve, reject) => {
+        this.samples = [];
+        this.loadingSamplesComplete = false;
 
-      let params = {
-        type: this.config.sampleType,
-        map: map,
-        steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
-      };
-      let overrides = { maps: [map] };
+        let params = {
+          type: this.config.sampleType,
+          map: map,
+          steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
+        };
+        let overrides = { maps: [map] };
 
-      this.$api
-        .getSamples(params, overrides)
-        .then(response => {
-          // General
-          this.samples = response.data.Samples;
+        this.$api
+          .getSamples(params, overrides)
+          .then(response => {
+            // General
+            this.samples = response.data.Samples;
 
-          // (hierarchichal) Zones
-          if (this.config.features.zones) {
-            this.userPerformanceData = response.data.ZonePerformanceSummary;
+            // (hierarchichal) Zones
+            if (this.config.features.zones) {
+              this.userPerformanceData = response.data.ZonePerformanceSummary;
 
-            this.AssignZones(response.data.ZoneInfos);
-          }
+              this.AssignZones(response.data.ZoneInfos);
+            }
 
-          // Filterable
-          if (this.config.features.filterable) {
-            this.userPerformanceData = response.data.FilterableZonePerformanceData;
-            this.AssignZones(response.data.ZoneInfos);
-          }
+            // Filterable
+            if (this.config.features.filterable) {
+              this.userPerformanceData = response.data.FilterableZonePerformanceData;
+              this.AssignZones(response.data.ZoneInfos);
+            }
 
-          // Lineups & target Zones
-          if (this.config.features.lineups) {
-            this.userPerformanceData = response.data.LineupPerformanceSummary;
+            // Lineups & target Zones
+            if (this.config.features.lineups) {
+              this.userPerformanceData = response.data.LineupPerformanceSummary;
 
-            this.AssignLineups(response.data.LineupCollection);
-          }
+              this.AssignLineups(response.data.LineupCollection);
+            }
 
-          this.loadingSamplesComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingSamplesComplete = true;
-        });
+            this.loadingSamplesComplete = true;
+            resolve();
+          })
+          .catch(error => {
+            console.error(error); // eslint-disable-line no-console
+            this.loadingSamplesComplete = true;
+            resolve();
+          });
+      });
     },
     AssignLineups(lineupCollection){
       // store targets as list instead of json
