@@ -1,17 +1,12 @@
 <template>
 <div class="misplays">
   <div class="bordered-box">
-    <p>Misplays from your last match</p>
+    <p>Misplays from the last match</p>
   </div>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
       <AjaxLoader>Analyzing playstyle</AjaxLoader>
     </div>
-    <!-- <div v-if="!loadingComplete">
-      <div class="bordered-box no-misplays">
-        <AjaxLoader>Computing your recent misplays</AjaxLoader>
-      </div>
-    </div> -->
-
+    
     <span>
       <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">        
         <p>No data available</p>
