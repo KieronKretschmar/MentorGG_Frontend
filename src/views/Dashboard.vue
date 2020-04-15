@@ -34,6 +34,7 @@ import FriendComparison from "@/components/FriendComparison.vue";
 import BetterFriendComparison from "@/components/BetterFriendComparison.vue";
 import MatchHistory from "@/components/MatchHistory.vue";
 import Situations from "@/components/Situations.vue";
+import MentorUser from "../mentoruser";
 
 export default {
   components: {
@@ -45,10 +46,17 @@ export default {
     Situations,
     MatchHistory
   },
-  mounted() {},
+  mounted() {
+    // let steamIdParam = this.$route.params.steamId;
+    // this.steamId =
+    //   steamIdParam == "own" ? this.$api.User.GetSteamId() : steamIdParam;
+
+    this.HandleUserOverride();
+  },
   data() {
     return {
-      numGames: -1
+      numGames: -1,
+      steamId: ""
     };
   },
   methods: {
@@ -62,13 +70,35 @@ export default {
           steamId: "76561198033880857"
         }
       });
+    },
+    HandleUserOverride() {
+      let newSteamId = this.$route.params.steamId;
+
+      if (newSteamId != this.$api.User.GetSteamId(false)) {
+        this.$api.User.ApplyOverride(new MentorUser(-1, newSteamId, 1, -1));
+      } else {
+        this.$api.User.ClearOverride();
+      }
+
+      this.$api.initMatchSelector(newSteamId).then(result => {
+        this.steamId = newSteamId;
+      });
     }
   },
-  computed: {
-    steamId() {
-      let steamIdParam = this.$route.params.steamId;
-      return steamIdParam == "own" ? this.$api.User.GetSteamId() : steamIdParam;
+  // computed: {
+  //   steamId() {
+  //     console.log("computed steamId");
+  //     let steamIdParam = this.$route.params.steamId;
+  //     return steamIdParam == "own" ? this.$api.User.GetSteamId() : steamIdParam;
+  //   }
+  // },
+  watch: {
+    "$route.params.steamId": function() {
+      this.HandleUserOverride();
     }
+  },
+  beforeDestroy() {
+    this.$api.User.ClearOverride();
   }
 };
 </script>

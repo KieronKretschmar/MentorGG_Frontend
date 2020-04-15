@@ -26,7 +26,7 @@ function authenticationGuard(to, from, next) {
   $api.ensureLogin()
   .then(response => {
     // if the user is logged in, attempt to init MatchSelector
-    $api.initMatchSelector()
+    $api.initMatchSelector($api.User.GetSteamId(false))
     .then(r => {
 
       //modify target to correctly display own steamid
