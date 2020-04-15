@@ -138,9 +138,9 @@
           <span>ULTIMATE</span>
         </div>
         <div class="table-content">
-          <span>Analyze matches</span>
-          <span>3 per day</span>
-          <span>5 per day</span>
+          <span>Matches limit</span>
+          <span>3 matches played within 24h</span>
+          <span>Unlimited</span>
           <span>Unlimited</span>
         </div>
         <div class="table-content">
