@@ -24,14 +24,17 @@
         <p>No data available</p>
       </div>
 
-      <div v-for="match in visibleMatches" :key="match.MatchId">
-        <!-- TODO: insert actual values for :isAboveLimit and :failed -->
-        <PersonalMatch
-          :match="match"
-          :isAboveLimit="IsAboveLimit(match)"
-          :failed="MatchFailed(match)"
-        />
-      </div>
+      <template v-if="!loadingMatches">
+        <div v-for="match in visibleMatches" :key="match.MatchId">
+          <!-- TODO: insert actual values for :isAboveLimit and :failed -->
+          <PersonalMatch
+            :match="match"
+            :isAboveLimit="IsAboveLimit(match)"
+            :failed="MatchFailed(match)"
+            :steamId="steamId"
+          />
+        </div>
+      </template>
 
       <div v-if="loadingMatches">
         <div class="bordered-box no-matches">
@@ -80,6 +83,7 @@ export default {
       let sorted = allMatches.sort(
         (a, b) => new Date(b.MatchDate) - new Date(a.MatchDate)
       );
+
       return sorted.slice(0, this.desiredVisibleMatchesCount);
     },
     visibleMatches: function() {
@@ -111,7 +115,7 @@ export default {
     },
     LoadFailedMatches: function() {
       this.loadingMatches = true;
-      
+
       let params = {
         steamId: this.steamId,
         count: 1000, // just load all at once
@@ -124,7 +128,7 @@ export default {
       });
     },
     LoadAppendMatches: function(count) {
-      this.loadingMatches = true;      
+      this.loadingMatches = true;
 
       let params = {
         steamId: this.steamId, //this.$api.User.GetSteamId(),

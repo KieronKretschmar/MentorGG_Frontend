@@ -1,13 +1,15 @@
 <template>
-  <div class="bordered-box match" :class="{failed: failed}">
+  <div class="bordered-box match" :class="{failed: failed}" v-if="match">
     <div v-if="isAboveLimit" class="limit-display">
-      <p> 
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches played within a 24h period.
-      </p>
+      <p>{{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users can access up to {{this.$api.User.dailyUploadLimit}} matches played within a 24h period.</p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
     <div v-if="failed" class="failed-display">
-      <p class="two"><span class="grey-text"> {{ match.MatchDate|formatDateAndTime }} - Analysis failed or demo too old.</span></p>
+      <p class="two">
+        <span
+          class="grey-text"
+        >{{ match.MatchDate|formatDateAndTime }} - Analysis failed or demo too old.</span>
+      </p>
     </div>
     <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
       <div class="left">
@@ -80,14 +82,20 @@
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
                   <!-- TODO: migrate resources -->
-                  <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)">
-                  <img class="avatar" :src="$helpers.getSteamProfileImageUrl(entry.Profile.ImageUrl)" />
+                  <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)" />
+                  <img
+                    class="avatar"
+                    :src="$helpers.getSteamProfileImageUrl(entry.Profile.ImageUrl)"
+                  />
                   <!-- <a
                     class="name"
                     :href="`https://steamcommunity.com/profiles/${entry.SteamId}`"
                     target="_blank"
-                  >{{ entry.Profile.SteamName }}</a> -->
-                  <router-link class="name" :to="{name: 'dashboard', params: {steamId: entry.SteamId}}">{{ entry.Profile.SteamName }}</router-link>
+                  >{{ entry.Profile.SteamName }}</a>-->
+                  <router-link
+                    class="name"
+                    :to="{name: 'dashboard', params: {steamId: entry.SteamId}}"
+                  >{{ entry.Profile.SteamName }}</router-link>
                 </span>
                 <span
                   class="adr"
@@ -118,13 +126,14 @@ export default {
   data() {
     return {
       // Add enums so we can reference it in template
-      Enums: Enums,
-    }
+      Enums: Enums
+    };
   },
   props: [
     "match",
     "isAboveLimit", // expect full data except for a negative matchId
-    "failed" // expect no data except for match.MatchDate and match.Source
+    "failed", // expect no data except for match.MatchDate and match.Source
+    "steamId"
   ],
   methods: {
     Watch: function(match) {
@@ -147,26 +156,47 @@ export default {
 
       this.$router.push({ name: "membership" });
     },
-    GetUserData(){
-      let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(this.match.Scoreboard.TeamInfos.TerroristStarter.Players);
-      let playerScoreboardEntry = allScoreboardEntries.find(x=>x.SteamId == this.$api.User.GetSteamId());
+    GetUserData() {
+      let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(
+        this.match.Scoreboard.TeamInfos.TerroristStarter.Players
+      );
 
-      let userIsCtStarter = this.match.Scoreboard.TeamInfos.CtStarter.Players.some(p=>p.SteamId == this.$api.User.GetSteamId());
+      let playerScoreboardEntry = allScoreboardEntries.find(
+        x => x.SteamId == this.steamId
+      );
 
-      let userRoundsWon = (userIsCtStarter ? this.match.Scoreboard.TeamInfos.CtStarter : this.match.Scoreboard.TeamInfos.TerroristStarter).WonRounds;
-      let userRoundsLost = (!userIsCtStarter ? this.match.Scoreboard.TeamInfos.CtStarter : this.match.Scoreboard.TeamInfos.TerroristStarter).WonRounds;
+      let userIsCtStarter = this.match.Scoreboard.TeamInfos.CtStarter.Players.some(
+        p => p.SteamId == this.steamId
+      );
 
-      let winLossTie = userRoundsWon == userRoundsLost ? "tie" : (userRoundsWon > userRoundsLost ? "win" : "loss")
+      let userRoundsWon = (userIsCtStarter
+        ? this.match.Scoreboard.TeamInfos.CtStarter
+        : this.match.Scoreboard.TeamInfos.TerroristStarter
+      ).WonRounds;
+
+      let userRoundsLost = (!userIsCtStarter
+        ? this.match.Scoreboard.TeamInfos.CtStarter
+        : this.match.Scoreboard.TeamInfos.TerroristStarter
+      ).WonRounds;
+
+      let winLossTie =
+        userRoundsWon == userRoundsLost
+          ? "tie"
+          : userRoundsWon > userRoundsLost
+          ? "win"
+          : "loss";
 
       return {
         ScoreboardEntry: playerScoreboardEntry,
         WinLossTie: winLossTie
-      }
-    },
-  }, 
+      };
+    }
+  },
   computed: {
     sourceClassName() {
-      return "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase();
+      return (
+        "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase()
+      );
     },
     UserData() {
       return this.GetUserData();
@@ -182,7 +212,7 @@ export default {
 
   &.failed {
     background: $dark-1;
-    border: 1px solid  $purple;
+    border: 1px solid $purple;
     padding: 0 25px;
     text-align: center;
   }
