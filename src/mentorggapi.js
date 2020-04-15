@@ -8,7 +8,7 @@ class MentorGGAPI {
     constructor() {
 
         this.ready = false; // whether or not this.User and this.MatchSelector are loaded
-        this.newApiEndpoint = 'https://api.mentor.gg';        
+        this.newApiEndpoint = 'https://api.mentor.gg';
 
         // tell the webapp to add credentials from IdentityCookie to request headers 
         axios.defaults.withCredentials = true;
@@ -19,16 +19,16 @@ class MentorGGAPI {
         }
         else if (process.env.NODE_ENV == 'development') {
             // Auth with bearer token instead of cookie if token is found
-            if(process.env.VUE_APP_BEARER_TOKEN){
+            if (process.env.VUE_APP_BEARER_TOKEN) {
                 // auth via Bearer token
                 axios.defaults.headers.common['Authorization'] = "Bearer " + process.env.VUE_APP_BEARER_TOKEN
                 axios.defaults.withCredentials = false;
             }
 
-            if(process.env.VUE_APP_OVERRIDE_API_URL){
+            if (process.env.VUE_APP_OVERRIDE_API_URL) {
                 this.newApiEndpoint = process.env.VUE_APP_OVERRIDE_API_URL;
             }
-    
+
             this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             // this.fixedSteamId = '76561198033880857'; //kieron
             // this.fixedSteamId = '76561198166019050'; //felix
@@ -41,6 +41,7 @@ class MentorGGAPI {
         this.valveRefreshInterval = null;
         this.faceitRefreshInterval = null;
         this.User = null;
+        this.matchSelectors = {};
         this.MatchSelector = null;
 
         // this.User = new MentorUser();
@@ -55,33 +56,37 @@ class MentorGGAPI {
     }
 
     // Ensures that this.User is set. If not (e.g. because the user is not logged in) the promise is rejected.
-    ensureLogin(){
+    ensureLogin() {
         return new Promise((resolve, reject) => {
             // If this.User is already set, resolve right away
-            if(this.User){
+            if (this.User) {
                 resolve();
                 return;
             }
 
             // Attempt to load the logged-in user's identity from server
             axios.get(`${this.newApiEndpoint}/identity`, {})
-            .then(result => {
-                // User is logged in
-                this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyMatchesLimit);
-                resolve();
-                return;
-            })
-            .catch(error => {
-                // User is not logged in
-                this.User = null;
-                this.ready = false;
-                reject();
-                return;
-            });
+                .then(result => {
+                    // User is logged in
+                    this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyMatchesLimit);
+                    resolve();
+                    return;
+                })
+                .catch(error => {
+                    // User is not logged in
+                    this.User = null;
+                    this.ready = false;
+                    reject();
+                    return;
+                });
         });
     }
 
-    getSubscriptions(){
+    // get MatchSelector() {
+    //     return this.matchSelectors[this.User.GetSteamId()];
+    // }
+
+    getSubscriptions() {
         return this.ensureLogin().then(response => {
             // Attempt to load the logged-in user's identity from server
             return axios.get(`${this.newApiEndpoint}/subscriptions`, {});
@@ -89,30 +94,39 @@ class MentorGGAPI {
     }
 
     // Initializes this.MatchSelector. Make sure this.User is set when calling this.
-    initMatchSelector(){
-        return new Promise((resolve, reject) => {
-            let steamId = this.User.GetSteamId();
-            this.getMatchSelection(steamId)
-            .then(result => {
-                let matchList = result.data.Matches;
-                this.MatchSelector = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReached);
+    initMatchSelector(steamId) {
 
-                // this.User and this.MatchSelector are loaded, therefore api is ready to make ajax calls.
-                this.ready = true;
+        if (this.matchSelectors[steamId]) {
+            return new Promise((resolve, reject) => {
+                this.MatchSelector = this.matchSelectors[steamId];
                 resolve();
-            })
-            .catch(e => {
-                this.ready = false;
-                reject("Could not get MatchSelection");
             });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.getMatchSelection(steamId)
+                .then(result => {
+                    let matchList = result.data.Matches;
+                    this.matchSelectors[steamId] = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReached);
+                    this.MatchSelector = this.matchSelectors[steamId];
+
+                    // this.User and this.MatchSelector are loaded, therefore api is ready to make ajax calls.
+                    this.ready = true;
+                    resolve();
+                })
+                .catch(e => {
+                    this.ready = false;
+                    reject("Could not get MatchSelection");
+                });
         });
+
     }
 
-    getSignOutUrl(returnUrl = "/"){
+    getSignOutUrl(returnUrl = "/") {
         return `${this.newApiEndpoint}/authentication/signout?returnUrl=${returnUrl}`
     }
 
-    getSignInUrl(returnUrl = "/"){
+    getSignInUrl(returnUrl = "/") {
         return `${this.newApiEndpoint}/authentication/signin/steam?returnUrl=${returnUrl}`
     }
 
@@ -130,9 +144,9 @@ class MentorGGAPI {
             count: params.count,
             offset: params.offset
         }
-        
+
         let ignoredMatchIds = this.MatchSelector.Build().GetIgnoredMatchIds().toString();
-        if(ignoredMatchIds){
+        if (ignoredMatchIds) {
             formattedParams.ignoredMatchIds = ignoredMatchIds;
         }
 
@@ -151,12 +165,12 @@ class MentorGGAPI {
         });
     }
 
-    getPosition(matchId){
+    getPosition(matchId) {
         return axios.get(`${this.newApiEndpoint}/v1/match/${matchId}/demostatus/queue-position`, {
         });
     }
 
-    getMatchesInQueue(uploaderId){
+    getMatchesInQueue(uploaderId) {
         return axios.get(`${this.newApiEndpoint}/v1/single/${uploaderId}/demostatus/matches-in-queue`, {
         });
     }
@@ -195,7 +209,7 @@ class MentorGGAPI {
     getRecentMatchData(params) {
         let formattedParams = {
         }
-        
+
         return axios.get(`${this.newApiEndpoint}/v1/single/${params.steamId}/playersummary`, {
             params: formattedParams
         });
@@ -207,28 +221,28 @@ class MentorGGAPI {
         }
 
         let route = `${this.newApiEndpoint}/v1/single/${params.steamId}`;
-        if(params.type == Enums.SampleType.Molotov){
+        if (params.type == Enums.SampleType.Molotov) {
             route += '/firenadesoverview';
         }
-        else if(params.type == Enums.SampleType.Flash){
+        else if (params.type == Enums.SampleType.Flash) {
             route += '/flashesoverview';
         }
-        else if(params.type == Enums.SampleType.HE){
+        else if (params.type == Enums.SampleType.HE) {
             route += '/hesoverview';
         }
-        else if(params.type == Enums.SampleType.Smoke){
+        else if (params.type == Enums.SampleType.Smoke) {
             route += '/smokesoverview';
         }
-        else if(params.type == Enums.SampleType.Kill){
+        else if (params.type == Enums.SampleType.Kill) {
             route += '/killsoverview';
         }
-        
+
         return axios.get(route, {
             params: formattedParams
         });
     }
 
-    getSamples(params, overrides = {}){
+    getSamples(params, overrides = {}) {
         let route = `${this.newApiEndpoint}/v1/single/${params.steamId}/`;
         let formattedParams = {
             map: params.map,
@@ -236,22 +250,22 @@ class MentorGGAPI {
         }
 
         // Determine route according to params.type
-        if(params.type == Enums.SampleType.Flash){
+        if (params.type == Enums.SampleType.Flash) {
             route += 'flashes';
         }
-        if(params.type == Enums.SampleType.HE){
+        if (params.type == Enums.SampleType.HE) {
             route += 'hes';
         }
-        if(params.type == Enums.SampleType.Molotov){
+        if (params.type == Enums.SampleType.Molotov) {
             route += 'firenades';
         }
-        if(params.type == Enums.SampleType.Kill){
+        if (params.type == Enums.SampleType.Kill) {
             route += 'filterablekills';
         }
-        if(params.type == Enums.SampleType.Smoke){
+        if (params.type == Enums.SampleType.Smoke) {
             route += 'smokes';
         }
-        if(params.type == Enums.SampleType.Bomb){
+        if (params.type == Enums.SampleType.Bomb) {
             route += 'bombs';
         }
 
@@ -308,7 +322,7 @@ class MentorGGAPI {
         return axios.post(this.uploadEndpoint, formData, config);
     }
 
-    updateValveConnection(authCode, shareCode) {        
+    updateValveConnection(authCode, shareCode) {
         let formattedParams = {
             steamAuthToken: authCode,
             lastKnownSharingCode: shareCode
@@ -322,7 +336,7 @@ class MentorGGAPI {
         return axios.delete(`${this.newApiEndpoint}/v1/automatic-upload/connections/valve`, {});
     }
 
-    lookForMatchesValve(){
+    lookForMatchesValve() {
         return axios.post(`${this.newApiEndpoint}/v1/automatic-upload/valve/look`, {});
     }
 
@@ -330,7 +344,7 @@ class MentorGGAPI {
         return axios.delete(`${this.newApiEndpoint}/v1/automatic-upload/connections/faceit`, {});
     }
 
-    lookForMatchesFaceit(){
+    lookForMatchesFaceit() {
         return axios.post(`${this.newApiEndpoint}/v1/automatic-upload/faceit/look`, {});
     }
 
@@ -357,8 +371,8 @@ class MentorGGAPI {
             return true;
         }
         return false;
-    }    
-    
+    }
+
     startLookingForFaceitMatches() {
         if (this.faceitRefreshInterval != null) {
             return false;
