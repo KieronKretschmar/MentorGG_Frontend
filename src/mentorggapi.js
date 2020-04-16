@@ -14,10 +14,7 @@ class MentorGGAPI {
         axios.defaults.withCredentials = true;
 
         // Settings based on mode
-        if (process.env.NODE_ENV == 'production') {
-            this.mvcEndpoint = document.location.origin + '/';
-        }
-        else if (process.env.NODE_ENV == 'development') {
+        if (process.env.NODE_ENV == 'development') {
             // Auth with bearer token instead of cookie if token is found
             if (process.env.VUE_APP_BEARER_TOKEN) {
                 // auth via Bearer token
@@ -29,14 +26,12 @@ class MentorGGAPI {
                 this.newApiEndpoint = process.env.VUE_APP_OVERRIDE_API_URL;
             }
 
-            this.mvcEndpoint = process.env.VUE_APP_MVCENDPOINT;
             // this.fixedSteamId = '76561198033880857'; //kieron
             // this.fixedSteamId = '76561198166019050'; //felix
             // this.fixedSteamId = '76561198044966222'; //lasse            
         }
 
-        this.uploadEndpoint = "https://upload.mentor.gg/v1/demo"
-        this.apiEndpoint = this.mvcEndpoint + 'api/';
+        this.uploadEndpoint = "https://upload.mentor.gg/v1/demo";
 
         this.valveRefreshInterval = null;
         this.faceitRefreshInterval = null;
