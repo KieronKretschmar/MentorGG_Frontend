@@ -27,38 +27,29 @@
               :disabled="!zonesEnabled"
             >Zones</button>
 
-            <div id="plantfilter">
-              <button
-                v-if="activeFilterSettings.PlantStatus == 0"
-                class="button-variant-bordered"
-                @click="SetPlantStatus(1)"
-              >No Filter</button>
-              <button
-                v-else-if="activeFilterSettings.PlantStatus == 1"
-                class="button-variant-bordered active"
-                @click="SetPlantStatus(2)"
-              >Before Plant</button>
-              <button
-                v-else-if="activeFilterSettings.PlantStatus == 2"
-                class="button-variant-bordered active"
-                @click="SetPlantStatus(0)"
-              >After Plant</button>
-            </div>
+            
+            <button
+              v-if="activeFilterSettings.PlantStatus == 0"
+              class="button-variant-bordered"
+              @click="SetPlantStatus(1)"
+            >No Filter</button>
+            <button
+              v-else-if="activeFilterSettings.PlantStatus == 1"
+              class="button-variant-bordered active"
+              @click="SetPlantStatus(2)"
+            >Before Plant</button>
+            <button
+              v-else-if="activeFilterSettings.PlantStatus == 2"
+              class="button-variant-bordered active"
+              @click="SetPlantStatus(0)"
+            >After Plant</button>
+            
 
-            <div class="team-select">
-              <img
-                class="t"
-                src="@/assets/t_logo.png"
-                :class="{active: !showCt}"
-                @click="SetShowCt(false)"
-              />
-              <img
-                class="ct"
-                src="@/assets/ct_logo.png"
-                :class="{active: showCt}"
-                @click="SetShowCt(true)"
-              />
-            </div>
+            <TeamToggle
+              :isCt="showCt"
+              :SetShowCt="SetShowCt"
+            />
+
           </div>
           <div>
             <RadarImage
@@ -265,12 +256,14 @@ import Enums from "@/enums";
 import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
 import Kill from "@/components/RadarImageFeatures/Kill.vue";
 import KillsOverview from "@/components/Overviews/KillsOverview.vue";
+import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";
 
 export default {
   extends: RadarImageFeature,
   components: {
     Kill,
-    KillsOverview
+    KillsOverview,
+    TeamToggle,
   },
   mounted() {
     this.init();
