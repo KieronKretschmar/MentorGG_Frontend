@@ -11,7 +11,7 @@
         :class="{active: activeMap == map}"
         @click="OnActiveMapUpdated(map)"
       >
-        <img class="map-image" :src="$helpers.resolveMapPreview(map)" />
+        <img class="map-image" :src="$assetLoader.getMapPreview(map)" />
         <p class="map-name">{{map}}</p>
 
         <div class="z-layer-lo">

@@ -37,13 +37,13 @@
                        :width="imageSize">
                 <image x="0"
                        y="0"
-                       v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}" />
+                       v-bind="{'xlink:href':this.$api.getAsset(this.mapInfo.ImageURL)}" />
               </pattern>
             </defs>
 
             <image class="background-map-img"
                    v-if="mapInfo.ImageURL"
-                   v-bind="{'xlink:href':this.$api.resolveResource(this.mapInfo.ImageURL)}"
+                   v-bind="{'xlink:href':this.$api.getAsset(this.mapInfo.ImageURL)}"
                    id="map-image"
                    alt="Map Radar"
                    x="0"
@@ -60,7 +60,7 @@
                   :height="imageSize">
           </canvas>
 
-          <img :src="$api.resolveResource(CurrentRankIconURL)" alt="CS:GO Rank Image" class="overlay"
+          <img :src="$api.getAsset(CurrentRankIconURL)" alt="CS:GO Rank Image" class="overlay"
                id="rankIconOverlay"/>
 
 
@@ -270,7 +270,7 @@
       CurrentRankIconURL() {
         let prefixedRank = this.currentRank > 9 ? this.currentRank + "" : "0" + this.currentRank;
 
-        return this.$helpers.resolveRankImage(prefixedRank);
+        return this.$assetLoader.getMapPreview(prefixedRank);
       },
     }
   };

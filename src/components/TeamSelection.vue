@@ -13,7 +13,7 @@
           @click="SetSelectedTeam(teamDetail.TeamDetails.Name)"
         >
           <div class="team" :class="{selected: teamDetail.TeamDetails.Name == selectedTeamName}">
-            <img class="icon" :src="$api.resolveResource(teamDetail.TeamDetails.IconPath)" />
+            <img class="icon" :src="$api.getAsset(teamDetail.TeamDetails.IconPath)" />
             <h6>{{teamDetail.TeamDetails.Name}}</h6>
           </div>
         </div>

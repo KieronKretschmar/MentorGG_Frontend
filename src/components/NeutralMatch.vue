@@ -4,7 +4,7 @@
       <div class="left">
         <div class="map-thumbnail">
           <img
-            :src="$api.resolveResource(match.MapIcon)"
+            :src="$api.getAsset(match.MapIcon)"
             :alt="match.Map + ' Thumbnail'"
             :title="match.Map"
           />
@@ -17,7 +17,7 @@
         <div class="versus">
           <div class="team l">
             <span class="team-name">{{match.Scoreboard.TeamInfos[0].TeamName}}</span>
-            <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[0].Icon)" />
+            <img class="team-icon" :src="$api.getAsset(match.Scoreboard.TeamInfos[0].Icon)" />
           </div>
 
           <div class="match-score">
@@ -30,7 +30,7 @@
 
           <div class="team r">
             <span class="team-name">{{match.Scoreboard.TeamInfos[1].TeamName}}</span>
-            <img class="team-icon" :src="$api.resolveResource(match.Scoreboard.TeamInfos[1].Icon)" />
+            <img class="team-icon" :src="$api.getAsset(match.Scoreboard.TeamInfos[1].Icon)" />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
   <div class="dv-player-frame" :class="{dead: health <= 0}" @click="SetAsHighlight">
     <div class="col-1">
       <div class="avatar">
-        <img :src="this.$helpers.resolveRankImage(rankImageName)" />
+        <img :src="this.$assetLoader.getMapPreview(rankImageName)" />
       </div>
       <div class="health-loadout">
         <div class="healthbar-bg">

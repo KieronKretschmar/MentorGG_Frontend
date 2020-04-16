@@ -43,7 +43,7 @@
           @click="OnToggleMapFilter(map)"
           :class="{active: $api.MatchSelector.HasMapFilter(map)}"
         >
-          <img class="image" :src="$helpers.resolveMapPreview(map)" />
+          <img class="image" :src="$assetLoader.getMapPreview(map)" />
           <div class="name">
             <span>{{ map }}</span>
             <i class="material-icons">check</i>

@@ -485,8 +485,8 @@ export default {
         ).toLowerCase();
         let basePath = `~/assets/radarimagefeatures/lineups/${sampleTypeString}/${this.activeMap}/${this.selectedLineup.LineupId}`;
         ret.push({
-          src: this.$api.resolveResource(`${basePath}/${i}.jpg`),
-          thumb: this.$api.resolveResource(`${basePath}/${i}_thumb.jpg`)
+          src: this.$api.getAsset(`${basePath}/${i}.jpg`),
+          thumb: this.$api.getAsset(`${basePath}/${i}_thumb.jpg`)
         });
       }
 
