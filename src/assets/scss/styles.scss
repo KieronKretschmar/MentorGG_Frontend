@@ -32,10 +32,12 @@ body {
 }
 
 .button-variant-bordered {
-    background: transparent;
-    transition: .35s;
-    border: 1px solid $orange;
-    border-radius: 2.5em;
+    background: $dark-3;
+    transition: .3s ease-in-out;
+
+    border: 2px solid $orange;
+    border-radius: 4px;
+
     line-height: 1.2;
     color: white;
     font-size: 14px;
@@ -61,7 +63,7 @@ body {
     }
 
     &.purple {
-        border: 1px solid $purple;
+        border: 2px solid $purple;
 
         &:hover {
             background: $purple;
@@ -71,8 +73,8 @@ body {
 
 .button-variant-filled {
     background: $orange;
-    transition: .35s;
-    border: 1px solid $orange;
+    transition: .3s ease-in-out;
+    border: 2px solid $orange;
     border-radius: 2.5em;
     line-height: 1.2;
     color: white;
@@ -87,7 +89,7 @@ body {
     }
 
     &.purple {
-        border: 1px solid $purple;
+        border: 2px solid $purple;
         background: $purple;
     }
 }
