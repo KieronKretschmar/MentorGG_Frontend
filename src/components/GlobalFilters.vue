@@ -85,6 +85,7 @@ export default {
       matchCount: "-1",
       matchCountOptions: {
         "-1": "all",
+        "1" : "my last",
         "10": "my last 10",
         "25": "my last 25",
         "50": "my last 50"
