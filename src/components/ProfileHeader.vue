@@ -5,11 +5,9 @@
         <img :src="$assetLoader.getSteamProfileImageUrl(user.SteamUser.ImageUrl)" />
       </div>
       <div class="name">
-        <span>PROFILE NAME</span>
         <span>{{ user.SteamUser.SteamName }}</span>
       </div>
       <div class="csgo-rank">
-        <span>CS:GO RANK</span>
         <img :src="$assetLoader.getRankIcon(user.Rank)" alt="CS:GO Rank Image" />
       </div>
     </div>
