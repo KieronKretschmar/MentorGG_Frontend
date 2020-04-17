@@ -165,37 +165,57 @@ export default {
 <style lang="scss">
 .match-history {
   .tabs-header {
+    width: 300px;
+
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     font-size: 0.875rem;
 
-    .title,
-    .filter {
-      color: white;
-      font-weight: 500;
-    }
+    border-radius: 4px;
+    overflow: hidden;
 
     .filter {
+      text-align: center;
+      flex-grow: 1;
+      background-color: $dark-1;
+      color: white;
+      padding: 5px;
+
+      font-weight: 600;
+
+
       cursor: pointer;
-      margin-left: 20px;
-      transition: 0.75s all;
+      transition: 0.3s all;
 
       &:hover,
       &.active {
-        //TODO: Improve underline animation with :after
-        text-decoration: underline;
-        opacity: 0.7;
+        color: white;
+        
       }
 
       &.all {
-        color: $dark-4;
+        &:hover,
+        &.active{
+          background-color: white;
+          color: $dark-1
+        }
+        color: white;
       }
 
       &.faceit {
-        color: $faceit-orange;
+        &:hover,
+        &.active{
+          background-color: $faceit-orange;
+        }
       }
 
       &.mm {
-        color: $matchmaking-blue;
+        &:hover,
+        &.active{
+          background-color: $matchmaking-blue;
+        }
       }
     }
   }
@@ -229,37 +249,6 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 12px;
-
-      .title,
-      .filter {
-        color: white;
-        font-weight: 500;
-      }
-
-      .filter {
-        cursor: pointer;
-        margin-left: 10px;
-        transition: 0.75s all;
-
-        &:hover,
-        &.active {
-          //TODO: Improve underline animation with :after
-          text-decoration: underline;
-          opacity: 0.7;
-        }
-
-        &.all {
-          color: $dark-4;
-        }
-
-        &.faceit {
-          color: $faceit-orange;
-        }
-
-        &.mm {
-          color: $matchmaking-blue;
-        }
-      }
     }
 
     .match-list {
