@@ -147,7 +147,7 @@ export default {
               ticks: {
                 beginAtZero: true,
                 stepValue: 1,
-                stepSize: 1
+                stepSize: 2
               }
             }
           ]
@@ -280,14 +280,18 @@ export default {
 
       .kad-chart {
         height: 150px;
+        background-color: $dark-3;
+        border-radius: 4px;
       }
 
       .comparison-table {
         margin-top: 10px;
         background: $dark-3;
         padding: 5px 10px;
-        border-radius: 3px;
+        border-radius: 4px;
         margin-bottom: 10px;
+
+        font-weight: 500;
 
         .r {
           display: flex;
