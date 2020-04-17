@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === !true">DAILY LIMIT REACHED UNTIL <span class="orange-bold">{{ match.MatchDate|formatDateAndTime }}</span></div>
+        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === !true">DAILY LIMIT REACHED UNTIL</div>
         
       </div>
       
