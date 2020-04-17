@@ -27,7 +27,7 @@ body {
 .bordered-box {
     background: $dark-1;
     border: 1px solid $purple;
-    padding: 10px 25px;
+    padding: 20px;
     border-radius: 4px;
 }
 
@@ -141,6 +141,22 @@ body {
     color: $dark-4;
 }
 
+// HEADERS
+
+h1, h2, h3 {
+    margin: 0;
+    margin-bottom:15px;
+    font-weight: 500;
+    color: white;
+}
+
+h1, h2, h3 underline {
+    border-bottom: 2px solid $orange;
+}
+
+div .dashboard-unit{
+    margin: 20px 0;
+}
 .headline {
     color: white;
     border-bottom: 1px solid $purple;

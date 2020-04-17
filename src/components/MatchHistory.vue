@@ -1,7 +1,7 @@
 <template>
-  <div class="match-history">
-    <div class="bordered-box tabs-header">
-      <span class="title">Match History:</span>
+  <div class="match-history dashboard-unit">
+    <h2 class="section-header">Match History</h2>
+    <div class="tabs-header">
       <span
         :class="{ active: activeTab == 'all' }"
         @click="activeTab = 'all'"

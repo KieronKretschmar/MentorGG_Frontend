@@ -1,8 +1,6 @@
 <template>
-  <div class="better-friend-comparison">
-    <div class="bordered-box headline">
-      <p>Performance when playing with friends</p>
-    </div>
+  <div class="better-friend-comparison dashboard-unit">
+    <h2 class="section-header">Performance when playing with friends</h2>
 
     <div class="comparisons">
       <div
@@ -24,9 +22,9 @@
         <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>
         <div class="comparison-table">
           <div class="r">
-            <div class="c"></div>
-            <div class="c">You</div>
-            <div class="c">Them</div>
+            <div class="c header"></div>
+            <div class="c header">You</div>
+            <div class="c header">Them</div>
           </div>
           <div class="r">
             <div class="c">
@@ -225,12 +223,6 @@ export default {
 
 <style lang="scss">
 .better-friend-comparison {
-  margin-bottom: 20px;
-
-  .headline {
-    font-weight: 500 !important;
-    color: white;
-  }
 
   .no-comparisons {
     color: white;
@@ -253,10 +245,10 @@ export default {
   .comparisons {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
     flex-wrap: wrap;
 
     .comparison {
+      
       width: calc(33.33% - 5px);
       margin-bottom: 10px;
 
@@ -306,6 +298,11 @@ export default {
 
           &:last-child {
             border-bottom: 0;
+          }
+
+          .header {
+            color: $orange;
+            font-weight: 600;
           }
 
           .c {
@@ -381,7 +378,7 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .better-friend-comparison {
-    .headline {
+    .section-header {
       text-align: center;
     }
 

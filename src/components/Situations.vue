@@ -1,8 +1,6 @@
 <template>
-<div class="misplays">
-  <div class="bordered-box">
-    <p>Misplays from the last match</p>
-  </div>
+<div class="misplays dashboard-unit">
+  <h2>Misplays from the last match</h2>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
       <AjaxLoader>Analyzing playstyle</AjaxLoader>
     </div>
@@ -92,15 +90,17 @@ export default {
 
 <style lang="scss">
 .misplays {
-  margin-bottom: 20px;
 
   p {
-    color: white;
     font-weight: 500;
   }
 
+  .misplay {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
   .no-misplays {
-    margin-top: 10px;
 
     p {
       font-weight: 400;
@@ -114,8 +114,6 @@ export default {
   .misplays {
 
   p {
-    color: white;
-    font-weight: 500;
     text-align: center;
   }
 

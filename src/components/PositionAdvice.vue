@@ -1,99 +1,103 @@
 <template>
-  <div class="position-advice">
-    <div class="bordered-box advice">
-      <p>Positions with worst performance</p>
-      <div
-        v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
-        class="no-positions"
-      >
-        <AjaxLoader>Computing Worst Positions</AjaxLoader>
-      </div>
-      <div
-        v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete "
-        class="no-positions"
-      >
-        <p>No data available</p>
-      </div>
-      <div class="position-table" v-if="worst.Performances && worst.Performances.length">
-        <div class="table-header">
-          <span>Map</span>
-          <span>Name</span>
-          <span>Team</span>
-          <span>Kills</span>
-          <span>Deaths</span>
+  <div class="position-advice dashboard-unit">
+    <h2>Position Advice</h2>
+    <div class="advice-container">
+      <div class="bordered-box advice">
+        <h3>Positions with worst performance</h3>
+        <div
+          v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
+          class="no-positions"
+        >
+          <AjaxLoader>Computing Worst Positions</AjaxLoader>
         </div>
-        <div class="table-content">
-          <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
-            <a
-              class="cell link"
-              @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
-            >{{ entry.ZoneName }}</a>
-            <span class="cell">
-              <img
-                v-if="!entry.IsCtZone"
-                src="@/assets/t_logo.png"
-                alt="Terrorists Logo"
-                title="Terrorists"
-              />
-              <img
-                v-if="entry.IsCtZone"
-                src="@/assets/ct_logo.png"
-                alt="Counter-Terrorists Logo"
-                title="Counter-Terrorists"
-              />
-            </span>
-            <span class="cell">{{ entry.Kills }}</span>
-            <span class="cell">{{ entry.Deaths }}</span>
+        <div
+          v-if="(!worst.Performances || !worst.Performances.length) && loadingComplete "
+          class="no-positions"
+        >
+          <p>No data available</p>
+        </div>
+        <div class="position-table" v-if="worst.Performances && worst.Performances.length">
+          <div class="table-content">
+          <div class="table-header">
+            <span>Map</span>
+            <span>Name</span>
+            <span>Team</span>
+            <span>Kills</span>
+            <span>Deaths</span>
+          </div>
+            <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
+              <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
+              <a
+                class="cell link"
+                @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
+              >{{ entry.ZoneName }}</a>
+              <span class="cell">
+                <img
+                  v-if="!entry.IsCtZone"
+                  src="@/assets/t_logo.png"
+                  alt="Terrorists Logo"
+                  title="Terrorists"
+                />
+                <img
+                  v-if="entry.IsCtZone"
+                  src="@/assets/ct_logo.png"
+                  alt="Counter-Terrorists Logo"
+                  title="Counter-Terrorists"
+                />
+              </span>
+              <span class="cell">{{ entry.Kills }}</span>
+              <span class="cell">{{ entry.Deaths }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="bordered-box advice">
-      <p>Positions with best performance</p>
-      <div
-        v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
-        class="no-positions"
-      >
-        <AjaxLoader>Computing Best Positions</AjaxLoader>
-      </div>
-      <div
-        v-if="(!best.Performances || !best.Performances.length) && loadingComplete"
-        class="no-positions"
-      >
-        <p>No data available</p>
-      </div>
-      <div class="position-table" v-if="best.Performances && best.Performances.length">
-        <div class="table-header">
-          <span>Map</span>
-          <span>Name</span>
-          <span>Team</span>
-          <span>Kills</span>
-          <span>Deaths</span>
+      <div class="bordered-box advice">
+        <h3>Positions with best performance</h3>
+        <div
+          v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
+          class="no-positions"
+        >
+          <AjaxLoader>Computing Best Positions</AjaxLoader>
         </div>
-        <div class="table-content">
-          <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-            <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
-            <a
-              class="cell link"
-              @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
-            >{{ entry.ZoneName }}</a>
-            <span class="cell">
-              <img
-                v-if="!entry.IsCtZone"
-                src="@/assets/t_logo.png"
-                alt="Terrorists Logo"
-                title="Terrorists"
-              />
-              <img
-                v-if="entry.IsCtZone"
-                src="@/assets/ct_logo.png"
-                alt="Counter-Terrorists Logo"
-                title="Counter-Terrorists"
-              />
-            </span>
-            <span class="cell">{{ entry.Kills }}</span>
-            <span class="cell">{{ entry.Deaths }}</span>
+        <div
+          v-if="(!best.Performances || !best.Performances.length) && loadingComplete"
+          class="no-positions"
+        >
+          <p>No data available</p>
+        </div>
+        <div class="position-table" v-if="best.Performances && best.Performances.length">
+
+          <div class="table-content">
+          <div class="table-header">
+            <span>Map</span>
+            <span>Name</span>
+            <span>Team</span>
+            <span>Kills</span>
+            <span>Deaths</span>
+          </div>
+            <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
+              <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
+              <a
+                class="cell link"
+                @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
+              >{{ entry.ZoneName }}</a>
+              <span class="cell">
+                <img
+                  v-if="!entry.IsCtZone"
+                  src="@/assets/t_logo.png"
+                  alt="Terrorists Logo"
+                  title="Terrorists"
+                />
+                <img
+                  v-if="entry.IsCtZone"
+                  src="@/assets/ct_logo.png"
+                  alt="Counter-Terrorists Logo"
+                  title="Counter-Terrorists"
+                />
+              </span>
+              <span class="cell">{{ entry.Kills }}</span>
+              <span class="cell">{{ entry.Deaths }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -187,12 +191,12 @@ export default {
 </script>
 
 <style lang="scss">
-.position-advice {
+.advice-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
-
+  flex-direction: row;
   .advice {
+
     width: calc(50% - 5px);
 
     p {
@@ -202,10 +206,13 @@ export default {
 
     .position-table {
       .table-header {
-        margin-top: 20px;
         color: $orange;
         font-size: 12px;
+        font-weight: 600;
+        
         display: flex;
+        padding: 10px 0;
+        border-bottom: 1px solid $purple;
 
         span {
           &:nth-child(1) {
@@ -231,6 +238,9 @@ export default {
 
       .table-content {
         margin-top: 10px;
+        background: $dark-3;
+        padding: 5px 10px;
+        border-radius: 4px;
 
         .entry {
           display: flex;
@@ -270,11 +280,7 @@ export default {
           .link {
             display: flex;
             align-items: center;
-            background: $dark-1;
             color: white;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border: 1px solid $dark-1;
             transition: 0.35s;
             text-decoration: none;
             cursor: pointer;
@@ -299,7 +305,7 @@ export default {
 
 //responsive
 @media (max-width: 800px) {
-  .position-advice {
+  .advice-container {
     flex-direction: column;
 
     .advice {
