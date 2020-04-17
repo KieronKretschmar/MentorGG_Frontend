@@ -5,7 +5,7 @@
 
       <div class="demo-feedback">
 
-        <div class="demo-text" v-if="dailyLimitReached === false">
+        <div class="demo-text" v-if="dailyLimitReached === !false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold" v-if="dailyLimitReached === true">DAILY LIMIT REACHED</div>
+        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === !true">DAILY LIMIT REACHED UNTIL <span class="orange-bold">{{ match.MatchDate|formatDateAndTime }}</span></div>
         
       </div>
       
@@ -96,6 +96,7 @@ export default {
   border: 1px solid $purple;
   border-radius: 4px;
   position: absolute;
+  overflow: hidden;
 }
 
 .demo-element {
@@ -133,7 +134,40 @@ export default {
   color: $orange;
 }
 
-// css loader
+// Scrolling text
+.scrolling-text {
+  /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);	
+ transform:translateX(100%);
+ /* Animation */	
+ -moz-animation: example1 10s linear infinite;
+ -webkit-animation: example1 10s linear infinite;
+ animation: example1 10s linear infinite;
+}
+/* Movement */
+@-moz-keyframes example1 {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+ 0%   { 
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%); 		
+ }
+ 100% { 
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%); 
+ }
+}
+
+// CSS loader
 .spinner {
   margin: 100px auto 0;
   width: 70px;
