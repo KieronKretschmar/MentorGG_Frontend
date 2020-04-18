@@ -40,13 +40,20 @@
 
       <GenericOverlay ref="connectionHintOverlay" width="900px">
         <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
-        <p>If you connect your MENTOR.GG account to Steam, all of your official CS:GO matches will be imported to MENTOR.GG automatically every now and then.</p>
+        <p>If you connect your MENTOR.GG account to Steam, all your future CS:GO matchmaking matches will be imported to MENTOR.GG automatically every now and then.</p>
         <p>
           We highly recommend going to the
           <span @click="$refs.connectionHintOverlay.Hide()">
             <router-link to="/automatic-upload">Automatic Upload</router-link>
           </span> page and setting up said connection right now!
         </p>
+
+        <p class="headline">First time user?</p>
+        <p>Get a headstart by uploading all your matchmaking matches from the past weeks at once using our
+          <span >
+            <a style="cursor: pointer;" @click="OnClickBrowserExtension()">Browser Extension</a>.
+          </span>
+          </p>
       </GenericOverlay>
     </template>
     <template v-else>
@@ -125,6 +132,11 @@ export default {
           this.$api.startLookingForFaceitMatches();
         }
       });
+    },
+    OnClickBrowserExtension(){
+      this.$helpers.LogEvent(this, "ShowBrowserExtension");
+      this.$refs.connectionHintOverlay.Hide();
+      this.$router.push({ name: "browser-extension" });
     },
     //abuses :key attribute to trigger a component reload in vue
     ForceViewReload() {
