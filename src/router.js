@@ -150,6 +150,11 @@ export default new Router({
       beforeEnter: authenticationGuard
     },
     {
+      path: '/browser-extension',
+      name: 'browser-extension',
+      component: () => import(/* webpackChunkName: "browserextension" */'./views/BrowserExtension.vue'),
+    },    
+    {
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */'./views/Login.vue')
