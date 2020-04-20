@@ -2,7 +2,7 @@
   <div class="view view-extension">
     <div class="fixed-width-container">
       <div class="bordered-box">
-        <h2>Upload with Browser Extension</h2>
+        <p class="headline">Upload with Browser Extension</p>
         <p>
           Our browser extension finds all your matchmaking matches from the past few weeks that are still available for download from the Valve servers, and uploads them to MENTOR.GG.
         </p>
@@ -28,6 +28,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/styles.scss";
+
 .view-extension {
   position: relative;
 
@@ -42,6 +44,11 @@ export default {
 
     h2 {
       margin-top: 0;
+    }
+
+    a {
+      color: $orange;
+      text-decoration: none;
     }
   }
 }

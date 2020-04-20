@@ -98,16 +98,6 @@ export default {
       }
     }
 
-    .headline {
-      color: white;
-      border-bottom: 1px solid $purple;
-      margin-top: 0;
-      width: 80%;
-      font-weight: 500;
-      padding-bottom: 5px;
-      text-align: left;
-    }
-
     p {
       color: white;
     }
