@@ -63,7 +63,7 @@ $t-glow: #a89966;
 }
 
 .right {
-    transform: translateX($width - $iconSize);
+    transform: translateX($width - $iconSize - 4px);
 
     img {
         filter: drop-shadow(0px 0px 5px $ct-glow);
