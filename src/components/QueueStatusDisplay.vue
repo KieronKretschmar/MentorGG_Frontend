@@ -171,7 +171,6 @@ export default {
 // CSS loader
 .spinner {
   margin: 100px auto 0;
-  width: 70px;
   text-align: center;
   display: inline;
   padding-left: 10px;
