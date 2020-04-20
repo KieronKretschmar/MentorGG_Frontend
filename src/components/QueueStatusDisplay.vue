@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === true">DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds}}</div>
+        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === true">DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</div>
         
       </div>
       
