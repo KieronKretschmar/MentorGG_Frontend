@@ -5,7 +5,7 @@
 
       <div class="demo-feedback">
 
-        <div class="demo-text" v-if="dailyLimitReached === !false">
+        <div class="demo-text" v-if="dailyLimitReached === false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
           <div class="demo-element" v-if="queueStatus.MatchesInQueue !== 0">
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === !true">DAILY LIMIT REACHED UNTIL "DATE"</div>
+        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === true">DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds}}</div>
         
       </div>
       
@@ -136,6 +136,7 @@ export default {
 
 // Scrolling text
 .scrolling-text {
+  width: max-content;
   /* Starting position */
  -moz-transform:translateX(100%);
  -webkit-transform:translateX(100%);	
