@@ -22,7 +22,7 @@
         <div
           class="demo-text-bold scrolling-text"
           v-if="dailyLimitReached === true"
-        >DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</div>
+        >DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}. UPGRADE FOR UNLIMITED DAILY MATCHES.</div>
       </div>
     </div>
   </div>
