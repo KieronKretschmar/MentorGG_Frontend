@@ -4,7 +4,6 @@
       <div class="nav-header-2">ANALYZING MATCHES</div>
 
       <div class="demo-feedback">
-
         <div class="demo-text" v-if="dailyLimitReached === false">
           <span class="orange-bold">{{queueStatus.MatchesInQueue}}</span>
           in queue
@@ -20,16 +19,17 @@
           </div>
         </div>
 
-        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === true">DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</div>
-        
+        <div
+          class="demo-text-bold scrolling-text"
+          v-if="dailyLimitReached === true"
+        >DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</div>
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
 export default {
   components: {},
   data() {
@@ -40,7 +40,7 @@ export default {
         QueueLength: 0
       },
       dailyLimitReached: false,
-      loadingComplete: false,
+      loadingComplete: false
     };
   },
   mounted() {
@@ -48,34 +48,36 @@ export default {
   },
   props: [],
   methods: {
-    // Regularly refreshes the QueueStatus data. Shorter intervals if matches are in queue 
+    // Regularly refreshes the QueueStatus data. Shorter intervals if matches are in queue
     ContinueRefreshingQueueStatus: function() {
       const defaultRefreshInterval = 60000;
       const shortRefreshInterval = 15000;
 
       // Call api ignoring overrides
-      this.$api.getMatchesInQueue(this.$api.User.GetSteamId(false))
-      .then(response => {
-        this.queueStatus = {
-          QueueLength: response.data.TotalQueueLength,
-          MatchesInQueue: response.data.MatchIds.length,
-          FirstDemoPosition: response.data.FirstDemoPosition
-        };
+      this.$api
+        .getMatchesInQueue(this.$api.User.GetSteamId(false))
+        .then(response => {
+          this.queueStatus = {
+            QueueLength: response.data.TotalQueueLength,
+            MatchesInQueue: response.data.MatchIds.length,
+            FirstDemoPosition: response.data.FirstDemoPosition
+          };
 
-
-        // Plan next refresh. Do it quicker if matches were found in queue
-        // TODO: if request fails, setTimeout will never get called again and thus queue status updates are dismissed until the user reloads the app
-        let delay = this.queueStatus.QueueLength > 0 ? shortRefreshInterval : defaultRefreshInterval;
-        setTimeout(() => {
+          // Plan next refresh. Do it quicker if matches were found in queue
+          // TODO: if request fails, setTimeout will never get called again and thus queue status updates are dismissed until the user reloads the app
+          let delay =
+            this.queueStatus.QueueLength > 0
+              ? shortRefreshInterval
+              : defaultRefreshInterval;
+          setTimeout(() => {
             this.ContinueRefreshingQueueStatus();
-        }, delay);
-      });
+          }, delay);
+        });
 
       this.dailyLimitReached = this.$api.MatchSelector.dailyLimitReached;
     }
   },
-  computed: {
-  }
+  computed: {}
 };
 </script>
 
@@ -138,34 +140,42 @@ export default {
 .scrolling-text {
   width: max-content;
   /* Starting position */
- -moz-transform:translateX(100%);
- -webkit-transform:translateX(100%);	
- transform:translateX(100%);
- /* Animation */	
- -moz-animation: example1 10s linear infinite;
- -webkit-animation: example1 10s linear infinite;
- animation: example1 10s linear infinite;
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  /* Animation */
+  -moz-animation: example1 10s linear infinite;
+  -webkit-animation: example1 10s linear infinite;
+  animation: example1 10s linear infinite;
 }
 /* Movement */
 @-moz-keyframes example1 {
- 0%   { -moz-transform: translateX(100%); }
- 100% { -moz-transform: translateX(-100%); }
+  0% {
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+  }
 }
 @-webkit-keyframes example1 {
- 0%   { -webkit-transform: translateX(100%); }
- 100% { -webkit-transform: translateX(-100%); }
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
 }
 @keyframes example1 {
- 0%   { 
- -moz-transform: translateX(100%); /* Firefox bug fix */
- -webkit-transform: translateX(100%); /* Firefox bug fix */
- transform: translateX(100%); 		
- }
- 100% { 
- -moz-transform: translateX(-100%); /* Firefox bug fix */
- -webkit-transform: translateX(-100%); /* Firefox bug fix */
- transform: translateX(-100%); 
- }
+  0% {
+    -moz-transform: translateX(100%); /* Firefox bug fix */
+    -webkit-transform: translateX(100%); /* Firefox bug fix */
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%); /* Firefox bug fix */
+    -webkit-transform: translateX(-100%); /* Firefox bug fix */
+    transform: translateX(-100%);
+  }
 }
 
 // CSS loader
