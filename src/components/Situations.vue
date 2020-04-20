@@ -1,6 +1,6 @@
 <template>
 <div class="misplays dashboard-unit">
-  <h2>Misplays from the last match</h2>
+  <h2 class="section-header">Misplays from the last match</h2>
     <div v-if="!loadingComplete" class="bordered-box no-misplays">
       <AjaxLoader>Analyzing playstyle</AjaxLoader>
     </div>

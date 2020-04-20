@@ -147,19 +147,35 @@ body {
 
 h1, h2, h3 {
     margin: 0;
-    margin-bottom:15px;
+    margin-bottom:10px;
     font-weight: 500;
     color: white;
 }
 
-h1, h2, h3 underline {
-    border-bottom: 2px solid $orange;
+
+.section-header {
+    background-color: $dark-3;
+    border-left: 4px solid $orange;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+h2.section-header, .section-header h2 {
+    font-size: 1.2em;
 }
 
 div .dashboard-unit{
     margin: 20px 0;
 }
-.headline {
+
+
+//Mobile Devices
+
+@media (max-width: 800px) {
+    .section-header {
+        text-align: center;
+    }
+}.headline {
     color: white;
     border-bottom: 1px solid $purple;
     margin-top: 0;

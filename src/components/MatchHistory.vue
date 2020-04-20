@@ -1,23 +1,26 @@
 <template>
-  <div class="match-history dashboard-unit">
-    <h2 class="section-header">Match History</h2>
-    <div class="tabs-header">
-      <span
-        :class="{ active: activeTab == 'all' }"
-        @click="activeTab = 'all'"
-        class="filter all"
-      >All</span>
-      <span
-        :class="{ active: activeTab == 'valve' }"
-        @click="activeTab = 'valve'"
-        class="filter mm"
-      >Matchmaking</span>
-      <span
-        :class="{ active: activeTab == 'faceit' }"
-        @click="activeTab = 'faceit'"
-        class="filter faceit"
-      >Faceit</span>
+  <div class="match-history dashboard-unit">\
+    <div class="section-header">
+      <h2>Match History</h2>
+      <div class="tabs-header">
+        <span
+          :class="{ active: activeTab == 'all' }"
+          @click="activeTab = 'all'"
+          class="filter all"
+        >All</span>
+        <span
+          :class="{ active: activeTab == 'valve' }"
+          @click="activeTab = 'valve'"
+          class="filter mm"
+        >Matchmaking</span>
+        <span
+          :class="{ active: activeTab == 'faceit' }"
+          @click="activeTab = 'faceit'"
+          class="filter faceit"
+        >Faceit</span>
+      </div>
     </div>
+
 
     <div class="match-list">
       <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
@@ -164,6 +167,22 @@ export default {
 
 <style lang="scss">
 .match-history {
+
+  .section-header {
+
+    background-color: $dark-3;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h2 {
+      margin:0;
+      line-height: 1.5em;
+    }
+
+  };
+
   .tabs-header {
     width: 300px;
 
@@ -174,10 +193,13 @@ export default {
     font-size: 0.875rem;
 
     border-radius: 4px;
+    border: 1px solid $purple;
     overflow: hidden;
+
 
     .filter {
       text-align: center;
+
       flex-grow: 1;
       background-color: $dark-1;
       color: white;
@@ -185,14 +207,17 @@ export default {
 
       font-weight: 600;
 
-
       cursor: pointer;
-      transition: 0.3s all;
+      transition: 0.3s ease-out;
+
+      &.all, &.mm {
+          border-right: 1px solid $purple;
+      }
 
       &:hover,
       &.active {
         color: white;
-        
+
       }
 
       &.all {
@@ -244,7 +269,14 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .match-history {
+
+    .section-header{
+      flex-direction: column;
+      justify-content: center;
+    }
+
     .tabs-header {
+      margin: 10px auto;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -382,9 +382,6 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .better-friend-comparison {
-    .section-header {
-      text-align: center;
-    }
 
     .comparisons {
       flex-wrap: wrap;
