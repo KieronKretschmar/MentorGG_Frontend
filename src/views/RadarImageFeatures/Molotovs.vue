@@ -27,20 +27,11 @@
               :disabled="!zonesEnabled"
             >Zones</button>
 
-            <div class="team-select">
-              <img
-                class="t"
-                src="@/assets/t_logo.png"
-                :class="{active: !showCt}"
-                @click="SetShowCt(false)"
-              />
-              <img
-                class="ct"
-                src="@/assets/ct_logo.png"
-                :class="{active: showCt}"
-                @click="SetShowCt(true)"
-              />
-            </div>
+            <TeamToggle
+              :isCt="showCt"
+              :SetShowCt="SetShowCt"
+            />
+
           </div>
           <div>
             <RadarImage
@@ -269,12 +260,14 @@ import Enums from "@/enums";
 import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
 import Molotov from "@/components/RadarImageFeatures/Molotov.vue";
 import MolotovsOverview from "@/components/Overviews/MolotovsOverview.vue";
+import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";
 
 export default {
   extends: RadarImageFeature,
   components: {
     Molotov,
-    MolotovsOverview
+    MolotovsOverview,
+    TeamToggle
   },
   mounted() {
     this.init();

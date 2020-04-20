@@ -20,29 +20,19 @@
               :class="{active: showTrajectories}"
               @click="OnShowTrajectories"
             >Trajectories</button>
-            <div>
-              <button
-                class="button-variant-bordered"
-                :class="{active: this.viewType == Enums.RadarViewTypes.Lineup}"
-                @click="ToggleLineups()"
-                :disabled="!lineupsEnabled"
-              >Lineups</button>
-            </div>
 
-            <div class="team-select">
-              <img
-                class="t"
-                src="@/assets/t_logo.png"
-                :class="{active: !showCt || ShowBothTeams}"
-                @click="SetShowCt(false)"
-              />
-              <img
-                class="ct"
-                src="@/assets/ct_logo.png"
-                :class="{active: showCt || ShowBothTeams}"
-                @click="SetShowCt(true)"
-              />
-            </div>
+            <button
+              class="button-variant-bordered"
+              :class="{active: this.viewType == Enums.RadarViewTypes.Lineup}"
+              @click="ToggleLineups()"
+              :disabled="!lineupsEnabled"
+            >Lineups</button>
+
+            <TeamToggle
+              :isCt="showCt"
+              :SetShowCt="SetShowCt"
+            />
+            
           </div>
           <div>
             <RadarImage
@@ -322,12 +312,14 @@ import Enums from "@/enums";
 import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
 import Smoke from "@/components/RadarImageFeatures/Smoke.vue";
 import SmokesOverview from "@/components/Overviews/SmokesOverview.vue";
+import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";
 
 export default {
   extends: RadarImageFeature,
   components: {
     Smoke,
-    SmokesOverview
+    SmokesOverview,
+    TeamToggle
   },
   mounted() {
     this.init();
