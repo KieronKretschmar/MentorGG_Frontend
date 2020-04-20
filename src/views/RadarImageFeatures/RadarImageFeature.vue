@@ -526,6 +526,10 @@ export default {
       > button {
         margin-right: 20px;
       }
+
+      .team-toggle {
+        margin-left: auto;
+      }
     }
 
     .team-select {

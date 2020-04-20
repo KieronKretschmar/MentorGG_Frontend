@@ -1,5 +1,5 @@
 <template>
-    <label class="switch-wrap" @click="SetShowCt(!isCt)">
+    <label class="switch-wrap team-toggle" @click="SetShowCt(!isCt)">
 
         <div class="switch" 
         v-bind:class="{ right: isCt, left:!isCt}">        
