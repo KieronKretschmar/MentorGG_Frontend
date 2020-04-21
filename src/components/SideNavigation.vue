@@ -25,25 +25,36 @@
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
-        <div class="nav-header">Personal Data</div>
-        <router-link :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}">Profile</router-link>
-        <router-link to="/smokes">Smokes</router-link>
-        <router-link to="/molotovs">Molotovs</router-link>
-        <router-link to="/flashes">Flashes</router-link>
-        <router-link to="/hes">HEs</router-link>
-        <router-link to="/kills">Kills</router-link>
+        <div class="nav-section-container">
+          <!-- Personal Data -->
+          <div class="nav-section">
+            <div class="nav-header">Personal Data</div>
+            <router-link
+              :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
+            >Profile</router-link>
+            <router-link to="/smokes">Smokes</router-link>
+            <router-link to="/molotovs">Molotovs</router-link>
+            <router-link to="/flashes">Flashes</router-link>
+            <router-link to="/hes">HEs</router-link>
+            <router-link to="/kills">Kills</router-link>
+          </div>
 
-        <div class="nav-header">UPLOAD DEMOS</div>
-        <router-link to="/automatic-upload">Automatic Upload</router-link>
-        <router-link to="/browser-extension">Browser Extension</router-link>
-        <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+          <!-- Upload Demos-->
+          <div class="nav-section">
+            <div class="nav-header">Upload Demos</div>
+            <router-link to="/automatic-upload">Automatic Upload</router-link>
+            <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+            <router-link to="/browser-extension">Browser Extension</router-link>
+          </div>
 
-        <div class="nav-header">Account</div>
-        <router-link :to="{name: 'membership'}">Membership</router-link>
-        <div class="logout">
-          <button @click="signOut()" class="nav-button">
-            Logout
-          </button>
+          <!-- Account -->
+          <div class="nav-section">
+            <div class="nav-header">Account</div>
+            <router-link :to="{name: 'membership'}">Membership</router-link>
+            <div class="logout">
+              <button @click="signOut()" class="nav-button">Logout</button>
+            </div>
+          </div>
         </div>
       </nav>
 
@@ -284,13 +295,14 @@ export default {
       &:hover,
       &.router-link-exact-active {
         color: $orange;
+        
       }
     }
 
     .logo {
       display: block;
       text-align: center;
-      margin-top: 30px;
+      margin: 70px 0px;
       background: transparent;
 
       img {
@@ -298,18 +310,27 @@ export default {
       }
     }
 
-    .nav-header {
-      color: $orange;
-      font-size: 12px;
-      text-transform: uppercase;
-      text-align: center;
-      border-bottom: 1px solid $purple;
-      padding-bottom: 5px;
-      margin-top: 50px;
-      font-weight: 600;
-
-      &:first-child {
+    .nav-section-container {
+      // First nav-section should not have a top margin
+      & > .nav-section:first-of-type {
         margin-top: 0;
+      }
+
+      .nav-section {
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+
+        .nav-header {
+          color: $orange;
+
+          font-size: 14px;
+          text-transform: uppercase;
+          text-align: center;
+          border-bottom: 1px solid $purple;
+          padding: 5px 0;
+          font-weight: 600;
+        }
       }
     }
 
