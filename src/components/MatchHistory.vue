@@ -47,11 +47,11 @@
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
       <button
-        class="button-variant-bordered purple"
+        class="button-variant-bordered"
         @click="LoadAppendMatches(5, false)"
       >Load 5 More</button>
       <button
-        class="button-variant-bordered purple"
+        class="button-variant-bordered"
         @click="LoadAppendMatches(25, false)"
       >Load 25 More</button>
     </div>

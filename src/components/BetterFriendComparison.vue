@@ -117,7 +117,7 @@
     </div>
 
     <div v-if="loadingComplete && comparisons.length > 0" class="controls">
-      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
+      <button class="button-variant-bordered" @click="LoadData(false)">Load 3 More</button>
     </div>
   </div>
 </template>
