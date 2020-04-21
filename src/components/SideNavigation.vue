@@ -1,27 +1,36 @@
 <template>
   <div class="side-navigation">
-
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
       <p class="headline">Manual Upload</p>
       <p>
-        Please select your <strong>GOTV</strong> demo file and click upload. 
+        Please select your
+        <strong>GOTV</strong> demo file and click upload.
         For manually uploaded demos, we use the timestamp of the upload as the matchdate.
       </p>
-      <input type="file" ref="manualUploadInput" accept=".dem,.bz2,.gz">
+      <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
       <AjaxLoader v-if="uploadInfo.progress">Uploading... {{this.uploadInfo.progress}}%</AjaxLoader>
-      <button v-if="!uploadInfo.progress" class="button-variant-bordered" @click="TriggerManualUpload">Upload</button>
+      <button
+        v-if="!uploadInfo.progress"
+        class="button-variant-bordered"
+        @click="TriggerManualUpload"
+      >Upload</button>
 
       <span v-if="uploadInfo.success == true" class="upload-message">
-        Successfully uploaded <strong>{{uploadInfo.message}}</strong>
+        Successfully uploaded
+        <strong>{{uploadInfo.message}}</strong>
       </span>
       <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
-         Sorry, There seems to be a problem: <strong>{{uploadInfo.message}}</strong>
+        Sorry, There seems to be a problem:
+        <strong>{{uploadInfo.message}}</strong>
       </span>
     </GenericOverlay>
 
     <div class="nav-content" data-simplebar>
       <nav>
-        <router-link :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}" class="logo">
+        <router-link
+          :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
+          class="logo"
+        >
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
@@ -58,10 +67,9 @@
         </div>
       </nav>
 
-
       <div class="bottom-content">
-        <QueueStatusDisplay/>
-        <DiscordHint/>
+        <QueueStatusDisplay />
+        <DiscordHint />
         <div
           class="user-profile"
           v-if="user"
@@ -69,7 +77,7 @@
           @mouseleave="optionsVisible = false"
         >
           <!-- <img v-if="user" :src="GetFullSteamAvatarURL(user.Icon)" />
-          <span class="username">{{ user.SteamName }}</span> -->
+          <span class="username">{{ user.SteamName }}</span>-->
         </div>
       </div>
     </div>
@@ -100,10 +108,10 @@ export default {
       user: null,
       optionsVisible: false,
       uploadInfo: {
-          progress: null,
-          success: null,
-          message: null
-      },
+        progress: null,
+        success: null,
+        message: null
+      }
     };
   },
   methods: {
@@ -118,9 +126,9 @@ export default {
     },
     TriggerManualUpload: function() {
       this.uploadInfo = {
-          progress: null,
-          success: null,
-          message: null
+        progress: null,
+        success: null,
+        message: null
       };
       let formData = new FormData();
       let fileinput = this.$refs.manualUploadInput;
@@ -133,19 +141,24 @@ export default {
 
       formData.append("demos", fileinput.files[0]);
       formData.append("steamId", this.$api.User.GetSteamId(false));
-      this.$api.uploadDemo(formData, (progressEvent) => {
-        this.uploadInfo.progress = progressEvent;
-      }).then(result => {
-        this.uploadInfo.progress = null;
-        this.uploadInfo.success = true;
-        this.uploadInfo.message = result.data.DemoCount + (result.data.DemoCount > 1 ? " demos" :  " demo");
-      }).catch(error => {
-        this.uploadInfo.progress = null;
-        this.uploadInfo.success = false;
-        this.uploadInfo.message = error;
-      });
+      this.$api
+        .uploadDemo(formData, progressEvent => {
+          this.uploadInfo.progress = progressEvent;
+        })
+        .then(result => {
+          this.uploadInfo.progress = null;
+          this.uploadInfo.success = true;
+          this.uploadInfo.message =
+            result.data.DemoCount +
+            (result.data.DemoCount > 1 ? " demos" : " demo");
+        })
+        .catch(error => {
+          this.uploadInfo.progress = null;
+          this.uploadInfo.success = false;
+          this.uploadInfo.message = error;
+        });
     },
-    signOut(){
+    signOut() {
       location.href = this.$api.getSignOutUrl(window.location.origin);
     }
   }
@@ -184,41 +197,41 @@ export default {
     }
 
     span.upload-message {
-        display: block;
-        color: white;
-        border: 1px solid $purple;
-        padding: 1em;
-        margin: 0.5em;
+      display: block;
+      color: white;
+      border: 1px solid $purple;
+      padding: 1em;
+      margin: 0.5em;
 
-        strong {
-            font-weight: 500;
+      strong {
+        font-weight: 500;
+      }
+
+      animation: message-pop 0.5s;
+
+      @keyframes message-pop {
+        from {
+          opacity: 0;
         }
-
-        animation: message-pop 0.5s;
-
-        @keyframes message-pop {
-            from {
-                opacity: 0;
-            }
-            10% {
-                scale: 1;
-            }
-            30% {
-                opacity: 1;
-                scale: 1.2;
-                border-color: $orange;
-                border-width: 5px;
-            }
-            to {
-                scale: 1;
-            }
+        10% {
+          scale: 1;
         }
+        30% {
+          opacity: 1;
+          scale: 1.2;
+          border-color: $orange;
+          border-width: 5px;
+        }
+        to {
+          scale: 1;
+        }
+      }
     }
 
-    span.upload-failure{
-        strong {
-            color: $orange;
-        }
+    span.upload-failure {
+      strong {
+        color: $orange;
+      }
     }
   }
 
