@@ -270,7 +270,7 @@
       CurrentRankIconURL() {
         let prefixedRank = this.currentRank > 9 ? this.currentRank + "" : "0" + this.currentRank;
 
-        return this.$assetLoader.getMapPreview(prefixedRank);
+        return this.$assetLoader.getRankIcon(prefixedRank);
       },
     }
   };

@@ -23,7 +23,7 @@ class AssetLoader {
     return require(`./assets/maps/previews/unknown.png`);
   }
 
-  getMapPreview(rank) {
+  getRankIcon(rank) {
     try {
       return require(`./assets/ranks/${rank}.png`);
     }

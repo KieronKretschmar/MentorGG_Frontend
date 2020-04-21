@@ -10,7 +10,7 @@
       </div>
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
-        <img :src="$assetLoader.getMapPreview(user.Rank)" alt="CS:GO Rank Image" />
+        <img :src="$assetLoader.getRankIcon(user.Rank)" alt="CS:GO Rank Image" />
       </div>
     </div>
   </div>
