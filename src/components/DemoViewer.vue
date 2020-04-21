@@ -386,7 +386,7 @@ export default {
         return "";
       }
 
-      return this.$helpers.resolveResource(
+      return this.$assetLoader.getAsset(
         "maps/radarimages/" + this.data.MatchStats.Map + ".png"
       );
     },

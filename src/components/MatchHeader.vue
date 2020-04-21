@@ -2,7 +2,7 @@
   <div class="match-header">
     <div class="map-thumbnail">
       <img
-        :src="this.$helpers.resolveMapPreview(map)"
+        :src="this.$assetLoader.getMapPreview(map)"
         :alt="map + ' Thumbnail'"
         :title="map"
       />

@@ -21,7 +21,7 @@
           <image
             x="0"
             y="0"
-            v-bind="{'xlink:href':$helpers.resolveRadarImage(this.map)}"
+            v-bind="{'xlink:href':$assetLoader.getRadarImage(this.map)}"
           />
         </pattern>
       </defs>
@@ -29,7 +29,7 @@
       <!-- <g v-if="mapInfo" id="svg-child"> -->
       <image
         class="background-map-img"
-        v-bind="{'xlink:href':$helpers.resolveRadarImage(this.map)}"
+        v-bind="{'xlink:href':$assetLoader.getRadarImage(this.map)}"
         id="map-image"
         @click="OnClickBackground"
         alt="Map Radar"

@@ -2,7 +2,7 @@
   <div class="profile-header">
     <div class="fixed-width-container mc" v-if="user">
       <div class="avatar">
-        <img :src="$helpers.getSteamProfileImageUrl(user.SteamUser.ImageUrl)" />
+        <img :src="$assetLoader.getSteamProfileImageUrl(user.SteamUser.ImageUrl)" />
       </div>
       <div class="name">
         <span>PROFILE NAME</span>
@@ -10,7 +10,7 @@
       </div>
       <div class="csgo-rank">
         <span>CS:GO RANK</span>
-        <img :src="$helpers.resolveRankImage(user.Rank)" alt="CS:GO Rank Image" />
+        <img :src="$assetLoader.getMapPreview(user.Rank)" alt="CS:GO Rank Image" />
       </div>
     </div>
   </div>

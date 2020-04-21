@@ -44,7 +44,7 @@
           <div class="col">
             <div class="map-thumbnail">
               <img
-                :src="this.$helpers.resolveRankImage(situation.Map)"
+                :src="this.$assetLoader.getMapPreview(situation.Map)"
                 :alt="situation.Map + ' Thumbnail'"
                 :title="situation.Map"
               />

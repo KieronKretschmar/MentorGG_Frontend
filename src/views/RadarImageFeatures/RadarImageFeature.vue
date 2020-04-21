@@ -467,30 +467,12 @@ export default {
       return this.lineups;
     },
     lineupImages() {
-      let ret = [];
       if (this.selectedLineup == null) {
-        return ret;
+        return [];
       }
-
-      if (
-        this.selectedLineup.Images.length !=
-        this.selectedLineup.Thumbnails.length
-      ) {
-        return ret;
-      }
-
-      for (let i = 0; i < this.selectedLineup.Images.length; i++) {
-        let sampleTypeString = Enums.SampleType.ToString(
-          this.sampleType
-        ).toLowerCase();
-        let basePath = `~/assets/radarimagefeatures/lineups/${sampleTypeString}/${this.activeMap}/${this.selectedLineup.LineupId}`;
-        ret.push({
-          src: this.$api.resolveResource(`${basePath}/${i}.jpg`),
-          thumb: this.$api.resolveResource(`${basePath}/${i}_thumb.jpg`)
-        });
-      }
-
-      return ret;
+      
+      let images = this.$assetLoader.getLineupInstructionImages(this.config.sampleType, this.activeMap, this.selectedLineup.LineupId);
+      return images;
     }
   }
 };

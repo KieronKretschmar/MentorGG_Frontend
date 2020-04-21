@@ -16,7 +16,7 @@
         <!-- could be done with MatchHeader component -->
         <div class="map-thumbnail">
           <img
-            :src="this.$helpers.resolveMapPreview(match.Map)"
+            :src="this.$assetLoader.getMapPreview(match.Map)"
             :alt="match.map + ' Thumbnail'"
             :title="match.map"
           />
@@ -82,10 +82,10 @@
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
                   <!-- TODO: migrate resources -->
-                  <img class="rank" :src="$helpers.resolveRankImage(entry.RankBeforeMatch)" />
+                  <img class="rank" :src="$assetLoader.getMapPreview(entry.RankBeforeMatch)" />
                   <img
                     class="avatar"
-                    :src="$helpers.getSteamProfileImageUrl(entry.Profile.ImageUrl)"
+                    :src="$assetLoader.getSteamProfileImageUrl(entry.Profile.ImageUrl)"
                   />
                   <!-- <a
                     class="name"

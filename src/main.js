@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import mentorGGAPI from './mentorggapi';
 import helpers from './helpers';
+import assetLoader from './assetLoader';
 import coordinateConverter from './coordinateconverter';
 import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
@@ -25,6 +26,7 @@ Vue.use(VueLazyLoad);
 
 Vue.prototype.$api = Vue.observable(mentorGGAPI);
 Vue.prototype.$helpers = helpers;
+Vue.prototype.$assetLoader = assetLoader;
 Vue.prototype.$coordinateConverter = coordinateConverter;
 Vue.prototype.$performanceColors = performanceColors;
 Vue.prototype.$inputBlock = {visible: true};

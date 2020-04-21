@@ -14,7 +14,7 @@
           <div class="avatar">
             <img
               class="avatar"
-              :src="$helpers.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)"
+              :src="$assetLoader.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)"
             />
           </div>
             <router-link class="name"
@@ -96,7 +96,7 @@
 
         <div class="favorite-map">
           <div class="name">Favorite Map: {{ comparison.MostPlayedMap }}</div>
-          <img class="image" :src="$helpers.resolveMapPreview(comparison.MostPlayedMap)" />
+          <img class="image" :src="$assetLoader.getMapPreview(comparison.MostPlayedMap)" />
           <div class="wtl">
             <div class="w">{{ comparison.MostPlayedMapMatchesWon }}</div>
             <div class="t">{{ comparison.MostPlayedMapMatchesTied }}</div>
