@@ -35,7 +35,9 @@ body {
     background: $dark-3;
     transition: .3s ease-in-out;
 
-    border: 1px solid $orange;
+    border: 1px solid $purple;
+    border-left: 4px solid $orange;
+    border-right: 4px solid $orange;
     border-radius: 4px;
 
     line-height: 1.2;
@@ -63,7 +65,8 @@ body {
     }
 
     &.purple {
-        border-color: $purple;
+        border-left-color: $light-1;
+        border-right-color: $light-1;
 
         &:hover {
             background: $purple;
