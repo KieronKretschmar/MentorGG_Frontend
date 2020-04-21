@@ -39,7 +39,7 @@ export default {
   ],
   computed: {
     userRadius() {
-      return 10 / this.scaleFactor;
+      return Math.max(5, 10 / this.scaleFactor);
     },
     killConnection() {
       return (
