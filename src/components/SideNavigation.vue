@@ -35,6 +35,7 @@
 
         <div class="nav-header">UPLOAD DEMOS</div>
         <router-link to="/automatic-upload">Automatic Upload</router-link>
+        <router-link to="/browser-extension">Browser Extension</router-link>
         <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
 
         <div class="nav-header">Account</div>
