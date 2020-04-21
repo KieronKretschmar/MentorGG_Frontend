@@ -335,7 +335,7 @@ export default {
         margin-top: 50px;
 
         .nav-header {
-          color: $orange;
+          color: white;
 
           font-size: 14px;
           text-transform: uppercase;
