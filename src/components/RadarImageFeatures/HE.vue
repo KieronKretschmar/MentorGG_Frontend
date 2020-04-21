@@ -117,14 +117,6 @@ export default {
     fill: $orange;
   }
 
-  .trajectory {
-    stroke-width: 3.0px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #ffffff;
-    opacity: 0.5;
-  }
-
   .victim-circle {
     &.ct {
       fill: $ct-color;

@@ -52,7 +52,10 @@
 </template>
 
 <script>
+import FeatureBase from "@/components/RadarImageFeatures/FeatureBase.vue";
+
 export default {
+  extends: FeatureBase,
   props: [
     "grenadeData",
     "scaleFactor",
@@ -102,14 +105,6 @@ export default {
   cursor: pointer;
   .attacker-circle.is-user{
     fill: $orange;
-  }
-
-  .trajectory {
-    stroke-width: 3.0px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #ffffff;
-    opacity: 0.5;
   }
 
   .victim-circle {
