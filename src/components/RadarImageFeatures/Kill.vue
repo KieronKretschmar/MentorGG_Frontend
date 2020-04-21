@@ -58,12 +58,7 @@ export default {
 
 <style lang="scss">
 .kill {
-  // &.ct .user-circle{
-  //     fill: $ct-color;
-  // }
-  // &.terrorist .user-circle{
-  //     fill: $terrorist-color;
-  // }
+  cursor: pointer;
 
   &.userkiller .user-circle {
     fill: $success-color;
@@ -73,30 +68,31 @@ export default {
   }
 
   .connection {
-    stroke-width: 2px;
+    
+    stroke-width: 4px;
     fill: none;
     stroke: white;
     opacity: 1;
 
-    stroke-dasharray: 30;
+    stroke-dasharray: 10;
     stroke-linecap: round;
-    animation: dash 3000ms linear;
+    animation: dash 5000ms linear;
     animation-iteration-count: infinite;
     animation-direction: reverse;
   }
 
   @keyframes dash {
     to {
-      stroke-dashoffset: 300;
+      stroke-dashoffset: 100;
     }
   }
 
-  // &.userkiller .connection{
-  //     stroke: $success-color;
-  // }
+  &.userkiller .connection{
+      stroke: $success-color;
+  }
 
-  // &.uservictim .connection{
-  //     stroke: $failure-color;
-  // }
+  &.uservictim .connection{
+      stroke: $failure-color;
+  }
 }
 </style>
