@@ -51,7 +51,7 @@ export default {
   background: $dark-3;
   padding: 40px 0px;
   border-bottom: 1px solid $purple;
-  padding-bottom: 110px;
+  padding-bottom: 90px;
 
   .fixed-width-container {
     display: flex;

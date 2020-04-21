@@ -1,23 +1,26 @@
 <template>
-  <div class="match-history">
-    <div class="bordered-box tabs-header">
-      <span class="title">Match History:</span>
-      <span
-        :class="{ active: activeTab == 'all' }"
-        @click="activeTab = 'all'"
-        class="filter all"
-      >All</span>
-      <span
-        :class="{ active: activeTab == 'valve' }"
-        @click="activeTab = 'valve'"
-        class="filter mm"
-      >Matchmaking</span>
-      <span
-        :class="{ active: activeTab == 'faceit' }"
-        @click="activeTab = 'faceit'"
-        class="filter faceit"
-      >Faceit</span>
+  <div class="match-history dashboard-unit">\
+    <div class="section-header">
+      <h2>Match History</h2>
+      <div class="tabs-header">
+        <span
+          :class="{ active: activeTab == 'all' }"
+          @click="activeTab = 'all'"
+          class="filter all"
+        >All</span>
+        <span
+          :class="{ active: activeTab == 'valve' }"
+          @click="activeTab = 'valve'"
+          class="filter mm"
+        >Matchmaking</span>
+        <span
+          :class="{ active: activeTab == 'faceit' }"
+          @click="activeTab = 'faceit'"
+          class="filter faceit"
+        >Faceit</span>
+      </div>
     </div>
+
 
     <div class="match-list">
       <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
@@ -44,11 +47,11 @@
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
       <button
-        class="button-variant-bordered purple"
+        class="button-variant-bordered"
         @click="LoadAppendMatches(5, false)"
       >Load 5 More</button>
       <button
-        class="button-variant-bordered purple"
+        class="button-variant-bordered"
         @click="LoadAppendMatches(25, false)"
       >Load 25 More</button>
     </div>
@@ -164,38 +167,80 @@ export default {
 
 <style lang="scss">
 .match-history {
-  .tabs-header {
-    display: flex;
-    font-size: 0.875rem;
 
-    .title,
-    .filter {
-      color: white;
-      font-weight: 500;
+  .section-header {
+
+    background-color: $dark-3;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h2 {
+      margin:0;
+      line-height: 1.5em;
     }
 
+  };
+
+  .tabs-header {
+    width: 300px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: 0.875rem;
+
+    border-radius: 4px;
+    border: 1px solid $purple;
+    overflow: hidden;
+
+
     .filter {
+      text-align: center;
+
+      flex-grow: 1;
+      background-color: $dark-1;
+      color: white;
+      padding: 5px;
+
+      font-weight: 600;
+
       cursor: pointer;
-      margin-left: 20px;
-      transition: 0.75s all;
+      transition: 0.3s ease-out;
+
+      &.all, &.mm {
+          border-right: 1px solid $purple;
+      }
 
       &:hover,
       &.active {
-        //TODO: Improve underline animation with :after
-        text-decoration: underline;
-        opacity: 0.7;
+        color: white;
+
       }
 
       &.all {
-        color: $dark-4;
+        &:hover,
+        &.active{
+          background-color: white;
+          color: $dark-1
+        }
+        color: white;
       }
 
       &.faceit {
-        color: $faceit-orange;
+        &:hover,
+        &.active{
+          background-color: $faceit-orange;
+        }
       }
 
       &.mm {
-        color: $matchmaking-blue;
+        &:hover,
+        &.active{
+          background-color: $matchmaking-blue;
+        }
       }
     }
   }
@@ -224,42 +269,18 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .match-history {
+
+    .section-header{
+      flex-direction: column;
+      justify-content: center;
+    }
+
     .tabs-header {
+      margin: 10px auto;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 12px;
-
-      .title,
-      .filter {
-        color: white;
-        font-weight: 500;
-      }
-
-      .filter {
-        cursor: pointer;
-        margin-left: 10px;
-        transition: 0.75s all;
-
-        &:hover,
-        &.active {
-          //TODO: Improve underline animation with :after
-          text-decoration: underline;
-          opacity: 0.7;
-        }
-
-        &.all {
-          color: $dark-4;
-        }
-
-        &.faceit {
-          color: $faceit-orange;
-        }
-
-        &.mm {
-          color: $matchmaking-blue;
-        }
-      }
     }
 
     .match-list {

@@ -8,6 +8,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     @extend .main-font;
     overflow-y: scroll;
@@ -27,15 +28,19 @@ body {
 .bordered-box {
     background: $dark-1;
     border: 1px solid $purple;
-    padding: 10px 25px;
+    padding: 10px;
     border-radius: 4px;
 }
 
 .button-variant-bordered {
-    background: transparent;
-    transition: .35s;
-    border: 1px solid $orange;
-    border-radius: 2.5em;
+    background: $dark-3;
+    transition: all 300ms $anim-button;
+
+    border: 1px solid $purple;
+    border-left: 4px solid $orange;
+    border-right: 4px solid $orange;
+    border-radius: 4px;
+
     line-height: 1.2;
     color: white;
     font-size: 14px;
@@ -61,19 +66,21 @@ body {
     }
 
     &.purple {
-        border: 1px solid $purple;
+        border-left-color: $light-1;
+        border-right-color: $light-1;
 
         &:hover {
             background: $purple;
         }
     }
+
 }
 
 .button-variant-filled {
     background: $orange;
-    transition: .35s;
-    border: 1px solid $orange;
-    border-radius: 2.5em;
+    transition: all 300ms $anim-button;
+    border: 2px solid $orange;
+    border-radius: 4px;
     line-height: 1.2;
     color: white;
     font-size: 14px;
@@ -87,7 +94,7 @@ body {
     }
 
     &.purple {
-        border: 1px solid $purple;
+        border: 2px solid $purple;
         background: $purple;
     }
 }
@@ -141,7 +148,40 @@ body {
     color: $dark-4;
 }
 
-.headline {
+// HEADERS
+
+h1, h2, h3 {
+    margin: 0;
+    margin-bottom:10px;
+    font-weight: 400;
+    color: white;
+}
+
+
+.section-header {
+    background-color: $dark-3;
+    border-left: 4px solid $purple;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+h2.section-header, .section-header h2 {
+    font-size: 1.2em;
+}
+
+div .dashboard-unit{
+    margin: 35px 0;
+}
+
+
+
+//Mobile Devices
+
+@media (max-width: 800px) {
+    .section-header {
+        text-align: center;
+    }
+}.headline {
     color: white;
     border-bottom: 1px solid $purple;
     margin-top: 0;

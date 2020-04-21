@@ -47,7 +47,7 @@
 
             <TeamToggle
               :isCt="showCt"
-              :SetShowCt="SetShowCt"
+              @toggled="SetShowCt"
             />
 
           </div>
@@ -238,7 +238,7 @@
             
             <div
               v-if="selectedSample"
-              class="watch-button"
+              class="watch-button button-variant-bordered"
               @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)">
                 <div class="stat-description">Watch</div>
                 <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>

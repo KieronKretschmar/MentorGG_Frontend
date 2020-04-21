@@ -48,3 +48,7 @@ $sidebar-width: 300px;
 .vue-lb-container {
     z-index: 9999 !important;
 }
+
+// Animation
+$anim-bounce: cubic-bezier(0.46, 0.33, 0, 1.4);
+$anim-button: ease-in;

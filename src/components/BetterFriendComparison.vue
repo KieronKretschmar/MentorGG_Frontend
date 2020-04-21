@@ -1,8 +1,6 @@
 <template>
-  <div class="better-friend-comparison">
-    <div class="bordered-box headline">
-      <p>Performance when playing with friends</p>
-    </div>
+  <div class="better-friend-comparison dashboard-unit">
+    <h2 class="section-header">Performance when playing with friends</h2>
 
     <div class="comparisons">
       <div
@@ -24,9 +22,9 @@
         <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>
         <div class="comparison-table">
           <div class="r">
-            <div class="c"></div>
-            <div class="c">You</div>
-            <div class="c">Them</div>
+            <div class="c header"></div>
+            <div class="c header">You</div>
+            <div class="c header">Them</div>
           </div>
           <div class="r">
             <div class="c">
@@ -119,7 +117,7 @@
     </div>
 
     <div v-if="loadingComplete && comparisons.length > 0" class="controls">
-      <button class="button-variant-bordered purple" @click="LoadData(false)">Load 3 More</button>
+      <button class="button-variant-bordered" @click="LoadData(false)">Load 3 More</button>
     </div>
   </div>
 </template>
@@ -149,7 +147,7 @@ export default {
               ticks: {
                 beginAtZero: true,
                 stepValue: 1,
-                stepSize: 1
+                stepSize: 2
               }
             }
           ]
@@ -225,12 +223,6 @@ export default {
 
 <style lang="scss">
 .better-friend-comparison {
-  margin-bottom: 20px;
-
-  .headline {
-    font-weight: 500 !important;
-    color: white;
-  }
 
   .no-comparisons {
     color: white;
@@ -253,10 +245,10 @@ export default {
   .comparisons {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
     flex-wrap: wrap;
 
     .comparison {
+      
       width: calc(33.33% - 5px);
       margin-bottom: 10px;
 
@@ -288,14 +280,18 @@ export default {
 
       .kad-chart {
         height: 150px;
+        background-color: $dark-3;
+        border-radius: 4px;
       }
 
       .comparison-table {
         margin-top: 10px;
         background: $dark-3;
         padding: 5px 10px;
-        border-radius: 3px;
+        border-radius: 4px;
         margin-bottom: 10px;
+
+        font-weight: 500;
 
         .r {
           display: flex;
@@ -306,6 +302,11 @@ export default {
 
           &:last-child {
             border-bottom: 0;
+          }
+
+          .header {
+            color: $orange;
+            font-weight: 600;
           }
 
           .c {
@@ -381,9 +382,6 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .better-friend-comparison {
-    .headline {
-      text-align: center;
-    }
 
     .comparisons {
       flex-wrap: wrap;

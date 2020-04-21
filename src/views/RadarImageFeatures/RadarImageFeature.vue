@@ -576,19 +576,24 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 10px;
-      border-radius: 3px;
-      background: $dark-3;
-      border: 1px solid $orange;
+
+      font-weight: 600;
+      font-size:1em;
       
       cursor: pointer;
-
+  
       .watch-match-icon {
           color: $orange;
           font-size: 26px;
-          transition: 0.35s;
+          transition: all 300ms $anim-button;
           cursor: pointer;
+
       }
+
+      &:hover .watch-match-icon{
+        color: white;
+      }
+
     }
   }
 }
