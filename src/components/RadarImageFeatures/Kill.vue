@@ -73,10 +73,22 @@ export default {
   }
 
   .connection {
-    stroke-width: 3.0px;
+    stroke-width: 2px;
     fill: none;
     stroke: white;
     opacity: 1;
+
+    stroke-dasharray: 30;
+    stroke-linecap: round;
+    animation: dash 3000ms linear;
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 300;
+    }
   }
 
   // &.userkiller .connection{
