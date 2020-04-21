@@ -30,7 +30,7 @@
 
             <TeamToggle
               :isCt="showCt"
-              :SetShowCt="SetShowCt"
+              @toggled="SetShowCt"
             />
 
           </div>

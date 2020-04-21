@@ -1,5 +1,5 @@
 <template>
-  <label class="switch-wrap team-toggle" @click="SetShowCt(!isCt)">
+  <label class="switch-wrap team-toggle" @click="toggleTeam()">
     <div class="switch" :class="{ right: isCt, left:!isCt}">
       <img :src="require(`@/assets/${teamImage}`)" />
     </div>
@@ -8,10 +8,16 @@
 
 <script>
 export default {
+
   props: ["isCt", "SetShowCt"],
   computed: {
     teamImage() {
       return this.isCt ? "ct_logo.png" : "t_logo.png";
+    }
+  },
+  methods : {
+    toggleTeam(){
+      this.$emit('toggled', !this.isCt);
     }
   }
 };
