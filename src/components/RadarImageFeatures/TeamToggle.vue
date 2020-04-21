@@ -55,38 +55,43 @@ $t-glow: #a89966;
     border: 2px solid $purple;
 
     user-select: none; 
-}
 
-// When the wrapper is hovered, apply changed to the switch
-.switch-wrap:hover div.switch{
-   filter: brightness(1.25);
-}
-
-.right {
-    transform: translateX($width - $iconSize - 4px);
-
-    img {
-        filter: drop-shadow(0px 0px 5px $ct-glow);
+    // When the wrapper is hovered, apply changed to the switch
+    &:hover div.switch{
+    filter: brightness(1.25);
     }
-}
 
-.left {
-    img{
-        filter: drop-shadow(0px 0px 5px $t-glow);
+
+    .right {
+        transform: translateX($width - $iconSize - 4px);
+
+        img {
+            filter: drop-shadow(0px 0px 5px $ct-glow);
+        }
     }
-}
 
-.switch {
-
-    transition: all 300ms cubic-bezier(.46,.33,0,1.4);
-    vertical-align: middle;
-
-    height: unquote($iconSize + "px");
-    width: unquote($iconSize + "px");
-    
-    img {
-        width: 100%;
-        height: 100%;
+    .left {
+        img{
+            filter: drop-shadow(0px 0px 5px $t-glow);
+        }
     }
+
+    .switch {
+
+        transition: all 300ms cubic-bezier(.46,.33,0,1.4);
+        vertical-align: middle;
+
+        height: unquote($iconSize + "px");
+        width: unquote($iconSize + "px");
+        
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
 }
+
+
+
 </style>
