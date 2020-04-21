@@ -272,7 +272,14 @@
                 </div>
               </div>
             </div>
-            <div v-if="selectedLineup" class="practice-tab">
+            <div v-if="lineupImages && lineupImages.length" class="practice-tab">
+              <h4>Practice</h4>
+              <div v-if="selectedLineup && lineupImages">
+                <LightBox :images="lineupImages" :show-light-box="false" ref="lightbox"></LightBox>
+                <div class="image-list">
+                  <img :src="lineupImages[0].src" @click="OpenLightbox" />
+                </div>
+              </div>
               <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.SetposCommand != ''">
                 <input id="setpos-text" type="text" :value="selectedLineup.SetposCommand" readonly />
                 <button
@@ -285,12 +292,6 @@
                 >
                   <i class="material-icons">file_copy</i>
                 </button>
-              </div>
-              <div v-if="selectedLineup && selectedLineup.Images && selectedLineup.Thumbnails">
-                <LightBox :images="lineupImages" :show-light-box="false" ref="lightbox"></LightBox>
-                <div class="image-list">
-                  <img :src="lineupImages[0].src" @click="OpenLightbox" />
-                </div>
               </div>
             </div>
             <div

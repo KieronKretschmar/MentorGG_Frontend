@@ -1,3 +1,4 @@
+import Enums from "@/enums";
 class AssetLoader {
 
   getAsset(resource) {
@@ -31,6 +32,29 @@ class AssetLoader {
     }
 
     return require(`./assets/ranks/none.png`);
+  }
+
+  getLineupInstructionImages(sampleType, map, lineupId) {
+    // tell webpack to load all lineup images at compile time
+    const lineupDir = require.context("./assets/radarimagefeatures/lineups/", true, /\.jpg$/);
+
+    let sampleTypeString = Enums.SampleType.ToString(sampleType).toLowerCase();
+
+    // identify relevant images for this lineup excluding thumbnails
+    var originalPaths = lineupDir.keys()
+      .filter(x=>x.includes(`${sampleTypeString}/${map}/${lineupId}`))
+      .filter(x=>!x.includes("_thumb"));
+
+    // return array with post-compile paths
+    let res = [];
+    originalPaths.forEach(path => {
+      let imageObj = {
+        src: lineupDir(path),
+        thumb: lineupDir(path.replace('.jpg', '_thumb.jpg')), // .../1.jpg => /.../1_thumb.jpg
+      }
+      res.push(imageObj);
+    });
+    return res;
   }
 
   // returns high quality imageUrl from valve servers or default image if null
