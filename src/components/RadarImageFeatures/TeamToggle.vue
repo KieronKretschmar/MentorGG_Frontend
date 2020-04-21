@@ -67,7 +67,7 @@ $t-glow: #a89966;
   }
 
   .switch {
-    transition: all 300ms cubic-bezier(0.46, 0.33, 0, 1.4);
+    transition: all 300ms $anim-bounce;
     vertical-align: middle;
 
     height: unquote($iconSize + "px");
