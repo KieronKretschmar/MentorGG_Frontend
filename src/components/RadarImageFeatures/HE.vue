@@ -111,7 +111,8 @@ export default {
 
 <style lang="scss">
 .he-grenade {
-
+  cursor: pointer;
+  
   .attacker-circle.is-user{
     fill: $orange;
   }

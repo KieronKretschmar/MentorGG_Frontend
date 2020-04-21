@@ -99,6 +99,7 @@ export default {
 
 <style lang="scss">
 .molotov {
+  cursor: pointer;
   .attacker-circle.is-user{
     fill: $orange;
   }

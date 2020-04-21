@@ -69,6 +69,7 @@ export default {
 
 <style lang="scss">
 .smoke {
+  cursor: pointer;
   .attacker-circle.is-user{
     fill: $orange;
   }

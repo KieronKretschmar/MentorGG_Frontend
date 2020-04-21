@@ -112,6 +112,7 @@ export default {
 
 <style lang="scss">
 .flash {
+  cursor: pointer;
   .attacker-circle.is-user {
     fill: $orange;
   }
