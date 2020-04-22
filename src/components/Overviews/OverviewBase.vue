@@ -134,7 +134,7 @@ export default {
   .performances {
     display: flex;
     flex-direction: row;
-    margin: 10px 10px 0 5px;
+    margin: 10px 0 0 0;
 
     overflow-x: scroll;
     overflow-y: hidden;
@@ -144,6 +144,14 @@ export default {
       width: calc(100% / 7);
       min-width: 140px;
       margin: 0 5px;
+
+      &:first-child {
+        margin-left: 10px;
+      }
+
+      &:last-child {
+        margin-right: 10px;
+      }
     }
   }
 }
