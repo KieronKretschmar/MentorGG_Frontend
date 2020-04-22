@@ -568,16 +568,21 @@ export default {
   position: relative;
 
   .svg-custom-zoom-controls {
-    border-radius: 3px;
+    border-radius: 4px;
     position: absolute;
+    
     bottom: 0;
-    right: -15px;
+    right: 0;
+
     display: flex;
-    background: $purple;
+    flex-direction: column;
+    background: $dark-3;
     padding: 5px;
 
+    transition: 0.3s $anim-bounce;
+
     i {
-      transition: 0.35s all;
+      transition: 0.3s $anim-bounce;
       color: white;
       cursor: pointer;
       user-select: none;
@@ -585,7 +590,12 @@ export default {
 
       &:hover {
         color: $orange;
+        scale: 1.2;
       }
+    }
+
+    &:hover{
+      scale: 1.1;
     }
   }
 }
