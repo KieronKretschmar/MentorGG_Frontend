@@ -143,8 +143,8 @@
     </svg>
     <div class="svg-custom-zoom-controls">
       <i class="material-icons" title="Zoom In" @click="Zoom(1)">zoom_in</i>
-      <i class="material-icons" title="Reset Zoom" @click="Zoom(0)">clear</i>
       <i class="material-icons" title="Zoom Out" @click="Zoom(-1)">zoom_out</i>
+      <i class="material-icons" title="Reset Zoom" @click="Zoom(0)">clear</i>
     </div>
   </div>
 </template>
