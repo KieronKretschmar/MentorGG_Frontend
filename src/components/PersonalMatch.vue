@@ -85,7 +85,7 @@
               <div v-for="entry in team.Players" :key="entry.Profile.SteamId" class="table-entry">
                 <span class="name-avatar-wrapper">
                   <!-- TODO: migrate resources -->
-                  <img class="rank" :src="$assetLoader.getMapPreview(entry.RankBeforeMatch)" />
+                  <img class="rank" :src="$assetLoader.getRankIcon(entry.RankBeforeMatch)" />
                   <img
                     class="avatar"
                     :src="$assetLoader.getSteamProfileImageUrl(entry.Profile.ImageUrl)"
