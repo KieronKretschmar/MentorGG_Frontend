@@ -135,6 +135,10 @@ export default {
   display: flex;
   flex-direction: row;
   margin: 10px 5px 0 5px;
+
+  .performance {
+    z-index: 0;
+  }
   }
 }
 </style>
