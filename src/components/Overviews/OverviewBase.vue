@@ -28,7 +28,7 @@ export default {
     background-position: center;
     background-size: cover;
     position: relative;
-    z-index: 1;
+    z-index: 0;
     overflow: hidden;
     border: 1px solid $purple;
     border-radius: 4px;
