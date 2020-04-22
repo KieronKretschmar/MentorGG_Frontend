@@ -95,6 +95,25 @@ class Enums {
       }
     };
   }
+  
+  static get WinTieLoss() {
+    return {
+      Win: 1,
+      Tie: 2,
+      Lose: 3,
+
+      
+      ToString(n) {
+        switch (n) {
+          case 1: return "Win";
+          case 2: return "Tie";
+          case 3: return "Loss";
+        }
+
+        return "Unknown";
+      }
+    };
+  }
 }
 
 export default Enums;
