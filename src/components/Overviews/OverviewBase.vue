@@ -132,13 +132,13 @@ export default {
 
 @media (max-width: 800px) {
   .performances {
-  display: flex;
-  flex-direction: row;
-  margin: 10px 5px 0 5px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px 5px 0 5px;
 
-  .performance {
-    z-index: 0;
-  }
+    .performance {
+      z-index: 0;
+    }
   }
 }
 </style>

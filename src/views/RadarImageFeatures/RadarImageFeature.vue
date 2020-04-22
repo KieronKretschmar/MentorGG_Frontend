@@ -75,7 +75,7 @@ export default {
       activeFilterSettings: null,
 
       // DemoViewer
-      watchTimePrepend: 4000,
+      watchTimePrepend: 4000
     };
   },
   mounted() {},
@@ -95,7 +95,7 @@ export default {
           this.selectedZoneId = this.$route.query.zoneId;
           this.viewType = Enums.RadarViewTypes.Zone;
         }
-      })
+      });
     },
     // General
     LoadSamples(map, isDemo) {
@@ -125,7 +125,8 @@ export default {
 
             // Filterable
             if (this.config.features.filterable) {
-              this.userPerformanceData = response.data.FilterableZonePerformanceData;
+              this.userPerformanceData =
+                response.data.FilterableZonePerformanceData;
               this.AssignZones(response.data.ZoneInfos);
             }
 
@@ -146,16 +147,14 @@ export default {
           });
       });
     },
-    AssignLineups(lineupCollection){
+    AssignLineups(lineupCollection) {
       // store targets as list instead of json
       let targetList = [];
       for (const id in lineupCollection.Targets) {
         targetList.push(lineupCollection.Targets[id]);
       }
       // ignore targets that don't have lineups pointing to them
-      this.targets = targetList.filter(
-        x => x.LineupIds.length > 0
-      );
+      this.targets = targetList.filter(x => x.LineupIds.length > 0);
 
       // store lineups as list instead of json
       let lineupList = [];
@@ -166,19 +165,18 @@ export default {
 
       this.lineupsEnabled = this.lineups.length > 0 ? true : false;
     },
-    AssignZones(zoneInfos){
+    AssignZones(zoneInfos) {
       // sort zones to guarantee that those with the lowest depth come first
       // if the zones are unordered, they will be rendered in the wrong order, which will cause unexpected behaviour when clicking on a zone
       // this is because the order in which items are rendered in an <svg> acts like a z-index
-      this.zones = zoneInfos
-        .sort((a, b) => a.ZoneDepth - b.ZoneDepth);
+      this.zones = zoneInfos.sort((a, b) => a.ZoneDepth - b.ZoneDepth);
       if (this.zones.length == 0) {
         this.zonesEnabled = false; // TODO: rename to hierarchicalZones?
       } else {
         this.zonesEnabled = true;
       }
 
-      // Compute mainZones (CT and T) 
+      // Compute mainZones (CT and T)
       this.mainZones = this.zones.filter(x => x.ParentZoneId == -1);
       this.zoneDescendants = this.getZoneDescendants(this.zones);
     },
@@ -405,8 +403,9 @@ export default {
         if (this.selectedZone != null) {
           return this.zones.filter(
             x =>
-              this.selectedZone.ZoneId == x.ZoneId || (x.ParentZoneId == this.selectedZone.ZoneId 
-               && this.activeUserData.ZonePerformances[x.ZoneId].SampleCount != 0)
+              this.selectedZone.ZoneId == x.ZoneId ||
+              (x.ParentZoneId == this.selectedZone.ZoneId &&
+                this.activeUserData.ZonePerformances[x.ZoneId].SampleCount != 0)
           );
           // If not, return all subzones of the main zone
         } else {
@@ -417,7 +416,7 @@ export default {
       }
     },
     // Lineups
-    visibleTargets(){      
+    visibleTargets() {
       if (this.viewType != Enums.RadarViewTypes.Lineup) {
         return [];
       }
@@ -434,12 +433,22 @@ export default {
     },
     userSelectedLineupPerformance() {
       if (this.selectedLineup == null) return null;
-      if(this.activeUserData.LineupPerformances.hasOwnProperty(this.selectedLineup.LineupId)){
-        return this.activeUserData.LineupPerformances[this.selectedLineup.LineupId];
-      }
-      else {
+      if (
+        this.activeUserData.LineupPerformances.hasOwnProperty(
+          this.selectedLineup.LineupId
+        )
+      ) {
+        return this.activeUserData.LineupPerformances[
+          this.selectedLineup.LineupId
+        ];
+      } else {
         // return empty performance if performance is not available
-        return {"LineupId":this.selectedLineup.LineupId,"Attempts":0,"Misses":0,"Insides":0}
+        return {
+          LineupId: this.selectedLineup.LineupId,
+          Attempts: 0,
+          Misses: 0,
+          Insides: 0
+        };
       }
     },
     selectedLineup() {
@@ -470,8 +479,12 @@ export default {
       if (this.selectedLineup == null) {
         return [];
       }
-      
-      let images = this.$assetLoader.getLineupInstructionImages(this.config.sampleType, this.activeMap, this.selectedLineup.LineupId);
+
+      let images = this.$assetLoader.getLineupInstructionImages(
+        this.config.sampleType,
+        this.activeMap,
+        this.selectedLineup.LineupId
+      );
       return images;
     }
   }
@@ -578,116 +591,114 @@ export default {
       align-items: center;
 
       font-weight: 600;
-      font-size:1em;
-      
-      cursor: pointer;
-  
-      .watch-match-icon {
-          color: $orange;
-          font-size: 26px;
-          transition: all 300ms $anim-button;
-          cursor: pointer;
+      font-size: 1em;
 
+      cursor: pointer;
+
+      .watch-match-icon {
+        color: $orange;
+        font-size: 26px;
+        transition: all 300ms $anim-button;
+        cursor: pointer;
       }
 
-      &:hover .watch-match-icon{
+      &:hover .watch-match-icon {
         color: white;
       }
-
     }
   }
 }
 
 @media (max-width: 800px) {
   .view-radarimage-feature {
-  margin-top: 0;
-}
+    margin-top: 0;
+  }
 
-.no-data {
-  margin-top: 20px;
-}
+  .no-data {
+    margin-top: 20px;
+  }
 
-.interactive-area {
-  display: flex;
-  flex-wrap: wrap; //
-  justify-content: center; //
-  flex-direction: column; //
-  margin: 0; //
-  flex-wrap: wrap; //
+  .interactive-area {
+    display: flex;
+    flex-wrap: wrap; //
+    justify-content: center; //
+    flex-direction: column; //
+    margin: 0; //
+    flex-wrap: wrap; //
 
-  .l {
-    width: calc(100% - 20px); //
-    margin: 10px; //
-    align-items: center;
-    justify-content: space-between;
-
-    .tool-menu {
-      display: flex;
-      flex-direction: row;
+    .l {
+      width: calc(100% - 20px); //
+      margin: 10px; //
       align-items: center;
+      justify-content: space-between;
 
-      > button {
-        margin-right: 20px;
-      }
-    }
+      .tool-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-    .team-select {
-      display: flex;
-      margin: 0 20px;
-
-      img {
-        margin: 0 5px;
-      }
-
-      :not(.active) {
-        -webkit-filter: grayscale(100%);
-        -moz-filter: grayscale(100%);
-        -ms-filter: grayscale(100%);
-        filter: grayscale(100%);
-      }
-
-      :hover {
-        -webkit-filter: none;
-        -moz-filter: none;
-        -ms-filter: none;
-        filter: none;
-      }
-
-      .t {
-        transition: 0.35s;
-        cursor: pointer;
-
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
+        > button {
+          margin-right: 20px;
         }
       }
 
-      .ct {
-        transition: 0.35s;
-        cursor: pointer;
+      .team-select {
+        display: flex;
+        margin: 0 20px;
 
-        &.active,
-        &:hover {
-          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
+        img {
+          margin: 0 5px;
         }
+
+        :not(.active) {
+          -webkit-filter: grayscale(100%);
+          -moz-filter: grayscale(100%);
+          -ms-filter: grayscale(100%);
+          filter: grayscale(100%);
+        }
+
+        :hover {
+          -webkit-filter: none;
+          -moz-filter: none;
+          -ms-filter: none;
+          filter: none;
+        }
+
+        .t {
+          transition: 0.35s;
+          cursor: pointer;
+
+          &.active,
+          &:hover {
+            filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
+          }
+        }
+
+        .ct {
+          transition: 0.35s;
+          cursor: pointer;
+
+          &.active,
+          &:hover {
+            filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
+          }
+        }
+      }
+
+      .match-count-select {
+        width: 100%;
+        // max-width: 400px;
       }
     }
 
-    .match-count-select {
-      width: 100%;
-      // max-width: 400px;
+    .r {
+      width: calc(100% - 20px); //
+      margin: 0 10px; //
+
+      .sidebar {
+        color: white;
+      }
     }
   }
-
-  .r {
-    width: calc(100% - 20px); //
-    margin: 0 10px; //
-
-    .sidebar {
-      color: white;
-    }
-  }
-}
 }
 </style>
