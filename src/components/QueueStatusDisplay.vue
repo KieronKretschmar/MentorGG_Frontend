@@ -19,10 +19,11 @@
           </div>
         </div>
 
-        <div
-          class="demo-text-bold scrolling-text"
-          v-if="dailyLimitReached === true"
-        >DAILY LIMIT REACHED UNTIL {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}. UPGRADE FOR UNLIMITED DAILY MATCHES.</div>
+        <div class="demo-text-bold scrolling-text" v-if="dailyLimitReached === true">
+          DAILY LIMIT REACHED FOR TODAY.
+          YOUR NEXT {{this.$api.User.dailyUploadLimit}} MATCHES PLAYED AFTER {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}} WILL BE AVAILABLE AGAIN.
+          UPGRADE FOR UNLIMITED DAILY MATCHES.
+        </div>
       </div>
     </div>
   </div>
@@ -144,9 +145,9 @@ export default {
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
   /* Animation */
-  -moz-animation: example1 10s linear infinite;
-  -webkit-animation: example1 10s linear infinite;
-  animation: example1 10s linear infinite;
+  -moz-animation: example1 15s linear infinite;
+  -webkit-animation: example1 15s linear infinite;
+  animation: example1 15s linear infinite;
 }
 /* Movement */
 @-moz-keyframes example1 {
