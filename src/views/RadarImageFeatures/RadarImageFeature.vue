@@ -597,4 +597,97 @@ export default {
     }
   }
 }
+
+@media (max-width: 800px) {
+  .view-radarimage-feature {
+  margin-top: 0;
+}
+
+.no-data {
+  margin-top: 20px;
+}
+
+.interactive-area {
+  display: flex;
+  flex-wrap: wrap; //
+  justify-content: center; //
+  flex-direction: column; //
+  margin: 0; //
+  flex-wrap: wrap; //
+
+  .l {
+    width: calc(100% - 20px); //
+    margin: 10px; //
+    align-items: center;
+    justify-content: space-between;
+
+    .tool-menu {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      > button {
+        margin-right: 20px;
+      }
+    }
+
+    .team-select {
+      display: flex;
+      margin: 0 20px;
+
+      img {
+        margin: 0 5px;
+      }
+
+      :not(.active) {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+      }
+
+      :hover {
+        -webkit-filter: none;
+        -moz-filter: none;
+        -ms-filter: none;
+        filter: none;
+      }
+
+      .t {
+        transition: 0.35s;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+          filter: drop-shadow(0px 0px 7px rgb(168, 153, 102));
+        }
+      }
+
+      .ct {
+        transition: 0.35s;
+        cursor: pointer;
+
+        &.active,
+        &:hover {
+          filter: drop-shadow(0px 0px 7px rgb(61, 120, 204));
+        }
+      }
+    }
+
+    .match-count-select {
+      width: 100%;
+      // max-width: 400px;
+    }
+  }
+
+  .r {
+    width: calc(100% - 20px); //
+    margin: 0 10px; //
+
+    .sidebar {
+      color: white;
+    }
+  }
+}
+}
 </style>

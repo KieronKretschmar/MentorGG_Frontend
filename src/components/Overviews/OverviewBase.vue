@@ -129,4 +129,12 @@ export default {
     }
   }
 }
+
+@media (max-width: 800px) {
+  .performances {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 5px 0 5px;
+  }
+}
 </style>
