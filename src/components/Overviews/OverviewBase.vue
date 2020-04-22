@@ -134,10 +134,16 @@ export default {
   .performances {
     display: flex;
     flex-direction: row;
-    margin: 10px 5px 0 5px;
+    margin: 10px 10px 0 5px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 
     .performance {
-      z-index: 0;
+      width: calc(100% / 7);
+      min-width: 140px;
+      margin: 0 5px;
     }
   }
 }
