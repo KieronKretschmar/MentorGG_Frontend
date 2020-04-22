@@ -1,5 +1,5 @@
 <template>
-  <div class="match-history dashboard-unit">\
+  <div class="match-history dashboard-unit">
     <div class="section-header">
       <h2>Match History</h2>
       <div class="tabs-header">
