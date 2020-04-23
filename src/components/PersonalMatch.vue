@@ -2,7 +2,7 @@
   <div class="bordered-box match" :class="{failed: failed}" v-if="match">
     <div v-if="isAboveLimit" class="limit-display">
       <p>
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches of each day. 
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches played on each day. 
         Next daily reset at {{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}.
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
