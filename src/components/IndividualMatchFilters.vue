@@ -1,10 +1,8 @@
 <template>
-  <div class="view view-individual-match-filters">
+  <div class="individual-match-filters">
     <div class="fixed-width-container">
-      <div class="bordered-box">
-        <h3>Individual Match Filtering</h3>
-        <p>Deselect any match that you don't want to be considered for analysis.</p>
-      </div>
+
+      <p>Deselect any match that you don't want to be considered for analysis.</p>
 
       <div class="matches">
         <div
@@ -53,9 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-.view-individual-match-filters {
-  padding-bottom: 10px;
-
+.individual-match-filters {
   .bordered-box {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -100,6 +96,10 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
 
         .check {
           color: $orange;

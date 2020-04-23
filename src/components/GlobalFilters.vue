@@ -1,82 +1,83 @@
 <template>
   <div class="global-filters">
-    <div class="match-count">
-      <p>Consider</p>
-      <CustomSelect
-        v-model="matchCount"
-        :options="matchCountOptions"
-        v-on:input="OnPreferedMatchCountChanged"
-      ></CustomSelect>
-      <p>
-        matches from the following
-        <span class="orange">sources</span>:
+    <div class="result-display">
+      <p class="how-many">
+        Your currently selected filters result in
+        <span
+          class="orange"
+        >{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
       </p>
+      <p
+        class="note"
+      >*Please note that you can only filter for maps that you have actually played matches on.</p>
     </div>
 
-    <div class="sources">
-      <div class="source-list">
-        <div
-          class="source"
-          v-for="source in $api.MatchSelector.GetAvailableSourcesUnique()"
-          :key="source"
-          @click="OnToggleSourcesFilter(source)"
-          :class="{active: $api.MatchSelector.HasSourcesFilter(source)}"
-        >
-          <div class="name">
-            <span>{{ Enums.Source.ToString(source) }}</span>
-            <i class="material-icons">check</i>
+    <div class="interactive-area" data-simplebar data-simplebar-auto-hide="false">
+      <div class="match-count">
+        <p>Consider</p>
+        <CustomSelect
+          v-model="matchCount"
+          :options="matchCountOptions"
+          v-on:input="OnPreferedMatchCountChanged"
+        ></CustomSelect>
+        <p>
+          matches from the following
+          <span class="orange">sources</span>:
+        </p>
+      </div>
+
+      <div class="sources">
+        <div class="source-list">
+          <div
+            class="source"
+            v-for="source in $api.MatchSelector.GetAvailableSourcesUnique()"
+            :key="source"
+            @click="OnToggleSourcesFilter(source)"
+            :class="{active: $api.MatchSelector.HasSourcesFilter(source)}"
+          >
+            <div class="name">
+              <span>{{ Enums.Source.ToString(source) }}</span>
+              <i class="material-icons">check</i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="maps">
-      <p>
-        Which have been played on the following
-        <span class="orange">maps*</span>:
-      </p>
-      <div class="map-list">
-        <div
-          class="map"
-          v-for="map in $api.MatchSelector.GetAvailableMapsUnique()"
-          :key="map"
-          @click="OnToggleMapFilter(map)"
-          :class="{active: $api.MatchSelector.HasMapFilter(map)}"
-        >
-          <img class="image" :src="$assetLoader.getMapPreview(map)" />
-          <div class="name">
-            <span>{{ map }}</span>
-            <i class="material-icons">check</i>
+      <div class="maps">
+        <p>
+          Which have been played on the following
+          <span class="orange">maps*</span>:
+        </p>
+        <div class="map-list">
+          <div
+            class="map"
+            v-for="map in $api.MatchSelector.GetAvailableMapsUnique()"
+            :key="map"
+            @click="OnToggleMapFilter(map)"
+            :class="{active: $api.MatchSelector.HasMapFilter(map)}"
+          >
+            <img class="image" :src="$assetLoader.getMapPreview(map)" />
+            <div class="name">
+              <span>{{ map }}</span>
+              <i class="material-icons">check</i>
+            </div>
           </div>
         </div>
       </div>
+      <IndividualMatchFilters />
     </div>
-
-    <p class="how-many">
-      Your currently selected filters result in
-      <span class="orange">{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
-    </p>
-
-    <p
-      class="note"
-    >*Please note that you can only filter for maps that you have actually played matches on.</p>
-
-    <!-- TODO: styling is trash -->
-    <p>
-      <router-link :to="{name: 'individual-match-filters'}">
-        <span @click="$emit('close-self')">Open Individual Match Filters</span>
-      </router-link>
-    </p>
   </div>
 </template>
 
 <script>
 import CustomSelect from "@/components/CustomSelect.vue";
+import IndividualMatchFilters from "@/components/IndividualMatchFilters.vue";
 import Enums from "@/enums";
 
 export default {
   components: {
-    CustomSelect
+    CustomSelect,
+    IndividualMatchFilters
   },
   mounted() {},
   data() {
@@ -85,7 +86,7 @@ export default {
       matchCount: "-1",
       matchCountOptions: {
         "-1": "all",
-        "1" : "my last",
+        "1": "my last",
         "10": "my last 10",
         "25": "my last 25",
         "50": "my last 50"
@@ -97,18 +98,14 @@ export default {
       this.$api.MatchSelector.SetMatchCountFilter(+n);
     },
     OnToggleMapFilter: function(map) {
-      this.$api.User.AuthorizationGate(
-        Enums.SubscriptionStatus.Premium,
-        () => {
-          this.$api.MatchSelector.ToggleMapFilter(map)
-        });
+      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.MatchSelector.ToggleMapFilter(map);
+      });
     },
     OnToggleSourcesFilter: function(map) {
-      this.$api.User.AuthorizationGate(
-        Enums.SubscriptionStatus.Premium,
-        () => {
-          this.$api.MatchSelector.ToggleSourcesFilter(source)
-        });
+      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.MatchSelector.ToggleSourcesFilter(source);
+      });
     }
   }
 };
@@ -116,6 +113,23 @@ export default {
 
 <style lang="scss">
 .global-filters {
+  height: 100%;
+
+  .result-display {
+    border-bottom: 1px solid $purple;
+    margin-bottom: 10px;
+  }
+
+  .interactive-area {
+    max-height: 100%;
+    padding-bottom: 120px;
+  }
+
+  .simplebar-vertical {
+    right: -15px;
+    height: calc(100% - 117px);
+  }
+
   span.orange {
     color: $orange;
   }
@@ -130,7 +144,7 @@ export default {
 
     &.how-many {
       font-weight: normal;
-      margin-top: 20px;
+      margin-top: 0;
 
       .orange {
         color: $orange;

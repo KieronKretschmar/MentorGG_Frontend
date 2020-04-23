@@ -33,7 +33,7 @@
         >settings_applications</i>
       </div>
 
-      <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
+      <GenericOverlay ref="globalFiltersOverlay" width="900px" height="100%" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
         <GlobalFilters v-if="this.$api.MatchSelector" @close-self="$refs.globalFiltersOverlay.Hide()"/>
       </GenericOverlay>
