@@ -634,7 +634,7 @@ export default {
       .tool-menu {
         display: flex;
         flex-direction: row;
-        align-items: center; 
+        align-items: center;
 
         > button {
           margin-right: 5px;
