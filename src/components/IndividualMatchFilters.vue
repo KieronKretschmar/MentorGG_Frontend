@@ -14,6 +14,7 @@
         >
           <div class="bordered-box">
             <MatchHeader :map="match.Map" :matchDate="match.MatchDate" :source="match.Source" />
+            <div class="is-considered" :class="{yes: IsConsidered(match.MatchId)}">{{ IsConsidered(match.MatchId) ? "considered" : "ignored" }}</div>
             <div class="check">
               <i class="material-icons">check</i>
             </div>
@@ -45,6 +46,14 @@ export default {
         () => {
           this.$api.MatchSelector.ToggleBlacklist(matchId);
         });
+    },
+    IsConsidered(matchId) {
+      return this.matchIds.indexOf(matchId) != -1;
+    }
+  },
+  computed: {
+    matchIds() {
+      return this.$api.MatchSelector.Build().GetMatchIds();
     }
   }
 };
@@ -99,6 +108,22 @@ export default {
 
         &:last-child {
           margin-bottom: 0;
+        }
+
+        .match-header {
+          width: 40%;
+        }
+
+        .is-considered {
+          width: 10%;
+          color: $red;
+          font-weight: 500;
+          text-align: center;
+          margin-left: -120px;
+
+          &.yes {
+            color: $green;
+          }
         }
 
         .check {
