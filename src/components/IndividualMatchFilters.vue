@@ -1,23 +1,26 @@
 <template>
   <div class="individual-match-filters">
-    <div class="fixed-width-container">
+    <div class="header-seperator">
+      <div class="text">Deselect any <span class="orange">match</span> that you don't want to be considered for analysis</div>
+      <button @click="ToggleAll">Toggle All</button>
+    </div>
 
-      <p>Deselect any match that you don't want to be considered for analysis.</p>
-
-      <div class="matches">
-        <div
-          class="match"
-          v-for="match in $api.MatchSelector.GetMatchList()"
-          :key="match.MatchId"
-          @click="OnToggleBlacklist(match.MatchId)"
-          :class="{active: !$api.MatchSelector.IsBlacklisted(match.MatchId)}"
-        >
-          <div class="bordered-box">
-            <MatchHeader :map="match.Map" :matchDate="match.MatchDate" :source="match.Source" />
-            <div class="is-considered" :class="{yes: IsConsidered(match.MatchId)}">{{ IsConsidered(match.MatchId) ? "considered" : "ignored" }}</div>
-            <div class="check">
-              <i class="material-icons">check</i>
-            </div>
+    <div class="matches">
+      <div
+        class="match"
+        v-for="match in $api.MatchSelector.GetMatchList()"
+        :key="match.MatchId"
+        @click="OnToggleBlacklist(match.MatchId)"
+        :class="{active: !$api.MatchSelector.IsBlacklisted(match.MatchId)}"
+      >
+        <div class="bordered-box">
+          <MatchHeader :map="match.Map" :matchDate="match.MatchDate" :source="match.Source" />
+          <div
+            class="is-considered"
+            :class="{yes: IsConsidered(match.MatchId)}"
+          >{{ IsConsidered(match.MatchId) ? "considered" : "ignored" }}</div>
+          <div class="check">
+            <i class="material-icons">check</i>
           </div>
         </div>
       </div>
@@ -33,22 +36,21 @@ export default {
   components: {
     MatchHeader
   },
-  mounted() {
-
-  },
+  mounted() {},
   data() {
     return {};
   },
   methods: {
-    OnToggleBlacklist(matchId){      
-      this.$api.User.AuthorizationGate(
-        Enums.SubscriptionStatus.Premium,
-        () => {
-          this.$api.MatchSelector.ToggleBlacklist(matchId);
-        });
+    OnToggleBlacklist(matchId) {
+      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.MatchSelector.ToggleBlacklist(matchId);
+      });
     },
     IsConsidered(matchId) {
       return this.matchIds.indexOf(matchId) != -1;
+    },
+    ToggleAll() {
+      this.$api.MatchSelector.ToggleAllMatches();
     }
   },
   computed: {
@@ -61,6 +63,16 @@ export default {
 
 <style lang="scss">
 .individual-match-filters {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      margin: 0;
+    }
+  }
+
   .bordered-box {
     margin-top: 40px;
     margin-bottom: 20px;

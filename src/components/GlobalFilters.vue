@@ -44,10 +44,14 @@
       </div>
 
       <div class="maps">
-        <p>
+        <div class="header-seperator">
+          <div class="text">Deselect any <span class="orange">map</span> that you don't want to be considered for analysis</div>
+          <button @click="$api.MatchSelector.ToggleAllMaps()">Toggle All</button>
+        </div>
+        <!-- <p>
           Which have been played on the following
           <span class="orange">maps*</span>:
-        </p>
+        </p> -->
         <div class="map-list">
           <div
             class="map"
@@ -148,6 +152,34 @@ export default {
 
       .orange {
         color: $orange;
+      }
+    }
+  }
+
+  .header-seperator {
+    background: $dark-3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+    border-left: 4px solid $purple;
+    padding: 10px;
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 40px;
+
+    button {
+      outline: 0;
+      border: 0;
+      background: $purple;
+      color: white;
+      border-radius: 4px;
+      padding: 10px;
+      cursor: pointer;
+      transition: .35s;
+
+      &:hover {
+        background: $dark-4;
       }
     }
   }
