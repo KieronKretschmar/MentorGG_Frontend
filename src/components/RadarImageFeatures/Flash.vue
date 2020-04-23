@@ -47,7 +47,10 @@
 </template>
 
 <script>
+import FeatureBase from "@/components/RadarImageFeatures/FeatureBase.vue";
+
 export default {
+  extends: FeatureBase,
   props: [
     "grenadeData",
     "scaleFactor",
@@ -112,16 +115,9 @@ export default {
 
 <style lang="scss">
 .flash {
+  cursor: pointer;
   .attacker-circle.is-user {
     fill: $orange;
-  }
-
-  .trajectory {
-    stroke-width: 3.0px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #ffffff;
-    opacity: 0.5;
   }
 
   .ct.victim-circle {
@@ -149,8 +145,6 @@ export default {
   }
   &.enemies-flashed.kill-assist .detonation {
     fill: $success-color;
-    // stroke: $success-color;
-    // stroke-width: 2.5px;
   }
 }
 </style>

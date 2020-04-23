@@ -21,7 +21,7 @@
 
     <polyline
       v-if="isSelected || showTrajectories"
-      class="connection"
+      class="trajectory"
       vector-effect="non-scaling-stroke"
       :points="killConnection"
     ></polyline>
@@ -29,7 +29,10 @@
 </template>
 
 <script>
+import FeatureBase from "@/components/RadarImageFeatures/FeatureBase.vue";
+
 export default {
+  extends: FeatureBase,
   props: [
     "killData",
     "scaleFactor",
@@ -39,7 +42,7 @@ export default {
   ],
   computed: {
     userRadius() {
-      return 10 / this.scaleFactor;
+      return Math.max(5, 10 / this.scaleFactor);
     },
     killConnection() {
       return (
@@ -58,12 +61,7 @@ export default {
 
 <style lang="scss">
 .kill {
-  // &.ct .user-circle{
-  //     fill: $ct-color;
-  // }
-  // &.terrorist .user-circle{
-  //     fill: $terrorist-color;
-  // }
+  cursor: pointer;
 
   &.userkiller .user-circle {
     fill: $success-color;
@@ -72,19 +70,12 @@ export default {
     fill: $failure-color;
   }
 
-  .connection {
-    stroke-width: 3.0px;
-    fill: none;
-    stroke: white;
-    opacity: 1;
+  &.userkiller .trajectory{
+      stroke: $success-color;
   }
 
-  // &.userkiller .connection{
-  //     stroke: $success-color;
-  // }
-
-  // &.uservictim .connection{
-  //     stroke: $failure-color;
-  // }
+  &.uservictim .trajectory{
+      stroke: $failure-color;
+  }
 }
 </style>

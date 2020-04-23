@@ -14,6 +14,7 @@
             margin-bottom: 5px;
             font-size: 14px;
 
+
             .legend-depiction {
                 padding-right: 20px;
 
@@ -42,6 +43,53 @@
             }
         }
     }
+
+    .sidebar-tabcontent {
+
+        & > div {
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            margin: 10px 0px;
+            background: $dark-3;
+            padding: 5px;
+            border-radius: 4px;
+
+            h4 {
+                border-bottom: 1px solid $orange;
+                margin: 5px;
+                padding-bottom: 5px;
+            }    
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: $dark-3;
+            padding: 5px 5px;
+            border-radius: 4px;
+            border-bottom: 1px solid $purple;
+        
+            .stat-description {
+                width: calc(63% - 15px);
+            }
+        
+            .stat-content {
+                width: 37%;
+                padding: 5px 10px;
+                border-radius: 4px;
+                text-align: center;
+            }
+        
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+
+    }
 }
 
 .practice-tab {
@@ -50,28 +98,14 @@
 }
 
 #analysis-tab {
-    margin: 10px 0;
-    border-top: 1px solid $purple;
-}
-
-.stat-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    background: $purple;
-    padding: 10px 10px;
-    border-radius: 3px;
-
-    .stat-description {
-        width: calc(63% - 15px);
-    }
-
-    .stat-content {
-        width: 37%;
-        text-align: right;
-    }
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    margin: 10px 0;
 }
+
+
 
 .setpos-wrapper {
     display: flex;

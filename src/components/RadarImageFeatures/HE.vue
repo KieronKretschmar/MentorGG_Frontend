@@ -111,17 +111,10 @@ export default {
 
 <style lang="scss">
 .he-grenade {
-
+  cursor: pointer;
+  
   .attacker-circle.is-user{
     fill: $orange;
-  }
-
-  .trajectory {
-    stroke-width: 3.0px;
-    fill: none;
-    /* stroke-dasharray: 5, 3; */
-    stroke: #ffffff;
-    opacity: 0.5;
   }
 
   .victim-circle {

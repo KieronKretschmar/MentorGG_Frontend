@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 polyline {
   stroke-width: 2px;
   stroke-opacity: 1;
@@ -44,9 +44,9 @@ polyline {
 }
 polyline.selected{
   fill:url(#map-background-pattern-light); 
-  stroke-width: 5px;
+  stroke-width: 4px;
   stroke-opacity: 1;
-  stroke: white;
+  stroke: $orange;
 }
 
 </style>

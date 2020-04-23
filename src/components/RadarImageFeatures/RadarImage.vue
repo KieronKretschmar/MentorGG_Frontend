@@ -143,8 +143,8 @@
     </svg>
     <div class="svg-custom-zoom-controls">
       <i class="material-icons" title="Zoom In" @click="Zoom(1)">zoom_in</i>
-      <i class="material-icons" title="Reset Zoom" @click="Zoom(0)">clear</i>
       <i class="material-icons" title="Zoom Out" @click="Zoom(-1)">zoom_out</i>
+      <i class="material-icons" title="Reset Zoom" @click="Zoom(0)">clear</i>
     </div>
   </div>
 </template>
@@ -184,7 +184,7 @@ export default {
       zoomScaleSensitivity: 0.6,
       controlIconsEnabled: false,
       minZoom: 1,
-      maxZoom: 16,
+      maxZoom: 8,
       onZoom: newScale => {
         this.scaleFactor = newScale;
       }
@@ -568,16 +568,21 @@ export default {
   position: relative;
 
   .svg-custom-zoom-controls {
-    border-radius: 3px;
+    border-radius: 4px;
     position: absolute;
+    
     bottom: 0;
-    right: -15px;
+    right: 0;
+
     display: flex;
-    background: $purple;
+    flex-direction: column;
+    background: $dark-3;
     padding: 5px;
 
+    transition: 0.3s $anim-bounce;
+
     i {
-      transition: 0.35s all;
+      transition: 0.3s $anim-bounce;
       color: white;
       cursor: pointer;
       user-select: none;
@@ -585,7 +590,12 @@ export default {
 
       &:hover {
         color: $orange;
+        scale: 1.2;
       }
+    }
+
+    &:hover{
+      scale: 1.1;
     }
   }
 }
