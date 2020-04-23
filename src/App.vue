@@ -25,11 +25,11 @@
         </footer>
       </div>
 
-      <div class="open-filters">
+      <div class="open-filters" @click="OnOpenFilters">
+        <span>Match Filters</span>
         <i
           class="material-icons"
-          title="Open Match Filters"
-          @click="OnOpenFilters"
+          title="Open Match Filters"          
         >settings_applications</i>
       </div>
 
@@ -221,13 +221,25 @@ main {
   .open-filters {
     position: fixed;
     right: 0;
-    top: 20%;
-    color: $orange;
+    top: calc(20% - 5px);
+    color: white;
     user-select: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: $dark-1;
+    border: 1px solid $purple;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 3px 5px 3px 10px;
+
+    span {
+      color: white;
+      margin-right: 10px;
+    }
 
     i {
-      font-size: 40px;
+      font-size: 36px;
     }
   }
 }
