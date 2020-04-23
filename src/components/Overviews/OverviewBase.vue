@@ -22,6 +22,10 @@ export default {
   flex-direction: row;
   margin: 0 -10px;
 
+  .performance-inline {
+    display: inline-flex;
+  }
+
   .performance {
     width: calc(100% / 7);
     margin: 0 5px;
