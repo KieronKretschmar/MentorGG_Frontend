@@ -27,10 +27,11 @@
 
       <div class="open-filters" @click="OnOpenFilters">
         <span>Match Filters</span>
-        <i
+        <i class="fas fa-cog" title="Open Match Filters"></i>
+        <!-- <i
           class="material-icons"
           title="Open Match Filters"          
-        >settings_applications</i>
+        >settings_applications</i> -->
       </div>
 
       <GenericOverlay ref="globalFiltersOverlay" width="900px" height="100%" @hide="ForceViewReload">
@@ -231,7 +232,7 @@ main {
     border: 1px solid $purple;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    padding: 3px 5px 3px 10px;
+    padding: 5px 10px 5px 10px;
 
     span {
       color: white;
@@ -239,7 +240,7 @@ main {
     }
 
     i {
-      font-size: 36px;
+      font-size: 24px;
     }
   }
 }
