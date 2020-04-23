@@ -20,15 +20,24 @@ export default {
 .performances {
   display: flex;
   flex-direction: row;
-  margin: 0 -10px;
+  // margin: 0 -10px;
+
+  &:first-child {
+    margin-left: 5px;
+  }
+
+  &:last-child {
+    margin-right: 5px;
+  }
 
   .performance-inline {
-    display: inline-flex;
+    display: inherit;
+    width: 100%;
   }
 
   .performance {
     width: calc(100% / 7);
-    margin: 0 5px;
+    margin: 0 5px; //
     background-position: center;
     background-size: cover;
     position: relative;
@@ -143,6 +152,18 @@ export default {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .performance-inline {
+      display: inline-flex;
+    }
 
     .performance {
       width: calc(100% / 7);

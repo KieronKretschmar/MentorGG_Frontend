@@ -512,6 +512,7 @@ export default {
     // display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 10px;
 
     .tool-menu {
       display: flex;
@@ -578,6 +579,7 @@ export default {
 
   .r {
     width: 30%;
+    margin-right: 10px;
 
     .sidebar {
       color: white;
