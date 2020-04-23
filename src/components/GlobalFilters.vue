@@ -102,7 +102,7 @@ export default {
         this.$api.MatchSelector.ToggleMapFilter(map);
       });
     },
-    OnToggleSourcesFilter: function(map) {
+    OnToggleSourcesFilter: function(source) {
       this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$api.MatchSelector.ToggleSourcesFilter(source);
       });
