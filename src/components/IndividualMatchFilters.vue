@@ -127,11 +127,14 @@ export default {
         }
 
         .is-considered {
-          width: 10%;
+          width: 20%;
           color: $red;
-          font-weight: 500;
+          font-weight: 300;
           text-align: center;
-          margin-left: -120px;
+          margin-left: -360px;
+          padding: 10px 40px;
+          transition: 0.35s all;
+          border-left: 1px solid $purple;;
 
           &.yes {
             color: $green;
