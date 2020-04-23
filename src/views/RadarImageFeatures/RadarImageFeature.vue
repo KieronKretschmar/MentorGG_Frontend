@@ -619,26 +619,23 @@ export default {
   }
 
   .interactive-area {
-    display: flex;
-    flex-wrap: wrap; //
-    justify-content: center; //
-    flex-direction: column; //
-    margin: 0; //
-    flex-wrap: wrap; //
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    flex-wrap: wrap;
 
     .l {
-      width: calc(100% - 20px); //
-      margin: 10px; //
-      align-items: center;
-      justify-content: space-between;
+      width: calc(100% - 20px);
+      margin: 10px;
 
       .tool-menu {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: center; 
 
         > button {
-          margin-right: 20px;
+          margin-right: 5px;
         }
       }
 
@@ -692,8 +689,8 @@ export default {
     }
 
     .r {
-      width: calc(100% - 20px); //
-      margin: 0 10px; //
+      width: calc(100% - 20px);
+      margin: 0 10px;
 
       .sidebar {
         color: white;
