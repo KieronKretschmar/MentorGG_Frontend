@@ -241,7 +241,7 @@ export default {
       &.manual {
         &:hover,
         &.active {
-          background-color: $purple;
+          background-color: $red;
         }
       }
     }

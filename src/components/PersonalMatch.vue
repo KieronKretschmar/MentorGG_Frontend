@@ -198,7 +198,7 @@ export default {
   computed: {
     sourceClassName() {
       return (
-        "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase()
+        "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase().replace(" ", "")
       );
     },
     UserData() {
@@ -263,6 +263,10 @@ export default {
 
     &.source-faceit > .left > .map-thumbnail {
       border-left-color: $faceit-orange;
+    }
+
+    &.source-manualupload > .left > .map-thumbnail {
+      border-left-color: $red;
     }
 
     .left {
