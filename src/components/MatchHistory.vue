@@ -18,9 +18,13 @@
           @click="activeTab = 'faceit'"
           class="filter faceit"
         >Faceit</span>
+        <span
+          :class="{ active: activeTab == 'manual' }"
+          @click="activeTab = 'manual'"
+          class="filter manual"
+        >Manual Upload</span>
       </div>
     </div>
-
 
     <div class="match-list">
       <div v-if="!loadingMatches && analyzedMatches.length == 0" class="bordered-box no-matches">
@@ -46,14 +50,8 @@
       </div>
     </div>
     <div class="match-history-controls" v-if="!loadingMatches">
-      <button
-        class="button-variant-bordered"
-        @click="LoadAppendMatches(5, false)"
-      >Load 5 More</button>
-      <button
-        class="button-variant-bordered"
-        @click="LoadAppendMatches(25, false)"
-      >Load 25 More</button>
+      <button class="button-variant-bordered" @click="LoadAppendMatches(5, false)">Load 5 More</button>
+      <button class="button-variant-bordered" @click="LoadAppendMatches(25, false)">Load 25 More</button>
     </div>
   </div>
 </template>
@@ -90,17 +88,17 @@ export default {
       return sorted.slice(0, this.desiredVisibleMatchesCount);
     },
     visibleMatches: function() {
+      let assocs = {
+        valve: Enums.Source.Valve,
+        faceit: Enums.Source.Faceit,
+        manual: Enums.Source.ManualUpload
+      };
+
       if (this.activeTab == "all") {
         return this.allRelevantMatches;
-      }
-      if (this.activeTab == "valve") {
+      } else {
         return this.allRelevantMatches.filter(
-          x => x.Source == Enums.Source.Valve
-        );
-      }
-      if (this.activeTab == "faceit") {
-        return this.allRelevantMatches.filter(
-          x => x.Source == Enums.Source.Faceit
+          x => x.Source == assocs[this.activeTab]
         );
       }
     }
@@ -167,9 +165,7 @@ export default {
 
 <style lang="scss">
 .match-history {
-
   .section-header {
-
     background-color: $dark-3;
 
     display: flex;
@@ -177,14 +173,13 @@ export default {
     justify-content: space-between;
 
     h2 {
-      margin:0;
+      margin: 0;
       line-height: 1.5em;
     }
-
-  };
+  }
 
   .tabs-header {
-    width: 300px;
+    width: 400px;
 
     display: flex;
     flex-direction: row;
@@ -195,7 +190,6 @@ export default {
     border-radius: 4px;
     border: 1px solid $purple;
     overflow: hidden;
-
 
     .filter {
       text-align: center;
@@ -210,36 +204,44 @@ export default {
       cursor: pointer;
       transition: 0.3s ease-out;
 
-      &.all, &.mm {
-          border-right: 1px solid $purple;
+      &.all,
+      &.mm,
+      &.faceit {
+        border-right: 1px solid $purple;
       }
 
       &:hover,
       &.active {
         color: white;
-
       }
 
       &.all {
         &:hover,
-        &.active{
+        &.active {
           background-color: white;
-          color: $dark-1
+          color: $dark-1;
         }
         color: white;
       }
 
       &.faceit {
         &:hover,
-        &.active{
+        &.active {
           background-color: $faceit-orange;
         }
       }
 
       &.mm {
         &:hover,
-        &.active{
+        &.active {
           background-color: $matchmaking-blue;
+        }
+      }
+
+      &.manual {
+        &:hover,
+        &.active {
+          background-color: $purple;
         }
       }
     }
@@ -269,8 +271,7 @@ export default {
 //responsive
 @media (max-width: 800px) {
   .match-history {
-
-    .section-header{
+    .section-header {
       flex-direction: column;
       justify-content: center;
     }
