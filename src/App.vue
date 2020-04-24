@@ -233,6 +233,7 @@ main {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     padding: 5px 10px 5px 10px;
+    z-index: 9999;
 
     span {
       color: white;
