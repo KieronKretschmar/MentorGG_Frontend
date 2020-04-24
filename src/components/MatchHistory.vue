@@ -276,6 +276,7 @@ export default {
     }
 
     .tabs-header {
+      width: 250px;
       margin: 10px auto;
       display: flex;
       justify-content: center;
