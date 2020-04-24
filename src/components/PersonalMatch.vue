@@ -415,6 +415,7 @@ export default {
   .match-body {
     overflow-x: auto;
     display: inline-block;
+    min-width: 100%;
 
     hr {
       border: 1px solid $purple;
