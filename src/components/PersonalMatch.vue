@@ -417,6 +417,8 @@ export default {
 
   .match-body {
     overflow-x: auto;
+    display: inline-block;
+    min-width: 100%;
 
     hr {
       border: 1px solid $purple;
@@ -574,6 +576,7 @@ export default {
 
             .match-score {
               padding: 0 25px;
+              border-right: none;
 
               .score {
                 font-size: 14px;

@@ -178,10 +178,11 @@ div .dashboard-unit{
 //Mobile Devices
 
 @media (max-width: 800px) {
-    .section-header {
-        text-align: center;
-    }
-}.headline {
+.section-header {
+    text-align: center;
+}
+
+.headline {
     color: white;
     border-bottom: 1px solid $purple;
     margin-top: 0;
@@ -189,4 +190,15 @@ div .dashboard-unit{
     font-weight: 500;
     padding-bottom: 5px;
     text-align: left;
-  }
+}
+
+h2.section-header, .section-header h2 {
+    font-size: 0.9em;
+}
+
+.bordered-box {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+}
