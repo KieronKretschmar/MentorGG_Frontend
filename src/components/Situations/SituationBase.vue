@@ -221,6 +221,7 @@ export default {
         width: 100%;
         margin: 0 auto;
         line-height: 20px;
+        white-space: normal;
       }
     }
 
