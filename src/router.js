@@ -170,11 +170,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
     },
     {
-      path: '/filters/matches',
-      name: 'individual-match-filters',
-      component: () => import(/* webpackChunkName: "individualmatchfilters" */'./views/IndividualMatchFilters.vue')
-    },
-    {
       path: '/membership',
       name: 'membership',
       component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue'),

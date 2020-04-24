@@ -3,18 +3,18 @@ import Enums from './enums';
 export default class MatchSelector {
     constructor(api, matchList, dailyLimitReached, dailyLimitEnds) {
         this.$api = api;
-        
+
         this.filters = {
             maps: [],
             sources: [],
             matchCount: -1,
             blacklist: []
         };
-        
+
         this.matchList = matchList;
         this.dailyLimitReached = dailyLimitReached;
         this.dailyLimitEnds = dailyLimitEnds;
-        
+
         //fix ugly enum name for displaying purposes
         for (let match of this.matchList) {
             if (match.Source == "Manualupload") {
@@ -23,7 +23,7 @@ export default class MatchSelector {
         }
 
         this.filters.maps = this.GetAvailableMapsUnique();
-        this.filters.sources = this.GetAvailableSourcesUnique();          
+        this.filters.sources = this.GetAvailableSourcesUnique();
     }
 
     Build() {
@@ -46,12 +46,12 @@ export default class MatchSelector {
             // Returns all matchids that were filtered out
             GetIgnoredMatchIds() {
                 let selectedMatchIds = this.GetMatchIds();
-                let ignoredMatches = this.matches.map(x=>x.MatchId).filter(x=> !selectedMatchIds.includes(x));
+                let ignoredMatches = this.matches.map(x => x.MatchId).filter(x => !selectedMatchIds.includes(x));
                 return ignoredMatches;
             },
 
-            GetMostRecentMatchId(){
-                return this.matches.sort((a,b)=>new Date(b.MatchDate)-new Date(a.MatchDate)).map(x=>x.MatchId)[0];
+            GetMostRecentMatchId() {
+                return this.matches.sort((a, b) => new Date(b.MatchDate) - new Date(a.MatchDate)).map(x => x.MatchId)[0];
             },
 
             Override(what, data) {
@@ -66,14 +66,14 @@ export default class MatchSelector {
             },
 
             // example: overrides = {"maps" : ["de_mirage"], "matchCount" : 2} 
-            OverrideMultiple(overrides){
+            OverrideMultiple(overrides) {
                 for (const key in overrides) {
                     if (overrides.hasOwnProperty(key)) {
                         const data = overrides[key];
                         this.Override(key, data);
                     }
                 }
-                return this;   
+                return this;
             }
         };
 
@@ -132,6 +132,27 @@ export default class MatchSelector {
         }
     }
 
+    ToggleAllMaps() {
+        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+            let maps = this.GetAvailableMapsUnique();
+            console.log(maps);
+            if (maps.length <= 0) {
+                return;
+            }
+
+            let newVal = !this.HasMapFilter(maps[0]);
+
+            for (let map of maps)
+            {
+                if (newVal) {
+                    this.AddMapFilter(map);
+                } else {
+                    this.RemoveMapFilter(map);
+                }
+            }
+        });
+    } 
+
     HasMapFilter(mapName) {
         return this.filters.maps.indexOf(mapName) != -1;
     }
@@ -149,7 +170,7 @@ export default class MatchSelector {
         this.filters.sources = this.filters.sources.filter(name => name != sourceName);
     }
 
-    ToggleSourcesFilter(sourceName) {        
+    ToggleSourcesFilter(sourceName) {
         this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             if (this.HasSourcesFilter(sourceName)) {
                 this.RemoveSourcesFilter(sourceName);
@@ -158,6 +179,27 @@ export default class MatchSelector {
             }
         });
     }
+
+    ToggleAllSources() {
+        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+            let sources = this.GetAvailableSourcesUnique();
+            console.log(sources);
+            if (sources.length <= 0) {
+                return;
+            }
+
+            let newVal = !this.HasSourcesFilter(sources[0]);
+
+            for (let source of sources)
+            {
+                if (newVal) {
+                    this.AddSourcesFilter(source);
+                } else {
+                    this.RemoveSourcesFilter(source);
+                }
+            }
+        });
+    }    
 
     HasSourcesFilter(sourceName) {
         return this.filters.sources.indexOf(sourceName) != -1;
@@ -183,6 +225,25 @@ export default class MatchSelector {
                 this.AddToBlacklist(matchId);
             } else {
                 this.RemoveFromBlacklist(matchId);
+            }
+        });
+    }
+
+    ToggleAllMatches() {
+        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+            if (this.matchList.length <= 0) {
+                return;
+            }
+
+            let newVal = !this.IsBlacklisted(this.matchList[0].MatchId);
+
+            for (let match of this.matchList)
+            {
+                if (newVal) {
+                    this.AddToBlacklist(match.MatchId);
+                } else {
+                    this.RemoveFromBlacklist(match.MatchId);
+                }
             }
         });
     }

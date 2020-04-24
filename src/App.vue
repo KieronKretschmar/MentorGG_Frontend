@@ -25,15 +25,16 @@
         </footer>
       </div>
 
-      <div class="open-filters">
-        <i
+      <div class="open-filters" @click="OnOpenFilters">
+        <span>Match Filters</span>
+        <i class="fas fa-cog" title="Open Match Filters"></i>
+        <!-- <i
           class="material-icons"
-          title="Open Match Filters"
-          @click="OnOpenFilters"
-        >settings_applications</i>
+          title="Open Match Filters"          
+        >settings_applications</i> -->
       </div>
 
-      <GenericOverlay ref="globalFiltersOverlay" width="900px" @hide="ForceViewReload">
+      <GenericOverlay ref="globalFiltersOverlay" width="900px" height="100%" @hide="ForceViewReload">
         <p class="headline">Global Match Filters</p>
         <GlobalFilters v-if="this.$api.MatchSelector" @close-self="$refs.globalFiltersOverlay.Hide()"/>
       </GenericOverlay>
@@ -221,13 +222,25 @@ main {
   .open-filters {
     position: fixed;
     right: 0;
-    top: 20%;
-    color: $orange;
+    top: calc(20% - 5px);
+    color: white;
     user-select: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: $dark-1;
+    border: 1px solid $purple;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 5px 10px 5px 10px;
+
+    span {
+      color: white;
+      margin-right: 10px;
+    }
 
     i {
-      font-size: 40px;
+      font-size: 24px;
     }
   }
 }
