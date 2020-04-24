@@ -203,7 +203,7 @@ export default {
       margin: -5px;
 
       .source {
-        width: 180px;
+        width: calc(25% - 10px);
         position: relative;
         border-radius: 3px;
         overflow: hidden;
@@ -263,7 +263,7 @@ export default {
       margin: -5px;
 
       .map {
-        width: 180px;
+        width: calc(25% - 10px);
         position: relative;
         border-radius: 3px;
         overflow: hidden;
