@@ -2,31 +2,35 @@
   <div class="global-filters">
     <div class="result-display">
       <p class="how-many">
-        Your currently selected filters result in
+        Your current filter configuration results in
         <span
           class="orange"
-        >{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being taken into account.
+        >{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being considered for analysis.
       </p>
-      <p
-        class="note"
-      >*Please note that you can only filter for maps that you have actually played matches on.</p>
     </div>
 
     <div class="interactive-area" data-simplebar data-simplebar-auto-hide="false">
+      <div class="header-seperator first">
+        <div class="text">          
+          <span class="orange">How many</span> matches do you want to be considered for analysis?
+        </div>
+      </div>
       <div class="match-count">
-        <p>Consider</p>
         <CustomSelect
           v-model="matchCount"
           :options="matchCountOptions"
           v-on:input="OnPreferedMatchCountChanged"
         ></CustomSelect>
-        <p>
-          matches from the following
-          <span class="orange">sources</span>:
-        </p>
       </div>
 
       <div class="sources">
+        <div class="header-seperator">
+          <div class="text">
+            Deselect any
+            <span class="orange">source</span> that you don't want to be considered for analysis
+          </div>
+          <button @click="$api.MatchSelector.ToggleAllSources()">Toggle All</button>
+        </div>
         <div class="source-list">
           <div
             class="source"
@@ -45,13 +49,16 @@
 
       <div class="maps">
         <div class="header-seperator">
-          <div class="text">Deselect any <span class="orange">map</span> that you don't want to be considered for analysis</div>
+          <div class="text">
+            Deselect any
+            <span class="orange">map</span> that you don't want to be considered for analysis
+          </div>
           <button @click="$api.MatchSelector.ToggleAllMaps()">Toggle All</button>
         </div>
         <!-- <p>
           Which have been played on the following
           <span class="orange">maps*</span>:
-        </p> -->
+        </p>-->
         <div class="map-list">
           <div
             class="map"
@@ -168,6 +175,10 @@ export default {
     margin-bottom: 10px;
     margin-top: 40px;
 
+    &.first {
+      margin-top: 10px;
+    }
+
     button {
       outline: 0;
       border: 0;
@@ -176,7 +187,7 @@ export default {
       border-radius: 4px;
       padding: 10px;
       cursor: pointer;
-      transition: .35s;
+      transition: 0.35s;
 
       &:hover {
         background: $dark-4;
@@ -189,8 +200,7 @@ export default {
     align-items: center;
 
     .custom-select {
-      width: 150px;
-      margin: 0 10px;
+      width: 100%;
     }
   }
 
@@ -237,7 +247,7 @@ export default {
         }
 
         .name {
-          background: $dark-2;
+          background: $dark-4;
           color: white;
           padding: 5px 10px;
           font-size: 14px;
@@ -295,7 +305,7 @@ export default {
         }
 
         .name {
-          background: $dark-2;
+          background: $dark-4;
           color: white;
           padding: 5px 10px;
           font-size: 14px;
