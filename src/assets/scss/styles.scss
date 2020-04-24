@@ -181,7 +181,7 @@ div .dashboard-unit{
     .section-header {
         text-align: center;
     }
-}.headline {
+.headline {
     color: white;
     border-bottom: 1px solid $purple;
     margin-top: 0;
@@ -191,8 +191,13 @@ div .dashboard-unit{
     text-align: left;
   }
 
+  h2.section-header, .section-header h2 {
+    font-size: 0.9em;
+}
+
   .bordered-box {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+}
 }
