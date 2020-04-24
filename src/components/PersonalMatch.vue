@@ -311,7 +311,7 @@ export default {
         justify-content: center;
         text-align: center;
         padding: 0 50px;
-        flex: 0 0 150px;
+        flex: 0 0 170px;
         border-right: 1px solid $purple;
 
         .score {
