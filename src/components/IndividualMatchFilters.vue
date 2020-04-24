@@ -117,6 +117,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background: $dark-2;
 
         &:last-child {
           margin-bottom: 0;

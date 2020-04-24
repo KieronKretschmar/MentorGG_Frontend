@@ -237,7 +237,7 @@ export default {
         }
 
         .name {
-          background: $purple;
+          background: $dark-2;
           color: white;
           padding: 5px 10px;
           font-size: 14px;
@@ -295,7 +295,7 @@ export default {
         }
 
         .name {
-          background: $purple;
+          background: $dark-2;
           color: white;
           padding: 5px 10px;
           font-size: 14px;
