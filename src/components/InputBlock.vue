@@ -20,6 +20,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: url('../assets/lockout-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     img {
         max-width: 400px;
