@@ -573,6 +573,7 @@ export default {
 
             .match-score {
               padding: 0 25px;
+              border-right: none;
 
               .score {
                 font-size: 14px;
