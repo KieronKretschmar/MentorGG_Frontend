@@ -41,8 +41,10 @@
     </div>
 
     <GenericOverlay ref="rankGraphOverlay" width="900px">
-      <p class="headline">Rank History Graph</p>
-      <LineChart v-if="recentMatchStats" :options="chartOptions" :data="chartData" />
+      <p class="headline">Rank History Graph</p>      
+      <div class="rank-graph-outer-wrapper" data-simplebar data-simplebar-auto-hide="false" v-if="recentMatchStats">
+        <LineChart :options="chartOptions" :data="chartData" :style="{width: `${relevantGraphMatches.length * 100}px`}" class="rank-graph-inner-wrapper"/>
+      </div>
     </GenericOverlay>
   </div>
 </template>
@@ -83,7 +85,7 @@ export default {
         },
         layout: {
           padding: {
-            top: 70
+            top: 100
           }
         },
         animation: {
@@ -100,7 +102,7 @@ export default {
               Chart.defaults.global.defaultFontFamily
             );
 
-            ctx.font = "30px Montserrat";
+            ctx.font = "40px Montserrat";
             ctx.textAlign = "center";
             ctx.textBaseline = "bottom";
 
@@ -133,10 +135,10 @@ export default {
 
                 ctx.drawImage(
                   self.rankImages[match.RankAfterMatch],
-                  model.x - 20,
-                  model.y - 70,
-                  40,
-                  16
+                  model.x - 35,
+                  model.y - 90,
+                  70,
+                  28
                 );
 
                 if (i > 0) {
@@ -162,7 +164,7 @@ export default {
                 beginAtZero: true,
                 stepValue: 1,
                 stepSize: 1,
-                padding: 20
+                padding: 40
               }
             }
           ]
@@ -207,7 +209,7 @@ export default {
         return match.Source == Enums.Source.Valve;
       }).reverse();
 
-      return matches.slice(Math.max(matches.length - 19, 0));
+      return matches;
     },
     graphData() {
       let wins = 0;
@@ -340,13 +342,16 @@ export default {
     }
   }
 
-  .rank-graph-overlay {
-    background: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+  .rank-graph-outer-wrapper {
+    padding-bottom: 20px;
+
+    .rank-graph-inner-wrapper {
+      canvas {
+        background: $dark-3;
+        padding: 20px;
+        border-radius: 4px;
+      }
+    }
   }
 }
 
