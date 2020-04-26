@@ -100,7 +100,7 @@ class Enums {
     return {
       Win: 1,
       Tie: 2,
-      Lose: 3,
+      Loss: 3,
 
       
       ToString(n) {
