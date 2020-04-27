@@ -339,6 +339,7 @@ export default {
 
         .table-content {
           margin-top: 10px;
+          margin-right: 10px;
 
           .entry {
             margin-right: 25px;
