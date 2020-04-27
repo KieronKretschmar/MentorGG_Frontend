@@ -51,7 +51,7 @@
         <LineChart
           :options="chartOptions"
           :data="chartData"
-          :style="{width: `${relevantGraphMatches.length * 100}px`}"
+          :style="{width: `${relevantGraphMatches.length * 80}px`}"
           class="rank-graph-inner-wrapper"
         />
       </div>
