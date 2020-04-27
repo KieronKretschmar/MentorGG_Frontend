@@ -173,15 +173,6 @@ div .dashboard-unit{
     margin: 35px 0;
 }
 
-
-
-//Mobile Devices
-
-@media (max-width: 800px) {
-.section-header {
-    text-align: center;
-}
-
 .headline {
     color: white;
     border-bottom: 1px solid $purple;
@@ -192,13 +183,19 @@ div .dashboard-unit{
     text-align: left;
 }
 
-h2.section-header, .section-header h2 {
-    font-size: 0.9em;
-}
+//Mobile Devices
+@media (max-width: 800px) {
+    .section-header {
+        text-align: center;
+    }
 
-.bordered-box {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-}
+    h2.section-header, .section-header h2 {
+        font-size: 0.9em;
+    }
+
+    .bordered-box {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
 }
