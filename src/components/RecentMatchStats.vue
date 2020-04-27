@@ -41,9 +41,19 @@
     </div>
 
     <GenericOverlay ref="rankGraphOverlay" width="900px">
-      <p class="headline">Rank History Graph</p>      
-      <div class="rank-graph-outer-wrapper" data-simplebar data-simplebar-auto-hide="false" v-if="recentMatchStats">
-        <LineChart :options="chartOptions" :data="chartData" :style="{width: `${relevantGraphMatches.length * 100}px`}" class="rank-graph-inner-wrapper"/>
+      <p class="headline">Rank History Graph</p>
+      <div
+        class="rank-graph-outer-wrapper"
+        data-simplebar
+        data-simplebar-auto-hide="false"
+        v-if="recentMatchStats"
+      >
+        <LineChart
+          :options="chartOptions"
+          :data="chartData"
+          :style="{width: `${relevantGraphMatches.length * 100}px`}"
+          class="rank-graph-inner-wrapper"
+        />
       </div>
     </GenericOverlay>
   </div>
@@ -160,6 +170,10 @@ export default {
           yAxes: [
             {
               display: true,
+              gridLines: {
+                zeroLineColor: "#444",
+                // zeroLineWidth: 1
+              },
               ticks: {
                 beginAtZero: true,
                 stepValue: 1,
