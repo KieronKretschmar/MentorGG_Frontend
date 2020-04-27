@@ -114,6 +114,29 @@ class Enums {
       }
     };
   }
+
+  static get LineupAttemptResult() {
+    return {
+      Default: 0, // This is the default value of unrated smokes
+      Inside: 10, // Inside Target, yet not gapfree. Does have some effect.
+      Miss: 20, // Not in Target. This is bad.
+      TargetWithoutLineUp: 30, //Hit a target without using a known lineup
+      NoTarget: 40, //Has no lineup and didnt hit a target, but was analyzed
+
+      
+      ToString(n) {
+        switch (n) {
+          case 0: return "Unknown";
+          case 10: return "Inside";
+          case 20: return "Miss";
+          case 30: return "TargetWithoutLineUp";
+          case 40: return "NoTarget";
+        }
+
+        return "Unknown";
+      }
+    };
+  }
 }
 
 export default Enums;
