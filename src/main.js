@@ -41,6 +41,12 @@ Vue.filter('formatDate', function (val) {
     return date.toLocaleString([], { dateStyle: 'short' });
   }
 });
+Vue.filter('formatTime', function (val) {
+  if (val) {
+    let date = new Date(val);
+    return date.toLocaleString([], { timeStyle: 'short' });
+  }
+});
 Vue.filter('formatDateAndTime', function (val) {
   if (val) {
     let date = new Date(val);
