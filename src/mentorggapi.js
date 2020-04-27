@@ -19,6 +19,12 @@ class MentorGGAPI {
             if (process.env.VUE_APP_BEARER_TOKEN) {
                 // auth via Bearer token
                 axios.defaults.headers.common['Authorization'] = "Bearer " + process.env.VUE_APP_BEARER_TOKEN
+
+                // if specified, auth as specific user
+                if(process.env.VUE_APP_BEARER_IMPERSONATE_USER){
+                    axios.defaults.headers.common['Impersonate-ApplicationUserId'] = process.env.VUE_APP_BEARER_IMPERSONATE_USER
+                }
+                
                 axios.defaults.withCredentials = false;
             }
 
