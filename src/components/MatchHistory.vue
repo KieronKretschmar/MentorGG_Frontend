@@ -269,7 +269,7 @@ export default {
 }
 
 //responsive
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .match-history {
     .section-header {
       flex-direction: column;
@@ -283,6 +283,10 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 12px;
+
+      span:not(:last-child) {
+      line-height: 30px;
+    }
     }
 
     .match-list {
