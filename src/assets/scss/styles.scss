@@ -199,3 +199,10 @@ div .dashboard-unit{
         white-space: nowrap;
     }
 }
+
+@media (max-width: 400px) {
+    .button-variant-bordered {
+        font-size: 11px;
+        padding: .75em 1.185em;
+    }
+}

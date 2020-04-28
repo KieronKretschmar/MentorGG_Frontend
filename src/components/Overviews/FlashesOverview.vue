@@ -4,52 +4,54 @@
       <AjaxLoader>Computing summaries for each map</AjaxLoader>
     </div>
     <div v-if="mapSummaries != null" class="performances">
-      <div
-        v-for="(mapSummary,map) in mapSummaries"
-        :key="map"
-        class="performance"
-        :class="{active: activeMap == map}"
-        @click="OnActiveMapUpdated(map)"
-      >
-        <img class="map-image" :src="$assetLoader.getMapPreview(map)" />
-        <p class="map-name">{{map}}</p>
+      <div class="performance-inline">
+        <div
+          v-for="(mapSummary,map) in mapSummaries"
+          :key="map"
+          class="performance"
+          :class="{active: activeMap == map}"
+          @click="OnActiveMapUpdated(map)"
+        >
+          <img class="map-image" :src="$assetLoader.getMapPreview(map)" />
+          <p class="map-name">{{map}}</p>
 
-        <div class="z-layer-lo">
-          <span class="split-title">UNUSED</span>
-          <div class="split">
-            <div class="ct">
-              <img src="@/assets/ct_logo.png" />
-              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
-            </div>
-            <div class="t">
-              <img src="@/assets/t_logo.png" />
-              <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="z-layer-hi">
-          <span class="split-title">ASSISTS</span>
-          <div class="split">
-            <div class="ct">
-              <img src="@/assets/ct_logo.png" />
-              <span>{{(mapSummary.KillAssistChanceAsCt* 100).toFixed(0) }}%</span>
-            </div>
-            <div class="t">
-              <img src="@/assets/t_logo.png" />
-              <span>{{(mapSummary.KillAssistChanceAsTerrorist* 100).toFixed(0) }}%</span>
+          <div class="z-layer-lo">
+            <span class="split-title">UNUSED</span>
+            <div class="split">
+              <div class="ct">
+                <img src="@/assets/ct_logo.png" />
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsCt)* 100).toFixed(0) }}%</span>
+              </div>
+              <div class="t">
+                <img src="@/assets/t_logo.png" />
+                <span>{{(Math.max(0,1-mapSummary.UsageRatioAsTerrorist)* 100).toFixed(0) }}%</span>
+              </div>
             </div>
           </div>
 
-          <span class="split-title">AVG BLIND DURATION</span>
-          <div class="split">
-            <div class="ct">
-              <img src="@/assets/ct_logo.png" />
-              <span>{{(mapSummary.AverageEnemiesTimeFlashedAsCt / 1000).toFixed(2)}}s</span>
+          <div class="z-layer-hi">
+            <span class="split-title">ASSISTS</span>
+            <div class="split">
+              <div class="ct">
+                <img src="@/assets/ct_logo.png" />
+                <span>{{(mapSummary.KillAssistChanceAsCt* 100).toFixed(0) }}%</span>
+              </div>
+              <div class="t">
+                <img src="@/assets/t_logo.png" />
+                <span>{{(mapSummary.KillAssistChanceAsTerrorist* 100).toFixed(0) }}%</span>
+              </div>
             </div>
-            <div class="t">
-              <img src="@/assets/t_logo.png" />
-              <span>{{(mapSummary.AverageEnemiesTimeFlashedAsTerrorist / 1000).toFixed(2)}}s</span>
+
+            <span class="split-title">AVG BLIND DURATION</span>
+            <div class="split">
+              <div class="ct">
+                <img src="@/assets/ct_logo.png" />
+                <span>{{(mapSummary.AverageEnemiesTimeFlashedAsCt / 1000).toFixed(2)}}s</span>
+              </div>
+              <div class="t">
+                <img src="@/assets/t_logo.png" />
+                <span>{{(mapSummary.AverageEnemiesTimeFlashedAsTerrorist / 1000).toFixed(2)}}s</span>
+              </div>
             </div>
           </div>
         </div>
