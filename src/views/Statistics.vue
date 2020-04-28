@@ -7,17 +7,10 @@
           <button class="button-variant-bordered" :class="{active: referenceUnit=='global'}" @click="referenceUnit='global'">Total</button>
           <button class="button-variant-bordered" :class="{active: referenceUnit=='match'}" @click="referenceUnit='match'">Per Match</button>
         </div>
-        <div v-if="!playerStats && !loadingComplete" class="">
+        <div v-if="!loadingComplete" class="">
           <AjaxLoader>Computing statistics</AjaxLoader>
         </div>
-        <div v-if="!playerStats && loadingComplete" class="">
-          <DemoDataLoadRequest 
-          @buttonClicked="LoadPlayerStats(true)">
-            Sorry man, no stats found for you. 
-            <br>Wanna load someone else's until you finally figure out how to upload your own matches?
-            </DemoDataLoadRequest>
-        </div>
-        <div v-if="playerStats" class="statistics-container" v-masonry>
+        <div v-else class="statistics-container" v-masonry>
           <div v-for="section in sections" :key="section.name" class="statistic" v-masonry-tile>
             <p class="title">{{ section.name }}</p>
             <ul class="statistic-entries">

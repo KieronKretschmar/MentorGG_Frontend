@@ -2,16 +2,10 @@
   <div class="view view-radarimage-feature view-kills">
     <div class="fixed-width-container">
       <KillsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
-      <div v-if="!samples.length && !loadingSamplesComplete" class="bordered-box no-data">
+      <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Kills</AjaxLoader>
       </div>
-      <div v-if="!samples.length && loadingSamplesComplete" class="bordered-box no-data">
-        <DemoDataLoadRequest @buttonClicked="LoadSamples(activeMap, matchCount, true)">
-          Either you don't have any matches on this map, or you are afk the entire round without killing or dying at all.
-          <br />Wanna load someone else's kills?
-        </DemoDataLoadRequest>
-      </div>
-      <div v-if="samples.length" class="interactive-area">
+      <div v-else class="interactive-area">
         <div class="l bordered-box">
           <div class="tool-menu">
             <button
@@ -53,7 +47,6 @@
           </div>
           <div>
             <RadarImage
-              v-if="samples.length"
               :map="activeMap"
               :showTrajectories="showTrajectories"
               :showCt="showCt"
