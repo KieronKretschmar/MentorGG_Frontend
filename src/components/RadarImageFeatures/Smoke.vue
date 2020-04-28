@@ -2,9 +2,9 @@
   <g
     class="smoke"
     :class="[
-    { 'not-rated': grenadeData.Result == 0 || grenadeData.Result == 4}, 
-    { 'target-missed': grenadeData.Result == 1}, 
-    { 'target-hit': grenadeData.Result == 2}, 
+    { 'not-rated': grenadeData.Result == Enums.LineupAttemptResult.Default || grenadeData.Result == Enums.LineupAttemptResult.NoTarget}, 
+    { 'target-missed': grenadeData.Result == Enums.LineupAttemptResult.Miss}, 
+    { 'target-hit': grenadeData.Result == Enums.LineupAttemptResult.Inside}, 
     grenadeData.UserIsCt ? 'ct' : 'terrorist' ]"
     :id="grenadeData.Id"
     @click="SetSelectedSample(grenadeData.Id)"
@@ -33,9 +33,15 @@
 
 <script>
 import FeatureBase from "@/components/RadarImageFeatures/FeatureBase.vue";
+import Enums from "@/enums";
 
 export default {
   extends: FeatureBase,
+  data() { 
+    return {
+      Enums,
+    }
+  },
   props: [
     "grenadeData",
     "scaleFactor",
