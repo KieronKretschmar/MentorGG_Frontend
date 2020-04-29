@@ -79,4 +79,35 @@ $t-glow: #a89966;
     }
   }
 }
+
+@media (max-width: 500px) {
+  $iconSize: 20;
+  $width: 40px;
+
+  .switch-wrap {
+
+  width: $width;
+  height: $height;
+
+ 
+  .right {
+    transform: translateX($width - $iconSize - 4px);
+
+    img {
+      filter: drop-shadow(0px 0px 5px $ct-glow);
+    }
+  }
+
+  .left {
+    img {
+      filter: drop-shadow(0px 0px 5px $t-glow);
+    }
+  }
+
+  .switch {
+    height: unquote($iconSize + "px");
+    width: unquote($iconSize + "px");
+  }
+}
+}
 </style>
