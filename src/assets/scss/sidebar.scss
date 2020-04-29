@@ -13,7 +13,11 @@
             align-items: center;
             margin-bottom: 5px;
             font-size: 14px;
-
+            
+            .legend-description {
+                min-width: 0;
+                white-space: normal;
+            }
 
             .legend-depiction {
                 padding-right: 20px;
