@@ -2,7 +2,6 @@
   <div class="view view-radarimage-feature view-smokes">
     <div class="fixed-width-container">
       <SmokesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
-
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Smokes</AjaxLoader>
       </div>
@@ -22,11 +21,7 @@
               :disabled="!lineupsEnabled"
             >Lineups</button>
 
-            <TeamToggle
-              :isCt="showCt"
-              @toggled="SetShowCt"
-            />
-            
+            <TeamToggle :isCt="showCt" @toggled="SetShowCt" />
           </div>
           <div>
             <RadarImage
@@ -238,7 +233,6 @@
 
               <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
-
                 <div class="stat-row">
                   <div class="stat-description">Side</div>
                   <div class="stat-content">
@@ -273,7 +267,10 @@
                   <img :src="lineupImages[0].src" @click="OpenLightbox" />
                 </div>
               </div>
-              <div class="setpos-wrapper" v-if="selectedLineup && selectedLineup.SetposCommand != ''">
+              <div
+                class="setpos-wrapper"
+                v-if="selectedLineup && selectedLineup.SetposCommand != ''"
+              >
                 <input id="setpos-text" type="text" :value="selectedLineup.SetposCommand" readonly />
                 <button
                   id="setpos-copy"
@@ -290,9 +287,10 @@
             <div
               v-if="selectedSample"
               class="watch-button button-variant-bordered"
-              @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)">
-                <div class="stat-description">Watch</div>
-                <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
+              @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)"
+            >
+              <div class="stat-description">Watch</div>
+              <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
             </div>
           </div>
         </div>

@@ -21,7 +21,6 @@
               :disabled="!zonesEnabled"
             >Zones</button>
 
-            
             <button
               v-if="activeFilterSettings.PlantStatus == 0"
               class="button-variant-bordered"
@@ -37,13 +36,8 @@
               class="button-variant-bordered active"
               @click="SetPlantStatus(0)"
             >After Plant</button>
-            
 
-            <TeamToggle
-              :isCt="showCt"
-              @toggled="SetShowCt"
-            />
-
+            <TeamToggle :isCt="showCt" @toggled="SetShowCt" />
           </div>
           <div>
             <RadarImage
@@ -65,86 +59,17 @@
         </div>
         <div class="r bordered-box">
           <div class="sidebar">
-            <div class="legend-tab">
-              <div class="details-legend-section">
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <div class="legend-circle green"></div>
-                    <!-- <svg height="50" width="50">
-                      <Kill
-                        :killData="{
-                          'Id':'Kill-1-1',
-                          'MatchId':1,
-                          'KillId':1,
-                          'Round':1,
-                          'UserIsCt':showCt,
-                          'PlayerPosX':5,
-                          'PlayerPosY':22,
-                          'VictimPosX':33,
-                          'VictimPosY':27,
-                          'UserWinner':true,
-                          'PlayerZoneId':0,
-                          'VictimZoneId':0,
-                          'FilterSettings':{'PlantStatus':0}}"
-                        :scaleFactor="1"
-                        :showTrajectories="showTrajectories"
-                        :SetSelectedSample="function(){}"
-                        :isSelected="false"
-                      />
-                    </svg>-->
-                  </div>
-                  <div class="legend-description">
-                    <!-- Green markers represent your kills. -->
-                    Your position when you killed an enemy.
-                    <!-- The enemy's position is at the other end of the line.  -->
-                  </div>
-                </div>
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <div class="legend-circle red"></div>
-                  </div>
-                  <div class="legend-description">Your position when you died.</div>
-                </div>
-              </div>
-              <div class="zone-legend-section">
-                <div class="legend-row">
-                  <div class="legend-depiction">
-                    <svg height="50" width="50">
-                      <Zone
-                        :SetSelectedZone="function(){}"
-                        :fillColor="'rgba(255, 255, 255, 0.15)'"
-                        :isSelected="false"
-                        :zoneData="{
-                          'ZoneId':1,
-                          'Name':'Legend_Zone',
-                          'CenterXPixel':15,
-                          'CenterYPixel':15,
-                          'GeometryPixel': [{'X':10,'Y':10},{'X':50,'Y':10},{'X':50,'Y':50},{'X':30,'Y':50},{'X':30,'Y':30},{'X':10,'Y':30},{'X':10,'Y':10}],
-                          'ParentZoneId':230000,
-                          'Depth':1,
-                          }"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="legend-description"
-                  >A zone's color corresponds to your K/D ratio inside it.</div>
-                </div>
-              </div>
-            </div>
             <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
                 <h4>About this {{selectedSample.UserWinner ? "Kill" : "Death"}}</h4>
-
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
               </div>
 
-              <div v-if="!selectedSample" class="selection">   
+              <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
-
                 <div class="stat-row">
                   <div class="stat-description">Side</div>
                   <div class="stat-content">
@@ -169,12 +94,11 @@
                     : "After Plant")
                     }}
                   </div>
-                </div>                
+                </div>
               </div>
 
               <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
-
                 <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">K/D ratio</div>
                   <div
@@ -215,28 +139,98 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div v-if="selectedZone" class="practice-tab">
-              <div v-if="selectedZone.VideoUrl != ''">
-                <p>Advice for this position:</p>
-                <VideoOverlay
-                  v-if="selectedZone && selectedZone.VideoUrl != ''"
-                  :url="selectedZone.VideoUrl"
-                  useThumbnail
-                  style="width: 100%; height: 100%;"
-                ></VideoOverlay>
+
+              <div v-if="selectedZone" class="practice-tab">
+                <div v-if="selectedZone.VideoUrl != ''">
+                  <p>Advice for this position:</p>
+                  <VideoOverlay
+                    v-if="selectedZone && selectedZone.VideoUrl != ''"
+                    :url="selectedZone.VideoUrl"
+                    useThumbnail
+                    style="width: 100%; height: 100%;"
+                  ></VideoOverlay>
+                </div>
+                <div v-else>Advice for this Zone is not yet available.</div>
               </div>
-              <div v-else>Advice for this Zone is not yet available.</div>
-            </div>
-            
-            <div
-              v-if="selectedSample"
-              class="watch-button button-variant-bordered"
-              @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)">
+
+              <div
+                v-if="selectedSample"
+                class="watch-button button-variant-bordered"
+                @click="Watch(selectedSample.MatchId, selectedSample.Round, selectedSample.Time - watchTimePrepend)"
+              >
                 <div class="stat-description">Watch</div>
                 <i class="material-icons watch-match-icon" title="Watch in Browser">videocam</i>
-            </div>
+              </div>
 
+              <div class="legend-tab">
+                <h4>Legend</h4>
+                <div class="details-legend-section">
+                  <div class="legend-row">
+                    <div class="legend-depiction">
+                      <div class="legend-circle green"></div>
+                      <!-- <svg height="50" width="50">
+                      <Kill
+                        :killData="{
+                          'Id':'Kill-1-1',
+                          'MatchId':1,
+                          'KillId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'PlayerPosX':5,
+                          'PlayerPosY':22,
+                          'VictimPosX':33,
+                          'VictimPosY':27,
+                          'UserWinner':true,
+                          'PlayerZoneId':0,
+                          'VictimZoneId':0,
+                          'FilterSettings':{'PlantStatus':0}}"
+                        :scaleFactor="1"
+                        :showTrajectories="showTrajectories"
+                        :SetSelectedSample="function(){}"
+                        :isSelected="false"
+                      />
+                      </svg>-->
+                    </div>
+                    <div class="legend-description">
+                      <!-- Green markers represent your kills. -->
+                      Your position when you killed an enemy.
+                      <!-- The enemy's position is at the other end of the line.  -->
+                    </div>
+                  </div>
+                  <div class="legend-row">
+                    <div class="legend-depiction">
+                      <div class="legend-circle red"></div>
+                    </div>
+                    <div class="legend-description">Your position when you died.</div>
+                  </div>
+                </div>
+                <div class="zone-legend-section">
+                  <div class="legend-row">
+                    <div class="legend-depiction">
+                      <svg height="50" width="50">
+                        <Zone
+                          :SetSelectedZone="function(){}"
+                          :fillColor="'rgba(255, 255, 255, 0.15)'"
+                          :isSelected="false"
+                          :zoneData="{
+                          'ZoneId':1,
+                          'Name':'Legend_Zone',
+                          'CenterXPixel':15,
+                          'CenterYPixel':15,
+                          'GeometryPixel': [{'X':10,'Y':10},{'X':50,'Y':10},{'X':50,'Y':50},{'X':30,'Y':50},{'X':30,'Y':30},{'X':10,'Y':30},{'X':10,'Y':10}],
+                          'ParentZoneId':230000,
+                          'Depth':1,
+                          }"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="legend-description"
+                    >A zone's color corresponds to your K/D ratio inside it.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -256,7 +250,7 @@ export default {
   components: {
     Kill,
     KillsOverview,
-    TeamToggle,
+    TeamToggle
   },
   mounted() {
     this.init();
@@ -303,7 +297,7 @@ export default {
     SetPlantStatus(status) {
       this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$helpers.LogEvent(this, "PlantStatus", { label: status });
-  
+
         this.activeFilterSettings.PlantStatus = status;
       });
     }

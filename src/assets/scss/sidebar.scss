@@ -3,7 +3,7 @@
     flex-direction: column;
 
     color: white;
-    padding-top: 10px;
+    padding-top: 0;
     height: 100%;
 
     .legend-tab {
@@ -13,7 +13,11 @@
             align-items: center;
             margin-bottom: 5px;
             font-size: 14px;
-
+            
+            .legend-description {
+                min-width: 0;
+                white-space: normal;
+            }
 
             .legend-depiction {
                 padding-right: 20px;
@@ -94,7 +98,7 @@
 
 .practice-tab {
     margin: 10px 0;
-    border-top: 1px solid $purple;
+    //border-top: 1px solid $purple;
 }
 
 #analysis-tab {
