@@ -2,7 +2,6 @@
   <div class="view view-radarimage-feature">
     <div class="fixed-width-container">
       <FlashesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
-
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Flashes</AjaxLoader>
       </div>
@@ -47,7 +46,6 @@
             <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
                 <h4>About this Flash</h4>
-
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
@@ -77,7 +75,6 @@
 
               <div v-if="!selectedSample" class="selection">
                 <h4>Selection</h4>
-
                 <div class="stat-row">
                   <div class="stat-description">Side</div>
                   <div class="stat-content">
@@ -96,7 +93,6 @@
 
               <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
-
                 <div v-if="userSelectedZonePerformance" class="stat-row">
                   <div class="stat-description">Flashes thrown</div>
                   <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
@@ -135,7 +131,6 @@
 
               <div class="legend-tab">
                 <h4>Legend</h4>
-                
                 <div class="details-legend-section">
                   <div class="legend-row">
                     <div class="legend-depiction">
