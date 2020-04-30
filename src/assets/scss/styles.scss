@@ -200,9 +200,9 @@ div .dashboard-unit{
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .button-variant-bordered {
         font-size: 11px;
-        padding: .75em 1.185em;
+        padding: .75em .75em;
     }
 }
