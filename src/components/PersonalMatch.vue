@@ -2,13 +2,13 @@
   <div class="bordered-box match" :class="{failed: failed}" v-if="match">
     <div v-if="isAboveLimit" class="limit-display">
       <p>        
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period, 
+        {{ match.MatchDate|formatDateAndTime }} - {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period, 
         starting at {{this.$api.MatchSelector.dailyLimitEnds | formatTime}}
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
     <div v-if="failed" class="failed-display">
-      <p class="two">
+      <p>
         <span
           class="grey-text"
         >{{ match.MatchDate|formatDateAndTime }} - Analysis failed or demo too old.</span>
@@ -241,6 +241,7 @@ export default {
   }
 
   .failed-display {
+    text-align: left;
     color: white;
     font-weight: 500 !important;
   }
