@@ -114,7 +114,7 @@
             Cancelled. Expires at {{activeSubscription.ExpirationTime}}.
           </button>
           <!-- Upgrade Option if the user has a premium subscription -->
-          <button v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Premium) && this.availableSubscriptions.some(x=> x.SubscriptionType == Enums.SubscriptionStatus.Ultimate)"
+          <button v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Premium) && this.allSubscriptions.some(x=> x.SubscriptionType == Enums.SubscriptionStatus.Ultimate)"
             class="button"
             @click="OpenUpgradeOverlay()">
             Upgrade
@@ -289,7 +289,7 @@ export default {
   data() {
     return {
       Enums,
-      availableSubscriptions: [],
+      allSubscriptions: [],
       activeSubscription: [],
       selectedSubscription: null,
       loadingComplete: false,
@@ -338,12 +338,12 @@ export default {
     LoadData(){
       this.$api.getSubscriptions().then( response => {
         this.activeSubscription = response.data.ActiveSubscription;
-        this.availableSubscriptions = response.data.AvailableSubscriptions;
+        this.allSubscriptions = response.data.AvailableSubscriptions;
         this.loadingComplete = true;
       })
     },
     getSubscription(subscriptionStatus){
-      return this.availableSubscriptions.find(x=>x.subscriptionStatus == subscriptionStatus);
+      return this.allSubscriptions.find(x=>x.subscriptionStatus == subscriptionStatus);
     },
     openCheckout(offerIndex) {
       let offer = this.selectedSubscriptionData.Plans[offerIndex];
@@ -362,22 +362,22 @@ export default {
   },
   computed: {
     selectedSubscriptionData() {
-      if(!this.availableSubscriptions){
+      if(!this.allSubscriptions){
         return null;
       }
-      return this.availableSubscriptions.find(x=>x.SubscriptionType == this.selectedSubscription);
+      return this.allSubscriptions.find(x=>x.SubscriptionType == this.selectedSubscription);
     },
     premiumSubscription() {
-      if(!this.availableSubscriptions){
+      if(!this.allSubscriptions){
         return null;
       }
-      return this.availableSubscriptions.find(x=>x.SubscriptionType == this.Enums.SubscriptionStatus.Premium);
+      return this.allSubscriptions.find(x=>x.SubscriptionType == this.Enums.SubscriptionStatus.Premium);
     },
     ultimateSubscription() {
-      if(!this.availableSubscriptions){
+      if(!this.allSubscriptions){
         return null;
       }
-      return this.availableSubscriptions.find(x=>x.SubscriptionType == this.Enums.SubscriptionStatus.Ultimate);
+      return this.allSubscriptions.find(x=>x.SubscriptionType == this.Enums.SubscriptionStatus.Ultimate);
     },
   }
 };
