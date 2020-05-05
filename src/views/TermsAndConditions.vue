@@ -116,8 +116,8 @@
         </p>
         <h2>Right of withdrawal</h2>
         <p>
-          You have the right to withdraw from this contract within 14 days without
-          giving any reason. The withdrawal period will expire after 14 days after
+          You have the right to withdraw from this contract within 30 days without
+          giving any reason. The withdrawal period will expire after 30 days after
           conclusion of the contract.
         </p>
         <p>
