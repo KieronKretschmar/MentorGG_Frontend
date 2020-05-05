@@ -6,8 +6,9 @@
     </div>
     
     <span>
-      <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">        
-        <p>No data available</p>
+      <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">
+        <p>No Misplays found!</p>
+        <p class="sub">Don't get too confident. We're adding more analysis soon, Then we'll really see where you're messing up.</p>
       </div>
       
       <div        
@@ -101,9 +102,19 @@ export default {
   }
 
   .no-misplays {
+    padding: 20px;
 
     p {
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      margin: 0;
+    }
+
+    .sub {
       font-weight: 400;
+      font-size: 0.8em;
+
     }
   }
 
