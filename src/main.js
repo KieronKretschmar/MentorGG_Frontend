@@ -7,7 +7,6 @@ import assetLoader from './assetLoader';
 import coordinateConverter from './coordinateconverter';
 import performanceColors from './performancecolors';
 import AjaxLoader from './components/AjaxLoader.vue';
-import DemoDataLoadRequest from './components/DemoDataLoadRequest.vue';
 import NoDataAvailableDisplay from './components/NoDataAvailableDisplay.vue';
 import { VueMasonryPlugin } from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
@@ -32,7 +31,6 @@ Vue.prototype.$performanceColors = performanceColors;
 Vue.prototype.$inputBlock = {visible: true};
 
 Vue.component('AjaxLoader', AjaxLoader);
-Vue.component('DemoDataLoadRequest', DemoDataLoadRequest);
 Vue.component('NoDataAvailableDisplay', NoDataAvailableDisplay);
 
 Vue.filter('formatDate', function (val) {
