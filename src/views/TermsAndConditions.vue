@@ -141,7 +141,7 @@
           received from you, including the costs of delivery (with the exception of
           the supplementary costs resulting from your choice of a type of delivery
           other than the least expensive type of standard delivery offered by us),
-          without undue delay and in any event not later than 14 days from the day on
+          without undue delay and in any event not later than 30 days from the day on
           which we are informed about your decision to withdraw from this contract.
           We will carry out such reimbursement using the same means of payment as you
           used for the initial transaction, unless you have expressly agreed
