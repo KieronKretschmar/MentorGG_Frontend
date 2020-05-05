@@ -642,4 +642,8 @@ export default {
     }
   }
 }
+
+@media (max-width: 960px) {
+
+}
 </style>
