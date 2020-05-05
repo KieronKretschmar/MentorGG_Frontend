@@ -644,6 +644,240 @@ export default {
 }
 
 @media (max-width: 960px) {
+  .view-subscription {
+  margin: 20px 20px 60px 20px;
 
+  .scroll-to-features {
+    cursor: pointer;
+  }
+
+  .bordered-box {
+    background: $dark-1;
+    border: 1px solid $purple;
+    padding: 10px 25px;
+    border-radius: 4px;
+    min-width: 300px;
+    width: calc(33% - 5px);
+  }
+
+  .offer {
+    background: $dark-1;
+    flex-grow: 1;
+    margin: 5px;
+    padding: 0;
+    text-align: center;
+    max-width: 350px;
+
+    &.subscribed{
+      border: 1px solid $orange;
+      // TODO: style the offer in case of subscription
+      .subheadline{
+        background: $dark-2;
+      }
+    }
+  }
+
+  .confirm-cancellation{
+    height: 140px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .content {
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content-two {
+    height: 30px;
+    margin: 0 0 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content-three {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .wrapper-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .no-offers{
+      flex-grow: 1;
+      margin: 5px;
+      max-width: 1070px;
+    }
+  }
+
+  .wrapper-middle {
+    display: flex;
+    justify-content: center;
+  }
+
+  .wrapper-bottom {
+    display: flex;
+    justify-content: center;
+
+    border: 1px solid yellowgreen; //
+  }
+
+  p {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .subheadline {
+    display: flex;
+    background-color: $dark-3;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    border-radius: 4px 4px 0 0;
+
+    p {
+      align-self: center;
+      color: $orange;
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin: 0 auto;
+    }
+  }
+
+  p span {
+    display: inline-block;
+  }
+
+  .large {
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 3px 0;
+  }
+
+  .small {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding-top: 15px;
+  }
+
+  .strong {
+    font-weight: 500;
+    text-decoration: underline;
+    margin: 0;
+  }
+
+  .material-icons {
+    line-height: 0.8;
+  }
+
+  .check {
+    height: 18px;
+    color: $orange;
+  }
+
+  .button {
+    min-width: 160px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.65em 1.785em 0.65em 1.785em;
+    background-color: $green-2;
+    border: 1px solid $green;
+    line-height: 1;
+    cursor: pointer;
+    outline: 0;
+    
+    &.button-cancel{
+      background: #666;
+      border: 1px solid #999;
+    }
+  }
+
+  .offer-table {
+    background: $dark-1;
+    flex-grow: 1;
+    margin: 5px;
+    padding: 0;
+    text-align: center;
+    max-width: 1070px;
+    font-size: 14px;
+
+    border: 1px solid yellow; //
+
+    overflow-y: hidden; //
+  }
+
+  .table-header {
+    color: $orange;
+    background-color: $dark-3;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    padding: 12px 32px 12px 32px;
+    margin: 0;
+    border-radius: 4px 4px 0 0;
+
+    span {
+      &:nth-child(1) {
+        min-width: 250px; //
+        color: #fff;
+      }
+      &:nth-child(2) {
+        min-width: 250px; //
+      }
+      &:nth-child(3) {
+        min-width: 250px; //
+      }
+      &:nth-child(4) {
+        min-width: 250px; //
+      }
+    }
+  }
+
+  .table-content {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    border-bottom: 1px solid $purple;
+    padding: 12px;
+    margin: 0 20px 0 20px;
+
+    min-width: 990px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    span {
+      &:nth-child(1) {
+        min-width: 250px; //
+      }
+
+      &:nth-child(2) {
+        min-width: 250px; //
+      }
+
+      &:nth-child(3) {
+        min-width: 250px; //
+      }
+
+      &:nth-child(4) {
+        min-width: 250px; //
+      }
+    }
+  }
+}
 }
 </style>
