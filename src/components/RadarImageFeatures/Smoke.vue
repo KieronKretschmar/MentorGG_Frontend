@@ -10,7 +10,7 @@
     @click="SetSelectedSample(grenadeData.Id)"
   >
     <circle
-      v-if="showTrajectories"
+      v-if="isSelected || showTrajectories"
       class="attacker-circle is-user"
       :cx="releasePosPixel.X"
       :cy="releasePosPixel.Y"
