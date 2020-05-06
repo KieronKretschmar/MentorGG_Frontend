@@ -106,7 +106,11 @@ export default {
   methods: {
     Init() {
       this.LoadAppendMatches(5);
-      this.LoadFailedMatches();
+      
+      // load failed matches only if the user is on his own profile
+      if(this.$api.User.GetSteamId() == this.steamId){
+        this.LoadFailedMatches();
+      }
     },
     IsAboveLimit: function(match) {
       return match.MatchId < 0;
