@@ -1,13 +1,14 @@
 <template>
   <div class="bordered-box match" :class="{failed: failed}" v-if="match">
-      <div v-if="isAboveLimit" class="limit-display">
-      <p>        
-        <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span> {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period, 
+    <div v-if="isAboveLimit" class="limit-display">
+      <p>
+        <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period,
         starting at {{this.$api.MatchSelector.dailyLimitEnds | formatTime}}
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
-    <div v-if="failed" class="match-header failed-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
+    <div v-if="failed" class="match-header failed-header">
       <p>
         <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span> Analysis failed or demo too old
       </p>
@@ -196,7 +197,10 @@ export default {
   computed: {
     sourceClassName() {
       return (
-        "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase().replace(" ", "")
+        "source-" +
+        this.Enums.Source.ToString(this.match.Source)
+          .toLowerCase()
+          .replace(" ", "")
       );
     },
     UserData() {
