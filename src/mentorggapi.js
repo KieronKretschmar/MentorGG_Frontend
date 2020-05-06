@@ -323,6 +323,10 @@ class MentorGGAPI {
         return axios.post(this.uploadEndpoint, formData, config);
     }
 
+    getDownloadUrl(matchId) {
+        return axios.get(`${this.apiBaseAddress}/v1/match/${matchId}/download-url`);
+    }
+
     updateValveConnection(authCode, shareCode) {
         let formattedParams = {
             steamAuthToken: authCode,
