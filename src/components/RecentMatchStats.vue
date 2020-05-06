@@ -73,7 +73,7 @@ export default {
   mounted() {
     this.LoadData();
 
-    for (let i = 1; i < 19; i++) {
+    for (let i = 0; i < 19; i++) {
       let image = new Image();
       image.src = this.$assetLoader.getRankIcon(i);
       this.rankImages.push(image);
