@@ -1,17 +1,16 @@
 <template>
   <div class="bordered-box match" :class="{failed: failed}" v-if="match">
     <div v-if="isAboveLimit" class="limit-display">
-      <p>        
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period, 
+      <p>
+        <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period,
         starting at {{this.$api.MatchSelector.dailyLimitEnds | formatTime}}
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
-    <div v-if="failed" class="failed-display">
-      <p class="two">
-        <span
-          class="grey-text"
-        >{{ match.MatchDate|formatDateAndTime }} - Analysis failed or demo too old.</span>
+    <div v-if="failed" class="match-header failed-header">
+      <p>
+        <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span> Analysis failed or demo too old
       </p>
     </div>
     <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
@@ -198,7 +197,10 @@ export default {
   computed: {
     sourceClassName() {
       return (
-        "source-" + this.Enums.Source.ToString(this.match.Source).toLowerCase().replace(" ", "")
+        "source-" +
+        this.Enums.Source.ToString(this.match.Source)
+          .toLowerCase()
+          .replace(" ", "")
       );
     },
     UserData() {
@@ -216,8 +218,8 @@ export default {
   &.failed {
     background: $dark-1;
     border: 1px solid $purple;
-    padding: 0 25px;
-    text-align: center;
+    padding: 0 20px;
+    text-align: left;
   }
 
   .limit-display {
@@ -231,18 +233,19 @@ export default {
     z-index: 500;
     display: flex;
     align-items: center;
+    text-align: left;
     padding: 20px;
-    justify-content: space-between;
     border-radius: 3px;
 
     p {
       font-weight: 400;
+      padding-right: 20px;
     }
   }
 
-  .failed-display {
-    color: white;
-    font-weight: 500 !important;
+  .match-date {
+    display: inline-block;
+    width: 125px;
   }
 
   .match-header {
@@ -250,6 +253,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
+    color: #fff;
+
+    &.failed-header {
+      padding: 0;
+    }
 
     &.above-limit {
       filter: blur(4px);
