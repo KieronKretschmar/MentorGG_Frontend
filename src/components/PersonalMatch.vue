@@ -236,6 +236,7 @@ export default {
     text-align: left;
     padding: 20px;
     border-radius: 3px;
+    white-space: normal;
 
     p {
       font-weight: 400;
@@ -578,6 +579,23 @@ export default {
   .match-history {
     .match-list {
       .match {
+        .limit-display {
+          text-align: center;
+          padding: 0 0 20px 0;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          p {
+            font-size: 12px;
+            padding: 0 20px;
+          }
+
+          .match-date {
+            width: auto;
+            font-weight: 500;
+          }
+        }
+
         .match-header {
           flex-direction: column;
 
@@ -598,6 +616,17 @@ export default {
                 font-size: 12px;
               }
             }
+          }
+        }
+
+        .failed-header {
+          p {
+            font-size: 11px;
+          }
+
+          .match-date {
+            width: auto;
+            font-weight: 500;
           }
         }
 
