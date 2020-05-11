@@ -138,8 +138,8 @@
           <span>ULTIMATE</span>
         </div>
         <div class="table-content">
-          <span>Matches limit</span>
-          <span>3 matches played within 24h</span>
+          <span>Analyze matches</span>
+          <span>First 3 played every 24h period</span>
           <span>Unlimited</span>
           <span>Unlimited</span>
         </div>
