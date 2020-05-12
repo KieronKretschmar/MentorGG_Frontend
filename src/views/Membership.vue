@@ -455,6 +455,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
   }
 
   .wrapper-top {
@@ -560,11 +561,6 @@ export default {
       background-color: transparent;
       border: 1px solid $dark-4;
       cursor: not-allowed;
-    }
-    
-    &.button-cancel{
-      background: #666;
-      border: 1px solid #999;
     }
   }
 
@@ -727,8 +723,6 @@ export default {
   .wrapper-bottom {
     display: flex;
     justify-content: center;
-
-    border: 1px solid yellowgreen; //
   }
 
   p {
@@ -787,7 +781,7 @@ export default {
 
   .button {
     min-width: 160px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #fff;
     border-radius: 10px;
@@ -798,9 +792,11 @@ export default {
     cursor: pointer;
     outline: 0;
     
-    &.button-cancel{
-      background: #666;
-      border: 1px solid #999;
+    &-disabled {
+      color: $dark-4;
+      background-color: transparent;
+      border: 1px solid $dark-4;
+      cursor: not-allowed;
     }
   }
 
@@ -812,10 +808,7 @@ export default {
     text-align: center;
     max-width: 1070px;
     font-size: 14px;
-
-    border: 1px solid yellow; //
-
-    overflow-y: hidden; //
+    white-space: pre-wrap;
   }
 
   .table-header {
@@ -827,20 +820,21 @@ export default {
     padding: 12px 32px 12px 32px;
     margin: 0;
     border-radius: 4px 4px 0 0;
+    width: 1030px;
 
     span {
       &:nth-child(1) {
-        min-width: 250px; //
+        min-width: 250px;
         color: #fff;
       }
       &:nth-child(2) {
-        min-width: 250px; //
+        min-width: 250px;
       }
       &:nth-child(3) {
-        min-width: 250px; //
+        min-width: 250px;
       }
       &:nth-child(4) {
-        min-width: 250px; //
+        min-width: 250px;
       }
     }
   }
@@ -853,8 +847,7 @@ export default {
     border-bottom: 1px solid $purple;
     padding: 12px;
     margin: 0 20px 0 20px;
-
-    min-width: 990px;
+    min-width: 990px; //
 
     &:last-child {
       border-bottom: none;
@@ -862,19 +855,19 @@ export default {
 
     span {
       &:nth-child(1) {
-        min-width: 250px; //
+        min-width: 250px;
       }
 
       &:nth-child(2) {
-        min-width: 250px; //
+        min-width: 250px;
       }
 
       &:nth-child(3) {
-        min-width: 250px; //
+        min-width: 250px;
       }
 
       &:nth-child(4) {
-        min-width: 250px; //
+        min-width: 250px;
       }
     }
   }
