@@ -724,6 +724,8 @@ export default {
   .wrapper-bottom {
     display: flex;
     justify-content: center;
+    margin-top: -53px;
+    padding-top: 53px;
   }
 
   p {
@@ -731,7 +733,7 @@ export default {
     font-weight: 500;
   }
 
-  .subheadline {
+  .subheadline { 
     display: flex;
     background-color: $dark-3;
     padding: 10px;
@@ -848,7 +850,7 @@ export default {
     border-bottom: 1px solid $purple;
     padding: 12px;
     margin: 0 20px 0 20px;
-    min-width: 990px; //
+    min-width: 990px;
 
     &:last-child {
       border-bottom: none;
