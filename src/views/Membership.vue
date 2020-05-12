@@ -663,6 +663,12 @@ export default {
 
     .offer-table {
       white-space: pre-line;
+
+      &-two {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+      }
     }
 
     .table-header {
