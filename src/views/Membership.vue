@@ -672,6 +672,7 @@ export default {
     }
 
     .table-header {
+      width: 1030px;
       span {
         &:nth-child(1) {
           min-width: 250px;
