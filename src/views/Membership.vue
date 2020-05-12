@@ -561,6 +561,7 @@ export default {
       background-color: transparent;
       border: 1px solid $dark-4;
       cursor: not-allowed;
+      white-space: normal;
     }
   }
 
