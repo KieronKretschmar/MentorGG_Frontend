@@ -10,12 +10,12 @@
         <div class="subheadline">
           <p>FREE</p>
         </div>
-        <div class="content">
+        <div class="content free">
           <p>
-            <span class="large upper">$ 0.00</span>
+            <span class="large">$ 0.00</span>
           </p>
         </div>
-        <div class="content-two">
+        <div class="content-two free">
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
@@ -32,11 +32,11 @@
         </div>
         <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Premium)" class="content">
           <p>
-            <span>starting at</span>
-            <br />
+            <span class="small">starting at</span>
+            <br class="break" />
             <span class="large">$ {{premiumSubscription.StartingFromMonthly}}*</span>
-            <br />
-            <span>per month</span>
+            <br class="break" />
+            <span class="small">per month</span>
           </p>
         </div>
         <div v-else class="content">
@@ -46,7 +46,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong-two scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -78,11 +78,11 @@
         </div>
         <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Ultimate)" class="content">
           <p>
-            <span>starting at</span>
-            <br />
+            <span class="small">starting at</span>
+            <br class="break" />
             <span class="large">$ {{ultimateSubscription.StartingFromMonthly}}*</span>
-            <br />
-            <span>per month</span>
+            <br class="break" />
+            <span class="small">per month</span>
           </p>
         </div>
         <div v-else class="content">
@@ -92,7 +92,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong-two scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -402,7 +402,7 @@ export default {
 
 <style lang="scss">
 .view-subscription {
-  margin: 20px 20px 60px 20px;
+  margin: 5px 20px 60px 20px;
 
   .scroll-to-features {
     cursor: pointer;
@@ -518,12 +518,6 @@ export default {
     font-size: 2rem;
     font-weight: 500;
     padding: 3px 0;
-  }
-
-  .small {
-    font-size: 0.9rem;
-    font-weight: 400;
-    padding-top: 15px;
   }
 
   /*.high {
@@ -649,7 +643,53 @@ export default {
 
 @media (max-width: 960px) {
   .view-subscription {
-    .content {
+    .offer {
+      min-height: fit-content;
+
+      .content {
+        padding-top: 5px;
+        height: 60px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.free {
+          padding-top: 35px;
+        }
+      }
+
+      .content-two {
+        height: 25px;
+        margin: 5px 0 0 0;
+      }
+
+      .content-three {
+        height: 50px;
+        padding-bottom: 10px;
+      }
+
+      .large {
+        font-size: 1.5rem;
+        padding: 0 5px 0 8px;
+      }
+
+      .strong {
+        &-two {
+          text-decoration: underline;
+          padding-bottom: 18px;
+        }
+      }
+
+      .small {
+        font-size: 0.9rem;
+        font-weight: 400;
+        padding-top: 15px;
+      }
+
+      .break {
+        display: none;
+      }
     }
 
     .wrapper-bottom {
