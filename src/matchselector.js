@@ -1,7 +1,7 @@
 import Enums from './enums';
 
 export default class MatchSelector {
-    constructor(api, matchList, dailyLimitReached, dailyLimitEnds) {
+    constructor(api, matchList, inaccessibleMatches, dailyLimitReached, dailyLimitEnds) {
         this.$api = api;
 
         this.filters = {
@@ -12,6 +12,7 @@ export default class MatchSelector {
         };
 
         this.matchList = matchList;
+        this.inaccessibleMatches = inaccessibleMatches;
         this.dailyLimitReached = dailyLimitReached;
         this.dailyLimitEnds = dailyLimitEnds;
 
