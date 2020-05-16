@@ -4,8 +4,8 @@
       <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
-          <div class="val">{{recentMatchStats.GamesTotal}}</div>
-          <div class="txt">Matches</div>
+          <div class="val">{{`${accessibleMatches} / ${totalMatches}`}}</div>
+          <div class="txt">Matches accessible</div>
         </div>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
@@ -267,6 +267,12 @@ export default {
           }
         ]
       };
+    },
+    totalMatches() {
+      return this.$api.MatchSelector.matchList.length + this.$api.MatchSelector.inaccessibleMatches;
+    },
+    accessibleMatches() {
+      return this.$api.MatchSelector.matchList.length;
     }
   },
   methods: {
