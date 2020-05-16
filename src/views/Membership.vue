@@ -650,10 +650,6 @@ export default {
         padding-top: 5px;
         height: 60px;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         &.free {
           padding-top: 35px;
         }
