@@ -167,7 +167,7 @@ export default {
     TriggerDemoDownload(match) {      
       this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$api.getDownloadUrl(match.MatchId).then(result => {
-          window.open(result, "_blank");
+          window.open(result.data, "_blank");
         });
       });
     },
