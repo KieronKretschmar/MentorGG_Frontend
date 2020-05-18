@@ -46,7 +46,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong strong-two scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -92,7 +92,7 @@
           </p>
         </div>
         <div class="content-two">
-          <p class="strong strong-two scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
+          <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="content-three">
           <!-- Subscribe-Button if the user has no subscription -->
@@ -670,8 +670,14 @@ export default {
         padding: 0 5px 0 8px;
       }
 
-      .strong-two {
-          padding-bottom: 18px;
+      .strong {
+        padding-bottom: 18px;
+      }
+
+      .free {
+        .strong {
+          padding-bottom: 0;
+        }
       }
 
       .small {
