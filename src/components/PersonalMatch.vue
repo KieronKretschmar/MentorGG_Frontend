@@ -54,6 +54,12 @@
         >videocam</i>
 
         <i
+          class="material-icons download-demo-icon"
+          title="Download Demo"
+          @click="TriggerDemoDownload(match)"
+        >cloud_download</i>
+
+        <i
           class="fas fa-chevron-down"
           :class="{open: match.IsVisible}"
           @click="ToggleMatchVisibility()"
@@ -157,6 +163,13 @@ export default {
       this.$helpers.LogEvent(this, "DailyLimitUpgrade");
 
       this.$router.push({ name: "membership" });
+    },
+    TriggerDemoDownload(match) {      
+      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.getDownloadUrl(match.MatchId).then(result => {
+          window.open(result, "_blank");
+        });
+      });
     },
     GetUserData() {
       let allScoreboardEntries = this.match.Scoreboard.TeamInfos.CtStarter.Players.concat(
@@ -388,6 +401,7 @@ export default {
         color: $orange;
         cursor: pointer;
         transition: 0.35s;
+        font-size: 20px;
 
         &:hover {
           color: $purple;
@@ -398,7 +412,8 @@ export default {
         }
       }
 
-      .watch-match-icon {
+      .watch-match-icon,
+      .download-demo-icon {
         color: $orange;
         margin-right: 20px;
         font-size: 26px;
@@ -410,20 +425,8 @@ export default {
         }
       }
 
-      .download-match-link {
-        align-self: flex-end;
-
-        .download-match-icon {
-          color: $orange;
-          margin-right: 20px;
-          font-size: 26px;
-          transition: 0.35s;
-          cursor: pointer;
-
-          &:hover {
-            color: $purple;
-          }
-        }
+      .download-demo-icon {
+        font-size: 24px;
       }
     }
   }
