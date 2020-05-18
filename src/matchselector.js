@@ -11,7 +11,8 @@ export default class MatchSelector {
             blacklist: []
         };
 
-        this.matchList = matchList;
+        this.matchList = matchList.sort((a, b) => new Date(b.MatchDate) - new Date(a.MatchDate));
+
         this.dailyLimitReached = dailyLimitReached;
         this.dailyLimitEnds = dailyLimitEnds;
 
