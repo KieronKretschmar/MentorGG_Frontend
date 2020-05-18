@@ -2,16 +2,19 @@
   <div class="global-filters">
     <div class="result-display">
       <p class="how-many">
-        Your current filter configuration results in
-        <span
-          class="orange"
-        >{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being considered for analysis.
+        <span>
+          Your current filter configuration results in
+          <span
+            class="orange"
+          >{{ $api.MatchSelector.Build().GetMatchIds().length }} matches</span> being considered for analysis.
+        </span>
+        <button class="button-variant-bordered" @click="ResetFilters">Reset Filters</button>
       </p>
     </div>
 
     <div class="interactive-area" data-simplebar data-simplebar-auto-hide="false">
       <div class="header-seperator first">
-        <div class="text">          
+        <div class="text">
           <span class="orange">How many</span> matches do you want to be considered for analysis?
         </div>
       </div>
@@ -117,6 +120,10 @@ export default {
       this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$api.MatchSelector.ToggleSourcesFilter(source);
       });
+    },
+    ResetFilters() {
+      this.matchCount = "-1";
+      this.$api.MatchSelector.ResetFilters();
     }
   }
 };
@@ -156,6 +163,9 @@ export default {
     &.how-many {
       font-weight: normal;
       margin-top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       .orange {
         color: $orange;

@@ -4,13 +4,6 @@ export default class MatchSelector {
     constructor(api, matchList, dailyLimitReached, dailyLimitEnds) {
         this.$api = api;
 
-        this.filters = {
-            maps: [],
-            sources: [],
-            matchCount: -1,
-            blacklist: []
-        };
-
         this.matchList = matchList.sort((a, b) => new Date(b.MatchDate) - new Date(a.MatchDate));
 
         this.dailyLimitReached = dailyLimitReached;
@@ -22,6 +15,17 @@ export default class MatchSelector {
                 match.Source = "Manual Upload";
             }
         }
+
+        this.ResetFilters();
+    }
+
+    ResetFilters() {
+        this.filters = {
+            maps: [],
+            sources: [],
+            matchCount: -1,
+            blacklist: []
+        };
 
         this.filters.maps = this.GetAvailableMapsUnique();
         this.filters.sources = this.GetAvailableSourcesUnique();
