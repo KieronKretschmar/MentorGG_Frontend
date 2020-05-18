@@ -284,4 +284,12 @@ main {
     }
   }
 }
+
+@media(max-width: 500px) {
+  .open-filters {
+    span {
+      display: none;
+    }
+  }
+}
 </style>
