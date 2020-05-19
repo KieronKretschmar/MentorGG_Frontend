@@ -1,24 +1,24 @@
 <template>
   <div class="view view-subscription">
-    <div v-if="!loadingComplete" class="wrapper-top">
+    <div v-if="!loadingComplete" class="content-wrapper">
       <div class="bordered-box no-offers">
         <AjaxLoader>Loading subscriptions</AjaxLoader>
       </div>
     </div>
-    <div v-else class="wrapper-top">
+    <div v-else class="content-wrapper">
       <div class="bordered-box offer">
         <div class="subheadline">
           <p>FREE</p>
         </div>
-        <div class="content free">
+        <div class="t free">
           <p>
             <span class="large">$ 0.00</span>
           </p>
         </div>
-        <div class="content-two free">
+        <div class="m free">
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
-        <div class="content-three">
+        <div class="b">
           <button v-if="activeSubscription === null" class="button-disabled">Owned</button>
         </div>
       </div>
@@ -30,7 +30,7 @@
         <div class="subheadline">
           <p>PREMIUM</p>
         </div>
-        <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Premium)" class="content">
+        <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Premium)" class="t">
           <p>
             <span class="small">starting at</span>
             <br class="break" />
@@ -39,16 +39,16 @@
             <span class="small">per month</span>
           </p>
         </div>
-        <div v-else class="content">
+        <div v-else class="t">
           <p>
             <span>You are currently subscribed.</span>
             <br />
           </p>
         </div>
-        <div class="content-two">
+        <div class="m">
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
-        <div class="content-three">
+        <div class="b">
           <!-- Subscribe-Button if the user has no subscription -->
           <button
             v-if="activeSubscription === null"
@@ -76,7 +76,7 @@
         <div class="subheadline">
           <p>ULTIMATE</p>
         </div>
-        <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Ultimate)" class="content">
+        <div v-if="!hasActiveSubscription(Enums.SubscriptionStatus.Ultimate)" class="t">
           <p>
             <span class="small">starting at</span>
             <br class="break" />
@@ -85,16 +85,16 @@
             <span class="small">per month</span>
           </p>
         </div>
-        <div v-else class="content">
+        <div v-else class="t">
           <p>
             <span>Currently subscribed.</span>
             <br />
           </p>
         </div>
-        <div class="content-two">
+        <div class="m">
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
-        <div class="content-three">
+        <div class="b">
           <!-- Subscribe-Button if the user has no subscription -->
           <button
             v-if="activeSubscription === null"
@@ -122,13 +122,13 @@
       </div>
     </div>
 
-    <div class="wrapper-middle">
+    <div class="content-wrapper">
       <div class="bordered-box offer-table">
         <p>* All prices are net prices excl. VAT, which will be charged at the statutory rate depending on your location.</p>
       </div>
     </div>
 
-    <div id="features" class="wrapper-bottom">
+    <div id="features" class="content-wrapper anchor">
       <div class="bordered-box offer-table-two">
         <div class="table-header">
           <span>FEATURES</span>
@@ -235,7 +235,7 @@
           <span class="check">
             <i class="material-icons">check</i>
           </span>
-        </div>        
+        </div>
         <div class="table-content">
           <span>Extended kill analysis</span>
           <span class="cross"></span>
@@ -339,7 +339,7 @@ export default {
       this.$refs.upgradeOverlay.Show();
     },
     ScrollToFeaturesTable() {
-      var container = this.$el.querySelector(".wrapper-bottom");
+      var container = this.$el.querySelector(".anchor");
       container.scrollIntoView({ block: "start", behavior: "smooth" });
     },
     LoadData() {
@@ -404,8 +404,16 @@ export default {
 .view-subscription {
   margin: 5px 20px 60px 20px;
 
-  .scroll-to-features {
-    cursor: pointer;
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .no-offers {
+      flex-grow: 1;
+      margin: 5px;
+      max-width: 1070px;
+    }
   }
 
   .bordered-box {
@@ -415,21 +423,65 @@ export default {
     border-radius: 4px;
     min-width: 300px;
     width: calc(33% - 5px);
-  }
 
-  .offer {
-    background: $dark-1;
-    flex-grow: 1;
-    margin: 5px;
-    padding: 0;
-    text-align: center;
-    max-width: 350px;
+    &.offer {
+      flex-grow: 1;
+      margin: 5px;
+      padding: 0;
+      text-align: center;
+      max-width: 350px;
 
-    &.subscribed {
-      border: 1px solid $orange;
-      // TODO: style the offer in case of subscription
+      &.subscribed {
+        border: 1px solid $orange;
+        // TODO: style the offer in case of subscription
+        .subheadline {
+          background: $dark-2;
+        }
+      }
+
+      .t {
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .subheadline {
-        background: $dark-2;
+        display: flex;
+        background-color: $dark-3;
+        padding: 10px;
+        margin: 0;
+        width: 100%;
+        height: 50px;
+        border-radius: 4px 4px 0 0;
+
+        p {
+          align-self: center;
+          color: $orange;
+          font-size: 1.3rem;
+          font-weight: 500;
+          margin: 0 auto;
+        }
+      }
+
+      .m {
+        height: 30px;
+        margin: 0 0 15px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .scroll-to-features {
+          cursor: pointer;
+        }
+      }
+
+      .b {
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
       }
     }
   }
@@ -442,72 +494,9 @@ export default {
     text-align: center;
   }
 
-  .content {
-    height: 140px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .content-two {
-    height: 30px;
-    margin: 0 0 15px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .content-three {
-    height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 10px;
-  }
-
-  .wrapper-top {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    .no-offers {
-      flex-grow: 1;
-      margin: 5px;
-      max-width: 1070px;
-    }
-  }
-
-  .wrapper-middle {
-    display: flex;
-    justify-content: center;
-  }
-
-  .wrapper-bottom {
-    display: flex;
-    justify-content: center;
-  }
-
   p {
     color: #fff;
     font-weight: 500;
-  }
-
-  .subheadline {
-    display: flex;
-    background-color: $dark-3;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-    height: 50px;
-    border-radius: 4px 4px 0 0;
-
-    p {
-      align-self: center;
-      color: $orange;
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin: 0 auto;
-    }
   }
 
   p span {
@@ -519,10 +508,6 @@ export default {
     font-weight: 500;
     padding: 3px 0;
   }
-
-  /*.high {
-    vertical-align: top;
-  }*/
 
   .strong {
     font-weight: 500;
@@ -538,10 +523,6 @@ export default {
     height: 18px;
     color: $orange;
   }
-  /*.cross {
-    font-size: 14px;
-    color: $red;
-  } */
 
   .button {
     min-width: 160px;
@@ -579,63 +560,63 @@ export default {
       @extend .offer-table;
       margin-top: 20px;
     }
-  }
 
-  .table-header {
-    color: $orange;
-    background-color: $dark-3;
-    font-size: 12px;
-    font-weight: 500;
-    display: flex;
-    padding: 12px 32px 12px 32px;
-    margin: 0;
-    border-radius: 4px 4px 0 0;
+    .table-header {
+      color: $orange;
+      background-color: $dark-3;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      padding: 12px 32px 12px 32px;
+      margin: 0;
+      border-radius: 4px 4px 0 0;
 
-    span {
-      &:nth-child(1) {
-        width: 25%;
-        color: #fff;
-      }
-      &:nth-child(2) {
-        width: 25%;
-      }
-      &:nth-child(3) {
-        width: 25%;
-      }
-      &:nth-child(4) {
-        width: 25%;
+      span {
+        &:nth-child(1) {
+          width: 25%;
+          color: #fff;
+        }
+        &:nth-child(2) {
+          width: 25%;
+        }
+        &:nth-child(3) {
+          width: 25%;
+        }
+        &:nth-child(4) {
+          width: 25%;
+        }
       }
     }
-  }
 
-  .table-content {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    border-bottom: 1px solid $purple;
-    padding: 12px;
-    margin: 0 20px 0 20px;
+    .table-content {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      border-bottom: 1px solid $purple;
+      padding: 12px;
+      margin: 0 20px 0 20px;
 
-    &:last-child {
-      border-bottom: none;
-    }
-
-    span {
-      &:nth-child(1) {
-        width: 25%;
+      &:last-child {
+        border-bottom: none;
       }
 
-      &:nth-child(2) {
-        width: 25%;
-      }
+      span {
+        &:nth-child(1) {
+          width: 25%;
+        }
 
-      &:nth-child(3) {
-        width: 25%;
-      }
+        &:nth-child(2) {
+          width: 25%;
+        }
 
-      &:nth-child(4) {
-        width: 25%;
+        &:nth-child(3) {
+          width: 25%;
+        }
+
+        &:nth-child(4) {
+          width: 25%;
+        }
       }
     }
   }
@@ -643,57 +624,75 @@ export default {
 
 @media (max-width: 960px) {
   .view-subscription {
-    .offer {
-      min-height: fit-content;
+    .content-wrapper {
+      &.anchor {
+        margin-top: -40px;
+        padding-top: 40px;
+      }
+    }
+    .bordered-box {
+      &.offer {
+        min-height: fit-content;
 
-      .content {
-        padding-top: 5px;
-        height: 60px;
+        .t {
+          padding-top: 5px;
+          height: 60px;
 
-        &.free {
-          padding-top: 35px;
+          &.free {
+            padding-top: 35px;
+          }
         }
-      }
 
-      .content-two {
-        height: 25px;
-        margin: 5px 0 0 0;
-      }
+        .m {
+          height: 25px;
+          margin: 5px 0 0 0;
+        }
 
-      .content-three {
-        height: 50px;
-        padding-bottom: 10px;
-      }
+        .b {
+          height: 50px;
+          padding-bottom: 10px;
+        }
 
-      .large {
-        font-size: 1.5rem;
-        padding: 0 5px 0 8px;
-      }
+        .large {
+          font-size: 1.5rem;
+          padding: 0 5px 0 8px;
+        }
 
-      .strong {
-        padding-bottom: 18px;
-      }
-
-      .free {
         .strong {
-          padding-bottom: 0;
+          padding-bottom: 18px;
         }
-      }
 
-      .small {
-        font-size: 0.9rem;
-        font-weight: 400;
-        padding-top: 15px;
-      }
+        .free {
+          .strong {
+            padding-bottom: 0;
+          }
+        }
 
-      .break {
-        display: none;
+        .small {
+          font-size: 0.9rem;
+          font-weight: 400;
+          padding-top: 15px;
+        }
+
+        .break {
+          display: none;
+        }
       }
     }
 
-    .wrapper-bottom {
-      margin-top: -53px;
-      padding-top: 53px;
+    .strong {
+      font-weight: 500;
+      text-decoration: underline;
+      margin: 0;
+    }
+
+    .material-icons {
+      line-height: 0.8;
+    }
+
+    .check {
+      height: 18px;
+      color: $orange;
     }
 
     .button {
@@ -708,45 +707,45 @@ export default {
         overflow-y: hidden;
         white-space: nowrap;
       }
-    }
 
-    .table-header {
-      width: 1030px;
-      span {
-        &:nth-child(1) {
-          min-width: 250px;
-          color: #fff;
-        }
-        &:nth-child(2) {
-          min-width: 250px;
-        }
-        &:nth-child(3) {
-          min-width: 250px;
-        }
-        &:nth-child(4) {
-          min-width: 250px;
+      .table-header {
+        width: 1030px;
+        span {
+          &:nth-child(1) {
+            min-width: 250px;
+            color: #fff;
+          }
+          &:nth-child(2) {
+            min-width: 250px;
+          }
+          &:nth-child(3) {
+            min-width: 250px;
+          }
+          &:nth-child(4) {
+            min-width: 250px;
+          }
         }
       }
-    }
 
-    .table-content {
-      min-width: 990px;
+      .table-content {
+        min-width: 990px;
 
-      span {
-        &:nth-child(1) {
-          min-width: 250px;
-        }
+        span {
+          &:nth-child(1) {
+            min-width: 250px;
+          }
 
-        &:nth-child(2) {
-          min-width: 250px;
-        }
+          &:nth-child(2) {
+            min-width: 250px;
+          }
 
-        &:nth-child(3) {
-          min-width: 250px;
-        }
+          &:nth-child(3) {
+            min-width: 250px;
+          }
 
-        &:nth-child(4) {
-          min-width: 250px;
+          &:nth-child(4) {
+            min-width: 250px;
+          }
         }
       }
     }
