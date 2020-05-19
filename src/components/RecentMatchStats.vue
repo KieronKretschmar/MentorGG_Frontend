@@ -53,7 +53,12 @@
           :data="chartData"
           :style="{width: `${relevantGraphMatches.length * 80}px`}"
           class="rank-graph-inner-wrapper"
+          v-if="relevantGraphMatches.length"
         />
+        <p v-else class="no-graph-data">
+          No data available.
+          <br />Play official matchmaking games to be able to see your personal rank history graph.
+        </p>
       </div>
     </GenericOverlay>
   </div>
@@ -171,7 +176,7 @@ export default {
             {
               display: true,
               gridLines: {
-                zeroLineColor: "#444",
+                zeroLineColor: "#444"
                 // zeroLineWidth: 1
               },
               ticks: {
@@ -309,6 +314,11 @@ export default {
 
   .bordered-box {
     padding: 20px 50px;
+  }
+
+  .no-graph-data {
+    padding-top: 20px;
+    text-align: center;
   }
 
   .stats {
