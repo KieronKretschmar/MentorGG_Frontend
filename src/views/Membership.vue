@@ -124,7 +124,7 @@
 
     <div class="wrapper-middle">
       <div class="bordered-box offer-table">
-        <p>*All prices are net prices excl. VAT, which will be charged at the statutory rate depending on your location.</p>
+        <p>* All prices are net prices excl. VAT, which will be charged at the statutory rate depending on your location.</p>
       </div>
     </div>
 
