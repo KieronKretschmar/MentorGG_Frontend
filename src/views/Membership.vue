@@ -446,24 +446,6 @@ export default {
         align-items: center;
       }
 
-      .subheadline {
-        display: flex;
-        background-color: $dark-3;
-        padding: 10px;
-        margin: 0;
-        width: 100%;
-        height: 50px;
-        border-radius: 4px 4px 0 0;
-
-        p {
-          align-self: center;
-          color: $orange;
-          font-size: 1.3rem;
-          font-weight: 500;
-          margin: 0 auto;
-        }
-      }
-
       .m {
         height: 30px;
         margin: 0 0 15px 0;
@@ -482,6 +464,24 @@ export default {
         justify-content: center;
         align-items: center;
         padding: 0 10px;
+      }
+
+      .subheadline {
+        display: flex;
+        background-color: $dark-3;
+        padding: 10px;
+        margin: 0;
+        width: 100%;
+        height: 50px;
+        border-radius: 4px 4px 0 0;
+
+        p {
+          align-self: center;
+          color: $orange;
+          font-size: 1.3rem;
+          font-weight: 500;
+          margin: 0 auto;
+        }
       }
     }
   }
@@ -678,12 +678,6 @@ export default {
           display: none;
         }
       }
-    }
-
-    .strong {
-      font-weight: 500;
-      text-decoration: underline;
-      margin: 0;
     }
 
     .material-icons {
