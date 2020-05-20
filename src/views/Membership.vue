@@ -680,15 +680,6 @@ export default {
       }
     }
 
-    .material-icons {
-      line-height: 0.8;
-    }
-
-    .check {
-      height: 18px;
-      color: $orange;
-    }
-
     .button {
       font-size: 14px;
     }
@@ -704,6 +695,7 @@ export default {
 
       .table-header {
         width: 1030px;
+
         span {
           &:nth-child(1) {
             min-width: 250px;
