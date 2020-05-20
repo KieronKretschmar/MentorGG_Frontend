@@ -8,7 +8,7 @@
         <RecentMatchStats :steamId="steamId" @gamesTotal="OnReceivedGamesTotal($event)" />
 
         <template v-if="numGames == -1 || numGames > 0">
-          <Situations :steamId="steamId" />
+          <!-- <Situations :steamId="steamId" /> -->
           <PositionAdvice :steamId="steamId" />
           <!-- <FriendComparison /> -->
           <BetterFriendComparison :steamId="steamId" />
