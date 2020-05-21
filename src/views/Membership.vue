@@ -129,7 +129,7 @@
     </div>
 
     <div id="features" class="content-wrapper anchor">
-      <div class="bordered-box offer-table-two">
+      <div class="bordered-box offer-table-features">
         <div class="table-header">
           <span>FEATURES</span>
           <span>FREE</span>
@@ -556,7 +556,7 @@ export default {
     max-width: 1070px;
     font-size: 14px;
 
-    &-two {
+    &-features {
       @extend .offer-table;
       margin-top: 20px;
     }
@@ -687,7 +687,7 @@ export default {
     .offer-table {
       white-space: pre-line;
 
-      &-two {
+      &-features {
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
