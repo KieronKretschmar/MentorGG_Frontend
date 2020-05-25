@@ -410,7 +410,10 @@ export default {
     flex-wrap: wrap;
 
     .no-offers {
+      display: flex;
       flex-grow: 1;
+      justify-content: center;
+      align-items: center;
       margin: 5px;
       max-width: 1070px;
       min-height: 327px;
