@@ -1,7 +1,13 @@
 <template>
   <div class="view view-subscription">
     <div v-if="!loadingComplete" class="content-wrapper">
-      <div class="bordered-box no-offers">
+      <div class="bordered-box offer loading-offer">
+        <AjaxLoader>Loading subscriptions</AjaxLoader>
+      </div>
+      <div class="bordered-box offer loading-offer">
+        <AjaxLoader>Loading subscriptions</AjaxLoader>
+      </div>
+      <div class="bordered-box offer loading-offer">
         <AjaxLoader>Loading subscriptions</AjaxLoader>
       </div>
     </div>
@@ -408,35 +414,6 @@ export default {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-
-    .no-offers {
-      display: flex;
-      flex-grow: 1;
-      justify-content: center;
-      align-items: center;
-      margin: 5px;
-      max-width: 1070px;
-      min-height: 327px;
-    }
-
-    @media (max-width: 1420px) {
-      .no-offers {
-        min-height: 664px;
-      }
-    }
-
-    @media (max-width: 960px) {
-      .no-offers {
-        min-height: 394px;
-      }
-    }
-
-    @media (max-width: 660px) {
-      .no-offers {
-        min-height: 596px;
-        max-width: 350px;
-      }
-    }
   }
 
   .bordered-box {
@@ -448,11 +425,11 @@ export default {
     width: calc(33% - 5px);
 
     &.offer {
-      flex-grow: 1;
+      height: 325px;
+      width: 350px;
       margin: 5px;
       padding: 0;
       text-align: center;
-      max-width: 350px;
 
       &.subscribed {
         border: 1px solid $orange;
@@ -460,6 +437,12 @@ export default {
         .subheadline {
           background: $dark-2;
         }
+      }
+
+      &.loading-offer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .t {
@@ -655,7 +638,7 @@ export default {
     }
     .bordered-box {
       &.offer {
-        min-height: fit-content;
+        height: 192px;
 
         .t {
           padding-top: 5px;
