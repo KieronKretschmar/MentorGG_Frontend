@@ -413,6 +413,25 @@ export default {
       flex-grow: 1;
       margin: 5px;
       max-width: 1070px;
+      min-height: 327px;
+    }
+
+    @media (max-width: 1420px) {
+      .no-offers {
+        min-height: 664px;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .no-offers {
+        min-height: 394px;
+      }
+    }
+
+    @media (max-width: 660px) {
+      .no-offers {
+        min-height: 596px;
+      }
     }
   }
 
