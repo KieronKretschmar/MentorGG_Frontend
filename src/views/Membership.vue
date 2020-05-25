@@ -1,10 +1,8 @@
 <template>
   <div class="view view-subscription">
-    <div v-if="!loadingComplete" class="content-wrapper">
+    <div v-if="loadingComplete" class="content-wrapper">
       <div class="bordered-box no-offers">
-        <div>
-          <AjaxLoader>Loading subscriptions</AjaxLoader>
-        </div>
+        <AjaxLoader>Loading subscriptions</AjaxLoader>
       </div>
     </div>
     <div v-else class="content-wrapper">
