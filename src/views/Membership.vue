@@ -431,6 +431,7 @@ export default {
     @media (max-width: 660px) {
       .no-offers {
         min-height: 596px;
+        max-width: 350px;
       }
     }
   }
