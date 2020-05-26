@@ -253,7 +253,7 @@
           </span>
         </div>
         <div class="table-content">
-          <span>Premium support in our Discord</span>
+          <span>Premium Discord support</span>
           <span class="cross"></span>
           <span class="check">
             <i class="material-icons">check</i>
