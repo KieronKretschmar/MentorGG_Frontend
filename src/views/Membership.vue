@@ -25,7 +25,7 @@
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="b">
-          <button v-if="activeSubscription === null" class="button-disabled">Owned</button>
+          <button v-if="activeSubscription === null" class="button disabled">Owned</button>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           <!-- Show expiration time if the user has already cancelled -->
           <button
             v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Premium) && this.activeSubscription.ExpirationTime"
-            class="button-disabled"
+            class="button disabled"
           >Cancelled. Expires at {{activeSubscription.ExpirationTime | formatDate}}.</button>
         </div>
       </div>
@@ -116,7 +116,7 @@
           <!-- Show expiration time if the user has already cancelled -->
           <button
             v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Ultimate) && this.activeSubscription.ExpirationTime"
-            class="button-disabled"
+            class="button disabled"
           >Cancelled. Expires at {{activeSubscription.ExpirationTime}}.</button>
           <!-- Upgrade Option if the user has a premium subscription -->
           <button
@@ -135,7 +135,7 @@
     </div>
 
     <div class="content-wrapper anchor">
-      <div class="bordered-box offer-table-features">
+      <div class="bordered-box offer-table features">
         <div class="table-header">
           <span>FEATURES</span>
           <span>FREE</span>
@@ -543,8 +543,7 @@ export default {
     cursor: pointer;
     outline: 0;
 
-    &-disabled {
-      @extend .button;
+    &.disabled {
       color: $dark-4;
       background-color: transparent;
       border: 1px solid $dark-4;
@@ -562,8 +561,7 @@ export default {
     max-width: 1070px;
     font-size: 14px;
 
-    &-features {
-      @extend .offer-table;
+    &.features {
       margin-top: 20px;
     }
 
@@ -693,7 +691,7 @@ export default {
     .offer-table {
       white-space: pre-line;
 
-      &-features {
+      &.features {
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
