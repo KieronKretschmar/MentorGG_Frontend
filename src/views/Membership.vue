@@ -560,12 +560,17 @@ export default {
     text-align: center;
     max-width: 1070px;
     font-size: 14px;
+    white-space: pre-line;
 
     &.features {
       margin-top: 20px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
     }
 
     .table-header {
+      width: 1068px;
       color: $orange;
       background-color: $dark-3;
       font-size: 12px;
@@ -577,22 +582,23 @@ export default {
 
       span {
         &:nth-child(1) {
-          width: 25%;
+          min-width: 250px;
           color: #fff;
         }
         &:nth-child(2) {
-          width: 25%;
+          min-width: 250px;
         }
         &:nth-child(3) {
-          width: 25%;
+          min-width: 250px;
         }
         &:nth-child(4) {
-          width: 25%;
+          min-width: 250px;
         }
       }
     }
 
     .table-content {
+      min-width: 1008px;
       color: #fff;
       font-size: 14px;
       font-weight: 500;
@@ -607,19 +613,19 @@ export default {
 
       span {
         &:nth-child(1) {
-          width: 25%;
+          width: 250px;
         }
 
         &:nth-child(2) {
-          width: 25%;
+          min-width: 250px;
         }
 
         &:nth-child(3) {
-          width: 25%;
+          min-width: 250px;
         }
 
         &:nth-child(4) {
-          width: 25%;
+          min-width: 250px;
         }
       }
     }
