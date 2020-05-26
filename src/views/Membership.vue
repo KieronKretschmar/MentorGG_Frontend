@@ -134,7 +134,7 @@
       </div>
     </div>
 
-    <div id="features" class="content-wrapper anchor">
+    <div class="content-wrapper anchor">
       <div class="bordered-box offer-table-features">
         <div class="table-header">
           <span>FEATURES</span>
