@@ -700,43 +700,43 @@ export default {
       }
 
       .table-header {
-        width: 1030px;
+        width: 938px;
 
         span {
           &:nth-child(1) {
-            min-width: 250px;
+            min-width: 210px;
             color: #fff;
           }
           &:nth-child(2) {
-            min-width: 250px;
+            min-width: 210px;
           }
           &:nth-child(3) {
-            min-width: 250px;
+            min-width: 210px;
           }
           &:nth-child(4) {
-            min-width: 250px;
+            min-width: 210px;
           }
         }
       }
 
       .table-content {
-        min-width: 990px;
+        min-width: 900px;
 
         span {
           &:nth-child(1) {
-            min-width: 250px;
+            min-width: 210px;
           }
 
           &:nth-child(2) {
-            min-width: 250px;
+            min-width: 210px;
           }
 
           &:nth-child(3) {
-            min-width: 250px;
+            min-width: 210px;
           }
 
           &:nth-child(4) {
-            min-width: 250px;
+            min-width: 210px;
           }
         }
       }
