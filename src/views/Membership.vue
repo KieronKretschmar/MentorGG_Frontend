@@ -719,7 +719,7 @@ export default {
         width: 890px;
         color: $orange;
         background-color: $dark-3;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         display: flex;
         padding: 12px 22px 12px 22px;
@@ -728,17 +728,17 @@ export default {
 
         span {
           &:nth-child(1) {
-            min-width: 190px;
+            min-width: 170px;
             color: #fff;
           }
           &:nth-child(2) {
-            min-width: 215px;
+            min-width: 200px;
           }
           &:nth-child(3) {
-            min-width: 215px;
+            min-width: 185px;
           }
           &:nth-child(4) {
-            min-width: 215px;
+            min-width: 185px;
           }
         }
       }
@@ -759,19 +759,19 @@ export default {
 
         span {
           &:nth-child(1) {
-            width: 190px;
+            width: 170px;
           }
 
           &:nth-child(2) {
-            min-width: 215px;
+            min-width: 200px;
           }
 
           &:nth-child(3) {
-            min-width: 215px;
+            min-width: 185px;
           }
 
           &:nth-child(4) {
-            min-width: 215px;
+            min-width: 185px;
           }
         }
       }
