@@ -716,7 +716,7 @@ export default {
       }
 
       .table-header {
-        width: 890px;
+        width: 795px;
         color: $orange;
         background-color: $dark-3;
         font-size: 11px;
@@ -744,7 +744,7 @@ export default {
       }
 
       .table-content {
-        min-width: 868px;
+        min-width: 773px;
         color: #fff;
         font-size: 12px;
         font-weight: 500;
