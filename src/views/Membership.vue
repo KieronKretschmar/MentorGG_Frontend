@@ -695,36 +695,16 @@ export default {
     }
 
     .offer-table {
-      background: $dark-1;
-      flex-grow: 1;
-      margin: 5px;
-      padding: 0;
-      text-align: center;
-      max-width: 1070px;
       font-size: 12px;
-      white-space: pre-line;
 
       p {
         padding: 0 5px;
       }
 
-      &.features {
-        margin-top: 20px;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-      }
-
       .table-header {
         width: 795px;
-        color: $orange;
-        background-color: $dark-3;
         font-size: 11px;
-        font-weight: 500;
-        display: flex;
         padding: 12px 22px 12px 22px;
-        margin: 0;
-        border-radius: 4px 4px 0 0;
 
         span {
           &:nth-child(1) {
@@ -745,17 +725,8 @@ export default {
 
       .table-content {
         min-width: 773px;
-        color: #fff;
         font-size: 12px;
-        font-weight: 500;
-        display: flex;
-        border-bottom: 1px solid $purple;
-        padding: 12px;
         margin: 0 10px 0 10px;
-
-        &:last-child {
-          border-bottom: none;
-        }
 
         span {
           &:nth-child(1) {
