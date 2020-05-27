@@ -695,14 +695,6 @@ export default {
     }
 
     .offer-table {
-      white-space: pre-line;
-
-      &.features {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-      }
-
       .table-header {
         width: 938px;
 
