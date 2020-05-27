@@ -701,8 +701,12 @@ export default {
       padding: 0;
       text-align: center;
       max-width: 1070px;
-      font-size: 14px;
+      font-size: 12px;
       white-space: pre-line;
+
+      p {
+        padding: 0 5px;
+      }
 
       &.features {
         margin-top: 20px;
@@ -742,7 +746,7 @@ export default {
       .table-content {
         min-width: 868px;
         color: #fff;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 500;
         display: flex;
         border-bottom: 1px solid $purple;
