@@ -598,7 +598,7 @@ export default {
     }
 
     .table-content {
-      min-width: 1008px;
+      min-width: 1028px;
       color: #fff;
       font-size: 14px;
       font-weight: 500;
