@@ -632,7 +632,7 @@ export default {
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 400px) {
   .view-subscription {
     .content-wrapper {
       &.anchor {
@@ -695,44 +695,79 @@ export default {
     }
 
     .offer-table {
+      background: $dark-1;
+      flex-grow: 1;
+      margin: 5px;
+      padding: 0;
+      text-align: center;
+      max-width: 1070px;
+      font-size: 14px;
+      white-space: pre-line;
+
+      &.features {
+        margin-top: 20px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+      }
+
       .table-header {
-        width: 938px;
+        width: 890px;
+        color: $orange;
+        background-color: $dark-3;
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        padding: 12px 22px 12px 22px;
+        margin: 0;
+        border-radius: 4px 4px 0 0;
 
         span {
           &:nth-child(1) {
-            min-width: 210px;
+            min-width: 190px;
             color: #fff;
           }
           &:nth-child(2) {
-            min-width: 210px;
+            min-width: 215px;
           }
           &:nth-child(3) {
-            min-width: 210px;
+            min-width: 215px;
           }
           &:nth-child(4) {
-            min-width: 210px;
+            min-width: 215px;
           }
         }
       }
 
       .table-content {
-        min-width: 900px;
+        min-width: 868px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        border-bottom: 1px solid $purple;
+        padding: 12px;
+        margin: 0 10px 0 10px;
+
+        &:last-child {
+          border-bottom: none;
+        }
 
         span {
           &:nth-child(1) {
-            min-width: 210px;
+            width: 190px;
           }
 
           &:nth-child(2) {
-            min-width: 210px;
+            min-width: 215px;
           }
 
           &:nth-child(3) {
-            min-width: 210px;
+            min-width: 215px;
           }
 
           &:nth-child(4) {
-            min-width: 210px;
+            min-width: 215px;
           }
         }
       }
