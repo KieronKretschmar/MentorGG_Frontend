@@ -25,7 +25,7 @@
           <p class="strong scroll-to-features" @click="ScrollToFeaturesTable()">View Features</p>
         </div>
         <div class="b">
-          <button v-if="activeSubscription === null" class="button-disabled">Owned</button>
+          <button v-if="activeSubscription === null" class="button disabled">Owned</button>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
           <!-- Show expiration time if the user has already cancelled -->
           <button
             v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Premium) && this.activeSubscription.ExpirationTime"
-            class="button-disabled"
+            class="button disabled"
           >Cancelled. Expires at {{activeSubscription.ExpirationTime | formatDate}}.</button>
         </div>
       </div>
@@ -116,7 +116,7 @@
           <!-- Show expiration time if the user has already cancelled -->
           <button
             v-else-if="hasActiveSubscription(Enums.SubscriptionStatus.Ultimate) && this.activeSubscription.ExpirationTime"
-            class="button-disabled"
+            class="button disabled"
           >Cancelled. Expires at {{activeSubscription.ExpirationTime}}.</button>
           <!-- Upgrade Option if the user has a premium subscription -->
           <button
@@ -134,8 +134,8 @@
       </div>
     </div>
 
-    <div id="features" class="content-wrapper anchor">
-      <div class="bordered-box offer-table-features">
+    <div class="content-wrapper anchor">
+      <div class="bordered-box offer-table features">
         <div class="table-header">
           <span>FEATURES</span>
           <span>FREE</span>
@@ -253,7 +253,7 @@
           </span>
         </div>
         <div class="table-content">
-          <span>Premium support in our Discord</span>
+          <span>Premium Discord support</span>
           <span class="cross"></span>
           <span class="check">
             <i class="material-icons">check</i>
@@ -543,8 +543,7 @@ export default {
     cursor: pointer;
     outline: 0;
 
-    &-disabled {
-      @extend .button;
+    &.disabled {
       color: $dark-4;
       background-color: transparent;
       border: 1px solid $dark-4;
@@ -561,13 +560,17 @@ export default {
     text-align: center;
     max-width: 1070px;
     font-size: 14px;
+    white-space: pre-line;
 
-    &-features {
-      @extend .offer-table;
+    &.features {
       margin-top: 20px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
     }
 
     .table-header {
+      width: 1068px;
       color: $orange;
       background-color: $dark-3;
       font-size: 12px;
@@ -579,22 +582,23 @@ export default {
 
       span {
         &:nth-child(1) {
-          width: 25%;
+          min-width: 250px;
           color: #fff;
         }
         &:nth-child(2) {
-          width: 25%;
+          min-width: 250px;
         }
         &:nth-child(3) {
-          width: 25%;
+          min-width: 250px;
         }
         &:nth-child(4) {
-          width: 25%;
+          min-width: 250px;
         }
       }
     }
 
     .table-content {
+      min-width: 1028px;
       color: #fff;
       font-size: 14px;
       font-weight: 500;
@@ -609,26 +613,26 @@ export default {
 
       span {
         &:nth-child(1) {
-          width: 25%;
+          width: 250px;
         }
 
         &:nth-child(2) {
-          width: 25%;
+          min-width: 250px;
         }
 
         &:nth-child(3) {
-          width: 25%;
+          min-width: 250px;
         }
 
         &:nth-child(4) {
-          width: 25%;
+          min-width: 250px;
         }
       }
     }
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 400px) {
   .view-subscription {
     .content-wrapper {
       &.anchor {
@@ -691,52 +695,54 @@ export default {
     }
 
     .offer-table {
-      white-space: pre-line;
+      font-size: 12px;
 
-      &-features {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
+      p {
+        padding: 0 5px;
       }
 
       .table-header {
-        width: 1030px;
+        width: 795px;
+        font-size: 11px;
+        padding: 12px 22px 12px 22px;
 
         span {
           &:nth-child(1) {
-            min-width: 250px;
+            min-width: 170px;
             color: #fff;
           }
           &:nth-child(2) {
-            min-width: 250px;
+            min-width: 200px;
           }
           &:nth-child(3) {
-            min-width: 250px;
+            min-width: 185px;
           }
           &:nth-child(4) {
-            min-width: 250px;
+            min-width: 185px;
           }
         }
       }
 
       .table-content {
-        min-width: 990px;
+        min-width: 773px;
+        font-size: 12px;
+        margin: 0 10px 0 10px;
 
         span {
           &:nth-child(1) {
-            min-width: 250px;
+            width: 170px;
           }
 
           &:nth-child(2) {
-            min-width: 250px;
+            min-width: 200px;
           }
 
           &:nth-child(3) {
-            min-width: 250px;
+            min-width: 185px;
           }
 
           &:nth-child(4) {
-            min-width: 250px;
+            min-width: 185px;
           }
         }
       }
