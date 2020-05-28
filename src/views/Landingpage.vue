@@ -236,6 +236,7 @@ export default {
   },
   methods: {    
     signIn() {
+      this.$helpers.LogEvent(this, "AttemptSignIn");   
       location.href = this.$api.getSignInUrl(window.location.origin);    
     },
   }
