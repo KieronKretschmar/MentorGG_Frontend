@@ -10,9 +10,12 @@
         </p>
         <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
         <AjaxLoader v-if="uploadInfo.progress">
-          Uploading... It will take a few moments until the match is added to the queue -
-          Please note that only your own matches will appear in the analyses.
-          Currently it's not possible to watch other player's matches.{{this.uploadInfo.progress}}%
+          <h3>{{this.uploadInfo.progress}}%</h3>
+          <p>It will take a few moments until the match is added to the queue.</p>
+          <p>
+            Please note that only your own matches will appear in the analyses.
+            Currently it's not possible to watch other player's matches.
+          </p>
         </AjaxLoader>
         <button
           v-if="!uploadInfo.progress"
@@ -28,6 +31,7 @@
           <strong>{{uploadInfo.message}}</strong>
         </span>
       </div>
+
       <div class="manual-upload-disabled" v-if="$api.MatchSelector.dailyLimitReached === true">
         <p class="headline">Manual Upload</p>
         <p>
