@@ -174,6 +174,11 @@ export default {
     },
     signOut() {
       location.href = this.$api.getSignOutUrl(window.location.origin);
+    },
+    OpenSubscriptionPage() {
+      this.$helpers.LogEvent(this, "DailyLimitUpgrade");
+      this.$refs.manualUploadOverlay.Hide();
+      this.$router.push({ name: "membership" });
     }
   }
 };
