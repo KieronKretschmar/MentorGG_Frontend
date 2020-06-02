@@ -3,12 +3,14 @@
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
       <div class="manual-upload-enabled" v-if="$api.MatchSelector.dailyLimitReached === false">
         <p class="headline">Manual Upload</p>
-        <p>
-          Please select your
-          <strong>GOTV</strong> demo file and click upload.
-          For manually uploaded demos, we use the timestamp of the upload as the matchdate.
-        </p>
-        <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
+        <div v-if="uploadInfo.progress === null">
+          <p>
+            Please select your
+            <strong>GOTV</strong> demo file and click upload.
+            For manually uploaded demos, we use the timestamp of the upload as the matchdate.
+          </p>
+          <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
+        </div>
         <AjaxLoader v-if="uploadInfo.progress">
           <h3>{{this.uploadInfo.progress}}%</h3>
           <p>It will take a few moments until the match is added to the queue.</p>
