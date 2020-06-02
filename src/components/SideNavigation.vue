@@ -11,14 +11,13 @@
           </p>
           <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
         </div>
-        <AjaxLoader v-if="uploadInfo.progress">
-          <h3>{{this.uploadInfo.progress}}%</h3>
-          <p>It will take a few moments until the match is added to the queue.</p>
-          <p>
-            Please note that only your own matches will appear in the analyses.
-            Currently it's not possible to watch other player's matches.
-          </p>
-        </AjaxLoader>
+        <p>
+          It will take a few moments until the match is added to the queue.
+          Please note that only your own matches will appear in the analyses.
+          Currently it's not possible to watch other player's matches.
+        </p>
+        <p>{{this.uploadInfo.progress}}%</p>
+        <AjaxLoader v-if="uploadInfo.progress"></AjaxLoader>
         <button
           v-if="!uploadInfo.progress"
           class="button-variant-bordered"
