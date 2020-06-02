@@ -13,9 +13,9 @@
         </div>
         <div v-if="uploadInfo.progress === true">
           <p>
-            It will take a few moments until the match is added to the queue.
+            After upload, it will take a few moments until the match is added to the queue.
             Please note that only your own matches will appear in the analyses.
-            Currently it's not possible to watch other player's matches.
+            Currently it's not possible to watch other players' matches.
           </p>
           <p>{{this.uploadInfo.progress}}%</p>
           <AjaxLoader v-if="uploadInfo.progress"></AjaxLoader>
