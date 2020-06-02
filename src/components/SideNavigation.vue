@@ -1,31 +1,33 @@
 <template>
   <div class="side-navigation">
     <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
-      <p class="headline">Manual Upload</p>
-      <p>
-        Please select your
-        <strong>GOTV</strong> demo file and click upload.
-        For manually uploaded demos, we use the timestamp of the upload as the matchdate.
-      </p>
-      <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
-      <AjaxLoader v-if="uploadInfo.progress">Uploading... {{this.uploadInfo.progress}}%</AjaxLoader>
-      <button
-        v-if="!uploadInfo.progress"
-        class="button-variant-bordered"
-        @click="TriggerManualUpload"
-      >Upload</button>
+      <div class="manual-upload-enabled" v-if="$api.MatchSelector.dailyLimitReached === false">
+        <p class="headline">Manual Upload</p>
+        <p>
+          Please select your
+          <strong>GOTV</strong> demo file and click upload.
+          For manually uploaded demos, we use the timestamp of the upload as the matchdate.
+        </p>
+        <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
+        <AjaxLoader v-if="uploadInfo.progress">Uploading... {{this.uploadInfo.progress}}%</AjaxLoader>
+        <button
+          v-if="!uploadInfo.progress"
+          class="button-variant-bordered"
+          @click="TriggerManualUpload"
+        >Upload</button>
 
-      <span v-if="uploadInfo.success == true" class="upload-message">
-        Successfully uploaded
-        <strong>{{uploadInfo.message}}</strong>
-        It will take a few moments until the match is added to the queue -
-        Please note that only your own matches will appear in the analyses.
-        Currently it's not possible to watch other player's matches.
-      </span>
-      <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
-        Sorry, There seems to be a problem:
-        <strong>{{uploadInfo.message}}</strong>
-      </span>
+        <span v-if="uploadInfo.success == true" class="upload-message">
+          Successfully uploaded
+          <strong>{{uploadInfo.message}}</strong>
+          It will take a few moments until the match is added to the queue -
+          Please note that only your own matches will appear in the analyses.
+          Currently it's not possible to watch other player's matches.
+        </span>
+        <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
+          Sorry, There seems to be a problem:
+          <strong>{{uploadInfo.message}}</strong>
+        </span>
+      </div>
     </GenericOverlay>
 
     <div class="nav-content" data-simplebar>
