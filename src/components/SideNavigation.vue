@@ -354,7 +354,6 @@ export default {
 
         .nav-header {
           color: white;
-
           font-size: 14px;
           text-transform: uppercase;
           text-align: center;
@@ -398,7 +397,7 @@ export default {
     width: $sidebar-width;
     padding: 0;
     z-index: 9999;
-    max-width: 260px; //
+    max-width: 260px;
 
     .manual-upload-overlay {
       text-align: center;
