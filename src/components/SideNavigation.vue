@@ -209,7 +209,7 @@ export default {
     }
 
     button {
-      width: 20%;
+      width: auto;
       min-width: 100px;
       margin: 0 auto;
       display: inline-block;
