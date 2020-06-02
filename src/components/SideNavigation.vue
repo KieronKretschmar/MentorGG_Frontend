@@ -256,7 +256,6 @@ export default {
 
   .nav-content {
     height: 100%;
-    // padding: 20px;
     padding-bottom: 100px;
   }
 
@@ -264,7 +263,6 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
-    // height: 50px;
     width: calc(#{$sidebar-width} - 1px);
 
     .discord-hint {
@@ -461,7 +459,6 @@ export default {
 
     .nav-content {
       height: 100%;
-      // padding: 20px;
       padding-bottom: 100px;
     }
 
@@ -469,7 +466,6 @@ export default {
       position: fixed;
       bottom: 0;
       left: 0;
-      // height: 50px;
       width: calc(#{$sidebar-width} - 1px);
 
       .discord-hint {
@@ -497,7 +493,6 @@ export default {
         img {
           width: 30px;
           height: 30px;
-          // border-radius: 4px;
           margin-right: 10px;
         }
 
@@ -559,7 +554,6 @@ export default {
 
           .nav-header {
             color: white;
-
             font-size: 14px;
             text-transform: uppercase;
             text-align: center;
