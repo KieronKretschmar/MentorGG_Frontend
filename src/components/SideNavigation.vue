@@ -253,6 +253,10 @@ export default {
       }
     }
 
+    .--ajax-loader {
+      padding: 0;
+    }
+
     span.upload-failure {
       strong {
         color: $orange;
