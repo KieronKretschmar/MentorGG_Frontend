@@ -28,6 +28,15 @@
           <strong>{{uploadInfo.message}}</strong>
         </span>
       </div>
+
+      <div class="manual-upload-disabled" v-if="$api.MatchSelector.dailyLimitReached === true">
+        <p class="headline">Manual Upload</p>
+        <p>
+          Please wait with your next upload until your daily limit ends at
+          <strong>{{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</strong>
+        </p>
+        <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
+      </div>
     </GenericOverlay>
 
     <div class="nav-content" data-simplebar>
