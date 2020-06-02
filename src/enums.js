@@ -137,6 +137,15 @@ class Enums {
       }
     };
   }
+
+  static get SkillDomain() {
+    return {                        
+        Tactical: 1,
+        Grenades: 2,   
+        Shooting: 3,   
+        Movement: 4,
+    };
+  }
   
   static get SituationType() {
     return {
@@ -157,9 +166,31 @@ class Enums {
       TeamFlash: 510004,
       RifleFiredWhileMoving: 510005,
       UnnecessaryReload: 510006,
-      PushBeforeSmokeDetonated: 510006,
+      PushBeforeSmokeDetonated: 510007,
 
       // 52XXXX For Team - Misplays
+
+      ToString(n) {
+        switch (n) {
+          case 210001: return "Effective HE Grenade";
+          case 210002: return "Kill With Own Flash Assist";
+          case 510001: return "Smoke Fail";
+          case 510002: return "Death Induced Bomb";
+          case 510003: return "Self Flash";
+          case 510004: return "Team Flash";
+          case 510005: return "Rifle Fired While Moving";
+          case 510006: return "Unnecessary Reload";
+          case 510006: return "Push Before Smoke Detonated";
+        }
+
+        return "Unknown";
+      },
+      IsHighlight(n) {
+        return n >= 210000 && n <= 230000;
+      },
+      IsMisplay(n) {
+        return n >= 510000 && n <= 530000;
+      }
     };
   }
 }

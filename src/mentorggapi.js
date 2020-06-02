@@ -216,6 +216,19 @@ class MentorGGAPI {
         });
     }
 
+    getSituations(params, overrides = {}) {
+        // return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations`, {
+        //     params: {
+        //         matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+        //     }
+        // });
+        return axios.get('https://test.mentor.gg/v1/single/76561198074614114/situations?matchIds=1,2', {
+            params: {
+                //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+            }
+        });
+    }
+
     getOverview(params, overrides = {}) {
         let formattedParams = {
             matchIds: this.MatchSelector.Build().GetMatchIds().toString(),

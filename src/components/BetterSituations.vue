@@ -12,9 +12,9 @@
           </div>
           <div class="situation-table" v-if="true">
             <div class="table-content">
-              <div v-for="situation in situations.misplays" :key="situation.name" class="entry">
+              <div v-for="situation in misplays" :key="situation.type" class="entry">
                 <div class="category-wrapper">
-                  <div class="cell link">
+                  <div class="cell link" @click="OpenSituationDetailView(situation.type)">
                     <i class="situation-icon" :class="situation.icon"></i>
                     <span class="situation-name">{{ situation.name }}</span>
                     <span
@@ -38,16 +38,15 @@
                     v-for="occurence in situation.occurences"
                     :key="occurence.id"
                     class="occurence"
-                    :test="$assetLoader.getMapPreview(occurence.map)"
-                    :style="{backgroundImage: `url( '${$assetLoader.getMapPreview(occurence.map)}')`}"
+                    :style="{backgroundImage: `url( '${$assetLoader.getMapPreview('de_inferno')}')`}"
                   >
                     <div class="content">
                       <span>
                         <span class="match-date">{{ occurence.matchDate|formatDateAndTime }}</span>
-                        <span class="map">{{ occurence.map }}</span>
+                        <span class="map">{{ 'de_inferno' }}</span>
                       </span>
                       <span class="watch-wrapper">
-                        <span class="round">Round {{ occurence.round }}</span>
+                        <span class="round">Round {{ occurence.Round }}</span>
                         <i title="Watch in Browser" class="material-icons watch-match-icon">videocam</i>
                       </span>
                     </div>
@@ -85,77 +84,58 @@
 </template>
 
 <script>
+import Enums from '@/enums';
+
 export default {
   props: ["steamId"],
   mounted() {
-    this.situations = {
-      misplays: [
-        {
-          name: "Bad Flash",
-          icon: "fas fa-skull",
-          occurencesVisible: false,
-          occurences: [
-            {
-              id: 1,
-              map: "de_dust2",
-              matchDate: new Date(),
-              round: 3
-            },
-            {
-              id: 2,
-              map: "de_dust2",
-              matchDate: new Date(),
-              round: 4
-            },
-            {
-              id: 3,
-              map: "de_overpass",
-              matchDate: new Date(),
-              round: 7
-            }
-          ]
-        },
-        {
-          name: "Unnecessary Reload",
-          icon: "fas fa-sync-alt",
-          occurencesVisible: false,
-          occurences: []
-        },
-        {
-          name: "No Defuse Kit",
-          icon: "fas fa-minus-circle",
-          occurencesVisible: false,
-          occurences: [
-            {
-              id: 1,
-              map: "de_dust2",
-              matchDate: new Date()
-            },
-            {
-              id: 2,
-              map: "de_dust2",
-              matchDate: new Date()
-            },
-            {
-              id: 3,
-              map: "de_overpass",
-              matchDate: new Date()
-            }
-          ]
-        }
-      ],
-      highlights: []
-    };
+
+    this.$api.getSituations({
+      steamId: this.steamId
+    }).then(result => {
+      this.situations = result.data;
+    });
   },
   data() {
     return {
-      situations: {
-        misplays: [],
-        highlights: []
-      }
+      situations: null
     };
   },
-  methods: {},
+  methods: {
+    BeautifySituationName(name) {
+      return name.split(/(?=[A-Z])/).join(" ");
+    },
+    OpenSituationDetailView(type) {
+      this.$router.push({
+        name: 'situation-detail',
+        params: {
+          type: type
+        }
+      });
+    }
+  },
+  computed: {
+    misplays() {
+      let ret = [];
+
+      if (this.situations == null) {
+        return ret;
+      }
+
+      Object.keys(this.situations.Misplays).forEach(key => {
+        let entry = this.situations.Misplays[key];
+
+        ret.push({
+          name: Enums.SituationType.ToString(entry.MetaData.SituationType),
+          type: entry.MetaData.SituationType,
+          occurences: entry.Situations,
+          icon: 'fas fa-skull'
+        });
+      });
+
+      return ret;
+    }
+  },
   watch: {
     steamId: function(val) {}
   }
