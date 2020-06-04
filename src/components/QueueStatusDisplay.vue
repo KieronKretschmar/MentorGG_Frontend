@@ -226,6 +226,7 @@ export default {
     .demo-text-bold {
       font-size: 11px;
     }
+    
     .demo-feedback {
       width: 230px;
     }
