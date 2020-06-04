@@ -1,105 +1,107 @@
 <template>
   <div class="side-navigation">
-    <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
-      <div class="manual-upload-enabled" v-if="$api.MatchSelector.dailyLimitReached === false">
-        <p class="headline">Manual Upload</p>
-        <div v-if="uploadInfo.progress === null">
-          <p>
-            Please select your
-            <strong>GOTV</strong> demo file and click upload.
-            For manually uploaded demos, we use the timestamp of the upload as the matchdate.
-          </p>
-          <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
-        </div>
-        <div v-if="uploadInfo.progress === true">
-          <p>
-            After upload, it will take a few moments until the match is added to the queue.
-            Please note that only your own matches will appear in the analyses.
-            Currently it's not possible to watch other players' matches.
-          </p>
-          <p>{{this.uploadInfo.progress}}%</p>
-          <AjaxLoader v-if="uploadInfo.progress"></AjaxLoader>
-        </div>
-        <button
-          v-if="!uploadInfo.progress"
-          class="button-variant-bordered"
-          @click="TriggerManualUpload"
-        >Upload</button>
-        <span v-if="uploadInfo.success == true" class="upload-message">
-          Successfully uploaded
-          <strong>{{uploadInfo.message}}</strong>
-        </span>
-        <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
-          Sorry, There seems to be a problem:
-          <strong>{{uploadInfo.message}}</strong>
-        </span>
-      </div>
-
-      <div class="manual-upload-disabled" v-if="$api.MatchSelector.dailyLimitReached === true">
-        <p class="headline">Manual Upload</p>
-        <p>
-          Please wait with your next upload until your daily limit ends at
-          <strong>{{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</strong>
-        </p>
-        <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
-      </div>
-    </GenericOverlay>
-
-    <div class="nav-content" data-simplebar>
-      <nav>
-        <router-link
-          :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
-          class="logo"
-        >
-          <img src="@/assets/logo_white.svg" />
-        </router-link>
-
-        <div class="nav-section-container">
-          <!-- Personal Data -->
-          <div class="nav-section">
-            <div class="nav-header">Personal Data</div>
-            <router-link
-              :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
-            >Profile</router-link>
-            <router-link to="/smokes">Smokes</router-link>
-            <router-link to="/molotovs">Molotovs</router-link>
-            <router-link to="/flashes">Flashes</router-link>
-            <router-link to="/hes">HEs</router-link>
-            <router-link to="/kills">Kills</router-link>
+    <div class="side-navigation-inner-wrapper">
+      <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
+        <div class="manual-upload-enabled" v-if="$api.MatchSelector.dailyLimitReached === false">
+          <p class="headline">Manual Upload</p>
+          <div v-if="uploadInfo.progress === null">
+            <p>
+              Please select your
+              <strong>GOTV</strong> demo file and click upload.
+              For manually uploaded demos, we use the timestamp of the upload as the matchdate.
+            </p>
+            <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
           </div>
-
-          <!-- Upload Demos-->
-          <div class="nav-section">
-            <div class="nav-header">Upload Demos</div>
-            <router-link to="/automatic-upload">Automatic Upload</router-link>
-            <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
-            <router-link to="/browser-extension">Browser Extension</router-link>
+          <div v-if="uploadInfo.progress === true">
+            <p>
+              After upload, it will take a few moments until the match is added to the queue.
+              Please note that only your own matches will appear in the analyses.
+              Currently it's not possible to watch other players' matches.
+            </p>
+            <p>{{this.uploadInfo.progress}}%</p>
+            <AjaxLoader v-if="uploadInfo.progress"></AjaxLoader>
           </div>
+          <button
+            v-if="!uploadInfo.progress"
+            class="button-variant-bordered"
+            @click="TriggerManualUpload"
+          >Upload</button>
+          <span v-if="uploadInfo.success == true" class="upload-message">
+            Successfully uploaded
+            <strong>{{uploadInfo.message}}</strong>
+          </span>
+          <span v-else-if="uploadInfo.success == false" class="upload-message upload-failure">
+            Sorry, There seems to be a problem:
+            <strong>{{uploadInfo.message}}</strong>
+          </span>
+        </div>
 
-          <!-- Account -->
-          <div class="nav-section">
-            <div class="nav-header">Account</div>
-            <router-link :to="{name: 'membership'}">Membership</router-link>
-            <div class="logout">
-              <button @click="signOut()" class="nav-button">Logout</button>
+        <div class="manual-upload-disabled" v-if="$api.MatchSelector.dailyLimitReached === true">
+          <p class="headline">Manual Upload</p>
+          <p>
+            Please wait with your next upload until your daily limit ends at
+            <strong>{{this.$api.MatchSelector.dailyLimitEnds | formatDateAndTime}}</strong>
+          </p>
+          <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
+        </div>
+      </GenericOverlay>
+
+      <div class="nav-content" data-simplebar>
+        <nav>
+          <router-link
+            :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
+            class="logo"
+          >
+            <img src="@/assets/logo_white.svg" />
+          </router-link>
+
+          <div class="nav-section-container">
+            <!-- Personal Data -->
+            <div class="nav-section">
+              <div class="nav-header">Personal Data</div>
+              <router-link
+                :to="{name: 'dashboard', params: {steamId: $api.User.GetSteamId(false)}}"
+              >Profile</router-link>
+              <router-link to="/smokes">Smokes</router-link>
+              <router-link to="/molotovs">Molotovs</router-link>
+              <router-link to="/flashes">Flashes</router-link>
+              <router-link to="/hes">HEs</router-link>
+              <router-link to="/kills">Kills</router-link>
+            </div>
+
+            <!-- Upload Demos-->
+            <div class="nav-section">
+              <div class="nav-header">Upload Demos</div>
+              <router-link to="/automatic-upload">Automatic Upload</router-link>
+              <button class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+              <router-link to="/browser-extension">Browser Extension</router-link>
+            </div>
+
+            <!-- Account -->
+            <div class="nav-section">
+              <div class="nav-header">Account</div>
+              <router-link :to="{name: 'membership'}">Membership</router-link>
+              <div class="logout">
+                <button @click="signOut()" class="nav-button">Logout</button>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <div class="bottom-content">
-        <QueueStatusDisplay />
-        <DiscordHint />
-        <div
-          class="user-profile"
-          v-if="user"
-          @click="optionsVisible = !optionsVisible"
-          @mouseleave="optionsVisible = false"
-        >
-          <!-- <img v-if="user" :src="GetFullSteamAvatarURL(user.Icon)" />
-          <span class="username">{{ user.SteamName }}</span>-->
+        <div class="bottom-content">
+          <DiscordHint />
+          <div
+            class="user-profile"
+            v-if="user"
+            @click="optionsVisible = !optionsVisible"
+            @mouseleave="optionsVisible = false"
+          >
+            <!-- <img v-if="user" :src="GetFullSteamAvatarURL(user.Icon)" />
+            <span class="username">{{ user.SteamName }}</span>-->
+          </div>
         </div>
       </div>
+      <QueueStatusDisplay />
     </div>
   </div>
 </template>
@@ -192,13 +194,18 @@ export default {
 
 <style lang="scss">
 .side-navigation {
+  position: fixed;
   background: $dark-1;
   border-right: 1px solid $purple;
   height: 100%;
-  position: fixed;
   width: $sidebar-width;
   padding: 0;
   z-index: 9999;
+
+  .side-navigation-inner-wrapper {
+    position: relative;
+    min-height: 100%;
+  }
 
   .manual-upload-overlay {
     text-align: center;
@@ -274,6 +281,7 @@ export default {
     bottom: 0;
     left: 0;
     width: calc(#{$sidebar-width} - 1px);
+    z-index: 1;
 
     .discord-hint {
       position: static;
@@ -351,6 +359,7 @@ export default {
 
     .nav-section-container {
       // First nav-section should not have a top margin
+      margin-bottom: 44px;
       & > .nav-section:first-of-type {
         margin-top: 0;
       }
