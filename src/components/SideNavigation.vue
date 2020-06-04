@@ -201,6 +201,7 @@ export default {
   width: $sidebar-width;
   padding: 0;
   z-index: 9999;
+  overflow-y: scroll;
 
   .side-navigation-inner-wrapper {
     position: relative;
