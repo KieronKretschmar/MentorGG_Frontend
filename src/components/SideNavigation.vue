@@ -288,6 +288,7 @@ export default {
       position: static;
       border: 0;
       background: $dark-3;
+      border-top: 1px solid $purple;
       border-bottom: 1px solid $dark-1;
       border-radius: 0;
       font-size: 14px;
