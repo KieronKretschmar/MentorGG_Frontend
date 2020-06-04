@@ -123,13 +123,12 @@ export default {
     color: $light-1;
     text-align: center;
     padding-top: 8px;
-  }
 
-  .demo-text-bold {
-    @extend .demo-text;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 1.4;
+    .demo-text-bold {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.4;
+    }
   }
 
   .orange-bold {
@@ -212,6 +211,15 @@ export default {
     }
     40% {
       transform: scale(1);
+    }
+  }
+}
+
+//responsive
+@media (max-width: 400px) {
+  .demo-feedback-wrapper {
+    .demo-feedback {
+      width: 230px;
     }
   }
 }
