@@ -409,200 +409,26 @@ export default {
 //responsive
 @media (max-width: 400px) {
   .side-navigation {
-    background: $dark-1;
-    border-right: 1px solid $purple;
-    height: 100%;
-    position: fixed;
-    width: $sidebar-width;
-    padding: 0;
-    z-index: 9999;
     max-width: 260px;
 
     .manual-upload-overlay {
-      text-align: center;
-
-      input[type="file"] {
-        cursor: pointer;
-        background: $purple;
-        padding: 10px;
-        color: white;
-        border-radius: 3px;
-        margin: 0.5em;
-        font-family: inherit;
-        width: 60%;
-      }
-
       button {
         width: 20%;
-        min-width: 100px;
-        margin: 0 auto;
-        display: inline-block;
       }
-
-      span.upload-message {
-        display: block;
-        color: white;
-        border: 1px solid $purple;
-        padding: 1em;
-        margin: 0.5em;
-
-        strong {
-          font-weight: 500;
-        }
-
-        animation: message-pop 0.5s;
-
-        @keyframes message-pop {
-          from {
-            opacity: 0;
-          }
-          10% {
-            scale: 1;
-          }
-          30% {
-            opacity: 1;
-            scale: 1.2;
-            border-color: $orange;
-            border-width: 5px;
-          }
-          to {
-            scale: 1;
-          }
-        }
-      }
-
-      span.upload-failure {
-        strong {
-          color: $orange;
-        }
-      }
-    }
-
-    .nav-content {
-      height: 100%;
-      padding-bottom: 100px;
     }
 
     .bottom-content {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: calc(#{$sidebar-width} - 1px);
-
       .discord-hint {
-        position: static;
-        border: 0;
-        background: $dark-3;
-        border-bottom: 1px solid $dark-1;
-        border-radius: 0;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: rgb(114, 137, 218);
-
-        &:hover {
-          background: $dark-2;
-        }
-      }
-
-      .user-profile {
-        display: flex;
-        align-items: center;
-        transition: 0.35s;
-        user-select: none;
-
-        img {
-          width: 30px;
-          height: 30px;
-          margin-right: 10px;
-        }
-
-        .username {
-          color: white;
-          font-weight: 300;
-          font-size: 12px;
-          max-width: 200px;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-          transition: 0.35s;
-        }
+        width: 259px;
       }
     }
 
     nav {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      a {
-        color: white;
-        text-decoration: none;
-        transition: 0.35s;
-        font-weight: 500;
-        font-size: 14px;
-        margin-bottom: 1px;
-        background: $dark-3;
-        padding: 5px 40px;
-
-        &:hover,
-        &.router-link-exact-active {
-          color: $orange;
-        }
-      }
-
       .logo {
-        display: block;
-        text-align: center;
         margin: 30px 0 20px 0;
-        background: transparent;
 
         img {
           width: 160px;
-        }
-      }
-
-      .nav-section-container {
-        // First nav-section should not have a top margin
-        & > .nav-section:first-of-type {
-          margin-top: 0;
-        }
-
-        .nav-section {
-          display: flex;
-          flex-direction: column;
-          margin-top: 50px;
-
-          .nav-header {
-            color: white;
-            font-size: 14px;
-            text-transform: uppercase;
-            text-align: center;
-            border-bottom: 1px solid $purple;
-            padding: 5px 0;
-            font-weight: 600;
-          }
-        }
-      }
-
-      .nav-button {
-        border: 0;
-        outline: 0;
-        color: white;
-        transition: 0.35s;
-        background: $dark-3;
-        cursor: pointer;
-        padding: 5px 40px;
-        margin: 0;
-        width: 100%;
-        font-family: inherit;
-        font-weight: 500;
-        font-size: 14px;
-        text-align: left;
-        margin-bottom: 1px;
-
-        &:hover {
-          color: $orange;
         }
       }
     }
