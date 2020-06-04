@@ -206,6 +206,7 @@ export default {
   .side-navigation-inner-wrapper {
     position: relative;
     min-height: 100%;
+    -webkit-transform: translate3d(0, 0, 0); /* Safari z-index bugfix */
   }
 
   .manual-upload-overlay {
@@ -417,6 +418,7 @@ export default {
     }
 
     .bottom-content {
+      width: calc(#{$sidebar-width} - 41px);
       .discord-hint {
         width: 259px;
       }
