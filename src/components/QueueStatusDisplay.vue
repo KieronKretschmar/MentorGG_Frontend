@@ -218,6 +218,14 @@ export default {
 //responsive
 @media (max-width: 400px) {
   .demo-feedback-wrapper {
+    .demo-text {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .demo-text-bold {
+      font-size: 11px;
+    }
     .demo-feedback {
       width: 230px;
     }
