@@ -65,6 +65,13 @@
               <div class="key">Round</div>
               <div class="val">{{ occurence.Round }}</div>
             </div>
+
+            <template v-if="debug">
+                <div class="field debug" v-for="(val, key) in occurence" :key="key"> 
+                    <div class="key">{{ key }}</div>
+                    <div class="val">{{ val }}</div>
+                </div>
+            </template>
           </div>
 
           <button class="watch-button button-variant-bordered" @click="Watch(occurence, staticSituationData.typeName)">
@@ -87,19 +94,20 @@ export default {
     LineChart
   },
   mounted() {
-    console.log(this.staticSituationData);
+    this.debug = false;
+
     this.$api
       .getSituationsOfType({
         type: this.staticSituationData.type
       })
       .then(result => {
         this.dynamicSituationData = result.data;
-        console.log(this.dynamicSituationData);
       });
   },
   data() {
     return {
       dynamicSituationData: null,
+      debug: false,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -300,6 +308,10 @@ export default {
           padding: 10px 0px;
           font-size: 12px;
           font-weight: 500;
+
+          &.debug {
+              background: black;
+          }
 
           &:last-child {
             border-bottom: none;

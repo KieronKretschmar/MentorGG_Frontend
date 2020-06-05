@@ -4,7 +4,7 @@ import SituationBase from '@/components/BetterSituations/SituationBase';
 export default class SituationLoader {
     static getSituationData(situationType) {
         let data = {};
-        let add_data = (type, component, name, description, fluff) => {
+        let add_data = (type, component, name, description, fluff, additionalFields = []) => {
             data[type] = {
                 type: type,
                 typeName: Enums.SituationType.ToString(type),
