@@ -222,7 +222,15 @@ class MentorGGAPI {
         //         matchIds: this.MatchSelector.Build().GetMatchIds().toString()
         //     }
         // });
-        return axios.get('https://test.mentor.gg/v1/single/76561198074614114/situations?matchIds=1,2', {
+        return axios.get('https://dev.api.mentor.gg/v1/single/76561198820202264/situations?matchIds=107166,107167,107168,107169,107170,107171', {
+            params: {
+                //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+            }
+        });
+    }
+
+    getSituationsOfType(params, overrides = {}) {
+        return axios.get(`https://dev.api.mentor.gg/v1/single/76561198820202264/situations/${params.type}?matchIds=107166,107167,107168,107169,107170,107171`, {
             params: {
                 //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
             }

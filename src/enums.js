@@ -115,6 +115,18 @@ class Enums {
     };
   }
 
+  static get WinType() {
+    return {
+      Elimination: 0,
+      Time: 1,
+      Explosion: 2,
+      Defuse: 3,
+      HostageRescued: 4,
+      Surrender: 5,
+      Unknown: 6
+    }
+  }
+
   static get LineupAttemptResult() {
     return {
       Default: 0, // This is the default value of unrated smokes
@@ -143,7 +155,7 @@ class Enums {
         Tactical: 1,
         Grenades: 2,   
         Shooting: 3,   
-        Movement: 4,
+        Movement: 4
     };
   }
   
@@ -172,15 +184,15 @@ class Enums {
 
       ToString(n) {
         switch (n) {
-          case 210001: return "Effective HE Grenade";
-          case 210002: return "Kill With Own Flash Assist";
-          case 510001: return "Smoke Fail";
-          case 510002: return "Death Induced Bomb";
-          case 510003: return "Self Flash";
-          case 510004: return "Team Flash";
-          case 510005: return "Rifle Fired While Moving";
-          case 510006: return "Unnecessary Reload";
-          case 510006: return "Push Before Smoke Detonated";
+          case 210001: return "EffectiveHEGrenade";
+          case 210002: return "KillWithOwnFlashAssist";
+          case 510001: return "SmokeFail";
+          case 510002: return "DeathInducedBombDrop";
+          case 510003: return "SelfFlash";
+          case 510004: return "TeamFlash";
+          case 510005: return "RifleFiredWhileMoving";
+          case 510006: return "UnnecessaryReload";
+          case 510006: return "PushBeforeSmokeDetonated";
         }
 
         return "Unknown";

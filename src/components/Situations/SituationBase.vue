@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .misplay {
   border-bottom: 1px solid $purple;
   margin-top: 10px;

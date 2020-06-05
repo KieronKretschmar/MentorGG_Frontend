@@ -4,7 +4,7 @@
       <component
         v-if="situationData"
         v-bind:is="situationData.component"
-        :situation="situationData"
+        :staticSituationData="situationData"
       ></component>
     </div>
   </div>

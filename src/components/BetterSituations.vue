@@ -1,55 +1,68 @@
 <template>
   <div class="better-situations dashboard-unit">
-    <div class="advice-container">
-      <div class="advice">
-        <h2 class="section-header">Misplays</h2>
-        <div class="bordered-box">
-          <div v-if="false" class="no-situations">
-            <AjaxLoader>Computing Misplays</AjaxLoader>
-          </div>
-          <div v-if="false" class="no-situations">
-            <p>No data available</p>
-          </div>
-          <div class="situation-table" v-if="true">
-            <div class="table-content">
-              <div v-for="situation in misplays" :key="situation.type" class="entry">
-                <div class="category-wrapper">
-                  <div class="cell link" @click="OpenSituationDetailView(situation.type)">
-                    <i class="situation-icon" :class="situation.icon"></i>
-                    <span class="situation-name">{{ situation.name }}</span>
-                    <span
-                      class="occurences-badge"
-                      :count="situation.occurences.length"
-                    >{{ situation.occurences.length }}</span>
-                  </div>
-                  <div class="cell occurences-toggle">
-                    <i
-                      class="fas fa-chevron-down"
-                      @click="situation.occurencesVisible = !situation.occurencesVisible"
-                      :class="{toggled: situation.occurencesVisible}"
-                    ></i>
-                  </div>
+    <!-- Misplays -->
+    <div class="better-situation">
+      <h2 class="section-header">Misplays</h2>
+      <div class="bordered-box chart-container" v-if="situations">
+        <p class="chart-title">Average misplays per round on a per match basis</p>
+        <LineChart
+          :options="chartOptions"
+          :data="chartDataMisplays"
+          class="situation-graph-inner-wrapper"
+        />
+      </div>
+      <div class="bordered-box stretch-wrapper">
+        <div class="situation-table" v-if="true">
+          <div class="table-content">
+            <div v-for="situation in misplays" :key="situation.type" class="entry misplay">
+              <div class="category-wrapper">
+                <div class="cell link" @click="OpenSituationDetailView(situation.type)">
+                  <img
+                    class="situation-icon"
+                    :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                    :title="situation.skillDomainName"
+                  />
+                  <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                  <span class="situation-name">{{ situation.name }}</span>
+                  <span
+                    class="occurences-badge"
+                    :count="situation.occurences.length"
+                  >{{ situation.occurences.length }}</span>
                 </div>
+                <div class="cell occurences-toggle">
+                  <i
+                    class="fas fa-chevron-down"
+                    @click="situation.occurencesVisible = !situation.occurencesVisible"
+                    :class="{toggled: situation.occurencesVisible}"
+                    :test="situation.occurencesVisible"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="occurences"
+                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 'px') : '0px'}"
+              >
                 <div
-                  class="occurences"
-                  :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 40) + 20 + 'px') : '0px'}"
+                  v-for="occurence in situation.occurences"
+                  :key="occurence.id"
+                  class="occurence"
+                  :style="{backgroundImage: `url( '${$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)}')`}"
                 >
-                  <div
-                    v-for="occurence in situation.occurences"
-                    :key="occurence.id"
-                    class="occurence"
-                    :style="{backgroundImage: `url( '${$assetLoader.getMapPreview('de_inferno')}')`}"
-                  >
-                    <div class="content">
-                      <span>
-                        <span class="match-date">{{ occurence.matchDate|formatDateAndTime }}</span>
-                        <span class="map">{{ 'de_inferno' }}</span>
-                      </span>
-                      <span class="watch-wrapper">
-                        <span class="round">Round {{ occurence.Round }}</span>
-                        <i title="Watch in Browser" class="material-icons watch-match-icon">videocam</i>
-                      </span>
-                    </div>
+                  <div class="content">
+                    <span>
+                      <span
+                        class="match-date"
+                      >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
+                      <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
+                    </span>
+                    <span class="watch-wrapper">
+                      <span class="round">Round {{ occurence.Round }}</span>
+                      <i
+                        title="Watch in Browser"
+                        class="material-icons watch-match-icon"
+                        @click="Watch(occurence, situation)"
+                      >videocam</i>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -57,23 +70,73 @@
           </div>
         </div>
       </div>
-      <div class="advice">
-        <h2 class="section-header">Highlights</h2>
-        <div class="bordered-box">
-          <div v-if="false" class="no-positions">
-            <AjaxLoader>Computing Highlights</AjaxLoader>
-          </div>
-          <div v-if="false" class="no-positions">
-            <p>No data available</p>
-          </div>
-          <div class="position-table" v-if="true">
-            <div class="table-content">
-              <div class="table-header">
-                <span>Map</span>
-                <span>Name</span>
-                <span>Team</span>
-                <span>Kills</span>
-                <span>Deaths</span>
+    </div>
+
+    <!-- Highlights -->
+    <div class="better-situation">
+      <h2 class="section-header">Highlights</h2>
+      <div class="bordered-box chart-container" v-if="situations">
+        <p class="chart-title">Average highlights per round on a per match basis</p>
+        <LineChart
+          :options="chartOptions"
+          :data="chartDataHighlights"
+          class="situation-graph-inner-wrapper"
+        />
+      </div>
+      <div class="bordered-box stretch-wrapper">
+        <div class="situation-table" v-if="true">
+          <div class="table-content">
+            <div v-for="situation in highlights" :key="situation.type" class="entry highlight">
+              <div class="category-wrapper">
+                <div class="cell link" @click="OpenSituationDetailView(situation.type)">
+                  <img
+                    class="situation-icon"
+                    :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                    :title="situation.skillDomainName"
+                  />
+                  <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                  <span class="situation-name">{{ situation.name }}</span>
+                  <span
+                    class="occurences-badge"
+                    :count="situation.occurences.length"
+                  >{{ situation.occurences.length }}</span>
+                </div>
+                <div class="cell occurences-toggle">
+                  <i
+                    class="fas fa-chevron-down"
+                    @click="situation.occurencesVisible = !situation.occurencesVisible"
+                    :class="{toggled: situation.occurencesVisible}"
+                    :test="situation.occurencesVisible"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="occurences"
+                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 'px') : '0px'}"
+              >
+                <div
+                  v-for="occurence in situation.occurences"
+                  :key="occurence.id"
+                  class="occurence"
+                  :style="{backgroundImage: `url( '${$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)}')`}"
+                >
+                  <div class="content">
+                    <span>
+                      <span
+                        class="match-date"
+                      >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
+                      <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
+                    </span>
+                    <span class="watch-wrapper">
+                      <span class="round">Round {{ occurence.Round }}</span>
+                      <i
+                        title="Watch in Browser"
+                        class="material-icons watch-match-icon"
+                        @click="Watch(occurence, situation)"
+                      >videocam</i>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -84,54 +147,222 @@
 </template>
 
 <script>
-import Enums from '@/enums';
+import LineChart from "@/components/LineChart.vue";
+import SituationLoader from "@/SituationLoader";
+import Enums from "@/enums";
 
 export default {
   props: ["steamId"],
+  components: {
+    LineChart
+  },
   mounted() {
-
-    this.$api.getSituations({
-      steamId: this.steamId
-    }).then(result => {
-      this.situations = result.data;
-    });
+    this.$api
+      .getSituations({
+        steamId: this.steamId
+      })
+      .then(result => {
+        this.situations = result.data;
+        this.misplays = this.PrepareData("Misplays");
+        this.highlights = this.PrepareData("Highlights");
+      });
   },
   data() {
+    let self = this;
+
     return {
-      situations: null
+      situations: null,
+      misplays: [],
+      highlights: [],
+      chartOptions: {
+        tooltips: {
+          enabled: true,
+          callbacks: {
+            title: function(tooltipItems, data) {
+              let xLabel = tooltipItems[0].xLabel;
+
+              if (!self.situations) {
+                return "Match #" + xLabel;
+              } else {
+                let matchId = Object.keys(self.situations.Matches)[+xLabel - 1];
+                let match = self.situations.Matches[matchId];
+
+                return (
+                  "Match #" +
+                  xLabel +
+                  "\nMap: " +
+                  match.Map +
+                  "\nDate: " +
+                  new Date(match.MatchDate).toLocaleString([], {
+                    timeStyle: "short",
+                    dateStyle: "short"
+                  })
+                );
+              }
+            }
+          }
+        },
+        hover: {
+          animationDuration: 0
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              scaleLabel: {
+                display: false,
+                labelString: "avg. misplays per round"
+              },
+              ticks: {
+                // beginAtZero: true,
+                // stepValue: 1,
+                stepSize: 0.1
+              }
+            }
+          ],
+          xAxes: [
+            {
+              display: true,
+              scaleLabel: {
+                display: false,
+                labelString: "matches"
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        }
+      }
     };
   },
   methods: {
-    BeautifySituationName(name) {
-      return name.split(/(?=[A-Z])/).join(" ");
-    },
     OpenSituationDetailView(type) {
       this.$router.push({
-        name: 'situation-detail',
+        name: "situation-detail",
         params: {
           type: type
         }
       });
+    },
+    PrepareData(dataKey) {
+      let ret = [];
+
+      Object.keys(this.situations[dataKey]).forEach(key => {
+        let entry = this.situations[dataKey][key];
+
+        let staticData = SituationLoader.getSituationData(
+          entry.MetaData.SituationType
+        );
+
+        ret.push({
+          name: staticData.name,
+          occurencesVisible: false,
+          type: entry.MetaData.SituationType,
+          occurences: entry.Situations,
+          skillDomainName: entry.MetaData.SkillDomainName,
+          icon: "fas fa-skull"
+        });
+      });
+
+      return ret;
+    },
+    Watch(occurence, situation) {
+      this.$helpers.LogEvent(this, "WatchSituation", {
+        label: Enums.SituationType.ToString(situation.type)
+      });
+
+      globalThis.DemoViewer.SetMatch(occurence.MatchId)
+        .SetRound(occurence.Round)
+        .SetTimestamp(Math.max(0, occurence.StartTime))
+        .Load();
     }
   },
   computed: {
-    misplays() {
-      let ret = [];
-
-      if (this.situations == null) {
-        return ret;
+    chartDataMisplays() {
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.Misplays.length; i++) {
+        labels.push(i + 1);
       }
 
-      Object.keys(this.situations.Misplays).forEach(key => {
-        let entry = this.situations.Misplays[key];
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. misplays per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.chartDataPoints.Misplays,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    chartDataHighlights() {
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.Highlights.length; i++) {
+        labels.push(i + 1);
+      }
 
-        ret.push({
-          name: Enums.SituationType.ToString(entry.MetaData.SituationType),
-          type: entry.MetaData.SituationType,
-          occurences: entry.Situations,
-          icon: 'fas fa-skull'
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. highlights per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.chartDataPoints.Highlights,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    chartDataPoints() {
+      let map = {};
+      let ret = {};
+
+      for (let dataKey of ["Misplays", "Highlights"]) {
+        map[dataKey] = {};
+        ret[dataKey] = [];
+
+        Object.keys(this.situations[dataKey]).forEach(key => {
+          let entry = this.situations[dataKey][key];
+
+          for (let situation of entry.Situations) {
+            if (map[dataKey][situation.MatchId] == undefined) {
+              map[dataKey][situation.MatchId] = {
+                totalOccurences: 0,
+                averageOccurences: 0,
+                rounds: {}
+              };
+            }
+
+            map[dataKey][situation.MatchId].rounds[situation.Round] =
+              ++map[dataKey][situation.MatchId].rounds[situation.Round] || 1;
+            map[dataKey][situation.MatchId].totalOccurences++;
+
+            //update averageOccurences
+            map[dataKey][situation.MatchId].averageOccurences = (
+              map[dataKey][situation.MatchId].totalOccurences /
+              this.situations.Matches[situation.MatchId].TotalRounds
+            ).toFixed(2);
+          }
         });
-      });
+
+        Object.keys(this.situations.Matches).forEach(key => {
+          if (map[dataKey][key] == undefined) {
+            ret[dataKey].push(0);
+          } else {
+            ret[dataKey].push(map[dataKey][key].averageOccurences);
+          }
+        });
+      }
 
       return ret;
     }
@@ -143,13 +374,38 @@ export default {
 </script>
 
 <style lang="scss">
-.advice-container {
+.better-situations {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 
-  .advice {
+  .better-situation {
     width: calc(50% - 5px);
+    display: flex;
+    flex-direction: column;
+
+    .chart-container {
+      margin-bottom: 10px;
+
+      .chart-title {
+        color: $orange;
+        // text-transform: uppercase;
+        font-size: 12px;
+        text-align: center;
+        background: $dark-3;
+        border-radius: 4px;
+        padding: 5px 10px;
+        margin-top: 0;
+      }
+
+      .situation-graph-inner-wrapper {
+        max-height: 200px;
+      }
+    }
+
+    .stretch-wrapper {
+      flex: 1 1 auto;
+    }
 
     p {
       color: white;
@@ -173,6 +429,15 @@ export default {
 
           &:last-child {
             border-bottom: none;
+          }
+
+          &.highlight {
+            .cell {
+              .occurences-badge {
+                background: $green;
+                color: $dark-1;
+              }
+            }
           }
 
           .category-wrapper {
@@ -244,12 +509,12 @@ export default {
               }
 
               .watch-wrapper {
-                  display: flex;
-                  align-items: center;
+                display: flex;
+                align-items: center;
 
-                  .round {
-                      margin-right: 10px;
-                  }
+                .round {
+                  margin-right: 10px;
+                }
               }
 
               .match-date {
@@ -284,6 +549,7 @@ export default {
 
               &[count="0"] {
                 background: $purple;
+                color: white;
               }
             }
           }
@@ -300,8 +566,8 @@ export default {
             text-overflow: ellipsis;
 
             img {
-              width: 40px;
-              margin-right: 8px;
+              width: 30px;
+              margin-right: 5px;
             }
 
             &:hover {
