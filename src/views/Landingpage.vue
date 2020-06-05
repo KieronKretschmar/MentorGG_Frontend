@@ -32,7 +32,7 @@
             <div class="hero-wrap">
               <img class="logo-hero" src="@/assets/logo_white.svg" alt="CS:GO Mentor" />
               <h1 class="hero-title">Your personal eSports Coach.</h1>
-              <strong class="hero-subtitle">Helping you improve your gameplay</strong>
+              <strong class="hero-subtitle">Now available - CS:GO Stats, Demoviewer &amp; more</strong>
 
               <button
                 @click="signIn()"
@@ -169,7 +169,7 @@
                 <div class="section-desc-img-wrap">
                   <img class="section-desc-img" src="@/assets/positions.png" alt="Positions" />
                 </div>
-                <h3 class="section-desc-title">Positions</h3>
+                <h3 class="section-desc-title">Unique CS:GO Stats</h3>
                 <p
                   class="section-desc-text"
                 >Do you always die in the same spot? See where you succeed and show off your skill to your friends!</p>
@@ -188,7 +188,7 @@
                 <div class="section-desc-img-wrap">
                   <img class="section-desc-img" src="@/assets/smokes.png" alt="Smokes" />
                 </div>
-                <h3 class="section-desc-title">Grenade review</h3>
+                <h3 class="section-desc-title">Grenade Review</h3>
                 <p
                   class="section-desc-text"
                 >Find out how effective your grenades are, which ones you need to practice and learn new lineups!</p>
