@@ -70,6 +70,7 @@ class MentorGGAPI {
                 .then(result => {
                     // User is logged in
                     this.User = new MentorUser(result.data.ApplicationUserId, result.data.SteamId, result.data.SubscriptionType, result.data.DailyMatchesLimit);
+                    Vue.$ga.set('userId', this.User.applicationUserId);
                     resolve();
                     return;
                 })
