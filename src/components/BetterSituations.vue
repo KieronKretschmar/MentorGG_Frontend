@@ -293,8 +293,16 @@ export default {
     PrepareData(dataKey) {
       let ret = [];
 
+      //Add anything of type Enums.SituationType 
+      //to the following array to hide the respective situation on the frontend
+      let mutedSituations = [];
+
       Object.keys(this.situations[dataKey]).forEach(key => {
         let entry = this.situations[dataKey][key];
+
+        if  (mutedSituations.indexOf(entry.MetaData.SituationType) != -1) {
+          return;
+        }
 
         let staticData = SituationLoader.getSituationData(
           entry.MetaData.SituationType
@@ -306,8 +314,7 @@ export default {
           type: entry.MetaData.SituationType,
           occurences: entry.Situations,
           skillDomainName: entry.MetaData.SkillDomainName,
-          containsNew: false,
-          icon: "fas fa-skull"
+          containsNew: false
         };
 
         // check if any of the occurences happened in the last match
