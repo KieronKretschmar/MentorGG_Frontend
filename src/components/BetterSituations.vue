@@ -2,7 +2,13 @@
   <div class="better-situations dashboard-unit">
     <!-- Misplays -->
     <div class="better-situation">
-      <h2 class="section-header">Misplays</h2>
+      <h2 class="section-header">
+        <span>Misplays</span>
+        <span
+          class="new-count misplays"
+          v-if="newOccurencesCount.Misplays > 0"
+        >+{{ newOccurencesCount.Misplays }} new from last match</span>
+      </h2>
       <div class="bordered-box chart-container" v-if="situations">
         <p class="chart-title">Average misplays per round on a per match basis</p>
         <LineChart
@@ -29,10 +35,13 @@
                     :count="situation.occurences.length"
                   >{{ situation.occurences.length }}</span>
                 </div>
-                <div class="cell occurences-toggle">
+                <div
+                  class="cell occurences-toggle"
+                  @click="situation.occurencesVisible = !situation.occurencesVisible"
+                >
+                  <div class="new-indicator" v-if="situation.containsNew">new</div>
                   <i
                     class="fas fa-chevron-down"
-                    @click="situation.occurencesVisible = !situation.occurencesVisible"
                     :class="{toggled: situation.occurencesVisible}"
                     :test="situation.occurencesVisible"
                   ></i>
@@ -40,16 +49,19 @@
               </div>
               <div
                 class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 'px') : '0px'}"
+                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
               >
                 <div
                   v-for="occurence in situation.occurences"
                   :key="occurence.id"
                   class="occurence"
-                  :style="{backgroundImage: `url( '${$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)}')`}"
                 >
                   <div class="content">
                     <span>
+                      <img
+                        class="map-image"
+                        :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
+                      />
                       <span
                         class="match-date"
                       >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
@@ -74,7 +86,13 @@
 
     <!-- Highlights -->
     <div class="better-situation">
-      <h2 class="section-header">Highlights</h2>
+      <h2 class="section-header">
+        <span>Highlights</span>
+        <span
+          class="new-count highlights"
+          v-if="newOccurencesCount.Highlights > 0"
+        >+{{ newOccurencesCount.Highlights }} new from last match</span>
+      </h2>
       <div class="bordered-box chart-container" v-if="situations">
         <p class="chart-title">Average highlights per round on a per match basis</p>
         <LineChart
@@ -101,10 +119,13 @@
                     :count="situation.occurences.length"
                   >{{ situation.occurences.length }}</span>
                 </div>
-                <div class="cell occurences-toggle">
+                <div
+                  class="cell occurences-toggle"
+                  @click="situation.occurencesVisible = !situation.occurencesVisible"
+                >
+                  <div class="new-indicator" v-if="situation.containsNew">new</div>
                   <i
                     class="fas fa-chevron-down"
-                    @click="situation.occurencesVisible = !situation.occurencesVisible"
                     :class="{toggled: situation.occurencesVisible}"
                     :test="situation.occurencesVisible"
                   ></i>
@@ -112,16 +133,19 @@
               </div>
               <div
                 class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 'px') : '0px'}"
+                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
               >
                 <div
                   v-for="occurence in situation.occurences"
                   :key="occurence.id"
                   class="occurence"
-                  :style="{backgroundImage: `url( '${$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)}')`}"
                 >
                   <div class="content">
                     <span>
+                      <img
+                        class="map-image"
+                        :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
+                      />
                       <span
                         class="match-date"
                       >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
@@ -174,6 +198,11 @@ export default {
       situations: null,
       misplays: [],
       highlights: [],
+      lastMatchId: 107169, //TODO: Replace with actual last match id
+      newOccurencesCount: {
+        Misplays: 0,
+        Highlights: 0
+      },
       chartOptions: {
         tooltips: {
           enabled: true,
@@ -257,14 +286,27 @@ export default {
           entry.MetaData.SituationType
         );
 
-        ret.push({
+        let temp = {
           name: staticData.name,
           occurencesVisible: false,
           type: entry.MetaData.SituationType,
           occurences: entry.Situations,
           skillDomainName: entry.MetaData.SkillDomainName,
+          containsNew: false,
           icon: "fas fa-skull"
-        });
+        };
+
+        // check if any of the occurences happened in the last match
+        // to indicate if the situation category contains "new" occurences
+        for (let occurence of temp.occurences) {
+          if (occurence.MatchId == this.lastMatchId) {
+            occurence.isNew = true;
+            temp.containsNew = true;
+            this.newOccurencesCount[dataKey]++;
+          }
+        }
+
+        ret.push(temp);
       });
 
       return ret;
@@ -379,6 +421,27 @@ export default {
   justify-content: space-between;
   flex-direction: row;
 
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .new-count {
+      font-size: 12px;
+      padding: 5px;
+      border-radius: 4px;
+      font-weight: 500;
+
+      &.misplays {
+        background: crimson;
+      }
+
+      &.highlights {
+        background: $green-2;
+      }
+    }
+  }
+
   .better-situation {
     width: calc(50% - 5px);
     display: flex;
@@ -431,12 +494,17 @@ export default {
             border-bottom: none;
           }
 
+          &.misplay {
+            .new-indicator {
+              background: crimson;
+              color: white;
+            }
+          }
+
           &.highlight {
-            .cell {
-              .occurences-badge {
-                background: $green;
-                color: $dark-1;
-              }
+            .new-indicator {
+              background: $green-2;
+              color: white;
             }
           }
 
@@ -453,6 +521,15 @@ export default {
               color: $orange;
               font-size: 20px;
               cursor: pointer;
+              display: flex;
+              align-items: center;
+
+              .new-indicator {
+                font-size: 12px;
+                padding: 5px;
+                border-radius: 4px;
+                margin-right: 10px;
+              }
 
               i {
                 transition: 0.35s;
@@ -473,9 +550,10 @@ export default {
               padding: 20px 10px;
               margin-bottom: 5px;
               border-radius: 4px;
-              background-position: center;
-              background-size: cover;
-              background-repeat: no-repeat;
+              background: $dark-1 !important;
+              // background-position: center;
+              // background-size: cover;
+              // background-repeat: no-repeat;
               position: relative;
               overflow: hidden;
 
@@ -491,6 +569,14 @@ export default {
                 width: 100%;
                 height: 100%;
                 padding: 0 10px;
+                padding-left: 0;
+
+                span {
+                  &:first-child {
+                    display: flex;
+                    align-items: center;
+                  }
+                }
               }
 
               &:first-child {
@@ -501,11 +587,22 @@ export default {
                 margin-bottom: 10px;
               }
 
+              .map-image {
+                width: 100px;
+                height: 40px;
+                object-fit: cover;
+                object-position: center;
+                margin-right: 10px;
+                border-radius: 4px;
+                overflow: hidden;
+              }
+
               .map,
               .match-date,
               .round {
                 color: white;
-                font-weight: 300;
+                font-weight: 500;
+                font-size: 12px;
               }
 
               .watch-wrapper {
@@ -513,15 +610,21 @@ export default {
                 align-items: center;
 
                 .round {
-                  margin-right: 10px;
+                  margin-right: 5px;
+                  width: 60px;
+                  text-align: right;
                 }
               }
 
               .match-date {
-                &:after {
-                  content: "//";
-                  margin: 0 5px;
-                }
+                border-right: 1px solid $purple;
+                padding: 5px 0;
+                padding-right: 5px;
+                width: 100px;              
+              }
+
+              .map {
+                margin-left: 10px;
               }
 
               .watch-match-icon {
@@ -544,13 +647,8 @@ export default {
               align-items: center;
               justify-content: center;
               border-radius: 4px;
-              background: crimson;
+              background: $purple;
               color: white;
-
-              &[count="0"] {
-                background: $purple;
-                color: white;
-              }
             }
           }
 

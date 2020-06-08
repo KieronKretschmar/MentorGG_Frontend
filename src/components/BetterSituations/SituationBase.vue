@@ -231,7 +231,7 @@ export default {
         margin-right: 10px;
 
         &.highlight {
-          color: $green;
+          color: $green-2;
         }
 
         &.misplay {
@@ -256,8 +256,7 @@ export default {
       }
 
       &.highlight {
-        background: $green;
-        color: $dark-1;
+        background: $green-2;
       }
     }
   }
