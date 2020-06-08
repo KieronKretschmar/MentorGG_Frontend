@@ -1,102 +1,111 @@
 <template>
   <div class="situation-base">
-    <div class="situation-header">
-      <div class="situation-name">
-        <img
-          :src="$assetLoader.getSkillDomainIcon(dynamicSituationData.SituationCollection.MetaData.SkillDomainName)"
-          v-if="dynamicSituationData"
-        />
-        <span v-if="staticSituationData.isHighlight" class="highlight">Highlight:</span>
-        <span v-if="staticSituationData.isMisplay" class="misplay">Misplay:</span>
-        {{ staticSituationData.name }}
-      </div>
-      <div
-        class="situation-count"
-        :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
-      >{{ dynamicSituationData.SituationCollection.Situations.length }}</div>
-    </div>
-    <div class="description-howtoavoid">
-      <div class="description">
-        <h2 class="section-header">Description</h2>
-        <div class="bordered-box">{{ staticSituationData.description }}</div>
-      </div>
-      <div class="fluff">
-        <h2 class="section-header">Tips</h2>
-        <div class="bordered-box">{{ staticSituationData.fluff }}</div>
-      </div>
-    </div>
-
-    <div class="chart">
-      <h2 class="section-header">Occurence History Graph</h2>
-      <div class="bordered-box chart-container">
-        <p class="chart-title">
-          Average
-          <span v-if="staticSituationData.isHighlight">highlights</span>
-          <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
-        </p>
-        <LineChart :options="chartOptions" :data="chartData" class="history-graph-inner-wrapper" />
-      </div>
-    </div>
-
-    <div class="occurences">
-      <h2 class="section-header">Occurences</h2>
-      <div class="occurence-list">
-        <div
-          class="occurence bordered-box"
-          v-for="occurence in dynamicSituationData.SituationCollection.Situations"
-          :key="occurence.Id"
-        >
+    <template v-if="this.dynamicSituationData">
+      <div class="situation-header">
+        <div class="situation-name">
           <img
-            class="map-preview"
-            :src="$assetLoader.getMapPreview(dynamicSituationData.Matches[occurence.MatchId].Map)"
+            :src="$assetLoader.getSkillDomainIcon(dynamicSituationData.SituationCollection.MetaData.SkillDomainName)"
+            v-if="dynamicSituationData"
           />
-          <div class="fields">
-            <div class="field">
-              <div class="key">When</div>
-              <div
-                class="val"
-              >{{ dynamicSituationData.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</div>
-            </div>
-            <div class="field">
-              <div class="key">Map</div>
-              <div class="val">{{ dynamicSituationData.Matches[occurence.MatchId].Map }}</div>
-            </div>
-            <div class="field">
-              <div class="key">Round</div>
-              <div class="val">{{ occurence.Round }}</div>
-            </div>
-
-            <div
-              class="field"
-              v-for="field in staticSituationData.additionalFields"
-              :key="field.key"
-            >
-              <div class="key">{{ field.keyDisplay }}</div>
-              <div class="val">
-                <span v-if="field.before">{{ field.before }}</span>
-                {{ occurence[field.key] }}
-                <span v-if="field.after">{{field.after}}</span>
-              </div>
-            </div>
-
-            <template v-if="debug">
-              <div class="field debug" v-for="(val, key) in occurence" :key="key">
-                <div class="key">{{ key }}</div>
-                <div class="val">{{ val }}</div>
-              </div>
-            </template>
-          </div>
-
-          <button
-            class="watch-button button-variant-bordered"
-            @click="Watch(occurence, staticSituationData.typeName)"
-          >
-            Watch
-            <i class="material-icons">videocam</i>
-          </button>
+          <span v-if="staticSituationData.isHighlight" class="highlight">Highlight:</span>
+          <span v-if="staticSituationData.isMisplay" class="misplay">Misplay:</span>
+          {{ staticSituationData.name }}
+        </div>
+        <div
+          class="situation-count"
+          :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
+        >{{ dynamicSituationData.SituationCollection.Situations.length }}</div>
+      </div>
+      <div class="description-howtoavoid">
+        <div class="description">
+          <h2 class="section-header">Description</h2>
+          <div class="bordered-box">{{ staticSituationData.description }}</div>
+        </div>
+        <div class="fluff">
+          <h2 class="section-header">Tips</h2>
+          <div class="bordered-box">{{ staticSituationData.fluff }}</div>
         </div>
       </div>
-    </div>
+
+      <div class="chart">
+        <h2 class="section-header">Occurence History Graph</h2>
+        <div class="bordered-box chart-container">
+          <p class="chart-title">
+            Average
+            <span v-if="staticSituationData.isHighlight">highlights</span>
+            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
+          </p>
+          <LineChart :options="chartOptions" :data="chartData" class="history-graph-inner-wrapper" />
+        </div>
+      </div>
+
+      <div class="occurences">
+        <h2 class="section-header">Occurences</h2>
+        <div class="occurence-list">
+          <div
+            class="occurence bordered-box"
+            v-for="occurence in dynamicSituationData.SituationCollection.Situations"
+            :key="occurence.Id"
+          >
+            <img
+              class="map-preview"
+              :src="$assetLoader.getMapPreview(dynamicSituationData.Matches[occurence.MatchId].Map)"
+            />
+            <div class="fields">
+              <div class="field">
+                <div class="key">When</div>
+                <div
+                  class="val"
+                >{{ dynamicSituationData.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</div>
+              </div>
+              <div class="field">
+                <div class="key">Map</div>
+                <div class="val">{{ dynamicSituationData.Matches[occurence.MatchId].Map }}</div>
+              </div>
+              <div class="field">
+                <div class="key">Round</div>
+                <div class="val">{{ occurence.Round }}</div>
+              </div>
+
+              <div
+                class="field"
+                v-for="field in staticSituationData.additionalFields"
+                :key="field.key"
+              >
+                <div class="key">{{ field.keyDisplay }}</div>
+                <div class="val">
+                  <span v-if="field.before">{{ field.before }}</span>
+                  {{ occurence[field.key] }}
+                  <span
+                    v-if="field.after"
+                  >{{field.after}}</span>
+                </div>
+              </div>
+
+              <template v-if="debug">
+                <div class="field debug" v-for="(val, key) in occurence" :key="key">
+                  <div class="key">{{ key }}</div>
+                  <div class="val">{{ val }}</div>
+                </div>
+              </template>
+            </div>
+
+            <button
+              class="watch-button button-variant-bordered"
+              @click="Watch(occurence, staticSituationData.typeName)"
+            >
+              Watch
+              <i class="material-icons">videocam</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="bordered-box">
+        <AjaxLoader>Loading situation data</AjaxLoader>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -197,11 +206,12 @@ export default {
 
 <style lang="scss">
 .situation-base {
+  margin-top: 75px;
+  
   .situation-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 75px;
     margin-bottom: 20px;
 
     .situation-name {
