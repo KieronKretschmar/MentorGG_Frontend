@@ -13,7 +13,8 @@ export default class SituationLoader {
                 description: description,
                 fluff: fluff,
                 isHighlight: Enums.SituationType.IsHighlight(type),
-                isMisplay: Enums.SituationType.IsMisplay(type)
+                isMisplay: Enums.SituationType.IsMisplay(type),
+                additionalFields: additionalFields
             };
         }
 
@@ -84,7 +85,13 @@ export default class SituationLoader {
             SituationBase,
             "Self Flash",
             "A self flash occurs when you throw a flashbang and end up blinding yourself to a certain degree.",
-            "Don't expose yourself to your own flashbangs and try to face away from them when they detonate.\n\nFlashing behind you before peeking an angle is a great technique that, when practiced efficiently, can be an absolute game changer."
+            "Don't expose yourself to your own flashbangs and try to face away from them when they detonate.\n\nFlashing behind you before peeking an angle is a great technique that, when practiced efficiently, can be an absolute game changer.",
+            []
+            // [{
+            //     key: "TimeFlashedSelf",
+            //     keyDisplay: "Time Flashed Self",
+            //     after: 'ms'       
+            // }]
         );
 
         add_data(

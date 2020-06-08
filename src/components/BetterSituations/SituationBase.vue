@@ -66,15 +66,31 @@
               <div class="val">{{ occurence.Round }}</div>
             </div>
 
+            <div
+              class="field"
+              v-for="field in staticSituationData.additionalFields"
+              :key="field.key"
+            >
+              <div class="key">{{ field.keyDisplay }}</div>
+              <div class="val">
+                <span v-if="field.before">{{ field.before }}</span>
+                {{ occurence[field.key] }}
+                <span v-if="field.after">{{field.after}}</span>
+              </div>
+            </div>
+
             <template v-if="debug">
-                <div class="field debug" v-for="(val, key) in occurence" :key="key"> 
-                    <div class="key">{{ key }}</div>
-                    <div class="val">{{ val }}</div>
-                </div>
+              <div class="field debug" v-for="(val, key) in occurence" :key="key">
+                <div class="key">{{ key }}</div>
+                <div class="val">{{ val }}</div>
+              </div>
             </template>
           </div>
 
-          <button class="watch-button button-variant-bordered" @click="Watch(occurence, staticSituationData.typeName)">
+          <button
+            class="watch-button button-variant-bordered"
+            @click="Watch(occurence, staticSituationData.typeName)"
+          >
             Watch
             <i class="material-icons">videocam</i>
           </button>
@@ -137,7 +153,7 @@ export default {
   },
   methods: {
     Watch(occurence, typeName) {
-        console.log(typeName);
+      console.log(typeName);
 
       this.$helpers.LogEvent(this, "WatchSituation", {
         label: Enums.SituationType.ToString(typeName)
@@ -310,7 +326,7 @@ export default {
           font-weight: 500;
 
           &.debug {
-              background: black;
+            background: black;
           }
 
           &:last-child {
