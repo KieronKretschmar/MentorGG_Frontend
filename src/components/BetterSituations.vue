@@ -9,79 +9,86 @@
           v-if="newOccurencesCount.Misplays > 0"
         >+{{ newOccurencesCount.Misplays }} new from last match</span>
       </h2>
-      <div class="bordered-box chart-container" v-if="situations">
-        <p class="chart-title">Average misplays per round on a per match basis</p>
-        <LineChart
-          :options="chartOptions"
-          :data="chartDataMisplays"
-          class="situation-graph-inner-wrapper"
-        />
-      </div>
-      <div class="bordered-box stretch-wrapper">
-        <div class="situation-table" v-if="true">
-          <div class="table-content">
-            <div v-for="situation in misplays" :key="situation.type" class="entry misplay">
-              <div class="category-wrapper">
-                <div class="cell link" @click="OpenSituationDetailView(situation.type)">
-                  <img
-                    class="situation-icon"
-                    :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
-                    :title="situation.skillDomainName"
-                  />
-                  <!-- <i class="situation-icon" :class="situation.icon"></i> -->
-                  <span class="situation-name">{{ situation.name }}</span>
-                  <span
-                    class="occurences-badge"
-                    :count="situation.occurences.length"
-                  >{{ situation.occurences.length }}</span>
+      <template v-if="situations">
+        <div class="bordered-box chart-container" v-if="situations">
+          <p class="chart-title">Average misplays per round on a per match basis</p>
+          <LineChart
+            :options="chartOptions"
+            :data="chartDataMisplays"
+            class="situation-graph-inner-wrapper"
+          />
+        </div>
+        <div class="bordered-box stretch-wrapper">
+          <div class="situation-table" v-if="true">
+            <div class="table-content">
+              <div v-for="situation in misplays" :key="situation.type" class="entry misplay">
+                <div class="category-wrapper">
+                  <div class="cell link" @click="OpenSituationDetailView(situation.type)">
+                    <img
+                      class="situation-icon"
+                      :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                      :title="situation.skillDomainName"
+                    />
+                    <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                    <span class="situation-name">{{ situation.name }}</span>
+                    <span
+                      class="occurences-badge"
+                      :count="situation.occurences.length"
+                    >{{ situation.occurences.length }}</span>
+                  </div>
+                  <div
+                    class="cell occurences-toggle"
+                    @click="situation.occurencesVisible = !situation.occurencesVisible"
+                  >
+                    <div class="new-indicator" v-if="situation.containsNew">new</div>
+                    <i
+                      class="fas fa-chevron-down"
+                      :class="{toggled: situation.occurencesVisible}"
+                      :test="situation.occurencesVisible"
+                    ></i>
+                  </div>
                 </div>
                 <div
-                  class="cell occurences-toggle"
-                  @click="situation.occurencesVisible = !situation.occurencesVisible"
+                  class="occurences"
+                  :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
                 >
-                  <div class="new-indicator" v-if="situation.containsNew">new</div>
-                  <i
-                    class="fas fa-chevron-down"
-                    :class="{toggled: situation.occurencesVisible}"
-                    :test="situation.occurencesVisible"
-                  ></i>
-                </div>
-              </div>
-              <div
-                class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
-              >
-                <div
-                  v-for="occurence in situation.occurences"
-                  :key="occurence.id"
-                  class="occurence"
-                >
-                  <div class="content">
-                    <span>
-                      <img
-                        class="map-image"
-                        :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
-                      />
-                      <span
-                        class="match-date"
-                      >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
-                      <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
-                    </span>
-                    <span class="watch-wrapper">
-                      <span class="round">Round {{ occurence.Round }}</span>
-                      <i
-                        title="Watch in Browser"
-                        class="material-icons watch-match-icon"
-                        @click="Watch(occurence, situation)"
-                      >videocam</i>
-                    </span>
+                  <div
+                    v-for="occurence in situation.occurences"
+                    :key="occurence.id"
+                    class="occurence"
+                  >
+                    <div class="content">
+                      <span>
+                        <img
+                          class="map-image"
+                          :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
+                        />
+                        <span
+                          class="match-date"
+                        >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
+                        <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
+                      </span>
+                      <span class="watch-wrapper">
+                        <span class="round">Round {{ occurence.Round }}</span>
+                        <i
+                          title="Watch in Browser"
+                          class="material-icons watch-match-icon"
+                          @click="Watch(occurence, situation)"
+                        >videocam</i>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
+      <template v-else>
+        <div class="bordered-box">
+          <AjaxLoader>Loading misplay data</AjaxLoader>
+        </div>
+      </template>
     </div>
 
     <!-- Highlights -->
@@ -93,79 +100,86 @@
           v-if="newOccurencesCount.Highlights > 0"
         >+{{ newOccurencesCount.Highlights }} new from last match</span>
       </h2>
-      <div class="bordered-box chart-container" v-if="situations">
-        <p class="chart-title">Average highlights per round on a per match basis</p>
-        <LineChart
-          :options="chartOptions"
-          :data="chartDataHighlights"
-          class="situation-graph-inner-wrapper"
-        />
-      </div>
-      <div class="bordered-box stretch-wrapper">
-        <div class="situation-table" v-if="true">
-          <div class="table-content">
-            <div v-for="situation in highlights" :key="situation.type" class="entry highlight">
-              <div class="category-wrapper">
-                <div class="cell link" @click="OpenSituationDetailView(situation.type)">
-                  <img
-                    class="situation-icon"
-                    :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
-                    :title="situation.skillDomainName"
-                  />
-                  <!-- <i class="situation-icon" :class="situation.icon"></i> -->
-                  <span class="situation-name">{{ situation.name }}</span>
-                  <span
-                    class="occurences-badge"
-                    :count="situation.occurences.length"
-                  >{{ situation.occurences.length }}</span>
+      <template v-if="situations">
+        <div class="bordered-box chart-container" v-if="situations">
+          <p class="chart-title">Average highlights per round on a per match basis</p>
+          <LineChart
+            :options="chartOptions"
+            :data="chartDataHighlights"
+            class="situation-graph-inner-wrapper"
+          />
+        </div>
+        <div class="bordered-box stretch-wrapper">
+          <div class="situation-table" v-if="true">
+            <div class="table-content">
+              <div v-for="situation in highlights" :key="situation.type" class="entry highlight">
+                <div class="category-wrapper">
+                  <div class="cell link" @click="OpenSituationDetailView(situation.type)">
+                    <img
+                      class="situation-icon"
+                      :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                      :title="situation.skillDomainName"
+                    />
+                    <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                    <span class="situation-name">{{ situation.name }}</span>
+                    <span
+                      class="occurences-badge"
+                      :count="situation.occurences.length"
+                    >{{ situation.occurences.length }}</span>
+                  </div>
+                  <div
+                    class="cell occurences-toggle"
+                    @click="situation.occurencesVisible = !situation.occurencesVisible"
+                  >
+                    <div class="new-indicator" v-if="situation.containsNew">new</div>
+                    <i
+                      class="fas fa-chevron-down"
+                      :class="{toggled: situation.occurencesVisible}"
+                      :test="situation.occurencesVisible"
+                    ></i>
+                  </div>
                 </div>
                 <div
-                  class="cell occurences-toggle"
-                  @click="situation.occurencesVisible = !situation.occurencesVisible"
+                  class="occurences"
+                  :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
                 >
-                  <div class="new-indicator" v-if="situation.containsNew">new</div>
-                  <i
-                    class="fas fa-chevron-down"
-                    :class="{toggled: situation.occurencesVisible}"
-                    :test="situation.occurencesVisible"
-                  ></i>
-                </div>
-              </div>
-              <div
-                class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
-              >
-                <div
-                  v-for="occurence in situation.occurences"
-                  :key="occurence.id"
-                  class="occurence"
-                >
-                  <div class="content">
-                    <span>
-                      <img
-                        class="map-image"
-                        :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
-                      />
-                      <span
-                        class="match-date"
-                      >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
-                      <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
-                    </span>
-                    <span class="watch-wrapper">
-                      <span class="round">Round {{ occurence.Round }}</span>
-                      <i
-                        title="Watch in Browser"
-                        class="material-icons watch-match-icon"
-                        @click="Watch(occurence, situation)"
-                      >videocam</i>
-                    </span>
+                  <div
+                    v-for="occurence in situation.occurences"
+                    :key="occurence.id"
+                    class="occurence"
+                  >
+                    <div class="content">
+                      <span>
+                        <img
+                          class="map-image"
+                          :src="$assetLoader.getMapPreview(situations.Matches[occurence.MatchId].Map)"
+                        />
+                        <span
+                          class="match-date"
+                        >{{ situations.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
+                        <span class="map">{{ situations.Matches[occurence.MatchId].Map }}</span>
+                      </span>
+                      <span class="watch-wrapper">
+                        <span class="round">Round {{ occurence.Round }}</span>
+                        <i
+                          title="Watch in Browser"
+                          class="material-icons watch-match-icon"
+                          @click="Watch(occurence, situation)"
+                        >videocam</i>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
+      <template v-else>
+        <div class="bordered-box">
+          <AjaxLoader>Loading highlight data</AjaxLoader>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -620,7 +634,7 @@ export default {
                 border-right: 1px solid $purple;
                 padding: 5px 0;
                 padding-right: 5px;
-                width: 100px;              
+                width: 100px;
               }
 
               .map {
