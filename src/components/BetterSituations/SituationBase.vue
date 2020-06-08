@@ -127,6 +127,7 @@ export default {
       })
       .then(result => {
         this.dynamicSituationData = result.data;
+        console.log(this.dynamicSituationData);
       });
   },
   data() {
