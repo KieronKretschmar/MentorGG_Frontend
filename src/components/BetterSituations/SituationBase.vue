@@ -44,6 +44,7 @@
         <div class="occurence-list">
           <div
             class="occurence bordered-box"
+            :class="{highlighted: occurence.Id == highlightedOccurenceId}"
             v-for="occurence in dynamicSituationData.SituationCollection.Situations"
             :key="occurence.Id"
           >
@@ -134,6 +135,7 @@ export default {
     return {
       dynamicSituationData: null,
       debug: false,
+      highlightedOccurenceId: null,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -163,7 +165,7 @@ export default {
   },
   methods: {
     Watch(occurence, typeName) {
-      console.log(typeName);
+      this.highlightedOccurenceId = occurence.Id;
 
       this.$helpers.LogEvent(this, "WatchSituation", {
         label: Enums.SituationType.ToString(typeName)
@@ -310,6 +312,10 @@ export default {
       flex-direction: column;
       margin: 0 5px;
       margin-bottom: 10px;
+
+      &.highlighted {
+        border: 1px solid $orange;
+      }
 
       .map-preview {
         width: 100%;
