@@ -121,7 +121,7 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.PushBeforeSmokeDetonated,
             SituationBase,
-            "Push Before Smoke Detonated",
+            "Push Before Smoke Popped",
             "This covers all situations in which you took damage from someone who's vision would have been obstructed by a smoke grenade that popped shortly after.",
             "Coordinate smoke grenade usage with your teammates before a push and give the smokes enough time to pop. Dying because you couldn't wait one more second sucks, right?"
         );
