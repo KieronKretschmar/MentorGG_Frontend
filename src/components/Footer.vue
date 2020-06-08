@@ -21,9 +21,9 @@
         </div>
 
         <div class="social-logo-wrap">
-          <img class="social-logo" src="@/assets/Discord-Logo-Color.svg" />
-          <img class="social-logo" src="@/assets/Twitter-Logo-Color.svg" />
-          <img class="social-logo" src="@/assets/Reddit-Logo-Color.svg" />
+          <a href="https://discord.gg/X29FEKG" target="_blank"><img class="social-logo" src="@/assets/Discord-Logo-Color.svg" /></a>
+          <a href="https://twitter.com/mentorgg?lang=de" target="_blank"><img class="social-logo" src="@/assets/Twitter-Logo-Color.svg" /></a>
+          <a href="https://www.reddit.com/r/mentorgg/" target="_blank"><img class="social-logo" src="@/assets/Reddit-Logo-Color.svg" /></a>
         </div>
 
         <!-- <div class="partnerships" v-if="showPartnerships">
