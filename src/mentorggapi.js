@@ -235,7 +235,7 @@ class MentorGGAPI {
             matchCount : params.matchCount
         }
 
-        return axios.get(`https://localhost:44310/v1/situations/situationType/${params.type}/samples`, {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples`, {
             params: formattedParams
         });
     }
@@ -246,7 +246,7 @@ class MentorGGAPI {
             // matchIds : params.matchIds
         }
 
-        return axios.get(`https://localhost:44310/v1/situations/situationType/${params.type}/samples?matchIds=49815,75904,75932,76902,76903,82460,82691,82692,91935,110772`, {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples?matchIds=49815,75904,75932,76902,76903,82460,82691,82692,91935,110772`, {
             params: formattedParams
         });
     }
