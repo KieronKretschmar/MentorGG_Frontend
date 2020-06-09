@@ -54,6 +54,30 @@ export default class SituationLoader {
             "Teamplay matters. Call out flashes on the voice channel and try to time them with peeking teammates."
         );
 
+        add_data(
+            Enums.SituationType.Clutch,
+            SituationBase,
+            "Clutch",
+            "TODO",
+            "TODO"
+        );
+
+        add_data(
+            Enums.SituationType.HighImpactRound,
+            SituationBase,
+            "High Impact Round",
+            "TODO",
+            "TODO"
+        );
+
+        add_data(
+            Enums.SituationType.MultiKill,
+            SituationBase,
+            "Multikill",
+            "TODO",
+            "TODO"
+        );
+
         /* 
             M I S P L A Y S
             I
