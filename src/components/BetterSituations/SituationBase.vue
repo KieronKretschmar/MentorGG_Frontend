@@ -147,7 +147,7 @@ export default {
       dynamicSituationData: null,
       debug: false,
       highlightedOccurenceId: null,
-      prependTime: 2000,
+      prependTime: 4000,
       chartOptions: {
         tooltips: {
           enabled: false
