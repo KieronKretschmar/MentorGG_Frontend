@@ -88,6 +88,7 @@
 
 <script>
 import LineChart from "@/components/LineChart.vue";
+import Enums from "@/enums";
 
 export default {
   props: [
