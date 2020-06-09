@@ -197,6 +197,11 @@ export default {
           let entry = this.situations[dataKey][key];
 
           for (let situation of entry.Situations) {
+            //hide occurences that took place in non allowed
+            if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
+              continue;
+            }
+
             if (map[dataKey][situation.MatchId] == undefined) {
               map[dataKey][situation.MatchId] = {
                 totalOccurences: 0,
