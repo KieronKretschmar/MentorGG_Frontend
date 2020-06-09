@@ -130,12 +130,14 @@ export default {
         this.dynamicSituationData = result.data;
         console.log(this.dynamicSituationData);
       });
+    }
   },
   data() {
     return {
       dynamicSituationData: null,
       debug: false,
       highlightedOccurenceId: null,
+      prependTime: 2000,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -173,7 +175,7 @@ export default {
 
       globalThis.DemoViewer.SetMatch(occurence.MatchId)
         .SetRound(occurence.Round)
-        .SetTimestamp(Math.max(0, occurence.StartTime))
+        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
     }
   },
