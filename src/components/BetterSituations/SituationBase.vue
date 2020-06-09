@@ -122,14 +122,24 @@ export default {
   mounted() {
     this.debug = false;
 
-    this.$api
-      .getSituationsOfType({
-        type: this.staticSituationData.type
-      })
-      .then(result => {
-        this.dynamicSituationData = result.data;
-        console.log(this.dynamicSituationData);
-      });
+    if(this.debug){
+      this.$api
+        .getSituationSamplesByMatchIds({
+          type: this.staticSituationData.type, 
+        })
+        .then(result => {
+          this.dynamicSituationData = result.data;
+        });
+    }
+    else{
+      this.$api
+        .getSituationsOfType({
+          type: this.staticSituationData.type
+        })
+        .then(result => {
+          this.dynamicSituationData = result.data;
+          console.log(this.dynamicSituationData);
+        });
     }
   },
   data() {
