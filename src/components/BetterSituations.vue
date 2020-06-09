@@ -2,7 +2,7 @@
   <div class="better-situations dashboard-unit">
     <SituationsOverview
       title="Misplays"
-      :nNewOccurences="newOccurencesCount.Misplays"
+      :nNewOccurences="nNewOccurences.Misplays"
       :situations="misplays"
       :matches="matches"
       :chartData="chartDataMisplays"
@@ -13,7 +13,7 @@
 
     <SituationsOverview
       title="Highlights"
-      :nNewOccurences="newOccurencesCount.Highlights"
+      :nNewOccurences="nNewOccurences.Highlights"
       :situations="highlights"
       :matches="matches"
       :chartData="chartDataHighlights"
@@ -45,6 +45,8 @@ export default {
         this.situations = result.data;
         this.misplays = this.PrepareData("Misplays");
         this.highlights = this.PrepareData("Highlights");
+
+        console.log(this.matches);
       });
   },
   data() {
@@ -55,7 +57,11 @@ export default {
       misplays: [],
       highlights: [],
       lastMatchId: 107169, //TODO: Replace with actual last match id
-      newOccurencesCount: {
+      nNewOccurences: {
+        Misplays: 0,
+        Highlights: 0
+      },
+      nHiddenOccurences: {
         Misplays: 0,
         Highlights: 0
       }
@@ -64,6 +70,9 @@ export default {
   methods: {
     PrepareData(dataKey) {
       let ret = [];
+
+      this.nNewOccurences[dataKey] = 0;
+      this.nHiddenOccurences[dataKey] = 0;
 
       //Add anything of type Enums.SituationType
       //to the following array to hide the respective situation on the frontend
@@ -84,10 +93,19 @@ export default {
           name: staticData.name,
           occurencesVisible: false,
           type: entry.MetaData.SituationType,
-          occurences: entry.Situations,
+          occurences: [],
           skillDomainName: entry.MetaData.SkillDomainName,
           containsNew: false
         };
+
+        //filter occurences based on allowed rounds
+        for (let occurence of entry.Situations) {
+          if (this.IsRoundAllowed(occurence.MatchId, occurence.Round)) {
+            temp.occurences.push(occurence);
+          } else {
+            this.nHiddenOccurences[dataKey]++;
+          }
+        }
 
         // check if any of the occurences happened in the last match
         // to indicate if the situation category contains "new" occurences
@@ -95,7 +113,7 @@ export default {
           if (occurence.MatchId == this.lastMatchId) {
             occurence.isNew = true;
             temp.containsNew = true;
-            this.newOccurencesCount[dataKey]++;
+            this.nNewOccurences[dataKey]++;
           }
         }
 
@@ -103,6 +121,13 @@ export default {
       });
 
       return ret;
+    },
+    IsRoundAllowed(matchId, round) {
+      if (!this.matches || this.matches[matchId] == undefined) {
+        return false;
+      }
+
+      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
     }
   },
   computed: {
