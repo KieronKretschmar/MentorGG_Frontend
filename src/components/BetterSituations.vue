@@ -1,26 +1,37 @@
 <template>
   <div class="better-situations dashboard-unit">
-    <SituationsOverview
-      title="Misplays"
-      :nNewOccurences="nNewOccurences.Misplays"
-      :situations="misplays"
-      :matches="matches"
-      :chartData="chartDataMisplays"
-      chartTitle="Average misplays per round on a per match basis"
-      typeClass="misplay"
-      loaderText="Loading Misplay Data"
-    />
+    <div class="situations-split">
+      <SituationsOverview
+        title="Misplays"
+        :nNewOccurences="nNewOccurences.Misplays"
+        :situations="misplays"
+        :matches="matches"
+        :chartData="chartDataMisplays"
+        chartTitle="Average misplays per round on a per match basis"
+        typeClass="misplay"
+        loaderText="Loading Misplay Data"
+      />
 
-    <SituationsOverview
-      title="Highlights"
-      :nNewOccurences="nNewOccurences.Highlights"
-      :situations="highlights"
-      :matches="matches"
-      :chartData="chartDataHighlights"
-      chartTitle="Average highlights per round on a per match basis"
-      typeClass="highlight"
-      loaderText="Loading Highlight Data"
-    />
+      <SituationsOverview
+        title="Highlights"
+        :nNewOccurences="nNewOccurences.Highlights"
+        :situations="highlights"
+        :matches="matches"
+        :chartData="chartDataHighlights"
+        chartTitle="Average highlights per round on a per match basis"
+        typeClass="highlight"
+        loaderText="Loading Highlight Data"
+      />
+    </div>
+
+    <div class="bordered-box hidden-occurences-info" v-if="totalHiddenOccurences > 0">
+      <p>
+        <i class="material-icons">error_outline</i>FREE users may only access misplays and highlights that took place in either the first or last round of each half of a match.
+      </p>
+      <button
+        class="button-variant-bordered upgrade"
+      >Upgrade now to see {{ totalHiddenOccurences }} more misplay{{ totalHiddenOccurences > 1 ? 's' : '' }} / highlight{{ totalHiddenOccurences > 1 ? 's' : '' }}</button>
+    </div>
   </div>
 </template>
 
@@ -239,6 +250,11 @@ export default {
       }
 
       return this.situations.Matches;
+    },
+    totalHiddenOccurences() {
+      return (
+        this.nHiddenOccurences.Misplays + this.nHiddenOccurences.Highlights
+      );
     }
   },
   watch: {
@@ -249,27 +265,48 @@ export default {
 
 <style lang="scss">
 .better-situations {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-
-  .section-header {
+  .situations-split {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
 
-    .new-count {
-      font-size: 12px;
-      padding: 5px;
-      border-radius: 4px;
-      font-weight: 500;
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-      &.misplays {
-        background: crimson;
+      .new-count {
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 4px;
+        font-weight: 500;
+
+        &.misplays {
+          background: crimson;
+        }
+
+        &.highlights {
+          background: $green-2;
+        }
       }
+    }
+  }
 
-      &.highlights {
-        background: $green-2;
+  .hidden-occurences-info {
+    margin-top: 10px;
+    text-align: center;
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        color: $orange;
+        margin-right: 5px;
       }
     }
   }

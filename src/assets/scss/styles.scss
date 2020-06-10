@@ -74,6 +74,16 @@ body {
         }
     }
 
+    &.upgrade {
+        background: $green-2;
+        border-left-color: $green;
+        border-right-color: $green;
+
+        &:hover {
+            background: darken($green-2, 10%);
+        }
+    }
+
 }
 
 .button-variant-filled {
