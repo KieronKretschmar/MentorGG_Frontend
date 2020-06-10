@@ -139,7 +139,14 @@ export default {
       let spent = 0;
 
       for (let item of this.player.ItemsSaved) {
-        if (items[item.Equipment] && item.Time >= this.player.RoundStart) {
+
+        //GHETTOFIX: sometimes the bomb will be one of the saved items
+        //to prevent fucked up inventories we just ignore it during iteration
+        if (item.Equipment == Equipment.C4) {
+          continue;
+        }
+
+        if (items[item.Equipment]) {
           items[item.Equipment]++;
         } else {
           items[item.Equipment] = 1;
