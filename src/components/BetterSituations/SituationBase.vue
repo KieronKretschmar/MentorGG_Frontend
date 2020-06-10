@@ -122,20 +122,32 @@ export default {
   mounted() {
     this.debug = false;
 
-    this.$api
-      .getSituationsOfType({
-        type: this.staticSituationData.type
-      })
-      .then(result => {
-        this.dynamicSituationData = result.data;
-        console.log(this.dynamicSituationData);
-      });
+    if(this.debug){
+      this.$api
+        .getSituationSamplesByMatchIds({
+          type: this.staticSituationData.type, 
+        })
+        .then(result => {
+          this.dynamicSituationData = result.data;
+        });
+    }
+    else{
+      this.$api
+        .getSituationsOfType({
+          type: this.staticSituationData.type
+        })
+        .then(result => {
+          this.dynamicSituationData = result.data;
+          console.log(this.dynamicSituationData);
+        });
+    }
   },
   data() {
     return {
       dynamicSituationData: null,
       debug: false,
       highlightedOccurenceId: null,
+      prependTime: 4000,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -173,7 +185,7 @@ export default {
 
       globalThis.DemoViewer.SetMatch(occurence.MatchId)
         .SetRound(occurence.Round)
-        .SetTimestamp(Math.max(0, occurence.StartTime))
+        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
     }
   },
