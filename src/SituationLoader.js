@@ -58,24 +58,24 @@ export default class SituationLoader {
             Enums.SituationType.Clutch,
             SituationBase,
             "Clutch",
-            "TODO",
-            "TODO"
+            "Occurs whenever you manage to come back from a serious disadvantage, ultimately leading to your team winning the round.",
+            "Be aware of your surroundings and the enemies' positions and health. Outplay them and get that win."
         );
 
         add_data(
             Enums.SituationType.HighImpactRound,
             SituationBase,
-            "High Impact Round",
-            "TODO",
-            "TODO"
+            "High Kill Round",
+            "A round in which the player killed the majority of the opposing team, regardless of their health.",
+            "Git gud, lel."
         );
 
         add_data(
             Enums.SituationType.MultiKill,
             SituationBase,
             "Multikill",
-            "TODO",
-            "TODO"
+            "Pretty self explanatory, isn't it? Killing multiple enemies in a certain timeframe will yield a multikill highlight.",
+            "Good players will often end up getting multiple kills. As you become a better player, the highlights will start raining in."
         );
 
         /* 
@@ -148,6 +148,22 @@ export default class SituationLoader {
             "Push Before Smoke Popped",
             "This covers all situations in which you took damage from someone who's vision would have been obstructed by a smoke grenade that popped shortly after.",
             "Coordinate smoke grenade usage with your teammates before a push and give the smokes enough time to pop. Dying because you couldn't wait one more second sucks, right?"
+        );
+
+        add_data(
+            Enums.SituationType.BombDropAtSpawn,
+            SituationBase,
+            "Bomb Drop At Spawn",
+            "This describes a situation in which a teammate had to make a turn and run back to pick up the bomb from spawn.",
+            "If you don't want the bomb then try to drop it directly to a teammate, so that auto-pickup will take care of it.\n\nOtherwise carry the bomb just a little further so that you can drop it safe and closer to your team."
+        );
+
+        add_data(
+            Enums.SituationType.HasNotBoughtDefuseKit,
+            SituationBase,
+            "Has Not Bought Defuse Kit",
+            "Occurs whenever the player did not buy a defuse kit despite having enough money. It will not occur if your team already has a sufficient amount of kits available.",
+            "Just buy it, really. It's very affordable and often decides between a round win or loss."
         );
 
         return data[situationType];
