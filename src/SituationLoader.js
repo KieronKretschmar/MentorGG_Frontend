@@ -166,6 +166,10 @@ export default class SituationLoader {
             "Just buy it, really. It's very affordable and often decides between a round win or loss."
         );
 
+        if (data[situationType] == undefined) {
+            return null;
+        }
+
         return data[situationType];
     }
 }

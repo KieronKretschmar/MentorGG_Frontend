@@ -100,6 +100,10 @@ export default {
           entry.MetaData.SituationType
         );
 
+        if (staticData == null) {
+          return;
+        }
+
         let temp = {
           name: staticData.name,
           occurencesVisible: false,
