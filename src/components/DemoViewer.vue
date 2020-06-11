@@ -433,7 +433,9 @@ export default {
           ItemsDropped: this.data.Round.ItemDroppeds[pms.PlayerId] || [],
           ItemsPicked: this.data.Round.ItemPickedUps[pms.PlayerId] || [],
           ItemsSaved: this.data.Round.ItemSaveds[pms.PlayerId] || [],
-          RoundStart: this.data.Round.RoundStats.StartTime
+          RoundStart: this.data.Round.RoundStats.StartTime,
+          BotTakeover: null,
+          Takeover: null
         };
 
         // interpolate player positions for smoother gameplay
@@ -499,6 +501,11 @@ export default {
       for (let damage of this.data.Round.Damages) {
         players[damage.VictimId].HitsTaken.push(damage);
         players[damage.PlayerId].HitsGiven.push(damage);
+      }
+
+      for (let takeover of this.data.Round.BotTakeOvers) {
+        players[takeover.BotId].Takeover = takeover;
+        players[takeover.PlayerId].BotTakeover = takeover;
       }
 
       return players;

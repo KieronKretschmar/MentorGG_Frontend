@@ -206,7 +206,6 @@ export default {
         if (hit.Time < this.tick) {
           if (this.isControllingBot)
           {
-            console.log(hit, this.BotTakeover)
             if (hit.Time > this.player.BotTakeover.Time) {
               ret -= hit.AmountHealth;
             }
