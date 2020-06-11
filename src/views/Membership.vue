@@ -233,6 +233,16 @@
           </span>
         </div>
         <div class="table-content">
+          <span>Full access to misplays &amp; highlights</span>
+          <span class="cross"></span>
+          <span class="check">
+            <i class="material-icons">check</i>
+          </span>
+          <span class="check">
+            <i class="material-icons">check</i>
+          </span>
+        </div>        
+        <div class="table-content">
           <span>Demo download</span>
           <span class="cross"></span>
           <span class="check">
