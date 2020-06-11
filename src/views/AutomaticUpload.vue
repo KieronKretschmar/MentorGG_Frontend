@@ -43,8 +43,8 @@
         class="connection-error"
       >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
-      <p v-if="authCodeIsInvalid" class="connection-error">authentication code is not valid</p>
-      <p v-if="shareCodeIsInvalid" class="connection-error">share code is not valid</p>
+      <p v-if="authCodeIsInvalid" class="connection-error">Authentication code is not valid (Valid pattern: XXXX-XXXXX-XXXX)</p>
+      <p v-if="shareCodeIsInvalid" class="connection-error">Share code is not valid (Valid pattern: CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</p>
 
       <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect" :disabled="!formIsValid">Connect</button>
     </GenericOverlay>
@@ -241,14 +241,7 @@ export default {
         this.loadedConnections = true;
       });
     }
-  }/*,
-  formValidation() {
-    if (this.formIsValid) {
-      console.log('form submitted', this.form)
-    } else {
-      console.log('invalid form')
-    }
-  }*/
+  }
 };
 </script>
 
