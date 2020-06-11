@@ -142,7 +142,7 @@ export default {
 
         //GHETTOFIX: sometimes the bomb will be one of the saved items
         //to prevent fucked up inventories we just ignore it during iteration
-        if (item.Equipment == Equipment.C4) {
+        if (item.Equipment == this.Equipment.C4) {
           continue;
         }
 
