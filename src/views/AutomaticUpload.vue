@@ -43,7 +43,10 @@
         class="connection-error"
       >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
-      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
+      <p v-if="authCodeIsInvalid" class="connection-error">authentication code is not valid</p>
+      <p v-if="shareCodeIsInvalid" class="connection-error">share code is not valid</p>
+
+      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect" :disabled="!formIsValid">Connect</button>
     </GenericOverlay>
 
     <div class="fixed-width-container">
@@ -173,6 +176,23 @@ export default {
     // Fetch connections
     this.UpdateConnections();
   },
+  computed: {
+    authCodeIsValid () {
+      return this.valveAuthToken.length == 15
+    },
+    shareCodeIsValid () {
+      return this.valveShareCode.length == 34
+    },
+    formIsValid () {
+      return this.authCodeIsValid && this.shareCodeIsValid
+    },
+    authCodeIsInvalid () {
+      return this.valveAuthToken.length !== 15 && this.valveAuthToken !== ''
+    },
+    shareCodeIsInvalid () {
+      return this.valveShareCode.length !== 34 && this.valveShareCode !== ''
+    },
+  },
   methods: {
     ConnectValve() {
       this.$refs.valveOverlay.Show();
@@ -221,7 +241,14 @@ export default {
         this.loadedConnections = true;
       });
     }
-  }
+  }/*,
+  formValidation() {
+    if (this.formIsValid) {
+      console.log('form submitted', this.form)
+    } else {
+      console.log('invalid form')
+    }
+  }*/
 };
 </script>
 
