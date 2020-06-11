@@ -43,15 +43,28 @@ export default class SituationLoader {
             SituationBase,
             "Effective HE Grenade",
             "A HE Grenade classifies as effective when it either deals a lot of damage or lands a killing blow.",
-            "Learn to predict the enemies' positions at the start of the round for effective HE grenades, and utilize map geometry to make your HEs less foreseeable."
+            "Learn to predict the enemies' positions at the start of the round for effective HE grenades, and utilize map geometry to make your HEs less foreseeable.",
+            [{
+                key: "EnemiesHit",
+                keyDisplay: "Enemies Hit"
+            }, {
+                key: "EnemiesKilled",
+                keyDisplay: "Enemies Killed"
+            }, {
+                key: "TotalEnemyDamage",
+                keyDisplay: "Total Enemy Damage"
+            }, {
+                key: "TotalTeamDamage",
+                keyDisplay: "Total Team Damage"
+            }]
         );
 
         add_data(
             Enums.SituationType.KillWithOwnFlashAssist,
             SituationBase,
             "Kill With Own Flash Assist",
-            "This happens whenever a teammate lands the killing blow on an enemy that was flashed by you.",
-            "Teamplay matters. Call out flashes on the voice channel and try to time them with peeking teammates."
+            "This happens whenever you land the killing blow on an enemy that was flashed by you.",
+            "Practice pop flashes and keep track of your enemies to get a tactical advantage by flashing them before you engage in a fight."
         );
 
         add_data(
@@ -59,7 +72,11 @@ export default class SituationLoader {
             SituationBase,
             "Clutch",
             "Occurs whenever you manage to come back from a serious disadvantage, ultimately leading to your team winning the round.",
-            "Be aware of your surroundings and the enemies' positions and health. Outplay them and get that win."
+            "Be aware of your surroundings and the enemies' positions and health. Outplay them and get that win.",
+            [{
+                key: "EnemiesAlive",
+                keyDisplay: "Enemies Alive"
+            }]
         );
 
         add_data(
@@ -67,7 +84,14 @@ export default class SituationLoader {
             SituationBase,
             "High Kill Round",
             "A round in which the player killed the majority of the opposing team, regardless of their health.",
-            "Git gud, lel."
+            "Git gud, lel.",
+            [{
+                key: "DamageDealt",
+                keyDisplay: "Damage Dealt"
+            }, {
+                key: "Kills",
+                keyDisplay: "Kills"
+            }]
         );
 
         add_data(
@@ -75,7 +99,11 @@ export default class SituationLoader {
             SituationBase,
             "Multikill",
             "Pretty self explanatory, isn't it? Killing multiple enemies in a certain timeframe will yield a multikill highlight.",
-            "Good players will often end up getting multiple kills. As you become a better player, the highlights will start raining in."
+            "Good players will often end up getting multiple kills. As you become a better player, the highlights will start raining in.",
+            [{
+                key: "Kills",
+                keyDisplay: "Kills"
+            }]
         );
 
         /* 
@@ -110,12 +138,11 @@ export default class SituationLoader {
             "Self Flash",
             "A self flash occurs when you throw a flashbang and end up blinding yourself to a certain degree.",
             "Don't expose yourself to your own flashbangs and try to face away from them when they detonate.\n\nFlashing behind you before peeking an angle is a great technique that, when practiced efficiently, can be an absolute game changer.",
-            []
-            // [{
-            //     key: "TimeFlashedSelf",
-            //     keyDisplay: "Time Flashed Self",
-            //     after: 'ms'       
-            // }]
+            [{
+                key: "TimeFlashedSelf",
+                keyDisplay: "Time Flashed Self",
+                after: 'ms'       
+            }]
         );
 
         add_data(
@@ -123,7 +150,22 @@ export default class SituationLoader {
             SituationBase,
             "Team Flash",
             "A team flash occurs when you throw a flashbang and end up blinding one or more teammates to a certain degree.",
-            "Always keep track of your teammates' positions and well... don't throw flashes into their face.\n\nIt's also a good habit to announce your flashbangs on the voice channel."
+            "Always keep track of your teammates' positions and well... don't throw flashes into their face.\n\nIt's also a good habit to announce your flashbangs on the voice channel.",
+            [{
+                key: "FlashedTeammates",
+                keyDisplay: "Flashed Teammates"
+            }, {
+                key: "FlashedTeammatesDeaths",
+                keyDisplay: "Flashed Teammates Deaths"
+            }, {
+                key: "TimeFlashedTeammates",
+                keyDisplay: "Time Flashed Teammates",
+                after: "ms"
+            }, {
+                key: "TimeFlashedEnemies",
+                keyDisplay: "Time Flashed Enemies",
+                after: "ms"
+            }]
         );
 
         add_data(
@@ -163,7 +205,15 @@ export default class SituationLoader {
             SituationBase,
             "Has Not Bought Defuse Kit",
             "Occurs whenever the player did not buy a defuse kit despite having enough money. It will not occur if your team already has a sufficient amount of kits available.",
-            "Just buy it, really. It's very affordable and often decides between a round win or loss."
+            "Just buy it, really. It's very affordable and often decides between a round win or loss.",
+            [{
+                key: "MoneyLeft",
+                keyDisplay: "Money Left",
+                after: '$'       
+            }, {
+                key: "DefuseKitsInTeam",
+                keyDisplay: "Defuse Kits In Team"
+            }]
         );
 
         if (data[situationType] == undefined) {
