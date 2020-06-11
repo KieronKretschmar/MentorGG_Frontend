@@ -93,6 +93,7 @@
 
             <button
               class="watch-button button-variant-bordered"
+              :disabled="!$helpers.DemoViewerAvailable(dynamicSituationData.Matches[occurence.MatchId].Map)"
               @click="Watch(occurence, staticSituationData.typeName)"
             >
               Watch
