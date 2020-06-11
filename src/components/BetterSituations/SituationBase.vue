@@ -123,16 +123,15 @@ export default {
   mounted() {
     this.debug = false;
 
-    if(this.debug){
+    if (this.debug) {
       this.$api
         .getSituationSamplesByMatchIds({
-          type: this.staticSituationData.type, 
+          type: this.staticSituationData.type
         })
         .then(result => {
           this.dynamicSituationData = result.data;
         });
-    }
-    else{
+    } else {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type
@@ -140,6 +139,7 @@ export default {
         .then(result => {
           this.dynamicSituationData = result.data;
           console.log(this.dynamicSituationData);
+          console.log(this.chartDataPoints);
         });
     }
   },
@@ -188,33 +188,91 @@ export default {
         .SetRound(occurence.Round)
         .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
+    },
+    IsRoundAllowed(matchId, round) {
+      if (!this.matches || this.matches[matchId] == undefined) {
+        return false;
+      }
+
+      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
     }
   },
   computed: {
-    chartLabels() {
-      let labels = [];
+    matches() {
+      if (!this.dynamicSituationData) {
+        return null;
+      }
 
-      for (let i = 0; i < 10; i++) {
+      return this.dynamicSituationData.Matches;
+    },
+    chartData() {
+
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.length; i++) {
         labels.push(i + 1);
       }
 
-      return labels;
-    },
-    chartData() {
       return {
-        labels: this.chartLabels,
+        labels: labels,
         datasets: [
           {
             label: "W/L balance",
             backgroundColor: "#2d2c3b",
             pointBackgroundColor: "#ff4800",
             borderColor: "#39384a",
-            data: [1, 2, 3, 2, 5, 9, 7, 8, 9, 10],
+            data: this.chartDataPoints,
             fill: true,
             lineTension: 0
           }
         ]
       };
+    },
+    chartDataPoints() {
+      if (!this.dynamicSituationData) {
+        return null;
+      }
+
+      let map = {};
+      let ret = {};
+
+      map = {};
+      ret = [];
+
+      for (let situation of this.dynamicSituationData.SituationCollection
+        .Situations) {
+        //hide occurences that took place in non allowed
+        if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
+          continue;
+        }
+
+        if (map[situation.MatchId] == undefined) {
+          map[situation.MatchId] = {
+            totalOccurences: 0,
+            averageOccurences: 0,
+            rounds: {}
+          };
+        }
+
+        map[situation.MatchId].rounds[situation.Round] =
+          ++map[situation.MatchId].rounds[situation.Round] || 1;
+        map[situation.MatchId].totalOccurences++;
+
+        //update averageOccurences
+        map[situation.MatchId].averageOccurences = (
+          map[situation.MatchId].totalOccurences /
+          this.matches[situation.MatchId].TotalRounds
+        ).toFixed(2);
+      }
+
+      Object.keys(this.matches).forEach(key => {
+        if (map[key] == undefined) {
+          ret.push(0);
+        } else {
+          ret.push(map[key].averageOccurences);
+        }
+      });
+
+      return ret;
     }
   }
 };
@@ -223,7 +281,7 @@ export default {
 <style lang="scss">
 .situation-base {
   margin-top: 75px;
-  
+
   .situation-header {
     display: flex;
     justify-content: space-between;
