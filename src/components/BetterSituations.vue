@@ -29,7 +29,7 @@
         <i class="material-icons">error_outline</i>FREE users may only access misplays and highlights that took place in either the first or last round of each half of a match.
       </p>
       <button
-        class="button-variant-bordered upgrade"
+        class="button-variant-bordered upgrade" @click="OpenMembershipPage"
       >Upgrade now to see {{ totalHiddenOccurences }} more misplay{{ totalHiddenOccurences > 1 ? 's' : '' }} / highlight{{ totalHiddenOccurences > 1 ? 's' : '' }}</button>
     </div>
   </div>
@@ -138,11 +138,16 @@ export default {
       return ret;
     },
     IsRoundAllowed(matchId, round) {
-      if (!this.matches || this.matches[matchId] == undefined) {
+      if (!this.matches || this.matches[matchId] == undefined || round > 3) {
         return false;
       }
 
       return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+    },
+    OpenMembershipPage() {
+      this.$router.push({
+        name: 'membership'
+      });
     }
   },
   computed: {
