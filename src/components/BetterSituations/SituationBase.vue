@@ -14,7 +14,7 @@
         <div
           class="situation-count"
           :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
-        >{{ dynamicSituationData.SituationCollection.Situations.length }}</div>
+        >{{ situations.length }}</div>
       </div>
       <div class="description-howtoavoid">
         <div class="description">
@@ -45,7 +45,7 @@
           <div
             class="occurence bordered-box"
             :class="{highlighted: occurence.Id == highlightedOccurenceId}"
-            v-for="occurence in dynamicSituationData.SituationCollection.Situations"
+            v-for="occurence in situations"
             :key="occurence.Id"
           >
             <img
@@ -138,14 +138,16 @@ export default {
         })
         .then(result => {
           this.dynamicSituationData = result.data;
-          console.log(this.dynamicSituationData);
-          console.log(this.chartDataPoints);
+          this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
+            e => this.IsRoundAllowed(e.MatchId, e.Round)
+          );
         });
     }
   },
   data() {
     return {
       dynamicSituationData: null,
+      situations: [],
       debug: false,
       highlightedOccurenceId: null,
       prependTime: 4000,
@@ -206,7 +208,6 @@ export default {
       return this.dynamicSituationData.Matches;
     },
     chartData() {
-
       let labels = [];
       for (let i = 0; i < this.chartDataPoints.length; i++) {
         labels.push(i + 1);
@@ -238,8 +239,7 @@ export default {
       map = {};
       ret = [];
 
-      for (let situation of this.dynamicSituationData.SituationCollection
-        .Situations) {
+      for (let situation of this.situations) {
         //hide occurences that took place in non allowed
         if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
           continue;
