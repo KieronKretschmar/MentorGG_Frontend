@@ -98,7 +98,7 @@ export default class SituationLoader {
             Enums.SituationType.MultiKill,
             SituationBase,
             "Multikill",
-            "Pretty self explanatory, isn't it? Killing multiple enemies in a certain timeframe will yield a multikill highlight.",
+            "Killing multiple enemies in quick succession will yield a multikill highlight.",
             "Good players will often end up getting multiple kills. As you become a better player, the highlights will start raining in.",
             [{
                 key: "Kills",
