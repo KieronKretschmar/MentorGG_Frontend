@@ -5,7 +5,7 @@
     <template v-if="steamId">
       <ProfileHeader :steamId="steamId" />
       <div class="fixed-width-container mc">
-        <RecentMatchStats :steamId="steamId" @gamesTotal="OnReceivedGamesTotal($event)" />
+        <RecentMatchStats :steamId="steamId" @recentMatchStats="OnReceivedRecentMatchStats($event)" />
 
         <template v-if="numGames == -1 || numGames > 0">
           <!-- <Situations :steamId="steamId" /> -->
@@ -59,12 +59,14 @@ export default {
   data() {
     return {
       numGames: -1,
+      recentMatchStats: null,
       steamId: ""
     };
   },
   methods: {
-    OnReceivedGamesTotal(numGames) {
-      this.numGames = numGames;
+    OnReceivedRecentMatchStats(recentMatchStats) {
+      this.numGames = recentMatchStats.GamesTotal;
+      this.recentMatchStats = recentMatchStats;
     },
     ShowDemoProfile() {
       this.$router.push({

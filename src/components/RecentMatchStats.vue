@@ -292,7 +292,7 @@ export default {
           this.recentMatchStats = response.data;
           this.loadingComplete = true;
 
-          this.$emit("gamesTotal", this.recentMatchStats.GamesTotal);
+          this.$emit("recentMatchStats", this.recentMatchStats);
         })
         .catch(error => {
           console.error(error); // eslint-disable-line no-console
