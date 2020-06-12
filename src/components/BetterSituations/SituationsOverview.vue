@@ -69,6 +69,7 @@
                         title="Watch in Browser"
                         class="material-icons watch-match-icon"
                         @click="Watch(occurence, situation)"
+                        :class="{disabled: !$helpers.DemoViewerAvailable(matches[occurence.MatchId].Map)}"
                       >videocam</i>
                     </span>
                   </div>
@@ -370,6 +371,12 @@ export default {
               .watch-match-icon {
                 color: $orange;
                 cursor: pointer;
+
+                &.disabled {
+                  color: $gray;
+                  pointer-events: none;
+                  cursor: default;
+                }
               }
             }
 
