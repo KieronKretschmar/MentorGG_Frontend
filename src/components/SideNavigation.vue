@@ -11,15 +11,14 @@
           </p>
           <input type="file" ref="manualUploadInput" accept=".dem, .bz2, .gz" />
         </div>
-        <div v-if="uploadInfo.progress === true">
+        <AjaxLoader v-if="uploadInfo.progress">
           <p>
             After upload, it will take a few moments until the match is added to the queue.
             Please note that only your own matches will appear in the analyses.
             Currently it's not possible to watch other players' matches.
           </p>
           <p>{{this.uploadInfo.progress}}%</p>
-          <AjaxLoader v-if="uploadInfo.progress"></AjaxLoader>
-        </div>
+        </AjaxLoader>
         <button
           v-if="!uploadInfo.progress"
           class="button-variant-bordered"
