@@ -3,9 +3,9 @@
     <div class="profile-section"></div>
 
     <template v-if="steamId">
-      <ProfileHeader :steamId="steamId" />
+      <ProfileHeader :steamId="steamId" :recentMatchStats="recentMatchStats" @openRankHistoryGraph="$refs.recentMatchStats.OpenRankGraph()"/>
       <div class="fixed-width-container mc">
-        <RecentMatchStats :steamId="steamId" @recentMatchStats="OnReceivedRecentMatchStats($event)" />
+        <RecentMatchStats ref="recentMatchStats" :steamId="steamId" @recentMatchStats="OnReceivedRecentMatchStats($event)" />
 
         <template v-if="numGames == -1 || numGames > 0">
           <!-- <Situations :steamId="steamId" /> -->
