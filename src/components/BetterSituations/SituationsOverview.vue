@@ -45,6 +45,7 @@
               <div
                 class="occurences"
                 :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
+                v-if="situation.occurences.length > 0"
               >
                 <div
                   v-for="occurence in situation.occurences"
@@ -73,6 +74,9 @@
                   </div>
                 </div>
               </div>
+              <div class="occurences" :style="{'max-height': situation.occurencesVisible ? '45px' : '0px'}" v-else>
+                <p>{{ noOccurencesText }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -99,7 +103,8 @@ export default {
     "chartData",
     "chartTitle",
     "typeClass",
-    "loaderText"
+    "loaderText",
+    "noOccurencesText"
   ],
   components: {
     LineChart
@@ -366,6 +371,16 @@ export default {
                 color: $orange;
                 cursor: pointer;
               }
+            }
+
+            p {
+              margin: 0;
+              margin-top: 10px;
+              background: $dark-1;
+              border-radius: 4px;
+              text-align: center;
+              padding: 10px 10px;
+              font-size: 12px;
             }
           }
 

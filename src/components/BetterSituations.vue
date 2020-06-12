@@ -10,6 +10,7 @@
         chartTitle="Average misplays per round on a per match basis"
         typeClass="misplay"
         loaderText="Loading Misplay Data"
+        noOccurencesText="There are no misplays available for this situation. Good job!"
       />
 
       <SituationsOverview
@@ -21,6 +22,7 @@
         chartTitle="Average highlights per round on a per match basis"
         typeClass="highlight"
         loaderText="Loading Highlight Data"
+        noOccurencesText="There are no highlights available for this situation. What a bummer!"
       />
     </div>
 
