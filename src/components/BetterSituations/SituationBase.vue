@@ -130,6 +130,9 @@ export default {
         })
         .then(result => {
           this.dynamicSituationData = result.data;
+          this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
+            e => this.IsRoundAllowed(e.MatchId, e.Round)
+          );
         });
     } else {
       this.$api
