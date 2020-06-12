@@ -217,7 +217,7 @@ export default {
         }
       }
 
-      return ret;
+      return Math.max(0, ret);
     },
     whiteoutAlpha() {
       let curAlpha = 0;

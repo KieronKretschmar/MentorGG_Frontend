@@ -147,7 +147,7 @@ export default {
         }
       }
 
-      return ret;
+      return Math.max(0, ret);
     },
     isControllingBot() {
       if (
