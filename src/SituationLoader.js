@@ -142,6 +142,21 @@ export default class SituationLoader {
                 key: "TimeFlashedSelf",
                 keyDisplay: "Time Flashed Self",
                 after: 'ms'       
+            }, {
+                key: "AngleToCrosshairSelf",
+                keyDisplay: "Turned Away",
+                render: (val) => {     
+                    let eqvlnt = "Almost";
+
+                    if (val >= 0 && val < 53) {
+                        eqvlnt = "No";
+                    }
+                    else if (val >= 53 && val <= 71) {
+                        eqvlnt = "Slightly"
+                    }
+                    
+                    return `${eqvlnt} (${val}°)`;
+                }
             }]
         );
 

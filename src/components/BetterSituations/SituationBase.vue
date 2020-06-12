@@ -76,7 +76,7 @@
                 <div class="key">{{ field.keyDisplay }}</div>
                 <div class="val">
                   <span v-if="field.before">{{ field.before }}</span>
-                  {{ occurence[field.key] }}
+                  {{ field.render ? field.render(occurence[field.key]) : occurence[field.key] }}
                   <span
                     v-if="field.after"
                   >{{field.after}}</span>
