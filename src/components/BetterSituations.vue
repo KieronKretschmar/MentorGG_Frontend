@@ -138,7 +138,7 @@ export default {
       return ret;
     },
     IsRoundAllowed(matchId, round) {
-      if (!this.matches || this.matches[matchId] == undefined || round > 3) {
+      if (!this.matches || this.matches[matchId] == undefined) {
         return false;
       }
 
