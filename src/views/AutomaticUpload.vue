@@ -40,10 +40,13 @@
       <AjaxLoader style="margin-bottom: 20px;" v-if="connectingValve">Connecting</AjaxLoader>
       <p
         v-if="valveConnectionFailed && !connectingValve"
-        class="connection-error"
+        class="error-msg"
       >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
-      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect">Connect</button>
+      <p v-if="authCodeIsInvalid" class="error-msg">Authentication code is not valid (Valid pattern: XXXX-XXXXX-XXXX)</p>
+      <p v-if="shareCodeIsInvalid" class="error-msg">Share code is not valid (Valid pattern: CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</p>
+
+      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect" :disabled="!formIsValid">Connect</button>
     </GenericOverlay>
 
     <div class="fixed-width-container">
@@ -173,6 +176,23 @@ export default {
     // Fetch connections
     this.UpdateConnections();
   },
+  computed: {
+    authCodeIsValid () {
+      return this.valveAuthToken.length == 15
+    },
+    shareCodeIsValid () {
+      return this.valveShareCode.length == 34
+    },
+    formIsValid () {
+      return this.authCodeIsValid && this.shareCodeIsValid
+    },
+    authCodeIsInvalid () {
+      return this.valveAuthToken.length !== 15 && this.valveAuthToken !== ''
+    },
+    shareCodeIsInvalid () {
+      return this.valveShareCode.length !== 34 && this.valveShareCode !== ''
+    },
+  },
   methods: {
     ConnectValve() {
       this.$refs.valveOverlay.Show();
@@ -261,7 +281,7 @@ export default {
       display: block;
     }
 
-    .connection-error {
+    .error-msg {
       text-align: center;
       color: crimson;
     }
