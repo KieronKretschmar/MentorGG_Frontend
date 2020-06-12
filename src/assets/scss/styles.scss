@@ -78,6 +78,8 @@ body {
         background: $green-2;
         border-left-color: $green;
         border-right-color: $green;
+        text-shadow: 1px 1px $dark-3;
+        font-weight: 500;
 
         &:hover {
             background: darken($green-2, 10%);
