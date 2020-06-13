@@ -120,8 +120,8 @@ export default class SituationLoader {
             Enums.SituationType.SmokeFail,
             SituationBase,
             "Smoke Fail",
-            "This happens when you miss a smoke line-up that our system has recognized as such.",
-            "Practicing smoke line-ups is essential for effective offense and defense. A good smoke can easily deny an entire push and decide between win and loss."
+            "This happens when you miss a smoke lineup recognized by MENTOR.GG.",
+            "Good smokes can disable enemies from holding an angle and force them to reposition, but missing a smoke can lead to unexpected deaths and lost rounds. Practicing smoke lineups is essential for effective T and CT side."
         );
 
         add_data(
