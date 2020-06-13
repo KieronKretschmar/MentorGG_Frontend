@@ -116,7 +116,7 @@ export default {
         };
 
         //filter occurences based on allowed rounds
-        for (let occurence of entry.Situations) {
+        for (let occurence of entry.Situations.sort(x => -1 * x.MatchId)) {
           if (this.IsRoundAllowed(occurence.MatchId, occurence.Round)) {
             temp.occurences.push(occurence);
           } else {
