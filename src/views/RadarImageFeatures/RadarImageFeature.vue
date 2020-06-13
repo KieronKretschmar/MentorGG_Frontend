@@ -95,6 +95,11 @@ export default {
           this.selectedZoneId = this.$route.query.zoneId;
           this.viewType = Enums.RadarViewTypes.Zone;
         }
+
+        if (this.$route.query.lineupId) {
+          this.selectedLineupId = this.$route.query.lineupId;
+          this.viewType = Enums.RadarViewTypes.Lineup;
+        }
       });
     },
     // General
