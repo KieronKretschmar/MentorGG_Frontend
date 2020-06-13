@@ -112,6 +112,24 @@ class Helpers {
 
       document.body.removeChild(textArea);
     }
+
+    ShowFirstSituationLast(firstSituation, firstMatchInfo, secondSituation, secondMatchInfo){
+      // First, sort by MatchDate descending
+      if (firstMatchInfo.MatchDate < secondMatchInfo.MatchDate) {
+        return 1;
+      } else if (firstMatchInfo.MatchDate > secondMatchInfo.MatchDate) { 
+        return -1;
+      }
+
+      // Second, sort by Time ascending
+      if (firstSituation.StartTime < secondSituation.StartTime) { 
+        return -1;
+      } else if (firstSituation.StartTime > secondSituation.StartTime) {
+        return 1
+      } else { // nothing to split them
+        return 0;
+      }
+    }
 }
 
 export default new Helpers();

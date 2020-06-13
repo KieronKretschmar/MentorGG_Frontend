@@ -129,10 +129,7 @@ export default {
           type: this.staticSituationData.type
         })
         .then(result => {
-          this.dynamicSituationData = result.data;
-          this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
-            e => this.IsRoundAllowed(e.MatchId, e.Round)
-          );
+          this.PrepareData(result.data);
         });
     } else {
       this.$api
@@ -140,10 +137,7 @@ export default {
           type: this.staticSituationData.type
         })
         .then(result => {
-          this.dynamicSituationData = result.data;
-          this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
-            e => this.IsRoundAllowed(e.MatchId, e.Round)
-          ).sort(x => -1 * x.MatchId);
+          this.PrepareData(result.data);
         });
     }
   },
@@ -193,6 +187,17 @@ export default {
         .SetRound(occurence.Round)
         .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
+    },
+    PrepareData(data) {
+      this.dynamicSituationData = data;
+      this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
+        e => this.IsRoundAllowed(e.MatchId, e.Round)
+      )
+      .sort((first, second) => this.$helpers.ShowFirstSituationLast(
+        first, 
+        this.dynamicSituationData.Matches[first.MatchId], 
+        second, 
+        this.dynamicSituationData.Matches[second.MatchId]));
     },
     IsRoundAllowed(matchId, round) {
       if (!this.matches || this.matches[matchId] == undefined) {

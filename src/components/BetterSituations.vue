@@ -115,8 +115,15 @@ export default {
           containsNew: false
         };
 
+        let orderedOccurences = entry.Situations
+          .sort((first, second) => this.$helpers.ShowFirstSituationLast(
+            first, 
+            this.matches[first.MatchId], 
+            second, 
+            this.matches[second.MatchId]));
+
         //filter occurences based on allowed rounds
-        for (let occurence of entry.Situations.sort(x => -1 * x.MatchId)) {
+        for (let occurence of orderedOccurences) {
           if (this.IsRoundAllowed(occurence.MatchId, occurence.Round)) {
             temp.occurences.push(occurence);
           } else {
