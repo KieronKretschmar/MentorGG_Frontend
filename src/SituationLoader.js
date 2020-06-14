@@ -52,10 +52,7 @@ export default class SituationLoader {
                 keyDisplay: "Enemies Killed"
             }, {
                 key: "TotalEnemyDamage",
-                keyDisplay: "Total Enemy Damage"
-            }, {
-                key: "TotalTeamDamage",
-                keyDisplay: "Total Team Damage"
+                keyDisplay: "Total Damage"
             }]
         );
 
@@ -75,8 +72,10 @@ export default class SituationLoader {
             "Be aware of your surroundings and the enemies' positions and health. Outplay them and get that win.",
             [{
                 key: "EnemiesAlive",
-                keyDisplay: "Enemies Alive"
-            }]
+                keyDisplay: "Setting",
+                render: (val) => `1 on ${val}`
+            },
+        ]
         );
 
         add_data(
@@ -133,7 +132,7 @@ export default class SituationLoader {
             Enums.SituationType.DeathInducedBombDrop,
             SituationBase,
             "Death Of Bomb Carrier",
-            "A \"death of bomb carrier\" is a misplay by a terrorist who carried the bomb and died without any other teammates being nearby, thereby causing a tactical disadvantage.",
+            "This is a misplay by terrorists who carry the bomb and die without any other teammates being nearby, thereby causing a tactical disadvantage.",
             "Drop the bomb in a safe spot before you're going to push or even peek an angle. Generally, terrorists want to hide information about the bomb's location for as long as possible and make it easily accessible for teammates."
         );
 
@@ -141,7 +140,7 @@ export default class SituationLoader {
             Enums.SituationType.SelfFlash,
             SituationBase,
             "Self Flash",
-            "A self flash occurs when you throw a flashbang and end up blinding yourself to a certain degree.",
+            "This misplay occurs when you throw a flashbang and end up blinding yourself to a certain degree.",
             "Don't expose yourself to your own flashbangs and try to face away from them when they detonate.\n\nFlashing behind you before peeking an angle is a great technique that, when practiced efficiently, can be an absolute game changer.",
             [{
                 key: "TimeFlashedSelf",
@@ -170,7 +169,7 @@ export default class SituationLoader {
             SituationBase,
             "Team Flash",
             "A team flash occurs when you throw a flashbang and end up blinding one or more teammates to a certain degree.",
-            "Always keep track of your teammates' positions and well... don't throw flashes into their face.\n\nIt's also a good habit to announce your flashbangs on the voice channel.",
+            "Always keep track of your teammates' positions and well... don't throw flashes into their face.\n\nIt's also a good habit to announce your flashbangs on the voice channel, so your teammates can react appropriately.",
             [{
                 key: "FlashedTeammates",
                 keyDisplay: "Flashed Teammates"
@@ -201,7 +200,11 @@ export default class SituationLoader {
             SituationBase,
             "Unnecessary Reload",
             "A reload is considered unnecessary and risky when you still had enough bullets left and took damage during or shortly after the reload process.",
-            "Try to reload only when you're completely safe. It's better to try to kill an enemy with 5 bullets left than to die with a full magazine. If you have no bullets left and can't evade the enemy, switching weapons is a valid option."
+            "Try to reload only when you're completely safe. It's better to try to kill an enemy with 5 bullets left than to die with a full magazine. If you have no bullets left and can't evade the enemy, switching weapons is a valid option.",
+            [{
+                key: "AmmoBefore",
+                keyDisplay: "Bullets left"
+            }]
         );
 
         add_data(
@@ -217,7 +220,7 @@ export default class SituationLoader {
             SituationBase,
             "Bomb Drop At Spawn",
             "This describes a situation in which a teammate had to make a turn and run back to pick up the bomb from spawn.",
-            "If you don't want the bomb then try to drop it directly to a teammate, so that auto-pickup will take care of it.\n\nOtherwise carry the bomb just a little further so that you can drop it safe and closer to your team."
+            "Carry the bomb just a little further so that you can drop the bomb safely and closer to your team.\n\nIf you can't do that, try to drop it directly to a teammate so that auto-pickup will take care of it."
         );
 
         add_data(
