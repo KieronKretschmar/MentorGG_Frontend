@@ -69,7 +69,7 @@ export default {
       situations: null,
       misplays: [],
       highlights: [],
-      lastMatchId: 107169, //TODO: Replace with actual last match id
+      lastMatchId: this.$api.MatchSelector.Build().GetMostRecentMatchId(),
       nNewOccurences: {
         Misplays: 0,
         Highlights: 0
