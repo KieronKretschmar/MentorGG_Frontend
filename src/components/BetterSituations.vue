@@ -89,7 +89,7 @@ export default {
 
       //Add anything of type Enums.SituationType
       //to the following array to hide the respective situation on the frontend
-      let mutedSituations = [];
+      let mutedSituations = [510007];
 
       Object.keys(this.situations[dataKey]).forEach(key => {
         let entry = this.situations[dataKey][key];
