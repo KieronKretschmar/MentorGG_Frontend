@@ -217,16 +217,16 @@ class MentorGGAPI {
     }
 
     getSituations(params, overrides = {}) {
-        // return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations`, {
-        //     params: {
-        //         matchIds: this.MatchSelector.Build().GetMatchIds().toString()
-        //     }
-        // });
-        return axios.get('https://dev.api.mentor.gg/v1/single/76561198820202264/situations?matchIds=107166,107167,107168,107169,107170,107171', {
+        return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations`, {
             params: {
-                //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+                matchIds: this.MatchSelector.Build().GetMatchIds().toString()
             }
         });
+        // return axios.get('https://dev.api.mentor.gg/v1/single/76561198820202264/situations?matchIds=107166,107167,107168,107169,107170,107171', {
+        //     params: {
+        //         //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+        //     }
+        // });
     }
 
     // Returns Situations for all players of the specified matches. Used for debugging.
@@ -252,9 +252,9 @@ class MentorGGAPI {
     }
 
     getSituationsOfType(params, overrides = {}) {
-        return axios.get(`https://dev.api.mentor.gg/v1/single/76561198820202264/situations/${params.type}?matchIds=107166,107167,107168,107169,107170,107171`, {
+        return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations/${params.type}`, {
             params: {
-                //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+                matchIds: this.MatchSelector.Build().GetMatchIds().toString()
             }
         });
     }
