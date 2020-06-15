@@ -1,6 +1,6 @@
 import Enums from './enums';
 import Helpers from './helpers';
-import SituationBase from '@/components/BetterSituations/SituationBase';
+import SituationBase from '@/components/Situations/SituationBase';
 
 export default class SituationLoader {
     static getSituationData(situationType) {

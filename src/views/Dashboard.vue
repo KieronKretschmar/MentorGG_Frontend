@@ -9,7 +9,7 @@
 
         <template v-if="numGames == -1 || numGames > 0">
           <!-- <Situations :steamId="steamId" /> -->
-          <BetterSituations :steamId="steamId"/>
+          <Situations :steamId="steamId"/>
           <PositionAdvice :steamId="steamId" />
           <!-- <FriendComparison /> -->
           <BetterFriendComparison :steamId="steamId" />
@@ -35,7 +35,6 @@ import FriendComparison from "@/components/FriendComparison.vue";
 import BetterFriendComparison from "@/components/BetterFriendComparison.vue";
 import MatchHistory from "@/components/MatchHistory.vue";
 import Situations from "@/components/Situations.vue";
-import BetterSituations from "@/components/BetterSituations.vue";
 import MentorUser from "../mentoruser";
 
 export default {
@@ -46,7 +45,6 @@ export default {
     FriendComparison,
     BetterFriendComparison,
     Situations,
-    BetterSituations,
     MatchHistory
   },
   mounted() {
