@@ -180,6 +180,11 @@ export default new Router({
       name: 'membership',
       component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue'),
       beforeEnter: authenticationGuard
+    },
+    {
+      path: '*',
+      name: 'page-not-found',
+      component: () => import(/* webpackChunkName: "pagenotfound" */'./views/PageNotFound.vue')
     }
   ]
 });
