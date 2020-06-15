@@ -31,6 +31,18 @@ export default class MatchSelector {
         this.filters.sources = this.GetAvailableSourcesUnique();
     }
 
+    HasDefaultFiltersApplied() {
+        if (this.filters.maps.length == this.GetAvailableMapsUnique().length 
+            && this.filters.sources.length == this.GetAvailableSourcesUnique().length 
+            && this.filters.matchCount == -1 
+            && this.blacklist.length == 0) 
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     Build() {
         let r = {
             matches: [],
@@ -147,8 +159,7 @@ export default class MatchSelector {
 
             let newVal = !this.HasMapFilter(maps[0]);
 
-            for (let map of maps)
-            {
+            for (let map of maps) {
                 if (newVal) {
                     this.AddMapFilter(map);
                 } else {
@@ -156,7 +167,7 @@ export default class MatchSelector {
                 }
             }
         });
-    } 
+    }
 
     HasMapFilter(mapName) {
         return this.filters.maps.indexOf(mapName) != -1;
@@ -195,8 +206,7 @@ export default class MatchSelector {
 
             let newVal = !this.HasSourcesFilter(sources[0]);
 
-            for (let source of sources)
-            {
+            for (let source of sources) {
                 if (newVal) {
                     this.AddSourcesFilter(source);
                 } else {
@@ -204,7 +214,7 @@ export default class MatchSelector {
                 }
             }
         });
-    }    
+    }
 
     HasSourcesFilter(sourceName) {
         return this.filters.sources.indexOf(sourceName) != -1;
@@ -242,8 +252,7 @@ export default class MatchSelector {
 
             let newVal = !this.IsBlacklisted(this.matchList[0].MatchId);
 
-            for (let match of this.matchList)
-            {
+            for (let match of this.matchList) {
                 if (newVal) {
                     this.AddToBlacklist(match.MatchId);
                 } else {

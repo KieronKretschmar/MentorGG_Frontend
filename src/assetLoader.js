@@ -23,6 +23,17 @@ class AssetLoader {
     return require(`./assets/maps/previews/unknown.png`);
   }
 
+  getSkillDomainIcon(skillDomain) {
+    try {
+      return require(`./assets/skilldomains//${skillDomain}.svg`);
+    }
+    catch (err) {
+      // do not log / throw error
+    }
+
+    return ""; //TODO: idk man, something needs to be done about this i guess
+  }
+
   getRankIcon(rank) {
     try {
       return require(`./assets/ranks/${rank}.png`);

@@ -1,133 +1,392 @@
 <template>
-<div class="misplays dashboard-unit">
-  <h2 class="section-header">Misplays from the last match</h2>
-    <div v-if="!loadingComplete" class="bordered-box no-misplays">
-      <AjaxLoader>Analyzing playstyle</AjaxLoader>
+  <div class="better-situations dashboard-unit">
+    <div class="situations-split">
+      <SituationsOverview
+        title="Misplays"
+        :nNewOccurences="nNewOccurences.Misplays"
+        :situations="misplays"
+        :matches="matches"
+        :chartData="chartDataMisplays"
+        chartTitle="Average misplays per round on a per match basis"
+        typeClass="misplay"
+        loaderText="Loading Misplay Data"
+        noOccurencesText="There are no misplays available for this situation. Good job!"
+      />
+
+      <SituationsOverview
+        title="Highlights"
+        :nNewOccurences="nNewOccurences.Highlights"
+        :situations="highlights"
+        :matches="matches"
+        :chartData="chartDataHighlights"
+        chartTitle="Average highlights per round on a per match basis"
+        typeClass="highlight"
+        loaderText="Loading Highlight Data"
+        noOccurencesText="There are no highlights available for this situation. What a bummer!"
+      />
     </div>
-    
-    <span>
-      <div v-if="loadingComplete && !situationCollections.length" class="bordered-box no-misplays">
-        <p>No Misplays found!</p>
-        <p class="sub">Don't get too confident. We're adding more analysis soon, Then we'll really see where you're messing up.</p>
-      </div>
-      
-      <div        
-        v-for="situationCollection in situationCollections"
-        :key="situationCollection.Name"
-      >
-        <component
-        v-if="$options.components[situationCollection.Name + 'Situation'] && situationCollection.Misplays.length"
-        :is="situationCollection.Name + 'Situation'"
-        :situationCollection="situationCollection"
-        class="misplay bordered-box"
-        
-        />
-      </div>
-    </span>
-</div>
+
+    <div class="bordered-box hidden-occurences-info" v-if="totalHiddenOccurences > 0">
+      <p>
+        <i class="material-icons">error_outline</i>FREE users may only access misplays and highlights that took place in either the first or last round of each half of a match.
+      </p>
+      <button
+        class="button-variant-bordered upgrade" @click="OpenMembershipPage"
+      >Upgrade now to see {{ totalHiddenOccurences }} more misplay{{ totalHiddenOccurences > 1 ? 's' : '' }} / highlight{{ totalHiddenOccurences > 1 ? 's' : '' }}</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import BadBombDropSituation from "@/components/Situations/BadBombDropSituation.vue";
-import DeathByBombSituation from "@/components/Situations/DeathByBombSituation.vue";
-import SelfFlashSituation from "@/components/Situations/SelfFlashSituation.vue";
-import ShotWhileMovingSituation from "@/components/Situations/ShotWhileMovingSituation.vue";
-import SmokeFailSituation from "@/components/Situations/SmokeFailSituation.vue";
-import TeamFlashSituation from "@/components/Situations/TeamFlashSituation.vue";
-import UnnecessaryReloadSituation from "@/components/Situations/UnnecessaryReloadSituation.vue";
+import SituationsOverview from "@/components/Situations/SituationsOverview.vue";
+import LineChart from "@/components/LineChart.vue";
+import SituationLoader from "@/SituationLoader";
+import Enums from "@/enums";
 
 export default {
-  props: ['steamId'],
+  props: ["steamId"],
   components: {
-    BadBombDropSituation,
-    DeathByBombSituation,
-    SelfFlashSituation,
-    ShotWhileMovingSituation,
-    SmokeFailSituation,
-    TeamFlashSituation,
-    UnnecessaryReloadSituation,
+    SituationsOverview,
+    LineChart
   },
   mounted() {
-    this.LoadData();
+    this.$api
+      .getSituations({
+        steamId: this.steamId
+      })
+      .then(result => {
+        this.situations = result.data;
+        this.misplays = this.PrepareData("Misplays");
+        this.highlights = this.PrepareData("Highlights");
+
+        console.log(this.matches);
+      });
   },
   data() {
+    let self = this;
+
     return {
-      situationCollections: [],
-      loadingComplete: true,
+      situations: null,
+      misplays: [],
+      highlights: [],
+      lastMatchId: this.$api.MatchSelector.Build().GetMostRecentMatchId(),
+      nNewOccurences: {
+        Misplays: 0,
+        Highlights: 0
+      },
+      nHiddenOccurences: {
+        Misplays: 0,
+        Highlights: 0
+      }
     };
   },
   methods: {
-    LoadData: function() {
-      this.loadingComplete = false;
-      this.situationCollections = [];      
+    PrepareData(dataKey) {
+      let ret = [];
 
-      // make sure at least one match is available before loading
-      if(this.$api.MatchSelector.Build().GetMostRecentMatchId())
-      {
-        this.loadingComplete = false;
-        
-        let params = {
-          steamId: this.steamId//this.$api.User.GetSteamId(),
+      this.nNewOccurences[dataKey] = 0;
+      this.nHiddenOccurences[dataKey] = 0;
+
+      //Add anything of type Enums.SituationType
+      //to the following array to hide the respective situation on the frontend
+      let mutedSituations = [Enums.SituationType.PushBeforeSmokeDetonated];
+
+      Object.keys(this.situations[dataKey]).forEach(key => {
+        let entry = this.situations[dataKey][key];
+
+        if (mutedSituations.indexOf(entry.MetaData.SituationType) != -1) {
+          return;
+        }
+
+        let staticData = SituationLoader.getSituationData(
+          entry.MetaData.SituationType
+        );
+
+        if (staticData == null) {
+          return;
+        }
+
+        let temp = {
+          name: staticData.name,
+          occurencesVisible: false,
+          type: entry.MetaData.SituationType,
+          occurences: [],
+          skillDomainName: entry.MetaData.SkillDomainName,
+          containsNew: false
         };
 
-        this.$api.getSingleMatchMisplays(params).then(result => {
-          this.situationCollections = result.data.SituationCollections;
-          this.loadingComplete = true;
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingComplete = true;
-        });
-      }      
+        let orderedOccurences = entry.Situations
+          .sort((first, second) => this.$helpers.ShowFirstSituationLast(
+            first, 
+            this.matches[first.MatchId], 
+            second, 
+            this.matches[second.MatchId]));
+
+        //filter occurences based on allowed rounds
+        for (let occurence of orderedOccurences) {
+          if (this.IsRoundAllowed(occurence.MatchId, occurence.Round)) {
+            temp.occurences.push(occurence);
+          } else {
+            this.nHiddenOccurences[dataKey]++;
+          }
+        }
+
+        // check if any of the occurences happened in the last match
+        // to indicate if the situation category contains "new" occurences
+        for (let occurence of temp.occurences) {
+          if (occurence.MatchId == this.lastMatchId) {
+            occurence.isNew = true;
+            temp.containsNew = true;
+            this.nNewOccurences[dataKey]++;
+          }
+        }
+
+        ret.push(temp);
+      });
+
+      return ret;
     },
+    IsRoundAllowed(matchId, round) {
+      if (!this.matches || this.matches[matchId] == undefined) {
+        return false;
+      }
+
+      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+    },
+    OpenMembershipPage() {
+      this.$router.push({
+        name: 'membership'
+      });
+    }
+  },
+  computed: {
+    chartDataMisplays() {
+      if (!this.situations) {
+        return null;
+      }
+
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.Misplays.length; i++) {
+        labels.push(i + 1);
+      }
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. misplays per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.chartDataPoints.Misplays,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    chartDataHighlights() {
+      if (!this.situations) {
+        return null;
+      }
+
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.Highlights.length; i++) {
+        labels.push(i + 1);
+      }
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. highlights per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.chartDataPoints.Highlights,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    chartDataPoints() {
+      if (!this.situations) {
+        return null;
+      }
+
+      let map = {};
+      let ret = {};
+
+      for (let dataKey of ["Misplays", "Highlights"]) {
+        map[dataKey] = {};
+        ret[dataKey] = [];
+
+        Object.keys(this.situations[dataKey]).forEach(key => {
+          let entry = this.situations[dataKey][key];
+
+          for (let situation of entry.Situations) {
+            //hide occurences that took place in non allowed
+            if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
+              continue;
+            }
+
+            if (map[dataKey][situation.MatchId] == undefined) {
+              map[dataKey][situation.MatchId] = {
+                totalOccurences: 0,
+                averageOccurences: 0,
+                rounds: {}
+              };
+            }
+
+            map[dataKey][situation.MatchId].rounds[situation.Round] =
+              ++map[dataKey][situation.MatchId].rounds[situation.Round] || 1;
+            map[dataKey][situation.MatchId].totalOccurences++;
+
+            //update averageOccurences
+            map[dataKey][situation.MatchId].averageOccurences = (
+              map[dataKey][situation.MatchId].totalOccurences /
+              this.situations.Matches[situation.MatchId].TotalRounds
+            ).toFixed(2);
+          }
+        });
+
+        Object.keys(this.situations.Matches).forEach(key => {
+          if (map[dataKey][key] == undefined) {
+            ret[dataKey].push(0);
+          } else {
+            ret[dataKey].push(map[dataKey][key].averageOccurences);
+          }
+        });
+      }
+
+      return ret;
+    },
+    matches() {
+      if (!this.situations) {
+        return null;
+      }
+
+      return this.situations.Matches;
+    },
+    totalHiddenOccurences() {
+      return (
+        this.nHiddenOccurences.Misplays + this.nHiddenOccurences.Highlights
+      );
+    }
   },
   watch: {
-    steamId: function(val) {      
-      this.LoadData(false);
-    }
+    steamId: function(val) {}
   }
 };
 </script>
 
 <style lang="scss">
-.misplays {
+.better-situations {
+  .situations-split {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 
-  p {
-    font-weight: 500;
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .new-count {
+        font-size: 12px;
+        padding: 5px;
+        border-radius: 4px;
+        font-weight: 500;
+
+        &.misplays {
+          background: crimson;
+        }
+
+        &.highlights {
+          background: $green-2;
+        }
+      }
+    }
   }
 
-  .misplay {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  .no-misplays {
-    padding: 20px;
+  .hidden-occurences-info {
+    margin-top: 10px;
+    text-align: center;
 
     p {
-      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 10px;
       color: white;
-      text-align: center;
-      margin: 0;
-    }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    .sub {
-      font-weight: 400;
-      font-size: 0.8em;
-
+      i {
+        color: $orange;
+        margin-right: 5px;
+      }
     }
   }
-
 }
 
 //responsive
 @media (max-width: 800px) {
-  .misplays {
+  .advice-container {
+    flex-direction: column;
 
-  p {
-    text-align: center;
+    .advice {
+      width: 100%;
+      margin-bottom: 10px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .position-table {
+        min-width: 580px;
+        .table-header {
+          margin-right: 25px;
+
+          span {
+            &:nth-child(n + 1) {
+              width: 140px;
+            }
+            &:nth-child(n + 3) {
+              width: 100px;
+              text-align: center;
+            }
+          }
+        }
+
+        .table-content {
+          margin-top: 10px;
+          margin-right: 10px;
+
+          .entry {
+            margin-right: 25px;
+            font-size: 12px !important;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .cell {
+              &:nth-child(n + 1) {
+                width: 140px;
+              }
+              &:nth-child(n + 3) {
+                width: 100px;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
   }
-
-}
 }
 </style>

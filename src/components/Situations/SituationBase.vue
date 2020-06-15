@@ -1,377 +1,464 @@
-<template></template>
+<template>
+  <div class="situation-base">
+    <template v-if="this.dynamicSituationData">
+      <div class="situation-header">
+        <div class="situation-name">
+          <img
+            :src="$assetLoader.getSkillDomainIcon(dynamicSituationData.SituationCollection.MetaData.SkillDomainName)"
+            v-if="dynamicSituationData"
+          />
+          <span v-if="staticSituationData.isHighlight" class="highlight">Highlight:</span>
+          <span v-if="staticSituationData.isMisplay" class="misplay">Misplay:</span>
+          {{ staticSituationData.name }}
+        </div>
+        <div
+          class="situation-count"
+          :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
+        >{{ situations.length }}</div>
+      </div>
+      <div class="description-howtoavoid">
+        <div class="description">
+          <h2 class="section-header">Description</h2>
+          <div class="bordered-box">{{ staticSituationData.description }}</div>
+        </div>
+        <div class="fluff">
+          <h2 class="section-header">Tips</h2>
+          <div class="bordered-box">{{ staticSituationData.fluff }}</div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <h2 class="section-header">Occurence History Graph</h2>
+        <div class="bordered-box chart-container">
+          <p class="chart-title">
+            Average
+            <span v-if="staticSituationData.isHighlight">highlights</span>
+            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
+          </p>
+          <LineChart :options="chartOptions" :data="chartData" class="history-graph-inner-wrapper" />
+        </div>
+      </div>
+
+      <div class="occurences">
+        <h2 class="section-header">Occurences</h2>
+        <div class="occurence-list">
+          <div
+            class="occurence bordered-box"
+            :class="{highlighted: occurence.Id == highlightedOccurenceId}"
+            v-for="occurence in situations"
+            :key="occurence.Id"
+          >
+            <img
+              class="map-preview"
+              :src="$assetLoader.getMapPreview(dynamicSituationData.Matches[occurence.MatchId].Map)"
+            />
+            <div class="fields">
+              <div class="field">
+                <div class="key">When</div>
+                <div
+                  class="val"
+                >{{ dynamicSituationData.Matches[occurence.MatchId].MatchDate|formatDateAndTime }}</div>
+              </div>
+              <div class="field">
+                <div class="key">Map</div>
+                <div class="val">{{ dynamicSituationData.Matches[occurence.MatchId].Map }}</div>
+              </div>
+              <div class="field">
+                <div class="key">Round</div>
+                <div class="val">{{ occurence.Round }}</div>
+              </div>
+
+              <div
+                class="field"
+                v-for="field in staticSituationData.additionalFields"
+                :key="field.key"
+              >
+                <div class="key">{{ field.keyDisplay }}</div>
+                <div class="val">
+                  <span v-if="field.before">{{ field.before }}</span>
+                  <span v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"></span>
+                  <span
+                    v-if="field.after"
+                  >{{field.after}}</span>
+                </div>
+              </div>
+
+              <template v-if="debug">
+                <div class="field debug" v-for="(val, key) in occurence" :key="key">
+                  <div class="key">{{ key }}</div>
+                  <div class="val">{{ val }}</div>
+                </div>
+              </template>
+            </div>
+
+            <button
+              class="watch-button button-variant-bordered"
+              :disabled="!$helpers.DemoViewerAvailable(dynamicSituationData.Matches[occurence.MatchId].Map)"
+              @click="Watch(occurence, staticSituationData.typeName)"
+            >
+              Watch
+              <i class="material-icons">videocam</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="bordered-box">
+        <AjaxLoader>Loading situation data</AjaxLoader>
+      </div>
+    </template>
+  </div>
+</template>
 
 <script>
-import MatchHeader from "@/components/MatchHeader.vue";
+import LineChart from "@/components/LineChart.vue";
+import Enums from "@/enums";
 
 export default {
+  props: ["staticSituationData"],
   components: {
-    MatchHeader
+    LineChart
+  },
+  mounted() {
+    this.debug = false;
+
+    if (this.debug) {
+      this.$api
+        .getSituationSamplesByMatchIds({
+          type: this.staticSituationData.type
+        })
+        .then(result => {
+          this.PrepareData(result.data);
+        });
+    } else {
+      this.$api
+        .getSituationsOfType({
+          type: this.staticSituationData.type,
+          steamId: this.$api.User.GetSteamId(),
+        })
+        .then(result => {
+          this.PrepareData(result.data);
+        });
+    }
   },
   data() {
     return {
-      isVisible: false
+      dynamicSituationData: null,
+      situations: [],
+      debug: false,
+      highlightedOccurenceId: null,
+      prependTime: 4000,
+      chartOptions: {
+        tooltips: {
+          enabled: false
+        },
+        hover: {
+          animationDuration: 0
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                beginAtZero: true,
+                stepValue: 1,
+                stepSize: 1
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        }
+      }
     };
   },
-
   methods: {
-    IsBetween(x, start, end) {
-      return end >= x && x >= start;
-    },
-    ToggleMisplayVisibility: function() {
-      let visibility = !this.isVisible;
-      this.$helpers.LogEvent(this, visibility ? 'ShowSituation' : 'HideSituation', {category: "Situation", label: this.$options._componentTag});
+    Watch(occurence, typeName) {
+      this.highlightedOccurenceId = occurence.Id;
 
-      this.isVisible = visibility;
-      this.$forceUpdate();
-    },
-    Watch: function(matchId, round = 1, time = 0) {
-      this.$helpers.LogEvent(this, "WatchSituation", {category: "Situation", label: this.$options._componentTag});
+      this.$helpers.LogEvent(this, "WatchSituation", {
+        label: Enums.SituationType.ToString(typeName)
+      });
 
-      globalThis.DemoViewer.SetMatch(matchId)
-        .SetRound(round)
-        .SetTimestamp(Math.max(0, time))
+      globalThis.DemoViewer.SetMatch(occurence.MatchId)
+        .SetRound(occurence.Round)
+        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
     },
-    ChooseRandom(items) {
-      let randomItem = items[Math.floor(Math.random() * items.length)];
-      return randomItem;
+    PrepareData(data) {
+      this.dynamicSituationData = data;
+      this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
+        e => this.IsRoundAllowed(e.MatchId, e.Round)
+      )
+      .sort((first, second) => this.$helpers.ShowFirstSituationLast(
+        first, 
+        this.dynamicSituationData.Matches[first.MatchId], 
+        second, 
+        this.dynamicSituationData.Matches[second.MatchId]));
+    },
+    IsRoundAllowed(matchId, round) {
+      if (!this.matches || this.matches[matchId] == undefined) {
+        return false;
+      }
+
+      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+    }
+  },
+  computed: {
+    matches() {
+      if (!this.dynamicSituationData) {
+        return null;
+      }
+
+      return this.dynamicSituationData.Matches;
+    },
+    chartData() {
+      let labels = [];
+      for (let i = 0; i < this.chartDataPoints.length; i++) {
+        labels.push(i + 1);
+      }
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "W/L balance",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.chartDataPoints,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    chartDataPoints() {
+      if (!this.dynamicSituationData) {
+        return null;
+      }
+
+      let map = {};
+      let ret = {};
+
+      map = {};
+      ret = [];
+
+      for (let situation of this.situations) {
+        //hide occurences that took place in non allowed
+        if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
+          continue;
+        }
+
+        if (map[situation.MatchId] == undefined) {
+          map[situation.MatchId] = {
+            totalOccurences: 0,
+            averageOccurences: 0,
+            rounds: {}
+          };
+        }
+
+        map[situation.MatchId].rounds[situation.Round] =
+          ++map[situation.MatchId].rounds[situation.Round] || 1;
+        map[situation.MatchId].totalOccurences++;
+
+        //update averageOccurences
+        map[situation.MatchId].averageOccurences = (
+          map[situation.MatchId].totalOccurences /
+          this.matches[situation.MatchId].TotalRounds
+        ).toFixed(2);
+      }
+
+      Object.keys(this.matches).forEach(key => {
+        if (map[key] == undefined) {
+          ret.push(0);
+        } else {
+          ret.push(map[key].averageOccurences);
+        }
+      });
+
+      return ret;
     }
   }
 };
 </script>
 
 <style lang="scss">
-.misplay {
-  border-bottom: 1px solid $purple;
-  margin-top: 10px;
+.situation-base {
+  margin-top: 75px;
 
-  .header {
+  .situation-header {
     display: flex;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
+    margin-bottom: 20px;
 
-    .left {
+    .situation-name {
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
-      width: 80%;
 
-      .misplay-title {
-        width: 20%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      img {
+        width: 60px;
+        margin-right: 10px;
       }
 
-      .misplay-explanation {
-        font-weight: 300;
-        width: 70%;
-        margin-left: 20px;
-        text-overflow: ellipsis;
-        line-height: 20px;
+      span {
+        margin-right: 10px;
 
-        .link {
-          &.link-inline {
-            background: $dark-1;
-            color: white;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border: 1px solid $dark-1;
-            transition: 0.35s;
-            text-decoration: none;
-            cursor: pointer;
+        &.highlight {
+          color: $green-2;
+        }
 
-            color: $orange;
-          }
+        &.misplay {
+          color: crimson;
         }
       }
     }
 
-    .right {
+    .situation-count {
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
       display: flex;
+      justify-content: center;
       align-items: center;
+      font-size: 24px;
+      font-weight: 500;
+
+      &.misplay {
+        background: crimson;
+      }
+
+      &.highlight {
+        background: $green-2;
+      }
     }
   }
 
-  .body {
-    hr {
-      border: 1px solid $purple;
-      border-bottom: none;
-      margin: 15px 0;
-    }
+  .description-howtoavoid {
+    display: flex;
+    justify-content: space-between;
 
-    .subtitle {
+    .description,
+    .fluff {
+      width: calc(50% - 5px);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      white-space: pre-line;
+
+      .bordered-box {
+        flex: 1 0 auto;
+      }
+    }
+  }
+
+  .chart,
+  .occurences {
+    margin-top: 35px;
+  }
+
+  .chart-container {
+    margin-bottom: 10px;
+
+    .chart-title {
       color: $orange;
-      text-transform: uppercase;
+      // text-transform: uppercase;
       font-size: 12px;
-    }
-
-    .row {
-      display: flex;
-      padding: 10px 0;
-      border-bottom: 1px solid $purple;
-
-      &:first-child,
-      &:last-child {
-        border-bottom: none;
-      }
-
-      &:first-of-type {
-        border-bottom: none;
-
-        .col {
-          color: $orange;
-          font-size: 12px;
-        }
-      }
-
-      .l,
-      .r {
-        display: flex;
-      }
-
-      .l {
-        flex: 1 1 auto;
-
-        .col {
-          &:nth-child(1) {
-            width: 30%;
-          }
-
-          &:nth-child(2) {
-            width: 10%;
-          }
-        }
-      }
-
-      .r {
-        width: 10%;
-
-        .col {
-          width: 100%;
-        }
-      }
-
-      .col {
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-
-        &.centered {
-          justify-content: center;
-        }
-
-        img {
-          margin-right: 5px;
-        }
-
-        .watch-match-icon {
-          color: $orange;
-          font-size: 26px;
-          transition: 0.35s;
-          cursor: pointer;
-
-          &:hover {
-            color: $purple;
-          }
-        }
-
-        .link {
-          display: flex;
-          align-items: center;
-          background: $dark-1;
-          color: white;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          border: 1px solid $dark-1;
-          transition: 0.35s;
-          text-decoration: none;
-          cursor: pointer;
-
-          &:hover {
-            color: $orange;
-          }
-        }
-      }
+      text-align: center;
+      background: $dark-3;
+      border-radius: 4px;
+      padding: 5px 10px;
+      margin-top: 0;
     }
   }
-}
 
-//responsive
-@media (max-width: 800px) {
-  .misplay {
-  .header {
-    display: block;
-    text-align: center;
+  .occurence-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -5px;
 
-    .left {
-      display: block;
-      align-items: center;
-      width: 100%;
+    .occurence {
+      width: calc(33.33% - 10px);
+      display: flex;
+      flex-direction: column;
+      margin: 0 5px;
+      margin-bottom: 10px;
 
-      .misplay-title {
-        line-height: 2.5;
+      &.highlighted {
+        border: 1px solid $orange;
       }
 
-      .misplay-explanation {
+      .map-preview {
         width: 100%;
-        margin: 0 auto;
-        line-height: 20px;
-        white-space: normal;
-      }
-    }
-
-    .right {
-      display: block;
-      align-items: center;
-      padding: 20px 0 5px 0;
-    }
-    
-  }
-
-  .body {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    
-    hr {
-      border: 1px solid $purple;
-      border-bottom: none;
-      margin: 15px 0;
-      width: 810px;
-    }
-
-    .subtitle {
-      color: $orange;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .row {
-      display: flex;
-      padding: 10px 0;
-      border-bottom: 1px solid $purple;
-      width: 810px;
-
-      &:first-child,
-      &:last-child {
-        border-bottom: none;
+        height: 100px;
+        object-fit: cover;
+        object-position: center;
       }
 
-      &:first-of-type {
-        border-bottom: none;
-
-        .col {
-          color: $orange;
-          font-size: 12px;
-        }
-      }
-
-      .l,
-      .r {
+      .fields {
+        background: $dark-3;
         display: flex;
-      }
+        flex-direction: column;
+        border-radius: 4px;
+        margin-top: 10px;
+        padding: 0 10px;
 
-      .l {
-        flex: 1 1 auto;
-
-        .col {
-          min-width: 150px;
-
-          &:nth-child(1) {
-            width: 280px;
-          }
-
-          &:nth-child(2) {
-            min-width: 80px;
-          }
-
-          &:nth-child(n+3) {
-            min-width: 150px;
-          }
-        }
-      }
-
-      .r {
-        width: 125px;
-
-        .col {
-          width: 100%;
-        }
-      }
-
-      .col {
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-
-        &.centered {
-          justify-content: center;
-        }
-
-        img {
-          margin-right: 5px;
-        }
-
-        .map-and-datetime {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 145px;
-            padding: 0 25px;
-            border-right: none;
-
-            .map {
-              color: white;
-              font-size: 14px;
-              font-weight: 500;
-            }
-
-            .datetime {
-              font-size: 12px;
-              color: $dark-4;
-              margin-top: 5px;
-            }
-          }
-
-        .watch-match-icon {
-          color: $orange;
-          font-size: 26px;
-          transition: 0.35s;
-          cursor: pointer;
-
-          &:hover {
-            color: $purple;
-          }
-        }
-
-        .link {
+        .field {
           display: flex;
-          align-items: center;
-          background: $dark-1;
+          justify-content: space-between;
           color: white;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          border: 1px solid $dark-1;
-          transition: 0.35s;
-          text-decoration: none;
-          cursor: pointer;
+          border-bottom: 1px solid $purple;
+          padding: 10px 0px;
+          font-size: 12px;
+          font-weight: 500;
+          align-items: center;
 
-          &:hover {
+          a {
             color: $orange;
+            text-decoration: none;
+          }
+
+          .val {
+            .weapon {
+              @include weapon-font;
+              font-size: 20px;
+            }
+          }
+
+          &.debug {
+            background: black;
+          }
+
+          &:last-child {
+            border-bottom: none;
           }
         }
       }
     }
   }
 
-}
+  .watch-button {
+    font-size: 12px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    i {
+      margin-left: 5px;
+      font-size: 20px;
+      line-height: 12px;
+      color: lightgray;
+    }
+  }
 }
 </style>

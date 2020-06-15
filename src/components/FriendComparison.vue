@@ -1,155 +1,180 @@
 <template>
-  <div class="friend-comparison">
-    <div class="bordered-box">
-      <p>Performance when playing with friends</p>
+  <div class="better-friend-comparison dashboard-unit">
+    <h2 class="section-header">Performance when playing with friends</h2>
+
+    <div class="comparisons">
+      <div
+        class="comparison bordered-box"
+        v-for="comparison in comparisons"
+        :key="comparison.OtherSteamId"
+      >
+        <div class="avatar-and-name">
+          <div class="avatar">
+            <img
+              class="avatar"
+              :src="$assetLoader.getSteamProfileImageUrl(comparison.OtherPlayerInfo.SteamUser.ImageUrl)"
+            />
+          </div>
+            <router-link class="name"
+              :to="{name: 'dashboard', params: {steamId: comparison.OtherPlayerInfo.SteamUser.SteamId }}"
+            >{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</router-link>
+        </div>
+        <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>
+        <div class="comparison-table">
+          <div class="r">
+            <div class="c header"></div>
+            <div class="c header">You</div>
+            <div class="c header">Them</div>
+          </div>
+          <div class="r">
+            <div class="c">
+              <img src="@/assets/t_logo.png" /> K/D
+            </div>
+            <div
+              class="c"
+            >{{ (comparison.UserData.TerroristKills / Math.max(1, comparison.UserData.TerroristDeaths)).toFixed(2) }}</div>
+            <div
+              class="c"
+            >{{ (comparison.OtherData.TerroristKills / Math.max(1, comparison.OtherData.TerroristDeaths)).toFixed(2) }}</div>
+          </div>
+          <div class="r">
+            <div class="c">
+              <img src="@/assets/ct_logo.png" /> K/D
+            </div>
+            <div
+              class="c"
+            >{{(comparison.UserData.CtKills / Math.max(1, comparison.UserData.CtDeaths)).toFixed(2)}}</div>
+            <div
+              class="c"
+            >{{(comparison.OtherData.CtKills / Math.max(1, comparison.OtherData.CtDeaths)).toFixed(2)}}</div>
+          </div>
+          <div class="r">
+            <div class="c">
+              <img src="@/assets/t_logo.png" /> ADR
+            </div>
+            <div
+              class="c"
+            >{{(comparison.UserData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+            <div
+              class="c"
+            >{{(comparison.OtherData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
+          </div>
+          <div class="r">
+            <div class="c">
+              <img src="@/assets/ct_logo.png" /> ADR
+            </div>
+            <div
+              class="c"
+            >{{(comparison.UserData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+            <div
+              class="c"
+            >{{(comparison.OtherData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
+          </div>
+          <div class="r">
+            <div class="c">Enemies Flashed</div>
+            <div class="c">{{comparison.UserData.EnemiesFlashed}}</div>
+            <div class="c">{{comparison.OtherData.EnemiesFlashed}}</div>
+          </div>
+          <div class="r">
+            <div class="c">Team Flashed</div>
+            <div class="c">{{comparison.UserData.TeammatesFlashed}}</div>
+            <div class="c">{{comparison.OtherData.TeammatesFlashed}}</div>
+          </div>
+          <div class="r">
+            <div class="c">MVPs</div>
+            <div class="c">{{comparison.UserData.MVPs}}</div>
+            <div class="c">{{comparison.OtherData.MVPs}}</div>
+          </div>
+          <div class="r">
+            <div class="c">Score</div>
+            <div class="c">{{comparison.UserData.Score}}</div>
+            <div class="c">{{comparison.OtherData.Score}}</div>
+          </div>
+        </div>
+
+        <div class="favorite-map">
+          <div class="name">Favorite Map: {{ comparison.MostPlayedMap }}</div>
+          <img class="image" :src="$assetLoader.getMapPreview(comparison.MostPlayedMap)" />
+          <div class="wtl">
+            <div class="w">{{ comparison.MostPlayedMapMatchesWon }}</div>
+            <div class="t">{{ comparison.MostPlayedMapMatchesTied }}</div>
+            <div class="l">{{ comparison.MostPlayedMapMatchesLost }}</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-if="!loadingComplete">
-      <div class="bordered-box no-comparisons">
+      <div class="bordered-box no-comparisons" :class="{'loading-more': comparisons.length > 0}">
         <AjaxLoader>Computing Friend Comparisons</AjaxLoader>
       </div>
     </div>
 
-    <span v-else>
-      <div
-        v-for="comparison in comparisons"
-        :key="comparison.OtherSteamId"
-        class="comparison bordered-box"
-      >
-        <div class="header">
-          <div class="left">
-            <span class="avatar-name-wrapper">
-              <img class="avatar" :src="comparison.OtherPlayerInfo.Icon" />
-              <span class="name">{{ comparison.OtherPlayerInfo.SteamName }}</span>
-            </span>
-            <span class="winrate" :class="{good: comparison.MatchesWon >= comparison.MatchesLost}">
-              {{ comparison.MatchesWon + " - " + comparison.MatchesTied + " - " + comparison.MatchesLost }}
-              <br />
-              <span>Win - Tie - Loss</span>
-            </span>
-            <span class="favorite-map">
-              <div class="map-text">
-                <span>Favorite Map</span>
-                <br />
-                {{ comparison.MostPlayedMap }}
-              </div>
-            </span>
-            <div
-              class="winrate"
-              :class="{good: comparison.MostPlayedMapMatchesWon >= comparison.MostPlayedMapMatchesLost}"
-            >
-              {{ comparison.MostPlayedMapMatchesWon + " - " + comparison.MostPlayedMapMatchesTied + " - " + comparison.MostPlayedMapMatchesLost }}
-              <br />
-              <span>Win - Tie - Loss</span>
-            </div>
-          </div>
-          <div class="right">
-            <i
-              class="fas fa-chevron-down"
-              :class="{open: comparison.IsVisible}"
-              @click="ToggleComparisonVisibility(comparison)"
-            ></i>
-          </div>
-        </div>
-        <transition name="slide">
-          <div class="body" v-if="comparison.IsVisible">
-            <hr />
-
-            <div class="row">
-              <div class="col">Who</div>
-              <div class="col centered">
-                <img src="@/assets/t_logo.png" /> K/D
-              </div>
-              <div class="col centered">
-                <img src="@/assets/ct_logo.png" />K/D
-              </div>
-              <!-- <div class="col centered"><img src="@/assets/t_logo.png">Deaths</div>
-              <div class="col centered"><img src="@/assets/ct_logo.png">Deaths</div>-->
-              <div class="col centered">
-                <img src="@/assets/t_logo.png" />ADR
-              </div>
-              <div class="col centered">
-                <img src="@/assets/ct_logo.png" />ADR
-              </div>
-              <!-- <div class="col centered">Flashes Thrown</div> -->
-              <div class="col centered">
-                Enemies
-                <br />Flashed
-              </div>
-              <div class="col centered">
-                Team
-                <br />Flashed
-              </div>
-              <!-- <div class="col centered">Firenades Thrown</div>
-              <div class="col centered">HEs Thrown</div>
-              <div class="col centered">Smokes Thrown</div>-->
-              <div class="col centered">MVPs</div>
-              <div class="col centered">Score</div>
-            </div>
-            <div class="row">
-              <div class="col">You</div>
-              <div
-                class="col centered"
-              >{{(comparison.UserData.TerroristKills / Math.max(1, comparison.UserData.TerroristDeaths)).toFixed(2)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.UserData.CtKills / Math.max(1, comparison.UserData.CtDeaths)).toFixed(2)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.UserData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.UserData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
-              <div class="col centered">{{comparison.UserData.EnemiesFlashed}}</div>
-              <div class="col centered">{{comparison.UserData.TeammatesFlashed}}</div>
-              <div class="col centered">{{comparison.UserData.MVPs}}</div>
-              <div class="col centered">{{comparison.UserData.Score}}</div>
-            </div>
-            <div class="row">
-              <div class="col">Friend</div>
-              <div
-                class="col centered"
-              >{{(comparison.OtherData.TerroristKills / Math.max(1, comparison.OtherData.TerroristDeaths)).toFixed(2)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.OtherData.CtKills / Math.max(1, comparison.OtherData.CtDeaths)).toFixed(2)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.OtherData.TerroristDamage / Math.max(1, comparison.TerroristRounds)).toFixed(0)}}</div>
-              <div
-                class="col centered"
-              >{{(comparison.OtherData.CtDamage / Math.max(1, comparison.CtRounds)).toFixed(0)}}</div>
-              <div class="col centered">{{comparison.OtherData.EnemiesFlashed}}</div>
-              <div class="col centered">{{comparison.OtherData.TeammatesFlashed}}</div>
-              <div class="col centered">{{comparison.OtherData.MVPs}}</div>
-              <div class="col centered">{{comparison.OtherData.Score}}</div>
-            </div>
-          </div>
-        </transition>
+    <div v-if="loadingComplete && comparisons.length == 0">
+      <div class="bordered-box no-comparisons">
+        <p>No data available</p>
       </div>
-    </span>
+    </div>
+
+    <div v-if="loadingComplete && comparisons.length > 0" class="controls">
+      <button class="button-variant-bordered" @click="LoadData(false)">Load 3 More</button>
+    </div>
   </div>
 </template>
 
 <script>
+import BarChart from "@/components/BarChart.vue";
+
 export default {
+  props: ["steamId"],
+  components: {
+    BarChart
+  },
   mounted() {
-    this.LoadData(false);
+    this.LoadData(true);
   },
   data() {
     return {
       comparisons: [],
-      loadingComplete: false
+      loadingComplete: false,
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                beginAtZero: true,
+                stepValue: 1,
+                stepSize: 2
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        }
+      }
     };
   },
   methods: {
-    LoadData: function(isDemo) {
+    LoadData: function(reset = false) {
       this.loadingComplete = false;
+      if (reset) {
+        this.comparisons = [];
+      }
+
+      let params = {
+        steamId: this.steamId, //this.$api.User.GetSteamId(),
+        count: 3,
+        offset: this.comparisons.length
+      };
+
       this.$api
-        .getFriendsComparison(isDemo ? "76561198033880857" : "")
+        .getFriendsComparison(params)
         .then(result => {
-          this.comparisons = result.data.Rows;
-          this.comparisons.forEach(comparison => {
+          result.data.Comparisons.forEach(comparison => {
             comparison.WinRate =
               (comparison.MatchesWon / comparison.MatchesPlayed) * 100;
 
@@ -158,189 +183,196 @@ export default {
                 comparison.MostPlayedMapMatchesPlayed) *
               100;
 
+            comparison.chartData = {
+              labels: ["Wins", "Ties", "Losses"],
+              datasets: [
+                {
+                  barThickness: 10,
+                  barPercentage: 1,
+                  label: "",
+                  backgroundColor: ["#72a233", "#f39c12", "#db143c"],
+                  data: [
+                    comparison.MatchesWon,
+                    comparison.MatchesTied,
+                    comparison.MatchesLost
+                  ]
+                }
+              ]
+            };
+
             comparison.IsVisible = false;
+            this.comparisons.push(comparison);
           });
+
+          //this.comparisons = result.data.Comparisons;
           this.loadingComplete = true;
         })
         .catch(error => {
           console.error(error); // eslint-disable-line no-console
           this.loadingComplete = true;
         });
-    },
-    ToggleComparisonVisibility: function(comparison) {
-      this.$helpers.LogEvent(this, comparison.IsVisible ? 'ShowComparison' : 'HideComparison');
-      comparison.IsVisible = !comparison.IsVisible;
-      this.$forceUpdate();
+    }
+  },
+  watch: {
+    steamId: function(val) {
+      this.LoadData(true);
     }
   }
 };
 </script>
 
 <style lang="scss">
-.friend-comparison {
-  margin-bottom: 20px;
-
-  p {
-    color: white;
-    font-weight: 500;
-  }
+.better-friend-comparison {
 
   .no-comparisons {
-    margin-top: 10px;
+    color: white;
+
+    &.loading-more {
+      margin-top: 10px;
+    }
   }
 
-  .comparison {
-    border-bottom: 1px solid $purple;
+  .controls {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 10px;
 
-    .header {
-      display: flex;
-      color: white;
-      font-size: 14px;
-      font-weight: 500;
-      justify-content: space-between;
+    .button-variant-bordered {
+      font-size: 12px;
+    }
+  }
 
-      .left {
+  .comparisons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .comparison {
+      
+      width: calc(33.33% - 5px);
+      margin-bottom: 10px;
+
+      &:nth-last-child(-n + 3) {
+        margin-bottom: 0px;
+      }
+
+      .avatar-and-name {
         display: flex;
         align-items: center;
-        width: 80%;
+        border-bottom: 1px solid $purple;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
 
-        .avatar-name-wrapper {
-          flex: 0 0 15vw;
-          max-width: 250px;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
-          overflow: hidden;
-
-          .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 5px;
-          }
-
-          .name {
-            margin-left: 20px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+        .avatar {
+          width: 24px;
+          height: 24px;
+          border-radius: 3px;
         }
 
-        .winrate {
-          margin-left: 20px;
-          border-left: 1px solid $purple;
-          color: $red;
-          flex: 0 0 160px;
-          text-align: center;
-
-          &.good {
-            color: $green;
-          }
-
-          span {
-            color: $purple;
-            font-size: 12px;
-          }
+        .name {
+          color: white;
+          font-weight: 500;
+          font-size: 12px;
+          margin-left: 10px;
+          text-decoration: none;
         }
+      }
 
-        .favorite-map {
+      .kad-chart {
+        height: 150px;
+        background-color: $dark-3;
+        border-radius: 4px;
+      }
+
+      .comparison-table {
+        margin-top: 10px;
+        background: $dark-3;
+        padding: 5px 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+
+        font-weight: 500;
+
+        .r {
           display: flex;
           align-items: center;
-          // width: 15%;
-          border-left: 1px solid $purple;
-          flex: 0 0 150px;
+          font-size: 12px;
+          border-bottom: 1px solid $purple;
+          color: white;
 
-          .map-text {
-            padding: 0 25px;
-            color: white;
+          &:last-child {
+            border-bottom: 0;
+          }
 
-            span {
-              font-size: 12px;
+          .header {
+            color: $orange;
+            font-weight: 600;
+          }
+
+          .c {
+            width: 25%;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            justify-content: center;
+
+            img {
+              margin-right: 5px;
+            }
+
+            &:first-child {
+              width: 50%;
+              justify-content: flex-start;
             }
           }
         }
-
-        .map-winrate {
-          color: $red;
-          font-size: 14px;
-          font-weight: 500;
-
-          &.good {
-            color: $green;
-          }
-        }
       }
 
-      .right {
+      .favorite-map {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        font-size: 12px;
+        margin-top: 20px;
 
-        .fa-chevron-down {
-          color: $orange;
-          cursor: pointer;
-          transition: 0.35s;
-          font-size: 16px;
-
-          &:hover {
-            color: $purple;
-          }
-
-          &.open {
-            transform: rotate(180deg);
-          }
-        }
-      }
-    }
-
-    .body {
-      hr {
-        border: 1px solid $purple;
-        border-bottom: none;
-        margin: 15px 0;
-      }
-
-      .row {
-        display: flex;
-        padding: 10px 0;
-        border-bottom: 1px solid $purple;
-
-        &:first-child,
-        &:last-child {
-          border-bottom: none;
-        }
-
-        &:first-of-type {
-          .col {
-            color: $orange;
-            text-transform: uppercase;
-            font-size: 12px;
-          }
-        }
-
-        .col {
+        .name {
           color: white;
-          font-size: 14px;
-          font-weight: 500;
+          margin-bottom: 5px;
+        }
+
+        .image {
+          width: 100%;
+          object-fit: cover;
+          object-position: center;
+          height: 55px;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+        }
+
+        .wtl {
+          color: white;
           display: flex;
-          align-items: center;
+          margin: 0;
+          border-bottom-left-radius: 3px;
+          border-bottom-right-radius: 3px;
+          overflow: hidden;
 
-          &.centered {
-            justify-content: center;
+          * {
+            width: 33.33%;
+            text-align: center;
+            padding: 2px 0;
           }
 
-          img {
-            margin-right: 5px;
+          .w {
+            background: $green-2;
           }
-          width: (1/9) * 100%;
-          // &:nth-child(1) {
-          //   width: 15%;
-          // }
 
-          // &:nth-child(2),
-          // &:nth-child(3),
-          // &:nth-child(4) {
-          //   width: 15%;
-          // }
+          .t {
+            background: #f39c12;
+          }
+
+          .l {
+            background: $red;
+          }
         }
       }
     }
@@ -348,37 +380,18 @@ export default {
 }
 
 //responsive
-@media (max-width: 750px) {
-  .friend-comparison {
-    .comparison {
-      .header {
-        flex-direction: column;
+@media (max-width: 800px) {
+  .better-friend-comparison {
 
-        .left {
-          flex-direction: column;
-          width: 100%;
+    .comparisons {
+      flex-wrap: wrap;
 
-          .avatar-name-wrapper,
-          .winrate,
-          .favorite-map {
-            flex: 0 0 auto;
-            border: 0;
-            text-align: center;
-            padding: 0;
-            margin: 0;
+      .comparison {
+        width: 100%;
+        margin-bottom: 10px !important;
 
-            margin-bottom: 10px;
-          }
-
-          .favorite-map {
-            border-top: 1px solid $purple;
-            padding-top: 10px;
-          }
-        }
-
-        .right {
-          width: 100%;
-          justify-content: center;
+        .favorite-map {
+          margin-bottom: 10px;
         }
       }
     }

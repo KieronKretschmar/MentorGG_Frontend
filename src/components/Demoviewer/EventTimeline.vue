@@ -140,12 +140,12 @@ export default {
     position: absolute;
     width: 2px;
     height: 100%;
-    background: $terrorist-color;
+    background: $ct-color;
     margin-left: 1px;
     top: 0;
 
     &.ct {
-      background: $ct-color;
+      background: $terrorist-color;
     }
   }
 }

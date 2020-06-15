@@ -165,6 +165,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "dvtrigger" */'./views/DemoViewerTrigger.vue')
     },
     {
+      path: '/situation/:type',
+      name: 'situation-detail',
+      component: () => import(/* webpackChunkName: "dvtrigger" */'./views/SituationDetail.vue'),
+      beforeEnter: authenticationGuard
+    },
+    {
       path: '/landingpage',
       name: 'landingpage',
       component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
@@ -174,6 +180,11 @@ export default new Router({
       name: 'membership',
       component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue'),
       beforeEnter: authenticationGuard
+    },
+    {
+      path: '*',
+      name: 'page-not-found',
+      component: () => import(/* webpackChunkName: "pagenotfound" */'./views/PageNotFound.vue')
     }
   ]
 });

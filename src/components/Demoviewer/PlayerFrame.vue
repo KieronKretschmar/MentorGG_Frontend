@@ -2,7 +2,7 @@
   <div class="dv-player-frame" :class="{dead: health <= 0}" @click="SetAsHighlight">
     <div class="col-1">
       <div class="avatar">
-        <img :src="this.$assetLoader.getMapPreview(rankImageName)" />
+        <img :src="this.$assetLoader.getRankIcon(rankImageName)" />
       </div>
       <div class="health-loadout">
         <div class="healthbar-bg">
@@ -112,13 +112,62 @@ export default {
       return this.player.AvatarURL.split(".jpg")[0] + "_full.jpg";
     },
     health() {
-      return Math.max(this.player.HitsTaken.reduce((acc, cur) => {
-        if (cur.Time < this.tick) {
-          return acc - cur.AmountHealth;
-        } else {
-          return acc;
+      if (this.isBeingControlled) {
+        return 0;
+      }
+
+      let ret = 100;
+
+      if (this.isControllingBot) {
+        let botHealth = 100;
+        let bot = globalThis.DemoViewer.roundPlayers[this.player.BotTakeover.BotId];
+
+        for (let hit of bot.HitsTaken) {
+          if (hit.Time < this.player.BotTakeover.Time) {
+            botHealth -= hit.AmountHealth;
+          }
         }
-      }, 100), 0);
+
+        ret = botHealth;
+      }
+
+      for (let hit of this.player.HitsTaken) {
+        if (hit.Time < this.tick) {
+          if (this.isControllingBot)
+          {
+            console.log(hit, this.BotTakeover)
+            if (hit.Time > this.player.BotTakeover.Time) {
+              ret -= hit.AmountHealth;
+            }
+          }
+          else
+          {
+            ret -= hit.AmountHealth;
+          }
+        }
+      }
+
+      return Math.max(0, ret);
+    },
+    isControllingBot() {
+      if (
+        this.player.BotTakeover != null &&
+        this.tick >= this.player.BotTakeover.Time
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    isBeingControlled() {
+      if (
+        this.player.Takeover != null &&
+        this.tick >= this.player.Takeover.Time
+      ) {
+        return true;
+      }
+
+      return false;
     },
     attacksWithSingleUseItem() {
       return this.player.Attacks.filter(e => {
@@ -139,7 +188,14 @@ export default {
       let spent = 0;
 
       for (let item of this.player.ItemsSaved) {
-        if (items[item.Equipment] && item.Time >= this.player.RoundStart) {
+
+        //GHETTOFIX: sometimes the bomb will be one of the saved items
+        //to prevent fucked up inventories we just ignore it during iteration
+        if (item.Equipment == this.Equipment.C4) {
+          continue;
+        }
+
+        if (items[item.Equipment]) {
           items[item.Equipment]++;
         } else {
           items[item.Equipment] = 1;

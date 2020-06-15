@@ -115,6 +115,18 @@ class Enums {
     };
   }
 
+  static get WinType() {
+    return {
+      Elimination: 0,
+      Time: 1,
+      Explosion: 2,
+      Defuse: 3,
+      HostageRescued: 4,
+      Surrender: 5,
+      Unknown: 6
+    }
+  }
+
   static get LineupAttemptResult() {
     return {
       Default: 0, // This is the default value of unrated smokes
@@ -134,6 +146,73 @@ class Enums {
         }
 
         return "Unknown";
+      }
+    };
+  }
+
+  static get SkillDomain() {
+    return {                        
+        Tactical: 1,
+        Grenades: 2,   
+        Shooting: 3,   
+        Movement: 4
+    };
+  }
+  
+  static get SituationType() {
+    return {
+      Unknown: 0,
+
+
+      // 21XXXX For SinglePlayer - Highlights
+      EffectiveHeGrenade: 210001,
+      KillWithOwnFlashAssist: 210002,
+      Clutch: 210003,
+      HighImpactRound: 210004,
+      MultiKill: 210005,
+
+      // 22XXXX For Team - Highlights
+
+
+      // 51XXXX For SinglePlayer - Misplays
+      SmokeFail: 510001,
+      DeathInducedBombDrop: 510002,
+      SelfFlash: 510003,
+      TeamFlash: 510004,
+      RifleFiredWhileMoving: 510005,
+      UnnecessaryReload: 510006,
+      PushBeforeSmokeDetonated: 510007,
+      BombDropAtSpawn: 510008,
+      HasNotBoughtDefuseKit: 510009,
+
+      // 52XXXX For Team - Misplays
+
+      ToString(n) {
+        switch (n) {
+          case 210001: return "EffectiveHEGrenade";
+          case 210002: return "KillWithOwnFlashAssist";
+          case 210003: return "Clutch";
+          case 210004: return "HighImpactRound";
+          case 210005: return "MultiKill";
+
+          case 510001: return "SmokeFail";
+          case 510002: return "DeathInducedBombDrop";
+          case 510003: return "SelfFlash";
+          case 510004: return "TeamFlash";
+          case 510005: return "RifleFiredWhileMoving";
+          case 510006: return "UnnecessaryReload";
+          case 510007: return "PushBeforeSmokeDetonated";
+          case 510008: return "BombDropAtSpawn";
+          case 510009: return "HasNotBoughtDefuseKit";
+        }
+
+        return "Unknown";
+      },
+      IsHighlight(n) {
+        return n >= 210000 && n <= 230000;
+      },
+      IsMisplay(n) {
+        return n >= 510000 && n <= 530000;
       }
     };
   }

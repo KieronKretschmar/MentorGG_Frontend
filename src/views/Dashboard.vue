@@ -3,15 +3,15 @@
     <div class="profile-section"></div>
 
     <template v-if="steamId">
-      <ProfileHeader :steamId="steamId" />
+      <ProfileHeader :steamId="steamId" :recentMatchStats="recentMatchStats" @openRankHistoryGraph="$refs.recentMatchStats.OpenRankGraph()"/>
       <div class="fixed-width-container mc">
-        <RecentMatchStats :steamId="steamId" @gamesTotal="OnReceivedGamesTotal($event)" />
+        <RecentMatchStats ref="recentMatchStats" :steamId="steamId" @recentMatchStats="OnReceivedRecentMatchStats($event)" />
 
         <template v-if="numGames == -1 || numGames > 0">
-          <Situations :steamId="steamId" />
+          <!-- <Situations :steamId="steamId" /> -->
+          <Situations :steamId="steamId"/>
           <PositionAdvice :steamId="steamId" />
-          <!-- <FriendComparison /> -->
-          <BetterFriendComparison :steamId="steamId" />
+          <FriendComparison :steamId="steamId" />
           <MatchHistory :steamId="steamId" />
         </template>
         <div class="bordered-box no-data" v-else>
@@ -31,7 +31,6 @@ import ProfileHeader from "@/components/ProfileHeader.vue";
 import RecentMatchStats from "@/components/RecentMatchStats.vue";
 import PositionAdvice from "@/components/PositionAdvice.vue";
 import FriendComparison from "@/components/FriendComparison.vue";
-import BetterFriendComparison from "@/components/BetterFriendComparison.vue";
 import MatchHistory from "@/components/MatchHistory.vue";
 import Situations from "@/components/Situations.vue";
 import MentorUser from "../mentoruser";
@@ -42,7 +41,6 @@ export default {
     RecentMatchStats,
     PositionAdvice,
     FriendComparison,
-    BetterFriendComparison,
     Situations,
     MatchHistory
   },
@@ -56,12 +54,14 @@ export default {
   data() {
     return {
       numGames: -1,
+      recentMatchStats: null,
       steamId: ""
     };
   },
   methods: {
-    OnReceivedGamesTotal(numGames) {
-      this.numGames = numGames;
+    OnReceivedRecentMatchStats(recentMatchStats) {
+      this.numGames = recentMatchStats.GamesTotal;
+      this.recentMatchStats = recentMatchStats;
     },
     ShowDemoProfile() {
       this.$router.push({

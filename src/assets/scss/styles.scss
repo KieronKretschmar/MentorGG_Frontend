@@ -74,6 +74,17 @@ body {
         }
     }
 
+    &.upgrade {
+        background: $green-2;
+        border-left-color: $green;
+        border-right-color: $green;
+        font-weight: 500;
+
+        &:hover {
+            background: darken($green-2, 10%);
+        }
+    }
+
 }
 
 .button-variant-filled {

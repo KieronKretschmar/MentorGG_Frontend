@@ -2,8 +2,9 @@
   <div class="view view-privacy-policy">
     <div class="fixed-width-container">
       <div class="bordered-box">
-        <h1>Datenschutzerklärung</h1>
+        <h1>Privacy Policy</h1>
         <h5>[English below, German version superseeds English]</h5>
+        <h2>Datenschutzerklärung</h2>
         <h2>1. Datenschutz auf einen Blick</h2>
         <h3>Allgemeine Hinweise</h3>
         <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>

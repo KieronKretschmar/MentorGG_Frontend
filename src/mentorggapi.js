@@ -217,6 +217,49 @@ class MentorGGAPI {
         });
     }
 
+    getSituations(params, overrides = {}) {
+        return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations`, {
+            params: {
+                matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+            }
+        });
+        // return axios.get('https://dev.api.mentor.gg/v1/single/76561198820202264/situations?matchIds=107166,107167,107168,107169,107170,107171', {
+        //     params: {
+        //         //matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+        //     }
+        // });
+    }
+
+    // Returns Situations for all players of the specified matches. Used for debugging.
+    getSituationSamplesByMatchCount(params, overrides = {}) {
+        let formattedParams = {
+            matchCount : params.matchCount
+        }
+
+        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples`, {
+            params: formattedParams
+        });
+    }
+
+    // Returns Situations for all players of the specified matches. Used for debugging.
+    getSituationSamplesByMatchIds(params, overrides = {}) {
+        let formattedParams = {
+            // matchIds : params.matchIds
+        }
+
+        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples?matchIds=49815,75904,75932,76902,76903,82460,82691,82692,91935,110772`, {
+            params: formattedParams
+        });
+    }
+
+    getSituationsOfType(params, overrides = {}) {
+        return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/situations/${params.type}`, {
+            params: {
+                matchIds: this.MatchSelector.Build().GetMatchIds().toString()
+            }
+        });
+    }
+
     getOverview(params, overrides = {}) {
         let formattedParams = {
             matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
