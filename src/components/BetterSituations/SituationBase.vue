@@ -76,7 +76,7 @@
                 <div class="key">{{ field.keyDisplay }}</div>
                 <div class="val">
                   <span v-if="field.before">{{ field.before }}</span>
-                  {{ field.render ? field.render(occurence[field.key]) : occurence[field.key] }}
+                  <span v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"></span>
                   <span
                     v-if="field.after"
                   >{{field.after}}</span>
@@ -420,6 +420,11 @@ export default {
           padding: 10px 0px;
           font-size: 12px;
           font-weight: 500;
+
+          a {
+            color: $orange;
+            text-decoration: none;
+          }
 
           &.debug {
             background: black;

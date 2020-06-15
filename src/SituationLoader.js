@@ -121,11 +121,11 @@ export default class SituationLoader {
             "Smoke Fail",
             "This happens when you miss a smoke lineup recognized by MENTOR.GG.",
             "Good smokes can disable enemies from holding an angle and force them to reposition, but missing a smoke can lead to unexpected deaths and lost rounds. Practicing smoke lineups is essential for effective T and CT side.",
-            // [{
-            //     key: "LineupId",
-            //     keyDisplay: "Lineup",
-            //     render: (val) => `<a href="/smokes?lineupId=${val}" class="link">Link</a>`
-            // }]
+            [{
+                key: "LineupId",
+                keyDisplay: "Lineup",
+                render: (val) => `<a href="/smokes?lineupId=${val}" class="link">Link</a>`
+            }]
         );
 
         add_data(
