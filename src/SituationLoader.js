@@ -1,4 +1,5 @@
 import Enums from './enums';
+import Helpers from './helpers';
 import SituationBase from '@/components/BetterSituations/SituationBase';
 
 export default class SituationLoader {
@@ -102,6 +103,11 @@ export default class SituationLoader {
             [{
                 key: "Kills",
                 keyDisplay: "Kills"
+            },
+            {
+                key: "FirstKillWeapon",
+                keyDisplay: "First Kill Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
             }]
         );
 
@@ -192,7 +198,12 @@ export default class SituationLoader {
             SituationBase,
             "Rifle Fired While Moving",
             "This happens when you fire a rifle while moving with more than a third of the maximum velocity, which makes guns of the rifle category very inaccurate.",
-            "Just stand still when you pull the trigger, really. Practice side-stepping after shooting some bullets to let your weapon cool down for a moment while also making it harder for enemies to aim at you. Then come to a stop and continue shooting."
+            "Just stand still when you pull the trigger, really. Practice side-stepping after shooting some bullets to let your weapon cool down for a moment while also making it harder for enemies to aim at you. Then come to a stop and continue shooting.",
+            [{
+                key: "Weapon",
+                keyDisplay: "Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
+            }]
         );
 
         add_data(
@@ -204,6 +215,11 @@ export default class SituationLoader {
             [{
                 key: "AmmoBefore",
                 keyDisplay: "Bullets left"
+            },
+            {
+                key: "Weapon",
+                keyDisplay: "Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
             }]
         );
 

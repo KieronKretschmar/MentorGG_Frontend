@@ -420,10 +420,18 @@ export default {
           padding: 10px 0px;
           font-size: 12px;
           font-weight: 500;
+          align-items: center;
 
           a {
             color: $orange;
             text-decoration: none;
+          }
+
+          .val {
+            .weapon {
+              @include weapon-font;
+              font-size: 20px;
+            }
           }
 
           &.debug {
