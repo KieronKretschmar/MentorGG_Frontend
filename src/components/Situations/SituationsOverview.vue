@@ -116,6 +116,7 @@ export default {
   mounted() {},
   data() {
     return {
+      prependTime: 4000,
       chartOptions: {
         tooltips: {
           enabled: true,
@@ -196,7 +197,7 @@ export default {
 
       globalThis.DemoViewer.SetMatch(occurence.MatchId)
         .SetRound(occurence.Round)
-        .SetTimestamp(Math.max(0, occurence.StartTime))
+        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
         .Load();
     }
   }
