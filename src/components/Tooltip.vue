@@ -38,7 +38,6 @@ export default {
 <style lang="scss">
 .tooltip-overlay {
   height: min-content;
-  width: 410px;
   position: absolute;
   opacity: 0;
   pointer-events: none;
