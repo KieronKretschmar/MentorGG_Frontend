@@ -5,25 +5,28 @@
       <div class="stats" v-if="recentMatchStats">
         <div class="stat">
           <div class="val">{{recentMatchStats.GamesTotal}}</div>
-          <div class="txt">Matches</div>
+          <span>
+            <div class="text">Matches</div>
+            <i class="material-icons text">error_outline</i>
+          </span>
         </div>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
-          <div class="txt">K/D Ratio</div>
+          <div class="text">K/D Ratio</div>
         </div>
         <div class="stat">
           <div class="val">{{ recentMatchStats.AverageHltvRating.toFixed(2) }}</div>
-          <div class="txt">HLTV Rating</div>
+          <div class="text">HLTV Rating</div>
         </div>
         <div class="stat">
           <div class="val">{{ Winrate.toFixed(0) }}%</div>
-          <div class="txt">Winrate</div>
+          <div class="text">Winrate</div>
         </div>
         <div class="stat">
           <div
             class="val"
           >{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
-          <div class="txt">Headshot</div>
+          <div class="text">Headshot</div>
         </div>
         <div class="stat">
           <div class="val" :class="RankBalanceClass">
@@ -33,9 +36,9 @@
               @click="OpenRankGraph"
             >timeline</i>
           </div>
-          <div class="txt">W/L balance on this rank</div>
+          <div class="text">W/L balance on this rank</div>
           <!-- Not using below, because the player may have never changed ranks since he started uploading matches. -->
-          <!-- <div class="txt">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
+          <!-- <div class="text">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
         </div>
       </div>
     </div>
@@ -358,10 +361,17 @@ export default {
         }
       }
 
-      .txt {
+      .text {
         font-size: 12px;
         margin-top: 0.5em;
         color: white;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .material-icons {
+        color: $orange;
+        margin-left: 2px;
       }
     }
   }
