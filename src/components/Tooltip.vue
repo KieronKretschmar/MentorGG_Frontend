@@ -3,7 +3,6 @@
     <div class="background" @click="Hide"></div>
 
     <div class="ov-content" :style="{width: w, height: h}">
-      <div class="close-button" @click="Hide">×</div>
       <slot></slot>
     </div>
   </div>
@@ -26,11 +25,11 @@ export default {
   methods: {
     Show() {
       this.isVisible = true;
-      this.$emit('show');
+      this.$emit("show");
     },
     Hide() {
       this.isVisible = false;
-      this.$emit('hide');
+      this.$emit("hide");
     }
   }
 };
@@ -70,28 +69,6 @@ export default {
     border-radius: 4px;
     overflow: hidden;
     font-weight: 300;
-
-    .close-button {
-      width: 30px;
-      height: 30px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      border-bottom-left-radius: 3px;
-      background: $purple;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-      transition: 0.35s all;
-      user-select: none;
-
-      &:hover {
-        background: $dark-4;
-      }
-    }
 
     p {
       color: white;
