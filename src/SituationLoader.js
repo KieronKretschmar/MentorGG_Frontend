@@ -137,8 +137,8 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.DeathInducedBombDrop,
             SituationBase,
-            "Death Of Bomb Carrier",
-            "This is a misplay by terrorists who carry the bomb and die without any other teammates being nearby, thereby causing a tactical disadvantage.",
+            "Death As Bomb Carrier",
+            "This is a misplay by a terrorist who carries the bomb and dies without any other teammates being nearby, thereby causing a tactical disadvantage.",
             "Drop the bomb in a safe spot before you're going to push or even peek an angle. Generally, terrorists want to hide information about the bomb's location for as long as possible and make it easily accessible for teammates."
         );
 
@@ -234,8 +234,8 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.BombDropAtSpawn,
             SituationBase,
-            "Bomb Drop At Spawn",
-            "This describes a situation in which a teammate had to make a turn and run back to pick up the bomb from spawn.",
+            "Bomb Left At Spawn",
+            "This describes a situation in which the bomb was dropped at T spawn and a teammate had to make a turn and run back to pick it up.",
             "Carry the bomb just a little further so that you can drop the bomb safely and closer to your team.\n\nIf you can't do that, try to drop it directly to a teammate so that auto-pickup will take care of it."
         );
 
