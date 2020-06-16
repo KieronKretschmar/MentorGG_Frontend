@@ -286,6 +286,7 @@ export default {
   methods: {
     OpenTooltip: function() {
       this.$refs.accessibleMatchesTooltip.Show();
+      this.$refs.accessibleMatchesTooltipArrow.Show();
     },
     OpenRankGraph: function() {
       this.$refs.rankGraphOverlay.Show();
