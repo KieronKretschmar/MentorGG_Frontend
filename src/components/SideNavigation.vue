@@ -90,7 +90,7 @@
       </nav>
 
       <div class="bottom-content">
-        <QueueStatusDisplay />
+        <QueueStatusDisplay v-if="$api.User" />
         <DiscordHint />
         <div
           class="user-profile"
@@ -119,7 +119,9 @@ export default {
   },
   mounted() {
 
-    this.ownSteamId == this.$api.User ? this.this.ownSteamId : null;
+    if (this.$api.User != null) {
+      this.ownSteamId = this.$api.User.GetSteamId(false);
+    }
 
     let params = {
       steamId: this.ownSteamId
