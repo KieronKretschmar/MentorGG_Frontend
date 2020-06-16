@@ -39,6 +39,7 @@ export default {
 <style lang="scss">
 .tooltip-overlay {
   height: 100%;
+  width: 450px;
   position: absolute;
   opacity: 0;
   pointer-events: none;
@@ -51,11 +52,12 @@ export default {
   }
 
   .background {
-    background: transparent;
-    left: inherit;
-    top: 0;
-    width: inherit;
     height: 100%;
+    width: calc(100% - #{$sidebar-width});
+    top: 0;
+    right: 0;
+    position: fixed;
+    background: transparent;
   }
 
   .ov-content {

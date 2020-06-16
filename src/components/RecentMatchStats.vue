@@ -11,8 +11,9 @@
           </span>
         </div>
         <Tooltip ref="accessibleMatchesTooltip" width="900px">
-          <p class="headline">Tooltip</p>
-          <p>Play official matchmaking games to be able to see your personal rank history graph. Play official matchmaking games to be able to see your personal rank history graph.</p>
+          <h2>You accessed 13 of 46 matches</h2>
+          <p>Wanna see more matches?</p>
+          <button class="button-variant-bordered upgrade">UPGRADE</button>
         </Tooltip>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
@@ -383,6 +384,17 @@ export default {
         margin-left: 2px;
         cursor: pointer;
       }
+    }
+
+    p {
+      display: inline-block;
+      line-height: 0.2;
+      color: $gray;
+    }
+
+    .button-variant-bordered {
+      float: right;
+      padding: .5em 1em;
     }
   }
 
