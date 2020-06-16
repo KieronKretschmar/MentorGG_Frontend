@@ -7,7 +7,7 @@
           <div class="val">{{recentMatchStats.GamesTotal}}</div>
           <span>
             <div class="text">Matches</div>
-            <i class="material-icons text">error_outline</i>
+            <i class="material-icons text" @click="OpenTooltip">error_outline</i>
           </span>
         </div>
         <div class="stat">
@@ -43,6 +43,12 @@
       </div>
     </div>
 
+    <Tooltip ref="accessibleMatchesTooltip" width="900px">
+      <p class="headline">Tooltip</p>
+      <p>Play official matchmaking games to be able to see your personal rank history graph.</p>
+      <button>BUTTON</button>
+    </Tooltip>
+
     <GenericOverlay ref="rankGraphOverlay" width="900px">
       <p class="headline">Rank History Graph</p>
       <div
@@ -69,6 +75,7 @@
 
 <script>
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import Tooltip from "@/components/Tooltip.vue";
 import LineChart from "@/components/LineChart.vue";
 import Enums from "@/enums";
 
@@ -76,6 +83,7 @@ export default {
   props: ["steamId"],
   components: {
     GenericOverlay,
+    Tooltip,
     LineChart
   },
   mounted() {
@@ -278,6 +286,9 @@ export default {
     }
   },
   methods: {
+    OpenTooltip: function() {
+      this.$refs.accessibleMatchesTooltip.Show();
+    },
     OpenRankGraph: function() {
       this.$refs.rankGraphOverlay.Show();
     },
@@ -372,6 +383,7 @@ export default {
       .material-icons {
         color: $orange;
         margin-left: 2px;
+        cursor: pointer;
       }
     }
   }
