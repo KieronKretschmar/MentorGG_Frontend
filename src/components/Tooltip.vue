@@ -44,7 +44,7 @@ export default {
   pointer-events: none;
   transition: 0.35s all;
   z-index: 9999;
-
+  
   &.visible {
     opacity: 1;
     pointer-events: all;

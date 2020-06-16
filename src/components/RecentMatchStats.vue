@@ -10,11 +10,6 @@
             <i class="material-icons text" @click="OpenTooltip">error_outline</i>
           </span>
         </div>
-        <Tooltip ref="accessibleMatchesTooltip" width="900px">
-          <h2>You accessed 13 of 46 matches</h2>
-          <p>Wanna see more matches?</p>
-          <button class="button-variant-bordered upgrade">UPGRADE</button>
-        </Tooltip>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
           <div class="text">K/D Ratio</div>
@@ -68,6 +63,11 @@
         </p>
       </div>
     </GenericOverlay>
+    <Tooltip ref="accessibleMatchesTooltip" width="900px">
+      <h2>You accessed 13 of 46 matches</h2>
+      <p>Wanna see more matches?</p>
+      <button class="button-variant-bordered upgrade">UPGRADE</button>
+    </Tooltip>
   </div>
 </template>
 
@@ -385,8 +385,9 @@ export default {
         cursor: pointer;
       }
     }
+  }
 
-    p {
+  p {
       display: inline-block;
       line-height: 0.2;
       color: $gray;
@@ -394,10 +395,9 @@ export default {
 
     .button-variant-bordered {
       float: right;
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       margin-right: 2px;
     }
-  }
 
   .rank-graph-outer-wrapper {
     padding-bottom: 20px;
