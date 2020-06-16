@@ -234,8 +234,8 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.BombDropAtSpawn,
             SituationBase,
-            "Bomb Drop At Spawn",
-            "This describes a situation in which a teammate had to make a turn and run back to pick up the bomb from spawn.",
+            "Bomb Left At Spawn",
+            "This describes a situation in which the bomb was dropped at T spawn and a teammate had to make a turn and run back to pick it up.",
             "Carry the bomb just a little further so that you can drop the bomb safely and closer to your team.\n\nIf you can't do that, try to drop it directly to a teammate so that auto-pickup will take care of it."
         );
 
