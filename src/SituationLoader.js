@@ -137,8 +137,8 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.DeathInducedBombDrop,
             SituationBase,
-            "Death Of Bomb Carrier",
-            "This is a misplay by terrorists who carry the bomb and die without any other teammates being nearby, thereby causing a tactical disadvantage.",
+            "Death As Bomb Carrier",
+            "This is a misplay by a terrorist who carries the bomb and dies without any other teammates being nearby, thereby causing a tactical disadvantage.",
             "Drop the bomb in a safe spot before you're going to push or even peek an angle. Generally, terrorists want to hide information about the bomb's location for as long as possible and make it easily accessible for teammates."
         );
 
