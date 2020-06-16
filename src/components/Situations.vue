@@ -58,13 +58,9 @@ export default {
         this.situations = result.data;
         this.misplays = this.PrepareData("Misplays");
         this.highlights = this.PrepareData("Highlights");
-
-        console.log(this.matches);
       });
   },
-  data() {
-    let self = this;
-
+  data() {    
     return {
       situations: null,
       misplays: [],

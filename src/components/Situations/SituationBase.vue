@@ -143,6 +143,8 @@ export default {
     }
   },
   data() {
+    let self = this;
+
     return {
       dynamicSituationData: null,
       situations: [],
@@ -150,11 +152,32 @@ export default {
       highlightedOccurenceId: null,
       prependTime: 4000,
       chartOptions: {
-        tooltips: {
-          enabled: false
-        },
-        hover: {
-          animationDuration: 0
+tooltips: {
+          enabled: true,
+          callbacks: {
+            title: function(tooltipItems, data) {
+              let xLabel = tooltipItems[0].xLabel;
+
+              if (!self.dynamicSituationData) {
+                return "Match #" + xLabel;
+              } else {
+                let matchId = Object.keys(self.dynamicSituationData.Matches)[+xLabel - 1];
+                let match = self.dynamicSituationData.Matches[matchId];
+
+                return (
+                  "Match #" +
+                  xLabel +
+                  "\nMap: " +
+                  match.Map +
+                  "\nDate: " +
+                  new Date(match.MatchDate).toLocaleString([], {
+                    timeStyle: "short",
+                    dateStyle: "short"
+                  })
+                );
+              }
+            }
+          }
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -226,7 +249,7 @@ export default {
         labels: labels,
         datasets: [
           {
-            label: "W/L balance",
+            label: "avg. misplays per round",
             backgroundColor: "#2d2c3b",
             pointBackgroundColor: "#ff4800",
             borderColor: "#39384a",

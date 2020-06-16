@@ -115,6 +115,8 @@ export default {
   },
   mounted() {},
   data() {
+    let self = this;
+
     return {
       prependTime: 4000,
       chartOptions: {
@@ -127,8 +129,8 @@ export default {
               if (!self.situations) {
                 return "Match #" + xLabel;
               } else {
-                let matchId = Object.keys(self.situations.Matches)[+xLabel - 1];
-                let match = self.situations.Matches[matchId];
+                let matchId = Object.keys(self.matches)[+xLabel - 1];
+                let match = self.matches[matchId];
 
                 return (
                   "Match #" +
@@ -144,9 +146,6 @@ export default {
               }
             }
           }
-        },
-        hover: {
-          animationDuration: 0
         },
         responsive: true,
         maintainAspectRatio: false,
