@@ -38,7 +38,7 @@ export default {
 <style lang="scss">
 .tooltip-overlay {
   height: 100%;
-  width: 450px;
+  width: 410px;
   position: absolute;
   opacity: 0;
   pointer-events: none;
@@ -81,18 +81,6 @@ export default {
 
     b {
       color: $dark-4;
-    }
-  }
-}
-
-//responsive
-@media (max-width: 1100px) {
-  .tooltip-overlay {
-    width: 100%;
-    left: 0;
-
-    .ov-content {
-      margin-top: 0;
     }
   }
 }

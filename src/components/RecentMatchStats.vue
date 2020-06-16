@@ -395,6 +395,7 @@ export default {
     .button-variant-bordered {
       float: right;
       padding: .5em 1em;
+      margin-right: 2px;
     }
   }
 
