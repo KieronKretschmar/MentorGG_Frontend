@@ -10,6 +10,10 @@
             <i class="material-icons text" @click="OpenTooltip">error_outline</i>
           </span>
         </div>
+        <Tooltip ref="accessibleMatchesTooltip" width="900px">
+          <p class="headline">Tooltip</p>
+          <p>Play official matchmaking games to be able to see your personal rank history graph. Play official matchmaking games to be able to see your personal rank history graph.</p>
+        </Tooltip>
         <div class="stat">
           <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
           <div class="text">K/D Ratio</div>
@@ -42,13 +46,6 @@
         </div>
       </div>
     </div>
-
-    <Tooltip ref="accessibleMatchesTooltip" width="900px">
-      <p class="headline">Tooltip</p>
-      <p>Play official matchmaking games to be able to see your personal rank history graph.</p>
-      <button>BUTTON</button>
-    </Tooltip>
-
     <GenericOverlay ref="rankGraphOverlay" width="900px">
       <p class="headline">Rank History Graph</p>
       <div
@@ -336,6 +333,7 @@ export default {
   }
 
   .stats {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;

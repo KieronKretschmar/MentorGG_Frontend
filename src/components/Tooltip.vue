@@ -39,6 +39,7 @@ export default {
 <style lang="scss">
 .tooltip-overlay {
   height: 100%;
+  position: absolute;
   opacity: 0;
   pointer-events: none;
   transition: 0.35s all;
@@ -58,12 +59,12 @@ export default {
   }
 
   .ov-content {
+    max-width: 100%;
+    height: fit-content;
+    position: relative;
     background: $dark-1;
     border: 1px solid $purple;
     padding: 20px;
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
     border-radius: 4px;
     overflow: hidden;
     font-weight: 300;
