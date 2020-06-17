@@ -129,6 +129,11 @@ export default new Router({
       beforeEnter: authenticationGuard
     },
     {
+      path: '/faq',
+      name: 'faq',
+      component: () => import(/* webpackChunkName: "faq" */'./views/FAQ.vue')
+    },
+    {
       path: '/privacy-policy',
       name: 'privacy-policy',
       component: () => import(/* webpackChunkName: "privacypolicy" */'./views/PrivacyPolicy.vue')
