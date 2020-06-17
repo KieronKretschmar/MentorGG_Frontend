@@ -41,6 +41,11 @@
           <!-- <div class="text">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
         </div>
       </div>
+      <Tooltip class="tooltip" ref="accessibleMatchesTooltip">
+        <h2>You accessed 13 of 46 matches</h2>
+        <span class="tooltip-text">Wanna see more matches?</span>
+        <button class="button-variant-bordered upgrade">UPGRADE</button>
+      </Tooltip>
     </div>
     <GenericOverlay ref="rankGraphOverlay" width="900px">
       <p class="headline">Rank History Graph</p>
@@ -63,11 +68,6 @@
         </p>
       </div>
     </GenericOverlay>
-    <Tooltip class="tooltip" ref="accessibleMatchesTooltip">
-      <h2>You accessed 13 of 46 matches</h2>
-      <span class="tooltip-text">Wanna see more matches?</span>
-      <button class="button-variant-bordered upgrade">UPGRADE</button>
-    </Tooltip>
   </div>
 </template>
 
@@ -327,6 +327,7 @@ export default {
 
   .bordered-box {
     padding: 20px 50px;
+    position: relative;
   }
 
   .no-graph-data {
@@ -390,8 +391,8 @@ export default {
 
   .tooltip {
     width: 410px;
-    top: 285px;
-    left: 460px;
+    top: 102px;
+    left: 81px;
 
     .tooltip-text {
       display: inline-block;
