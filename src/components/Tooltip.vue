@@ -1,6 +1,7 @@
 <template>
   <div class="tooltip-overlay" :class="{visible: isVisible}">
     <div class="tooltip-arrow"></div>
+    <div class="tooltip-arrow-border"></div>
     <div class="background" @click="Hide"></div>
     <div class="ov-content" :style="{width: w, height: h}">
       <slot></slot>
@@ -42,7 +43,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   transition: 0.35s all;
-  z-index: 9999;
+  z-index: 1;
 
   &.visible {
     opacity: 1;
@@ -58,7 +59,17 @@ export default {
     position: absolute;
     top: -12px;
     left: 25px;
-    z-index: 99999;
+    z-index: 3;
+
+    &-border {
+      border-style: solid;
+      border-width: 0 14px 14px 14px;
+      border-color: transparent transparent $purple transparent;
+      position: absolute;
+      top: -13px;
+      left: 24px;
+      z-index: 2;
+    }
   }
 
   .background {
