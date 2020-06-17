@@ -65,7 +65,7 @@
     </GenericOverlay>
     <Tooltip class="tooltip" ref="accessibleMatchesTooltip">
       <h2>You accessed 13 of 46 matches</h2>
-      <p>Wanna see more matches?</p>
+      <span class="tooltip-text">Wanna see more matches?</span>
       <button class="button-variant-bordered upgrade">UPGRADE</button>
     </Tooltip>
   </div>
@@ -392,18 +392,20 @@ export default {
     width: 410px;
     top: 285px;
     left: 460px;
-  }
 
-  p {
-    display: inline-block;
-    line-height: 0.2;
-    color: $gray;
-  }
+    .tooltip-text {
+      display: inline-block;
+      line-height: 2;
+      font-weight: 500;
+      color: $gray;
+      padding-left: 2px;
+    }
 
-  .button-variant-bordered {
-    float: right;
-    padding: 0.5em 1em;
-    margin-right: 2px;
+    .button-variant-bordered {
+      float: right;
+      padding: 0.5em 1.5em;
+      margin-right: 2px;
+    }
   }
 
   .rank-graph-outer-wrapper {
