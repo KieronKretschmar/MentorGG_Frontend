@@ -132,8 +132,9 @@ class MentorGGAPI {
         return `${this.apiBaseAddress}/authentication/signin/steam?returnUrl=${returnUrl}`
     }
 
-    getPlayerInfo(params) {
+    getPlayerInfo(params, forceRefresh = false) {
         let formattedParams = {
+            forceRefresh: forceRefresh
         }
         return axios.get(`${this.apiBaseAddress}/v1/single/${params.steamId}/playerinfo`, {
             params: formattedParams
