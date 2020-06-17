@@ -150,6 +150,7 @@ export default {
       return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
     },
     OpenMembershipPage() {
+      this.$helpers.LogEvent(this, "SituationUpgrade");
       this.$router.push({
         name: 'membership'
       });
