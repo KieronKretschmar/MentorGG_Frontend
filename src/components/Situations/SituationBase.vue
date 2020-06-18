@@ -28,19 +28,39 @@
       </div>
 
       <div class="chart">
-        <h2 class="section-header">Occurence History Graph</h2>
+        <h2 class="section-header">Global Rank Comparison For This Situation</h2>
+        <div class="bordered-box chart-container">
+          <p class="chart-title">
+            Average
+            <span v-if="staticSituationData.isHighlight">highlights</span>
+            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per rank basis
+          </p>
+          <BarChart
+            class="situations-by-rank-chart-inner-wrapper"
+            :data="situationByRankChartData"
+            :options="situationsByRankChartOptions"
+          ></BarChart>
+        </div>
+      </div>
+
+      <div class="chart">
+        <h2 class="section-header">Personal Occurence History Graph</h2>
         <div class="bordered-box chart-container">
           <p class="chart-title">
             Average
             <span v-if="staticSituationData.isHighlight">highlights</span>
             <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
           </p>
-          <LineChart :options="chartOptions" :data="chartData" class="history-graph-inner-wrapper" />
+          <LineChart
+            :options="GetOccurenceHistoryGraphOptions()"
+            :data="occurenceHistoryGraphData"
+            class="history-graph-inner-wrapper"
+          />
         </div>
       </div>
 
       <div class="occurences">
-        <h2 class="section-header">Occurences</h2>
+        <h2 class="section-header">Personal Occurences</h2>
         <div class="occurence-list">
           <div
             class="occurence bordered-box"
@@ -76,10 +96,10 @@
                 <div class="key">{{ field.keyDisplay }}</div>
                 <div class="val">
                   <span v-if="field.before">{{ field.before }}</span>
-                  <span v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"></span>
                   <span
-                    v-if="field.after"
-                  >{{field.after}}</span>
+                    v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"
+                  ></span>
+                  <span v-if="field.after">{{field.after}}</span>
                 </div>
               </div>
 
@@ -113,12 +133,15 @@
 
 <script>
 import LineChart from "@/components/LineChart.vue";
+import BarChart from "@/components/BarChart.vue";
 import Enums from "@/enums";
+import SituationLoader from "@/SituationLoader";
 
 export default {
   props: ["staticSituationData"],
   components: {
-    LineChart
+    LineChart,
+    BarChart
   },
   mounted() {
     this.debug = false;
@@ -135,10 +158,12 @@ export default {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type,
-          steamId: this.$api.User.GetSteamId(),
+          steamId: this.$api.User.GetSteamId()
         })
         .then(result => {
           this.PrepareData(result.data);
+          console.log(this.dynamicSituationData);
+          console.log(this.situationByRankChartPersonalValue);
         });
     }
   },
@@ -150,9 +175,45 @@ export default {
       situations: [],
       debug: false,
       highlightedOccurenceId: null,
-      prependTime: 4000,
-      chartOptions: {
-tooltips: {
+      prependTime: 4000
+    };
+  },
+  methods: {
+    Watch(occurence, typeName) {
+      this.highlightedOccurenceId = occurence.Id;
+
+      this.$helpers.LogEvent(this, "WatchSituation", {
+        label: Enums.SituationType.ToString(typeName)
+      });
+
+      globalThis.DemoViewer.SetMatch(occurence.MatchId)
+        .SetRound(occurence.Round)
+        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
+        .Load();
+    },
+    PrepareData(data) {
+      this.dynamicSituationData = data;
+      this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
+        e => this.IsRoundAllowed(e.MatchId, e.Round)
+      ).sort((first, second) =>
+        this.$helpers.ShowFirstSituationLast(
+          first,
+          this.dynamicSituationData.Matches[first.MatchId],
+          second,
+          this.dynamicSituationData.Matches[second.MatchId]
+        )
+      );
+    },
+    IsRoundAllowed(matchId, round) {
+      if (!this.matches || this.matches[matchId] == undefined) {
+        return false;
+      }
+
+      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+    },
+    GetOccurenceHistoryGraphOptions() {
+      return {
+        tooltips: {
           enabled: true,
           callbacks: {
             title: function(tooltipItems, data) {
@@ -161,7 +222,9 @@ tooltips: {
               if (!self.dynamicSituationData) {
                 return "Match #" + xLabel;
               } else {
-                let matchId = Object.keys(self.dynamicSituationData.Matches)[+xLabel - 1];
+                let matchId = Object.keys(self.dynamicSituationData.Matches)[
+                  +xLabel - 1
+                ];
                 let match = self.dynamicSituationData.Matches[matchId];
 
                 return (
@@ -196,39 +259,7 @@ tooltips: {
         legend: {
           display: false
         }
-      }
-    };
-  },
-  methods: {
-    Watch(occurence, typeName) {
-      this.highlightedOccurenceId = occurence.Id;
-
-      this.$helpers.LogEvent(this, "WatchSituation", {
-        label: Enums.SituationType.ToString(typeName)
-      });
-
-      globalThis.DemoViewer.SetMatch(occurence.MatchId)
-        .SetRound(occurence.Round)
-        .SetTimestamp(Math.max(0, occurence.StartTime - this.prependTime))
-        .Load();
-    },
-    PrepareData(data) {
-      this.dynamicSituationData = data;
-      this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
-        e => this.IsRoundAllowed(e.MatchId, e.Round)
-      )
-      .sort((first, second) => this.$helpers.ShowFirstSituationLast(
-        first, 
-        this.dynamicSituationData.Matches[first.MatchId], 
-        second, 
-        this.dynamicSituationData.Matches[second.MatchId]));
-    },
-    IsRoundAllowed(matchId, round) {
-      if (!this.matches || this.matches[matchId] == undefined) {
-        return false;
-      }
-
-      return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+      };
     }
   },
   computed: {
@@ -239,28 +270,7 @@ tooltips: {
 
       return this.dynamicSituationData.Matches;
     },
-    chartData() {
-      let labels = [];
-      for (let i = 0; i < this.chartDataPoints.length; i++) {
-        labels.push(i + 1);
-      }
-
-      return {
-        labels: labels,
-        datasets: [
-          {
-            label: "avg. misplays per round",
-            backgroundColor: "#2d2c3b",
-            pointBackgroundColor: "#ff4800",
-            borderColor: "#39384a",
-            data: this.chartDataPoints,
-            fill: true,
-            lineTension: 0
-          }
-        ]
-      };
-    },
-    chartDataPoints() {
+    occurenceHistoryGraphPreparedData() {
       if (!this.dynamicSituationData) {
         return null;
       }
@@ -305,6 +315,130 @@ tooltips: {
       });
 
       return ret;
+    },
+    occurenceHistoryGraphData() {
+      let labels = [];
+      for (let i = 0; i < this.occurenceHistoryGraphPreparedData.length; i++) {
+        labels.push(i + 1);
+      }
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. misplays per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.occurenceHistoryGraphPreparedData,
+            fill: true,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    situationByRankChartPreparedData() {
+      let data = SituationLoader.getSituationsByRank();
+      if (data.Data[this.staticSituationData.typeName] == undefined) {
+        return null;
+      }
+
+      let typeData = data.Data[this.staticSituationData.typeName];
+
+      let ret = {
+        data: [],
+        labels: [],
+        colors: []
+      };
+
+      for (let idx in typeData) {
+        let entry = typeData[idx];
+        ret.data.push(entry.SituationsPerPlayerAndRound);
+        ret.labels.push(this.$helpers.RankIdToRankName(entry.RankBeforeMatch));
+
+        if (this.staticSituationData.isMisplay) {
+          ret.colors.push("#8b0923");
+        }
+
+        if (this.staticSituationData.isHighlight) {
+          ret.colors.push("#72a233");
+        }
+      }
+
+      return ret;
+    },
+    situationByRankChartData() {
+      return {
+        labels: this.situationByRankChartPreparedData.labels,
+        datasets: [
+          {
+            barThickness: 10,
+            barPercentage: 1,
+            label: "",
+            backgroundColor: this.situationByRankChartPreparedData.colors,
+            data: this.situationByRankChartPreparedData.data
+          }
+        ]
+      };
+    },
+    situationsByRankChartOptions() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true
+            }
+          ],
+          xAxes: [
+            {
+              ticks: {
+                callback: val => {
+                  return this.$helpers.ShortenRankName(val);
+                }
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        },
+        annotation: {
+          annotations: [
+            {
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: this.situationByRankChartPersonalValue,
+              borderColor: "#ff4800",
+              borderWidth: 1,
+              label: {
+                enabled: true,
+                content: "You",
+                backgroundColor: "#ff4800"
+              }
+            }
+          ]
+        }
+      };
+    },
+    situationByRankChartPersonalValue() {
+      if (!this.dynamicSituationData) {
+        return 0;
+      }
+
+      let sumTotalRounds = 0;
+
+      for (let matchId in this.dynamicSituationData.Matches) {
+        sumTotalRounds += this.dynamicSituationData.Matches[matchId]
+          .TotalRounds;
+      }
+
+      return (
+        this.dynamicSituationData.SituationCollection.Situations.length /
+        sumTotalRounds
+      );
     }
   }
 };
