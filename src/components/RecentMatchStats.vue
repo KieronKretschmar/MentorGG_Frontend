@@ -42,7 +42,7 @@
         </div>
       </div>
       <Tooltip class="tooltip" ref="accessibleMatchesTooltip">
-        <h2>You accessed 13 of 46 matches</h2>
+        <span class="tooltip-headline">You accessed <strong>73</strong> of <strong>43</strong> matches</span>
         <span class="tooltip-text">Wanna see more matches?</span>
         <button class="button-variant-bordered upgrade">UPGRADE</button>
       </Tooltip>
@@ -393,19 +393,26 @@ export default {
     width: 410px;
     top: 102px;
     left: 81px;
+    color: white;
+
+    .tooltip-headline {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
 
     .tooltip-text {
       display: inline-block;
-      line-height: 2;
+      font-size: 1.05rem;
       font-weight: 500;
+      line-height: 2;
       color: $gray;
-      padding-left: 2px;
     }
 
     .button-variant-bordered {
       float: right;
-      padding: 0.5em 1.5em;
-      margin-right: 2px;
+      padding: 0.5em 1.2em;
     }
   }
 
