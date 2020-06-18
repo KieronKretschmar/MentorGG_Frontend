@@ -432,7 +432,7 @@ export default {
 
       for (let matchId in this.dynamicSituationData.Matches) {
         sumTotalRounds += this.dynamicSituationData.Matches[matchId]
-          .TotalRounds;
+          .AllowedRounds.length;
       }
 
       return (
