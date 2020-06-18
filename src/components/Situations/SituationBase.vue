@@ -388,7 +388,10 @@ export default {
         scales: {
           yAxes: [
             {
-              display: true
+              display: true,
+              ticks: {
+                beginAtZero: true
+              }
             }
           ],
           xAxes: [
