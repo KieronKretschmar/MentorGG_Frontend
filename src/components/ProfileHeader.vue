@@ -5,7 +5,22 @@
         <img :src="$assetLoader.getSteamProfileImageUrl(user.SteamUser.ImageUrl)" />
       </div>
       <div class="name">
-        <span>PROFILE NAME</span>
+        <span>
+          PROFILE NAME
+          <template
+            v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free && isOwnProfile"
+          >
+            <div class="verified-indicator" :class="{verified: nameContainsVerifyString}">
+              <i class="fas fa-check" v-if="nameContainsVerifyString" title="Verified"></i>
+              <i
+                class="fas fa-exclamation-triangle"
+                v-else
+                @click="OpenVerifyUsernamePopup"
+                title="Not verified"
+              ></i>
+            </div>
+          </template>
+        </span>
         <span>{{ user.SteamUser.SteamName }}</span>
       </div>
       <div class="csgo-rank">
@@ -13,7 +28,11 @@
         <img :src="$assetLoader.getRankIcon(user.Rank)" alt="CS:GO Rank Image" />
       </div>
 
-      <div class="mini-rank-graph" title="Open Rank History Graph" @click="$emit('openRankHistoryGraph')">
+      <div
+        class="mini-rank-graph"
+        title="Open Rank History Graph"
+        @click="$emit('openRankHistoryGraph')"
+      >
         <span>MATCHMAKING RESULTS</span>
         <LineChart
           :options="chartOptions"
@@ -23,17 +42,42 @@
         />
       </div>
     </div>
+
+    <GenericOverlay ref="verifyUsernameOverlay" class="verify-username-overlay" width="900px">
+      <p class="headline">Not verified as Supporter</p>
+      <div class="step">
+        <span class="num">1</span> Put
+        <span class="highlight">MENTOR.GG</span> (case-insensitive) in your steam player name.
+      </div>
+      <div class="step">
+        <span class="num">2</span> Click the "Verify" button below to start the verification process.
+      </div>
+      <div class="step">
+        <span class="num">3</span> You now have access to all the benefits that come with being a Supporter.
+      </div>
+
+      <button
+        class="button-variant-bordered"
+        :disabled="verifyingUsername"
+        @click="VerifyUsername"
+      >{{ verifyingUsername ? 'Verifying username..' : 'Verify' }}</button>
+      <!-- <p>Your player name can be changed at any time in your Steam Community settings, under "Edit my SteamID page".</p> -->
+      <p class="headline">Benefits</p>
+      <p>Supporters get to see their misplays and highlights for 4 additional rounds per match.</p>
+    </GenericOverlay>
   </div>
 </template>
 
 <script>
 import LineChart from "@/components/LineChart.vue";
 import Enums from "@/enums";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
   props: ["steamId", "recentMatchStats"],
   components: {
-    LineChart
+    LineChart,
+    GenericOverlay
   },
   mounted() {
     this.Init();
@@ -46,12 +90,34 @@ export default {
 
       this.$api.getPlayerInfo(params).then(response => {
         this.user = response.data;
+        console.log(this.user);
       });
+    },
+    OpenVerifyUsernamePopup() {
+      this.$refs.verifyUsernameOverlay.Show();
+    },
+    VerifyUsername() {
+      this.verifyingUsername = true;
+
+      this.$api
+        .getPlayerInfo({ steamId: this.steamId }, true)
+        .then(response => {
+          this.verifyingUsername = false;
+          this.$refs.verifyUsernameOverlay.Hide();
+
+          setTimeout(() => {
+            this.$emit('force-reload');
+          }, 350);
+
+
+        });
     }
   },
   data() {
     return {
+      Enums,
       user: null,
+      verifyingUsername: false,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -152,6 +218,22 @@ export default {
           }
         ]
       };
+    },
+    nameContainsVerifyString() {
+      if (!this.user) {
+        return false;
+      }
+
+      return (
+        this.user.SteamUser.SteamName.toLowerCase().indexOf("mentor.gg") != -1
+      );
+    },
+    isOwnProfile() {
+      if (!this.user) {
+        return false;
+      }
+
+      return this.steamId == this.$api.User.GetSteamId(false);
     }
   },
   watch: {
@@ -198,6 +280,20 @@ export default {
         &:first-child {
           color: $orange;
           font-size: 12px;
+          display: flex;
+          align-items: center;
+
+          .verified-indicator {
+            margin-left: 5px;
+            color: $red;
+            cursor: pointer;
+            font-size: 18px;
+
+            &.verified {
+              color: $green;
+              cursor: default;
+            }
+          }
         }
 
         &:last-child {
@@ -235,22 +331,22 @@ export default {
       text-align: center;
       font-size: 12px;
       color: $orange;
-        width: 200px;
-        border-left: 1px solid $purple;
-        padding-left: 25px;
-      
+      width: 200px;
+      border-left: 1px solid $purple;
+      padding-left: 25px;
+
       span {
         margin: 5px 0;
       }
 
       .mini-rank-graph-inner-wrapper {
         height: 44px;
-        margin: 5px 0;        
+        margin: 5px 0;
         padding: 5px;
         border: 1px solid transparent;
         border-radius: 4px;
         cursor: pointer;
-        transition: .35s;
+        transition: 0.35s;
 
         &:hover {
           border: 1px solid $purple;
@@ -258,7 +354,38 @@ export default {
         }
       }
     }
+  }
 
+  .verify-username-overlay {
+    .step {
+      display: flex;
+      align-items: center;
+      color: white;
+      margin-bottom: 10px;
+
+      .highlight {
+        color: $orange;
+        font-weight: 500;
+        margin: 0 5px;
+      }
+
+      .num {
+        width: 30px;
+        height: 30px;
+        background: $dark-2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        margin-right: 5px;
+        color: white;
+      }
+    }
+
+    button {
+      margin-bottom: 20px;
+      width: 200px;
+    }
   }
 }
 
