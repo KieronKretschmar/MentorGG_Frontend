@@ -10,11 +10,20 @@
           <span v-if="staticSituationData.isHighlight" class="highlight">Highlight:</span>
           <span v-if="staticSituationData.isMisplay" class="misplay">Misplay:</span>
           {{ staticSituationData.name }}
+          <div
+            class="situation-count"
+            :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
+          >{{ situations.length }}</div>
         </div>
-        <div
-          class="situation-count"
-          :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
-        >{{ situations.length }}</div>
+
+        <div class="mini-graph">
+          <span>OCCURENCE HISTORY</span>
+          <LineChart
+            :options="GetOccurenceHistoryGraphOptions()"
+            :data="occurenceHistoryGraphData"
+            class="history-graph-inner-wrapper"
+          />
+        </div>
       </div>
       <div class="description-howtoavoid">
         <div class="description">
@@ -28,19 +37,33 @@
       </div>
 
       <div class="chart">
-        <h2 class="section-header">Occurence History Graph</h2>
+        <h2 class="section-header">Rank Comparison</h2>
         <div class="bordered-box chart-container">
           <p class="chart-title">
             Average
             <span v-if="staticSituationData.isHighlight">highlights</span>
-            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
+            <span v-if="staticSituationData.isMisplay">misplays</span> per round
           </p>
-          <LineChart :options="chartOptions" :data="chartData" class="history-graph-inner-wrapper" />
+          <BarChart
+            class="situations-by-rank-chart-inner-wrapper"
+            :data="situationByRankChartData"
+            :options="situationsByRankChartOptions"
+          ></BarChart>
         </div>
       </div>
 
       <div class="occurences">
-        <h2 class="section-header">Occurences</h2>
+        <h2 class="section-header">Personal Occurences</h2>
+        <div
+          class="bordered-box free-user-warning"
+          v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free"
+        >
+          <p>Please note that as a FREE user you may only view the occurences for the first and last round of each half.</p>
+          <button
+            class="button-variant-bordered upgrade"
+            @click="$router.push({name: 'membership'})"
+          >UPGRADE</button>
+        </div>
         <div class="occurence-list">
           <div
             class="occurence bordered-box"
@@ -76,10 +99,10 @@
                 <div class="key">{{ field.keyDisplay }}</div>
                 <div class="val">
                   <span v-if="field.before">{{ field.before }}</span>
-                  <span v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"></span>
                   <span
-                    v-if="field.after"
-                  >{{field.after}}</span>
+                    v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"
+                  ></span>
+                  <span v-if="field.after">{{field.after}}</span>
                 </div>
               </div>
 
@@ -113,12 +136,15 @@
 
 <script>
 import LineChart from "@/components/LineChart.vue";
+import BarChart from "@/components/BarChart.vue";
 import Enums from "@/enums";
+import SituationLoader from "@/SituationLoader";
 
 export default {
   props: ["staticSituationData"],
   components: {
-    LineChart
+    LineChart,
+    BarChart
   },
   mounted() {
     this.debug = false;
@@ -135,7 +161,7 @@ export default {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type,
-          steamId: this.$api.User.GetSteamId(),
+          steamId: this.$api.User.GetSteamId()
         })
         .then(result => {
           this.PrepareData(result.data);
@@ -146,57 +172,12 @@ export default {
     let self = this;
 
     return {
+      Enums,
       dynamicSituationData: null,
       situations: [],
       debug: false,
       highlightedOccurenceId: null,
-      prependTime: 4000,
-      chartOptions: {
-tooltips: {
-          enabled: true,
-          callbacks: {
-            title: function(tooltipItems, data) {
-              let xLabel = tooltipItems[0].xLabel;
-
-              if (!self.dynamicSituationData) {
-                return "Match #" + xLabel;
-              } else {
-                let matchId = Object.keys(self.dynamicSituationData.Matches)[+xLabel - 1];
-                let match = self.dynamicSituationData.Matches[matchId];
-
-                return (
-                  "Match #" +
-                  xLabel +
-                  "\nMap: " +
-                  match.Map +
-                  "\nDate: " +
-                  new Date(match.MatchDate).toLocaleString([], {
-                    timeStyle: "short",
-                    dateStyle: "short"
-                  })
-                );
-              }
-            }
-          }
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [
-            {
-              display: true,
-              ticks: {
-                beginAtZero: true,
-                stepValue: 1,
-                stepSize: 1
-              }
-            }
-          ]
-        },
-        legend: {
-          display: false
-        }
-      }
+      prependTime: 4000
     };
   },
   methods: {
@@ -216,12 +197,14 @@ tooltips: {
       this.dynamicSituationData = data;
       this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
         e => this.IsRoundAllowed(e.MatchId, e.Round)
-      )
-      .sort((first, second) => this.$helpers.ShowFirstSituationLast(
-        first, 
-        this.dynamicSituationData.Matches[first.MatchId], 
-        second, 
-        this.dynamicSituationData.Matches[second.MatchId]));
+      ).sort((first, second) =>
+        this.$helpers.ShowFirstSituationLast(
+          first,
+          this.dynamicSituationData.Matches[first.MatchId],
+          second,
+          this.dynamicSituationData.Matches[second.MatchId]
+        )
+      );
     },
     IsRoundAllowed(matchId, round) {
       if (!this.matches || this.matches[matchId] == undefined) {
@@ -229,6 +212,51 @@ tooltips: {
       }
 
       return this.matches[matchId].AllowedRounds.indexOf(round) != -1;
+    },
+    GetOccurenceHistoryGraphOptions() {
+      return {
+        tooltips: {
+          enabled: false
+        },
+        hover: {
+          animationDuration: 0
+        },
+        layout: {
+          padding: {
+            top: 5,
+            left: 5,
+            bottom: 5,
+            right: 5
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: false,
+              gridLines: {
+                zeroLineColor: "#444"
+                // zeroLineWidth: 1
+              },
+              ticks: {
+                beginAtZero: true,
+                stepValue: 1,
+                stepSize: 1,
+                padding: 40
+              }
+            }
+          ],
+          xAxes: [
+            {
+              display: false
+            }
+          ]
+        },
+        legend: {
+          display: false
+        }
+      };
     }
   },
   computed: {
@@ -239,28 +267,7 @@ tooltips: {
 
       return this.dynamicSituationData.Matches;
     },
-    chartData() {
-      let labels = [];
-      for (let i = 0; i < this.chartDataPoints.length; i++) {
-        labels.push(i + 1);
-      }
-
-      return {
-        labels: labels,
-        datasets: [
-          {
-            label: "avg. misplays per round",
-            backgroundColor: "#2d2c3b",
-            pointBackgroundColor: "#ff4800",
-            borderColor: "#39384a",
-            data: this.chartDataPoints,
-            fill: true,
-            lineTension: 0
-          }
-        ]
-      };
-    },
-    chartDataPoints() {
+    occurenceHistoryGraphPreparedData() {
       if (!this.dynamicSituationData) {
         return null;
       }
@@ -304,7 +311,194 @@ tooltips: {
         }
       });
 
+      return ret.slice(Math.max(ret.length - 10, 0));
+    },
+    occurenceHistoryGraphData() {
+      let labels = [];
+      for (let i = 0; i < this.occurenceHistoryGraphPreparedData.length; i++) {
+        labels.push(i + 1);
+      }
+
+      return {
+        labels: labels,
+        datasets: [
+          {
+            label: "avg. misplays per round",
+            backgroundColor: "#2d2c3b",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a",
+            data: this.occurenceHistoryGraphPreparedData,
+            fill: false,
+            lineTension: 0
+          }
+        ]
+      };
+    },
+    situationByRankChartPreparedData() {
+      let data = SituationLoader.getSituationsByRank();
+      if (data.Data[this.staticSituationData.typeName] == undefined) {
+        return null;
+      }
+
+      let typeData = data.Data[this.staticSituationData.typeName];
+
+      let ret = {
+        data: [],
+        labels: [],
+        colors: []
+      };
+
+      for (let idx in typeData) {
+        let entry = typeData[idx];
+        ret.data.push(entry.SituationsPerPlayerAndRound);
+        ret.labels.push(this.$helpers.RankIdToRankName(entry.RankBeforeMatch));
+
+        if (this.staticSituationData.isMisplay) {
+          ret.colors.push("#8b0923");
+        }
+
+        if (this.staticSituationData.isHighlight) {
+          ret.colors.push("#72a233");
+        }
+      }
+
       return ret;
+    },
+    situationByRankChartData() {
+      return {
+        labels: this.situationByRankChartPreparedData.labels,
+        datasets: [
+          {
+            barThickness: 10,
+            barPercentage: 1,
+            label: "",
+            backgroundColor: this.situationByRankChartPreparedData.colors,
+            data: this.situationByRankChartPreparedData.data
+          }
+        ]
+      };
+    },
+    situationsByRankChartOptions() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ],
+          xAxes: [
+            {
+              ticks: {
+                callback: val => {
+                  return this.$helpers.ShortenRankName(val);
+                }
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        },
+        annotation: {
+          annotations: [
+            {
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: this.situationByRankChartPersonalValue.total,
+              borderColor: "#ff4800",
+              borderWidth: 1,
+              label: {
+                enabled: true,
+                content: "You (total)",
+                backgroundColor: "#ff4800"
+              }
+            },
+            {
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: this.situationByRankChartPersonalValue.last5,
+              borderColor: this.last5Color,
+              borderWidth: 1,
+              label: {
+                enabled: true,
+                content: "You (last 5)",
+                backgroundColor: this.last5Color
+              }
+            }
+          ]
+        }
+      };
+    },
+    situationByRankChartPersonalValue() {
+      if (!this.dynamicSituationData) {
+        return 0;
+      }
+
+      let sumTotalRounds = 0;
+
+      let matchCount = Object.keys(this.dynamicSituationData.Matches).length;
+      let gimmeTheLoopz = 0;
+      let last5SituationCount = 0;
+      let last5RoundCount = 0;
+
+      for (let matchId in this.dynamicSituationData.Matches) {
+        sumTotalRounds += this.dynamicSituationData.Matches[matchId]
+          .AllowedRounds.length;
+
+        if (gimmeTheLoopz >= matchCount - 5) {
+          last5RoundCount += this.dynamicSituationData.Matches[matchId]
+            .AllowedRounds.length;
+
+          let situationCount = this.dynamicSituationData.SituationCollection.Situations.reduce(
+            (prev, curr) => {
+              if (
+                matchId == curr.MatchId &&
+                this.IsRoundAllowed(matchId, curr.Round)
+              ) {
+                return prev + 1;
+              }
+
+              return prev;
+            },
+            0
+          );
+
+          last5SituationCount += situationCount;
+        }
+
+        gimmeTheLoopz++;
+      }
+
+      return {
+        total:
+          this.dynamicSituationData.SituationCollection.Situations.length /
+          sumTotalRounds,
+        last5: last5SituationCount / last5RoundCount
+      };
+    },
+    last5Color() {
+      if (this.staticSituationData.isMisplay) {
+        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+          return "crimson";
+        } else {
+          return "#72a233";
+        }
+      }
+
+      if (this.staticSituationData.isHighlight) {
+        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+          return "#72a233";
+        } else {
+          return "crimson";
+        }
+      }
     }
   }
 };
@@ -316,7 +510,7 @@ tooltips: {
 
   .situation-header {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 
@@ -326,6 +520,7 @@ tooltips: {
       font-weight: 700;
       display: flex;
       align-items: center;
+      margin-right: 30px;
 
       img {
         width: 60px;
@@ -343,25 +538,48 @@ tooltips: {
           color: crimson;
         }
       }
+
+      .situation-count {
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 500;
+        margin-left: 10px;
+
+        &.misplay {
+          background: crimson;
+        }
+
+        &.highlight {
+          background: $green-2;
+        }
+      }
     }
 
-    .situation-count {
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
+    .mini-graph {
       display: flex;
+      flex-direction: column;
+      text-align: center;
       justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: 500;
+      color: $orange;
+      font-size: 12px;
+      width: 200px;
+      padding-left: 25px;
+      border-left: 1px solid $purple;
 
-      &.misplay {
-        background: crimson;
+      span {
+        margin: 5px 0;
       }
 
-      &.highlight {
-        background: $green-2;
+      .history-graph-inner-wrapper {
+        height: 44px;
+        margin: 5px 0;
+        padding: 5px;
       }
     }
   }
@@ -401,6 +619,18 @@ tooltips: {
       border-radius: 4px;
       padding: 5px 10px;
       margin-top: 0;
+    }
+  }
+
+  .free-user-warning {
+    margin-bottom: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-left: 20px;
     }
   }
 
