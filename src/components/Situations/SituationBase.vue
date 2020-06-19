@@ -54,6 +54,10 @@
 
       <div class="occurences">
         <h2 class="section-header">Personal Occurences</h2>
+        <div class="bordered-box free-user-warning">
+          <p>Please note that as a FREE user you may only view the occurences for the first and last round of each half.</p>
+          <button class="button-variant-bordered upgrade">UPGRADE</button>
+        </div>
         <div class="occurence-list">
           <div
             class="occurence bordered-box"
@@ -246,6 +250,24 @@ export default {
         },
         legend: {
           display: false
+        },
+        annotation: {
+          annotations: [
+            {
+              type: "line",
+              mode: "horizontal",
+              drawTime: 'beforeDatasetsDraw',
+              scaleID: "y-axis-0",
+              value: 0,
+              borderColor: "#39384a",
+              borderWidth: 1,
+              label: {
+                enabled: false,
+                content: "You",
+                backgroundColor: "#ff4800"
+              }
+            }
+          ]
         }
       };
     }
@@ -546,6 +568,18 @@ export default {
       border-radius: 4px;
       padding: 5px 10px;
       margin-top: 0;
+    }
+  }
+
+  .free-user-warning {
+    margin-bottom: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-left: 20px;
     }
   }
 
