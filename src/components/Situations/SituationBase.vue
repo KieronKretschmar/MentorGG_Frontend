@@ -37,12 +37,12 @@
       </div>
 
       <div class="chart">
-        <h2 class="section-header">Global Rank Comparison For This Situation</h2>
+        <h2 class="section-header">Rank Comparison</h2>
         <div class="bordered-box chart-container">
           <p class="chart-title">
             Average
             <span v-if="staticSituationData.isHighlight">highlights</span>
-            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per rank basis
+            <span v-if="staticSituationData.isMisplay">misplays</span> per round
           </p>
           <BarChart
             class="situations-by-rank-chart-inner-wrapper"
@@ -159,8 +159,6 @@ export default {
         })
         .then(result => {
           this.PrepareData(result.data);
-          console.log(this.dynamicSituationData);
-          console.log(this.situationByRankChartPersonalValue);
         });
     }
   },
@@ -524,6 +522,10 @@ export default {
       width: 200px;
       padding-left: 25px;
       border-left: 1px solid $purple;
+
+      span {
+        margin: 5px 0;
+      }
 
       .history-graph-inner-wrapper {
         height: 44px;
