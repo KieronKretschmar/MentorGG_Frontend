@@ -255,24 +255,6 @@ export default {
         },
         legend: {
           display: false
-        },
-        annotation: {
-          annotations: [
-            {
-              type: "line",
-              mode: "horizontal",
-              drawTime: "beforeDatasetsDraw",
-              scaleID: "y-axis-0",
-              value: 0,
-              borderColor: "#39384a",
-              borderWidth: 1,
-              label: {
-                enabled: false,
-                content: "You",
-                backgroundColor: "#ff4800"
-              }
-            }
-          ]
         }
       };
     }
