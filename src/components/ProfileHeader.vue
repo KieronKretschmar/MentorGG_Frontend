@@ -7,7 +7,7 @@
       <div class="name">
         <span>
           PROFILE NAME
-          <template
+          <!-- <template
             v-if="IsFreeOrSupporter() && isOwnProfile"
           >
             <div class="verified-indicator" :class="{verified: nameContainsVerifyString}">
@@ -19,7 +19,7 @@
                 title="Not verified"
               ></i>
             </div>
-          </template>
+          </template> -->
         </span>
         <span>{{ user.SteamUser.SteamName }}</span>
       </div>
