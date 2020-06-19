@@ -8,7 +8,7 @@
         <span>
           PROFILE NAME
           <template
-            v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free && isOwnProfile"
+            v-if="IsFreeOrSupporter() && isOwnProfile"
           >
             <div class="verified-indicator" :class="{verified: nameContainsVerifyString}">
               <i class="fas fa-check" v-if="nameContainsVerifyString" title="Verified"></i>
@@ -106,11 +106,15 @@ export default {
           this.$refs.verifyUsernameOverlay.Hide();
 
           setTimeout(() => {
-            this.$emit('force-reload');
+            this.$emit("force-reload");
           }, 350);
-
-
         });
+    },
+    IsFreeOrSupporter() {
+      return (
+        this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free ||
+        this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Influencer
+      );
     }
   },
   data() {

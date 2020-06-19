@@ -43,7 +43,7 @@ class Enums {
           case 1: return "Free";
           case 2: return "Premium";
           case 3: return "Ultimate";
-          case 3: return "Supporter";
+          case 4: return "Supporter";
         }
 
         return "Unknown";
