@@ -428,13 +428,26 @@ export default {
               type: "line",
               mode: "horizontal",
               scaleID: "y-axis-0",
-              value: this.situationByRankChartPersonalValue,
+              value: this.situationByRankChartPersonalValue.total,
               borderColor: "#ff4800",
               borderWidth: 1,
               label: {
                 enabled: true,
-                content: "You",
+                content: "You (total)",
                 backgroundColor: "#ff4800"
+              }
+            },
+            {
+              type: "line",
+              mode: "horizontal",
+              scaleID: "y-axis-0",
+              value: this.situationByRankChartPersonalValue.last5,
+              borderColor: this.last5Color,
+              borderWidth: 1,
+              label: {
+                enabled: true,
+                content: "You (last 5)",
+                backgroundColor: this.last5Color
               }
             }
           ]
@@ -448,15 +461,62 @@ export default {
 
       let sumTotalRounds = 0;
 
+      let matchCount = Object.keys(this.dynamicSituationData.Matches).length;
+      let gimmeTheLoopz = 0;
+      let last5SituationCount = 0;
+      let last5RoundCount = 0;
+
       for (let matchId in this.dynamicSituationData.Matches) {
         sumTotalRounds += this.dynamicSituationData.Matches[matchId]
           .AllowedRounds.length;
+
+        if (gimmeTheLoopz >= matchCount - 5) {
+          last5RoundCount += this.dynamicSituationData.Matches[matchId]
+            .AllowedRounds.length;
+
+          let situationCount = this.dynamicSituationData.SituationCollection.Situations.reduce(
+            (prev, curr) => {
+              if (
+                matchId == curr.MatchId &&
+                this.IsRoundAllowed(matchId, curr.Round)
+              ) {
+                return prev + 1;
+              }
+
+              return prev;
+            },
+            0
+          );
+
+          last5SituationCount += situationCount;
+        }
+
+        gimmeTheLoopz++;
       }
 
-      return (
-        this.dynamicSituationData.SituationCollection.Situations.length /
-        sumTotalRounds
-      );
+      return {
+        total:
+          this.dynamicSituationData.SituationCollection.Situations.length /
+          sumTotalRounds,
+        last5: last5SituationCount / last5RoundCount
+      };
+    },
+    last5Color() {
+      if (this.staticSituationData.isMisplay) {
+        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+          return "crimson";
+        } else {
+          return "#72a233";
+        }
+      }
+
+      if (this.staticSituationData.isHighlight) {
+        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+          return "#72a233";
+        } else {
+          return "crimson";
+        }
+      }
     }
   }
 };
