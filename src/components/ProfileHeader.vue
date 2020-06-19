@@ -107,6 +107,7 @@ export default {
         return match.Source == Enums.Source.Valve;
       }).reverse();
 
+      //9 instead of 10 because we start at 0
       return matches.slice(Math.max(matches.length - 9, 0));
     },
     graphData() {

@@ -10,11 +10,20 @@
           <span v-if="staticSituationData.isHighlight" class="highlight">Highlight:</span>
           <span v-if="staticSituationData.isMisplay" class="misplay">Misplay:</span>
           {{ staticSituationData.name }}
+          <div
+            class="situation-count"
+            :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
+          >{{ situations.length }}</div>
         </div>
-        <div
-          class="situation-count"
-          :class="{highlight: staticSituationData.isHighlight, misplay: staticSituationData.isMisplay}"
-        >{{ situations.length }}</div>
+
+        <div class="mini-graph">
+          <span>OCCURENCE HISTORY</span>
+          <LineChart
+            :options="GetOccurenceHistoryGraphOptions()"
+            :data="occurenceHistoryGraphData"
+            class="history-graph-inner-wrapper"
+          />
+        </div>
       </div>
       <div class="description-howtoavoid">
         <div class="description">
@@ -40,22 +49,6 @@
             :data="situationByRankChartData"
             :options="situationsByRankChartOptions"
           ></BarChart>
-        </div>
-      </div>
-
-      <div class="chart">
-        <h2 class="section-header">Personal Occurence History Graph</h2>
-        <div class="bordered-box chart-container">
-          <p class="chart-title">
-            Average
-            <span v-if="staticSituationData.isHighlight">highlights</span>
-            <span v-if="staticSituationData.isMisplay">misplays</span> per round on a per match basis
-          </p>
-          <LineChart
-            :options="GetOccurenceHistoryGraphOptions()"
-            :data="occurenceHistoryGraphData"
-            class="history-graph-inner-wrapper"
-          />
         </div>
       </div>
 
@@ -214,32 +207,17 @@ export default {
     GetOccurenceHistoryGraphOptions() {
       return {
         tooltips: {
-          enabled: true,
-          callbacks: {
-            title: function(tooltipItems, data) {
-              let xLabel = tooltipItems[0].xLabel;
-
-              if (!self.dynamicSituationData) {
-                return "Match #" + xLabel;
-              } else {
-                let matchId = Object.keys(self.dynamicSituationData.Matches)[
-                  +xLabel - 1
-                ];
-                let match = self.dynamicSituationData.Matches[matchId];
-
-                return (
-                  "Match #" +
-                  xLabel +
-                  "\nMap: " +
-                  match.Map +
-                  "\nDate: " +
-                  new Date(match.MatchDate).toLocaleString([], {
-                    timeStyle: "short",
-                    dateStyle: "short"
-                  })
-                );
-              }
-            }
+          enabled: false
+        },
+        hover: {
+          animationDuration: 0
+        },
+        layout: {
+          padding: {
+            top: 5,
+            left: 5,
+            bottom: 5,
+            right: 5
           }
         },
         responsive: true,
@@ -247,12 +225,22 @@ export default {
         scales: {
           yAxes: [
             {
-              display: true,
+              display: false,
+              gridLines: {
+                zeroLineColor: "#444"
+                // zeroLineWidth: 1
+              },
               ticks: {
                 beginAtZero: true,
                 stepValue: 1,
-                stepSize: 1
+                stepSize: 1,
+                padding: 40
               }
+            }
+          ],
+          xAxes: [
+            {
+              display: false
             }
           ]
         },
@@ -314,7 +302,7 @@ export default {
         }
       });
 
-      return ret;
+      return ret.slice(Math.max(ret.length - 10, 0));
     },
     occurenceHistoryGraphData() {
       let labels = [];
@@ -331,7 +319,7 @@ export default {
             pointBackgroundColor: "#ff4800",
             borderColor: "#39384a",
             data: this.occurenceHistoryGraphPreparedData,
-            fill: true,
+            fill: false,
             lineTension: 0
           }
         ]
@@ -453,7 +441,7 @@ export default {
 
   .situation-header {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 
@@ -463,6 +451,7 @@ export default {
       font-weight: 700;
       display: flex;
       align-items: center;
+      margin-right: 30px;
 
       img {
         width: 60px;
@@ -480,25 +469,44 @@ export default {
           color: crimson;
         }
       }
+
+      .situation-count {
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 500;
+        margin-left: 10px;
+
+        &.misplay {
+          background: crimson;
+        }
+
+        &.highlight {
+          background: $green-2;
+        }
+      }
     }
 
-    .situation-count {
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
+    .mini-graph {
       display: flex;
+      flex-direction: column;
+      text-align: center;
       justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      font-weight: 500;
+      color: $orange;
+      font-size: 12px;
+      width: 200px;
+      padding-left: 25px;
+      border-left: 1px solid $purple;
 
-      &.misplay {
-        background: crimson;
-      }
-
-      &.highlight {
-        background: $green-2;
+      .history-graph-inner-wrapper {
+        height: 44px;
+        margin: 5px 0;
+        padding: 5px;
       }
     }
   }
