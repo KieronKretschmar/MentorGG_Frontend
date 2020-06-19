@@ -47,7 +47,7 @@ export default {
   props: ["steamId"],
   components: {
     SituationsOverview,
-    LineChart
+    LineChart    
   },
   mounted() {
     this.$api
@@ -58,7 +58,7 @@ export default {
         this.situations = result.data;
         this.misplays = this.PrepareData("Misplays");
         this.highlights = this.PrepareData("Highlights");
-      });
+      });      
   },
   data() {    
     return {

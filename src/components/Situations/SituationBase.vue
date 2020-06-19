@@ -54,9 +54,15 @@
 
       <div class="occurences">
         <h2 class="section-header">Personal Occurences</h2>
-        <div class="bordered-box free-user-warning">
+        <div
+          class="bordered-box free-user-warning"
+          v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free"
+        >
           <p>Please note that as a FREE user you may only view the occurences for the first and last round of each half.</p>
-          <button class="button-variant-bordered upgrade">UPGRADE</button>
+          <button
+            class="button-variant-bordered upgrade"
+            @click="$router.push({name: 'membership'})"
+          >UPGRADE</button>
         </div>
         <div class="occurence-list">
           <div
@@ -166,6 +172,7 @@ export default {
     let self = this;
 
     return {
+      Enums,
       dynamicSituationData: null,
       situations: [],
       debug: false,
@@ -254,7 +261,7 @@ export default {
             {
               type: "line",
               mode: "horizontal",
-              drawTime: 'beforeDatasetsDraw',
+              drawTime: "beforeDatasetsDraw",
               scaleID: "y-axis-0",
               value: 0,
               borderColor: "#39384a",
