@@ -17,7 +17,7 @@
         </header>
         <main>
           <transition name="page" mode="out-in">
-            <router-view :key="reloadHack" />
+            <router-view :key="reloadHack" @force-reload="ForceViewReload"/>
           </transition>
         </main>
         <footer>

@@ -36,12 +36,14 @@ class Enums {
       Free: 1,
       Premium: 2,
       Ultimate: 3,
+      Influencer: 4,
 
       ToString(n) {
         switch (n) {
           case 1: return "Free";
           case 2: return "Premium";
           case 3: return "Ultimate";
+          case 4: return "Supporter";
         }
 
         return "Unknown";
