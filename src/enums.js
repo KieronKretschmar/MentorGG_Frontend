@@ -8,7 +8,7 @@ class Enums {
       Kill: 5,
       Bomb: 6,
 
-      ToString(n){
+      ToString(n) {
         switch (n) {
           case 1: return "Molotov";
           case 2: return "Flash";
@@ -40,9 +40,9 @@ class Enums {
 
       // List of SubscriptionStatus values in order of access level
       // Free, Influencer, Premium, Ultimate
-      StatusOrderedByAccessLevel: [1,4,2,3],
+      StatusOrderedByAccessLevel: [1, 4, 2, 3],
 
-      GetAccessLevel(n){
+      GetAccessLevel(n) {
         return this.StatusOrderedByAccessLevel.indexOf(n);
       },
 
@@ -88,7 +88,7 @@ class Enums {
       Esea: 6,
       Cevo: 7,
 
-      
+
       ToString(n) {
         switch (n) {
           case 0: return "Unknown";
@@ -105,14 +105,14 @@ class Enums {
       }
     };
   }
-  
+
   static get WinTieLoss() {
     return {
       Win: 1,
       Tie: 2,
       Loss: 3,
 
-      
+
       ToString(n) {
         switch (n) {
           case 1: return "Win";
@@ -145,7 +145,7 @@ class Enums {
       TargetWithoutLineUp: 30, //Hit a target without using a known lineup
       NoTarget: 40, //Has no lineup and didnt hit a target, but was analyzed
 
-      
+
       ToString(n) {
         switch (n) {
           case 0: return "Unknown";
@@ -161,14 +161,14 @@ class Enums {
   }
 
   static get SkillDomain() {
-    return {                        
-        Tactical: 1,
-        Grenades: 2,   
-        Shooting: 3,   
-        Movement: 4
+    return {
+      Tactical: 1,
+      Grenades: 2,
+      Shooting: 3,
+      Movement: 4
     };
   }
-  
+
   static get SituationType() {
     return {
       Unknown: 0,
