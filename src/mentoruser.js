@@ -36,7 +36,7 @@ export default class MentorUser {
             throw new Error("Invalid callback value in authorization gate for argument fnAuthorized");
         }
 
-        if (this.subscriptionStatus >= minimumAccessLevel) {
+        if (Enums.SubscriptionStatus.GetAccessLevel(this.subscriptionStatus) >= Enums.SubscriptionStatus.GetAccessLevel(minimumAccessLevel)) {
             fnAuthorized();
         } else {
             if (fnUnauthorized) {

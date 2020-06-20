@@ -38,6 +38,14 @@ class Enums {
       Ultimate: 3,
       Influencer: 4,
 
+      // List of SubscriptionStatus values in order of access level
+      // Free, Influencer, Premium, Ultimate
+      StatusOrderedByAccessLevel: [1,4,2,3],
+
+      GetAccessLevel(n){
+        return this.StatusOrderedByAccessLevel.indexOf(n);
+      },
+
       ToString(n) {
         switch (n) {
           case 1: return "Free";
