@@ -7,9 +7,7 @@
       <div class="name">
         <span>
           PROFILE NAME
-          <template
-            v-if="IsFreeOrSupporter() && isOwnProfile"
-          >
+          <template v-if="IsFreeOrSupporter() && isOwnProfile">
             <div class="verified-indicator" :class="{verified: nameContainsVerifyString}">
               <i class="fas fa-check" v-if="nameContainsVerifyString" title="Verified"></i>
               <i
@@ -262,10 +260,13 @@ export default {
     .avatar {
       border-radius: 5px;
       overflow: hidden;
+      width: 110px;
+      height: 110px;
+      flex: 0 0 110px;
 
       img {
-        width: 110px;
-        height: 110px;
+        width: 100%;
+        height: 100%;
       }
     }
 
@@ -273,7 +274,7 @@ export default {
       display: flex;
       flex-direction: column;
       margin-left: 25px;
-      padding-right: 100px;
+      padding-right: 25px;
       border-right: 1px solid $purple;
       height: 80px;
       justify-content: center;
@@ -304,6 +305,11 @@ export default {
           color: white;
           font-size: 1.75rem;
           font-weight: 700;
+          display: inline-block;
+          max-width: 300px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
@@ -333,9 +339,11 @@ export default {
       display: flex;
       flex-direction: column;
       text-align: center;
+      justify-content: center;
       font-size: 12px;
       color: $orange;
       width: 200px;
+      height: 80px;
       border-left: 1px solid $purple;
       padding-left: 25px;
 
@@ -394,67 +402,104 @@ export default {
 }
 
 //responsive
-@media (max-width: 800px) {
+@media (max-width: 870px) {
   .profile-header {
-    padding: 20px 0 0 0;
-    border-bottom: 1px solid $purple;
-    padding-bottom: 90px;
-
     .fixed-width-container {
-      align-items: flex-start;
-      height: 60px;
-
       .avatar {
-        border-radius: 5px;
-        overflow: hidden;
-
-        img {
-          max-width: 60px;
-          height: 60px;
-        }
+        flex: 0 0 60px;
+        height: 60px;
       }
 
       .name {
-        margin-left: 10px;
-        padding-right: 10px;
-        border-right: none;
-        height: 60px;
-        max-width: 125px;
-
         span {
-          margin: 5px;
-
-          &:first-child {
-            font-size: 10px;
-          }
-
           &:last-child {
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 1.35rem;
           }
         }
       }
 
       .csgo-rank {
-        display: flex;
-        flex-direction: column;
-        margin-left: 0;
-        padding-left: 10px;
-        text-align: center;
-        border-left: 1px solid $purple;
-        max-width: 125px;
-        height: 60px;
+        img {
+          height: 26px;
+        }
+      }
 
+      .mini-rank-graph {
+        .mini-rank-graph-inner-wrapper {
+          height: 26px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 730px) {
+  .profile-header {
+    .fixed-width-container {
+      flex-wrap: wrap;
+
+      .csgo-rank {
+        margin-right: 0;
+      }
+
+      .mini-rank-graph {
+        width: 100%;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        margin-top: 30px;
+
+        .mini-rank-graph-inner-wrapper {
+          height: 80px;
+          border: 1px solid $purple;
+          background: $dark-1;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+    .fixed-width-container {
+      .name {
         span {
-          margin: 5px 0;
-
-          &:first-child {
-            font-size: 10px;
+          &:last-child {
+            font-size: 1rem;
+            max-width: 200px;
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .profile-header {
+    .fixed-width-container {
+      justify-content: center;
+
+      .name {
+        padding: 0;
+        border: 0;
+
+        span:first-child {
+          display: none;
+        }
+      }
+
+      .csgo-rank {
+        margin-left: 0;
+        width: 100%;
+        align-items: center;
+        border-top: 1px solid $purple;
+        border-bottom: 1px solid $purple;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         img {
-          height: 30px;
+          max-width: 120px;
+          height: auto;
         }
       }
     }

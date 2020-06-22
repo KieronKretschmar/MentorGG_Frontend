@@ -247,7 +247,7 @@ main {
 }
 
 //responsive
-@media (max-width: 1100px) {
+@media (max-width: 1170px) {
   #app {
     .l-app {
       // display: none;
@@ -287,6 +287,10 @@ main {
 
 @media(max-width: 500px) {
   .open-filters {
+    top: unset !important;
+    bottom: 0;
+    right: 0;
+
     span {
       display: none;
     }

@@ -31,7 +31,8 @@
         <i class="material-icons">error_outline</i>FREE users may only access misplays and highlights that took place in either the first or last round of each half of a match.
       </p>
       <button
-        class="button-variant-bordered upgrade" @click="OpenMembershipPage"
+        class="button-variant-bordered upgrade"
+        @click="OpenMembershipPage"
       >Upgrade now to see {{ totalHiddenOccurences }} more misplay{{ totalHiddenOccurences > 1 ? 's' : '' }} / highlight{{ totalHiddenOccurences > 1 ? 's' : '' }}</button>
     </div>
   </div>
@@ -47,7 +48,7 @@ export default {
   props: ["steamId"],
   components: {
     SituationsOverview,
-    LineChart    
+    LineChart
   },
   mounted() {
     this.$api
@@ -58,9 +59,9 @@ export default {
         this.situations = result.data;
         this.misplays = this.PrepareData("Misplays");
         this.highlights = this.PrepareData("Highlights");
-      });      
+      });
   },
-  data() {    
+  data() {
     return {
       situations: null,
       misplays: [],
@@ -111,12 +112,14 @@ export default {
           containsNew: false
         };
 
-        let orderedOccurences = entry.Situations
-          .sort((first, second) => this.$helpers.ShowFirstSituationLast(
-            first, 
-            this.matches[first.MatchId], 
-            second, 
-            this.matches[second.MatchId]));
+        let orderedOccurences = entry.Situations.sort((first, second) =>
+          this.$helpers.ShowFirstSituationLast(
+            first,
+            this.matches[first.MatchId],
+            second,
+            this.matches[second.MatchId]
+          )
+        );
 
         //filter occurences based on allowed rounds
         for (let occurence of orderedOccurences) {
@@ -152,7 +155,7 @@ export default {
     OpenMembershipPage() {
       this.$helpers.LogEvent(this, "SituationUpgrade");
       this.$router.push({
-        name: 'membership'
+        name: "membership"
       });
     }
   },
@@ -329,56 +332,49 @@ export default {
 
 //responsive
 @media (max-width: 800px) {
-  .advice-container {
-    flex-direction: column;
+  .better-situations {
+    .situations-split {
+      flex-direction: column;
 
-    .advice {
-      width: 100%;
-      margin-bottom: 10px;
-      overflow-x: scroll;
-      overflow-y: hidden;
-      white-space: nowrap;
+      .better-situation {
+        width: 100%;
 
-      &:last-child {
-        margin-bottom: 0;
+        &:first-child {
+          margin-bottom: 20px;
+        }
       }
+    }
+  }
+}
 
-      .position-table {
-        min-width: 580px;
-        .table-header {
-          margin-right: 25px;
+@media (max-width: 450px) {
+  .better-situation {
+    .situation-table {
+      .table-content {
+        .entry {
 
-          span {
-            &:nth-child(n + 1) {
-              width: 140px;
-            }
-            &:nth-child(n + 3) {
-              width: 100px;
-              text-align: center;
+          .occurences {
+            .occurence {
+              .content {
+                overflow-x: scroll;
+                
+                .watch-wrapper {
+                  margin-left: 20px;
+                }
+              }
             }
           }
-        }
 
-        .table-content {
-          margin-top: 10px;
-          margin-right: 10px;
-
-          .entry {
-            margin-right: 25px;
-            font-size: 12px !important;
-
-            &:last-child {
-              border-bottom: none;
+          .cell {
+            .situation-icon {
+              display: none;
             }
 
-            .cell {
-              &:nth-child(n + 1) {
-                width: 140px;
-              }
-              &:nth-child(n + 3) {
-                width: 100px;
-                text-align: center;
-              }
+            .situation-name {
+              margin-left: 0;
+              max-width: 140px;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
         }

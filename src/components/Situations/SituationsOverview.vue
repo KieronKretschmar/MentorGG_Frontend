@@ -220,6 +220,7 @@ export default {
       border-radius: 4px;
       padding: 5px 10px;
       margin-top: 0;
+      white-space: normal;
     }
 
     .situation-graph-inner-wrapper {
