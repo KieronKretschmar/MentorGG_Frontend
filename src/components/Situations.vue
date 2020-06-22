@@ -51,15 +51,7 @@ export default {
     LineChart
   },
   mounted() {
-    this.$api
-      .getSituations({
-        steamId: this.steamId
-      })
-      .then(result => {
-        this.situations = result.data;
-        this.misplays = this.PrepareData("Misplays");
-        this.highlights = this.PrepareData("Highlights");
-      });
+    this.LoadData();
   },
   data() {
     return {
@@ -78,6 +70,17 @@ export default {
     };
   },
   methods: {
+    LoadData() {
+      this.$api
+        .getSituations({
+          steamId: this.steamId
+        })
+        .then(result => {
+          this.situations = result.data;
+          this.misplays = this.PrepareData("Misplays");
+          this.highlights = this.PrepareData("Highlights");
+        });
+    },
     PrepareData(dataKey) {
       let ret = [];
 
@@ -276,7 +279,12 @@ export default {
     }
   },
   watch: {
-    steamId: function(val) {}
+    steamId: function(val) {
+      this.situations = null;
+      this.misplays = [];
+      this.highlights = [];
+      this.LoadData();
+    }
   }
 };
 </script>
@@ -352,12 +360,11 @@ export default {
     .situation-table {
       .table-content {
         .entry {
-
           .occurences {
             .occurence {
               .content {
                 overflow-x: scroll;
-                
+
                 .watch-wrapper {
                   margin-left: 20px;
                 }
