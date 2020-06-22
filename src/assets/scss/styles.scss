@@ -195,12 +195,6 @@ div .dashboard-unit{
     h2.section-header, .section-header h2 {
         font-size: 0.9em;
     }
-
-    .bordered-box {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-    }
 }
 
 @media (max-width: 500px) {
