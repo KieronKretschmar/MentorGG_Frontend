@@ -161,7 +161,7 @@ export default {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type,
-          steamId: this.$api.User.GetSteamId()
+          steamId: this.$api.User.GetSteamId(false)
         })
         .then(result => {
           this.PrepareData(result.data);

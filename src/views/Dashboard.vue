@@ -108,6 +108,10 @@ export default {
   },
   beforeDestroy() {
     this.$api.User.ClearOverride();
+
+    this.$api.initMatchSelector(this.$api.User.GetSteamId(false)).then(result => {
+
+    });
   }
 };
 </script>
