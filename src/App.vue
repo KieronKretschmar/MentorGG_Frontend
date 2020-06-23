@@ -22,6 +22,7 @@
         </main>
         <footer>
           <Footer :showPartnerships="false" />
+          <CookieBanner/>
         </footer>
       </div>
 
@@ -67,6 +68,7 @@
       <router-view />
 
       <Footer :showPartnerships="true" />
+      <CookieBanner/>
     </main>
   </div>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 2 -->
@@ -85,6 +87,7 @@ import InputBlock from "@/components/InputBlock.vue";
 import NotAuthorized from "@/components/NotAuthorized.vue";
 import Enums from "./enums";
 import MentorUser from "./mentoruser";
+import CookieBanner from "@/components/CookieBanner.vue";
 
 export default {
   name: "App",
@@ -105,7 +108,8 @@ export default {
     DemoViewer,
     GlobalFilters,
     InputBlock,
-    NotAuthorized
+    NotAuthorized,
+    CookieBanner
   },
   data() {
     return {

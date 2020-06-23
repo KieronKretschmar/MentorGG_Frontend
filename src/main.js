@@ -11,6 +11,7 @@ import NoDataAvailableDisplay from './components/NoDataAvailableDisplay.vue';
 import { VueMasonryPlugin } from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
+import VueCookies from 'vue-cookies';
 
 
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
@@ -22,6 +23,7 @@ Vue.config.productionTip = false;
 Vue.config.performance = true;
 Vue.use(VueMasonryPlugin);
 Vue.use(VueLazyLoad);
+Vue.use(VueCookies);
 
 Vue.prototype.$api = Vue.observable(mentorGGAPI);
 Vue.prototype.$helpers = helpers;
