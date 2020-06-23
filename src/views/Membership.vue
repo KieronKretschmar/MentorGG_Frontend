@@ -574,7 +574,6 @@ export default {
 
     &.features {
       margin-top: 20px;
-      overflow-x: scroll;
       overflow-y: hidden;
       white-space: nowrap;
     }
