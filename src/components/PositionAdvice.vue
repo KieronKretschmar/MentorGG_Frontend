@@ -30,7 +30,7 @@
                 <a
                   class="cell link"
                   @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
-                >{{ entry.ZoneName }}</a>
+                >{{ entry.ZoneName.replace(/\_/g, " ") }}</a>
                 <span class="cell">
                   <img
                     v-if="!entry.IsCtZone"
@@ -82,7 +82,7 @@
                 <a
                   class="cell link"
                   @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
-                >{{ entry.ZoneName }}</a>
+                >{{ entry.ZoneName.replace(/\_/g, " ") }}</a>
                 <span class="cell">
                   <img
                     v-if="!entry.IsCtZone"
