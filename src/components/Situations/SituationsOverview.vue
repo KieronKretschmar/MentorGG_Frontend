@@ -5,7 +5,7 @@
       <span class="new-count" v-if="nNewOccurences > 0">+{{ nNewOccurences }} new from last match</span>
     </h2>
     <template v-if="situations.length > 0">
-      <div class="bordered-box chart-container" v-if="situations">
+      <div class="bordered-box chart-container" v-if="situations && chartData.datasets[0].data.length > 1">
         <p class="chart-title">{{ chartTitle }}</p>
         <LineChart :options="chartOptions" :data="chartData" class="situation-graph-inner-wrapper" />
       </div>
