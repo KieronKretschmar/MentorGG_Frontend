@@ -31,6 +31,15 @@ class Enums {
     };
   }
 
+  static get MatchStatus() {
+    return {
+      Success: 1,
+      Failed: 2,
+      TooOld: 3,
+      AboveDailyLimit: 4,
+    };
+  }
+
   static get SubscriptionStatus() {
     return {
       Free: 1,

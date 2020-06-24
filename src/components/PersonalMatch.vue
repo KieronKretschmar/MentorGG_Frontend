@@ -1,19 +1,29 @@
 <template>
-  <div class="bordered-box match" :class="{failed: failed}" v-if="match">
-    <div v-if="isAboveLimit" class="limit-display">
+  <div class="bordered-box match" :class="{failed: matchStatus != Enums.MatchStatus.Success}" v-if="match">
+    <div v-if="matchStatus == Enums.MatchStatus.AboveDailyLimit" class="limit-display">
       <p>
         <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may analyze their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period,
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may access their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period,
         starting at {{this.$api.MatchSelector.dailyLimitEnds | formatTime}}
       </p>
       <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
+    </div>    
+    <div v-else-if="matchStatus == Enums.MatchStatus.TooOld" class="limit-display">
+      <p>
+        <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
+        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may access matches from the last 2 weeks. 
+      </p>
+      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
     </div>
-    <div v-if="failed" class="match-header failed-header">
+    <div v-else-if="matchStatus == Enums.MatchStatus.Failed" class="match-header failed-header">
       <p>
         <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span> Analysis failed or demo too old
       </p>
     </div>
-    <div class="match-header" :class="[isAboveLimit ? 'above-limit' : '', sourceClassName]" v-else>
+    <div 
+    v-if="matchStatus != Enums.MatchStatus.Failed" 
+    class="match-header" 
+    :class="[matchStatus == Enums.MatchStatus.AboveDailyLimit || matchStatus == Enums.MatchStatus.TooOld ? 'censored' : '', sourceClassName]">
       <div class="left">
         <!-- could be done with MatchHeader component -->
         <div class="map-thumbnail">
@@ -139,8 +149,7 @@ export default {
   },
   props: [
     "match",
-    "isAboveLimit", // expect full data except for a negative matchId
-    "failed", // expect no data except for match.MatchDate and match.Source
+    "matchStatus", // expect full data except for a negative matchId
     "steamId"
   ],
   methods: {
@@ -273,7 +282,7 @@ export default {
       padding: 0;
     }
 
-    &.above-limit {
+    &.censored {
       filter: blur(4px);
       pointer-events: none;
       user-select: none;

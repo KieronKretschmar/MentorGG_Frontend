@@ -34,12 +34,7 @@
       <template v-if="!loadingMatches">
         <div v-for="match in visibleMatches" :key="match.MatchId">
           <!-- TODO: insert actual values for :isAboveLimit and :failed -->
-          <PersonalMatch
-            :match="match"
-            :isAboveLimit="IsAboveLimit(match)"
-            :failed="MatchFailed(match)"
-            :steamId="steamId"
-          />
+          <PersonalMatch :match="match" :matchStatus="MatchStatus(match)" :steamId="steamId" />
         </div>
       </template>
 
@@ -106,17 +101,27 @@ export default {
   methods: {
     Init() {
       this.LoadAppendMatches(5);
-      
+
       // load failed matches only if the user is on his own profile
-      if(this.$api.User.GetSteamId() == this.steamId){
+      if (this.$api.User.GetSteamId() == this.steamId) {
         this.LoadFailedMatches();
       }
     },
-    IsAboveLimit: function(match) {
-      return match.MatchId < 0;
-    },
-    MatchFailed: function(match) {
-      return this.failedMatches.some(x => x.MatchId == match.MatchId);
+    MatchStatus: function(match) {
+      if (this.failedMatches.some(x => x.MatchId == match.MatchId)) {
+        return Enums.MatchStatus.Failed;
+      } else if (match.MatchId > 0) {
+        return Enums.MatchStatus.Success;
+      }
+
+      let age = Math.abs(new Date() - new Date(match.MatchDate));
+      // At this point we have only free users' censored matches, either because they're older than 2 weeks or above daily limit
+      const maxAgeInMilliseconds = 2 * 7 * 24 * 60 * 60 * 1000;
+      if (age > maxAgeInMilliseconds) {
+        return Enums.MatchStatus.TooOld;
+      } else {
+        return Enums.MatchStatus.AboveDailyLimit;
+      }
     },
     LoadFailedMatches: function() {
       this.loadingMatches = true;
@@ -289,8 +294,8 @@ export default {
       font-size: 12px;
 
       span:not(:last-child) {
-      line-height: 30px;
-    }
+        line-height: 30px;
+      }
     }
 
     .match-list {
