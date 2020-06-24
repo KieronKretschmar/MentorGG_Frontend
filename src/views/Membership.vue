@@ -280,6 +280,11 @@
         :data="selectedSubscriptionData"
         v-on:paddleCheckout="openCheckout($event)"
       />
+
+      <div class="terms-compliance" :class="{failed: failedToAcceptTerms}">        
+        <CustomCheckbox v-model="termsAccepted" @input="OnTermsAccepted"/>
+        <p>I have read and agree to the <router-link target="_blank" :to="{name: 'terms-and-conditions'}">Terms and Conditions</router-link></p>
+      </div>
     </GenericOverlay>
 
     <GenericOverlay ref="confirmCancellationOverlay" width="400px" height="150px">
@@ -305,6 +310,7 @@ import Paddle from "paddle";
 import Enums from "@/enums";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import SubscriptionDurationPicker from "@/components/SubscriptionDurationPicker.vue";
+import CustomCheckbox from "@/components/CustomCheckbox.vue";
 
 export default {
   data() {
@@ -313,7 +319,9 @@ export default {
       allSubscriptions: [],
       activeSubscription: [],
       selectedSubscription: null,
-      loadingComplete: false
+      loadingComplete: false,
+      termsAccepted: false,
+      failedToAcceptTerms: false
     };
   },
   mounted() {
@@ -325,9 +333,13 @@ export default {
   },
   components: {
     GenericOverlay,
-    SubscriptionDurationPicker
+    SubscriptionDurationPicker,
+    CustomCheckbox
   },
   methods: {
+    OnTermsAccepted() {
+      this.failedToAcceptTerms = false;
+    },
     OnClickSubscribe(subscriptionType) {
       this.$helpers.LogEvent(this, "SelectSubscriptionType", {
         label: subscriptionType
@@ -371,6 +383,11 @@ export default {
       );
     },
     openCheckout(offerIndex) {
+      if (!this.termsAccepted) {
+        this.failedToAcceptTerms = true;
+        return false;
+      }
+
       let offer = this.selectedSubscriptionData.Plans[offerIndex];
 
       this.$helpers.LogEvent(this, "OpenCheckout", { label: offer.ProductId });
@@ -637,6 +654,27 @@ export default {
           min-width: 250px;
         }
       }
+    }
+  }
+
+  .terms-compliance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 20px 35px;
+    margin-bottom: 0;
+    transition: .35s;
+    border: 5px solid transparent;
+
+    p {
+      margin-left: 10px;
+    }
+
+    &.failed {
+      // background: crimson;
+      border: 5px solid $red;
     }
   }
 }
