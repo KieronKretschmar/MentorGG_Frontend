@@ -250,7 +250,7 @@ main {
   .auto-upload-not-configured {
     background: $red;
     color: white;
-    padding: 5px;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
