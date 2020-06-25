@@ -33,7 +33,6 @@
 
       <template v-if="!loadingMatches">
         <div v-for="(match, index) in visibleMatches" :key="`${index}-${match.MatchDate}`">
-          <!-- TODO: insert actual values for :isAboveLimit and :failed -->
           <PersonalMatch :match="match" :matchStatus="MatchStatus(match)" :steamId="steamId" />
         </div>
       </template>
