@@ -326,5 +326,15 @@ main {
       display: none;
     }
   }
+
+  #app .auto-upload-not-configured {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+
+    button {
+      margin-top: 10px;
+    }
+  }
 }
 </style>
