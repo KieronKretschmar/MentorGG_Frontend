@@ -17,12 +17,20 @@
         </header>
         <main>
           <transition name="page" mode="out-in">
-            <router-view :key="reloadHack" @force-reload="ForceViewReload"/>
+            <div class="page-wrapper">
+              <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
+                <span
+                  class="text"
+                >Setup <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG</span>
+                <button @click="$router.push({name: 'automatic-upload'})">setup</button>
+              </div>
+              <router-view :key="reloadHack" @force-reload="ForceViewReload" />
+            </div>
           </transition>
         </main>
         <footer>
           <Footer :showPartnerships="false" />
-          <CookieBanner/>
+          <CookieBanner />
         </footer>
       </div>
 
@@ -32,30 +40,20 @@
         <!-- <i
           class="material-icons"
           title="Open Match Filters"          
-        >settings_applications</i> -->
+        >settings_applications</i>-->
       </div>
 
-      <GenericOverlay ref="globalFiltersOverlay" width="900px" height="100%" @hide="ForceViewReload">
+      <GenericOverlay
+        ref="globalFiltersOverlay"
+        width="900px"
+        height="100%"
+        @hide="ForceViewReload"
+      >
         <p class="headline">Global Match Filters</p>
-        <GlobalFilters v-if="this.$api.MatchSelector" @close-self="$refs.globalFiltersOverlay.Hide()"/>
-      </GenericOverlay>
-
-      <GenericOverlay ref="connectionHintOverlay" width="900px">
-        <p class="headline">Oh? Looks like you haven't setup your Steam connection yet.</p>
-        <p>If you connect your MENTOR.GG account to Steam, all your future CS:GO matchmaking matches will be imported to MENTOR.GG automatically every now and then.</p>
-        <p>
-          We highly recommend going to the
-          <span @click="$refs.connectionHintOverlay.Hide()">
-            <router-link to="/automatic-upload">Automatic Upload</router-link>
-          </span> page and setting up said connection right now!
-        </p>
-
-        <p class="headline">First time user?</p>
-        <p>Get a headstart by uploading all your matchmaking matches from the past weeks at once using our
-          <span >
-            <a style="cursor: pointer;" @click="OnClickBrowserExtension()">Browser Extension</a>.
-          </span>
-          </p>
+        <GlobalFilters
+          v-if="this.$api.MatchSelector"
+          @close-self="$refs.globalFiltersOverlay.Hide()"
+        />
       </GenericOverlay>
     </template>
     <template v-else>
@@ -68,7 +66,7 @@
       <router-view />
 
       <Footer :showPartnerships="true" />
-      <CookieBanner/>
+      <CookieBanner />
     </main>
   </div>
   <!-- Workaround for showing landingpage without SideNavigation Pt. 2 -->
@@ -115,22 +113,22 @@ export default {
     return {
       menuVisible: false,
       reloadHack: false,
+      showAutomaticUploadSetupPrompt: false
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     OnOpenFilters: function() {
       this.$refs.globalFiltersOverlay.Show();
     },
     InitConnectionsCallback() {
-      // Start looking for matches for all configured automatic uploads, 
-      // and show overlay if valve automatic-upload is not configured 
+      // Start looking for matches for all configured automatic uploads,
+      // and show overlay if valve automatic-upload is not configured
       this.$api.getConnectionsObject().then(result => {
         if (result[Enums.Source.Valve]) {
           this.$api.startLookingForValveMatches();
         } else {
-          this.$refs.connectionHintOverlay.Show();
+          this.showAutomaticUploadSetupPrompt = true;
         }
 
         if (result[Enums.Source.Faceit]) {
@@ -138,7 +136,7 @@ export default {
         }
       });
     },
-    OnClickBrowserExtension(){
+    OnClickBrowserExtension() {
       this.$helpers.LogEvent(this, "ShowBrowserExtension");
       this.$refs.connectionHintOverlay.Hide();
       this.$router.push({ name: "browser-extension" });
@@ -248,6 +246,35 @@ main {
       font-size: 24px;
     }
   }
+
+  .auto-upload-not-configured {
+    background: $red;
+    color: white;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+
+    button {
+      margin-left: 10px;
+      border: 1px solid white;
+      border-radius: 4px;
+      outline: 0;
+      background: transparent;
+      color: white;
+      padding: 3px 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .35s;
+      font-weight: bold;
+
+      &:hover {
+        background: white;
+        color: $red;
+      }
+    }
+  }
 }
 
 //responsive
@@ -289,7 +316,7 @@ main {
   }
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .open-filters {
     top: unset !important;
     bottom: 0;
