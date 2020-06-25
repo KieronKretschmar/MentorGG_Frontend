@@ -290,6 +290,7 @@ export default {
       padding: 3px 5px;
       border-radius: 3px;
       margin-left: 10px;
+      cursor: default;
     }
 
     .speed-button {
