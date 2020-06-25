@@ -189,6 +189,11 @@ class Enums {
       Clutch: 210003,
       HighImpactRound: 210004,
       MultiKill: 210005,
+      TradeKill: 210006,
+      KillThroughSmoke: 210007,
+      WallBangKill: 210008,
+      CollateralKill: 210009,
+      FlashAssist: 210010,
 
       // 22XXXX For Team - Highlights
 
@@ -203,6 +208,7 @@ class Enums {
       PushBeforeSmokeDetonated: 510007,
       BombDropAtSpawn: 510008,
       HasNotBoughtDefuseKit: 510009,
+      MissedTradeKill: 510010,
 
       // 52XXXX For Team - Misplays
 
