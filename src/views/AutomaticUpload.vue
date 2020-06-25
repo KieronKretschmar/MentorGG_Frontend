@@ -214,6 +214,8 @@ export default {
           this.UpdateConnections();
           this.$refs.valveOverlay.Hide();
           this.connectingValve = false;
+
+          this.$emit('valve-connected');
         })
         .catch(response => {
           this.valveConnectionFailed = true;
