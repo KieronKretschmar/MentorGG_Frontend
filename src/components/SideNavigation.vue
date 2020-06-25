@@ -1,6 +1,6 @@
 <template>
   <div class="side-navigation">
-    <template v-if="$api.User">
+    <template v-if="$api.User && $api.MatchSelector">
       <GenericOverlay ref="manualUploadOverlay" class="manual-upload-overlay" width="900px">
         <div class="manual-upload-enabled" v-if="$api.MatchSelector.dailyLimitReached === false">
           <p class="headline">Manual Upload</p>
@@ -48,10 +48,7 @@
 
     <div class="nav-content" data-simplebar>
       <nav>
-        <router-link
-          :to="{name: 'dashboard', params: {steamId: this.ownSteamId}}"
-          class="logo"
-        >
+        <router-link :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}" class="logo">
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
@@ -59,9 +56,7 @@
           <!-- Personal Data -->
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
-            <router-link
-              :to="{name: 'dashboard', params: {steamId: this.ownSteamId}}"
-            >Profile</router-link>
+            <router-link :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}">Profile</router-link>
             <router-link to="/smokes">Smokes</router-link>
             <router-link to="/molotovs">Molotovs</router-link>
             <router-link to="/flashes">Flashes</router-link>
@@ -73,7 +68,11 @@
           <div class="nav-section">
             <div class="nav-header">Upload Demos</div>
             <router-link to="/automatic-upload">Automatic Upload</router-link>
-            <button v-if="$api.User" class="nav-button" @click="$refs.manualUploadOverlay.Show()">Manual Upload</button>
+            <button
+              v-if="$api.User"
+              class="nav-button"
+              @click="$refs.manualUploadOverlay.Show()"
+            >Manual Upload</button>
             <router-link to="/browser-extension">Browser Extension</router-link>
           </div>
 
@@ -89,7 +88,7 @@
       </nav>
 
       <div class="bottom-content">
-        <QueueStatusDisplay v-if="$api.User" />
+        <QueueStatusDisplay v-if="$api.User && $api.MatchSelector" />
         <DiscordHint />
         <div
           class="user-profile"
@@ -117,7 +116,6 @@ export default {
     QueueStatusDisplay
   },
   mounted() {
-
     if (this.$api.User != null) {
       this.ownSteamId = this.$api.User.GetSteamId(false);
     }
@@ -192,6 +190,11 @@ export default {
       this.$helpers.LogEvent(this, "DailyLimitUpgrade");
       this.$refs.manualUploadOverlay.Hide();
       this.$router.push({ name: "membership" });
+    }
+  },
+  computed: {
+    dashboardRouteSteamId() {
+      return this.ownSteamId ? this.ownSteamId : "own";
     }
   }
 };
