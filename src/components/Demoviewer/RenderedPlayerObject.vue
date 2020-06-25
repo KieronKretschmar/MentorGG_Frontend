@@ -68,6 +68,11 @@ export default {
       let first = true;
       let newPosition = null;
 
+      //make sure player is alive to prevent potential glitches
+      if (this.health <= 0) {
+        return;
+      }
+
       for (
         let idx = this.lastPositionIndex;
         idx < this.player.Positions.length;
