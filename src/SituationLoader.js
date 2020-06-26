@@ -340,1628 +340,2179 @@ export default class SituationLoader {
     static getSituationsByRank() {
         return {
             "Data": {
-                "SmokeFail": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 6265,
-                        "SituationsPerPlayerAndRound": 0.005502124882865777
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 223,
-                        "SituationsPerPlayerAndRound": 0.004649223392056708
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 517,
-                        "SituationsPerPlayerAndRound": 0.00394220138015174
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 552,
-                        "SituationsPerPlayerAndRound": 0.005039117059054435
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 720,
-                        "SituationsPerPlayerAndRound": 0.005264774272803053
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 910,
-                        "SituationsPerPlayerAndRound": 0.005758946935417524
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 870,
-                        "SituationsPerPlayerAndRound": 0.005122287248448595
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 1102,
-                        "SituationsPerPlayerAndRound": 0.006068348770360907
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 1264,
-                        "SituationsPerPlayerAndRound": 0.0058270867332356
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 1259,
-                        "SituationsPerPlayerAndRound": 0.0053149498267047735
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 1795,
-                        "SituationsPerPlayerAndRound": 0.0057237425304362795
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 1552,
-                        "SituationsPerPlayerAndRound": 0.005410870550500296
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 1285,
-                        "SituationsPerPlayerAndRound": 0.005083572346948868
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 1267,
-                        "SituationsPerPlayerAndRound": 0.005543717484806188
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 994,
-                        "SituationsPerPlayerAndRound": 0.0055563629859022665
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 722,
-                        "SituationsPerPlayerAndRound": 0.005381794328990131
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 729,
-                        "SituationsPerPlayerAndRound": 0.00622672452082408
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 288,
-                        "SituationsPerPlayerAndRound": 0.004908226391942328
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 121,
-                        "SituationsPerPlayerAndRound": 0.006698034874065873
-                    }
-                },
-                "DeathInducedBombDrop": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 14228,
-                        "SituationsPerPlayerAndRound": 0.012495488081949606
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 1055,
-                        "SituationsPerPlayerAndRound": 0.02199520483686021
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 2729,
-                        "SituationsPerPlayerAndRound": 0.02080902817492089
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 2136,
-                        "SituationsPerPlayerAndRound": 0.019499192098080206
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 2509,
-                        "SituationsPerPlayerAndRound": 0.018346275903420643
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 2945,
-                        "SituationsPerPlayerAndRound": 0.01863747112615891
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 3173,
-                        "SituationsPerPlayerAndRound": 0.018681629240606196
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 3234,
-                        "SituationsPerPlayerAndRound": 0.017808566173636273
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 3579,
-                        "SituationsPerPlayerAndRound": 0.016499322324565042
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 3989,
-                        "SituationsPerPlayerAndRound": 0.016839821174523702
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 4767,
-                        "SituationsPerPlayerAndRound": 0.015200602029297908
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 4091,
-                        "SituationsPerPlayerAndRound": 0.014262803751350974
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 3359,
-                        "SituationsPerPlayerAndRound": 0.013288497675798636
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 2922,
-                        "SituationsPerPlayerAndRound": 0.012785116409316245
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 2299,
-                        "SituationsPerPlayerAndRound": 0.012851185618299104
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 1622,
-                        "SituationsPerPlayerAndRound": 0.012090402218313008
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 1345,
-                        "SituationsPerPlayerAndRound": 0.011488264033619187
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 599,
-                        "SituationsPerPlayerAndRound": 0.010208429197130052
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 159,
-                        "SituationsPerPlayerAndRound": 0.008801549958483255
-                    }
-                },
-                "SelfFlash": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 23984,
-                        "SituationsPerPlayerAndRound": 0.02106352165852399
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 741,
-                        "SituationsPerPlayerAndRound": 0.015448764724278119
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 2090,
-                        "SituationsPerPlayerAndRound": 0.015936558770826184
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 1858,
-                        "SituationsPerPlayerAndRound": 0.016961375898049167
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 2366,
-                        "SituationsPerPlayerAndRound": 0.017300633235350034
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 2950,
-                        "SituationsPerPlayerAndRound": 0.018669113691738126
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 2942,
-                        "SituationsPerPlayerAndRound": 0.017321573660845708
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 3237,
-                        "SituationsPerPlayerAndRound": 0.01782508617936321
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 3888,
-                        "SituationsPerPlayerAndRound": 0.017923823749066467
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 4594,
-                        "SituationsPerPlayerAndRound": 0.01939386775526746
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 5884,
-                        "SituationsPerPlayerAndRound": 0.01876239612762511
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 5354,
-                        "SituationsPerPlayerAndRound": 0.01866610884496043
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 4858,
-                        "SituationsPerPlayerAndRound": 0.01921867273266739
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 4314,
-                        "SituationsPerPlayerAndRound": 0.01887576734763528
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 3335,
-                        "SituationsPerPlayerAndRound": 0.018642324505014143
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 2507,
-                        "SituationsPerPlayerAndRound": 0.01868719997614717
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 2238,
-                        "SituationsPerPlayerAndRound": 0.019115788035122483
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 1299,
-                        "SituationsPerPlayerAndRound": 0.022138146121989877
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 437,
-                        "SituationsPerPlayerAndRound": 0.024190423470799888
-                    }
-                },
-                "TeamFlash": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 59104,
-                        "SituationsPerPlayerAndRound": 0.0519070373626335
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 1830,
-                        "SituationsPerPlayerAndRound": 0.03815281976441155
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 5350,
-                        "SituationsPerPlayerAndRound": 0.04079454039422014
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 4650,
-                        "SituationsPerPlayerAndRound": 0.04244908392138247
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 6044,
-                        "SituationsPerPlayerAndRound": 0.04419485514558563
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 7217,
-                        "SituationsPerPlayerAndRound": 0.04567287915704205
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 7579,
-                        "SituationsPerPlayerAndRound": 0.04462277592642747
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 8485,
-                        "SituationsPerPlayerAndRound": 0.046724082864348725
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 10388,
-                        "SituationsPerPlayerAndRound": 0.04788906407029384
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 12123,
-                        "SituationsPerPlayerAndRound": 0.05117802760058933
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 15350,
-                        "SituationsPerPlayerAndRound": 0.04894676760010969
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 13915,
-                        "SituationsPerPlayerAndRound": 0.04851305651431161
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 12153,
-                        "SituationsPerPlayerAndRound": 0.04807833053110474
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 10809,
-                        "SituationsPerPlayerAndRound": 0.047294429592162665
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 8385,
-                        "SituationsPerPlayerAndRound": 0.0468713316265498
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 6568,
-                        "SituationsPerPlayerAndRound": 0.04895792957452518
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 5653,
-                        "SituationsPerPlayerAndRound": 0.04828487478219276
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 3101,
-                        "SituationsPerPlayerAndRound": 0.05284864597712903
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 1124,
-                        "SituationsPerPlayerAndRound": 0.0622197619706615
-                    }
-                },
-                "RifleFiredWhileMoving": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 28648,
-                        "SituationsPerPlayerAndRound": 0.025159596750892063
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 2064,
-                        "SituationsPerPlayerAndRound": 0.043031377045762535
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 5768,
-                        "SituationsPerPlayerAndRound": 0.043981852148385375
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 4595,
-                        "SituationsPerPlayerAndRound": 0.041946997982527406
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 5859,
-                        "SituationsPerPlayerAndRound": 0.04284210064493485
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 6568,
-                        "SituationsPerPlayerAndRound": 0.04156567414485966
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 7036,
-                        "SituationsPerPlayerAndRound": 0.04142576216101645
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 7466,
-                        "SituationsPerPlayerAndRound": 0.041112787585766364
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 8364,
-                        "SituationsPerPlayerAndRound": 0.038558349237960886
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 8328,
-                        "SituationsPerPlayerAndRound": 0.03515718995774214
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 10557,
-                        "SituationsPerPlayerAndRound": 0.03366325899376925
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 9097,
-                        "SituationsPerPlayerAndRound": 0.03171565038524562
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 7964,
-                        "SituationsPerPlayerAndRound": 0.03150628028879438
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 6419,
-                        "SituationsPerPlayerAndRound": 0.028086126704791575
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 4670,
-                        "SituationsPerPlayerAndRound": 0.026104844209420105
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 3260,
-                        "SituationsPerPlayerAndRound": 0.024300068576880645
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 2562,
-                        "SituationsPerPlayerAndRound": 0.02188322115548874
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 1122,
-                        "SituationsPerPlayerAndRound": 0.01912163198527532
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 303,
-                        "SituationsPerPlayerAndRound": 0.016772765015222808
-                    }
-                },
-                "UnnecessaryReload": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 5565,
-                        "SituationsPerPlayerAndRound": 0.0048873623261209975
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 435,
-                        "SituationsPerPlayerAndRound": 0.00906911289481914
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 1133,
-                        "SituationsPerPlayerAndRound": 0.008639292386289984
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 1089,
-                        "SituationsPerPlayerAndRound": 0.009941301589330218
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 1123,
-                        "SituationsPerPlayerAndRound": 0.008211585428274763
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 1400,
-                        "SituationsPerPlayerAndRound": 0.008859918362180806
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 1405,
-                        "SituationsPerPlayerAndRound": 0.008272199521919857
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 1417,
-                        "SituationsPerPlayerAndRound": 0.007802949371689115
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 1673,
-                        "SituationsPerPlayerAndRound": 0.007712591854986677
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 1708,
-                        "SituationsPerPlayerAndRound": 0.007210432330430304
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 2211,
-                        "SituationsPerPlayerAndRound": 0.007050247763116777
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 1862,
-                        "SituationsPerPlayerAndRound": 0.006491650106334763
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 1453,
-                        "SituationsPerPlayerAndRound": 0.005748195035110276
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 1196,
-                        "SituationsPerPlayerAndRound": 0.005233059283210893
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 940,
-                        "SituationsPerPlayerAndRound": 0.005254508256285846
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 726,
-                        "SituationsPerPlayerAndRound": 0.005411610364053788
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 479,
-                        "SituationsPerPlayerAndRound": 0.004091359458813079
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 206,
-                        "SituationsPerPlayerAndRound": 0.0035107452664587487
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 54,
-                        "SituationsPerPlayerAndRound": 0.002989205646277332
-                    }
-                },
-                "PushBeforeSmokeDetonated": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 1623,
-                        "SituationsPerPlayerAndRound": 0.0014253708994239674
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 29,
-                        "SituationsPerPlayerAndRound": 0.0006046075263212759
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 94,
-                        "SituationsPerPlayerAndRound": 0.0007167638873003165
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 89,
-                        "SituationsPerPlayerAndRound": 0.0008124663374200086
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 124,
-                        "SituationsPerPlayerAndRound": 0.0009067111247605258
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 160,
-                        "SituationsPerPlayerAndRound": 0.0010125620985349491
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 166,
-                        "SituationsPerPlayerAndRound": 0.0009773559577499617
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 204,
-                        "SituationsPerPlayerAndRound": 0.0011233603894316017
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 250,
-                        "SituationsPerPlayerAndRound": 0.00115250924312413
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 316,
-                        "SituationsPerPlayerAndRound": 0.0013340144124215317
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 421,
-                        "SituationsPerPlayerAndRound": 0.0013424488051886761
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 409,
-                        "SituationsPerPlayerAndRound": 0.0014259317365686993
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 332,
-                        "SituationsPerPlayerAndRound": 0.001313421026604688
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 295,
-                        "SituationsPerPlayerAndRound": 0.0012907629502903124
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 256,
-                        "SituationsPerPlayerAndRound": 0.0014310150144778472
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 193,
-                        "SituationsPerPlayerAndRound": 0.0014386236918214616
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 188,
-                        "SituationsPerPlayerAndRound": 0.001605794526632273
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 104,
-                        "SituationsPerPlayerAndRound": 0.0017724150859791741
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 35,
-                        "SituationsPerPlayerAndRound": 0.0019374481040686411
-                    }
-                },
-                "BombDropAtSpawn": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 9751,
-                        "SituationsPerPlayerAndRound": 0.00856364241545478
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 54,
-                        "SituationsPerPlayerAndRound": 0.0011258209110809965
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 176,
-                        "SituationsPerPlayerAndRound": 0.001342026001753784
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 152,
-                        "SituationsPerPlayerAndRound": 0.0013875829582903516
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 216,
-                        "SituationsPerPlayerAndRound": 0.001579432281840916
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 264,
-                        "SituationsPerPlayerAndRound": 0.0016707274625826663
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 297,
-                        "SituationsPerPlayerAndRound": 0.0017486428882634857
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 373,
-                        "SituationsPerPlayerAndRound": 0.0020539873787156246
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 480,
-                        "SituationsPerPlayerAndRound": 0.0022128177467983295
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 700,
-                        "SituationsPerPlayerAndRound": 0.002955095217389469
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 1009,
-                        "SituationsPerPlayerAndRound": 0.0032174129321505328
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 1122,
-                        "SituationsPerPlayerAndRound": 0.003911724714987972
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 1163,
-                        "SituationsPerPlayerAndRound": 0.00460092968054594
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 1043,
-                        "SituationsPerPlayerAndRound": 0.004563612736111172
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 858,
-                        "SituationsPerPlayerAndRound": 0.00479613625946091
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 670,
-                        "SituationsPerPlayerAndRound": 0.0049941858731625864
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 699,
-                        "SituationsPerPlayerAndRound": 0.00597048071338276
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 313,
-                        "SituationsPerPlayerAndRound": 0.005334287710687322
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 84,
-                        "SituationsPerPlayerAndRound": 0.004649875449764739
-                    }
-                },
-                "HasNotBoughtDefuseKit": {
-                    "0": {
-                        "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 41445,
-                        "SituationsPerPlayerAndRound": 0.03639833452041056
-                    },
-                    "1": {
-                        "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 2699,
-                        "SituationsPerPlayerAndRound": 0.056270197018659436
-                    },
-                    "2": {
-                        "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 7936,
-                        "SituationsPerPlayerAndRound": 0.060513172442716076
-                    },
-                    "3": {
-                        "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 6503,
-                        "SituationsPerPlayerAndRound": 0.059364815643172086
-                    },
-                    "4": {
-                        "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 8219,
-                        "SituationsPerPlayerAndRound": 0.06009886076134486
-                    },
-                    "5": {
-                        "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 9626,
-                        "SituationsPerPlayerAndRound": 0.06091826725310888
-                    },
-                    "6": {
-                        "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 9513,
-                        "SituationsPerPlayerAndRound": 0.05600956160286377
-                    },
-                    "7": {
-                        "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 9785,
-                        "SituationsPerPlayerAndRound": 0.053882752012687364
-                    },
-                    "8": {
-                        "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 10940,
-                        "SituationsPerPlayerAndRound": 0.05043380447911192
-                    },
-                    "9": {
-                        "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 10929,
-                        "SituationsPerPlayerAndRound": 0.04613747947264215
-                    },
-                    "10": {
-                        "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 13715,
-                        "SituationsPerPlayerAndRound": 0.04373321938993514
-                    },
-                    "11": {
-                        "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 11627,
-                        "SituationsPerPlayerAndRound": 0.04053620611512045
-                    },
-                    "12": {
-                        "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 8670,
-                        "SituationsPerPlayerAndRound": 0.03429927801404411
-                    },
-                    "13": {
-                        "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 7476,
-                        "SituationsPerPlayerAndRound": 0.03271099598769619
-                    },
-                    "14": {
-                        "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 5614,
-                        "SituationsPerPlayerAndRound": 0.03138171207530716
-                    },
-                    "15": {
-                        "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 3873,
-                        "SituationsPerPlayerAndRound": 0.028869375950386116
-                    },
-                    "16": {
-                        "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 3167,
-                        "SituationsPerPlayerAndRound": 0.027050804605555367
-                    },
-                    "17": {
-                        "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 1390,
-                        "SituationsPerPlayerAndRound": 0.023689009322221653
-                    },
-                    "18": {
-                        "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 675,
-                        "SituationsPerPlayerAndRound": 0.03736507057846665
-                    }
-                },
                 "EffectiveHeGrenade": {
                     "0": {
                         "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 28103,
-                        "SituationsPerPlayerAndRound": 0.02468096018885506
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 51007,
+                        "SituationsPerPlayerAndRound": 0.024732009689738304
                     },
                     "1": {
                         "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 578,
-                        "SituationsPerPlayerAndRound": 0.012050453455644742
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 1079,
+                        "SituationsPerPlayerAndRound": 0.012483802295446132
                     },
                     "2": {
                         "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 1681,
-                        "SituationsPerPlayerAndRound": 0.012817873346296084
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 2324,
+                        "SituationsPerPlayerAndRound": 0.012488782128789223
                     },
                     "3": {
                         "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 1407,
-                        "SituationsPerPlayerAndRound": 0.012844271199437663
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 2053,
+                        "SituationsPerPlayerAndRound": 0.013320184004100514
                     },
                     "4": {
                         "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 1908,
-                        "SituationsPerPlayerAndRound": 0.013951651822928093
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 2642,
+                        "SituationsPerPlayerAndRound": 0.013740592998642583
                     },
                     "5": {
                         "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 2307,
-                        "SituationsPerPlayerAndRound": 0.014599879758250799
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 3411,
+                        "SituationsPerPlayerAndRound": 0.014375421443020904
                     },
                     "6": {
                         "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 2589,
-                        "SituationsPerPlayerAndRound": 0.015243220329003921
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 4308,
+                        "SituationsPerPlayerAndRound": 0.015180559862430582
                     },
                     "7": {
                         "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 3136,
-                        "SituationsPerPlayerAndRound": 0.017268912653223053
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 5594,
+                        "SituationsPerPlayerAndRound": 0.01702803812283687
                     },
                     "8": {
                         "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 4001,
-                        "SituationsPerPlayerAndRound": 0.018444757926958575
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 6653,
+                        "SituationsPerPlayerAndRound": 0.01858187840921469
                     },
                     "9": {
                         "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 4889,
-                        "SituationsPerPlayerAndRound": 0.020639229311167306
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 7726,
+                        "SituationsPerPlayerAndRound": 0.02044326372498174
                     },
                     "10": {
                         "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 7571,
-                        "SituationsPerPlayerAndRound": 0.02414175749188472
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 11053,
+                        "SituationsPerPlayerAndRound": 0.023413156529014902
                     },
                     "11": {
                         "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 7415,
-                        "SituationsPerPlayerAndRound": 0.02585154969842764
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 11069,
+                        "SituationsPerPlayerAndRound": 0.02547824946081128
                     },
                     "12": {
                         "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 6937,
-                        "SituationsPerPlayerAndRound": 0.027443378498664822
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 10136,
+                        "SituationsPerPlayerAndRound": 0.027054656491809666
                     },
                     "13": {
                         "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 6845,
-                        "SituationsPerPlayerAndRound": 0.02995007591436335
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 9653,
+                        "SituationsPerPlayerAndRound": 0.029170104042958892
                     },
                     "14": {
                         "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 5512,
-                        "SituationsPerPlayerAndRound": 0.030811542030476147
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 8440,
+                        "SituationsPerPlayerAndRound": 0.030086016062510473
                     },
                     "15": {
                         "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 4186,
-                        "SituationsPerPlayerAndRound": 0.031202480694117296
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 6831,
+                        "SituationsPerPlayerAndRound": 0.03091201998352807
                     },
                     "16": {
                         "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 3749,
-                        "SituationsPerPlayerAndRound": 0.032021934469916975
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 6401,
+                        "SituationsPerPlayerAndRound": 0.03204313132627827
                     },
                     "17": {
                         "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 2017,
-                        "SituationsPerPlayerAndRound": 0.0343746271963461
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 3341,
+                        "SituationsPerPlayerAndRound": 0.03242367190077832
                     },
                     "18": {
                         "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 681,
-                        "SituationsPerPlayerAndRound": 0.03769720453916413
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 1216,
+                        "SituationsPerPlayerAndRound": 0.035542045421331075
                     }
                 },
                 "KillWithOwnFlashAssist": {
                     "0": {
                         "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 8405,
-                        "SituationsPerPlayerAndRound": 0.007381541842056961
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 15361,
+                        "SituationsPerPlayerAndRound": 0.007448162033526184
                     },
                     "1": {
                         "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 162,
-                        "SituationsPerPlayerAndRound": 0.0033774627332429897
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 301,
+                        "SituationsPerPlayerAndRound": 0.0034825064790818218
                     },
                     "2": {
                         "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 558,
-                        "SituationsPerPlayerAndRound": 0.004254832437378474
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 873,
+                        "SituationsPerPlayerAndRound": 0.004691354044076158
                     },
                     "3": {
                         "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 509,
-                        "SituationsPerPlayerAndRound": 0.004646577143222297
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 715,
+                        "SituationsPerPlayerAndRound": 0.004639031448091509
                     },
                     "4": {
                         "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 684,
-                        "SituationsPerPlayerAndRound": 0.0050015355591629005
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 951,
+                        "SituationsPerPlayerAndRound": 0.004945989379905033
                     },
                     "5": {
                         "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 760,
-                        "SituationsPerPlayerAndRound": 0.004809669968041008
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 1167,
+                        "SituationsPerPlayerAndRound": 0.004918240053944706
                     },
                     "6": {
                         "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 848,
-                        "SituationsPerPlayerAndRound": 0.004992758145614263
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 1466,
+                        "SituationsPerPlayerAndRound": 0.005165900825980323
                     },
                     "7": {
                         "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 1028,
-                        "SituationsPerPlayerAndRound": 0.005660855295763169
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 1864,
+                        "SituationsPerPlayerAndRound": 0.005673983385943497
                     },
                     "8": {
                         "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 1243,
-                        "SituationsPerPlayerAndRound": 0.005730275956813174
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 2025,
+                        "SituationsPerPlayerAndRound": 0.005655840038878663
                     },
                     "9": {
                         "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 1419,
-                        "SituationsPerPlayerAndRound": 0.00599040016210808
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 2283,
+                        "SituationsPerPlayerAndRound": 0.006040897111588573
                     },
                     "10": {
                         "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 1964,
-                        "SituationsPerPlayerAndRound": 0.006262635281212732
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 2913,
+                        "SituationsPerPlayerAndRound": 0.006170498956755669
                     },
                     "11": {
                         "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 1764,
-                        "SituationsPerPlayerAndRound": 0.006149984311264512
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 2770,
+                        "SituationsPerPlayerAndRound": 0.006375892222102019
                     },
                     "12": {
                         "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 1677,
-                        "SituationsPerPlayerAndRound": 0.0066343586193254875
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 2567,
+                        "SituationsPerPlayerAndRound": 0.006851746568121095
                     },
                     "13": {
                         "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 1716,
-                        "SituationsPerPlayerAndRound": 0.007508302449824325
+                        "PlayerRoundCount": 330896,
+                        "SituationCount": 2499,
+                        "SituationsPerPlayerAndRound": 0.007552221846138968
                     },
                     "14": {
                         "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 1484,
-                        "SituationsPerPlayerAndRound": 0.00829541516205127
+                        "PlayerRoundCount": 280454,
+                        "SituationCount": 2227,
+                        "SituationsPerPlayerAndRound": 0.007940696156945525
                     },
                     "15": {
                         "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 1139,
-                        "SituationsPerPlayerAndRound": 0.008490115984376398
+                        "PlayerRoundCount": 220857,
+                        "SituationCount": 2001,
+                        "SituationsPerPlayerAndRound": 0.009060161099716106
                     },
                     "16": {
                         "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 986,
-                        "SituationsPerPlayerAndRound": 0.008421879804571389
+                        "PlayerRoundCount": 199737,
+                        "SituationCount": 1748,
+                        "SituationsPerPlayerAndRound": 0.008751508233326825
                     },
                     "17": {
                         "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 580,
-                        "SituationsPerPlayerAndRound": 0.009884622594883855
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 1052,
+                        "SituationsPerPlayerAndRound": 0.010209429164806584
                     },
                     "18": {
                         "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 181,
-                        "SituationsPerPlayerAndRound": 0.010019374481040686
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 359,
+                        "SituationsPerPlayerAndRound": 0.010493087422909421
                     }
                 },
                 "Clutch": {
                     "0": {
                         "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 7766,
-                        "SituationsPerPlayerAndRound": 0.006820351450971368
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 14086,
+                        "SituationsPerPlayerAndRound": 0.006829946644375355
                     },
                     "1": {
                         "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 314,
-                        "SituationsPerPlayerAndRound": 0.006546440112582091
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 573,
+                        "SituationsPerPlayerAndRound": 0.006629489078119215
                     },
                     "2": {
                         "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 995,
-                        "SituationsPerPlayerAndRound": 0.007587021998551222
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 1409,
+                        "SituationsPerPlayerAndRound": 0.007571727202867476
                     },
                     "3": {
                         "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 868,
-                        "SituationsPerPlayerAndRound": 0.007923828998658062
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 1203,
+                        "SituationsPerPlayerAndRound": 0.007805251513362357
                     },
                     "4": {
                         "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 1029,
-                        "SituationsPerPlayerAndRound": 0.007524239898214364
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 1437,
+                        "SituationsPerPlayerAndRound": 0.007473592785408551
                     },
                     "5": {
                         "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 1262,
-                        "SituationsPerPlayerAndRound": 0.007986583552194412
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 1853,
+                        "SituationsPerPlayerAndRound": 0.007809339177343223
                     },
                     "6": {
                         "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 1252,
-                        "SituationsPerPlayerAndRound": 0.007371383488572
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 2119,
+                        "SituationsPerPlayerAndRound": 0.007466946691850139
                     },
                     "7": {
                         "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 1328,
-                        "SituationsPerPlayerAndRound": 0.007312855868456701
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 2416,
+                        "SituationsPerPlayerAndRound": 0.007354261727703589
                     },
                     "8": {
                         "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 1762,
-                        "SituationsPerPlayerAndRound": 0.008122885145538867
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 2861,
+                        "SituationsPerPlayerAndRound": 0.007990794247521905
                     },
                     "9": {
                         "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 1832,
-                        "SituationsPerPlayerAndRound": 0.007733906340367867
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 2940,
+                        "SituationsPerPlayerAndRound": 0.0077793418782612376
                     },
                     "10": {
                         "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 2347,
-                        "SituationsPerPlayerAndRound": 0.007483912935339248
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 3562,
+                        "SituationsPerPlayerAndRound": 0.0075452513848141755
                     },
                     "11": {
                         "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 2253,
-                        "SituationsPerPlayerAndRound": 0.007854826900951782
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 3416,
+                        "SituationsPerPlayerAndRound": 0.007862833151877436
                     },
                     "12": {
                         "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 1968,
-                        "SituationsPerPlayerAndRound": 0.007785580061319355
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 2920,
+                        "SituationsPerPlayerAndRound": 0.0077939618149254365
                     },
                     "13": {
                         "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 1610,
-                        "SituationsPerPlayerAndRound": 0.007044502881245433
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 2370,
+                        "SituationsPerPlayerAndRound": 0.007161830164903406
                     },
                     "14": {
                         "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 1282,
-                        "SituationsPerPlayerAndRound": 0.007166254877189845
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 2035,
+                        "SituationsPerPlayerAndRound": 0.007254151977157442
                     },
                     "15": {
                         "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 1043,
-                        "SituationsPerPlayerAndRound": 0.007774531142848624
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 1695,
+                        "SituationsPerPlayerAndRound": 0.007670307988885973
                     },
                     "16": {
                         "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 886,
-                        "SituationsPerPlayerAndRound": 0.007567733779766989
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 1475,
+                        "SituationsPerPlayerAndRound": 0.0073837867061803545
                     },
                     "17": {
                         "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 442,
-                        "SituationsPerPlayerAndRound": 0.00753276411541149
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 804,
+                        "SituationsPerPlayerAndRound": 0.007802643582228606
                     },
                     "18": {
                         "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 149,
-                        "SituationsPerPlayerAndRound": 0.008247993357320786
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 294,
+                        "SituationsPerPlayerAndRound": 0.008593224797591559
                     }
                 },
                 "HighImpactRound": {
                     "0": {
                         "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 55138,
-                        "SituationsPerPlayerAndRound": 0.04842396836256237
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 99950,
+                        "SituationsPerPlayerAndRound": 0.04846323776127479
                     },
                     "1": {
                         "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 1834,
-                        "SituationsPerPlayerAndRound": 0.03823621390597311
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 3534,
+                        "SituationsPerPlayerAndRound": 0.04088763420955202
                     },
                     "2": {
                         "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 5932,
-                        "SituationsPerPlayerAndRound": 0.04523237637729231
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 8481,
+                        "SituationsPerPlayerAndRound": 0.04557545664124845
                     },
                     "3": {
                         "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 5220,
-                        "SituationsPerPlayerAndRound": 0.04765252001497129
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 7279,
+                        "SituationsPerPlayerAndRound": 0.047227286588333
                     },
                     "4": {
                         "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 6614,
-                        "SituationsPerPlayerAndRound": 0.048362801444888054
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 9153,
+                        "SituationsPerPlayerAndRound": 0.047603197470316265
                     },
                     "5": {
                         "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 7614,
-                        "SituationsPerPlayerAndRound": 0.048185298864031896
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 11203,
+                        "SituationsPerPlayerAndRound": 0.047214261631827376
                     },
                     "6": {
                         "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 8066,
-                        "SituationsPerPlayerAndRound": 0.04749007924826019
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 13185,
+                        "SituationsPerPlayerAndRound": 0.04646139317227187
                     },
                     "7": {
                         "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 8841,
-                        "SituationsPerPlayerAndRound": 0.04868445687727838
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 15946,
+                        "SituationsPerPlayerAndRound": 0.04853934499584497
                     },
                     "8": {
                         "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 10771,
-                        "SituationsPerPlayerAndRound": 0.049654708230760014
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 17779,
+                        "SituationsPerPlayerAndRound": 0.04965687903764136
                     },
                     "9": {
                         "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 11736,
-                        "SituationsPerPlayerAndRound": 0.04954428210183258
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 18934,
+                        "SituationsPerPlayerAndRound": 0.05010002010986336
                     },
                     "10": {
                         "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 15432,
-                        "SituationsPerPlayerAndRound": 0.04920824218924383
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 23469,
+                        "SituationsPerPlayerAndRound": 0.04971350498321277
                     },
                     "11": {
                         "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 14909,
-                        "SituationsPerPlayerAndRound": 0.05197852386430987
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 22700,
+                        "SituationsPerPlayerAndRound": 0.05225009149520427
                     },
                     "12": {
                         "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 13278,
-                        "SituationsPerPlayerAndRound": 0.052528928889328454
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 19687,
+                        "SituationsPerPlayerAndRound": 0.05254785145562914
                     },
                     "13": {
                         "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 11856,
-                        "SituationsPerPlayerAndRound": 0.05187554419878625
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 17034,
+                        "SituationsPerPlayerAndRound": 0.05147452110926777
                     },
                     "14": {
                         "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 9157,
-                        "SituationsPerPlayerAndRound": 0.05118673627958456
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 14352,
+                        "SituationsPerPlayerAndRound": 0.05116048608165288
                     },
                     "15": {
                         "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 7402,
-                        "SituationsPerPlayerAndRound": 0.055174572885297715
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 12033,
+                        "SituationsPerPlayerAndRound": 0.054452398837914404
                     },
                     "16": {
                         "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 6422,
-                        "SituationsPerPlayerAndRound": 0.054853257712938606
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 11009,
+                        "SituationsPerPlayerAndRound": 0.055110581592094594
                     },
                     "17": {
                         "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 3367,
-                        "SituationsPerPlayerAndRound": 0.057381938408575764
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 5933,
+                        "SituationsPerPlayerAndRound": 0.05757846315094816
                     },
                     "18": {
                         "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 1204,
-                        "SituationsPerPlayerAndRound": 0.06664821477996125
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 2289,
+                        "SituationsPerPlayerAndRound": 0.06690439306696284
                     }
                 },
                 "MultiKill": {
                     "0": {
                         "RankBeforeMatch": 0,
-                        "PlayerRoundCount": 1138651,
-                        "SituationCount": 52077,
-                        "SituationsPerPlayerAndRound": 0.04573569952513984
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 94113,
+                        "SituationsPerPlayerAndRound": 0.045633023466001545
                     },
                     "1": {
                         "RankBeforeMatch": 1,
-                        "PlayerRoundCount": 47965,
-                        "SituationCount": 1429,
-                        "SituationsPerPlayerAndRound": 0.02979255707286563
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 2619,
+                        "SituationsPerPlayerAndRound": 0.030301277304701963
                     },
                     "2": {
                         "RankBeforeMatch": 2,
-                        "PlayerRoundCount": 131145,
-                        "SituationCount": 4559,
-                        "SituationsPerPlayerAndRound": 0.034763048534065345
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 6500,
+                        "SituationsPerPlayerAndRound": 0.03492989838086486
                     },
                     "3": {
                         "RankBeforeMatch": 3,
-                        "PlayerRoundCount": 109543,
-                        "SituationCount": 3997,
-                        "SituationsPerPlayerAndRound": 0.036487954501885106
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 5583,
+                        "SituationsPerPlayerAndRound": 0.03622337423034251
                     },
                     "4": {
                         "RankBeforeMatch": 4,
-                        "PlayerRoundCount": 136758,
-                        "SituationCount": 5081,
-                        "SituationsPerPlayerAndRound": 0.03715321955571155
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 7135,
+                        "SituationsPerPlayerAndRound": 0.03710792242441894
                     },
                     "5": {
                         "RankBeforeMatch": 5,
-                        "PlayerRoundCount": 158015,
-                        "SituationCount": 5872,
-                        "SituationsPerPlayerAndRound": 0.03716102901623264
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 8730,
+                        "SituationsPerPlayerAndRound": 0.036791975724882
                     },
                     "6": {
                         "RankBeforeMatch": 6,
-                        "PlayerRoundCount": 169846,
-                        "SituationCount": 6453,
-                        "SituationsPerPlayerAndRound": 0.03799324093590664
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 10498,
+                        "SituationsPerPlayerAndRound": 0.03699292419586728
                     },
                     "7": {
                         "RankBeforeMatch": 7,
-                        "PlayerRoundCount": 181598,
-                        "SituationCount": 6948,
-                        "SituationsPerPlayerAndRound": 0.0382603332635822
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 12515,
+                        "SituationsPerPlayerAndRound": 0.038095441027404975
                     },
                     "8": {
                         "RankBeforeMatch": 8,
-                        "PlayerRoundCount": 216918,
-                        "SituationCount": 8686,
-                        "SituationsPerPlayerAndRound": 0.04004278114310477
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 14264,
+                        "SituationsPerPlayerAndRound": 0.03983945793311865
                     },
                     "9": {
                         "RankBeforeMatch": 9,
-                        "PlayerRoundCount": 236879,
-                        "SituationCount": 9445,
-                        "SituationsPerPlayerAndRound": 0.03987267761177648
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 15147,
+                        "SituationsPerPlayerAndRound": 0.04007948688096019
                     },
                     "10": {
                         "RankBeforeMatch": 10,
-                        "PlayerRoundCount": 313606,
-                        "SituationCount": 12669,
-                        "SituationsPerPlayerAndRound": 0.040397824021224084
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 19075,
+                        "SituationsPerPlayerAndRound": 0.0404058591143544
                     },
                     "11": {
                         "RankBeforeMatch": 11,
-                        "PlayerRoundCount": 286830,
-                        "SituationCount": 12290,
-                        "SituationsPerPlayerAndRound": 0.04284767981034062
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 18600,
+                        "SituationsPerPlayerAndRound": 0.04281285030003522
                     },
                     "12": {
                         "RankBeforeMatch": 12,
-                        "PlayerRoundCount": 252775,
-                        "SituationCount": 10905,
-                        "SituationsPerPlayerAndRound": 0.04314113341904856
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 16231,
+                        "SituationsPerPlayerAndRound": 0.04332321719796396
                     },
                     "13": {
                         "RankBeforeMatch": 13,
-                        "PlayerRoundCount": 228547,
-                        "SituationCount": 9977,
-                        "SituationsPerPlayerAndRound": 0.043654040525581174
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 14386,
+                        "SituationsPerPlayerAndRound": 0.04347261128789046
                     },
                     "14": {
                         "RankBeforeMatch": 14,
-                        "PlayerRoundCount": 178894,
-                        "SituationCount": 8030,
-                        "SituationsPerPlayerAndRound": 0.04488691627444185
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 12524,
+                        "SituationsPerPlayerAndRound": 0.04464422573067312
                     },
                     "15": {
                         "RankBeforeMatch": 15,
-                        "PlayerRoundCount": 134156,
-                        "SituationCount": 6334,
-                        "SituationsPerPlayerAndRound": 0.04721369152330123
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 10376,
+                        "SituationsPerPlayerAndRound": 0.0469540505561539
                     },
                     "16": {
                         "RankBeforeMatch": 16,
-                        "PlayerRoundCount": 117076,
-                        "SituationCount": 5706,
-                        "SituationsPerPlayerAndRound": 0.0487375721753391
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 9646,
+                        "SituationsPerPlayerAndRound": 0.048287462079875054
                     },
                     "17": {
                         "RankBeforeMatch": 17,
-                        "PlayerRoundCount": 58677,
-                        "SituationCount": 2944,
-                        "SituationsPerPlayerAndRound": 0.05017298089541047
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 5221,
+                        "SituationsPerPlayerAndRound": 0.05066865938161138
                     },
                     "18": {
                         "RankBeforeMatch": 18,
-                        "PlayerRoundCount": 18065,
-                        "SituationCount": 1052,
-                        "SituationsPerPlayerAndRound": 0.05823415444229173
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 1992,
+                        "SituationsPerPlayerAndRound": 0.05822348230204893
+                    }
+                },
+                "TradeKill": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 846373,
+                        "SituationCount": 1016,
+                        "SituationsPerPlayerAndRound": 0.0012004163648887665
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 38105,
+                        "SituationCount": 37,
+                        "SituationsPerPlayerAndRound": 0.0009710011809473823
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 52051,
+                        "SituationCount": 65,
+                        "SituationsPerPlayerAndRound": 0.0012487752396687865
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 41077,
+                        "SituationCount": 38,
+                        "SituationsPerPlayerAndRound": 0.0009250919005769652
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 51570,
+                        "SituationCount": 66,
+                        "SituationsPerPlayerAndRound": 0.0012798138452588714
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 74585,
+                        "SituationCount": 97,
+                        "SituationsPerPlayerAndRound": 0.0013005295971039753
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 104259,
+                        "SituationCount": 151,
+                        "SituationsPerPlayerAndRound": 0.0014483162125092318
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 138011,
+                        "SituationCount": 204,
+                        "SituationsPerPlayerAndRound": 0.0014781430465687518
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 132560,
+                        "SituationCount": 166,
+                        "SituationsPerPlayerAndRound": 0.001252263126131563
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 131437,
+                        "SituationCount": 178,
+                        "SituationsPerPlayerAndRound": 0.001354260976741709
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 150229,
+                        "SituationCount": 192,
+                        "SituationsPerPlayerAndRound": 0.0012780488454293114
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 131010,
+                        "SituationCount": 185,
+                        "SituationsPerPlayerAndRound": 0.001412105946110984
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 104830,
+                        "SituationCount": 125,
+                        "SituationsPerPlayerAndRound": 0.0011924067537918534
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 90331,
+                        "SituationCount": 110,
+                        "SituationsPerPlayerAndRound": 0.0012177436317543258
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 93647,
+                        "SituationCount": 118,
+                        "SituationsPerPlayerAndRound": 0.0012600510427456298
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 79595,
+                        "SituationCount": 99,
+                        "SituationsPerPlayerAndRound": 0.001243796720899554
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 76517,
+                        "SituationCount": 106,
+                        "SituationsPerPlayerAndRound": 0.0013853130676843054
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 41976,
+                        "SituationCount": 48,
+                        "SituationsPerPlayerAndRound": 0.0011435105774728416
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 15521,
+                        "SituationCount": 24,
+                        "SituationsPerPlayerAndRound": 0.00154629212035307
+                    }
+                },
+                "KillThroughSmoke": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 7178,
+                        "SituationCount": 247,
+                        "SituationsPerPlayerAndRound": 0.03441069935915297
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 645,
+                        "SituationCount": 7,
+                        "SituationsPerPlayerAndRound": 0.010852713178294573
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 1077,
+                        "SituationCount": 8,
+                        "SituationsPerPlayerAndRound": 0.007428040854224698
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 533,
+                        "SituationCount": 3,
+                        "SituationsPerPlayerAndRound": 0.005628517823639775
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 1137,
+                        "SituationCount": 18,
+                        "SituationsPerPlayerAndRound": 0.0158311345646438
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 645,
+                        "SituationCount": 12,
+                        "SituationsPerPlayerAndRound": 0.018604651162790697
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 2060,
+                        "SituationCount": 32,
+                        "SituationsPerPlayerAndRound": 0.015533980582524271
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 2499,
+                        "SituationCount": 43,
+                        "SituationsPerPlayerAndRound": 0.01720688275310124
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 807,
+                        "SituationCount": 15,
+                        "SituationsPerPlayerAndRound": 0.01858736059479554
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 637,
+                        "SituationCount": 16,
+                        "SituationsPerPlayerAndRound": 0.02511773940345369
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 176,
+                        "SituationCount": 4,
+                        "SituationsPerPlayerAndRound": 0.022727272727272728
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 181,
+                        "SituationCount": 12,
+                        "SituationsPerPlayerAndRound": 0.06629834254143646
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 186,
+                        "SituationCount": 9,
+                        "SituationsPerPlayerAndRound": 0.04838709677419355
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 130,
+                        "SituationCount": 2,
+                        "SituationsPerPlayerAndRound": 0.015384615384615385
+                    }
+                },
+                "WallBangKill": {},
+                "CollateralKill": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 846334,
+                        "SituationCount": 438,
+                        "SituationsPerPlayerAndRound": 0.0005175261776083674
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 38105,
+                        "SituationCount": 20,
+                        "SituationsPerPlayerAndRound": 0.0005248655032148012
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 52051,
+                        "SituationCount": 26,
+                        "SituationsPerPlayerAndRound": 0.0004995100958675145
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 41077,
+                        "SituationCount": 31,
+                        "SituationsPerPlayerAndRound": 0.0007546802346812085
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 51570,
+                        "SituationCount": 24,
+                        "SituationsPerPlayerAndRound": 0.0004653868528214078
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 74559,
+                        "SituationCount": 27,
+                        "SituationsPerPlayerAndRound": 0.00036212932040397537
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 104194,
+                        "SituationCount": 56,
+                        "SituationsPerPlayerAndRound": 0.000537458970766071
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 138011,
+                        "SituationCount": 77,
+                        "SituationsPerPlayerAndRound": 0.000557926542087225
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 132560,
+                        "SituationCount": 58,
+                        "SituationsPerPlayerAndRound": 0.00043753771876885937
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 131437,
+                        "SituationCount": 65,
+                        "SituationsPerPlayerAndRound": 0.0004945335027427589
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 150229,
+                        "SituationCount": 84,
+                        "SituationsPerPlayerAndRound": 0.0005591463698753237
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 131010,
+                        "SituationCount": 83,
+                        "SituationsPerPlayerAndRound": 0.0006335394244714144
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 104830,
+                        "SituationCount": 45,
+                        "SituationsPerPlayerAndRound": 0.00042926643136506723
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 90331,
+                        "SituationCount": 52,
+                        "SituationsPerPlayerAndRound": 0.0005756606259202268
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 93647,
+                        "SituationCount": 51,
+                        "SituationsPerPlayerAndRound": 0.0005445983320341281
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 79595,
+                        "SituationCount": 27,
+                        "SituationsPerPlayerAndRound": 0.0003392172875180602
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 76517,
+                        "SituationCount": 32,
+                        "SituationsPerPlayerAndRound": 0.0004182077185462054
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 41976,
+                        "SituationCount": 32,
+                        "SituationsPerPlayerAndRound": 0.0007623403849818944
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 15521,
+                        "SituationCount": 9,
+                        "SituationsPerPlayerAndRound": 0.0005798595451324013
+                    }
+                },
+                "FlashAssist": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 846373,
+                        "SituationCount": 19384,
+                        "SituationsPerPlayerAndRound": 0.022902431906499852
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 38105,
+                        "SituationCount": 370,
+                        "SituationsPerPlayerAndRound": 0.009710011809473822
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 52051,
+                        "SituationCount": 652,
+                        "SituationsPerPlayerAndRound": 0.012526176250216134
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 41077,
+                        "SituationCount": 515,
+                        "SituationsPerPlayerAndRound": 0.012537429705187819
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 51570,
+                        "SituationCount": 700,
+                        "SituationsPerPlayerAndRound": 0.01357378320729106
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 74585,
+                        "SituationCount": 1095,
+                        "SituationsPerPlayerAndRound": 0.01468123617349333
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 104259,
+                        "SituationCount": 1512,
+                        "SituationsPerPlayerAndRound": 0.014502345121284493
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 138011,
+                        "SituationCount": 2115,
+                        "SituationsPerPlayerAndRound": 0.01532486540927897
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 132560,
+                        "SituationCount": 2060,
+                        "SituationsPerPlayerAndRound": 0.015540132770066386
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 131557,
+                        "SituationCount": 2162,
+                        "SituationsPerPlayerAndRound": 0.016433941181389057
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 150489,
+                        "SituationCount": 2425,
+                        "SituationsPerPlayerAndRound": 0.01611413458791008
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 131055,
+                        "SituationCount": 2348,
+                        "SituationsPerPlayerAndRound": 0.017916142077753616
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 104855,
+                        "SituationCount": 2000,
+                        "SituationsPerPlayerAndRound": 0.019073959277096944
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 90331,
+                        "SituationCount": 1764,
+                        "SituationsPerPlayerAndRound": 0.01952817969467846
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 93647,
+                        "SituationCount": 1812,
+                        "SituationsPerPlayerAndRound": 0.019349258385212554
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 79595,
+                        "SituationCount": 2115,
+                        "SituationsPerPlayerAndRound": 0.026572020855581382
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 76517,
+                        "SituationCount": 1974,
+                        "SituationsPerPlayerAndRound": 0.025798188637819047
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 41976,
+                        "SituationCount": 1164,
+                        "SituationsPerPlayerAndRound": 0.02773013150371641
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 15521,
+                        "SituationCount": 525,
+                        "SituationsPerPlayerAndRound": 0.033825140132723405
+                    }
+                },
+                "SmokeFail": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 11903,
+                        "SituationsPerPlayerAndRound": 0.005771464923186132
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 389,
+                        "SituationsPerPlayerAndRound": 0.0045006479081821545
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 724,
+                        "SituationsPerPlayerAndRound": 0.0038906532965763325
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 773,
+                        "SituationsPerPlayerAndRound": 0.005015344488635995
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 973,
+                        "SituationsPerPlayerAndRound": 0.005060407641059513
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 1340,
+                        "SituationsPerPlayerAndRound": 0.005647336480107889
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 1399,
+                        "SituationsPerPlayerAndRound": 0.004929805767767034
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 1999,
+                        "SituationsPerPlayerAndRound": 0.006084921023873955
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 2063,
+                        "SituationsPerPlayerAndRound": 0.0057619743210897195
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 2057,
+                        "SituationsPerPlayerAndRound": 0.005442893280130396
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 2702,
+                        "SituationsPerPlayerAndRound": 0.005723545547941578
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 2332,
+                        "SituationsPerPlayerAndRound": 0.005367718650520544
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 1905,
+                        "SituationsPerPlayerAndRound": 0.005084759334737314
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 1827,
+                        "SituationsPerPlayerAndRound": 0.005520955152438195
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 1562,
+                        "SituationsPerPlayerAndRound": 0.005568051787872199
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 1283,
+                        "SituationsPerPlayerAndRound": 0.005805902743209854
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 1223,
+                        "SituationsPerPlayerAndRound": 0.006122285519768525
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 553,
+                        "SituationsPerPlayerAndRound": 0.0053667436579258945
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 196,
+                        "SituationsPerPlayerAndRound": 0.0057288165317277056
+                    }
+                },
+                "DeathInducedBombDrop": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 25739,
+                        "SituationsPerPlayerAndRound": 0.012480192863806423
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 1845,
+                        "SituationsPerPlayerAndRound": 0.02134626064420585
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 3890,
+                        "SituationsPerPlayerAndRound": 0.020904200723317588
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 3003,
+                        "SituationsPerPlayerAndRound": 0.01948393208198434
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 3592,
+                        "SituationsPerPlayerAndRound": 0.01868138154849514
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 4489,
+                        "SituationsPerPlayerAndRound": 0.01891857720836143
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 5202,
+                        "SituationsPerPlayerAndRound": 0.018330843176500435
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 5648,
+                        "SituationsPerPlayerAndRound": 0.017192413178009052
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 5903,
+                        "SituationsPerPlayerAndRound": 0.01648712283925963
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 6303,
+                        "SituationsPerPlayerAndRound": 0.016677956414517206
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 7198,
+                        "SituationsPerPlayerAndRound": 0.015247254202103435
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 6208,
+                        "SituationsPerPlayerAndRound": 0.014289364229173044
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 5041,
+                        "SituationsPerPlayerAndRound": 0.013455260790766824
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 4337,
+                        "SituationsPerPlayerAndRound": 0.013105847014846444
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 3546,
+                        "SituationsPerPlayerAndRound": 0.01264040437886992
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 2631,
+                        "SituationsPerPlayerAndRound": 0.01190594709071327
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 2210,
+                        "SituationsPerPlayerAndRound": 0.011063165166548192
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 1116,
+                        "SituationsPerPlayerAndRound": 0.0108305351216009
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 300,
+                        "SituationsPerPlayerAndRound": 0.008768596732236284
+                    }
+                },
+                "SelfFlash": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 44146,
+                        "SituationsPerPlayerAndRound": 0.021405283583884313
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 1364,
+                        "SituationsPerPlayerAndRound": 0.015781192151055164
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 2947,
+                        "SituationsPerPlayerAndRound": 0.015836678542832116
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 2664,
+                        "SituationsPerPlayerAndRound": 0.01728444724156053
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 3353,
+                        "SituationsPerPlayerAndRound": 0.017438383165953288
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 4379,
+                        "SituationsPerPlayerAndRound": 0.0184549898853675
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 5163,
+                        "SituationsPerPlayerAndRound": 0.018193414709779268
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 6172,
+                        "SituationsPerPlayerAndRound": 0.018787460009679863
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 6712,
+                        "SituationsPerPlayerAndRound": 0.018746665847384488
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 7272,
+                        "SituationsPerPlayerAndRound": 0.019241963992760448
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 8694,
+                        "SituationsPerPlayerAndRound": 0.018416175053221347
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 8322,
+                        "SituationsPerPlayerAndRound": 0.019155297860048014
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 7285,
+                        "SituationsPerPlayerAndRound": 0.01944486706223692
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 6271,
+                        "SituationsPerPlayerAndRound": 0.018950142178949053
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 5400,
+                        "SituationsPerPlayerAndRound": 0.01924934676985267
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 4450,
+                        "SituationsPerPlayerAndRound": 0.020137386755482347
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 4044,
+                        "SituationsPerPlayerAndRound": 0.02024409046765651
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 2321,
+                        "SituationsPerPlayerAndRound": 0.022524795714368898
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 876,
+                        "SituationsPerPlayerAndRound": 0.02560430245812995
+                    }
+                },
+                "TeamFlash": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 109876,
+                        "SituationsPerPlayerAndRound": 0.05327610517516588
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 3271,
+                        "SituationsPerPlayerAndRound": 0.037844779711218066
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 7691,
+                        "SituationsPerPlayerAndRound": 0.04133013053034333
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 6648,
+                        "SituationsPerPlayerAndRound": 0.04313326023344385
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 8618,
+                        "SituationsPerPlayerAndRound": 0.044820753392241404
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 10998,
+                        "SituationsPerPlayerAndRound": 0.04635030343897505
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 13031,
+                        "SituationsPerPlayerAndRound": 0.045918726919065206
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 15722,
+                        "SituationsPerPlayerAndRound": 0.04785749291513072
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 17224,
+                        "SituationsPerPlayerAndRound": 0.04810675991587462
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 19051,
+                        "SituationsPerPlayerAndRound": 0.05040960616420233
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 22742,
+                        "SituationsPerPlayerAndRound": 0.04817352807227512
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 21434,
+                        "SituationsPerPlayerAndRound": 0.04933605555542768
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 18248,
+                        "SituationsPerPlayerAndRound": 0.048706923013273756
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 15827,
+                        "SituationsPerPlayerAndRound": 0.04782712490292245
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 13202,
+                        "SituationsPerPlayerAndRound": 0.04706108815844351
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 11312,
+                        "SituationsPerPlayerAndRound": 0.051189689657981194
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 10017,
+                        "SituationsPerPlayerAndRound": 0.05014467215987024
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 5512,
+                        "SituationsPerPlayerAndRound": 0.05349275052891054
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 2074,
+                        "SituationsPerPlayerAndRound": 0.060620232075526845
+                    }
+                },
+                "RifleFiredWhileMoving": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 51674,
+                        "SituationsPerPlayerAndRound": 0.025055421191356817
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 3689,
+                        "SituationsPerPlayerAndRound": 0.04268095149944465
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 8094,
+                        "SituationsPerPlayerAndRound": 0.04349578422995696
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 6398,
+                        "SituationsPerPlayerAndRound": 0.041511221265579684
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 8241,
+                        "SituationsPerPlayerAndRound": 0.04286004046245781
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 10006,
+                        "SituationsPerPlayerAndRound": 0.0421695886716116
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 11834,
+                        "SituationsPerPlayerAndRound": 0.041700730132777045
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 13233,
+                        "SituationsPerPlayerAndRound": 0.04028102046469437
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 13549,
+                        "SituationsPerPlayerAndRound": 0.03784245762309482
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 13134,
+                        "SituationsPerPlayerAndRound": 0.034753019125538465
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 15478,
+                        "SituationsPerPlayerAndRound": 0.03278646853850472
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 13525,
+                        "SituationsPerPlayerAndRound": 0.03113138711333206
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 11498,
+                        "SituationsPerPlayerAndRound": 0.030690059228771462
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 9266,
+                        "SituationsPerPlayerAndRound": 0.028000640636284792
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 7305,
+                        "SituationsPerPlayerAndRound": 0.026040088546995143
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 5488,
+                        "SituationsPerPlayerAndRound": 0.024834601913278003
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 4432,
+                        "SituationsPerPlayerAndRound": 0.022186401818163615
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 2039,
+                        "SituationsPerPlayerAndRound": 0.01978804759224394
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 563,
+                        "SituationsPerPlayerAndRound": 0.016455733200830092
+                    }
+                },
+                "UnnecessaryReload": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 10018,
+                        "SituationsPerPlayerAndRound": 0.004857475896872946
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 783,
+                        "SituationsPerPlayerAndRound": 0.009059144761199556
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 1611,
+                        "SituationsPerPlayerAndRound": 0.008657240967934353
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 1462,
+                        "SituationsPerPlayerAndRound": 0.009485683884069632
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 1624,
+                        "SituationsPerPlayerAndRound": 0.008446148005221633
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 2006,
+                        "SituationsPerPlayerAndRound": 0.00845414699932569
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 2365,
+                        "SituationsPerPlayerAndRound": 0.0083338031742452
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 2556,
+                        "SituationsPerPlayerAndRound": 0.007780419278149989
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 2749,
+                        "SituationsPerPlayerAndRound": 0.007677977415741949
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 2678,
+                        "SituationsPerPlayerAndRound": 0.007086080799314148
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 3206,
+                        "SituationsPerPlayerAndRound": 0.006791149898852961
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 2851,
+                        "SituationsPerPlayerAndRound": 0.006562335279860236
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 2112,
+                        "SituationsPerPlayerAndRound": 0.0056372764907953845
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330896,
+                        "SituationCount": 1726,
+                        "SituationsPerPlayerAndRound": 0.00521614041874184
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280454,
+                        "SituationCount": 1469,
+                        "SituationsPerPlayerAndRound": 0.005237935632938022
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220857,
+                        "SituationCount": 1130,
+                        "SituationsPerPlayerAndRound": 0.0051164328049371315
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199737,
+                        "SituationCount": 864,
+                        "SituationsPerPlayerAndRound": 0.0043256882800883165
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 390,
+                        "SituationsPerPlayerAndRound": 0.0037848644242153683
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 112,
+                        "SituationsPerPlayerAndRound": 0.0032736094467015462
+                    }
+                },
+                "PushBeforeSmokeDetonated": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062298,
+                        "SituationCount": 3028,
+                        "SituationsPerPlayerAndRound": 0.0014682650131067382
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 58,
+                        "SituationsPerPlayerAndRound": 0.000671047760088856
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 133,
+                        "SituationsPerPlayerAndRound": 0.0007147194591776965
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 138,
+                        "SituationsPerPlayerAndRound": 0.0008953655102610185
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 169,
+                        "SituationsPerPlayerAndRound": 0.0008789402788685074
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 258,
+                        "SituationsPerPlayerAndRound": 0.0010873229939312205
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 329,
+                        "SituationsPerPlayerAndRound": 0.001159332450032419
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 382,
+                        "SituationsPerPlayerAndRound": 0.0011628013162180344
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 429,
+                        "SituationsPerPlayerAndRound": 0.0011982001860142946
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 473,
+                        "SituationsPerPlayerAndRound": 0.0012515743906182195
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 608,
+                        "SituationsPerPlayerAndRound": 0.0012879036614169058
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 605,
+                        "SituationsPerPlayerAndRound": 0.0013925685178237262
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 475,
+                        "SituationsPerPlayerAndRound": 0.0012678533774279392
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330896,
+                        "SituationCount": 429,
+                        "SituationsPerPlayerAndRound": 0.0012964798607417436
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280376,
+                        "SituationCount": 428,
+                        "SituationsPerPlayerAndRound": 0.001526521528233515
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220485,
+                        "SituationCount": 345,
+                        "SituationsPerPlayerAndRound": 0.0015647322947139261
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199501,
+                        "SituationCount": 319,
+                        "SituationsPerPlayerAndRound": 0.00159898947874948
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103018,
+                        "SituationCount": 172,
+                        "SituationsPerPlayerAndRound": 0.0016696111359179948
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 60,
+                        "SituationsPerPlayerAndRound": 0.0017537193464472569
+                    }
+                },
+                "BombDropAtSpawn": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062298,
+                        "SituationCount": 17305,
+                        "SituationsPerPlayerAndRound": 0.008391124851985503
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 79,
+                        "SituationsPerPlayerAndRound": 0.0009140133283968901
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 253,
+                        "SituationsPerPlayerAndRound": 0.0013595791215936632
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 236,
+                        "SituationsPerPlayerAndRound": 0.0015312047856637708
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 338,
+                        "SituationsPerPlayerAndRound": 0.0017578805577370149
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 439,
+                        "SituationsPerPlayerAndRound": 0.001850134861766689
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 554,
+                        "SituationsPerPlayerAndRound": 0.0019521889888083894
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 718,
+                        "SituationsPerPlayerAndRound": 0.0021855794372893944
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 830,
+                        "SituationsPerPlayerAndRound": 0.0023181961640836002
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 1105,
+                        "SituationsPerPlayerAndRound": 0.002923868290979139
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 1451,
+                        "SituationsPerPlayerAndRound": 0.003073599034072254
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 1618,
+                        "SituationsPerPlayerAndRound": 0.0037242576228740313
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 1694,
+                        "SituationsPerPlayerAndRound": 0.004521565518658798
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330896,
+                        "SituationCount": 1519,
+                        "SituationsPerPlayerAndRound": 0.004590566220202118
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280376,
+                        "SituationCount": 1268,
+                        "SituationsPerPlayerAndRound": 0.0045224983593460215
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220485,
+                        "SituationCount": 1178,
+                        "SituationsPerPlayerAndRound": 0.005342767081660884
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199501,
+                        "SituationCount": 1252,
+                        "SituationsPerPlayerAndRound": 0.006275657766126486
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103018,
+                        "SituationCount": 576,
+                        "SituationsPerPlayerAndRound": 0.005591255897027704
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 155,
+                        "SituationsPerPlayerAndRound": 0.004530441644988747
+                    }
+                },
+                "HasNotBoughtDefuseKit": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 2062388,
+                        "SituationCount": 73785,
+                        "SituationsPerPlayerAndRound": 0.03577648822626974
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 86432,
+                        "SituationCount": 4916,
+                        "SituationsPerPlayerAndRound": 0.05687708256201407
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 186087,
+                        "SituationCount": 11371,
+                        "SituationsPerPlayerAndRound": 0.06110582684443298
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 154127,
+                        "SituationCount": 9108,
+                        "SituationsPerPlayerAndRound": 0.059094123677227224
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 192277,
+                        "SituationCount": 11576,
+                        "SituationsPerPlayerAndRound": 0.06020480868746652
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 237280,
+                        "SituationCount": 14353,
+                        "SituationsPerPlayerAndRound": 0.06048971679028995
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 283784,
+                        "SituationCount": 16443,
+                        "SituationsPerPlayerAndRound": 0.05794195585374792
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 328517,
+                        "SituationCount": 18515,
+                        "SituationsPerPlayerAndRound": 0.0563593360465364
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 358037,
+                        "SituationCount": 18158,
+                        "SituationsPerPlayerAndRound": 0.05071542885232532
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 377924,
+                        "SituationCount": 17685,
+                        "SituationsPerPlayerAndRound": 0.046795122828928566
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 472085,
+                        "SituationCount": 20733,
+                        "SituationsPerPlayerAndRound": 0.043917938506836694
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 434449,
+                        "SituationCount": 17501,
+                        "SituationsPerPlayerAndRound": 0.04028320930650088
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 374649,
+                        "SituationCount": 13241,
+                        "SituationsPerPlayerAndRound": 0.03534241383268072
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 330921,
+                        "SituationCount": 10823,
+                        "SituationsPerPlayerAndRound": 0.03270569108639222
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 280529,
+                        "SituationCount": 8837,
+                        "SituationsPerPlayerAndRound": 0.03150119951947927
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 220982,
+                        "SituationCount": 6650,
+                        "SituationsPerPlayerAndRound": 0.030092948746956765
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 199762,
+                        "SituationCount": 5457,
+                        "SituationsPerPlayerAndRound": 0.027317507834322845
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 103042,
+                        "SituationCount": 2700,
+                        "SituationsPerPlayerAndRound": 0.026202907552260242
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 34213,
+                        "SituationCount": 1330,
+                        "SituationsPerPlayerAndRound": 0.03887411217958086
+                    }
+                },
+                "MissedTradeKill": {
+                    "0": {
+                        "RankBeforeMatch": 0,
+                        "PlayerRoundCount": 846041,
+                        "SituationCount": 89,
+                        "SituationsPerPlayerAndRound": 0.00010519584748256881
+                    },
+                    "1": {
+                        "RankBeforeMatch": 1,
+                        "PlayerRoundCount": 38105,
+                        "SituationCount": 6,
+                        "SituationsPerPlayerAndRound": 0.00015745965096444035
+                    },
+                    "2": {
+                        "RankBeforeMatch": 2,
+                        "PlayerRoundCount": 51990,
+                        "SituationCount": 8,
+                        "SituationsPerPlayerAndRound": 0.00015387574533564147
+                    },
+                    "3": {
+                        "RankBeforeMatch": 3,
+                        "PlayerRoundCount": 40971,
+                        "SituationCount": 7,
+                        "SituationsPerPlayerAndRound": 0.00017085255424568598
+                    },
+                    "4": {
+                        "RankBeforeMatch": 4,
+                        "PlayerRoundCount": 50942,
+                        "SituationCount": 7,
+                        "SituationsPerPlayerAndRound": 0.0001374111734914216
+                    },
+                    "5": {
+                        "RankBeforeMatch": 5,
+                        "PlayerRoundCount": 73329,
+                        "SituationCount": 6,
+                        "SituationsPerPlayerAndRound": 0.00008182301681462995
+                    },
+                    "6": {
+                        "RankBeforeMatch": 6,
+                        "PlayerRoundCount": 103993,
+                        "SituationCount": 10,
+                        "SituationsPerPlayerAndRound": 0.00009616031848297482
+                    },
+                    "7": {
+                        "RankBeforeMatch": 7,
+                        "PlayerRoundCount": 137950,
+                        "SituationCount": 13,
+                        "SituationsPerPlayerAndRound": 0.00009423704240666908
+                    },
+                    "8": {
+                        "RankBeforeMatch": 8,
+                        "PlayerRoundCount": 132560,
+                        "SituationCount": 11,
+                        "SituationsPerPlayerAndRound": 0.00008298129149064575
+                    },
+                    "9": {
+                        "RankBeforeMatch": 9,
+                        "PlayerRoundCount": 131437,
+                        "SituationCount": 8,
+                        "SituationsPerPlayerAndRound": 0.00006086566187603186
+                    },
+                    "10": {
+                        "RankBeforeMatch": 10,
+                        "PlayerRoundCount": 150229,
+                        "SituationCount": 14,
+                        "SituationsPerPlayerAndRound": 0.00009319106164588728
+                    },
+                    "11": {
+                        "RankBeforeMatch": 11,
+                        "PlayerRoundCount": 131010,
+                        "SituationCount": 14,
+                        "SituationsPerPlayerAndRound": 0.00010686207159758797
+                    },
+                    "12": {
+                        "RankBeforeMatch": 12,
+                        "PlayerRoundCount": 104830,
+                        "SituationCount": 8,
+                        "SituationsPerPlayerAndRound": 0.00007631403224267862
+                    },
+                    "13": {
+                        "RankBeforeMatch": 13,
+                        "PlayerRoundCount": 90331,
+                        "SituationCount": 11,
+                        "SituationsPerPlayerAndRound": 0.00012177436317543257
+                    },
+                    "14": {
+                        "RankBeforeMatch": 14,
+                        "PlayerRoundCount": 93647,
+                        "SituationCount": 6,
+                        "SituationsPerPlayerAndRound": 0.00006407039200401508
+                    },
+                    "15": {
+                        "RankBeforeMatch": 15,
+                        "PlayerRoundCount": 79595,
+                        "SituationCount": 5,
+                        "SituationsPerPlayerAndRound": 0.00006281801620704818
+                    },
+                    "16": {
+                        "RankBeforeMatch": 16,
+                        "PlayerRoundCount": 76430,
+                        "SituationCount": 6,
+                        "SituationsPerPlayerAndRound": 0.00007850320554755985
+                    },
+                    "17": {
+                        "RankBeforeMatch": 17,
+                        "PlayerRoundCount": 41773,
+                        "SituationCount": 6,
+                        "SituationsPerPlayerAndRound": 0.0001436334474421277
+                    },
+                    "18": {
+                        "RankBeforeMatch": 18,
+                        "PlayerRoundCount": 15521,
+                        "SituationCount": 3,
+                        "SituationsPerPlayerAndRound": 0.00019328651504413376
                     }
                 }
             }
