@@ -262,7 +262,7 @@ class MentorGGAPI {
     }
 
     getSituationsMetaData(params, overrides = {}) {
-        return axios.get(`${this.apiBaseAddress}/v1/situations/meta/situationtype-meta-data}`, {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/meta/situationtype-meta-data`, {
             params: {
             }
         });

@@ -3,6 +3,13 @@ import Helpers from './helpers';
 import SituationBase from '@/components/Situations/SituationBase';
 
 export default class SituationLoader {
+
+    //Add anything of type Enums.SituationType
+    //to the following array to hide the respective situation on the frontend
+    static MutedSituations = [
+        Enums.SituationType.PushBeforeSmokeDetonated
+    ];
+
     static getSituationData(situationType) {
         let data = {};
         let add_data = (type, component, name, description, fluff, additionalFields = []) => {

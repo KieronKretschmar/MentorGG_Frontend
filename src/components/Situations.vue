@@ -56,8 +56,8 @@ export default {
   data() {
     return {
       situations: null,
-      misplays: [],
-      highlights: [],
+      misplays: null,
+      highlights: null,
       lastMatchId: this.$api.MatchSelector.Build().GetMostRecentMatchId(),
       nNewOccurences: {
         Misplays: 0,
@@ -87,14 +87,10 @@ export default {
       this.nNewOccurences[dataKey] = 0;
       this.nHiddenOccurences[dataKey] = 0;
 
-      //Add anything of type Enums.SituationType
-      //to the following array to hide the respective situation on the frontend
-      let mutedSituations = [Enums.SituationType.PushBeforeSmokeDetonated];
-
       Object.keys(this.situations[dataKey]).forEach(key => {
         let entry = this.situations[dataKey][key];
 
-        if (mutedSituations.indexOf(entry.MetaData.SituationType) != -1) {
+        if (SituationLoader.MutedSituations.indexOf(entry.MetaData.SituationType) != -1) {
           return;
         }
 
@@ -143,7 +139,10 @@ export default {
           }
         }
 
-        ret.push(temp);
+        // hide situations without occurences
+        if (temp.occurences.length > 0) {
+          ret.push(temp);
+        }
       });
 
       return ret;

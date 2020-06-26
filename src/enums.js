@@ -174,7 +174,30 @@ class Enums {
       Tactical: 1,
       Grenades: 2,
       Shooting: 3,
-      Movement: 4
+      Movement: 4,
+
+      ToString(n) {
+        for (let name in this) {
+          if (this[name] == n) {
+            return name;
+          }
+        }
+
+        return "Unknown";
+      },
+      Values() {
+        let ret = {};
+
+        for (let name in this) {
+          if (typeof this[name] == "function") {
+            continue;
+          }
+
+          ret[name] = this[name];
+        }
+
+        return ret;
+      }
     };
   }
 
@@ -226,6 +249,19 @@ class Enums {
       },
       IsMisplay(n) {
         return n >= 510000 && n <= 530000;
+      },
+      Values() {
+        let ret = {};
+
+        for (let name in this) {
+          if (typeof this[name] == "function") {
+            continue;
+          }
+
+          ret[name] = this[name];
+        }
+
+        return ret;
       }
     };
   }

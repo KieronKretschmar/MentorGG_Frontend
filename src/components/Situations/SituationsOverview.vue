@@ -4,87 +4,101 @@
       <span>{{ title }}</span>
       <span class="new-count" v-if="nNewOccurences > 0">+{{ nNewOccurences }} new from last match</span>
     </h2>
-    <template v-if="situations.length > 0">
-      <div class="bordered-box chart-container" v-if="situations && chartData.datasets[0].data.length > 1">
-        <p class="chart-title">{{ chartTitle }}</p>
-        <LineChart :options="chartOptions" :data="chartData" class="situation-graph-inner-wrapper" />
-      </div>
-      <div class="bordered-box stretch-wrapper">
-        <div class="situation-table">
-          <div class="table-content">
-            <div v-for="situation in situations" :key="situation.type" class="entry">
-              <div class="category-wrapper">
-                <router-link :to="{name: 'situation-detail', params: {type: situation.type}}">
-                  <div class="cell link">
-                    <img
-                      class="situation-icon"
-                      :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
-                      :title="situation.skillDomainName"
-                    />
-                    <!-- <i class="situation-icon" :class="situation.icon"></i> -->
-                    <span class="situation-name">{{ situation.name }}</span>
-                    <span
-                      class="occurences-badge"
-                      :count="situation.occurences.length"
-                    >{{ situation.occurences.length }}</span>
-                  </div>
-                </router-link>
-                <div
-                  class="cell occurences-toggle"
-                  @click="situation.occurencesVisible = !situation.occurencesVisible"
-                >
-                  <div class="new-indicator" v-if="situation.containsNew">new</div>
-                  <i
-                    class="fas fa-chevron-down"
-                    :class="{toggled: situation.occurencesVisible}"
-                    :test="situation.occurencesVisible"
-                  ></i>
-                </div>
-              </div>
-              <div
-                class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
-                v-if="situation.occurences.length > 0"
-              >
-                <div
-                  v-for="occurence in situation.occurences"
-                  :key="occurence.id"
-                  class="occurence"
-                >
-                  <div class="content">
-                    <span>
+    <template v-if="situations">
+      <template v-if="situations.length > 0">
+        <div
+          class="bordered-box chart-container"
+          v-if="situations && chartData.datasets[0].data.length > 1"
+        >
+          <p class="chart-title">{{ chartTitle }}</p>
+          <LineChart
+            :options="chartOptions"
+            :data="chartData"
+            class="situation-graph-inner-wrapper"
+          />
+        </div>
+        <div class="bordered-box stretch-wrapper">
+          <div class="situation-table">
+            <div class="table-content">
+              <div v-for="situation in situations" :key="situation.type" class="entry">
+                <div class="category-wrapper">
+                  <router-link :to="{name: 'situation-detail', params: {type: situation.type}}">
+                    <div class="cell link">
                       <img
-                        class="map-image"
-                        :src="$assetLoader.getMapPreview(matches[occurence.MatchId].Map)"
+                        class="situation-icon"
+                        :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                        :title="situation.skillDomainName"
                       />
+                      <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                      <span class="situation-name">{{ situation.name }}</span>
                       <span
-                        class="match-date"
-                      >{{ matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
-                      <span class="map">{{ matches[occurence.MatchId].Map }}</span>
-                    </span>
-                    <span class="watch-wrapper">
-                      <span class="round">Round {{ occurence.Round }}</span>
-                      <i
-                        title="Watch in Browser"
-                        class="material-icons watch-match-icon"
-                        @click="Watch(occurence, situation)"
-                        :class="{disabled: !$helpers.DemoViewerAvailable(matches[occurence.MatchId].Map)}"
-                      >videocam</i>
-                    </span>
+                        class="occurences-badge"
+                        :count="situation.occurences.length"
+                      >{{ situation.occurences.length }}</span>
+                    </div>
+                  </router-link>
+                  <div
+                    class="cell occurences-toggle"
+                    @click="situation.occurencesVisible = !situation.occurencesVisible"
+                  >
+                    <div class="new-indicator" v-if="situation.containsNew">new</div>
+                    <i
+                      class="fas fa-chevron-down"
+                      :class="{toggled: situation.occurencesVisible}"
+                      :test="situation.occurencesVisible"
+                    ></i>
                   </div>
                 </div>
-              </div>
-              <div
-                class="occurences"
-                :style="{'max-height': situation.occurencesVisible ? '45px' : '0px'}"
-                v-else
-              >
-                <p>{{ noOccurencesText }}</p>
+                <div
+                  class="occurences"
+                  :style="{'max-height': situation.occurencesVisible ? ((situation.occurences.length * 45) + 5 + 'px') : '0px'}"
+                  v-if="situation.occurences.length > 0"
+                >
+                  <div
+                    v-for="occurence in situation.occurences"
+                    :key="occurence.id"
+                    class="occurence"
+                  >
+                    <div class="content">
+                      <span>
+                        <img
+                          class="map-image"
+                          :src="$assetLoader.getMapPreview(matches[occurence.MatchId].Map)"
+                        />
+                        <span
+                          class="match-date"
+                        >{{ matches[occurence.MatchId].MatchDate|formatDateAndTime }}</span>
+                        <span class="map">{{ matches[occurence.MatchId].Map }}</span>
+                      </span>
+                      <span class="watch-wrapper">
+                        <span class="round">Round {{ occurence.Round }}</span>
+                        <i
+                          title="Watch in Browser"
+                          class="material-icons watch-match-icon"
+                          @click="Watch(occurence, situation)"
+                          :class="{disabled: !$helpers.DemoViewerAvailable(matches[occurence.MatchId].Map)}"
+                        >videocam</i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="occurences"
+                  :style="{'max-height': situation.occurencesVisible ? '45px' : '0px'}"
+                  v-else
+                >
+                  <p>{{ noOccurencesText }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
+      <template v-else>
+        <div class="bordered-box no-data-available">
+          <p>No data available.</p>
+        </div>
+      </template>
     </template>
     <template v-else>
       <div class="bordered-box">
@@ -113,7 +127,9 @@ export default {
   components: {
     LineChart
   },
-  mounted() {},
+  mounted() {
+    console.log(this.situations);
+  },
   data() {
     let self = this;
 

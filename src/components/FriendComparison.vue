@@ -111,7 +111,7 @@
     </div>
 
     <div v-if="loadingComplete && comparisons.length == 0">
-      <div class="bordered-box no-comparisons">
+      <div class="bordered-box no-data-available">
         <p>No data available</p>
       </div>
     </div>
