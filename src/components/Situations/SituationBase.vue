@@ -154,6 +154,10 @@ export default {
         .getSituationSamplesByMatchIds({
           type: this.staticSituationData.type
         })
+        // .getSituationSamplesByMatchCount({
+        //   type: this.staticSituationData.type,
+        //   matchCount: 10,
+        // })
         .then(result => {
           this.PrepareData(result.data);
         });
