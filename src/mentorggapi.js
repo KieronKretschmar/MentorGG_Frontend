@@ -261,6 +261,13 @@ class MentorGGAPI {
         });
     }
 
+    getSituationsMetaData(params, overrides = {}) {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/meta/situationtype-meta-data}`, {
+            params: {
+            }
+        });
+    }
+
     getOverview(params, overrides = {}) {
         let formattedParams = {
             matchIds: this.MatchSelector.Build().GetMatchIds().toString(),
