@@ -147,7 +147,7 @@ export default {
     BarChart
   },
   mounted() {
-    this.debug = false;
+    this.debug = true;
 
     if (this.debug) {
       this.$api
