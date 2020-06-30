@@ -7,11 +7,10 @@
         <div class="whiteout-indicator" :style="{opacity: whiteoutAlpha}"></div>
         <div class="bomb-indicator" v-if="hasBomb"></div>
       </div>
-      <div
-        class="name"
-        v-if="health"
-        :style="{left: `${name.x}px`, top: `${name.y}px`}"
-      >{{ player.Name }}</div>
+      <div class="name" v-if="health" :style="{left: `${name.x}px`, top: `${name.y}px`}">
+        <span v-if="isControllingBot">Bot ({{ player.Name }})</span>
+        <span v-else>{{ player.Name }}</span>
+      </div>
       <div
         class="hit-given-indicator"
         v-show="hitGivenIndicator.visible"
@@ -196,7 +195,8 @@ export default {
 
       if (this.isControllingBot) {
         let botHealth = 100;
-        let bot = globalThis.DemoViewer.roundPlayers[this.player.BotTakeover.BotId];
+        let bot =
+          globalThis.DemoViewer.roundPlayers[this.player.BotTakeover.BotId];
 
         for (let hit of bot.HitsTaken) {
           if (hit.Time < this.player.BotTakeover.Time) {
@@ -209,14 +209,11 @@ export default {
 
       for (let hit of this.player.HitsTaken) {
         if (hit.Time < this.tick) {
-          if (this.isControllingBot)
-          {
+          if (this.isControllingBot) {
             if (hit.Time > this.player.BotTakeover.Time) {
               ret -= hit.AmountHealth;
             }
-          }
-          else
-          {
+          } else {
             ret -= hit.AmountHealth;
           }
         }
