@@ -122,6 +122,15 @@
               Watch
               <i class="material-icons">videocam</i>
             </button>
+
+            <div v-if="feedbackEnabled" class="feedback-wrapper">
+              <div class="y" title="Good!">
+                <i class="fas fa-thumbs-up"></i>
+              </div>
+              <div class="n" title="Bad!" @click="OnNegativeFeedbackButtonPressed(occurence)">
+                <i class="fas fa-thumbs-down"></i>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -131,6 +140,19 @@
         <AjaxLoader>Loading situation data</AjaxLoader>
       </div>
     </template>
+
+    <GenericOverlay ref="negativeFeedbackOverlay" width="900px">
+      <template v-if="feedbackOccurence">
+        <p
+          class="headline"
+        >Feedback for Occurence #{{ feedbackOccurence.Id }} - {{ dynamicSituationData.Matches[feedbackOccurence.MatchId].Map }} // {{ dynamicSituationData.Matches[feedbackOccurence.MatchId].MatchDate|formatDateAndTime }}</p>
+
+        <p>We'd greatly appreciate it if you could provide a short reasoning for your negative feedback.<br>Thank you for helping us with improving our service.</p>
+        <textarea id="feedback-message" class="feedback-message"></textarea>
+        <button class="button-variant-bordered">Send Feedback</button>
+
+      </template>
+    </GenericOverlay>
   </div>
 </template>
 
@@ -139,15 +161,18 @@ import LineChart from "@/components/Charts/LineChart.vue";
 import BarChart from "@/components/Charts/BarChart.vue";
 import Enums from "@/enums";
 import SituationLoader from "@/SituationLoader";
+import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
   props: ["staticSituationData"],
   components: {
     LineChart,
-    BarChart
+    BarChart,
+    GenericOverlay
   },
   mounted() {
-    this.debug = true;
+    this.debug = false;
+    this.feedbackEnabled = false;
 
     if (this.debug) {
       this.$api
@@ -180,6 +205,8 @@ export default {
       dynamicSituationData: null,
       situations: [],
       debug: false,
+      feedbackEnabled: false,
+      feedbackOccurence: null,
       highlightedOccurenceId: null,
       prependTime: 4000
     };
@@ -261,6 +288,10 @@ export default {
           display: false
         }
       };
+    },
+    OnNegativeFeedbackButtonPressed(occurence) {
+      this.feedbackOccurence = occurence;
+      this.$refs.negativeFeedbackOverlay.Show();
     }
   },
   computed: {
@@ -489,7 +520,10 @@ export default {
     },
     last5Color() {
       if (this.staticSituationData.isMisplay) {
-        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+        if (
+          this.situationByRankChartPersonalValue.last5 >
+          this.situationByRankChartPersonalValue.total
+        ) {
           return "crimson";
         } else {
           return "#72a233";
@@ -497,7 +531,10 @@ export default {
       }
 
       if (this.staticSituationData.isHighlight) {
-        if (this.situationByRankChartPersonalValue.last5 > this.situationByRankChartPersonalValue.total) {
+        if (
+          this.situationByRankChartPersonalValue.last5 >
+          this.situationByRankChartPersonalValue.total
+        ) {
           return "#72a233";
         } else {
           return "crimson";
@@ -717,6 +754,51 @@ export default {
       line-height: 12px;
       color: lightgray;
     }
+  }
+
+  .feedback-wrapper {
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+
+    .y,
+    .n {
+      width: 50%;
+      text-align: center;
+      color: white;
+      transition: 0.35s;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .y {
+      background: $green-2;
+
+      &:hover {
+        background: darken($green-2, 5%);
+      }
+    }
+
+    .n {
+      background: $red;
+
+      &:hover {
+        background: darken($red, 5%);
+      }
+    }
+  }
+
+  .feedback-message {
+    border: 1px solid $purple;
+    width: 100%;
+    outline: 0;
+    padding: 10px;
+    font-family: inherit;
+    background: $dark-3;
+    color: white;
+    min-height: 200px;
+    margin-bottom: 10px;
   }
 }
 </style>
