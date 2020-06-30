@@ -122,8 +122,14 @@ export default class SituationLoader {
             Enums.SituationType.TradeKill,
             SituationBase,
             "Trade Kill",
-            "A Trade Kill is when a player from the opposing team kills one of your teammates and you manage to, in turn, kill them, too.",
-            "Be aware of your surroundings and utilize the weaknesses, for low ammo / low health, of your enemies after they disengage from gunfights."
+            "A Trade Kill is when an enemy kills one of your teammates and you \"trade the kill\" by killing the opponent shortly after. ",
+            "Communicate, stay close to each other and peek together teammates to enable even more tradekills. Also call out enemies' positions once you die, so your teammates can trade your death. \n\n " +
+            "Take care not to stand in a straight line, as it disables you from shooting and makes it easier for the enemy to kill both of you. ",
+            [{
+                key: "TimeBetweenKills",
+                keyDisplay: "Time Between Kills",
+                after: "ms"
+            }]
         );
 
         add_data(
@@ -131,7 +137,12 @@ export default class SituationLoader {
             SituationBase,
             "Kill Through Smoke",
             "This happens whenever you manage to kill an enemy that, from your point of view, stands behind a live smoke grenade",
-            "It can be a good idea to spray smokes based on a hunch. You may also be able to predict their movement or spray into common one-way smoke spots."
+            "It can be a good idea to spray smokes based on a hunch. You may also be able to predict their movement or spray into common one-way smoke spots.",
+            [{
+                key: "Weapon",
+                keyDisplay: "Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
+            }]
         );
 
         add_data(
@@ -139,7 +150,12 @@ export default class SituationLoader {
             SituationBase,
             "Wallbang Kill",
             "This happens whenever you manage to kill an enemy by having your bullets penetrate an object they are hiding behind.",
-            "Learn which weapons are able to effectively penetrate which objects in the game. Keep in mind that penetrating objects may significantly lower your damage output."
+            "Learn the different spots that are common for wallbanging on each map. Keep in mind that penetrating objects lowers your damage output depending on your weapon.",
+            [{
+                key: "Weapon",
+                keyDisplay: "Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
+            }]
         );
 
         add_data(
@@ -147,7 +163,15 @@ export default class SituationLoader {
             SituationBase,
             "Collateral Kill",
             "This happens whenever you manage to kill multiple enemies in a single shot.",
-            "Play AWP and pray to kennyS, heh."
+            "Play AWP and pray to kennyS, heh.",
+            [{
+                key: "EnemiesKilled",
+                keyDisplay: "Enemies Killed"
+            }, {
+                key: "Weapon",
+                keyDisplay: "Weapon",
+                render: (val) => `<span class="weapon">${Helpers.EquipmentIdToFontCharacter(val)}</span>`
+            }]
         );
 
         add_data(
@@ -155,7 +179,19 @@ export default class SituationLoader {
             SituationBase,
             "Flash Assist",
             "This happens whenever you flash an enemy and one of your teammates lands the killing blow on them.",
-            "Call out incoming flashes and coordinate them with your teammates beforehand. Make sure to not flash your teammates in the process!"
+            "Call out incoming flashes and coordinate them with your teammates beforehand. Make sure to not flash your teammates in the process!",
+            [{
+                key: "FlashedEnemiesDeaths",
+                keyDisplay: "Flashed Enemies Deaths"
+            }, {
+                key: "TimeFlashedEnemies",
+                keyDisplay: "Time Flashed Enemies",
+                after: "ms"
+            }, {
+                key: "TimeFlashedTeammates",
+                keyDisplay: "Time Flashed Teammates",
+                after: "ms"
+            }]
         );
 
         /* 
@@ -305,9 +341,11 @@ export default class SituationLoader {
         add_data(
             Enums.SituationType.MissedTradeKill,
             SituationBase,
-            "Missed Trade Kill",
-            "A missed trade kill occurs when a nearby teammate gets killed by an enemy and you don't manage to kill their killer.",
-            "Be aware of your surroundings and utilize the weaknesses, for low ammo / low health, of your enemies after they disengage from gunfights."
+            "Missed Trade Kill Opportunity",
+            "This occurs when a nearby teammate gets killed by an enemy but you don't engage in the fight." + 
+            "In most cases a 2on1 is much preferable over multiple 1on1's, as the enemy can't shoot multiple players at the same time.",
+            "Communicate and peek together with your teammates to increase chances of succeeding. Even if your teammate has already died, " + 
+            "it can be a great opportunity to peek aggressively, as you know exactly where the enemy is and he may be distracted and/or low on ammo."
         );
 
         if (data[situationType] == undefined) {
