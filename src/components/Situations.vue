@@ -40,7 +40,7 @@
 
 <script>
 import SituationsOverview from "@/components/Situations/SituationsOverview.vue";
-import LineChart from "@/components/LineChart.vue";
+import LineChart from "@/components/Charts/LineChart.vue";
 import SituationLoader from "@/SituationLoader";
 import Enums from "@/enums";
 

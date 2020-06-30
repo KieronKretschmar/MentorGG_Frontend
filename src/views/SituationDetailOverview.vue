@@ -19,8 +19,11 @@
 
         <div class="split">
           <div class="l">
+            <h2 class="section-header">Misplays</h2>
+            <div class="chart-wrapper">
+              <RadarChart :data="radarChartData" :options="radarChartOptions"></RadarChart>
+            </div>
             <div class="entries">
-              <div class="entry">Misplays</div>
               <router-link
                 :to="{name: 'situation-detail', params: {type: entry.type}}"
                 class="entry"
@@ -37,20 +40,23 @@
             </div>
           </div>
           <div class="r">
+            <h2 class="section-header">Highlights</h2>
+            <div class="chart-wrapper">
+              <RadarChart :data="radarChartData" :options="radarChartOptions"></RadarChart>
+            </div>
             <div class="entries">
-              <div class="entry">Highlights</div>
               <router-link
                 :to="{name: 'situation-detail', params: {type: entry.type}}"
                 class="entry"
                 v-for="entry in renderData.highlights"
                 :key="entry.type"
               >
-                {{ entry.name }}
                 <img
                   v-if="entry.meta"
                   :src="$assetLoader.getSkillDomainIcon(entry.meta.SkillDomainName)"
                 />
                 <div class="icon-placeholder" v-else></div>
+                {{ entry.name }}
               </router-link>
             </div>
           </div>
@@ -63,8 +69,12 @@
 <script>
 import Enums from "@/enums";
 import SituationLoader from "@/SituationLoader";
+import RadarChart from "@/components/Charts/RadarChart.vue";
 
 export default {
+  components: {
+    RadarChart
+  },
   beforeMount() {
     for (let skillDomainName in Enums.SkillDomain.Values()) {
       this.$set(this.filters, skillDomainName, true);
@@ -81,7 +91,38 @@ export default {
     return {
       Enums,
       metaData: null,
-      filters: {}
+      filters: {},
+      radarChartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false,
+          position: "top"
+        },
+        title: {
+          display: false
+        },
+        scale: {
+          // display: false,
+          pointLabels: {
+            backgroundColor: "red",
+            fontColor: "#ff4800",
+            fontSize: 12,
+            fontFamily: "Montserrat"
+            // fontStyle: "bold"
+          },
+          gridLines: {
+            color: "#15141b"
+          },
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1,
+            suggestedMax: 5,
+            backdropColor: "#15141b",
+            fontColor: "#39384a"
+          }
+        }
+      }
     };
   },
   methods: {
@@ -98,6 +139,20 @@ export default {
     }
   },
   computed: {
+    radarChartData() {
+      return {
+        labels: ["Grenades", "Shooting", "Movement", "Tactical"],
+        datasets: [
+          {
+            data: [1, 0, 0, 0],
+            backgroundColor: "rgba(45, 44, 59 , 0.25)",
+            pointBackgroundColor: "#ff4800",
+            borderColor: "#39384a"
+          }
+        ]
+      };
+    },
+
     renderData() {
       let ret = {
         misplays: [],
@@ -183,10 +238,10 @@ export default {
           i {
             color: $orange;
             opacity: 0;
-            transition: .35s;
+            transition: 0.35s;
 
             &.visible {
-                opacity: 1;
+              opacity: 1;
             }
           }
         }
@@ -205,18 +260,16 @@ export default {
       }
 
       .l {
+        .section-header {
+          color: $red;
+        }
+
         .entries {
           .entry {
-            // clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
             padding-left: 20px;
-            // margin-right: -25px;
             background: $dark-1;
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
-
-            &:first-child {
-              color: $red;
-            }
 
             &:hover {
               background: lighten($dark-1, 5%);
@@ -231,19 +284,16 @@ export default {
       }
 
       .r {
+        .section-header {
+          color: $green-2;
+        }
+
         .entries {
           .entry {
-            // clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-            padding-right: 20px;
-            justify-content: flex-end;
-            // margin-left: -25px;
+            padding-left: 20px;
             background: $dark-1;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
-
-            &:first-child {
-              color: $green-2;
-            }
 
             &:hover {
               background: lighten($dark-1, 5%);
@@ -251,10 +301,19 @@ export default {
 
             img,
             .icon-placeholder {
-              margin-left: 10px;
+              margin-right: 10px;
             }
           }
         }
+      }
+
+      .chart-wrapper {
+        // background: $dark-3;
+        border: 1px solid $purple;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: none;
       }
 
       .entries {
@@ -271,6 +330,7 @@ export default {
           display: flex;
           align-items: center;
           border: 1px solid $purple;
+          font-size: 14px;
 
           &:last-child {
             margin-bottom: 0;
@@ -280,11 +340,6 @@ export default {
           .icon-placeholder {
             width: 32px;
             height: 32px;
-          }
-
-          &:first-child {
-            font-weight: bold;
-            font-size: 24px;
           }
         }
       }

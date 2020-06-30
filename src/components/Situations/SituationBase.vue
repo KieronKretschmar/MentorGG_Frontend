@@ -135,8 +135,8 @@
 </template>
 
 <script>
-import LineChart from "@/components/LineChart.vue";
-import BarChart from "@/components/BarChart.vue";
+import LineChart from "@/components/Charts/LineChart.vue";
+import BarChart from "@/components/Charts/BarChart.vue";
 import Enums from "@/enums";
 import SituationLoader from "@/SituationLoader";
 

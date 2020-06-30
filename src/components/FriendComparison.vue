@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import BarChart from "@/components/BarChart.vue";
+import BarChart from "@/components/Charts/BarChart.vue";
 
 export default {
   props: ["steamId"],
