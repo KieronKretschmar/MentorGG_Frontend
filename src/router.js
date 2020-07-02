@@ -193,12 +193,6 @@ export default new Router({
       beforeEnter: authenticationGuard
     },
     {
-      path: '/better-membership',
-      name: 'better-membership',
-      component: () => import(/* webpackChunkName: "better-membership" */'./views/BetterMembership.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
       path: '*',
       name: 'page-not-found',
       component: () => import(/* webpackChunkName: "pagenotfound" */'./views/PageNotFound.vue')
