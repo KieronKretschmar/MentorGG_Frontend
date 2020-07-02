@@ -168,8 +168,11 @@
             <div class="r">
               <div class="bordered-box">
                 <div class="step">
-                  <span class="num">1</span> Put
-                  <span class="highlight">MENTOR.GG</span> (case-insensitive) in your steam player name.
+                  <span class="num">1</span>
+                  <span>
+                    Put
+                    <span class="highlight">MENTOR.GG</span> (case-insensitive) in your steam player name.
+                  </span>
                 </div>
                 <div class="step">
                   <span class="num">2</span> Click the "Verify" button below to start the verification process.
@@ -216,7 +219,7 @@
     <GenericOverlay ref="upgradeOverlay" width="900px">
       <p class="headline">Oops.</p>
       <p>Please contact us directly if you want to upgrade your current subscription plan.</p>
-    </GenericOverlay>    
+    </GenericOverlay>
   </div>
 </template>
 
@@ -364,6 +367,7 @@ export default {
 
 .view-better-membership {
   margin-top: 70px;
+  padding: 0 20px;
 
   .pricing-boxes {
     display: flex;
@@ -644,6 +648,54 @@ export default {
     &.failed {
       // background: crimson;
       border: 5px solid $red;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .view-better-membership {
+    .pricing-boxes {
+      flex-direction: column;
+
+      .pricing-box {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+
+    .supporter-section {
+      .split {
+        flex-direction: column;
+
+        .l,
+        .r {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .view-better-membership {
+    .supporter-section {
+      .split {
+        .r {
+          .status {
+            flex-direction: column;
+
+            button,
+            .indicator {
+              width: 100%;
+            }
+
+            .indicator {
+              margin-top: 10px;
+            }
+          }
+        }
+      }
     }
   }
 }
