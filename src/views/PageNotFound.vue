@@ -7,7 +7,7 @@
 
         <p class="smiley">¯\_(ツ)_/¯</p>
 
-        <button class="button-variant-bordered" @click="$router.push({name: 'landingpage'})">Fine, get me outta here</button>
+        <button class="button-variant-bordered" @click="$router.push({path: '/'})">Fine, get me outta here</button>
       </div>
 
       <!-- <div class="large-404">404</div> -->
