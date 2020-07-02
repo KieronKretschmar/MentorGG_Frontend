@@ -1,53 +1,21 @@
 <template>
-  <div v-if="data" class="subscription">
-    <div class="wrapper-top">
-      <div class="bordered-box offer">
-        <div class="subheadline">
-          <p>{{data.Plans[0].Months + ' ' + (data.Plans[0].Months > 0 ? 'Months' : 'Month')}}</p>
+  <div v-if="data" class="subscription-duration-picker">
+    <div class="plans">
+      <div class="plan" v-for="(plan, index) in data.Plans" :key="plan.ProductId">
+        <div class="header">{{ `${plan.Months} Month${plan.Months > 1 ? 's' : ''}` }}</div>
+        <div class="price-tag">
+          <span class="price">{{ plan.MonthlyPrice }}</span>/ month
         </div>
-        <div class="content">
-          <p>
-            <span class="large">$ {{data.Plans[0].MonthlyPrice}}</span>
-            <br />
-            <span>per month</span>
-          </p>
+        <div class="save-value">
+          <span
+            v-if="GetTotalMoneySaved(index) > 0"
+          >Save a total of ${{ GetTotalMoneySaved(index) }}</span>
         </div>
-        <div class="content-three">
-          <button class="button" @click="$emit('paddleCheckout', 0)">Subscribe</button>
-        </div>
-      </div>
-      <div class="bordered-box offer-highlight">
-        <div class="subheadline-highlight">
-          <p>{{data.Plans[1].Months + ' ' + (data.Plans[1].Months > 0 ? 'Months' : 'Month')}}</p>
-        </div>
-        <div class="content-highlight">
-          <p>
-            <span class="large-highlight">$ {{data.Plans[1].MonthlyPrice}}</span>
-            <br />
-            <span class="highlight">per month</span>
-          </p>
-        </div>
-        <div class="content-three-highlight">
-          <button class="button-blue" @click="$emit('paddleCheckout', 1)">Subscribe</button>
-        </div>
-      </div>
-      <div class="bordered-box offer">
-        <div class="subheadline">
-          <p>{{data.Plans[2].Months + ' ' + (data.Plans[2].Months > 0 ? 'Months' : 'Month')}}</p>
-        </div>
-        <div class="content">
-          <p>
-            <span class="large">$ {{data.Plans[2].MonthlyPrice}}</span>
-            <br />
-            <span>per month</span>
-          </p>
-        </div>
-        <div class="content-three">
-          <button class="button" @click="$emit('paddleCheckout', 2)">Subscribe</button>
+        <div class="subscribe-button">
+          <button class="button-variant-bordered upgrade" @click="$emit('picked', index)">Subscribe</button>
         </div>
       </div>
     </div>
-    <!-- wrapper top end -->
   </div>
 </template>
 
@@ -55,162 +23,99 @@
 import Paddle from "paddle";
 
 export default {
-  props: [
-    "data"
-  ],
+  props: ["data"],
   mounted() {
+    console.log(this.data);
   },
   methods: {
+    GetTotalMoneySaved(index) {
+      if (index <= 0) {
+        return 0;
+      }
+
+      return (
+        (this.data.Plans[0].MonthlyPrice -
+          this.data.Plans[index].MonthlyPrice) *
+        this.data.Plans[index].Months
+      ).toFixed(2);
+    }
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>
-.view-subscription {
-  margin: 30px;
-
-  .bordered-box {
-    border: 1px solid $purple;
-    padding: 10px 25px;
-    border-radius: 4px;
-    min-width: 300px;
-    width: calc(33% - 5px);
-
-    &:nth-child(1) {
-      height: 250px;
-      margin-top: 35px;
-    }
-
-    &:nth-child(2) {
-      min-width: 340px;
-      height: 320px;
-    }
-
-    &:nth-child(3) {
-      height: 250px;
-      margin-top: 35px;
-    }
-  }
-
-  .offer {
-    background: $dark-1;
-    flex-grow: 1;
-    margin: 5px;
-    padding: 0;
-    text-align: center;
-    max-width: 300px;
-
-    &-highlight {
-      @extend .offer;
-      border: 1px solid $orange;
-    }
-  }
-  .content {
-    height: 125px;
+<style lang="scss">
+.subscription-duration-picker {
+  .plans {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
-    &-highlight {
-      @extend .content;
-      height: 150px;
-      padding-top: 10px;
-    }
-  }
+    .plan {
+      width: calc(30% - 10px);
+      border: 1px solid $purple;
+      border-radius: 4px;
 
-  .content-three {
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      &:nth-child(2) {
+        width: calc(40% - 10px);
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(255, 72, 0, 0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(255, 72, 0, 0.75);
+        box-shadow: 0px 0px 5px 0px rgba(255, 72, 0, 0.75);
+        border: 1px solid $orange;
 
-    &-highlight {
-      @extend .content-three;
-      height: 100px;
-    }
-  }
+        .price-tag {
+          margin-top: 40px;
+        }
 
-  .wrapper-top {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  p {
-    color: #fff;
-    font-weight: 500;
-  }
-
-  .subheadline {
-    display: flex;
-    background-color: $dark-3;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-    height: 50px;
-    border-radius: 4px 4px 0 0;
-    p {
-      align-self: center;
-      color: $orange;
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin: 0 auto;
-    }
-
-    &-highlight {
-      @extend .subheadline;
-      background-color: $orange;
-      height: 60px;
-
-      p {
-        color: #fff;
-        font-size: 1.5rem;
-        font-weight: 600;
+        .save-value {
+          margin-bottom: 40px;
+        }
       }
-    }
-  }
 
-  p span {
-    display: inline-block;
-  }
+      .header {
+        background: $dark-3;
+        color: $orange;
+        padding: 10px;
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 400;
+        text-align: center;
+      }
 
-  .large {
-    font-size: 2rem;
-    font-weight: 600;
-    padding: 3px 0;
-  }
+      .price-tag {
+        color: white;
+        font-weight: normal;
+        text-align: center;
+        margin-top: 20px;
 
-  .large-highlight {
-    font-size: 3rem;
-    font-weight: 600;
-    padding: 3px 0;
-  }
+        .price {
+          font-size: 24px;
 
-  .highlight {
-    font-size: 1.2rem;
-  }
+          &:before {
+            content: "$";
+          }
+        }
+      }
 
-  .button {
-    min-width: 160px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    border-radius: 10px;
-    padding: 0.75em 1.785em 0.75em 1.785em;
-    background-color: $green-2;
-    border: 1px solid $green;
-    line-height: 1;
-    cursor: pointer;
-    
-    &-blue {
-      @extend .button;
-      min-width: 200px;
-      font-size: 20px;
-      font-weight: 800;
-      padding: 0.75em 1.9em 0.75em 1.9em;
-      color: #fff;
-      background-color: $green-2;
-      border: 1px solid $green;
+      .subscribe-button {
+        padding: 10px;
+        padding-top: 0;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .save-value {
+        color: white;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 20px;
+        margin-top: 5px;
+        color: $orange;
+        font-weight: 500;
+        height: 18px;
+      }
     }
   }
 }
