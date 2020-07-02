@@ -212,6 +212,11 @@
         </p>
       </div>
     </GenericOverlay>
+
+    <GenericOverlay ref="upgradeOverlay" width="900px">
+      <p class="headline">Oops.</p>
+      <p>Please contact us directly if you want to upgrade your current subscription plan.</p>
+    </GenericOverlay>    
   </div>
 </template>
 
@@ -266,9 +271,10 @@ export default {
       this.verifyingUsername = true;
 
       this.$api
-        .getPlayerInfo({ steamId: this.steamId }, true)
+        .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) }, true)
         .then(response => {
           this.verifyingUsername = false;
+          this.user = response.data;
         });
     },
     GetSubscriptionData(subscriptionType /*enum*/) {
@@ -281,13 +287,18 @@ export default {
       );
     },
     OnCancelSubscription(subscriptionType) {
-      console.log("cancel");
+      this.$helpers.LogEvent(this, "ShowCancel");
+      window.open(this.subscriptionData.ActiveSubscription.CancelUrl, "_blank");
     },
     OnUpgradeSubscription(newSubscriptionType) {
-      console.log("upgrade: " + newSubscriptionType);
+      this.$helpers.LogEvent(this, "AttemptUpgrade");
+      this.$refs.upgradeOverlay.Show();
     },
     OnSubscribe(newSubscriptionType) {
-      console.log("subscribe: " + newSubscriptionType);
+      this.$helpers.LogEvent(this, "SelectSubscriptionType", {
+        label: newSubscriptionType
+      });
+
       this.selectedSubscription = newSubscriptionType;
       this.$refs.durationPickerOverlay.Show();
     },
@@ -633,6 +644,15 @@ export default {
     &.failed {
       // background: crimson;
       border: 5px solid $red;
+    }
+  }
+
+  .confirm-cancellation {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      width: calc(50% - 10px);
     }
   }
 }
