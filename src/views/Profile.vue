@@ -38,13 +38,8 @@
 </template>
 
 <script>
-import ProfileHeader from "@/components/ProfileHeader.vue";
-import RecentMatchStats from "@/components/RecentMatchStats.vue";
-import PositionAdvice from "@/components/PositionAdvice.vue";
-import FriendComparison from "@/components/FriendComparison.vue";
-import MatchHistory from "@/components/MatchHistory.vue";
-import Situations from "@/components/Situations.vue";
-import MentorUser from "../mentoruser";
+import ProfileHeader from "@/components/Profile/ProfileHeader.vue";
+import MentorUser from "@/mentoruser";
 
 // Tab Components
 import Overview from "@/components/Profile/Overview.vue";
@@ -58,11 +53,6 @@ import Kills from "@/components/Profile/Kills.vue";
 export default {
   components: {
     ProfileHeader,
-    RecentMatchStats,
-    PositionAdvice,
-    FriendComparison,
-    Situations,
-    MatchHistory
   },
   mounted() {
     this.HandleUserOverride(() => {

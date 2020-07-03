@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import RecentMatchStats from "@/components/RecentMatchStats.vue";
-import PositionAdvice from "@/components/PositionAdvice.vue";
-import FriendComparison from "@/components/FriendComparison.vue";
-import MatchHistory from "@/components/MatchHistory.vue";
-import Situations from "@/components/Situations.vue";
+import RecentMatchStats from "@/components/Profile/Overview/RecentMatchStats.vue";
+import PositionAdvice from "@/components/Profile/Overview/PositionAdvice.vue";
+import FriendComparison from "@/components/Profile/Overview/FriendComparison.vue";
+import MatchHistory from "@/components/Profile/Overview/MatchHistory.vue";
+import Situations from "@/components/Profile/Overview/Situations.vue";
 
 export default {
   props: ["steamId", "recentMatchStats"],
