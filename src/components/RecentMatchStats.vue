@@ -1,5 +1,6 @@
 <template>
   <div class="recent-match-stats">
+    <h2 class="section-header">Recent Match Stats</h2>
     <template v-if="isReady">
       <div class="bordered-box">
         <div class="stats">
@@ -56,6 +57,11 @@
           </p>
         </div>
       </GenericOverlay>
+    </template>
+    <template v-else>
+      <div class="bordered-box">
+        <AjaxLoader>Loading Recent Match Stats</AjaxLoader>
+      </div>
     </template>
   </div>
 </template>
@@ -302,7 +308,7 @@ export default {
   margin-top: 60px;
 
   .bordered-box {
-    padding: 20px 50px;
+    padding: 10px;
   }
 
   .no-graph-data {
@@ -315,6 +321,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    background: $dark-3;
+    border-radius: 4px;
+    padding: 10px 30px; 
 
     .stat {
       display: flex;
@@ -323,8 +332,8 @@ export default {
       margin: 10px;
 
       .val {
-        font-size: 1.75rem;
-        font-weight: 700;
+        font-size: 24px;
+        // font-weight: 700;
         color: white;
 
         &.p {
