@@ -20,7 +20,7 @@ import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
 import Target from "@/components/RadarImageFeatures/Target.vue";
 
 export default {
-  props: ['steamId'],
+  props: ["steamId"],
   components: {
     // General
     RadarImage,

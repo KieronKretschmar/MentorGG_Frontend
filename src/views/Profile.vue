@@ -52,7 +52,7 @@ import Kills from "@/components/Profile/Kills.vue";
 
 export default {
   components: {
-    ProfileHeader,
+    ProfileHeader
   },
   mounted() {
     this.HandleUserOverride(() => {
@@ -116,7 +116,11 @@ export default {
 
       this.$api.initMatchSelector(newSteamId).then(result => {
         this.steamId = newSteamId;
-        fnDone();
+        this.activeTabIndex = 0;
+        
+        if (fnDone) {
+          fnDone();
+        }
       });
     },
     LoadData() {
@@ -137,7 +141,9 @@ export default {
   },
   watch: {
     "$route.params.steamId": function() {
-      this.HandleUserOverride();
+      this.HandleUserOverride(() => {
+        this.LoadData();
+      });
     }
   },
   beforeDestroy() {
