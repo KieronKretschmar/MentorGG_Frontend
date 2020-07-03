@@ -66,7 +66,7 @@
 
 <script>
 import GenericOverlay from "@/components/GenericOverlay.vue";
-import LineChart from "@/components/LineChart.vue";
+import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
 
 export default {

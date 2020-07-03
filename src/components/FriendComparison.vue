@@ -111,7 +111,7 @@
     </div>
 
     <div v-if="loadingComplete && comparisons.length == 0">
-      <div class="bordered-box no-comparisons">
+      <div class="bordered-box no-data-available">
         <p>No data available</p>
       </div>
     </div>
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import BarChart from "@/components/BarChart.vue";
+import BarChart from "@/components/Charts/BarChart.vue";
 
 export default {
   props: ["steamId"],

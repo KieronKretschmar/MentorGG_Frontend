@@ -26,7 +26,7 @@ export default {
     methods: {
         Accept() {
             this.hidden = true;
-            this.$cookies.set(this.cookieName, true);
+            this.$cookies.set(this.cookieName, true, '1y');
         }
     }
 }

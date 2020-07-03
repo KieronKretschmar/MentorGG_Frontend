@@ -43,31 +43,13 @@
 
     <GenericOverlay ref="verifyUsernameOverlay" class="verify-username-overlay" width="900px">
       <p class="headline">Not verified as Supporter</p>
-      <div class="step">
-        <span class="num">1</span> Put
-        <span class="highlight">MENTOR.GG</span> (case-insensitive) in your steam player name.
-      </div>
-      <div class="step">
-        <span class="num">2</span> Click the "Verify" button below to start the verification process.
-      </div>
-      <div class="step">
-        <span class="num">3</span> You now have access to all the benefits that come with being a Supporter.
-      </div>
-
-      <button
-        class="button-variant-bordered"
-        :disabled="verifyingUsername"
-        @click="VerifyUsername"
-      >{{ verifyingUsername ? 'Verifying username..' : 'Verify' }}</button>
-      <!-- <p>Your player name can be changed at any time in your Steam Community settings, under "Edit my SteamID page".</p> -->
-      <p class="headline">Benefits</p>
-      <p>Supporters get to see their misplays and highlights for 4 additional rounds per match.</p>
+      <p>To learn more about becoming a MENTOR.GG supporter, please check the bottom of the <router-link :to="{name: 'membership'}">Membership</router-link> page.</p>
     </GenericOverlay>
   </div>
 </template>
 
 <script>
-import LineChart from "@/components/LineChart.vue";
+import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 
@@ -88,25 +70,10 @@ export default {
 
       this.$api.getPlayerInfo(params).then(response => {
         this.user = response.data;
-        console.log(this.user);
       });
     },
     OpenVerifyUsernamePopup() {
       this.$refs.verifyUsernameOverlay.Show();
-    },
-    VerifyUsername() {
-      this.verifyingUsername = true;
-
-      this.$api
-        .getPlayerInfo({ steamId: this.steamId }, true)
-        .then(response => {
-          this.verifyingUsername = false;
-          this.$refs.verifyUsernameOverlay.Hide();
-
-          setTimeout(() => {
-            this.$emit("force-reload");
-          }, 350);
-        });
     },
     IsFreeOrSupporter() {
       return (
@@ -220,15 +187,6 @@ export default {
           }
         ]
       };
-    },
-    nameContainsVerifyString() {
-      if (!this.user) {
-        return false;
-      }
-
-      return (
-        this.user.SteamUser.SteamName.toLowerCase().indexOf("mentor.gg") != -1
-      );
     },
     isOwnProfile() {
       if (!this.user) {
@@ -365,38 +323,6 @@ export default {
           background: $dark-1;
         }
       }
-    }
-  }
-
-  .verify-username-overlay {
-    .step {
-      display: flex;
-      align-items: center;
-      color: white;
-      margin-bottom: 10px;
-
-      .highlight {
-        color: $orange;
-        font-weight: 500;
-        margin: 0 5px;
-      }
-
-      .num {
-        width: 30px;
-        height: 30px;
-        background: $dark-2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-        margin-right: 5px;
-        color: white;
-      }
-    }
-
-    button {
-      margin-bottom: 20px;
-      width: 200px;
     }
   }
 }

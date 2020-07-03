@@ -340,6 +340,11 @@ export default {
         data.Round.Damages[idx].VictimPos = this.$coordinateConverter.IngameToPixel(data.Round.Damages[idx].VictimPos, map);
       }
 
+      //attacks
+      for (let idx = 0; idx < data.Round.WeaponFireds.length; idx++) {
+        data.Round.WeaponFireds[idx].PlayerPos = this.$coordinateConverter.IngameToPixel(data.Round.WeaponFireds[idx].PlayerPos, map);
+      }
+
       //bomb
       if (data.Round.BombPlant) {
         data.Round.BombPlant.Pos = this.$coordinateConverter.IngameToPixel(data.Round.BombPlant.Pos, map);
@@ -444,12 +449,34 @@ export default {
           continue;
         }
 
+        positions = positions.concat(player.Attacks);
+
+        for (let damage of this.data.Round.Damages) {
+          if (damage.VictimId == player.Id) {
+            positions.push({
+              Time: damage.Time,
+              PlayerPos: damage.VictimPos,
+              PlayerView: "unknown",
+              Weapon: "unknown"
+            });
+          }
+        }
+
+        positions.sort((a, b) => {
+          return a.Time - b.Time;
+        });
+
         let d3Polated = [];
 
         for (let idx = 0; idx < positions.length; idx++) {
           let entry = positions[idx];
           if (positions[idx + 1]) {
             let nextEntry = positions[idx + 1];
+
+            if (nextEntry.PlayerView == "unknown" || nextEntry.Weapon == "unknown") {
+              nextEntry.PlayerView = entry.PlayerView;
+              nextEntry.Weapon = entry.Weapon;
+            }
 
             if (Math.abs(entry.PlayerView - nextEntry.PlayerView) > 180) {
               if (entry.PlayerView < nextEntry.PlayerView) {

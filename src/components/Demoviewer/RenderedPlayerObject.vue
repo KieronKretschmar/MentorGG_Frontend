@@ -1,17 +1,16 @@
 <template>
   <div class="rendered-player-object" :class="{highlighted: isHighlighted}">
     <template v-if="!isBeingControlled">
-      <div class="death-marker" v-if="!health" :team="player.IsCT ? 'ct' : 't'" :style="style">×</div>
-      <div class="player-circle" v-if="health" :team="player.IsCT ? 'ct' : 't'" :style="style">
+      <div class="death-marker" v-if="!health.hp" :team="player.IsCT ? 'ct' : 't'" :style="style">×</div>
+      <div class="player-circle" v-if="health.hp" :team="player.IsCT ? 'ct' : 't'" :style="style">
         <div class="rotation-indicator" :class="{attacking: attackIndicator.visible}"></div>
         <div class="whiteout-indicator" :style="{opacity: whiteoutAlpha}"></div>
         <div class="bomb-indicator" v-if="hasBomb"></div>
       </div>
-      <div
-        class="name"
-        v-if="health"
-        :style="{left: `${name.x}px`, top: `${name.y}px`}"
-      >{{ player.Name }}</div>
+      <div class="name" v-if="health.hp" :style="{left: `${name.x}px`, top: `${name.y}px`}">
+        <span v-if="isControllingBot">Bot ({{ player.Name }})</span>
+        <span v-else>{{ player.Name }}</span>
+      </div>
       <div
         class="hit-given-indicator"
         v-show="hitGivenIndicator.visible"
@@ -68,17 +67,18 @@ export default {
       let first = true;
       let newPosition = null;
 
-      //make sure player is alive to prevent potential glitches
-      if (this.health <= 0) {
-        return;
-      }
-
       for (
         let idx = this.lastPositionIndex;
         idx < this.player.Positions.length;
         idx++
       ) {
         let position = this.player.Positions[idx];
+
+        //make sure player is alive to prevent potential glitches
+        if (this.health.deathTime != -1 && position.Time > this.health.deathTime) {
+          break;
+        }
+
         if (this.tick >= position.Time || first) {
           newPosition = position;
 
@@ -192,37 +192,44 @@ export default {
       };
     },
     health() {
-      let ret = 100;
+      let startHealth = 100;
+      let deathTime = -1;
 
       if (this.isControllingBot) {
         let botHealth = 100;
-        let bot = globalThis.DemoViewer.roundPlayers[this.player.BotTakeover.BotId];
+        let bot =
+          globalThis.DemoViewer.roundPlayers[this.player.BotTakeover.BotId];
 
         for (let hit of bot.HitsTaken) {
           if (hit.Time < this.player.BotTakeover.Time) {
             botHealth -= hit.AmountHealth;
+
+            if (deathTime == -1 && botHealth <= 0) {
+              deathTime = hit.Time;
+            }
           }
         }
 
-        ret = botHealth;
+        startHealth = botHealth;
       }
 
       for (let hit of this.player.HitsTaken) {
         if (hit.Time < this.tick) {
-          if (this.isControllingBot)
-          {
+          if (this.isControllingBot) {
             if (hit.Time > this.player.BotTakeover.Time) {
-              ret -= hit.AmountHealth;
+              startHealth -= hit.AmountHealth;
             }
+          } else {
+            startHealth -= hit.AmountHealth;
           }
-          else
-          {
-            ret -= hit.AmountHealth;
+
+          if (deathTime == -1 && startHealth <= 0) {
+            deathTime = hit.Time;
           }
         }
       }
 
-      return Math.max(0, ret);
+      return { hp: Math.max(0, startHealth), deathTime: deathTime };
     },
     whiteoutAlpha() {
       let curAlpha = 0;

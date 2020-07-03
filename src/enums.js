@@ -174,7 +174,30 @@ class Enums {
       Tactical: 1,
       Grenades: 2,
       Shooting: 3,
-      Movement: 4
+      Movement: 4,
+
+      ToString(n) {
+        for (let name in this) {
+          if (this[name] == n) {
+            return name;
+          }
+        }
+
+        return "Unknown";
+      },
+      Values() {
+        let ret = {};
+
+        for (let name in this) {
+          if (typeof this[name] == "function") {
+            continue;
+          }
+
+          ret[name] = this[name];
+        }
+
+        return ret;
+      }
     };
   }
 
@@ -189,6 +212,11 @@ class Enums {
       Clutch: 210003,
       HighImpactRound: 210004,
       MultiKill: 210005,
+      TradeKill: 210006,
+      KillThroughSmoke: 210007,
+      WallBangKill: 210008,
+      CollateralKill: 210009,
+      FlashAssist: 210010,
 
       // 22XXXX For Team - Highlights
 
@@ -203,6 +231,7 @@ class Enums {
       PushBeforeSmokeDetonated: 510007,
       BombDropAtSpawn: 510008,
       HasNotBoughtDefuseKit: 510009,
+      MissedTradeKill: 510010,
 
       // 52XXXX For Team - Misplays
 
@@ -220,6 +249,19 @@ class Enums {
       },
       IsMisplay(n) {
         return n >= 510000 && n <= 530000;
+      },
+      Values() {
+        let ret = {};
+
+        for (let name in this) {
+          if (typeof this[name] == "function") {
+            continue;
+          }
+
+          ret[name] = this[name];
+        }
+
+        return ret;
       }
     };
   }

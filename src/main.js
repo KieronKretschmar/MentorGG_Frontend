@@ -12,6 +12,7 @@ import { VueMasonryPlugin } from 'vue-masonry';
 import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
 import VueCookies from 'vue-cookies';
+import SituationLoader from './SituationLoader';
 
 
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
@@ -89,4 +90,9 @@ function demoViewerCloseGuard(to, from, next) {
   else {
     next(true)
   }
+}
+
+//Run tests
+if (process.env.VUE_APP_RUN_TESTS == 'true') {
+  SituationLoader.findUnregisteredSituations();
 }

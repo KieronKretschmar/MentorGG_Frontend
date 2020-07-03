@@ -237,7 +237,7 @@ class MentorGGAPI {
             matchCount : params.matchCount
         }
 
-        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples`, {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples-by-matchcount`, {
             params: formattedParams
         });
     }
@@ -262,7 +262,7 @@ class MentorGGAPI {
     }
 
     getSituationsMetaData(params, overrides = {}) {
-        return axios.get(`${this.apiBaseAddress}/v1/situations/meta/situationtype-meta-data}`, {
+        return axios.get(`${this.apiBaseAddress}/v1/situations/meta/situationtype-meta-data`, {
             params: {
             }
         });

@@ -176,6 +176,12 @@ export default new Router({
       beforeEnter: authenticationGuard
     },
     {
+      path: '/situations/',
+      name: 'situations',
+      component: () => import(/* webpackChunkname: "situations" */'./views/SituationDetailOverview.vue'),
+      beforeEnter: authenticationGuard
+    },
+    {
       path: '/landingpage',
       name: 'landingpage',
       component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
