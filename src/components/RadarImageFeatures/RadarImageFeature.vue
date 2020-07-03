@@ -20,6 +20,7 @@ import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
 import Target from "@/components/RadarImageFeatures/Target.vue";
 
 export default {
+  props: ['steamId'],
   components: {
     // General
     RadarImage,
@@ -111,7 +112,7 @@ export default {
         let params = {
           type: this.config.sampleType,
           map: map,
-          steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
+          steamId: this.steamId //isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
         };
         let overrides = { maps: [map] };
 
