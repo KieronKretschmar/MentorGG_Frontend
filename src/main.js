@@ -13,6 +13,7 @@ import VueLazyLoad from 'vue-lazyload';
 import VueAnalytics from 'vue-analytics'
 import VueCookies from 'vue-cookies';
 import SituationLoader from './SituationLoader';
+import EventBus from './EventBus';
 
 
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
