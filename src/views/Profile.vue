@@ -166,9 +166,8 @@ export default {
     display: flex;
     background: $dark-1;
     margin-top: -30px;
-    border-left: 3px solid $purple;
-    border-right: 3px solid $purple;
-    // border-bottom: 1px solid $purple;
+    border-left: 3px solid $orange;
+    border-right: 3px solid $orange;
     border-radius: 4px;
 
     .tab {
@@ -179,15 +178,17 @@ export default {
       height: 60px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid transparent;
+      border-bottom: 3px solid transparent;
       transition: 0.35s;
       cursor: pointer;
 
       &.active,
       &:hover {
-        color: $orange;
         background: $dark-2;
-        border-bottom: 1px solid $dark-1;
+        border-bottom: 3px solid $purple;
+        -webkit-box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
+        -moz-box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
+        box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
       }
     }
   }
