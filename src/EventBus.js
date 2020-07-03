@@ -2,7 +2,6 @@ export default class {
     static registrations = {};
 
     static AddListener(eventName, callback) {
-        console.log(this.registrations);
         if (this.registrations[eventName] == undefined) {
             this.registrations[eventName] = {
                 handleCount: 0,
@@ -11,10 +10,21 @@ export default class {
         }
 
         this.registrations[eventName].handleCount++;
-        this.registrations[eventName].callbacks.push({
+
+        let callbackData = {
             handle: this.registrations[eventName].handleCount,
             callback: callback
-        });
+        };
+
+        this.registrations[eventName].callbacks.push(callbackData);
+
+        let eventBus = this;
+
+        return {
+            Remove() {
+                eventBus.RemoveListener(eventName, callbackData.handle);
+            }
+        }
     }
 
     static RemoveListener(eventName, handle) {
@@ -22,8 +32,8 @@ export default class {
             return false;
         }
 
-        this.registrations[eventName].callbacks = 
-            this.registrations[eventName].callbacks.filter(e => e.handle = handle);
+        this.registrations[eventName].callbacks =
+            this.registrations[eventName].callbacks.filter(e => e.handle != handle);
 
         return true;
     }

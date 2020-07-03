@@ -79,10 +79,7 @@ export default {
     LineChart
   },
   beforeDestroy() {
-    EventBus.RemoveListener(
-      "open-rank-history-graph",
-      this.openRankHistoryGraphEventHandle
-    );
+    this.openRankHistoryGraphEventHandle.Remove();
   },
   mounted() {
     this.openRankHistoryGraphEventHandle = EventBus.AddListener(
