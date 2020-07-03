@@ -166,6 +166,7 @@ export default {
     display: flex;
     background: $dark-1;
     margin-top: -30px;
+    margin-bottom: 60px;
     border-left: 3px solid $orange;
     border-right: 3px solid $orange;
     border-radius: 4px;

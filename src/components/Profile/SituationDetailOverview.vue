@@ -203,7 +203,6 @@ export default {
       display: flex;
       flex-wrap: wrap;
       margin: -10px;
-      margin-top: 65px;
 
       .filter {
         width: calc(25% - 20px);

@@ -498,11 +498,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/sidebar.scss";
-
-.view-radarimage-feature {
-  margin-top: 40px;
-}
-
 .no-data {
   margin-top: 20px;
 }
@@ -510,6 +505,7 @@ export default {
 .interactive-area {
   display: flex;
   justify-content: space-between;
+  margin: 0 -10px;
   margin-top: 20px;
 
   .l {

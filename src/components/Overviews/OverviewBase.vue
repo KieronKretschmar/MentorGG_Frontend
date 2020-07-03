@@ -20,15 +20,7 @@ export default {
 .performances {
   display: flex;
   flex-direction: row;
-  // margin: 0 -10px;
-
-  &:first-child {
-    margin-left: 5px;
-  }
-
-  &:last-child {
-    margin-right: 5px;
-  }
+  margin: 0 -5px;
 
   .performance-inline {
     display: inherit;
@@ -36,7 +28,7 @@ export default {
   }
 
   .performance {
-    width: calc(100% / 7);
+    width: calc((100% / 7) - 10px);
     margin: 0 5px;
     background-position: center;
     background-size: cover;
