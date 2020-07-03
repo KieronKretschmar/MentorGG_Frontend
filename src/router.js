@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './views/Dashboard.vue'
 import axios from 'axios';
 
 Vue.use(Router);
@@ -83,37 +82,7 @@ export default new Router({
     {
       path: '/profile/:steamId',
       name: 'dashboard',
-      component: Dashboard,
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/hes',
-      name: 'hes',
-      component: () => import(/* webpackChunkName: "hes" */'./views/RadarImageFeatures/HEs.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/flashes',
-      name: 'flashes',
-      component: () => import(/* webpackChunkName: "flashes" */'./views/RadarImageFeatures/Flashes.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/kills',
-      name: 'kills',
-      component: () => import(/* webpackChunkName: "kills" */'./views/RadarImageFeatures/Kills.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/molotovs',
-      name: 'molotovs',
-      component: () => import(/* webpackChunkName: "molotovs" */'./views/RadarImageFeatures/Molotovs.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/smokes',
-      name: 'smokes',
-      component: () => import(/* webpackChunkName: "smokes" */'./views/RadarImageFeatures/Smokes.vue'),
+      component: () => import(/* webpackChunkName: "profile" */'./views/Profile.vue'),
       beforeEnter: authenticationGuard
     },
     // {
@@ -122,12 +91,6 @@ export default new Router({
     //   component: () => import(/* webpackChunkName: "bombs" */'./views/Bombs.vue'),
     //   beforeEnter: authenticationGuard
     // },
-    {
-      path: '/statistics',
-      name: 'statistics',
-      component: () => import(/* webpackChunkName: "statistics" */'./views/Statistics.vue'),
-      beforeEnter: authenticationGuard
-    },
     {
       path: '/faq',
       name: 'faq',
@@ -173,12 +136,6 @@ export default new Router({
       path: '/situation/:type',
       name: 'situation-detail',
       component: () => import(/* webpackChunkName: "dvtrigger" */'./views/SituationDetail.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/situations/',
-      name: 'situations',
-      component: () => import(/* webpackChunkname: "situations" */'./views/SituationDetailOverview.vue'),
       beforeEnter: authenticationGuard
     },
     {

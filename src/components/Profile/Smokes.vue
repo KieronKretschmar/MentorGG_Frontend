@@ -309,7 +309,7 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
 import Smoke from "@/components/RadarImageFeatures/Smoke.vue";
 import SmokesOverview from "@/components/Overviews/SmokesOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";

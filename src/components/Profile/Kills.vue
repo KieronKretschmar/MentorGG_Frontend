@@ -240,7 +240,7 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
 import Kill from "@/components/RadarImageFeatures/Kill.vue";
 import KillsOverview from "@/components/Overviews/KillsOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";

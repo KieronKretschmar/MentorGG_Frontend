@@ -310,7 +310,7 @@ export default {
 
 <style lang="scss">
 .recent-match-stats {
-  margin-top: -60px;
+  margin-top: 60px;
 
   .bordered-box {
     padding: 20px 50px;

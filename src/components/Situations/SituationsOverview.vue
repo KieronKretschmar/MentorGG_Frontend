@@ -128,7 +128,7 @@ export default {
     LineChart
   },
   mounted() {
-    console.log(this.situations);
+
   },
   data() {
     let self = this;

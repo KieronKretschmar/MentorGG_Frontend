@@ -84,8 +84,6 @@ export default {
     this.$api.getSituationsMetaData({}).then(result => {
       this.metaData = result.data.Data;
     });
-
-    console.log(this.filters);
   },
   data() {
     return {

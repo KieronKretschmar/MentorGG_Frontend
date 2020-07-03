@@ -270,7 +270,7 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
 import HE from "@/components/RadarImageFeatures/HE.vue";
 import HEsOverview from "@/components/Overviews/HEsOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";

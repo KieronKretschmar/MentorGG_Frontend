@@ -57,12 +57,6 @@
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
             <router-link :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}">Profile</router-link>
-            <router-link :to="{name: 'situations'}">Situations</router-link>
-            <router-link to="/smokes">Smokes</router-link>
-            <router-link to="/molotovs">Molotovs</router-link>
-            <router-link to="/flashes">Flashes</router-link>
-            <router-link to="/hes">HEs</router-link>
-            <router-link to="/kills">Kills</router-link>
           </div>
 
           <!-- Upload Demos-->
