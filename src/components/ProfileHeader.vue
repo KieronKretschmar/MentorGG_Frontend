@@ -29,7 +29,7 @@
       <div
         class="mini-rank-graph"
         title="Open Rank History Graph"
-        @click="$emit('openRankHistoryGraph')"
+        @click="EventBus.Invoke('open-rank-history-graph')"
       >
         <span>MATCHMAKING RESULTS</span>
         <LineChart
@@ -52,6 +52,7 @@
 import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import EventBus from "@/EventBus";
 
 export default {
   props: ["steamId", "recentMatchStats"],
@@ -84,6 +85,7 @@ export default {
   },
   data() {
     return {
+      EventBus,
       Enums,
       user: null,
       verifyingUsername: false,

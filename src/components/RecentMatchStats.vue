@@ -70,6 +70,7 @@
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
+import EventBus from "@/EventBus";
 
 export default {
   props: ["steamId", "recentMatchStats"],
@@ -77,22 +78,32 @@ export default {
     GenericOverlay,
     LineChart
   },
-  beforeMount() {
-
+  beforeDestroy() {
+    EventBus.RemoveListener(
+      "open-rank-history-graph",
+      this.openRankHistoryGraphEventHandle
+    );
   },
   mounted() {
+    this.openRankHistoryGraphEventHandle = EventBus.AddListener(
+      "open-rank-history-graph",
+      () => {
+        this.$refs.rankGraphOverlay.Show();
+      }
+    );
+
     let nImagesLoaded = 0;
 
     for (let i = 0; i < 19; i++) {
       let image = new Image();
       image.src = this.$assetLoader.getRankIcon(i);
-      
+
       image.onload = () => {
         nImagesLoaded++;
         if (nImagesLoaded == 19) {
           this.rankImagesLoaded = true;
         }
-      }
+      };
 
       this.rankImages.push(image);
     }
@@ -104,6 +115,7 @@ export default {
       loadingComplete: false,
       rankImagesLoaded: false,
       rankImages: [],
+      openRankHistoryGraphEventHandle: null,
       chartOptions: {
         tooltips: {
           enabled: false
@@ -321,7 +333,7 @@ export default {
     flex-wrap: wrap;
     background: $dark-3;
     border-radius: 4px;
-    padding: 10px 30px; 
+    padding: 10px 30px;
 
     .stat {
       display: flex;
