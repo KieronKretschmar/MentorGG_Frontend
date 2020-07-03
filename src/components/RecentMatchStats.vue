@@ -1,66 +1,62 @@
 <template>
   <div class="recent-match-stats">
-    <div class="bordered-box">
-      <AjaxLoader v-if="!loadingComplete">Computing Recent Match Stats</AjaxLoader>
-      <div class="stats" v-if="recentMatchStats">
-        <div class="stat">
-          <div class="val">{{recentMatchStats.GamesTotal}}</div>
-          <div class="txt">Matches</div>
-        </div>
-        <div class="stat">
-          <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
-          <div class="txt">K/D Ratio</div>
-        </div>
-        <div class="stat">
-          <div class="val">{{ recentMatchStats.AverageHltvRating.toFixed(2) }}</div>
-          <div class="txt">HLTV Rating</div>
-        </div>
-        <div class="stat">
-          <div class="val">{{ Winrate.toFixed(0) }}%</div>
-          <div class="txt">Winrate</div>
-        </div>
-        <div class="stat">
-          <div
-            class="val"
-          >{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
-          <div class="txt">Headshot</div>
-        </div>
-        <div class="stat">
-          <div class="val" :class="RankBalanceClass">
-            {{ (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
-            <i
-              class="material-icons"
-              @click="OpenRankGraph"
-            >timeline</i>
+    <template v-if="isReady">
+      <div class="bordered-box">
+        <div class="stats">
+          <div class="stat">
+            <div class="val">{{recentMatchStats.GamesTotal}}</div>
+            <div class="txt">Matches</div>
           </div>
-          <div class="txt">W/L balance on this rank</div>
-          <!-- Not using below, because the player may have never changed ranks since he started uploading matches. -->
-          <!-- <div class="txt">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
+          <div class="stat">
+            <div class="val">{{ recentMatchStats.KillDeathRatio.toFixed(2) }}</div>
+            <div class="txt">K/D Ratio</div>
+          </div>
+          <div class="stat">
+            <div class="val">{{ recentMatchStats.AverageHltvRating.toFixed(2) }}</div>
+            <div class="txt">HLTV Rating</div>
+          </div>
+          <div class="stat">
+            <div class="val">{{ Winrate.toFixed(0) }}%</div>
+            <div class="txt">Winrate</div>
+          </div>
+          <div class="stat">
+            <div
+              class="val"
+            >{{(recentMatchStats.HsKills / recentMatchStats.Kills * 100).toFixed(0) + '%'}}</div>
+            <div class="txt">Headshot</div>
+          </div>
+          <div class="stat">
+            <div class="val" :class="RankBalanceClass">
+              {{ (0 > RankBalance ? "-" : "+") + Math.abs(RankBalance) }}
+              <i
+                class="material-icons"
+                @click="OpenRankGraph"
+              >timeline</i>
+            </div>
+            <div class="txt">W/L balance on this rank</div>
+            <!-- Not using below, because the player may have never changed ranks since he started uploading matches. -->
+            <!-- <div class="txt">W/L balance since {{recentMatchStats.RecentRankChangeWasUprank ? 'up' : 'down'}}rank</div> -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <GenericOverlay ref="rankGraphOverlay" width="900px">
-      <p class="headline">Rank History Graph</p>
-      <div
-        class="rank-graph-outer-wrapper"
-        data-simplebar
-        data-simplebar-auto-hide="false"
-        v-if="recentMatchStats"
-      >
-        <LineChart
-          :options="chartOptions"
-          :data="chartData"
-          :style="{width: `${relevantGraphMatches.length * 80}px`}"
-          class="rank-graph-inner-wrapper"
-          v-if="relevantGraphMatches.length"
-        />
-        <p v-else class="no-graph-data">
-          No data available.
-          <br />Play official matchmaking games to be able to see your personal rank history graph.
-        </p>
-      </div>
-    </GenericOverlay>
+      <GenericOverlay ref="rankGraphOverlay" width="900px">
+        <p class="headline">Rank History Graph</p>
+        <div class="rank-graph-outer-wrapper" data-simplebar data-simplebar-auto-hide="false">
+          <LineChart
+            :options="chartOptions"
+            :data="chartData"
+            :style="{width: `${relevantGraphMatches.length * 80}px`}"
+            class="rank-graph-inner-wrapper"
+            v-if="relevantGraphMatches.length"
+          />
+          <p v-else class="no-graph-data">
+            No data available.
+            <br />Play official matchmaking games to be able to see your personal rank history graph.
+          </p>
+        </div>
+      </GenericOverlay>
+    </template>
   </div>
 </template>
 
@@ -70,17 +66,28 @@ import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
 
 export default {
-  props: ["steamId"],
+  props: ["steamId", "recentMatchStats"],
   components: {
     GenericOverlay,
     LineChart
   },
+  beforeMount() {
+
+  },
   mounted() {
-    this.LoadData();
+    let nImagesLoaded = 0;
 
     for (let i = 0; i < 19; i++) {
       let image = new Image();
       image.src = this.$assetLoader.getRankIcon(i);
+      
+      image.onload = () => {
+        nImagesLoaded++;
+        if (nImagesLoaded == 19) {
+          this.rankImagesLoaded = true;
+        }
+      }
+
       this.rankImages.push(image);
     }
   },
@@ -88,8 +95,8 @@ export default {
     let self = this;
 
     return {
-      recentMatchStats: null,
       loadingComplete: false,
+      rankImagesLoaded: false,
       rankImages: [],
       chartOptions: {
         tooltips: {
@@ -272,37 +279,19 @@ export default {
           }
         ]
       };
+    },
+    isReady() {
+      return this.rankImagesLoaded && this.recentMatchStats != null;
     }
   },
   methods: {
     OpenRankGraph: function() {
       this.$refs.rankGraphOverlay.Show();
-    },
-    LoadData: function() {
-      this.recentMatchStats = null;
-      this.loadingComplete = false;
-
-      let params = {
-        steamId: this.steamId //this.$api.User.GetSteamId()
-      };
-
-      this.$api
-        .getRecentMatchData(params)
-        .then(response => {
-          this.recentMatchStats = response.data;
-          this.loadingComplete = true;
-
-          this.$emit("recentMatchStats", this.recentMatchStats);
-        })
-        .catch(error => {
-          console.error(error); // eslint-disable-line no-console
-          this.loadingComplete = true;
-        });
     }
   },
   watch: {
     steamId: function(val) {
-      this.LoadData();
+      // this.LoadData();
     }
   }
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="profile-overview">
+    <RecentMatchStats :steamId="steamId" :recentMatchStats="recentMatchStats"/>
     <Situations :steamId="steamId" />
     <PositionAdvice :steamId="steamId" />
     <FriendComparison :steamId="steamId" />
@@ -15,7 +16,7 @@ import MatchHistory from "@/components/MatchHistory.vue";
 import Situations from "@/components/Situations.vue";
 
 export default {
-  props: ["steamId"],
+  props: ["steamId", "recentMatchStats"],
   components: {
     RecentMatchStats,
     PositionAdvice,

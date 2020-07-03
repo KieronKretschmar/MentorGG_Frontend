@@ -1,12 +1,7 @@
 <template>
   <div class="view view-profile">
     <template v-if="steamId">
-      <ProfileHeader
-        :steamId="steamId"
-        :recentMatchStats="recentMatchStats"
-        @openRankHistoryGraph="$refs.recentMatchStats.OpenRankGraph()"
-        @force-reload="$emit('force-reload')"
-      />
+      <ProfileHeader :steamId="steamId" :recentMatchStats="recentMatchStats" />
 
       <div class="fixed-width-container">
         <div class="profile-tabs">
@@ -21,30 +16,28 @@
       </div>
 
       <div class="fixed-width-container">
-        <component v-if="activeTabComponent" v-bind:is="activeTabComponent" :steamId="steamId"></component>
-
-        <RecentMatchStats
-          ref="recentMatchStats"
-          :steamId="steamId"
-          @recentMatchStats="OnReceivedRecentMatchStats($event)"
-        />
-
-        <template v-if="numGames == -1 || numGames > 0">
-          <!-- <Situations :steamId="steamId" /> -->
+        <template v-if="recentMatchStats">
+          <template v-if="recentMatchStats.GamesTotal == -1 || recentMatchStats.GamesTotal > 0">
+            <component
+              v-if="activeTabComponent"
+              v-bind:is="activeTabComponent"
+              :steamId="steamId"
+              :recentMatchStats="recentMatchStats"
+            ></component>
+          </template>
+          <div class="bordered-box no-data" v-else>
+            <h3>Whoops!</h3>
+            <p>We don't have any analysis for this user available :(</p>
+            <p>Would you like to see what an analyzed profile looks like?</p>
+            <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
+          </div>
         </template>
-        <div class="bordered-box no-data" v-else>
-          <h3>Whoops!</h3>
-          <p>We don't have any analysis for this user available :(</p>
-          <p>Would you like to see what an analyzed profile looks like?</p>
-          <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
-        </div>
       </div>
     </template>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import ProfileHeader from "@/components/ProfileHeader.vue";
 import RecentMatchStats from "@/components/RecentMatchStats.vue";
 import PositionAdvice from "@/components/PositionAdvice.vue";
@@ -72,11 +65,12 @@ export default {
     MatchHistory
   },
   mounted() {
-    this.HandleUserOverride();
+    this.HandleUserOverride(() => {
+      this.LoadData();
+    });
   },
   data() {
     return {
-      numGames: -1,
       recentMatchStats: null,
       steamId: "",
       activeTabIndex: 0,
@@ -113,10 +107,6 @@ export default {
     };
   },
   methods: {
-    OnReceivedRecentMatchStats(recentMatchStats) {
-      this.numGames = recentMatchStats.GamesTotal;
-      this.recentMatchStats = recentMatchStats;
-    },
     ShowDemoProfile() {
       this.$router.push({
         name: "dashboard",
@@ -125,7 +115,7 @@ export default {
         }
       });
     },
-    HandleUserOverride() {
+    HandleUserOverride(fnDone) {
       let newSteamId = this.$route.params.steamId;
 
       if (newSteamId != this.$api.User.GetSteamId(false)) {
@@ -136,7 +126,18 @@ export default {
 
       this.$api.initMatchSelector(newSteamId).then(result => {
         this.steamId = newSteamId;
+        fnDone();
       });
+    },
+    LoadData() {
+      this.$api
+        .getRecentMatchData({ steamId: this.steamId })
+        .then(response => {
+          this.recentMatchStats = response.data;
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line no-console
+        });
     }
   },
   computed: {
@@ -144,13 +145,6 @@ export default {
       return this.tabs[this.activeTabIndex].component;
     }
   },
-  // computed: {
-  //   steamId() {
-  //     console.log("computed steamId");
-  //     let steamIdParam = this.$route.params.steamId;
-  //     return steamIdParam == "own" ? this.$api.User.GetSteamId() : steamIdParam;
-  //   }
-  // },
   watch: {
     "$route.params.steamId": function() {
       this.HandleUserOverride();
