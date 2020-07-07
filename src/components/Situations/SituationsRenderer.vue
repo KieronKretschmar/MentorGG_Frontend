@@ -22,21 +22,19 @@
             <div class="table-content">
               <div v-for="situation in situations" :key="situation.type" class="entry">
                 <div class="category-wrapper">
-                  <router-link :to="{name: 'situation-detail', params: {type: situation.type}}">
-                    <div class="cell link">
-                      <img
-                        class="situation-icon"
-                        :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
-                        :title="situation.skillDomainName"
-                      />
-                      <!-- <i class="situation-icon" :class="situation.icon"></i> -->
-                      <span class="situation-name">{{ situation.name }}</span>
-                      <span
-                        class="occurences-badge"
-                        :count="situation.occurences.length"
-                      >{{ situation.occurences.length }}</span>
-                    </div>
-                  </router-link>
+                  <div class="cell link" @click="OpenSituationDetailView(situation.type)">
+                    <img
+                      class="situation-icon"
+                      :src="$assetLoader.getSkillDomainIcon(situation.skillDomainName)"
+                      :title="situation.skillDomainName"
+                    />
+                    <!-- <i class="situation-icon" :class="situation.icon"></i> -->
+                    <span class="situation-name">{{ situation.name }}</span>
+                    <span
+                      class="occurences-badge"
+                      :count="situation.occurences.length"
+                    >{{ situation.occurences.length }}</span>
+                  </div>
                   <div
                     class="cell occurences-toggle"
                     @click="situation.occurencesVisible = !situation.occurencesVisible"
@@ -111,6 +109,7 @@
 <script>
 import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
+import EventBus from "@/EventBus";
 
 export default {
   props: [
@@ -127,9 +126,7 @@ export default {
   components: {
     LineChart
   },
-  mounted() {
-
-  },
+  mounted() {},
   data() {
     let self = this;
 
@@ -198,12 +195,7 @@ export default {
   },
   methods: {
     OpenSituationDetailView(type) {
-      this.$router.push({
-        name: "situation-detail",
-        params: {
-          type: type
-        }
-      });
+      EventBus.Invoke("open-situation-detail-view", type);
     },
     Watch(occurence, situation) {
       this.$helpers.LogEvent(this, "WatchSituation", {

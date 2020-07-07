@@ -109,6 +109,8 @@
 </template>
 
 <script>
+import EventBus from "@/EventBus";
+
 export default {
   props: ["steamId"],
   mounted() {
@@ -167,6 +169,7 @@ export default {
       let params = {
         showCt: showCt
       };
+
       if (map) {
         params.map = map;
 
@@ -174,7 +177,8 @@ export default {
           params.zoneId = zoneId;
         }
       }
-      this.$router.push({ name: "kills", query: params });
+
+      EventBus.Invoke("request-kill-tab", params);
     },
     // Formats json response by writing data from ZoneInfos into the corresponding Performances
     formatResponse(data) {

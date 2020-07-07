@@ -3,17 +3,17 @@
     <div v-if="matchStatus == Enums.MatchStatus.AboveDailyLimit" class="limit-display">
       <p>
         <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may access their first {{this.$api.User.dailyUploadLimit}} matches in every 24h period,
+        {{Enums.SubscriptionStatus.ToString(currentSubscriptionStatus)}} users may access their first {{ currentDailyUploadLimit }} matches in every 24h period,
         starting at {{this.$api.MatchSelector.dailyLimitEnds | formatTime}}
       </p>
-      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
+      <button class="button-variant-bordered upgrade" @click="OpenSubscriptionPage">Upgrade</button>
     </div>    
     <div v-else-if="matchStatus == Enums.MatchStatus.TooOld" class="limit-display">
       <p>
         <span class="match-date">{{ match.MatchDate|formatDateAndTime }}</span>
-        {{Enums.SubscriptionStatus.ToString(this.$api.User.subscriptionStatus)}} users may access matches from the last 2 weeks. 
+        {{Enums.SubscriptionStatus.ToString(currentSubscriptionStatus)}} users may access matches from the last 2 weeks. 
       </p>
-      <button class="button-variant-bordered" @click="OpenSubscriptionPage">Upgrade Membership</button>
+      <button class="button-variant-bordered upgrade" @click="OpenSubscriptionPage">Upgrade</button>
     </div>
     <div v-else-if="matchStatus == Enums.MatchStatus.Failed" class="match-header failed-header">
       <p>
@@ -174,7 +174,7 @@ export default {
       this.$router.push({ name: "membership" });
     },
     TriggerDemoDownload(match) {      
-      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+      this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$api.getDownloadUrl(match.MatchId).then(result => {
           window.open(result.data, "_blank");
         });
@@ -227,6 +227,20 @@ export default {
     },
     UserData() {
       return this.GetUserData();
+    },
+    currentSubscriptionStatus() {
+      if (!this.$api.User) {
+        return Enums.SubscriptionStatus.Free;
+      }
+
+      return this.$api.User.subscriptionStatus;
+    },
+    currentDailyUploadLimit() {
+      if (!this.$api.User) {
+        return 3;
+      }
+
+      return this.$api.User.dailyUploadLimit;
     }
   }
 };
@@ -263,6 +277,10 @@ export default {
     p {
       font-weight: 400;
       padding-right: 20px;
+    }
+
+    button {
+      padding: .45em 1.785em;
     }
   }
 

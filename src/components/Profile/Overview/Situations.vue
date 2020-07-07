@@ -1,7 +1,7 @@
 <template>
   <div class="better-situations dashboard-unit">
     <div class="situations-split">
-      <SituationsOverview
+      <SituationsRenderer
         title="Misplays"
         :nNewOccurences="nNewOccurences.Misplays"
         :situations="misplays"
@@ -13,7 +13,7 @@
         noOccurencesText="There are no misplays available for this situation. Good job!"
       />
 
-      <SituationsOverview
+      <SituationsRenderer
         title="Highlights"
         :nNewOccurences="nNewOccurences.Highlights"
         :situations="highlights"
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import SituationsOverview from "@/components/Situations/SituationsOverview.vue";
+import SituationsRenderer from "@/components/Situations/SituationsRenderer.vue";
 import LineChart from "@/components/Charts/LineChart.vue";
 import SituationLoader from "@/SituationLoader";
 import Enums from "@/enums";
@@ -47,7 +47,7 @@ import Enums from "@/enums";
 export default {
   props: ["steamId"],
   components: {
-    SituationsOverview,
+    SituationsRenderer,
     LineChart
   },
   mounted() {

@@ -75,7 +75,7 @@ export default {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
       let params = {
-        steamId: this.$api.User.GetSteamId(),
+        steamId: this.steamId,
         type: Enums.SampleType.Kill
       };
       this.$api.getOverview(params, {}).then(response => {

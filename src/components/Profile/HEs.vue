@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-hes">
     <div class="fixed-width-container">
-      <HEsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <HEsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading HEs</AjaxLoader>
       </div>

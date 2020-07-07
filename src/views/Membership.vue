@@ -239,17 +239,17 @@ export default {
     GenericOverlay
   },
   mounted() {
-    this.$api
-      .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) })
-      .then(response => {
-        this.user = response.data;
-      });
+    if (this.$api.User) {
+      this.$api
+        .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) })
+        .then(response => {
+          this.user = response.data;
+        });
+    }
 
     this.$api.getSubscriptions().then(response => {
       this.subscriptionData = response.data;
       this.loadingComplete = true;
-      console.log(this.subscriptionData);
-      console.log(this.availableSubscriptions);
     });
 
     this.$nextTick(() => {
@@ -271,14 +271,16 @@ export default {
   },
   methods: {
     VerifyUsername() {
-      this.verifyingUsername = true;
+      this.$api.LoginGate(() => {
+        this.verifyingUsername = true;
 
-      this.$api
-        .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) }, true)
-        .then(response => {
-          this.verifyingUsername = false;
-          this.user = response.data;
-        });
+        this.$api
+          .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) }, true)
+          .then(response => {
+            this.verifyingUsername = false;
+            this.user = response.data;
+          });
+      });
     },
     GetSubscriptionData(subscriptionType /*enum*/) {
       if (!this.subscriptionData) {
@@ -302,8 +304,10 @@ export default {
         label: newSubscriptionType
       });
 
-      this.selectedSubscription = newSubscriptionType;
-      this.$refs.durationPickerOverlay.Show();
+      this.$api.LoginGate(() => {
+        this.selectedSubscription = newSubscriptionType;
+        this.$refs.durationPickerOverlay.Show();
+      });
     },
     OpenCheckout(planIndex) {
       if (!this.termsAccepted) {

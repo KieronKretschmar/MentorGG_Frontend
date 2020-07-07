@@ -1,10 +1,12 @@
 <template>
-  <div class="view view-situation-detail">
+  <div class="profile-situations-detail">
     <div class="fixed-width-container">
       <component
         v-if="situationData"
         v-bind:is="situationData.component"
         :staticSituationData="situationData"
+        :steamId="steamId"
+        @back="$emit('back')"
       ></component>
     </div>
   </div>
@@ -15,9 +17,10 @@ import SituationLoader from "@/SituationLoader";
 import Enums from "@/enums";
 
 export default {
+  props: ["type", "steamId"],
   mounted() {
     this.situationData =
-      SituationLoader.getSituationData(this.$route.params.type) ||
+      SituationLoader.getSituationData(this.type) ||
       SituationLoader.getSituationData(Enums.SituationType.Unknown);
   },
   data() {

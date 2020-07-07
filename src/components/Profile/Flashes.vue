@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature">
     <div class="fixed-width-container">
-      <FlashesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <FlashesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Flashes</AjaxLoader>
       </div>

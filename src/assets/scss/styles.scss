@@ -166,6 +166,10 @@ h1, h2, h3 {
     border-left: 4px solid $purple;
     border-radius: 4px;
     padding: 10px;
+
+    &.m-top {
+        margin-top: 35px;
+    }
 }
 
 h2.section-header, .section-header h2 {

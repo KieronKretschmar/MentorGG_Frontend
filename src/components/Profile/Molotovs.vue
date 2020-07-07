@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-molotovs">
     <div class="fixed-width-container">
-      <MolotovsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <MolotovsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Molotovs</AjaxLoader>
       </div>

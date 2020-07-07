@@ -65,11 +65,9 @@ export default {
   },
   methods: {
     Init() {
-      let params = {
-        steamId: this.steamId //this.$api.User.GetSteamId()
-      };
-
-      this.$api.getPlayerInfo(params).then(response => {
+      this.$api.getPlayerInfo({
+        steamId: this.steamId
+      }).then(response => {
         this.user = response.data;
       });
     },
@@ -77,6 +75,10 @@ export default {
       this.$refs.verifyUsernameOverlay.Show();
     },
     IsFreeOrSupporter() {
+      if (!this.$api.User) {
+        return true;
+      }
+
       return (
         this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free ||
         this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Influencer
@@ -191,7 +193,7 @@ export default {
       };
     },
     isOwnProfile() {
-      if (!this.user) {
+      if (!this.user || !this.$api.User) {
         return false;
       }
 

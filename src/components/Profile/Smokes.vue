@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-smokes">
     <div class="fixed-width-container">
-      <SmokesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <SmokesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Smokes</AjaxLoader>
       </div>

@@ -102,7 +102,7 @@ export default {
       this.LoadAppendMatches(5);
 
       // load failed matches only if the user is on his own profile
-      if (this.$api.User.GetSteamId() == this.steamId) {
+      if (this.$api.User && (this.$api.User.GetSteamId() == this.steamId)) {
         this.LoadFailedMatches();
       }
     },

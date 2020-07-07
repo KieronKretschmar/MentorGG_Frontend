@@ -1,22 +1,7 @@
 <template>
-  <div class="view view-situation-detail-overview">
+  <div class="view view-situation-detail-overview">    
     <div class="fixed-width-container">
       <template v-if="metaData">
-        <div class="filters">
-          <div
-            class="filter"
-            v-for="(val, name) in Enums.SkillDomain.Values()"
-            :key="name"
-            @click="ToggleFilter(name)"
-          >
-            <img :src="$assetLoader.getSkillDomainIcon(name)" />
-            <span class="name">
-              {{ name }}
-              <i class="material-icons" :class="{visible: filters[name]}">check</i>
-            </span>
-          </div>
-        </div>
-
         <div class="split">
           <div class="l">
             <h2 class="section-header">Misplays</h2>
@@ -24,8 +9,8 @@
               <RadarChart :data="radarChartData" :options="radarChartOptions"></RadarChart>
             </div>
             <div class="entries">
-              <router-link
-                :to="{name: 'situation-detail', params: {type: entry.type}}"
+              <div
+                @click="$emit('open-detail', entry.type)"
                 class="entry"
                 v-for="entry in renderData.misplays"
                 :key="entry.type"
@@ -36,7 +21,7 @@
                 />
                 <div class="icon-placeholder" v-else></div>
                 {{ entry.name }}
-              </router-link>
+              </div>
             </div>
           </div>
           <div class="r">
@@ -45,8 +30,8 @@
               <RadarChart :data="radarChartData" :options="radarChartOptions"></RadarChart>
             </div>
             <div class="entries">
-              <router-link
-                :to="{name: 'situation-detail', params: {type: entry.type}}"
+              <div
+                @click="$emit('open-detail', entry.type)"
                 class="entry"
                 v-for="entry in renderData.highlights"
                 :key="entry.type"
@@ -57,7 +42,7 @@
                 />
                 <div class="icon-placeholder" v-else></div>
                 {{ entry.name }}
-              </router-link>
+              </div>
             </div>
           </div>
         </div>
@@ -75,11 +60,6 @@ export default {
   components: {
     RadarChart
   },
-  beforeMount() {
-    for (let skillDomainName in Enums.SkillDomain.Values()) {
-      this.$set(this.filters, skillDomainName, true);
-    }
-  },
   mounted() {
     this.$api.getSituationsMetaData({}).then(result => {
       this.metaData = result.data.Data;
@@ -89,7 +69,6 @@ export default {
     return {
       Enums,
       metaData: null,
-      filters: {},
       radarChartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -130,10 +109,6 @@ export default {
       }
 
       return this.metaData.find(e => e.SituationType == type);
-    },
-    ToggleFilter(name) {
-      this.filters[name] = !this.filters[name];
-      console.log(this.filters);
     }
   },
   computed: {
@@ -175,10 +150,6 @@ export default {
         let data = SituationLoader.getSituationData(situationType);
         data.meta = this.FindSituationMetaData(situationType);
 
-        if (!this.filters[data.meta.SkillDomainName]) {
-          continue;
-        }
-
         if (data.isMisplay) {
           ret.misplays.push(data);
           continue;
@@ -199,52 +170,6 @@ export default {
 <style lang="scss">
 .view-situation-detail-overview {
   .fixed-width-container {
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      margin: -10px;
-
-      .filter {
-        width: calc(25% - 20px);
-        margin: 10px;
-        background: $dark-1;
-        border: 1px solid $purple;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 4px;
-        user-select: none;
-        cursor: pointer;
-
-        img {
-          width: 64px;
-          height: 64px;
-          padding: 10px;
-        }
-
-        .name {
-          padding: 5px 20px;
-          color: white;
-          background: $purple;
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 34px;
-
-          i {
-            color: $orange;
-            opacity: 0;
-            transition: 0.35s;
-
-            &.visible {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-
     .split {
       display: flex;
       margin-top: 20px;
@@ -257,10 +182,6 @@ export default {
       }
 
       .l {
-        .section-header {
-          color: $red;
-        }
-
         .entries {
           .entry {
             padding-left: 20px;
@@ -281,10 +202,6 @@ export default {
       }
 
       .r {
-        .section-header {
-          color: $green-2;
-        }
-
         .entries {
           .entry {
             padding-left: 20px;
@@ -328,6 +245,8 @@ export default {
           align-items: center;
           border: 1px solid $purple;
           font-size: 14px;
+          cursor: pointer;
+          user-select: none;
 
           &:last-child {
             margin-bottom: 0;

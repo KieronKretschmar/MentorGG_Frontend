@@ -20,7 +20,7 @@ import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
 import Target from "@/components/RadarImageFeatures/Target.vue";
 
 export default {
-  props: ["steamId"],
+  props: ["steamId", "radarImageData"],
   components: {
     // General
     RadarImage,
@@ -68,7 +68,6 @@ export default {
       lineupsEnabled: false,
       lineups: [],
       targets: [],
-      selectedSample: null,
       selectedLineupId: null,
       selectedTargetId: null,
 
@@ -84,23 +83,28 @@ export default {
     // use init() to be called by inheriting class instead of mounted(),
     // because this way it uses this.config of the inheriting class instead of this classes default config
     init() {
-      if (this.$route.query.map) {
-        this.activeMap = this.$route.query.map;
+      if (this.radarImageData && this.radarImageData.map) {
+        this.activeMap = this.radarImageData.map;
       }
+
       this.LoadSamples(this.activeMap, false).then(() => {
-        if (this.$route.query.showCt != null) {
-          this.showCt = this.$route.query.showCt;
+
+        if (this.radarImageData) {
+          if (this.radarImageData.showCt != null) {
+            this.showCt = this.radarImageData.showCt;
+          }
+  
+          if (this.radarImageData.zoneId) {
+            this.selectedZoneId = this.radarImageData.zoneId;
+            this.viewType = Enums.RadarViewTypes.Zone;
+          }
+  
+          if (this.radarImageData.lineupId) {
+            this.selectedLineupId = this.radarImageData.lineupId;
+            this.viewType = Enums.RadarViewTypes.Lineup;
+          }
         }
 
-        if (this.$route.query.zoneId) {
-          this.selectedZoneId = this.$route.query.zoneId;
-          this.viewType = Enums.RadarViewTypes.Zone;
-        }
-
-        if (this.$route.query.lineupId) {
-          this.selectedLineupId = this.$route.query.lineupId;
-          this.viewType = Enums.RadarViewTypes.Lineup;
-        }
       });
     },
     // General
@@ -420,6 +424,8 @@ export default {
           );
         }
       }
+
+      return [];
     },
     // Lineups
     visibleTargets() {

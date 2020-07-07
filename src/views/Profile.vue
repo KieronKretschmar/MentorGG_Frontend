@@ -23,14 +23,18 @@
               v-bind:is="activeTabComponent"
               :steamId="steamId"
               :recentMatchStats="recentMatchStats"
+              :radarImageData="radarImageData"
+              ref="loadedComponent"
             ></component>
           </template>
-          <div class="bordered-box no-data" v-else>
-            <h3>Whoops!</h3>
-            <p>We don't have any analysis for this user available :(</p>
-            <p>Would you like to see what an analyzed profile looks like?</p>
-            <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
-          </div>
+          <template v-else>
+            <h2 class="section-header">Whoops!</h2>
+            <div class="bordered-box no-data">
+              <p>We don't have any analysis for this user available :(</p>
+              <p>Would you like to see what an analyzed profile looks like?</p>
+              <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
+            </div>
+          </template>
         </template>
       </div>
     </template>
@@ -40,10 +44,11 @@
 <script>
 import ProfileHeader from "@/components/Profile/ProfileHeader.vue";
 import MentorUser from "@/mentoruser";
+import EventBus from "@/EventBus";
 
 // Tab Components
 import Overview from "@/components/Profile/Overview.vue";
-import SituationDetailOverview from "@/components/Profile/SituationDetailOverview.vue";
+import Situations from "@/components/Profile/Situations.vue";
 import Smokes from "@/components/Profile/Smokes.vue";
 import Molotovs from "@/components/Profile/Molotovs.vue";
 import Flashes from "@/components/Profile/Flashes.vue";
@@ -55,6 +60,24 @@ export default {
     ProfileHeader
   },
   mounted() {
+    this.onKillTabRequestEventHandle = EventBus.AddListener(
+      "request-kill-tab",
+      data => {
+        this.radarImageData = data;
+        this.activeTabIndex = this.tabs.findIndex(e => e.name == "Kills");
+      }
+    );
+
+    this.onOpenSituationDetailViewEventHandle = EventBus.AddListener(
+      "open-situation-detail-view",
+      type => {
+        this.activeTabIndex = this.tabs.findIndex(e => e.name == "Situations");
+        this.$nextTick(() => {
+          this.$refs.loadedComponent.ShowDetail(type);
+        });
+      }
+    );
+
     this.HandleUserOverride(() => {
       this.LoadData();
     });
@@ -64,6 +87,9 @@ export default {
       recentMatchStats: null,
       steamId: "",
       activeTabIndex: 0,
+      onKillTabRequestEventHandle: null,
+      onOpenSituationDetailViewEventHandle: null,
+      radarImageData: null,
       tabs: [
         {
           name: "Overview",
@@ -71,7 +97,7 @@ export default {
         },
         {
           name: "Situations",
-          component: SituationDetailOverview
+          component: Situations
         },
         {
           name: "Smokes",
@@ -108,16 +134,10 @@ export default {
     HandleUserOverride(fnDone) {
       let newSteamId = this.$route.params.steamId;
 
-      if (newSteamId != this.$api.User.GetSteamId(false)) {
-        this.$api.User.ApplyOverride(new MentorUser(-1, newSteamId, 1, -1));
-      } else {
-        this.$api.User.ClearOverride();
-      }
-
       this.$api.initMatchSelector(newSteamId).then(result => {
         this.steamId = newSteamId;
         this.activeTabIndex = 0;
-        
+
         if (fnDone) {
           fnDone();
         }
@@ -147,11 +167,14 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$api.User.ClearOverride();
+    this.onKillTabRequestEventHandle.Remove();
+    this.onOpenSituationDetailViewEventHandle.Remove();
 
-    this.$api
-      .initMatchSelector(this.$api.User.GetSteamId(false))
-      .then(result => {});
+    if (this.$api.User) {
+      this.$api
+        .initMatchSelector(this.$api.User.GetSteamId(false))
+        .then(result => {});
+    }
   }
 };
 </script>
