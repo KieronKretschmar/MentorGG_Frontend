@@ -62,7 +62,7 @@ export default {
       mapSummaries: null
     };
   },
-  props: ["activeMap"],
+  props: ["activeMap", "steamId"],
   mounted() {
     this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
   },
