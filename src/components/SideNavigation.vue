@@ -62,10 +62,10 @@
             >My Profile</router-link>
             <template v-else>
               <router-link :to="{name: 'login'}">My Profile</router-link>
-              <router-link
-                :to="{name: 'profile', params: {steamId: '76561198033880857'}}"
-              >Demo Profile</router-link>
             </template>
+            <router-link
+              :to="{name: 'profile', params: {steamId: '76561198033880857'}}"
+            >Demo Profile</router-link>
           </div>
 
           <!-- Upload Demos-->
