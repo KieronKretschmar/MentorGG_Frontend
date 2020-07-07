@@ -16,7 +16,7 @@
             />
           </div>
             <router-link class="name"
-              :to="{name: 'dashboard', params: {steamId: comparison.OtherPlayerInfo.SteamUser.SteamId }}"
+              :to="{name: 'profile', params: {steamId: comparison.OtherPlayerInfo.SteamUser.SteamId }}"
             >{{ comparison.OtherPlayerInfo.SteamUser.SteamName }}</router-link>
         </div>
         <BarChart class="kad-chart" :data="comparison.chartData" :options="chartOptions"></BarChart>

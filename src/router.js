@@ -76,7 +76,7 @@ export default new Router({
     },
     {
       path: '/profile/:steamId',
-      name: 'dashboard',
+      name: 'profile',
       component: () => import(/* webpackChunkName: "profile" */'./views/Profile.vue'),
     },
     // {

@@ -112,7 +112,7 @@
                   >{{ entry.Profile.SteamName }}</a>-->
                   <router-link
                     class="name"
-                    :to="{name: 'dashboard', params: {steamId: entry.SteamId}}"
+                    :to="{name: 'profile', params: {steamId: entry.SteamId}}"
                   >{{ entry.Profile.SteamName }}</router-link>
                 </span>
                 <span

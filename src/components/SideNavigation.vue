@@ -48,10 +48,7 @@
 
     <div class="nav-content" data-simplebar>
       <nav>
-        <router-link
-          :to="{name: 'landingpage'}"
-          class="logo"
-        >
+        <router-link :to="{name: 'landingpage'}" class="logo">
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
@@ -60,13 +57,13 @@
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
             <router-link
-              :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}"
+              :to="{name: 'profile', params: {steamId: dashboardRouteSteamId}}"
               v-if="$api.User"
             >My Profile</router-link>
             <template v-else>
               <router-link :to="{name: 'login'}">My Profile</router-link>
               <router-link
-                :to="{name: 'dashboard', params: {steamId: '76561198033880857'}}"
+                :to="{name: 'profile', params: {steamId: '76561198033880857'}}"
               >Demo Profile</router-link>
             </template>
           </div>

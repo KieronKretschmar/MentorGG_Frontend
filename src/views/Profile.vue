@@ -125,7 +125,7 @@ export default {
   methods: {
     ShowDemoProfile() {
       this.$router.push({
-        name: "dashboard",
+        name: "profile",
         params: {
           steamId: "76561198033880857"
         }
