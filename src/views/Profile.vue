@@ -161,6 +161,10 @@ export default {
   },
   watch: {
     "$route.params.steamId": function() {
+      //scroll to top
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+
       this.HandleUserOverride(() => {
         this.LoadData();
       });
