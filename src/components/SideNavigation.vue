@@ -49,7 +49,7 @@
     <div class="nav-content" data-simplebar>
       <nav>
         <router-link
-          :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}"
+          :to="{name: 'landingpage'}"
           class="logo"
         >
           <img src="@/assets/logo_white.svg" />
