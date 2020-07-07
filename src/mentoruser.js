@@ -30,20 +30,4 @@ export default class MentorUser {
 
         return this.IsOverridden() ? this.userOverride.GetSteamId(false) : this.steamId;
     }
-
-    AuthorizationGate(minimumAccessLevel, fnAuthorized, fnUnauthorized) {
-        if (!fnAuthorized) {
-            throw new Error("Invalid callback value in authorization gate for argument fnAuthorized");
-        }
-
-        if (Enums.SubscriptionStatus.GetAccessLevel(this.subscriptionStatus) >= Enums.SubscriptionStatus.GetAccessLevel(minimumAccessLevel)) {
-            fnAuthorized();
-        } else {
-            if (fnUnauthorized) {
-                fnUnauthorized();
-            } else {
-                globalThis.NotAuthorized.Show(minimumAccessLevel);
-            }
-        }
-    }
 }

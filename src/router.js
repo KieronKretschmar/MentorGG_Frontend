@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './views/Dashboard.vue'
 import axios from 'axios';
 
 Vue.use(Router);
@@ -14,8 +13,8 @@ function authenticationGuard(to, from, next) {
   // at this point, the user tries to open a non-whitelisted view
 
   // if the api is ready (user is logged in and matchselection has loaded) just let him pass
-  if($api.ready){
-    $inputBlock = Vue.observable(false); 
+  if ($api.User && $api.ready) {
+    $inputBlock = Vue.observable(false);
     next();
     return;
   }
@@ -24,53 +23,46 @@ function authenticationGuard(to, from, next) {
   $inputBlock = Vue.observable(true);
 
   $api.ensureLogin()
-  .then(response => {
-    // if the user is logged in, attempt to init MatchSelector
-    $api.initMatchSelector($api.User.GetSteamId(false))
-    .then(r => {
+    .then(response => {
+      // if the user is logged in, attempt to init MatchSelector
+      $api.initMatchSelector($api.User.GetSteamId(false))
+        .then(r => {
 
-      //modify target to correctly display own steamid
-      if (to.name == 'dashboard' && to.params.steamId == 'own') {
-        to.params.steamId = $api.User.GetSteamId();
-        return next(to);
+          // MatchSelector is ready so stop showing inputBlock and let the user pass 
+          $inputBlock = Vue.observable(false);
+          next();
+          return;
+        })
+        .catch(r => {
+          // User logged in but MatchSelector failed. This should not happen.
+          Vue.prototype.$inputBlock = Vue.observable(false);
+          next('/');
+          return;
+        });
+    })
+    .catch(error => {
+      // at this point the user is not logged in
+
+      Vue.prototype.$inputBlock = Vue.observable(false);
+
+      // If the user just wanted to see mentor.gg, show him the landingpage
+      if (from.name == null) {
+        next('/');
+        return;
       }
 
-      // MatchSelector is ready so stop showing inputBlock and let the user pass 
-      $inputBlock = Vue.observable(false);
-      next();
-      return;
+      // if the user is already on /login, do shake animation
+      if (from.name == "login") {
+        Vue.prototype.$vapp.$emit('shakeLogin');
+      }
+      // otherwise send him to login gate
+      else {
+        next('/login');
+        return;
+      }
     })
-    .catch(r => {
-      // User logged in but MatchSelector failed. This should not happen.
-      Vue.prototype.$inputBlock = Vue.observable(false);
-      next('/landingpage');
-      return;
-    });
-  })
-  .catch(error => {
-    // at this point the user is not logged in
 
-    Vue.prototype.$inputBlock = Vue.observable(false);
-
-    // If the user just wanted to see mentor.gg, show him the landingpage
-    if(from.name == null){
-      next('/landingpage');
-      return;
-    }
-
-    // if the user is already on /login, do shake animation
-    if (from.name == "login") {
-      Vue.prototype.$vapp.$emit('shakeLogin');
-    } 
-    // otherwise send him to login gate
-    else {
-      next('/login');
-      return;
-    }
-  })
-  
 }
-
 
 export default new Router({
   mode: 'history',
@@ -78,43 +70,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/profile/own'
+      name: 'landingpage',
+      component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue'),
+      beforeEnter: (to, from, next) => {
+        let $api = Vue.prototype.$api;
+
+        $api.ensureLogin()
+        .then(response => {
+          return next('/profile/' + $api.User.GetSteamId(false));
+        }).catch(error => {
+          return next();
+        });
+      }
     },
     {
       path: '/profile/:steamId',
-      name: 'dashboard',
-      component: Dashboard,
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/hes',
-      name: 'hes',
-      component: () => import(/* webpackChunkName: "hes" */'./views/RadarImageFeatures/HEs.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/flashes',
-      name: 'flashes',
-      component: () => import(/* webpackChunkName: "flashes" */'./views/RadarImageFeatures/Flashes.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/kills',
-      name: 'kills',
-      component: () => import(/* webpackChunkName: "kills" */'./views/RadarImageFeatures/Kills.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/molotovs',
-      name: 'molotovs',
-      component: () => import(/* webpackChunkName: "molotovs" */'./views/RadarImageFeatures/Molotovs.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/smokes',
-      name: 'smokes',
-      component: () => import(/* webpackChunkName: "smokes" */'./views/RadarImageFeatures/Smokes.vue'),
-      beforeEnter: authenticationGuard
+      name: 'profile',
+      component: () => import(/* webpackChunkName: "profile" */'./views/Profile.vue'),
     },
     // {
     //   path: '/bombs',
@@ -122,12 +94,6 @@ export default new Router({
     //   component: () => import(/* webpackChunkName: "bombs" */'./views/Bombs.vue'),
     //   beforeEnter: authenticationGuard
     // },
-    {
-      path: '/statistics',
-      name: 'statistics',
-      component: () => import(/* webpackChunkName: "statistics" */'./views/Statistics.vue'),
-      beforeEnter: authenticationGuard
-    },
     {
       path: '/faq',
       name: 'faq',
@@ -151,14 +117,13 @@ export default new Router({
     {
       path: '/automatic-upload',
       name: 'automatic-upload',
-      component: () => import(/* webpackChunkName: "automaticupload" */'./views/AutomaticUpload.vue'),
-      beforeEnter: authenticationGuard
+      component: () => import(/* webpackChunkName: "automaticupload" */'./views/AutomaticUpload.vue')
     },
     {
       path: '/browser-extension',
       name: 'browser-extension',
       component: () => import(/* webpackChunkName: "browserextension" */'./views/BrowserExtension.vue'),
-    },    
+    },
     {
       path: '/login',
       name: 'login',
@@ -170,27 +135,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "dvtrigger" */'./views/DemoViewerTrigger.vue')
     },
     {
-      path: '/situation/:type',
-      name: 'situation-detail',
-      component: () => import(/* webpackChunkName: "dvtrigger" */'./views/SituationDetail.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/situations/',
-      name: 'situations',
-      component: () => import(/* webpackChunkname: "situations" */'./views/SituationDetailOverview.vue'),
-      beforeEnter: authenticationGuard
-    },
-    {
-      path: '/landingpage',
-      name: 'landingpage',
-      component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue')
-    },
-    {
       path: '/membership',
       name: 'membership',
-      component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue'),
-      beforeEnter: authenticationGuard
+      component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue')
     },
     {
       path: '*',

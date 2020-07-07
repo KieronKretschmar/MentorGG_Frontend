@@ -287,7 +287,11 @@ export default {
         this.$refs.playerControls.LeaveFullscreen();
 
         if (this.$route.name == "dvtrigger") {
-          this.$router.push({ name: "dashboard" });
+          if (this.$api.User) {
+            this.$router.push({ name: "profile", params: {steamId: this.$api.User.GetSteamId(false)} });
+          } else {
+            this.$router.push({ name: "profile", params: {steamId: '76561198033880857'} });
+          }
         }
       }
     },

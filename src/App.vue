@@ -4,6 +4,7 @@
     <template v-if="!this.$inputBlock">
       <DemoViewer />
       <NotAuthorized />
+      <NotLoggedIn />
       <div class="l-app" :class="{toggled: menuVisible}">
         <SideNavigation />
       </div>
@@ -19,12 +20,16 @@
           <transition name="page" mode="out-in">
             <div class="page-wrapper">
               <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
-                <span
-                  class="text"
-                >Setup <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG</span>
+                <span class="text">
+                  Setup
+                  <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG
+                </span>
                 <button @click="$router.push({name: 'automatic-upload'})">setup</button>
               </div>
-              <router-view :key="reloadHack" @force-reload="ForceViewReload" @valve-connected="showAutomaticUploadSetupPrompt = false"/>
+              <router-view
+                :key="reloadHack"
+                @valve-connected="showAutomaticUploadSetupPrompt = false"
+              />
             </div>
           </transition>
         </main>
@@ -83,6 +88,7 @@ import DemoViewer from "@/components/DemoViewer.vue";
 import GlobalFilters from "@/components/GlobalFilters.vue";
 import InputBlock from "@/components/InputBlock.vue";
 import NotAuthorized from "@/components/NotAuthorized.vue";
+import NotLoggedIn from "@/components/NotLoggedIn.vue";
 import Enums from "./enums";
 import MentorUser from "./mentoruser";
 import CookieBanner from "@/components/CookieBanner.vue";
@@ -93,9 +99,14 @@ export default {
     // Initialize without showing inputBlock. It will be shown by router / authenticationGuard if necessary.
     this.$inputBlock = Vue.observable(false);
     // Init connections after $api.User is loaded
-    this.$api.ensureLogin().then(() => {
-      this.InitConnectionsCallback();
-    });
+    this.$api
+      .ensureLogin()
+      .then(() => {
+        this.InitConnectionsCallback();
+      })
+      .catch(error => {
+        console.log("Not logged in");
+      });
   },
   components: {
     TopNavigation,
@@ -107,6 +118,7 @@ export default {
     GlobalFilters,
     InputBlock,
     NotAuthorized,
+    NotLoggedIn,
     CookieBanner
   },
   data() {
@@ -224,7 +236,7 @@ main {
   .open-filters {
     position: fixed;
     right: 0;
-    top: calc(20% - 5px);
+    top: calc(20% + 12px);
     color: white;
     user-select: none;
     cursor: pointer;
@@ -266,7 +278,7 @@ main {
       padding: 3px 20px;
       text-transform: uppercase;
       cursor: pointer;
-      transition: .35s;
+      transition: 0.35s;
       font-weight: bold;
 
       &:hover {

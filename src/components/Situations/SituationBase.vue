@@ -1,6 +1,7 @@
 <template>
   <div class="situation-base">
-    <template v-if="this.dynamicSituationData">
+    <div class="back-to-overview" @click="$emit('back')"><i class="material-icons">west</i> back to situations overview</div>
+    <template v-if="this.dynamicSituationData">      
       <div class="situation-header">
         <div class="situation-name">
           <img
@@ -20,7 +21,7 @@
           <span>OCCURENCE HISTORY</span>
           <LineChart
             :options="GetOccurenceHistoryGraphOptions()"
-            :data="occurenceHistoryGraphData"
+            :chartData="occurenceHistoryGraphData"
             class="history-graph-inner-wrapper"
           />
         </div>
@@ -56,9 +57,9 @@
         <h2 class="section-header">Personal Occurences</h2>
         <div
           class="bordered-box free-user-warning"
-          v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free"
+          v-if="currentSubscriptionStatus == Enums.SubscriptionStatus.Free"
         >
-          <p>Please note that as a FREE user you may only view the occurences for the first and last round of each half.</p>
+          <p>Please note that as a FREE user you may only view the occurences for the first half of each match.</p>
           <button
             class="button-variant-bordered upgrade"
             @click="$router.push({name: 'membership'})"
@@ -164,7 +165,7 @@ import SituationLoader from "@/SituationLoader";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 
 export default {
-  props: ["staticSituationData"],
+  props: ["staticSituationData", "steamId"],
   components: {
     LineChart,
     BarChart,
@@ -190,7 +191,7 @@ export default {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type,
-          steamId: this.$api.User.GetSteamId(false)
+          steamId: this.steamId
         })
         .then(result => {
           this.PrepareData(result.data);
@@ -314,11 +315,6 @@ export default {
       ret = [];
 
       for (let situation of this.situations) {
-        //hide occurences that took place in non allowed
-        if (!this.IsRoundAllowed(situation.MatchId, situation.Round)) {
-          continue;
-        }
-
         if (map[situation.MatchId] == undefined) {
           map[situation.MatchId] = {
             totalOccurences: 0,
@@ -350,6 +346,7 @@ export default {
     },
     occurenceHistoryGraphData() {
       let labels = [];
+      console.log(this.occurenceHistoryGraphPreparedData.length);
       for (let i = 0; i < this.occurenceHistoryGraphPreparedData.length; i++) {
         labels.push(i + 1);
       }
@@ -540,6 +537,13 @@ export default {
           return "crimson";
         }
       }
+    },
+    currentSubscriptionStatus() {
+      if (!this.$api.User) {
+        return Enums.SubscriptionStatus.Free;
+      }
+
+      return this.$api.User.subscriptionStatus;
     }
   }
 };
@@ -547,7 +551,20 @@ export default {
 
 <style lang="scss">
 .situation-base {
-  margin-top: 75px;
+  .back-to-overview {
+    display: flex;
+    text-transform: uppercase;
+    align-items: center;
+    color: $dark-4;
+    font-weight: 500;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    i {
+      margin-right: 5px;
+      color: $dark-4;
+    }
+  }
 
   .situation-header {
     display: flex;
@@ -557,14 +574,14 @@ export default {
 
     .situation-name {
       color: white;
-      font-size: 1.75rem;
+      font-size: 20px;
       font-weight: 700;
       display: flex;
       align-items: center;
       margin-right: 30px;
 
       img {
-        width: 60px;
+        width: 40px;
         margin-right: 10px;
       }
 
@@ -582,13 +599,13 @@ export default {
 
       .situation-count {
         color: white;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         border-radius: 4px;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 500;
         margin-left: 10px;
 

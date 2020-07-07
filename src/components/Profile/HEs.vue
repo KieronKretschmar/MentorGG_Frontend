@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-hes">
     <div class="fixed-width-container">
-      <HEsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <HEsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading HEs</AjaxLoader>
       </div>
@@ -270,7 +270,7 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
 import HE from "@/components/RadarImageFeatures/HE.vue";
 import HEsOverview from "@/components/Overviews/HEsOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";

@@ -29,12 +29,12 @@
       <div
         class="mini-rank-graph"
         title="Open Rank History Graph"
-        @click="$emit('openRankHistoryGraph')"
+        @click="EventBus.Invoke('open-rank-history-graph')"
       >
         <span>MATCHMAKING RESULTS</span>
         <LineChart
           :options="chartOptions"
-          :data="chartData"
+          :chartData="chartData"
           class="mini-rank-graph-inner-wrapper"
           v-if="relevantGraphMatches.length"
         />
@@ -52,6 +52,7 @@
 import LineChart from "@/components/Charts/LineChart.vue";
 import Enums from "@/enums";
 import GenericOverlay from "@/components/GenericOverlay.vue";
+import EventBus from "@/EventBus";
 
 export default {
   props: ["steamId", "recentMatchStats"],
@@ -64,11 +65,9 @@ export default {
   },
   methods: {
     Init() {
-      let params = {
-        steamId: this.steamId //this.$api.User.GetSteamId()
-      };
-
-      this.$api.getPlayerInfo(params).then(response => {
+      this.$api.getPlayerInfo({
+        steamId: this.steamId
+      }).then(response => {
         this.user = response.data;
       });
     },
@@ -76,6 +75,10 @@ export default {
       this.$refs.verifyUsernameOverlay.Show();
     },
     IsFreeOrSupporter() {
+      if (!this.$api.User) {
+        return true;
+      }
+
       return (
         this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free ||
         this.$api.User.subscriptionStatus == Enums.SubscriptionStatus.Influencer
@@ -84,6 +87,7 @@ export default {
   },
   data() {
     return {
+      EventBus,
       Enums,
       user: null,
       verifyingUsername: false,
@@ -160,7 +164,7 @@ export default {
         }
 
         data.push(wins);
-      }
+      }      
 
       return data;
     },
@@ -189,12 +193,21 @@ export default {
       };
     },
     isOwnProfile() {
-      if (!this.user) {
+      if (!this.user || !this.$api.User) {
         return false;
       }
 
       return this.steamId == this.$api.User.GetSteamId(false);
-    }
+    },
+    nameContainsVerifyString() {
+      if (!this.user) {
+        return false;
+      }
+
+      return (
+        this.user.SteamUser.SteamName.toLowerCase().indexOf("mentor.gg") != -1
+      );
+    },
   },
   watch: {
     steamId: function(val) {
@@ -209,7 +222,7 @@ export default {
   background: $dark-3;
   padding: 40px 0px;
   border-bottom: 1px solid $purple;
-  padding-bottom: 90px;
+  padding-bottom: 69px;
 
   .fixed-width-container {
     display: flex;

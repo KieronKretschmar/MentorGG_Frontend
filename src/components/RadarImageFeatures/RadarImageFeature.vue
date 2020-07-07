@@ -20,6 +20,7 @@ import Lineup from "@/components/RadarImageFeatures/Lineup.vue";
 import Target from "@/components/RadarImageFeatures/Target.vue";
 
 export default {
+  props: ["steamId", "radarImageData"],
   components: {
     // General
     RadarImage,
@@ -67,7 +68,6 @@ export default {
       lineupsEnabled: false,
       lineups: [],
       targets: [],
-      selectedSample: null,
       selectedLineupId: null,
       selectedTargetId: null,
 
@@ -83,23 +83,28 @@ export default {
     // use init() to be called by inheriting class instead of mounted(),
     // because this way it uses this.config of the inheriting class instead of this classes default config
     init() {
-      if (this.$route.query.map) {
-        this.activeMap = this.$route.query.map;
+      if (this.radarImageData && this.radarImageData.map) {
+        this.activeMap = this.radarImageData.map;
       }
+
       this.LoadSamples(this.activeMap, false).then(() => {
-        if (this.$route.query.showCt != null) {
-          this.showCt = this.$route.query.showCt;
+
+        if (this.radarImageData) {
+          if (this.radarImageData.showCt != null) {
+            this.showCt = this.radarImageData.showCt;
+          }
+  
+          if (this.radarImageData.zoneId) {
+            this.selectedZoneId = this.radarImageData.zoneId;
+            this.viewType = Enums.RadarViewTypes.Zone;
+          }
+  
+          if (this.radarImageData.lineupId) {
+            this.selectedLineupId = this.radarImageData.lineupId;
+            this.viewType = Enums.RadarViewTypes.Lineup;
+          }
         }
 
-        if (this.$route.query.zoneId) {
-          this.selectedZoneId = this.$route.query.zoneId;
-          this.viewType = Enums.RadarViewTypes.Zone;
-        }
-
-        if (this.$route.query.lineupId) {
-          this.selectedLineupId = this.$route.query.lineupId;
-          this.viewType = Enums.RadarViewTypes.Lineup;
-        }
       });
     },
     // General
@@ -111,7 +116,7 @@ export default {
         let params = {
           type: this.config.sampleType,
           map: map,
-          steamId: isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
+          steamId: this.steamId //isDemo ? "76561198033880857" : this.$api.User.GetSteamId()
         };
         let overrides = { maps: [map] };
 
@@ -419,6 +424,8 @@ export default {
           );
         }
       }
+
+      return [];
     },
     // Lineups
     visibleTargets() {
@@ -498,11 +505,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/sidebar.scss";
-
-.view-radarimage-feature {
-  margin-top: 40px;
-}
-
 .no-data {
   margin-top: 20px;
 }
@@ -510,6 +512,7 @@ export default {
 .interactive-area {
   display: flex;
   justify-content: space-between;
+  margin: 0 -10px;
   margin-top: 20px;
 
   .l {

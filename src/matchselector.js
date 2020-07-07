@@ -150,9 +150,8 @@ export default class MatchSelector {
     }
 
     ToggleAllMaps() {
-        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             let maps = this.GetAvailableMapsUnique();
-            console.log(maps);
             if (maps.length <= 0) {
                 return;
             }
@@ -187,7 +186,7 @@ export default class MatchSelector {
     }
 
     ToggleSourcesFilter(sourceName) {
-        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             if (this.HasSourcesFilter(sourceName)) {
                 this.RemoveSourcesFilter(sourceName);
             } else {
@@ -197,9 +196,8 @@ export default class MatchSelector {
     }
 
     ToggleAllSources() {
-        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             let sources = this.GetAvailableSourcesUnique();
-            console.log(sources);
             if (sources.length <= 0) {
                 return;
             }
@@ -235,7 +233,7 @@ export default class MatchSelector {
     }
 
     ToggleBlacklist(matchId) {
-        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             if (!this.IsBlacklisted(matchId)) {
                 this.AddToBlacklist(matchId);
             } else {
@@ -245,7 +243,7 @@ export default class MatchSelector {
     }
 
     ToggleAllMatches() {
-        this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+        this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
             if (this.matchList.length <= 0) {
                 return;
             }

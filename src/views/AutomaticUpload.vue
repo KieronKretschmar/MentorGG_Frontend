@@ -43,15 +43,26 @@
         class="error-msg"
       >Connection failed. Please make sure that you've entered everything correctly and try again.</p>
 
-      <p v-if="authCodeIsInvalid" class="error-msg">Authentication code is not valid (Valid pattern: XXXX-XXXXX-XXXX)</p>
-      <p v-if="shareCodeIsInvalid" class="error-msg">Share code is not valid (Valid pattern: CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</p>
+      <p
+        v-if="authCodeIsInvalid"
+        class="error-msg"
+      >Authentication code is not valid (Valid pattern: XXXX-XXXXX-XXXX)</p>
+      <p
+        v-if="shareCodeIsInvalid"
+        class="error-msg"
+      >Share code is not valid (Valid pattern: CSGO-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX)</p>
 
-      <button v-if="!connectingValve" class="button-variant-bordered" @click="AttemptValveConnect" :disabled="!formIsValid">Connect</button>
+      <button
+        v-if="!connectingValve"
+        class="button-variant-bordered"
+        @click="AttemptValveConnect"
+        :disabled="!formIsValid"
+      >Connect</button>
     </GenericOverlay>
 
     <div class="fixed-width-container">
+      <h2 class="section-header">Automatic Upload</h2>
       <div class="bordered-box">
-        <h2>Automatic Upload</h2>
         <p>By connecting your MENTOR.GG account with a service, you allow us to automatically fetch your matches from said service. Whenever you play a match, you will be able to analyze it on our site shortly after you've finished playing.</p>
       </div>
     </div>
@@ -62,19 +73,19 @@
       </div>
     </div>
     <div class="fixed-width-container" v-else>
+      <h2 class="section-header m-top">
+        <span>Official CS:GO Matchmaking</span>
+        <span
+          class="status"
+          :class="{y: valveStatus}"
+        >{{ valveStatus ? 'connected' : 'not connected' }}</span>
+      </h2>
       <div class="bordered-box">
         <div class="split">
           <div class="l">
             <img src="@/assets/steam-logo.jpg" />
           </div>
           <div class="r">
-            <h2>
-              CS:GO Matchmaking
-              <span v-if="loadedConnections"
-                class="connection-status"
-                :class="{yes: valveStatus}"
-              >{{ valveStatus ? 'connected' : 'not connected' }}</span>
-            </h2>
             <div>
               <div v-if="valveStatus">
                 <p>Your account is currently connected.</p>
@@ -89,19 +100,19 @@
           </div>
         </div>
       </div>
+      <h2 class="section-header m-top">
+        <span>FACEIT</span>
+        <span
+          class="status"
+          :class="{y: faceitStatus}"
+        >{{ faceitStatus ? 'connected' : 'not connected' }}</span>
+      </h2>
       <div class="bordered-box">
         <div class="split">
           <div class="l">
             <img src="@/assets/faceit-logo.jpg" />
           </div>
           <div class="r">
-            <h2>
-              FACEIT
-              <span
-                class="connection-status"
-                :class="{yes: faceitStatus}"
-              >{{ faceitStatus ? 'connected' : 'not connected' }}</span>
-            </h2>
             <div>
               <div v-if="faceitStatus">
                 <p>
@@ -177,25 +188,27 @@ export default {
     this.UpdateConnections();
   },
   computed: {
-    authCodeIsValid () {
-      return this.valveAuthToken.length == 15
+    authCodeIsValid() {
+      return this.valveAuthToken.length == 15;
     },
-    shareCodeIsValid () {
-      return this.valveShareCode.length == 34
+    shareCodeIsValid() {
+      return this.valveShareCode.length == 34;
     },
-    formIsValid () {
-      return this.authCodeIsValid && this.shareCodeIsValid
+    formIsValid() {
+      return this.authCodeIsValid && this.shareCodeIsValid;
     },
-    authCodeIsInvalid () {
-      return this.valveAuthToken.length !== 15 && this.valveAuthToken !== ''
+    authCodeIsInvalid() {
+      return this.valveAuthToken.length !== 15 && this.valveAuthToken !== "";
     },
-    shareCodeIsInvalid () {
-      return this.valveShareCode.length !== 34 && this.valveShareCode !== ''
-    },
+    shareCodeIsInvalid() {
+      return this.valveShareCode.length !== 34 && this.valveShareCode !== "";
+    }
   },
   methods: {
     ConnectValve() {
-      this.$refs.valveOverlay.Show();
+      this.$api.LoginGate(() => {
+        this.$refs.valveOverlay.Show();
+      });
     },
     DisconnectValve() {
       this.$api.removeValveConnection().then(result => {
@@ -215,12 +228,12 @@ export default {
           this.$refs.valveOverlay.Hide();
           this.connectingValve = false;
 
-          this.$emit('valve-connected');
+          this.$emit("valve-connected");
         })
         .catch(response => {
           this.valveConnectionFailed = true;
           this.connectingValve = false;
-        })
+        });
     },
     RefreshFaceit() {
       this.$api.lookForMatchesFaceit().then(response => {
@@ -233,7 +246,9 @@ export default {
       });
     },
     ConnectFaceit() {
-      FACEIT.loginWithFaceit();
+      this.$api.LoginGate(() => {
+        FACEIT.loginWithFaceit();
+      });
     },
     UpdateConnections() {
       this.$api.getConnectionsObject().then(connectionsObj => {
@@ -250,6 +265,29 @@ export default {
 <style lang="scss">
 .view-connections {
   position: relative;
+  margin-top: 70px;
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .status {
+      background: $red;
+      color: white;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 10px;
+      text-transform: uppercase;
+      width: 130px;
+      text-align: center;
+
+      &.y {
+        background: $green-2;
+      }
+    }
+  }
 
   .valve-overlay {
     .input-label-wrapper {
@@ -290,7 +328,6 @@ export default {
   }
 
   .bordered-box {
-    margin-top: 40px;
     padding: 20px;
 
     .split {
@@ -305,7 +342,7 @@ export default {
         .no-image {
           width: 100%;
           border: 1px solid $purple;
-          border-radius: 3px;
+          border-radius: 4px;
           height: 150px;
           object-fit: cover;
           object-position: center;
@@ -333,26 +370,6 @@ export default {
         a {
           color: $orange;
           text-decoration: none;
-        }
-
-        h2 {
-          font-weight: 400;
-          border-bottom: 1px solid $purple;
-          margin-top: 0;
-
-          span {
-            float: right;
-            background: crimson;
-            color: white;
-            font-size: 12px;
-            padding: 5px;
-            width: 100px;
-            text-align: center;
-
-            &.yes {
-              background: green;
-            }
-          }
         }
       }
     }

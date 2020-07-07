@@ -48,7 +48,7 @@
 
     <div class="nav-content" data-simplebar>
       <nav>
-        <router-link :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}" class="logo">
+        <router-link :to="{name: 'landingpage'}" class="logo">
           <img src="@/assets/logo_white.svg" />
         </router-link>
 
@@ -56,13 +56,16 @@
           <!-- Personal Data -->
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
-            <router-link :to="{name: 'dashboard', params: {steamId: dashboardRouteSteamId}}">Profile</router-link>
-            <router-link :to="{name: 'situations'}">Situations</router-link>
-            <router-link to="/smokes">Smokes</router-link>
-            <router-link to="/molotovs">Molotovs</router-link>
-            <router-link to="/flashes">Flashes</router-link>
-            <router-link to="/hes">HEs</router-link>
-            <router-link to="/kills">Kills</router-link>
+            <router-link
+              :to="{name: 'profile', params: {steamId: ownSteamId}}"
+              v-if="$api.User"
+            >My Profile</router-link>
+            <template v-else>
+              <router-link :to="{name: 'login'}">My Profile</router-link>
+            </template>
+            <router-link
+              :to="{name: 'profile', params: {steamId: '76561198033880857'}}"
+            >Demo Profile</router-link>
           </div>
 
           <!-- Upload Demos-->
@@ -70,9 +73,8 @@
             <div class="nav-header">Upload Demos</div>
             <router-link to="/automatic-upload">Automatic Upload</router-link>
             <button
-              v-if="$api.User"
               class="nav-button"
-              @click="$refs.manualUploadOverlay.Show()"
+              @click="$api.LoginGate(() => $refs.manualUploadOverlay.Show())"
             >Manual Upload</button>
             <router-link to="/browser-extension">Browser Extension</router-link>
           </div>
@@ -80,10 +82,18 @@
           <!-- Account -->
           <div class="nav-section">
             <div class="nav-header">Account</div>
-            <router-link :to="{name: 'membership'}">Membership</router-link>
-            <div class="logout">
+            <router-link :to="{name: 'membership'}">Membership & Pricing</router-link>
+            <div class="logout" v-if="$api.User">
               <button @click="signOut()" class="nav-button">Logout</button>
             </div>
+            <a
+              :href="this.$api.getSignInUrl(window.location.origin)"
+              v-else
+              class="login-with-steam"
+            >
+              <img class="steam-logo" src="@/assets/steam-logo.svg" alt="Steam logo" />
+              Sign in through Steam
+            </a>
           </div>
         </div>
       </nav>
@@ -96,10 +106,7 @@
           v-if="user"
           @click="optionsVisible = !optionsVisible"
           @mouseleave="optionsVisible = false"
-        >
-          <!-- <img v-if="user" :src="GetFullSteamAvatarURL(user.Icon)" />
-          <span class="username">{{ user.SteamName }}</span>-->
-        </div>
+        ></div>
       </div>
     </div>
   </div>
@@ -117,20 +124,18 @@ export default {
     QueueStatusDisplay
   },
   mounted() {
-    if (this.$api.User != null) {
-      this.ownSteamId = this.$api.User.GetSteamId(false);
+    if (this.ownSteamId != null) {
+      let params = {
+        steamId: this.ownSteamId
+      };
+      this.$api.getPlayerInfo(params).then(response => {
+        this.user = response.data;
+      });
     }
-
-    let params = {
-      steamId: this.ownSteamId
-    };
-    this.$api.getPlayerInfo(params).then(response => {
-      this.user = response.data;
-    });
   },
   data() {
     return {
-      ownSteamId: null,
+      window,
       user: null,
       optionsVisible: false,
       uploadInfo: {
@@ -194,8 +199,12 @@ export default {
     }
   },
   computed: {
-    dashboardRouteSteamId() {
-      return this.ownSteamId ? this.ownSteamId : "own";
+    ownSteamId() {
+      if (this.$api.User) {
+        return this.$api.User.GetSteamId(false);
+      }
+
+      return null;
     }
   }
 };
@@ -272,6 +281,19 @@ export default {
       strong {
         color: $orange;
       }
+    }
+  }
+
+  .login-with-steam {
+    display: flex;
+    align-items: center;
+    color: white;
+    background: $orange;
+
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
     }
   }
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="view view-radarimage-feature view-molotovs">
+  <div class="view view-radarimage-feature">
     <div class="fixed-width-container">
-      <MolotovsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <FlashesOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
-        <AjaxLoader>Loading Molotovs</AjaxLoader>
+        <AjaxLoader>Loading Flashes</AjaxLoader>
       </div>
       <div v-else class="interactive-area">
         <div class="l bordered-box">
@@ -13,6 +13,7 @@
               :class="{active: showTrajectories}"
               @click="OnShowTrajectories"
             >Trajectories</button>
+
             <button
               class="button-variant-bordered"
               :class="{active: viewType == Enums.RadarViewTypes.Zone}"
@@ -33,10 +34,10 @@
               :SetSelectedZone="SetSelectedZone"
               :OnClickBackground="OnClickBackground"
               :viewType="viewType"
-              :zoneType="'FireNade'"
+              :zoneType="'Flash'"
               :zones="visibleZones"
               :userPerformanceData="userPerformanceData"
-              :molotovs="visibleSamples"
+              :flashGrenades="visibleSamples"
             />
           </div>
         </div>
@@ -44,25 +45,31 @@
           <div class="sidebar">
             <div id="analysis-tab" class="sidebar-tabcontent">
               <div v-if="selectedSample" class="selected-sample-stats">
-                <h4>About this Molotov</h4>
+                <h4>About this Flash</h4>
                 <div class="stat-row">
                   <div class="stat-description">Round</div>
                   <div class="stat-content">{{selectedSample.Round}}</div>
                 </div>
 
                 <div class="stat-row">
-                  <div class="stat-description">Enemies Burned</div>
-                  <div class="stat-content">{{selectedSample.Victims.length}}</div>
+                  <div class="stat-description">Enemies Flashed</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack).length}}</div>
                 </div>
 
                 <div class="stat-row">
-                  <div class="stat-description">Total damage to enemies:</div>
-                  <div class="stat-content">{{selectedSample.EnemyAmountHealth}}</div>
+                  <div class="stat-description">Time enemies flashed:</div>
+                  <div
+                    class="stat-content"
+                  >{{(selectedSample.Flasheds.filter(x=>!x.TeamAttack).reduce((a,b)=> a + b.TimeFlashed, 0) / 1000).toFixed(2) + "s"}}</div>
                 </div>
 
                 <div class="stat-row">
-                  <div class="stat-description">Kills</div>
-                  <div class="stat-content">{{selectedSample.KilledEnemies}}</div>
+                  <div class="stat-description">Flashed Enemies died</div>
+                  <div
+                    class="stat-content"
+                  >{{selectedSample.Flasheds.filter(x=>!x.TeamAttack && x.FlashAssist).length}}</div>
                 </div>
               </div>
 
@@ -83,25 +90,33 @@
                   >{{selectedZone == null ? activeMap : selectedZone.Name.split("_").join(" ") }}</div>
                 </div>
               </div>
+
               <div v-if="!selectedSample" class="selected-zone-stats">
                 <h4>Summary</h4>
                 <div v-if="userSelectedZonePerformance" class="stat-row">
-                  <div class="stat-description">Molotovs thrown</div>
+                  <div class="stat-description">Flashes thrown</div>
                   <div class="stat-content">{{userSelectedZonePerformance.SampleCount}}</div>
                 </div>
 
                 <div v-if="userSelectedZonePerformance" class="stat-row">
-                  <div class="stat-description">Hits</div>
+                  <div class="stat-description">Avg. Enemy flashed</div>
                   <div
                     class="stat-content"
-                  >{{(userSelectedZonePerformance.DamagingNadesCount / Math.max(1, userSelectedZonePerformance.SampleCount) * 100).toFixed(0)+'%'}}</div>
+                  >{{(userSelectedZonePerformance.TotalEnemyTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
                 </div>
 
                 <div v-if="userSelectedZonePerformance" class="stat-row">
-                  <div class="stat-description">Avg. damage</div>
+                  <div class="stat-description">Avg. Team flashed</div>
                   <div
                     class="stat-content"
-                  >{{(userSelectedZonePerformance.AmountHealth / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(0)}}</div>
+                  >{{(userSelectedZonePerformance.TotalTeamTimeFlashed / Math.max(1, userSelectedZonePerformance.SampleCount) / 1000).toFixed(2) + "s"}}</div>
+                </div>
+
+                <div v-if="userSelectedZonePerformance" class="stat-row">
+                  <div class="stat-description">Avg. assisted Kills</div>
+                  <div
+                    class="stat-content"
+                  >{{(userSelectedZonePerformance.EnemyFlashAssists / Math.max(1, userSelectedZonePerformance.SampleCount)).toFixed(2) }}</div>
                 </div>
               </div>
 
@@ -116,96 +131,113 @@
 
               <div class="legend-tab">
                 <h4>Legend</h4>
-                <div class="detail-legend-section">
+                <div class="details-legend-section">
                   <div class="legend-row">
                     <div class="legend-depiction">
                       <svg height="50" width="50">
-                        <Molotov
+                        <Flash
                           :grenadeData="{
-                          'Id':'FireNade-1-1',
+                          'Id':'Flash-1-1',
                           'MatchId':1,
                           'PlayerId':1,
                           'GrenadeId':1,
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleasePosPixel':{'X':5,'Y':22},
-                          'DetonationPosPixel':{'X':33,'Y':27},
                           'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
-                          'Victims':[]
+                          'Flasheds':[]
                         }"
                           :scaleFactor="2"
                           :showTrajectories="showTrajectories"
                           :SetSelectedSample="function(){}"
                           :isSelected="false"
-                          :fixedDetonationRadius="15"
                         />
                       </svg>
                     </div>
                     <div
                       class="legend-description"
-                    >White markers represent Molotovs that did not deal damage to enemies.</div>
+                    >Grey markers represent Flashes that did not blind enemies.</div>
                   </div>
                   <div class="legend-row">
                     <div class="legend-depiction">
                       <svg height="50" width="50">
-                        <Molotov
+                        <Flash
                           :grenadeData="{
-                          'Id':'FireNade-1-1',
+                          'Id':'Flash-1-1',
                           'MatchId':1,
                           'PlayerId':1,
                           'GrenadeId':1,
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleasePosPixel':{'X':5,'Y':22},
-                          'DetonationPosPixel':{'X':33,'Y':27},
                           'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
-                          'Victims':[{'Hits': [{'VictimId':1,'VictimPosPixel':{'X':42,'Y':12},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},]}]
+                          'Flasheds':[{'VictimPosPixel':{'X':42,'Y':12},'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false}]
                         }"
                           :scaleFactor="2"
                           :showTrajectories="showTrajectories"
                           :SetSelectedSample="function(){}"
                           :isSelected="false"
-                          :fixedDetonationRadius="15"
                         />
                       </svg>
                     </div>
-                    <div class="legend-description">Red markers indicate damaged enemies.</div>
+                    <div
+                      class="legend-description"
+                    >White markers indicate blinded enemies. Radius corresponds to duration.</div>
                   </div>
                   <div class="legend-row">
                     <div class="legend-depiction">
                       <svg height="50" width="50">
-                        <Molotov
+                        <Flash
                           :grenadeData="{
-                          'Id':'FireNade-1-1',
+                          'Id':'Flash-1-1',
                           'MatchId':1,
                           'PlayerId':1,
                           'GrenadeId':1,
                           'Round':1,
                           'UserIsCt':showCt,
                           'ZoneId':0,
-                          'ReleasePosPixel':{'X':5,'Y':22},
-                          'DetonationPosPixel':{'X':33,'Y':27},
                           'Trajectory':[{'Time':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'PosPixel':{'X':33,'Y':27}}],
-                          'Victims':[{'Hits': [
-                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:43, Y:27}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:37, Y:25}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:32, Y:21}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          {'VictimId':1,'VictimPos': {'PosPixel' : {X:27, Y:15}},'AmountHealth':5,'AmountArmor':0,'Kill':false,'TeamAttack':false,'VictimIsAttacker':false},
-                          ]}]
+                          'Flasheds':[{'VictimPosPixel':{'X':42,'Y':12},'TimeFlashed':3000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false}]
+                        }"
+                          :scaleFactor="2"
+                          :showTrajectories="showTrajectories"
+                          :SetSelectedSample="function(){}"
+                          :isSelected="false"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="legend-description"
+                    >Green markers indicate enemies were killed shortly after being flashed.</div>
+                  </div>
+                  <div class="legend-row">
+                    <div class="legend-depiction">
+                      <svg height="50" width="50">
+                        <Flash
+                          :grenadeData="{
+                          'Id':'Flash-1-1',
+                          'MatchId':1,
+                          'PlayerId':1,
+                          'GrenadeId':1,
+                          'Round':1,
+                          'UserIsCt':showCt,
+                          'ZoneId':0,
+                          'Trajectory':[{'Time':0,'X':5,'Y':22,'Z':0, 'PosPixel':{'X':5,'Y':22}},{'Time':1,'X':33,'Y':27,'Z':0, 'PosPixel':{'X':33,'Y':27}}],
+                          'Flasheds':[
+                          {'VictimPosPixel':{'X':42,'Y':12},'TimeFlashed':1000,'FlashAssist':false,'TeamAttack':false,'VictimIsAttacker':false},
+                          {'VictimPosPixel':{'X':39,'Y':39},'TimeFlashed':1000,'FlashAssist':true,'TeamAttack':false,'VictimIsAttacker':false},]
                         }"
                           :scaleFactor="2"
                           :showTrajectories="showTrajectories"
                           :SetSelectedSample="function(){}"
                           :isSelected="true"
-                          :fixedDetonationRadius="15"
                         />
                       </svg>
                     </div>
-                    <div
-                      class="legend-description"
-                    >Click on a Molotov to see the victims' path through the fire.</div>
+                    <div class="legend-description">
+                      Click on a Flash to see the victims' positions.
+                      <!-- Green border indicates a player died shortly after being flashed. -->
+                    </div>
                   </div>
                 </div>
                 <div class="zone-legend-section">
@@ -228,9 +260,10 @@
                         />
                       </svg>
                     </div>
-                    <div
-                      class="legend-description"
-                    >A zone's color corresponds to the chance of your Molotovs burning at least one enemy.</div>
+                    <div class="legend-description">
+                      A zone's color corresponds to the average blind duration of your Flashes that detonated in it.
+                      <!-- A zone's color corresponds to the average duration of enemies being blinded by your Flashes that detonated in it.  -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -244,16 +277,16 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
-import Molotov from "@/components/RadarImageFeatures/Molotov.vue";
-import MolotovsOverview from "@/components/Overviews/MolotovsOverview.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
+import Flash from "@/components/RadarImageFeatures/Flash.vue";
+import FlashesOverview from "@/components/Overviews/FlashesOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";
 
 export default {
   extends: RadarImageFeature,
   components: {
-    Molotov,
-    MolotovsOverview,
+    Flash,
+    FlashesOverview,
     TeamToggle
   },
   mounted() {
@@ -262,7 +295,7 @@ export default {
   data() {
     return {
       config: {
-        sampleType: Enums.SampleType.Molotov,
+        sampleType: Enums.SampleType.Flash,
         features: {
           zones: true,
           lineups: false,

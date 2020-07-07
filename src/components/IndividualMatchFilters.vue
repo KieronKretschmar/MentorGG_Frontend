@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     OnToggleBlacklist(matchId) {
-      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+      this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$api.MatchSelector.ToggleBlacklist(matchId);
       });
     },

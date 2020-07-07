@@ -21,10 +21,10 @@ class MentorGGAPI {
                 axios.defaults.headers.common['Authorization'] = "Bearer " + process.env.VUE_APP_BEARER_TOKEN
 
                 // if specified, auth as specific user
-                if(process.env.VUE_APP_BEARER_IMPERSONATE_USER){
+                if (process.env.VUE_APP_BEARER_IMPERSONATE_USER) {
                     axios.defaults.headers.common['Impersonate-ApplicationUserId'] = process.env.VUE_APP_BEARER_IMPERSONATE_USER
                 }
-                
+
                 axios.defaults.withCredentials = false;
             }
 
@@ -44,16 +44,50 @@ class MentorGGAPI {
         this.User = null;
         this.matchSelectors = {};
         this.MatchSelector = null;
+    }
 
-        // this.User = new MentorUser();
-        // console.log("User steamId: " + this.User.GetSteamId());
-        // console.log("Applying override");
-        // this.User.ApplyOverride(new MentorUser());
-        // console.log("User steamId: " + this.User.GetSteamId());
-        // console.log("Real steamId: " + this.User.GetSteamId(false));
-        // console.log("Clearing override");
-        // this.User.ClearOverride();
-        // console.log("User steamId: " + this.User.GetSteamId());
+    AuthorizationGate(minimumAccessLevel, fnAuthorized, fnUnauthorized) {
+        if (!fnAuthorized) {
+            throw new Error("Invalid callback value in authorization gate for argument fnAuthorized");
+        }
+
+        let callUnauthorized = () => {
+            if (fnUnauthorized) {
+                fnUnauthorized();
+            } else {
+                globalThis.NotAuthorized.Show(minimumAccessLevel);
+            }
+        };
+
+        if (!this.User) {
+            callUnauthorized();
+            return;
+        }
+
+        if (Enums.SubscriptionStatus.GetAccessLevel(this.User.subscriptionStatus) >= Enums.SubscriptionStatus.GetAccessLevel(minimumAccessLevel)) {
+            fnAuthorized();
+        } else {
+            callUnauthorized();
+        }
+    }
+
+    LoginGate(fnLoggedIn, fnNotLoggedIn) {
+        if(!fnLoggedIn) {
+            throw new Error("Invalid callback value in login gate for argument fnLoggedIn");
+        }
+
+        if (!this.User) {
+            if (fnNotLoggedIn) {
+                fnNotLoggedIn();
+            } else {
+                globalThis.NotLoggedIn.Show();
+            }
+
+            return false;
+        } else {
+            fnLoggedIn();
+            return true;
+        }
     }
 
     // Ensures that this.User is set. If not (e.g. because the user is not logged in) the promise is rejected.
@@ -89,10 +123,7 @@ class MentorGGAPI {
     // }
 
     getSubscriptions() {
-        return this.ensureLogin().then(response => {
-            // Attempt to load the logged-in user's identity from server
-            return axios.get(`${this.apiBaseAddress}/subscriptions`, {});
-        });
+        return axios.get(`${this.apiBaseAddress}/subscriptions`, {});
     }
 
     // Initializes this.MatchSelector. Make sure this.User is set when calling this.
@@ -234,7 +265,7 @@ class MentorGGAPI {
     // Returns Situations for all players of the specified matches. Used for debugging.
     getSituationSamplesByMatchCount(params, overrides = {}) {
         let formattedParams = {
-            matchCount : params.matchCount
+            matchCount: params.matchCount
         }
 
         return axios.get(`${this.apiBaseAddress}/v1/situations/situationType/${params.type}/samples-by-matchcount`, {

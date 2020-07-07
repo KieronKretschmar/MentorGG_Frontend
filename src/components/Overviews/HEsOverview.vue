@@ -72,7 +72,7 @@ export default {
       mapSummaries: null
     };
   },
-  props: ["activeMap"],
+  props: ["activeMap", "steamId"],
   mounted() {
     this.LoadOverviews(10000); // matchCount is currently ignored for overviews by api except for kills
   },
@@ -80,7 +80,7 @@ export default {
     LoadOverviews(matchCount) {
       this.mapSummaries = null;
       let params = {
-        steamId: this.$api.User.GetSteamId(),
+        steamId: this.steamId,
         type: Enums.SampleType.HE
       };
       this.$api.getOverview(params, {}).then(response => {

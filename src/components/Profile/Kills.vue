@@ -1,7 +1,7 @@
 <template>
   <div class="view view-radarimage-feature view-kills">
     <div class="fixed-width-container">
-      <KillsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" />
+      <KillsOverview :activeMap="activeMap" v-on:updatemap="OnActiveMapUpdated" :steamId="steamId"/>
       <div v-if="!loadingSamplesComplete" class="bordered-box no-data">
         <AjaxLoader>Loading Kills</AjaxLoader>
       </div>
@@ -240,7 +240,7 @@
 
 <script>
 import Enums from "@/enums";
-import RadarImageFeature from "@/views/RadarImageFeatures/RadarImageFeature.vue";
+import RadarImageFeature from "@/components/RadarImageFeatures/RadarImageFeature.vue";
 import Kill from "@/components/RadarImageFeatures/Kill.vue";
 import KillsOverview from "@/components/Overviews/KillsOverview.vue";
 import TeamToggle from "@/components/RadarImageFeatures/TeamToggle.vue";
@@ -295,7 +295,7 @@ export default {
     },
     // Filterable
     SetPlantStatus(status) {
-      this.$api.User.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
+      this.$api.AuthorizationGate(Enums.SubscriptionStatus.Premium, () => {
         this.$helpers.LogEvent(this, "PlantStatus", { label: status });
 
         this.activeFilterSettings.PlantStatus = status;
