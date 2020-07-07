@@ -1,6 +1,6 @@
 <template>
   <div class="situation-base">
-    <div class="back-to-overview" @click="$emit('back')"><i class="material-icons">west</i> back to overview</div>
+    <div class="back-to-overview" @click="$emit('back')"><i class="material-icons">west</i> back to situations overview</div>
     <template v-if="this.dynamicSituationData">      
       <div class="situation-header">
         <div class="situation-name">

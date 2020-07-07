@@ -456,7 +456,8 @@ export default {
         color: $orange;
 
         &:before {
-          content: "list";
+          content: "";
+          width: 24px;
           color: $green;
           margin-right: 10px;
           font-family: "Material Icons";
