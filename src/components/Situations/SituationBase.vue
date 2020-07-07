@@ -21,7 +21,7 @@
           <span>OCCURENCE HISTORY</span>
           <LineChart
             :options="GetOccurenceHistoryGraphOptions()"
-            :data="occurenceHistoryGraphData"
+            :chartData="occurenceHistoryGraphData"
             class="history-graph-inner-wrapper"
           />
         </div>

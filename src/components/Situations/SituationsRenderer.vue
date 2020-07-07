@@ -13,7 +13,7 @@
           <p class="chart-title">{{ chartTitle }}</p>
           <LineChart
             :options="chartOptions"
-            :data="chartData"
+            :chartData="chartData"
             class="situation-graph-inner-wrapper"
           />
         </div>

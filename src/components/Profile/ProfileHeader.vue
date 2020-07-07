@@ -34,7 +34,7 @@
         <span>MATCHMAKING RESULTS</span>
         <LineChart
           :options="chartOptions"
-          :data="chartData"
+          :chartData="chartData"
           class="mini-rank-graph-inner-wrapper"
           v-if="relevantGraphMatches.length"
         />
@@ -164,7 +164,7 @@ export default {
         }
 
         data.push(wins);
-      }
+      }      
 
       return data;
     },

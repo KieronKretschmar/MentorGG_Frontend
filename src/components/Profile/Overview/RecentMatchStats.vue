@@ -46,7 +46,7 @@
         <div class="rank-graph-outer-wrapper" data-simplebar data-simplebar-auto-hide="false">
           <LineChart
             :options="chartOptions"
-            :data="chartData"
+            :chartData="chartData"
             :style="{width: `${relevantGraphMatches.length * 80}px`}"
             class="rank-graph-inner-wrapper"
             v-if="relevantGraphMatches.length"
