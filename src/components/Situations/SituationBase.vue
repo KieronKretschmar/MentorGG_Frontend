@@ -59,7 +59,7 @@
           class="bordered-box free-user-warning"
           v-if="currentSubscriptionStatus == Enums.SubscriptionStatus.Free"
         >
-          <p>Please note that as a FREE user you may only view the occurences for the first and last round of each half.</p>
+          <p>Please note that as a FREE user you may only view the occurences for the first half of each match.</p>
           <button
             class="button-variant-bordered upgrade"
             @click="$router.push({name: 'membership'})"
