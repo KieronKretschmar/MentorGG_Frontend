@@ -198,17 +198,39 @@ export default {
       height: 60px;
       display: flex;
       align-items: center;
-      border-bottom: 3px solid transparent;
+      // border-bottom: 3px solid transparent;
       transition: 0.35s;
       cursor: pointer;
+      position: relative;
+      top: 0;
+      justify-content: center;
+
+      width: calc(100% / 6);
+
+      &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        background: $purple;
+        top: 100%;
+        left: 0;
+        transition: 1s;
+        opacity: 0;
+      }
 
       &.active,
       &:hover {
+        top: -5px;        
         background: $dark-2;
-        border-bottom: 3px solid $purple;
-        -webkit-box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
-        -moz-box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
-        box-shadow: 0px 3px 5px -1px rgba(57, 56, 74, 0.5);
+        // border-bottom: 3px solid $purple;
+        -webkit-box-shadow: 0px 3px 5px 0px rgba(57, 56, 74, 0.5);
+        -moz-box-shadow: 0px 3px 5px 0px rgba(57, 56, 74, 0.5);
+        box-shadow: 0px 3px 5px 0px rgba(57, 56, 74, 0.5);
+
+        &:after {
+          opacity: 1;
+        }
       }
     }
   }
