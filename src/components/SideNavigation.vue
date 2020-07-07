@@ -57,7 +57,7 @@
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
             <router-link
-              :to="{name: 'profile', params: {steamId: dashboardRouteSteamId}}"
+              :to="{name: 'profile', params: {steamId: ownSteamId}}"
               v-if="$api.User"
             >My Profile</router-link>
             <template v-else>
@@ -124,10 +124,6 @@ export default {
     QueueStatusDisplay
   },
   mounted() {
-    if (this.$api.User != null) {
-      this.ownSteamId = this.$api.User.GetSteamId(false);
-    }
-
     if (this.ownSteamId != null) {
       let params = {
         steamId: this.ownSteamId
@@ -140,7 +136,6 @@ export default {
   data() {
     return {
       window,
-      ownSteamId: null,
       user: null,
       optionsVisible: false,
       uploadInfo: {
@@ -204,8 +199,12 @@ export default {
     }
   },
   computed: {
-    dashboardRouteSteamId() {
-      return this.ownSteamId;
+    ownSteamId() {
+      if (this.$api.User) {
+        return this.$api.User.GetSteamId(false);
+      }
+
+      return null;
     }
   }
 };

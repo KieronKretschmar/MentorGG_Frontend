@@ -198,7 +198,16 @@ export default {
       }
 
       return this.steamId == this.$api.User.GetSteamId(false);
-    }
+    },
+    nameContainsVerifyString() {
+      if (!this.user) {
+        return false;
+      }
+
+      return (
+        this.user.SteamUser.SteamName.toLowerCase().indexOf("mentor.gg") != -1
+      );
+    },
   },
   watch: {
     steamId: function(val) {
