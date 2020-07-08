@@ -32,8 +32,9 @@ export default {
     Hide() {
       this.$refs.overlay.Hide();
     },
-    OnClickUpgrade() {
-      this.$router.push({ name: "membership" });
+    OnClickLogin() {
+      this.$helpers.LogEvent(this, "AttemptSignIn");
+      location.href = this.$api.getSignInUrl(window.location.origin);
     }
   }
 };
