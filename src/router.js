@@ -143,6 +143,6 @@ export default new Router({
       path: '*',
       name: 'page-not-found',
       component: () => import(/* webpackChunkName: "pagenotfound" */'./views/PageNotFound.vue')
-    }
+    },
   ]
 });
