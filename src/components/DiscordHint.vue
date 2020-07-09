@@ -14,6 +14,7 @@
   top: 50%;
   margin-top: -27px;
   display: flex;
+  justify-content: center;
   align-items: center;
   background: $dark-1;
   color: white;
@@ -28,6 +29,7 @@
   img {
     width: 35px;
     margin: 3px 8px 0 3px;    
+    margin-left: 0;
   }
 
   &:hover {
