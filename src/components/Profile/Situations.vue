@@ -1,6 +1,6 @@
 <template>
     <div class="profile-situations">        
-        <Overview v-if="loadedDetailSituationType == -1" @open-detail="OnShowDetail"/>
+        <Overview v-if="loadedDetailSituationType == -1" :steamId="steamId" @open-detail="OnShowDetail"/>
         <Detail v-else :type="loadedDetailSituationType" :steamId="steamId" @back="OnBackToOverview"/>
     </div>
 </template>

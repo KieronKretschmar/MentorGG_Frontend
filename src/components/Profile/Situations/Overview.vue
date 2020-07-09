@@ -1,5 +1,5 @@
 <template>
-  <div class="view view-situation-detail-overview">    
+  <div class="view view-situation-detail-overview">
     <div class="fixed-width-container">
       <template v-if="metaData">
         <div class="split">
@@ -15,12 +15,19 @@
                 v-for="entry in renderData.misplays"
                 :key="entry.type"
               >
-                <img
-                  v-if="entry.meta"
-                  :src="$assetLoader.getSkillDomainIcon(entry.meta.SkillDomainName)"
-                />
-                <div class="icon-placeholder" v-else></div>
-                {{ entry.name }}
+                <div class="icon-and-name">
+                  <img
+                    v-if="entry.meta"
+                    :src="$assetLoader.getSkillDomainIcon(entry.meta.SkillDomainName)"
+                  />
+                  <div class="icon-placeholder" v-else></div>
+                  {{ entry.name }}
+                </div>
+                <div
+                  class="count"
+                  v-if="situationCounts && situationCounts[entry.type]"
+                >{{ situationCounts[entry.type] }}</div>
+                <div class="count" v-else>0</div>
               </div>
             </div>
           </div>
@@ -36,12 +43,19 @@
                 v-for="entry in renderData.highlights"
                 :key="entry.type"
               >
-                <img
-                  v-if="entry.meta"
-                  :src="$assetLoader.getSkillDomainIcon(entry.meta.SkillDomainName)"
-                />
-                <div class="icon-placeholder" v-else></div>
-                {{ entry.name }}
+                <div class="icon-and-name">
+                  <img
+                    v-if="entry.meta"
+                    :src="$assetLoader.getSkillDomainIcon(entry.meta.SkillDomainName)"
+                  />
+                  <div class="icon-placeholder" v-else></div>
+                  {{ entry.name }}
+                </div>
+                <div
+                  class="count"
+                  v-if="situationCounts && situationCounts[entry.type]"
+                >{{ situationCounts[entry.type] }}</div>
+                <div class="count" v-else>0</div>
               </div>
             </div>
           </div>
@@ -57,6 +71,7 @@ import SituationLoader from "@/SituationLoader";
 import RadarChart from "@/components/Charts/RadarChart.vue";
 
 export default {
+  props: ["steamId"],
   components: {
     RadarChart
   },
@@ -64,11 +79,20 @@ export default {
     this.$api.getSituationsMetaData({}).then(result => {
       this.metaData = result.data.Data;
     });
+
+    this.$api
+      .getSituations({
+        steamId: this.steamId
+      })
+      .then(result => {
+        this.situations = result.data;
+      });
   },
   data() {
     return {
       Enums,
       metaData: null,
+      situations: null,
       radarChartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -125,7 +149,6 @@ export default {
         ]
       };
     },
-
     renderData() {
       let ret = {
         misplays: [],
@@ -158,6 +181,36 @@ export default {
         if (data.isHighlight) {
           ret.highlights.push(data);
           continue;
+        }
+      }
+
+      return ret;
+    },
+    situationCounts() {
+      let ret = {};
+
+      if (!this.situations) {
+        return null;
+      }
+
+      for (let a of ["Highlights", "Misplays"]) {
+        for (let key in this.situations[a]) {
+          let entry = this.situations[a][key];
+          ret[entry.MetaData.SituationType] = 0;
+
+          let count = 0;
+
+          for (let occurence of entry.Situations) {
+            if (
+              this.situations.Matches[occurence.MatchId].AllowedRounds.indexOf(
+                occurence.Round
+              ) != -1
+            ) {
+              count++;
+            }
+          }
+
+          ret[entry.MetaData.SituationType] = count;
         }
       }
 
@@ -243,6 +296,7 @@ export default {
           text-decoration: none;
           display: flex;
           align-items: center;
+          justify-content: space-between;
           border: 1px solid $purple;
           font-size: 14px;
           cursor: pointer;
@@ -250,6 +304,23 @@ export default {
 
           &:last-child {
             margin-bottom: 0;
+          }
+
+          .icon-and-name {
+            display: flex;
+            align-items: center;
+          }
+
+          .count {
+            background: $purple;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;           
+            border-radius: 4px;
+            font-weight: 500; 
           }
 
           img,
