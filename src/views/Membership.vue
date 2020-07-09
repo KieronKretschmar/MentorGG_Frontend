@@ -661,9 +661,11 @@ export default {
   .view-better-membership {
     .pricing-boxes {
       flex-direction: column;
+      margin: 0;
 
       .pricing-box {
         width: 100%;
+        margin: 0;
         margin-bottom: 20px;
       }
     }
