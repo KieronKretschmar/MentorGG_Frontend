@@ -1,8 +1,8 @@
 <template>
   <div class="view view-terms-and-conditions">
     <div class="fixed-width-container">
+      <h2 class="section-header">Terms and Conditions</h2>
       <div class="bordered-box">
-        <h1>Terms and Conditions</h1>
         <p>Last updated: March 06, 2020</p>
         <p>Please read these terms and conditions carefully before using Our Service.</p>
         <h2>Definitions</h2>
@@ -262,9 +262,15 @@
 
 <style lang="scss">
 .view-terms-and-conditions {
+  margin-top: 70px;
+
   .bordered-box {
     color: white;
-    margin-top: 40px;
+    text-align: justify;
+
+    h2 {
+      font-size: 20px;
+    }
 
     a {
       color: $orange;
@@ -278,6 +284,10 @@
 
     p {
       font-weight: 200;
+    }
+
+    td {
+      padding: 10px;
     }
 
     .withdrawal-form-table {
