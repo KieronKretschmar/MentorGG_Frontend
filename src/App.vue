@@ -17,20 +17,18 @@
           <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
         </header>
         <main>
+            <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
+              <span class="text">
+                Setup
+                <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG
+              </span>
+              <button @click="$router.push({name: 'automatic-upload'})">setup</button>
+            </div>
           <transition name="page" mode="out-in">
-            <div class="page-wrapper">
-              <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
-                <span class="text">
-                  Setup
-                  <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG
-                </span>
-                <button @click="$router.push({name: 'automatic-upload'})">setup</button>
-              </div>
               <router-view
                 :key="reloadHack"
                 @valve-connected="showAutomaticUploadSetupPrompt = false"
               />
-            </div>
           </transition>
         </main>
         <footer>
