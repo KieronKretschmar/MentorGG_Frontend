@@ -17,6 +17,11 @@
           <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
         </header>
         <main>
+            <div class="announcement" v-if="true">
+              <span class="text">
+                Due to server issues, <strong>Automatic Upload is currently disabled</strong>. Please use the <router-link :to="{name: 'browser-extension'}">Browser Extension</router-link> to upload your matches.
+              </span>
+            </div>
             <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
               <span class="text">
                 Setup
@@ -257,6 +262,7 @@ main {
     }
   }
 
+  .announcement,
   .auto-upload-not-configured {
     background: $red;
     color: white;
@@ -265,6 +271,7 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    height: 34px;
 
     button {
       margin-left: 10px;
@@ -284,6 +291,14 @@ main {
         color: $red;
       }
     }
+
+    a {
+      color: white;
+    }
+  }
+
+  .announcement {
+    background: #f39c12;
   }
 }
 
@@ -337,7 +352,8 @@ main {
     }
   }
 
-  #app .auto-upload-not-configured {
+  #app .auto-upload-not-configured,
+  #app .announcement {
     flex-direction: column;
     text-align: center;
     padding: 10px;
