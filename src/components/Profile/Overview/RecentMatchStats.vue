@@ -388,7 +388,6 @@ export default {
 @media (max-width: 800px) {
   .recent-match-stats {
     margin-bottom: 20px;
-    margin-top: -64px;
 
     .bordered-box {
       padding: 20px 20px;

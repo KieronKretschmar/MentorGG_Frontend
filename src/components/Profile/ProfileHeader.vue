@@ -220,7 +220,7 @@ export default {
 <style lang="scss">
 .profile-header {
   background: $dark-3;
-  padding: 40px 0px;
+  padding: 40px 20px;
   border-bottom: 1px solid $purple;
   padding-bottom: 69px;
 

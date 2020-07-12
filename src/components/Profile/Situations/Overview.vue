@@ -333,4 +333,24 @@ export default {
     }
   }
 }
+
+//responsive
+@media(max-width: 800px) {
+  .view-situation-detail-overview {
+    .fixed-width-container {
+      .split {
+        flex-direction: column;
+
+        .l,
+        .r {
+          width: 100%;
+        }
+
+        .r {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+}
 </style>

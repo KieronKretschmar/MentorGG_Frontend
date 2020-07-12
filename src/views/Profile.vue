@@ -3,39 +3,41 @@
     <template v-if="steamId">
       <ProfileHeader :steamId="steamId" :recentMatchStats="recentMatchStats" />
 
-      <div class="fixed-width-container">
-        <div class="profile-tabs">
-          <div
-            class="tab"
-            v-for="(tab, index) in tabs"
-            :key="tab.name"
-            @click="activeTabIndex = index"
-            :class="{active: activeTabIndex == index}"
-          >{{ tab.name }}</div>
+      <div class="padding-wrapper">
+        <div class="fixed-width-container">
+          <div class="profile-tabs">
+            <div
+              class="tab"
+              v-for="(tab, index) in tabs"
+              :key="tab.name"
+              @click="activeTabIndex = index"
+              :class="{active: activeTabIndex == index}"
+            >{{ tab.name }}</div>
+          </div>
         </div>
-      </div>
 
-      <div class="fixed-width-container">
-        <template v-if="recentMatchStats">
-          <template v-if="recentMatchStats.GamesTotal == -1 || recentMatchStats.GamesTotal > 0">
-            <component
-              v-if="activeTabComponent"
-              v-bind:is="activeTabComponent"
-              :steamId="steamId"
-              :recentMatchStats="recentMatchStats"
-              :radarImageData="radarImageData"
-              ref="loadedComponent"
-            ></component>
+        <div class="fixed-width-container">
+          <template v-if="recentMatchStats">
+            <template v-if="recentMatchStats.GamesTotal == -1 || recentMatchStats.GamesTotal > 0">
+              <component
+                v-if="activeTabComponent"
+                v-bind:is="activeTabComponent"
+                :steamId="steamId"
+                :recentMatchStats="recentMatchStats"
+                :radarImageData="radarImageData"
+                ref="loadedComponent"
+              ></component>
+            </template>
+            <template v-else>
+              <h2 class="section-header">Whoops!</h2>
+              <div class="bordered-box no-data">
+                <p>We don't have any analysis for this user available :(</p>
+                <p>Would you like to see what an analyzed profile looks like?</p>
+                <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
+              </div>
+            </template>
           </template>
-          <template v-else>
-            <h2 class="section-header">Whoops!</h2>
-            <div class="bordered-box no-data">
-              <p>We don't have any analysis for this user available :(</p>
-              <p>Would you like to see what an analyzed profile looks like?</p>
-              <button class="button-variant-bordered" @click="ShowDemoProfile">Yes, please!</button>
-            </div>
-          </template>
-        </template>
+        </div>
       </div>
     </template>
   </div>
@@ -185,6 +187,10 @@ export default {
 
 <style lang="scss">
 .view-profile {
+  .padding-wrapper {
+    padding: 0 20px;
+  }
+
   .profile-tabs {
     display: flex;
     background: $dark-1;
@@ -225,7 +231,7 @@ export default {
 
       &.active,
       &:hover {
-        top: -5px;        
+        top: -5px;
         background: $dark-2;
         // border-bottom: 3px solid $purple;
         -webkit-box-shadow: 0px 3px 5px 0px rgba(57, 56, 74, 0.5);
@@ -246,6 +252,33 @@ export default {
 
     h3 {
       margin-top: 0;
+    }
+  }
+}
+
+//response
+@media(max-width: 800px) {
+  .view-profile {
+    .profile-tabs {
+      flex-direction: column;
+      margin-top: -20px;
+
+      .tab {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid $dark-3;
+        height: 30px;
+
+        &.active,
+        &:hover {
+          box-shadow: none;
+          top: 0;
+        }
+
+        &:after {
+          content: none;
+        }
+      }
     }
   }
 }

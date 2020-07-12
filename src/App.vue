@@ -271,7 +271,6 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    height: 34px;
 
     button {
       margin-left: 10px;
