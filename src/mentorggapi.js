@@ -491,6 +491,27 @@ class MentorGGAPI {
             }
         });
     }
+
+    // Gets all feedback given by the authenticated user
+    getFeedback(){
+        return axios.get(`${this.apiBaseAddress}/v1/situations/feedback`, {
+            params: {
+            }
+        });
+    }
+
+    sendFeedback(matchId, situationType, situationId, isPositive, comment){
+        let formattedParams = {
+            matchId: matchId,
+            situationType: situationType,
+            situationId: situationId,
+            isPositive: isPositive,
+            comment: comment
+        };
+        return axios.post(`${this.apiBaseAddress}/v1/situations/feedback`, {}, {
+            params: formattedParams
+        });
+    }
 }
 
 export default new MentorGGAPI();
