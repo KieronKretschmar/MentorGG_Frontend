@@ -17,7 +17,7 @@
           <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
         </header>
         <main>
-            <div class="announcement" v-if="true">
+            <div class="announcement" v-if="false">
               <span class="text">
                 Due to server issues, <strong>Automatic Upload for Valve Matchmaking is currently disabled</strong>. Please use the <router-link :to="{name: 'browser-extension'}">Browser Extension</router-link> to upload your matches.
               </span>
