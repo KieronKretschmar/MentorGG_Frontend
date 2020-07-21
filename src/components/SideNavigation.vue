@@ -57,14 +57,15 @@
           <div class="nav-section">
             <div class="nav-header">Personal Data</div>
             <router-link
-              :to="{name: 'profile', params: {steamId: ownSteamId}}"
+              :class="{'custom-active': isOnProfile}"
+              :to="{name: 'profile', params: {steamId: ownSteamId, tab: 'overview'}}"
               v-if="$api.User"
-            ><span @click="EventBus.Invoke('open-overview')">My Profile</span></router-link>
+            >My Profile</router-link>
             <template v-else>
               <router-link :to="{name: 'login'}">My Profile</router-link>
             </template>
             <router-link
-              :to="{name: 'profile', params: {steamId: '76561198033880857'}}"
+              :to="{name: 'profile', params: {steamId: '76561198033880857', tab: 'overview'}}"
             >Demo Profile</router-link>
           </div>
 
@@ -116,7 +117,6 @@
 import DiscordHint from "@/components/DiscordHint.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import QueueStatusDisplay from "@/components/QueueStatusDisplay.vue";
-import EventBus from "@/EventBus";
 
 export default {
   components: {
@@ -136,7 +136,6 @@ export default {
   },
   data() {
     return {
-      EventBus,
       window,
       user: null,
       optionsVisible: false,
@@ -207,6 +206,18 @@ export default {
       }
 
       return null;
+    },
+    isOnProfile() {
+      if (!this.$api.User) {
+        return false;
+      }
+
+      console.log(this.$route);
+
+      return (
+        this.$route.name == "profile" &&
+        this.$route.params.steamId == this.ownSteamId
+      );
     }
   }
 };
@@ -368,7 +379,8 @@ export default {
       padding: 5px 40px;
 
       &:hover,
-      &.router-link-exact-active {
+      &.router-link-exact-active,
+      &.custom-active {
         color: $orange;
       }
     }
@@ -570,7 +582,8 @@ export default {
         padding: 5px 40px;
 
         &:hover,
-        &.router-link-exact-active {
+        &.router-link-exact-active,
+        &.custom-active {
           color: $orange;
         }
       }

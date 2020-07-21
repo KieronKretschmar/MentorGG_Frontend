@@ -1,8 +1,8 @@
 <template>
-    <div class="profile-situations">        
-        <Overview v-if="loadedDetailSituationType == -1" :steamId="steamId" @open-detail="OnShowDetail"/>
-        <Detail v-else :type="loadedDetailSituationType" :steamId="steamId" @back="OnBackToOverview"/>
-    </div>
+  <div class="profile-situations">
+    <Overview v-if="!$route.query.type" :steamId="steamId" @open-detail="OnShowDetail" />
+    <Detail v-else :type="$route.query.type" :steamId="steamId" @back="OnBackToOverview" />
+  </div>
 </template>
 
 <script>
@@ -10,26 +10,32 @@ import Overview from "@/components/Profile/Situations/Overview.vue";
 import Detail from "@/components/Profile/Situations/Detail.vue";
 
 export default {
-    props: ['steamId'],
-    components: {
-        Overview,
-        Detail
+  props: ["steamId"],
+  components: {
+    Overview,
+    Detail
+  },
+  methods: {
+    OnShowDetail(situationType) {
+      this.ShowDetail(situationType);
     },
-    data() {
-        return {
-            loadedDetailSituationType: -1
-        };
-    },
-    methods: {
-        OnShowDetail(situationType) {
-            this.ShowDetail(situationType);
-        },
-        OnBackToOverview() {
-            this.loadedDetailSituationType = -1;
-        },
-        ShowDetail(situationType) {
-            this.loadedDetailSituationType = situationType;
+    OnBackToOverview() {
+      this.$router.replace({
+        params: {
+          tab: "situations"
         }
+      });
+    },
+    ShowDetail(situationType) {
+      this.$router.replace({
+        params: {
+          tab: "situations"
+        },
+        query: {
+          type: situationType
+        }
+      });
     }
-}
+  }
+};
 </script>

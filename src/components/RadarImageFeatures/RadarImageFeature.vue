@@ -87,24 +87,42 @@ export default {
         this.activeMap = this.radarImageData.map;
       }
 
-      this.LoadSamples(this.activeMap, false).then(() => {
+      //route params overrule prop params
+      if (this.$route.query.map) {
+        this.activeMap = this.$route.query.map;
+      }
 
+      this.LoadSamples(this.activeMap, false).then(() => {
         if (this.radarImageData) {
           if (this.radarImageData.showCt != null) {
             this.showCt = this.radarImageData.showCt;
           }
-  
+
           if (this.radarImageData.zoneId) {
             this.selectedZoneId = this.radarImageData.zoneId;
             this.viewType = Enums.RadarViewTypes.Zone;
           }
-  
+
           if (this.radarImageData.lineupId) {
             this.selectedLineupId = this.radarImageData.lineupId;
             this.viewType = Enums.RadarViewTypes.Lineup;
           }
         }
 
+        //route params overrule prop params
+        if (this.$route.query.showCt != null) {
+          this.showCt = this.$route.query.showCt;
+        }
+
+        if (this.$route.query.zoneId) {
+          this.selectedZoneId = this.$route.query.zoneId;
+          this.viewType = Enums.RadarViewTypes.Zone;
+        }
+
+        if (this.$route.query.lineupId) {
+          this.selectedLineupId = this.$route.query.lineupId;
+          this.viewType = Enums.RadarViewTypes.Lineup;
+        }
       });
     },
     // General

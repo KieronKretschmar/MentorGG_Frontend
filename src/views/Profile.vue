@@ -10,7 +10,7 @@
               class="tab"
               v-for="(tab, index) in tabs"
               :key="tab.name"
-              @click="activeTabIndex = index"
+              @click="SetActiveTabIndex(index)"
               :class="{active: activeTabIndex == index}"
             >{{ tab.name }}</div>
           </div>
@@ -62,28 +62,6 @@ export default {
     ProfileHeader
   },
   mounted() {
-    this.onKillTabRequestEventHandle = EventBus.AddListener(
-      "request-kill-tab",
-      data => {
-        this.radarImageData = data;
-        this.activeTabIndex = this.tabs.findIndex(e => e.name == "Kills");
-      }
-    );
-
-    this.onOpenSituationDetailViewEventHandle = EventBus.AddListener(
-      "open-situation-detail-view",
-      type => {
-        this.activeTabIndex = this.tabs.findIndex(e => e.name == "Situations");
-        this.$nextTick(() => {
-          this.$refs.loadedComponent.ShowDetail(type);
-        });
-      }
-    );
-
-    this.onOpenOverview =EventBus.AddListener("open-overview", () => {
-      this.activeTabIndex = this.tabs.findIndex(e => e.name == "Overview");
-    });
-
     this.HandleUserOverride(() => {
       this.LoadData();
     });
@@ -93,9 +71,6 @@ export default {
       recentMatchStats: null,
       steamId: "",
       activeTabIndex: 0,
-      onKillTabRequestEventHandle: null,
-      onOpenSituationDetailViewEventHandle: null,
-      onOpenOverview: null,
       radarImageData: null,
       tabs: [
         {
@@ -143,7 +118,7 @@ export default {
 
       this.$api.initMatchSelector(newSteamId).then(result => {
         this.steamId = newSteamId;
-        this.activeTabIndex = 0;
+        this.UpdateTabFromRouteParam();
 
         if (fnDone) {
           fnDone();
@@ -154,11 +129,32 @@ export default {
       this.$api
         .getRecentMatchData({ steamId: this.steamId })
         .then(response => {
-          this.recentMatchStats = response.data;
+          this.recentMatchStats = response.data;          
         })
         .catch(error => {
           console.error(error); // eslint-disable-line no-console
         });
+    },
+    UpdateTabFromRouteParam() {
+      if (this.$route.params.tab) {
+        this.SetActiveTabIndex(
+          this.tabs.findIndex(
+            e => e.name.toLowerCase() == this.$route.params.tab
+          ),
+          false
+        );
+      }
+    },
+    SetActiveTabIndex(index, updateRoute = true) {
+      this.activeTabIndex = index;
+
+      if (updateRoute) {
+        this.$router.replace({
+          params: {
+            tab: this.tabs[this.activeTabIndex].name.toLowerCase()
+          }
+        });
+      }
     }
   },
   computed: {
@@ -175,13 +171,12 @@ export default {
       this.HandleUserOverride(() => {
         this.LoadData();
       });
+    },
+    "$route.params.tab": function() {
+      this.UpdateTabFromRouteParam();
     }
   },
   beforeDestroy() {
-    this.onKillTabRequestEventHandle.Remove();
-    this.onOpenSituationDetailViewEventHandle.Remove();
-    this.onOpenOverview.Remove();
-
     if (this.$api.User) {
       this.$api
         .initMatchSelector(this.$api.User.GetSteamId(false))
@@ -263,7 +258,7 @@ export default {
 }
 
 //response
-@media(max-width: 800px) {
+@media (max-width: 800px) {
   .view-profile {
     .profile-tabs {
       flex-direction: column;

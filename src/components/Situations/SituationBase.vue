@@ -1,7 +1,9 @@
 <template>
   <div class="situation-base">
-    <div class="back-to-overview" @click="$emit('back')"><i class="material-icons">west</i> back to situations overview</div>
-    <template v-if="this.dynamicSituationData">      
+    <div class="back-to-overview" @click="$emit('back')">
+      <i class="material-icons">west</i> back to situations overview
+    </div>
+    <template v-if="this.dynamicSituationData">
       <div class="situation-header">
         <div class="situation-name">
           <img
@@ -101,7 +103,7 @@
                 <div class="val">
                   <span v-if="field.before">{{ field.before }}</span>
                   <span
-                    v-html="field.render ? field.render(occurence[field.key]) : occurence[field.key]"
+                    v-html="field.render ? field.render(field.fullData ? {occurence: occurence, matches: dynamicSituationData.Matches} : occurence[field.key]) : occurence[field.key]"
                   ></span>
                   <span v-if="field.after">{{field.after}}</span>
                 </div>
@@ -148,10 +150,12 @@
           class="headline"
         >Feedback for Occurence #{{ feedbackOccurence.Id }} - {{ dynamicSituationData.Matches[feedbackOccurence.MatchId].Map }} // {{ dynamicSituationData.Matches[feedbackOccurence.MatchId].MatchDate|formatDateAndTime }}</p>
 
-        <p>We'd greatly appreciate it if you could provide a short reasoning for your negative feedback.<br>Thank you for helping us with improving our service.</p>
+        <p>
+          We'd greatly appreciate it if you could provide a short reasoning for your negative feedback.
+          <br />Thank you for helping us with improving our service.
+        </p>
         <textarea id="feedback-message" class="feedback-message"></textarea>
         <button class="button-variant-bordered">Send Feedback</button>
-
       </template>
     </GenericOverlay>
   </div>

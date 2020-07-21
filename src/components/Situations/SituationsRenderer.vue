@@ -195,7 +195,15 @@ export default {
   },
   methods: {
     OpenSituationDetailView(type) {
-      EventBus.Invoke("open-situation-detail-view", type);
+      // EventBus.Invoke("open-situation-detail-view", type);
+      this.$router.replace({
+        params: {
+          tab: 'situations',          
+        },
+        query: {
+          type: type
+        }
+      });
     },
     Watch(occurence, situation) {
       this.$helpers.LogEvent(this, "WatchSituation", {

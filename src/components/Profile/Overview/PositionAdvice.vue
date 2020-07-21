@@ -2,7 +2,7 @@
   <div class="position-advice dashboard-unit">
     <div class="advice-container">
       <div class="advice">
-        <h2 class="section-header" >Positions with worst performance</h2>
+        <h2 class="section-header">Positions with worst performance</h2>
         <div class="bordered-box">
           <div
             v-if="(!worst.Performances || !worst.Performances.length) && !loadingComplete"
@@ -18,15 +18,18 @@
           </div>
           <div class="position-table" v-if="worst.Performances && worst.Performances.length">
             <div class="table-content">
-            <div class="table-header">
-              <span>Map</span>
-              <span>Name</span>
-              <span>Team</span>
-              <span>Kills</span>
-              <span>Deaths</span>
-            </div>
+              <div class="table-header">
+                <span>Map</span>
+                <span>Name</span>
+                <span>Team</span>
+                <span>Kills</span>
+                <span>Deaths</span>
+              </div>
               <div v-for="entry in worst.Performances" :key="entry.PositionId" class="entry">
-                <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
+                <a
+                  class="cell link"
+                  @click="NavigateToKills(entry.Map, entry.IsCtZone)"
+                >{{ entry.Map }}</a>
                 <a
                   class="cell link"
                   @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
@@ -53,7 +56,7 @@
         </div>
       </div>
       <div class="advice">
-        <h2 class="section-header" >Positions with best performance</h2>
+        <h2 class="section-header">Positions with best performance</h2>
         <div class="bordered-box">
           <div
             v-if="(!best.Performances || !best.Performances.length) && !loadingComplete"
@@ -68,17 +71,19 @@
             <p>No data available</p>
           </div>
           <div class="position-table" v-if="best.Performances && best.Performances.length">
-
             <div class="table-content">
-            <div class="table-header">
-              <span>Map</span>
-              <span>Name</span>
-              <span>Team</span>
-              <span>Kills</span>
-              <span>Deaths</span>
-            </div>
+              <div class="table-header">
+                <span>Map</span>
+                <span>Name</span>
+                <span>Team</span>
+                <span>Kills</span>
+                <span>Deaths</span>
+              </div>
               <div v-for="entry in best.Performances" :key="entry.PositionId" class="entry">
-                <a class="cell link" @click="NavigateToKills(entry.Map, entry.IsCtZone)">{{ entry.Map }}</a>
+                <a
+                  class="cell link"
+                  @click="NavigateToKills(entry.Map, entry.IsCtZone)"
+                >{{ entry.Map }}</a>
                 <a
                   class="cell link"
                   @click="NavigateToKills(entry.Map, entry.IsCtZone, entry.ZoneId)"
@@ -178,7 +183,15 @@ export default {
         }
       }
 
-      EventBus.Invoke("request-kill-tab", params);
+      this.$router.replace({
+        params: {
+          tab: "kills"
+        },
+        query: {
+          map: map,
+          zoneId: zoneId
+        }
+      });
     },
     // Formats json response by writing data from ZoneInfos into the corresponding Performances
     formatResponse(data) {
@@ -203,7 +216,6 @@ export default {
   justify-content: space-between;
   flex-direction: row;
   .advice {
-
     width: calc(50% - 5px);
 
     p {
@@ -216,7 +228,7 @@ export default {
         color: $orange;
         font-size: 12px;
         font-weight: 600;
-        
+
         display: flex;
         padding: 10px 0;
         border-bottom: 1px solid $purple;
