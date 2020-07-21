@@ -80,6 +80,10 @@ export default {
       }
     );
 
+    this.onOpenOverview =EventBus.AddListener("open-overview", () => {
+      this.activeTabIndex = this.tabs.findIndex(e => e.name == "Overview");
+    });
+
     this.HandleUserOverride(() => {
       this.LoadData();
     });
@@ -91,6 +95,7 @@ export default {
       activeTabIndex: 0,
       onKillTabRequestEventHandle: null,
       onOpenSituationDetailViewEventHandle: null,
+      onOpenOverview: null,
       radarImageData: null,
       tabs: [
         {
@@ -175,6 +180,7 @@ export default {
   beforeDestroy() {
     this.onKillTabRequestEventHandle.Remove();
     this.onOpenSituationDetailViewEventHandle.Remove();
+    this.onOpenOverview.Remove();
 
     if (this.$api.User) {
       this.$api

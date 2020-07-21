@@ -59,7 +59,7 @@
             <router-link
               :to="{name: 'profile', params: {steamId: ownSteamId}}"
               v-if="$api.User"
-            >My Profile</router-link>
+            ><span @click="EventBus.Invoke('open-overview')">My Profile</span></router-link>
             <template v-else>
               <router-link :to="{name: 'login'}">My Profile</router-link>
             </template>
@@ -116,6 +116,7 @@
 import DiscordHint from "@/components/DiscordHint.vue";
 import GenericOverlay from "@/components/GenericOverlay.vue";
 import QueueStatusDisplay from "@/components/QueueStatusDisplay.vue";
+import EventBus from "@/EventBus";
 
 export default {
   components: {
@@ -135,6 +136,7 @@ export default {
   },
   data() {
     return {
+      EventBus,
       window,
       user: null,
       optionsVisible: false,
