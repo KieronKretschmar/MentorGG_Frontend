@@ -127,7 +127,7 @@
             </button>
 
             <div v-if="feedbackEnabled" class="feedback-wrapper">
-              <div class="y" title="Good!">
+              <div class="y" title="Good!" @click="OnPositiveFeedbackButtonPressed(occurence)">
                 <i class="fas fa-thumbs-up"></i>
               </div>
               <div class="n" title="Bad!" @click="OnNegativeFeedbackButtonPressed(occurence)">
@@ -154,8 +154,8 @@
           We'd greatly appreciate it if you could provide a short reasoning for your negative feedback.
           <br />Thank you for helping us with improving our service.
         </p>
-        <textarea id="feedback-message" class="feedback-message"></textarea>
-        <button class="button-variant-bordered">Send Feedback</button>
+        <textarea id="feedback-message" class="feedback-message" v-model="feedbackComment"></textarea>
+        <button class="button-variant-bordered" @click="SendNegativeFeedback">Send Feedback</button>
       </template>
     </GenericOverlay>
   </div>
@@ -173,7 +173,7 @@ export default {
   components: {
     LineChart,
     BarChart,
-    GenericOverlay
+    GenericOverlay,
   },
   mounted() {
     this.debug = false;
@@ -182,24 +182,33 @@ export default {
     if (this.debug) {
       this.$api
         .getSituationSamplesByMatchIds({
-          type: this.staticSituationData.type
+          type: this.staticSituationData.type,
         })
         // .getSituationSamplesByMatchCount({
         //   type: this.staticSituationData.type,
         //   matchCount: 10,
         // })
-        .then(result => {
+        .then((result) => {
           this.PrepareData(result.data);
         });
     } else {
       this.$api
         .getSituationsOfType({
           type: this.staticSituationData.type,
-          steamId: this.steamId
+          steamId: this.steamId,
         })
-        .then(result => {
+        .then((result) => {
           this.PrepareData(result.data);
         });
+    }
+
+    if (this.feedbackEnabled) {
+      this.feedbackEnabled = false;
+
+      this.$api.getFeedback().then((result) => {
+        // console.log(result);
+        this.feedbackEnabled = true;
+      });
     }
   },
   data() {
@@ -212,8 +221,9 @@ export default {
       debug: false,
       feedbackEnabled: false,
       feedbackOccurence: null,
+      feedbackComment: "",
       highlightedOccurenceId: null,
-      prependTime: 4000
+      prependTime: 4000,
     };
   },
   methods: {
@@ -221,7 +231,7 @@ export default {
       this.highlightedOccurenceId = occurence.Id;
 
       this.$helpers.LogEvent(this, "WatchSituation", {
-        label: Enums.SituationType.ToString(typeName)
+        label: Enums.SituationType.ToString(typeName),
       });
 
       globalThis.DemoViewer.SetMatch(occurence.MatchId)
@@ -232,7 +242,7 @@ export default {
     PrepareData(data) {
       this.dynamicSituationData = data;
       this.situations = this.dynamicSituationData.SituationCollection.Situations.filter(
-        e => this.IsRoundAllowed(e.MatchId, e.Round)
+        (e) => this.IsRoundAllowed(e.MatchId, e.Round)
       ).sort((first, second) =>
         this.$helpers.ShowFirstSituationLast(
           first,
@@ -252,18 +262,18 @@ export default {
     GetOccurenceHistoryGraphOptions() {
       return {
         tooltips: {
-          enabled: false
+          enabled: false,
         },
         hover: {
-          animationDuration: 0
+          animationDuration: 0,
         },
         layout: {
           padding: {
             top: 5,
             left: 5,
             bottom: 5,
-            right: 5
-          }
+            right: 5,
+          },
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -272,32 +282,55 @@ export default {
             {
               display: false,
               gridLines: {
-                zeroLineColor: "#444"
+                zeroLineColor: "#444",
                 // zeroLineWidth: 1
               },
               ticks: {
                 beginAtZero: true,
                 stepValue: 1,
                 stepSize: 1,
-                padding: 40
-              }
-            }
+                padding: 40,
+              },
+            },
           ],
           xAxes: [
             {
-              display: false
-            }
-          ]
+              display: false,
+            },
+          ],
         },
         legend: {
-          display: false
-        }
+          display: false,
+        },
       };
+    },
+    SendNegativeFeedback() {
+      if (!this.feedbackOccurence) {
+        return;
+      }
+
+      this.$api.sendFeedback(
+        this.feedbackOccurence.MatchId,
+        this.staticSituationData.type,
+        this.feedbackOccurence.Id,
+        false,
+        this.feedbackComment
+      );
     },
     OnNegativeFeedbackButtonPressed(occurence) {
       this.feedbackOccurence = occurence;
+      this.feedbackComment = "";
       this.$refs.negativeFeedbackOverlay.Show();
-    }
+    },
+    OnPositiveFeedbackButtonPressed(occurence) {
+      this.$api.sendFeedback(
+        occurence.MatchId,
+        this.staticSituationData.type,
+        occurence.Id,
+        true,
+        "n/a" /*positive feedback doesn't require a comment*/
+      );
+    },
   },
   computed: {
     matches() {
@@ -323,7 +356,7 @@ export default {
           map[situation.MatchId] = {
             totalOccurences: 0,
             averageOccurences: 0,
-            rounds: {}
+            rounds: {},
           };
         }
 
@@ -338,7 +371,7 @@ export default {
         ).toFixed(2);
       }
 
-      Object.keys(this.matches).forEach(key => {
+      Object.keys(this.matches).forEach((key) => {
         if (map[key] == undefined) {
           ret.push(0);
         } else {
@@ -365,9 +398,9 @@ export default {
             borderColor: "#39384a",
             data: this.occurenceHistoryGraphPreparedData,
             fill: false,
-            lineTension: 0
-          }
-        ]
+            lineTension: 0,
+          },
+        ],
       };
     },
     situationByRankChartPreparedData() {
@@ -381,7 +414,7 @@ export default {
       let ret = {
         data: [],
         labels: [],
-        colors: []
+        colors: [],
       };
 
       for (let idx in typeData) {
@@ -409,9 +442,9 @@ export default {
             barPercentage: 1,
             label: "",
             backgroundColor: this.situationByRankChartPreparedData.colors,
-            data: this.situationByRankChartPreparedData.data
-          }
-        ]
+            data: this.situationByRankChartPreparedData.data,
+          },
+        ],
       };
     },
     situationsByRankChartOptions() {
@@ -423,22 +456,22 @@ export default {
             {
               display: true,
               ticks: {
-                beginAtZero: true
-              }
-            }
+                beginAtZero: true,
+              },
+            },
           ],
           xAxes: [
             {
               ticks: {
-                callback: val => {
+                callback: (val) => {
                   return this.$helpers.ShortenRankName(val);
-                }
-              }
-            }
-          ]
+                },
+              },
+            },
+          ],
         },
         legend: {
-          display: false
+          display: false,
         },
         annotation: {
           annotations: [
@@ -452,8 +485,8 @@ export default {
               label: {
                 enabled: true,
                 content: "You (total)",
-                backgroundColor: "#ff4800"
-              }
+                backgroundColor: "#ff4800",
+              },
             },
             {
               type: "line",
@@ -465,11 +498,11 @@ export default {
               label: {
                 enabled: true,
                 content: "You (last 5)",
-                backgroundColor: this.last5Color
-              }
-            }
-          ]
-        }
+                backgroundColor: this.last5Color,
+              },
+            },
+          ],
+        },
       };
     },
     situationByRankChartPersonalValue() {
@@ -516,7 +549,7 @@ export default {
         total:
           this.dynamicSituationData.SituationCollection.Situations.length /
           sumTotalRounds,
-        last5: last5SituationCount / last5RoundCount
+        last5: last5SituationCount / last5RoundCount,
       };
     },
     last5Color() {
@@ -548,8 +581,8 @@ export default {
       }
 
       return this.$api.User.subscriptionStatus;
-    }
-  }
+    },
+  },
 };
 </script>
 

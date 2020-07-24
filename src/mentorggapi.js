@@ -72,7 +72,7 @@ class MentorGGAPI {
     }
 
     LoginGate(fnLoggedIn, fnNotLoggedIn) {
-        if(!fnLoggedIn) {
+        if (!fnLoggedIn) {
             throw new Error("Invalid callback value in login gate for argument fnLoggedIn");
         }
 
@@ -493,14 +493,14 @@ class MentorGGAPI {
     }
 
     // Gets all feedback given by the authenticated user
-    getFeedback(){
+    getFeedback() {
         return axios.get(`${this.apiBaseAddress}/v1/situations/feedback`, {
             params: {
             }
         });
     }
 
-    sendFeedback(matchId, situationType, situationId, isPositive, comment){
+    sendFeedback(matchId, situationType, situationId, isPositive, comment) {
         let formattedParams = {
             matchId: matchId,
             situationType: situationType,
