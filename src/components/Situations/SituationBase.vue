@@ -126,7 +126,11 @@
               <i class="material-icons">videocam</i>
             </button>
 
-            <div v-if="feedbackEnabled" class="feedback-wrapper">
+            <div
+              v-if="feedbackEnabled"
+              class="feedback-wrapper"
+              :class="{done: HasProvidedFeedback(occurence.Id)}"
+            >
               <div class="y" title="Good!" @click="OnPositiveFeedbackButtonPressed(occurence)">
                 <i class="fas fa-thumbs-up"></i>
               </div>
@@ -206,7 +210,12 @@ export default {
       this.feedbackEnabled = false;
 
       this.$api.getFeedback().then((result) => {
-        // console.log(result);
+        for (let entry of result.data.UserFeedbacks) {
+          this.feedbackMap[entry.SituationId] = entry.IsPositive;
+        }
+
+        console.log(this.feedbackMap);
+
         this.feedbackEnabled = true;
       });
     }
@@ -222,6 +231,7 @@ export default {
       feedbackEnabled: false,
       feedbackOccurence: null,
       feedbackComment: "",
+      feedbackMap: {},
       highlightedOccurenceId: null,
       prependTime: 4000,
     };
@@ -309,6 +319,9 @@ export default {
         return;
       }
 
+      this.$set(this.feedbackMap, this.feedbackOccurence.Id, false);
+      this.$refs.negativeFeedbackOverlay.Hide();
+
       this.$api.sendFeedback(
         this.feedbackOccurence.MatchId,
         this.staticSituationData.type,
@@ -323,6 +336,8 @@ export default {
       this.$refs.negativeFeedbackOverlay.Show();
     },
     OnPositiveFeedbackButtonPressed(occurence) {
+      this.$set(this.feedbackMap, occurence.Id, true);
+
       this.$api.sendFeedback(
         occurence.MatchId,
         this.staticSituationData.type,
@@ -330,6 +345,9 @@ export default {
         true,
         "n/a" /*positive feedback doesn't require a comment*/
       );
+    },
+    HasProvidedFeedback(situationId) {
+      return this.feedbackMap[situationId] !== undefined;
     },
   },
   computed: {
@@ -815,6 +833,29 @@ export default {
     border-radius: 4px;
     overflow: hidden;
     margin-top: 10px;
+
+    &.done {
+      position: relative;
+      pointer-events: none;
+
+      &:after {
+        content: "Feedback given";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        color: white;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
 
     .y,
     .n {
