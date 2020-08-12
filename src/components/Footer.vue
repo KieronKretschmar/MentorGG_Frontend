@@ -1,260 +1,116 @@
 <template>
-  <div class="footer">
-    <div v-if="showPartnerships" class="footer-content-one">
-      <div class="fixed-width-container">
-        <strong class="hero-subtitle">supported by</strong>
-
-        <div class="supporter-logo-wrap">
-          <img class="supporter-logo" src="@/assets/EU_Logo.png" />
-          <img class="supporter-logo" src="@/assets/HH_Logo.png" />
-          <img class="supporter-logo" src="@/assets/IFB_Logo.png" />
-          <img class="supporter-logo" src="@/assets/CPLAY_Logo.png" />
+  <footer>
+    <div class="footer-wrapper">
+      <div class="footer-container-margin">
+        <div class="mentor-logo-wrapper">
+          <img src="@/assets/mentor-logo-white.png" class="mentor-logo-white" />
+          <p class="copyright-text">© 2020 MENTOR.GG</p>
+        </div>
+        <div class="social-icon-wrapper">
+          <img class="social-icon" src="@/assets/discord.svg" />
+          <img class="social-icon twitter" src="@/assets/twitter.svg" />
+          <img class="social-icon" src="@/assets/reddit.svg" />
+        </div>
+        <div class="footer-links">
+          <a href="#" class="link">About / Contact</a>
+          <a href="#" class="link">Terms &amp; Condition</a>
+          <a href="#" class="link">Privacy Policy</a>
         </div>
       </div>
     </div>
-
-    <div class="footer-content-two">
-      <div class="fixed-width-container">
-        <div class="l">
-          <img src="@/assets/logo_fullgray.svg" />
-          <span>&copy; {{ new Date().getFullYear() }} — MENTOR.GG</span>
-        </div>
-
-        <div class="social-logo-wrap">
-          <a href="https://discord.gg/X29FEKG" target="_blank"><img class="social-logo" src="@/assets/Discord-Logo-Color.svg" /></a>
-          <a href="https://twitter.com/mentorgg" target="_blank"><img class="social-logo" src="@/assets/Twitter-Logo-Color.svg" /></a>
-          <a href="https://www.reddit.com/r/mentorgg/" target="_blank"><img class="social-logo" src="@/assets/Reddit-Logo-Color.svg" /></a>
-        </div>
-
-        <!-- <div class="partnerships" v-if="showPartnerships">
-           <img src="@/assets/CPLAY_Logo.png" />
-        </div>-->
-
-        <div class="r">
-          <router-link to="/terms-and-conditions">Terms And Conditions</router-link>
-          <router-link to="/contact">Contact / About</router-link>
-          <router-link to="/privacy-policy">Privacy Policy</router-link>
-        </div>
-      </div>
-    </div>
-  </div>
+  </footer>
 </template>
 
 <script>
-export default {
-  props: ["showPartnerships"],
-  mounted() {}
-};
 </script>
 
-<style lang="scss">
-.footer {
-  background-color: $dark-2;
-  padding-top: 50px;
+<style lang="scss" scoped>
 
-  .hero-subtitle {
-    font-size: 16px;
-    font-weight: 300;
-    color: $gray;
+* {
+  font-family: "Open Sans", sans-serif;
+  color: #fbfbfb;
+}
+
+footer {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color: #202020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .footer-wrapper {
+    width: 100%;
+    max-width: 1185px;
+    height: 80%;
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 5px 0 25px 0;
-  }
+    align-items: center;
+    justify-content: center;
 
-  .footer-content-one {
-    background: $dark-1;
-    padding: 20px 0;
-    flex-wrap: wrap;
-
-    .supporter-logo-wrap {
-      max-width: 1200px;
-      height: auto;
+    .footer-container-margin {
+      height: 100%;
+      width: 100%;
+      margin: 0 10px;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 15px 0 13px;
 
-      .supporter-logo {
-        width: auto;
-        height: 50px;
-        flex: 0 1 auto;
-
-        &:last-child {
-          height: 45px;
-        }
-      }
-    }
-  }
-
-  .footer-content-two {
-    height: 115px;
-    background: $dark-6;
-    padding: 20px 0;
-
-    .fixed-width-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 22px 0 16px;
-
-      .l {
-        width: 152px;
+      .mentor-logo-wrapper {
+        width: 230px;
+        min-height: 80px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        color: $purple;
-        font-size: 12px;
-
-        img {
-          max-width: 150px;
-          margin-bottom: 5px;
-        }
-
-        span {
-          align-self: center;
-        }
-      }
-
-      .social-logo-wrap {
-        width: 150px;
-        display: flex;
         justify-content: space-between;
 
-        .social-logo {
-          width: 25px;
-          height: 25px;
-          flex: 0 1 auto;
+        .mentor-logo-white {
+          margin-top: 6px;
+          height: 40px;
+        }
+
+        .copyright-text {
+          font-size: 1rem;
+          max-width: fit-content;
+          margin: 0;
+          padding: 0;
         }
       }
 
-      .r {
-        width: 152px;
+      .social-icon-wrapper {
+        width: 230px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .social-icon {
+          height: 35px;
+        }
+
+        .twitter {
+          height: 33px;
+          margin-right: -5px;
+        }
+      }
+
+      .footer-links {
+        width: 230px;
+        min-height: 80px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        justify-content: space-between;
 
-        a {
-          color: white;
-          font-size: 12px;
-          font-weight: 500;
+        a.link {
+          font-size: 1rem;
+          max-width: fit-content;
+          margin: 0;
+          padding: 0;
           text-decoration: none;
-          transition: 0.35s;
-          margin: 5px 0;
-
-          &:hover {
-            text-decoration: none;
-            color: $orange;
-          }
         }
       }
     }
   }
-}
-
-@media (max-width: 800px) {
-  .footer-content-one {
-    background: $dark-1;
-    padding: 20px 0;
-    flex-wrap: wrap;
-
-    .supporter-logo-wrap {
-      max-width: 1200px;
-      height: auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-
-      .supporter-logo {
-        min-width: 181px;
-        flex: 0 1 auto;
-
-        &:first-child {
-          height: 52px;
-          margin-bottom: 7px;
-        }
-
-        &:nth-child(2) {
-          height: 57px;
-          margin-bottom: 11px;
-        }
-
-        &:nth-child(3) {
-          height: 49px;
-          margin-bottom: 14px;
-        }
-
-        &:last-child {
-          height: 45px;
-          margin-bottom: 5px;
-        }
-      }
-    }
-  }
-
-  .footer-content-two {
-    min-height: 235px;
-
-    .fixed-width-container {
-      min-height: auto;
-      flex-direction: column;
-      flex-wrap: wrap;
-
-      .l {
-        display: flex;
-        width: auto;
-        flex-direction: row;
-        justify-content: center;
-
-        img {
-          max-width: 150px;
-        }
-
-        span {
-          align-self: center;
-        }
-      }
-
-      .social-logo-wrap {
-        display: flex;
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-
-        .social-logo {
-          width: 25px;
-          height: 25px;
-          flex: 0 1 auto;
-          margin: 25px 5px 19px 5px;
-        }
-      }
-
-      .r {
-        display: flex;
-        width: auto;
-        flex-direction: row;
-        justify-content: center;
-
-        a {
-          color: white;
-          font-size: 12px;
-          font-weight: 500;
-          text-decoration: none;
-          transition: 0.35s;
-          margin: 5px 0;
-          align-self: center;
-
-          &:hover {
-            text-decoration: none;
-            color: $orange;
-          }
-        }
-      }
-    }
-  }
-
 }
 </style>
