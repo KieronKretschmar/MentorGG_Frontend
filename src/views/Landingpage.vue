@@ -1,11 +1,983 @@
 <template>
-  <h1>...</h1>
+  <div class="full-width-container">
+    <header>
+      <video src="@/assets/smoke.mp4" autoplay loop playsinline muted poster="@/assets/csgobg.jpg"></video>
+      <div class="container-fixed-width">
+        <div class="container-margin">
+          <div class="container-nav">
+            <img src="@/assets/mentor-logo.svg" class="mentor-logo" />
+            <nav>
+              <ul>
+                <li>
+                  <a href="#">PRICING</a>
+                </li>
+                <li>
+                  <a href="#">FAQ</a>
+                </li>
+                <li>
+                  <a href="#">LOGIN</a>
+                </li>
+                <i class="material-icons">exit_to_app</i>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="hero-wrapper">
+            <div>
+              <img src="@/assets/improveyourgame.svg" class="hero-title" />
+              <h5 class="subtitle">Get your personal eSports coach app for</h5>
+              <h5 class="subtitle">Counter Strike Global Offensive</h5>
+            </div>
+
+            <div class="button-wrapper">
+              <button class="button-solid">SIGN IN THROUGH STEAM</button>
+              <button class="button-transparent">VIEW DEMO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="counter-wrapper">
+      <div class="counter">
+        <div class="counter-icon-wrapper">
+          <div>
+            <img src="@/assets/analyze2.svg" class="first-icon" alt="analyze icon" />
+          </div>
+          <div class="counter-text">
+            <h4>8546</h4>
+            <p class="icon-text">MATCHES ANALYZED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-icon-wrapper">
+          <div>
+            <img src="@/assets/misplays2.svg" class="icon" alt="misplays icon" />
+          </div>
+          <div class="counter-text">
+            <h4>5356</h4>
+            <p class="icon-text">MISPLAYS DETECTED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-icon-wrapper">
+          <div>
+            <img src="@/assets/highlights2.svg" class="icon" alt="highlights icon" />
+          </div>
+          <div class="counter-text">
+            <h4>6231</h4>
+            <p class="icon-text">HIGHLIGHTS DETECTED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter cut">
+        <div class="counter-icon-wrapper">
+          <div>
+            <img src="@/assets/rankups2.svg" class="icon" alt="rankups icon" />
+          </div>
+          <div class="counter-text">
+            <h4>7643</h4>
+            <p class="icon-text">RANK UPS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-01-background">
+      <div class="container-feature-fixed-width-top">
+        <div class="container-feature-margin-left">
+          <h1>CORE FEATURE 01</h1>
+          <h2>HIGHLIGHTS &amp; MISPLAYS</h2>
+          <p>Watch your and your team’s latest</p>
+          <p>plays highlights and misplays.</p>
+        </div>
+        <div class="container-feature-image">
+          <img
+            src="@/assets/misplays.jpg"
+            class="feature-image"
+            alt="misplays and highlights feature"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-02-background">
+      <div class="container-feature-fixed-width">
+        <div class="container-feature-image">
+          <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
+        </div>
+        <div class="container-feature-margin-right">
+          <h1>CORE FEATURE 02</h1>
+          <h2>DEMOVIEWER</h2>
+          <p>Check out every rounds performance</p>
+          <p>from a 2D perspective.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-03-background">
+      <div class="container-feature-fixed-width">
+        <div class="container-feature-margin-left">
+          <h1>CORE FEATURE 03</h1>
+          <h2>GRENADE REVIEW</h2>
+          <p>Find out how effective your</p>
+          <p>grenades are, which ones you need</p>
+          <p>to practice and learn new lineups.</p>
+        </div>
+        <div class="container-feature-image">
+          <img src="@/assets/grenadereview.jpg" class="feature-image" alt="grenade review feature" />
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-04-background">
+      <div class="container-feature-fixed-width">
+        <div class="container-feature-image">
+          <img
+            src="@/assets/friendcomparison.jpg"
+            class="feature-image"
+            alt="friend comparison feature"
+          />
+        </div>
+        <div class="container-feature-margin-right">
+          <h1>CORE FEATURE 04</h1>
+          <h2>FRIEND COMPARISON</h2>
+          <p>Compare to your friends and</p>
+          <p>find out where you excel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="howitworks-wrapper">
+      <div class="howitworks-icon-wrapper">
+        <div>
+          <img src="@/assets/howitworks2.svg" class="howitworks-main-icon" alt="how it works icon" />
+        </div>
+        <div class="howitworks-main-text underline">
+          <h3>HOW IT WORKS</h3>
+        </div>
+      </div>
+
+      <div class="howitworks-icon-wrapper">
+        <div>
+          <img src="@/assets/connect2.svg" class="howitworks-icon" alt="how it works icon" />
+        </div>
+        <div class="howitworks-text">
+          <p class="icon-text">
+            Connect your Steam
+            or Faceit account
+          </p>
+        </div>
+      </div>
+
+      <div class="howitworks-icon-wrapper">
+        <div>
+          <img src="@/assets/upload2.svg" class="howitworks-icon" alt="how it works icon" />
+        </div>
+        <div class="howitworks-text">
+          <p class="icon-text">
+            Start automatically
+            uploading matches
+          </p>
+        </div>
+      </div>
+
+      <div class="howitworks-icon-wrapper">
+        <div>
+          <img src="@/assets/explore2.svg" class="howitworks-icon" alt="how it works icon" />
+        </div>
+        <div class="howitworks-text">
+          <p class="icon-text">
+            Explore the analysis for
+            your self-improvement
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-section">
+      <video
+        src="@/assets/smoke-bottom.mp4"
+        autoplay
+        loop
+        playsinline
+        muted
+        poster="@/assets/bottom-bg.jpg"
+      ></video>
+
+      <div class="container-fixed-width-bottom">
+        <div class="container-margin-bottom">
+          <div class="slideshow-container">
+            <div class="slides fade">
+              <div class="quote">
+                <h5>"1 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>1 Name</h6>
+              </div>
+            </div>
+
+            <div class="slides fade">
+              <div class="quote">
+                <h5>"2 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>2 Name</h6>
+              </div>
+            </div>
+
+            <div class="slides fade">
+              <div class="quote">
+                <h5>"3 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>3 Name</h6>
+              </div>
+            </div>
+
+            <div class="dot-wrapper">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <div class="bottom-cta">
+            <img src="@/assets/improveyourgame.svg" class="hero-title" />
+            <button class="button-solid">SIGN IN THROUGH STEAM</button>
+          </div>
+
+          <div class="mail-wrapper">
+            <div class="mail-wrapper-inner">
+              <div class="mail-text">
+                <i class="material-icons mail-icon">markunread</i>
+                <p class="small">GET NEWS ABOUT THE TEAM VERSION</p>
+              </div>
+
+              <div class="mail-input">
+                <input type="email" name="email-address" placeholder="YOUR EMAIL ADDRESS" />
+                <button class="button-solid signup">SIGN UP</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+// Testimonials slider
+/*
+var slideIndex = 0;
+showSlides();
 
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("slides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+  setTimeout(showSlides, 5000);
+} */
 </script>
 
 <style lang="scss" scoped>
 
+a {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.4rem 0;
+  color: #fbfbfb;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0.2rem 0;
+  color: #ff4800;
+}
+
+h3 {
+  font-size: 1.7rem;
+  margin: 0;
+  color: #fbfbfb;
+}
+
+h4 {
+  font-family: "Teko", sans-serif;
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 0.8;
+  margin: 4px 0 0 0;
+  color: #fbfbfb;
+}
+
+h5 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 20px;
+  color: #dedede;
+}
+
+.subtitle {
+  margin: 0 0 3px 0;
+  font-family: "Open Sans", sans-serif;
+  color: #dedede;
+}
+
+h6 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0 0 40px 0;
+  color: #ff4800;
+}
+
+p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 0;
+  color: #dedede;
+}
+
+p.small {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #fbfbfb;
+}
+
+p.icon-text {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+  margin: 0;
+  color: #fbfbfb;
+}
+
+.full-width-container {
+  position: relative;
+  margin: 0 auto;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  border: none;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  object-fit: cover;
+}
+
+.container-fixed-width {
+  position: absolute;
+  width: 100%;
+  max-width: 1185px;
+  height: 100%;
+}
+
+.container-margin {
+  height: 100%;
+  margin: 0 10px;
+}
+
+.container-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mentor-logo {
+  max-width: 150px;
+  height: 30px;
+  display: flex;
+  align-self: center;
+}
+
+ul {
+  height: 60px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: -3px 0 0 0;
+}
+
+a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin: 9px 0 0 22px;
+  width: fit-content;
+  color: #fbfbfb; /* set for all at top!!! */
+}
+
+.material-icons {
+  font-size: 1.1rem;
+  margin: 0 0 0 4px;
+  color: #ff4800; /* variable scss!!! */
+}
+
+.hero-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 70%;
+  max-height: 600px;
+}
+
+.hero-title {
+  max-width: 610px;
+  margin-bottom: 15px;
+}
+
+.button-wrapper {
+  flex-direction: row;
+}
+
+.button-solid {
+  font-size: 0.9rem;
+  width: 250px;
+  height: 50px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #ff4800;
+  border: none;
+  color: #fbfbfb;
+  margin-right: 14px;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+.signup {
+  margin-right: 0;
+}
+
+.button-transparent {
+  font-size: 0.9rem;
+  width: 250px;
+  height: 50px;
+  font-family: "Open Sans", sans-serif;
+  background-color: transparent;
+  border: 2px solid #ff4800;
+  color: #fbfbfb;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.counter-wrapper {
+  position: absolute;
+  width: 100%;
+  margin-top: -100px;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter {
+  min-width: 225px;
+  height: 300px;
+  margin: 0 8px 0 8px;
+  background-color: #313131;
+}
+
+.cut {
+  clip-path: polygon(
+    0% 0%,
+    /* top left */ 0% 0%,
+    /* top left */ 100% 0%,
+    /* top right */ 100% 0%,
+    /* top right */ 100% 80%,
+    /* bottom right */ 75% 100%,
+    /* bottom right */ 0% 100%,
+    /* bottom left */ 0% 100%
+  );
+}
+
+.counter-icon-wrapper {
+  width: 225px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 130px;
+  height: auto;
+}
+
+.first-icon {
+  width: 130px;
+  height: auto;
+  margin-left: 10px;
+}
+
+.counter-text {
+  margin: 30px 0 0 0;
+  text-align: center;
+}
+
+.container-feature-fixed-width-top {
+  position: relative;
+  width: 100%;
+  max-width: 1185px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  top: 300px;
+}
+
+.container-feature-fixed-width {
+  position: relative;
+  width: 100%;
+  max-width: 1185px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  top: 200px;
+}
+
+.container-feature-margin-left {
+  position: relative;
+  height: fit-content;
+  margin: 50px 10px 0 10px;
+  flex: none;
+}
+
+.container-feature-margin-right {
+  position: relative;
+  height: fit-content;
+  margin: 50px 10px 0 10px;
+  flex: none;
+  text-align: right;
+}
+
+.container-feature-image {
+  height: fit-content;
+  margin: 10px;
+}
+
+.feature-image {
+  width: 100%;
+  height: auto;
+  mix-blend-mode: lighten;
+}
+
+.feature-01-background {
+  height: 1000px;
+  background-color: #202020;
+  clip-path: polygon(
+    0 0,
+    /* left top */ 100% 0,
+    /* right top */ 100% 100%,
+    /* right bottom */ 0 calc(100% - 6vw) /* left bottom */
+  );
+}
+
+.feature-02-background {
+  position: relative;
+  height: 900px;
+  background-image: linear-gradient(
+    to right bottom,
+    #292b38,
+    #292a37,
+    #292a36,
+    #282936,
+    #282935,
+    #272833,
+    #262632,
+    #252530,
+    #23232d,
+    #21212a,
+    #1f1f28,
+    #1d1d25
+  );
+  clip-path: polygon(0 0, 100% 6vw, 100% calc(100% - 6vw), 0 100%);
+  margin-top: -6vw;
+}
+
+.feature-03-background {
+  position: relative;
+  height: 1100px;
+  background-color: #202020;
+  clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
+  margin-top: -12vw;
+}
+
+.feature-04-background {
+  position: relative;
+  height: 1130px;
+  background-image: linear-gradient(
+    to right bottom,
+    #292b38,
+    #292a37,
+    #292a36,
+    #282936,
+    #282935,
+    #272833,
+    #262632,
+    #252530,
+    #23232d,
+    #21212a,
+    #1f1f28,
+    #1d1d25
+  );
+  clip-path: polygon(0 0, 100% 6vw, 100% 100%, 0 100%);
+  margin-top: -18vw;
+}
+
+.howitworks-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background-color: #313131;
+  top: -12vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.howitworks-icon-wrapper {
+  width: 185px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: baseline;
+  margin: 30px;
+}
+
+.howitworks-main-icon {
+  width: auto;
+  height: 125px;
+  margin-bottom: 4px;
+}
+
+.howitworks-icon {
+  width: auto;
+  height: 125px;
+}
+
+.number-icon {
+  width: auto;
+  width: 55px;
+  height: auto;
+}
+
+.howitworks-main-text {
+  margin: 10px;
+  text-align: center;
+}
+
+.howitworks-text {
+  max-width: 150px;
+  margin: 15px;
+  text-align: center;
+  transform: translateX(26px);
+}
+
+.underline {
+  border-bottom: 4px solid #ff4800;
+  height: 43px;
+}
+
+.bottom-section {
+  position: relative;
+  width: 100%;
+  height: 1050px;
+  background-image: linear-gradient(
+    to right bottom,
+    #292b38,
+    #292a37,
+    #292a36,
+    #282936,
+    #282935,
+    #272833,
+    #262632,
+    #252530,
+    #23232d,
+    #21212a,
+    #1f1f28,
+    #1d1d25
+  );
+  margin-top: -12vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-fixed-width-bottom {
+  position: absolute;
+  width: 100%;
+  max-width: 1185px;
+  height: 100%;
+}
+
+.container-margin-bottom {
+  height: 100%;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.slideshow-container {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slides {
+  max-width: 1000px;
+  text-align: center;
+}
+
+.quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 170px;
+  max-width: 800px;
+}
+
+.dot-wrapper {
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #dedede;
+  border-radius: 50%;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #ff4800;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.bottom-cta {
+  position: relative;
+  height: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.mail-wrapper {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mail-wrapper-inner {
+  width: 100%;
+  max-width: 1000px;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mail-text {
+  max-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+}
+
+.mail-input {
+  display: flex;
+  height: 50px;
+}
+
+.mail-icon {
+  font-size: 1.2rem;
+  margin: 0 7px 1px 0;
+  color: #dedede; /* delete */
+}
+
+input[type="email"] {
+  width: 300px;
+  height: 50px;
+  text-align: left;
+  font-size: 0.9rem;
+  padding: 0 0 0 35px;
+  background-color: #313131;
+  border: none;
+  outline: none;
+}
+
+footer {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color: #202020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-wrapper {
+  width: 100%;
+  max-width: 1185px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-container-margin {
+  height: 100%;
+  width: 100%;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.mentor-logo-wrapper {
+  width: 230px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mentor-logo-white {
+  margin-top: 6px;
+  height: 40px;
+}
+
+.copyright-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
+  max-width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: #fbfbfb;
+}
+
+.social-icon-wrapper {
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social-icon {
+  height: 35px;
+}
+
+.twitter {
+  height: 33px;
+  margin-right: -5px;
+}
+
+.footer-links {
+  width: 230px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+a.link {
+  font-family: "Open Sans", sans-serif; /* font style in one line at top!!! */
+  font-size: 1rem;
+  font-weight: 100;
+  max-width: fit-content;
+  margin: 0;
+  padding: 0;
+  color: #fbfbfb;
+}
+
+@media (max-width: 1100px) {
+  .howitworks-wrapper {
+    padding-top: 30px;
+  }
+
+  .howitworks-icon-wrapper-small {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .counter-wrapper {
+    display: none;
+  }
+}
 </style>
