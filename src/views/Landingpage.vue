@@ -409,7 +409,7 @@ p.icon-text {
 
       .container-margin {
         height: 100%;
-        margin: 0 10px;
+        margin: 0 30px;
 
         border: 1px solid hotpink;
 
@@ -582,7 +582,7 @@ p.icon-text {
     .container-feature-fixed-width-top {
       position: relative;
       width: 100%;
-      max-width: 1185px;
+      max-width: 1220px;
       height: 100%;
       margin: 0 auto;
       display: flex;
@@ -649,7 +649,7 @@ p.icon-text {
   .container-feature-fixed-width {
     position: relative;
     width: 100%;
-    max-width: 1185px;
+    max-width: 1220px;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -663,7 +663,7 @@ p.icon-text {
   .container-feature-margin-left {
     position: relative;
     height: fit-content;
-    margin: 50px 10px 0 10px;
+    margin: 50px 30px 0 30px;
     flex: none;
 
     border: 1px solid sienna;
@@ -672,7 +672,7 @@ p.icon-text {
   .container-feature-margin-right {
     position: relative;
     height: fit-content;
-    margin: 50px 10px 0 10px;
+    margin: 50px 30px 0 30px;
     flex: none;
     text-align: right;
 
@@ -681,7 +681,7 @@ p.icon-text {
 
   .container-feature-image {
     height: fit-content;
-    margin: 10px;
+    margin: 10px 30px 0 30px;
 
     border: 1px solid violet;
 
@@ -776,14 +776,14 @@ p.icon-text {
     .container-fixed-width-bottom {
       position: absolute;
       width: 100%;
-      max-width: 1185px;
+      max-width: 1220px;
       height: 100%;
 
       border: 1px solid papayawhip;
 
       .container-margin-bottom {
         height: 100%;
-        margin: 0 10px;
+        margin: 0 30px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
