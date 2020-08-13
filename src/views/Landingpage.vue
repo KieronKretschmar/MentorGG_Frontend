@@ -397,27 +397,19 @@ p.icon-text {
     padding: 0;
     border: none;
 
-    border: 1px solid dodgerblue;
-
     .container-fixed-width {
       position: absolute;
       width: 100%;
       max-width: 1185px;
       height: 100%;
 
-      border: 1px solid yellowgreen;
-
       .container-margin {
         height: 100%;
         margin: 0 30px;
 
-        border: 1px solid hotpink;
-
         .container-nav {
           display: flex;
           justify-content: space-between;
-
-          border: 1px solid rosybrown;
 
           .mentor-logo {
             max-width: 150px;
@@ -456,8 +448,6 @@ p.icon-text {
           justify-content: space-evenly;
           height: 70%;
           max-height: 600px;
-
-          border: 1px solid aquamarine;
         }
       }
     }
@@ -577,8 +567,6 @@ p.icon-text {
       /* right bottom */ 0 calc(100% - 6vw) /* left bottom */
     );
 
-    border: 1px solid fuchsia;
-
     .container-feature-fixed-width-top {
       position: relative;
       width: 100%;
@@ -589,8 +577,6 @@ p.icon-text {
       flex-direction: row;
       justify-content: space-between;
       top: 300px;
-
-      border: 1px solid springgreen;
     }
   }
 
@@ -656,8 +642,6 @@ p.icon-text {
     flex-direction: row;
     justify-content: space-between;
     top: 200px;
-
-    border: 1px solid skyblue;
   }
 
   .container-feature-margin-left {
@@ -665,8 +649,6 @@ p.icon-text {
     height: fit-content;
     margin: 50px 30px 0 30px;
     flex: none;
-
-    border: 1px solid sienna;
   }
 
   .container-feature-margin-right {
@@ -675,15 +657,11 @@ p.icon-text {
     margin: 50px 30px 0 30px;
     flex: none;
     text-align: right;
-
-    border: 1px solid dodgerblue;
   }
 
   .container-feature-image {
     height: fit-content;
     margin: 10px 30px 0 30px;
-
-    border: 1px solid violet;
 
     .feature-image {
       width: 100%;
@@ -704,8 +682,6 @@ p.icon-text {
     align-items: center;
     flex-wrap: wrap;
 
-    border: 1px solid palevioletred;
-
     .howitworks-icon-wrapper {
       width: 185px;
       height: 200px;
@@ -714,8 +690,6 @@ p.icon-text {
       align-items: center;
       justify-content: baseline;
       margin: 30px;
-
-      border: 1px solid yellowgreen;
 
       .howitworks-main-icon {
         width: auto;
@@ -771,15 +745,11 @@ p.icon-text {
     flex-direction: column;
     align-items: center;
 
-    border: 1px solid paleturquoise;
-
     .container-fixed-width-bottom {
       position: absolute;
       width: 100%;
       max-width: 1220px;
       height: 100%;
-
-      border: 1px solid papayawhip;
 
       .container-margin-bottom {
         height: 100%;
@@ -787,8 +757,6 @@ p.icon-text {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-
-        border: 1px solid pink;
 
         .slideshow-container {
           position: relative;
@@ -802,8 +770,6 @@ p.icon-text {
           .slides {
             max-width: 1000px;
             text-align: center;
-
-            border: 1px solid plum;
 
             .quote {
               display: flex;
@@ -859,8 +825,6 @@ p.icon-text {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
-    border: 1px solid powderblue;
   }
 
   .mail-wrapper {
@@ -870,8 +834,6 @@ p.icon-text {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border: 1px solid purple;
   }
 
   .mail-wrapper-inner {
@@ -883,8 +845,6 @@ p.icon-text {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-
-    border: 1px solid papayawhip;
 
     .mail-icon {
       font-size: 1.2rem;
