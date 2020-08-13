@@ -270,29 +270,31 @@
 </template>
 
 <script>
-// Testimonials slider
-/*
-var slideIndex = 0;
-showSlides();
+export default {
+  mounted() {
+    let slideIndex = 0;
+    showTestimonials();
 
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-  setTimeout(showSlides, 5000);
-} */
+    function showTestimonials() {
+      let i;
+      let slides = document.getElementsByClassName("slides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      setTimeout(showTestimonials, 5000);
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -779,42 +781,42 @@ p.icon-text {
               min-height: 170px;
               max-width: 800px;
             }
-
-            .fade {
-              animation-name: fade;
-              animation-duration: 2s;
-
-              @keyframes fade {
-                from {
-                  opacity: 0;
-                }
-                to {
-                  opacity: 1;
-                }
-              }
-            }
-          }
-
-          .dot-wrapper {
-            width: 100px;
-            display: flex;
-            justify-content: space-evenly;
-
-            .dot {
-              height: 8px;
-              width: 8px;
-              background-color: $grey;
-              border-radius: 50%;
-              transition: background-color 0.6s ease;
-
-              .active {
-                background-color: $orange;
-              }
-            }
           }
         }
       }
     }
+  }
+
+  .fade {
+    animation-name: fade;
+    animation-duration: 2s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .dot-wrapper {
+    width: 100px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .dot {
+    height: 8px;
+    width: 8px;
+    background-color: $grey;
+    border-radius: 50%;
+    transition: background-color 0.6s ease;
+  }
+
+  .active {
+    background-color: $orange;
   }
 
   .bottom-cta {

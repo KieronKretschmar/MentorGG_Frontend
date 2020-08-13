@@ -51,7 +51,7 @@ footer {
     .footer-container-margin {
       height: 100%;
       width: 100%;
-      margin: 0 10px;
+      margin: 0 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
