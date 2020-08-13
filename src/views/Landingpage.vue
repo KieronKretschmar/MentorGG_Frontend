@@ -887,15 +887,29 @@ p.icon-text {
   .howitworks-wrapper {
     padding-top: 30px;
   }
-
-  .howitworks-icon-wrapper-small {
-    display: none;
-  }
 }
 
 @media (max-width: 1000px) {
-  .counter-wrapper {
-    display: none;
+  .full-width-container {
+    .counter-wrapper {
+      display: none;
+    }
+
+    .feature-01-background {
+      height: 500px; //
+
+      .container-feature-fixed-width-top {
+        position: relative;
+        width: 100%;
+        max-width: 1220px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        top: 50px; //
+      }
+    }
   }
 }
 </style>
