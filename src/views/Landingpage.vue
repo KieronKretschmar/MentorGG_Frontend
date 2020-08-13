@@ -433,13 +433,13 @@ p.icon-text {
               text-decoration: none;
               margin: 9px 0 0 22px;
               width: fit-content;
-              color: $offwhite; /* set for all at top!!! */
+              color: $offwhite;
             }
 
             .material-icons {
               font-size: 1.1rem;
               margin: 0 0 0 4px;
-              color: $orange; /* variable scss!!! */
+              color: $orange;
             }
           }
         }
