@@ -1111,7 +1111,7 @@ p.icon-text {
 
     .feature-04-background {
       position: relative;
-      height: 1000px; //
+      height: 900px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -1223,7 +1223,7 @@ p.icon-text {
     .bottom-section {
       position: relative;
       width: 100%;
-      height: 1050px;
+      height: 800px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -1318,7 +1318,7 @@ p.icon-text {
 
     .bottom-cta {
       position: relative;
-      height: 250px;
+      height: 240px; //
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -1328,7 +1328,7 @@ p.icon-text {
 
     .mail-wrapper {
       position: relative;
-      height: 200px;
+      height: 100px; //
       width: 100%;
       display: flex;
       align-items: center;
@@ -1338,7 +1338,7 @@ p.icon-text {
     .mail-wrapper-inner {
       width: 100%;
       max-width: 1000px;
-      height: 150px;
+      height: 60px; //
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -2283,7 +2283,7 @@ p.icon-text {
   }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 770px) {
   a {
     font-family: "Open Sans", sans-serif;
   }
@@ -2424,9 +2424,9 @@ p.icon-text {
           .hero-wrapper {
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly;
+            justify-content: flex-end; //
             height: 85%;
-            max-height: 400px;
+            max-height: 340px; //
           }
         }
       }
@@ -2441,11 +2441,12 @@ p.icon-text {
 
     .hero-title {
       max-width: 460px;
-      margin-bottom: 15px;
+      margin-bottom: 10px; //
     }
 
     .button-wrapper {
       flex-direction: row;
+      margin: 40px 0 15px 0;//
     }
 
     .button-solid {
@@ -2486,7 +2487,7 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 500px;
+      height: 410px;
 
       .container-feature-fixed-width-top {
         position: relative;
@@ -2503,7 +2504,7 @@ p.icon-text {
 
     .feature-02-background {
       position: relative;
-      height: 500px;
+      height: 440px;
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -2525,7 +2526,7 @@ p.icon-text {
 
     .feature-03-background {
       position: relative;
-      height: 600px;
+      height: 480px;
       background-color: $greyblack;
       clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
       margin-top: -12vw;
@@ -2533,7 +2534,7 @@ p.icon-text {
 
     .feature-04-background {
       position: relative;
-      height: 630px; 
+      height: 530px; 
       background-image: linear-gradient(
         to right bottom,
         #292b38,
