@@ -78,7 +78,7 @@ footer {
       }
 
       .social-icon-wrapper {
-        width: 230px;
+        width: 190px; //
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -89,7 +89,7 @@ footer {
 
         .twitter {
           height: 33px;
-          margin-right: -5px;
+          margin-right: -6px; //
         }
       }
 
@@ -165,11 +165,11 @@ footer {
         }
 
         .social-icon-wrapper {
-          width: 230px;
+          width: 180px; //
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 0 0 45px 0; //
+          margin: 0 0 44px 0; //
 
           .social-icon {
             height: 35px;
@@ -177,7 +177,7 @@ footer {
 
           .twitter {
             height: 33px;
-            margin-right: -5px;
+            margin-right: -6px;
           }
         }
 
