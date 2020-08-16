@@ -416,7 +416,7 @@ p.icon-text {
 
           .mentor-logo {
             max-width: 150px;
-            height: 30px;
+            height: auto;
             display: flex;
             align-self: center;
           }
@@ -922,7 +922,7 @@ p.icon-text {
 
             .mentor-logo {
               max-width: 150px;
-              height: 30px;
+              height: auto;
               display: flex;
               align-self: center;
             }
@@ -1468,7 +1468,7 @@ p.icon-text {
 
             .mentor-logo {
               max-width: 150px;
-              height: 30px;
+              height: auto;
               display: flex;
               align-self: center;
             }
@@ -1729,6 +1729,68 @@ p.icon-text {
         }
       }
     }
+    .bottom-cta {
+      position: relative;
+      height: 205px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    .mail-wrapper {
+      position: relative;
+      height: 200px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mail-wrapper-inner {
+      width: 100%;
+      max-width: 1000px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .mail-icon {
+        font-size: 1.2rem;
+        margin: 0 7px 1px 0;
+        color: $grey;
+      }
+
+      .mail-text {
+        max-width: 400px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-right: 10px;
+      }
+
+      .mail-input {
+        display: flex;
+        height: 50px;
+      }
+
+      input[type="email"] {
+        width: 325px;
+        height: 50px;
+        text-align: left;
+        font-size: 0.9rem;
+        padding: 0 5px 0 40px;
+        opacity: 1;
+        color: $grey;
+        background-color: $darkgrey;
+        border: none;
+        outline: none;
+      }
+    }
   }
 }
 
@@ -1841,7 +1903,7 @@ p.icon-text {
 
             .mentor-logo {
               max-width: 150px;
-              height: 30px;
+              height: auto;
               display: flex;
               align-self: center;
             }
@@ -1952,13 +2014,13 @@ p.icon-text {
         display: flex;
         flex-direction: column; //
         justify-content: space-between;
-        top: 0; //
+        top: 20px; //
       }
     }
 
     .feature-02-background {
       position: relative;
-      height: 530px; //
+      height: 600px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -1980,7 +2042,7 @@ p.icon-text {
 
     .feature-03-background {
       position: relative;
-      height: 530px; //
+      height: 600px; //
       background-color: $greyblack;
       clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
       margin-top: -12vw;
@@ -1988,7 +2050,7 @@ p.icon-text {
 
     .feature-04-background {
       position: relative;
-      height: 530px; //
+      height: 700px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -2019,8 +2081,6 @@ p.icon-text {
       justify-content: flex-start; //
       top: 70px;
 
-      border: 1px solid palegreen;
-
       &.reverse {
         flex-direction: column-reverse; //
         justify-content: flex-end; //
@@ -2030,20 +2090,16 @@ p.icon-text {
     .container-feature-margin-left {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 15px 30px 0 30px; //
       flex: none;
-
-      border: 1px solid hotpink;
     }
 
     .container-feature-margin-right {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 15px 30px 0 30px; //
       flex: none;
       text-align: right;
-
-      border: 1px solid plum;
     }
 
     .container-feature-image {
@@ -2051,7 +2107,7 @@ p.icon-text {
       margin: 30px 30px 0 30px; //
 
       .feature-image {
-        width: 10%; /* 100% !!! */
+        width: 100%;
         height: auto;
         mix-blend-mode: lighten;
       }
@@ -2274,7 +2330,7 @@ p.icon-text {
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 660px) {
   a {
     font-family: "Open Sans", sans-serif;
   }
@@ -2315,7 +2371,7 @@ p.icon-text {
 
   h5 {
     font-family: "Open Sans", sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem; //
     font-weight: 500;
     line-height: 1.3;
     margin: 20px;
@@ -2382,20 +2438,23 @@ p.icon-text {
             justify-content: space-between;
 
             .mentor-logo {
-              max-width: 150px;
-              height: 30px;
+              max-width: 130px;
+              height: auto;
               display: flex;
               align-self: center;
+              margin: 15px 0 0 0; //
             }
 
             ul {
               height: 60px;
               list-style: none;
-              display: flex;
+              display: none; //
               align-items: center;
               margin: -3px 0 0 0;
 
               a {
+                display: none; //
+
                 font-size: 0.9rem;
                 font-weight: 500;
                 text-decoration: none;
@@ -2405,6 +2464,8 @@ p.icon-text {
               }
 
               .material-icons {
+                display: none; //
+
                 font-size: 1.1rem;
                 margin: 0 0 0 4px;
                 color: $orange;
@@ -2413,11 +2474,7 @@ p.icon-text {
           }
 
           .hero-wrapper {
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            height: 100%;
-            margin-top: 5px; 
             margin-top: -57px;
           }
         }
@@ -2434,17 +2491,18 @@ p.icon-text {
     .hero-wrapper-inner {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: 220px; //
+      justify-content: center;
+      height: 110px; //
+      margin: 70px 0 0 0; //
     }
 
     .hero-title {
-      width: 300px; //
-      margin-bottom: 5px; //
+      max-width: 70%; //
+      margin-bottom: 5px;
     }
 
     .button-wrapper {
-      display: flex;
+      display: none; //
       flex-direction: column;
     }
 
@@ -2456,7 +2514,7 @@ p.icon-text {
       background-color: $orange;
       border: none;
       color: $offwhite;
-      margin: 0 14px 0 0; //
+      margin: 0 14px 14px 0;
       padding: 0;
       text-align: center;
       text-decoration: none;
@@ -2486,7 +2544,7 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 410px;
+      height: 530px;
 
       .container-feature-fixed-width-top {
         position: relative;
@@ -2495,15 +2553,15 @@ p.icon-text {
         height: 100%;
         margin: 0 auto;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        top: 50px;
+        top: 70; //
       }
     }
 
     .feature-02-background {
       position: relative;
-      height: 440px;
+      height: 530px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -2525,7 +2583,7 @@ p.icon-text {
 
     .feature-03-background {
       position: relative;
-      height: 480px;
+      height: 530px; //
       background-color: $greyblack;
       clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
       margin-top: -12vw;
@@ -2533,7 +2591,7 @@ p.icon-text {
 
     .feature-04-background {
       position: relative;
-      height: 460px;
+      height: 530px; //
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -2560,29 +2618,34 @@ p.icon-text {
       height: 100%;
       margin: 0 auto;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
       top: 70px;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
     }
 
     .container-feature-margin-left {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 20px 30px 0 30px;
       flex: none;
     }
 
     .container-feature-margin-right {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 10px 30px 0 30px;
       flex: none;
       text-align: right;
     }
 
     .container-feature-image {
       height: fit-content;
-      margin: 10px 30px 0 30px;
+      margin: 30px 30px 0 30px;
 
       .feature-image {
         width: 100%;
@@ -2602,6 +2665,7 @@ p.icon-text {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
+      padding: 40px 0;
 
       .howitworks-icon-wrapper {
         width: 185px;
@@ -2611,12 +2675,14 @@ p.icon-text {
         align-items: center;
         justify-content: baseline;
         margin: 30px;
-        flex: 0 100%; //
+        flex: 0 100%;
 
         .howitworks-main-icon {
           width: auto;
           height: 125px;
           margin-bottom: 4px;
+
+          transform: translateX(17px);
         }
 
         .howitworks-icon {
@@ -2647,7 +2713,7 @@ p.icon-text {
     .bottom-section {
       position: relative;
       width: 100%;
-      height: 700px;
+      height: 800px;
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -2790,6 +2856,7 @@ p.icon-text {
         align-items: center;
         justify-content: center;
         height: 80px;
+        max-width: 250px; //
       }
 
       input[type="email"] {
@@ -2808,7 +2875,7 @@ p.icon-text {
   }
 }
 
-@media (max-width: 630px) {
+@media (max-width: 500px) {
   a {
     font-family: "Open Sans", sans-serif;
   }
@@ -2849,10 +2916,9 @@ p.icon-text {
 
   h5 {
     font-family: "Open Sans", sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.858rem; //
     font-weight: 500;
     line-height: 1.3;
-    margin: 20px;
     color: $grey;
   }
 
@@ -2916,20 +2982,23 @@ p.icon-text {
             justify-content: space-between;
 
             .mentor-logo {
-              max-width: 150px;
-              height: 30px;
+              max-width: 130px;
+              height: auto;
               display: flex;
               align-self: center;
+              margin: 15px 0 0 0;
             }
 
             ul {
               height: 60px;
               list-style: none;
-              display: flex;
+              display: none;
               align-items: center;
               margin: -3px 0 0 0;
 
               a {
+                display: none;
+
                 font-size: 0.9rem;
                 font-weight: 500;
                 text-decoration: none;
@@ -2939,6 +3008,8 @@ p.icon-text {
               }
 
               .material-icons {
+                display: none;
+
                 font-size: 1.1rem;
                 margin: 0 0 0 4px;
                 color: $orange;
@@ -2947,11 +3018,7 @@ p.icon-text {
           }
 
           .hero-wrapper {
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            height: 100%;
-            margin-top: 5px; 
             margin-top: -57px;
           }
         }
@@ -2968,18 +3035,18 @@ p.icon-text {
     .hero-wrapper-inner {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: 210px;
-      margin: 40px 0 0 0; //
+      justify-content: center; 
+      height: 110px;
+      margin: 70px 0 0 0;
     }
 
     .hero-title {
-      width: 240px; //
+      max-width: 100%; //
       margin-bottom: 5px;
     }
 
     .button-wrapper {
-      display: flex;
+      display: none;
       flex-direction: column;
     }
 
@@ -2991,7 +3058,7 @@ p.icon-text {
       background-color: $orange;
       border: none;
       color: $offwhite;
-      margin: 0 14px 0 0;
+      margin: 0 14px 14px 0;
       padding: 0;
       text-align: center;
       text-decoration: none;
@@ -3021,7 +3088,7 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 410px;
+      height: 530px;
 
       .container-feature-fixed-width-top {
         position: relative;
@@ -3030,15 +3097,15 @@ p.icon-text {
         height: 100%;
         margin: 0 auto;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        top: 50px;
+        top: 70;
       }
     }
 
     .feature-02-background {
       position: relative;
-      height: 440px;
+      height: 530px;
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -3060,7 +3127,7 @@ p.icon-text {
 
     .feature-03-background {
       position: relative;
-      height: 480px;
+      height: 530px;
       background-color: $greyblack;
       clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
       margin-top: -12vw;
@@ -3068,7 +3135,7 @@ p.icon-text {
 
     .feature-04-background {
       position: relative;
-      height: 460px;
+      height: 530px;
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -3095,29 +3162,34 @@ p.icon-text {
       height: 100%;
       margin: 0 auto;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
       top: 70px;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
     }
 
     .container-feature-margin-left {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 20px 30px 0 30px;
       flex: none;
     }
 
     .container-feature-margin-right {
       position: relative;
       height: fit-content;
-      margin: 50px 30px 0 30px;
+      margin: 10px 30px 0 30px;
       flex: none;
       text-align: right;
     }
 
     .container-feature-image {
       height: fit-content;
-      margin: 10px 30px 0 30px;
+      margin: 30px 30px 0 30px;
 
       .feature-image {
         width: 100%;
@@ -3137,6 +3209,7 @@ p.icon-text {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
+      padding: 40px 0;
 
       .howitworks-icon-wrapper {
         width: 185px;
@@ -3152,6 +3225,8 @@ p.icon-text {
           width: auto;
           height: 125px;
           margin-bottom: 4px;
+
+          transform: translateX(17px);
         }
 
         .howitworks-icon {
@@ -3182,7 +3257,7 @@ p.icon-text {
     .bottom-section {
       position: relative;
       width: 100%;
-      height: 700px;
+      height: 800px;
       background-image: linear-gradient(
         to right bottom,
         #292b38,
@@ -3325,6 +3400,7 @@ p.icon-text {
         align-items: center;
         justify-content: center;
         height: 80px;
+        max-width: 250px;
       }
 
       input[type="email"] {
