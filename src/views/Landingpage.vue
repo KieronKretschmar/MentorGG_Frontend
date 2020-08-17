@@ -220,21 +220,21 @@
           <div class="slideshow-container">
             <div class="slides fade">
               <div class="quote">
-                <h5>"1 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h5 class="slide-text">"1 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
                 <h6>1 Name</h6>
               </div>
             </div>
 
             <div class="slides fade">
               <div class="quote">
-                <h5>"2 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h5 class="slide-text">"2 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
                 <h6>2 Name</h6>
               </div>
             </div>
 
             <div class="slides fade">
               <div class="quote">
-                <h5>"3 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h5 class="slide-text">"3 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
                 <h6>3 Name</h6>
               </div>
             </div>
@@ -356,6 +356,10 @@ h5 {
   margin: 0 0 1px 0;
   font-family: "Open Sans", sans-serif;
   color: $grey;
+}
+
+.slide-text {
+  font-size: 1.5rem; 
 }
 
 h6 {
@@ -694,7 +698,6 @@ p.icon-text {
     flex-wrap: wrap;
 
     .howitworks-icon-wrapper {
-      width: 185px;
       height: 200px;
       display: flex;
       flex-direction: column;
@@ -933,11 +936,10 @@ p.icon-text {
 
   h5 {
     font-family: "Open Sans", sans-serif;
-    font-size: 2.5rem; //
+    font-size: 2rem; //
     font-weight: 500;
     line-height: 1.3;
     color: $grey;
-    text-align: center; //
   }
 
   .subtitle {
@@ -1055,19 +1057,19 @@ p.icon-text {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 435px; //
+      height: 360px; //
       margin: 0; //
     }
 
     .hero-title {
-      max-width: 100%; //
-      margin-bottom: 30px;
+      max-width: 780px; //
+      margin-bottom: 20px; //
     }
 
     .button-wrapper {
       display: flex;
       flex-direction: row;
-      justify-content: center; //
+      justify-content: flex-start; //
     }
 
     .button-solid {
@@ -1283,7 +1285,6 @@ p.icon-text {
       flex-wrap: wrap;
 
       .howitworks-icon-wrapper {
-        width: 185px;
         height: 200px;
         display: flex;
         flex-direction: column;
@@ -1733,7 +1734,6 @@ p.icon-text {
       flex-wrap: wrap;
 
       .howitworks-icon-wrapper {
-        width: 185px;
         height: 200px;
         display: flex;
         flex-direction: column;
@@ -2272,7 +2272,6 @@ p.icon-text {
       padding: 30px 0; //
 
       .howitworks-icon-wrapper {
-        width: 185px;
         height: 200px;
         display: flex;
         flex-direction: column;
@@ -2305,7 +2304,6 @@ p.icon-text {
           max-width: 150px;
           margin: 15px;
           text-align: center;
-          transform: translateX(26px);
         }
 
         .underline {
@@ -2404,7 +2402,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.7rem;
+    font-size: 1.5rem; //
     margin: 0;
     color: $offwhite;
   }
@@ -2420,7 +2418,7 @@ p.icon-text {
 
   h5 {
     font-family: "Open Sans", sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem; //
     font-weight: 500;
     line-height: 1.3;
     color: $grey;
@@ -2456,7 +2454,7 @@ p.icon-text {
 
   p.icon-text {
     font-family: "Open Sans Condensed", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 100;
     margin: 0;
     color: $offwhite;
@@ -2707,30 +2705,25 @@ p.icon-text {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      padding: 40px 0; //
+      padding: 30px 0 10px 0; //
 
       .howitworks-icon-wrapper {
-        width: 185px;
-        height: 200px;
+        height: 175px; //
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: baseline;
-        margin: 30px;
-        flex: 0 100%; //
+        margin: 30px 10px 0 10px; //
 
         .howitworks-main-icon {
           width: auto;
-          height: 125px;
-          margin-bottom: 4px;
-
-          transform: translateX(17px); //
+          height: 110px; //
+          margin-bottom: 0;
         }
 
         .howitworks-icon {
           width: auto;
-          height: 125px;
-          transform: translateX(-10px); //
+          height: 90px; //
         }
 
         .howitworks-main-text {
@@ -2739,15 +2732,15 @@ p.icon-text {
         }
 
         .howitworks-text {
-          max-width: 150px;
+          max-width: 140px; //
           margin: 15px;
           text-align: center;
-          transform: translateX(16px); //
+          transform: translateX(19px); //
         }
 
         .underline {
-          border-bottom: 4px solid $orange;
-          height: 47px;
+          border-bottom: 3px solid $orange; //
+          height: 38px; //
         }
       }
     }
@@ -2938,7 +2931,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     margin: 0;
     color: $offwhite;
   }
@@ -2990,7 +2983,7 @@ p.icon-text {
 
   p.icon-text {
     font-family: "Open Sans Condensed", sans-serif;
-    font-size: 1.2rem;
+    font-size: 0.9rem; //
     font-weight: 100;
     margin: 0;
     color: $offwhite;
@@ -3238,7 +3231,7 @@ p.icon-text {
     .howitworks-wrapper {
       position: relative;
       width: 100%;
-      min-height: 400px;
+      min-height: 330px; //
       background-color: $darkgrey;
       top: -12vw;
       display: flex;
@@ -3246,30 +3239,30 @@ p.icon-text {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      padding: 40px 0;
+      padding: 10px 0 0 0; //
 
       .howitworks-icon-wrapper {
-        width: 185px;
-        height: 200px;
+        height: 150px; 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: baseline;
-        margin: 30px;
-        flex: 0 100%;
+        margin: 0 7px; //
+
+        &:not(:first-child) {
+          height: 130px; //
+          padding-right: 25px; //
+        }
 
         .howitworks-main-icon {
           width: auto;
-          height: 125px;
-          margin-bottom: 4px;
-
-          transform: translateX(17px);
+          height: 90px; 
+          margin-bottom: 0;
         }
 
         .howitworks-icon {
           width: auto;
-          height: 125px;
-          transform: translateX(-10px);
+          height: 60px; //
         }
 
         .howitworks-main-text {
@@ -3278,15 +3271,15 @@ p.icon-text {
         }
 
         .howitworks-text {
-          max-width: 150px;
-          margin: 15px;
+          max-width: 120px; //
+          margin: 5px; //
           text-align: center;
-          transform: translateX(16px);
+          transform: translateX(15px); //
         }
 
         .underline {
-          border-bottom: 4px solid $orange;
-          height: 47px;
+          border-bottom: 3px solid $orange; 
+          height: 34px; 
         }
       }
     }
@@ -3456,7 +3449,7 @@ p.icon-text {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
   a {
     font-family: "Open Sans", sans-serif;
   }
@@ -3481,7 +3474,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.7rem;
+    font-size: 1.4rem; //
     margin: 0;
     color: $offwhite;
   }
@@ -3533,7 +3526,7 @@ p.icon-text {
 
   p.icon-text {
     font-family: "Open Sans Condensed", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem; //
     font-weight: 100;
     margin: 0;
     color: $offwhite;
@@ -3781,7 +3774,7 @@ p.icon-text {
     .howitworks-wrapper {
       position: relative;
       width: 100%;
-      min-height: 400px;
+      height: min-content; //
       background-color: $darkgrey;
       top: -12vw;
       display: flex;
@@ -3789,30 +3782,32 @@ p.icon-text {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      padding: 40px 0;
+      padding: 30px 0 40px 0; //
 
       .howitworks-icon-wrapper {
-        width: 185px;
-        height: 200px;
+        height: 170px; //
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: baseline;
-        margin: 30px;
+        margin: 25px 0 0 0; //
         flex: 0 100%;
+
+        &:not(:first-child) {
+          height: 170px; //
+          margin: 10px 0 0 0; //
+          padding-right: 30px; //
+        }
 
         .howitworks-main-icon {
           width: auto;
-          height: 125px;
+          height: 100px; //
           margin-bottom: 4px;
-
-          transform: translateX(17px);
         }
 
         .howitworks-icon {
           width: auto;
-          height: 125px;
-          transform: translateX(-10px);
+          height: 100px; //
         }
 
         .howitworks-main-text {
@@ -3821,15 +3816,15 @@ p.icon-text {
         }
 
         .howitworks-text {
-          max-width: 150px;
+          max-width: 120px; //
           margin: 15px;
           text-align: center;
-          transform: translateX(16px);
+          transform: translateX(22px);
         }
 
         .underline {
           border-bottom: 4px solid $orange;
-          height: 47px;
+          height: 40px;
         }
       }
     }
