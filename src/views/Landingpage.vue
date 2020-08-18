@@ -1156,11 +1156,25 @@ p.icon-text {
     }
 
     .feature-04-background {
-      height: 670px;
+      //height: 670px;
     }
 
     .container-feature-fixed-width {
       top: 70px;
+    }
+
+    .container-feature-fixed-width-bottom {
+      position: relative;
+      width: 100%;
+      max-width: 1220px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 50px;
+      margin-top: 100px; //
+      border: 1px solid snow;
     }
 
     .howitworks-wrapper {
@@ -1282,7 +1296,7 @@ p.icon-text {
     }
 
     .feature-04-background {
-      height: 700px;
+      //height: 700px;
     }
 
     .container-feature-fixed-width {
@@ -1293,6 +1307,20 @@ p.icon-text {
         flex-direction: column-reverse;
         justify-content: flex-end;
       }
+    }
+
+    .container-feature-fixed-width-bottom {
+      position: relative;
+      width: 100%;
+      max-width: 1220px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 50px;
+      margin-top: 100px; //
+      border: 1px solid snow;
     }
 
     .container-feature-margin-left {
@@ -1314,7 +1342,7 @@ p.icon-text {
       position: relative;
       width: 100%;
       background-color: $darkgrey;
-      top: -12vw;
+      //top: -12vw;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1481,7 +1509,7 @@ p.icon-text {
     }
 
     .feature-04-background {
-      height: 530px;
+      //height: 530px;
     }
 
     .container-feature-margin-left {
@@ -1490,6 +1518,20 @@ p.icon-text {
 
     .container-feature-margin-right {
       margin: 10px 30px 0 30px;
+    }
+
+    .container-feature-fixed-width-bottom {
+      position: relative;
+      width: 100%;
+      max-width: 1220px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 50px;
+      margin-top: 100px; //
+      border: 1px solid snow;
     }
 
     .howitworks-wrapper {
@@ -1631,11 +1673,25 @@ p.icon-text {
     }
 
     .feature-04-background {
-      height: 450px;
+      //height: 450px;
     }
 
     .container-feature-fixed-width {
       top: 30px;
+    }
+
+    .container-feature-fixed-width-bottom {
+      position: relative;
+      width: 100%;
+      max-width: 1220px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 50px;
+      margin-top: 100px; //
+      border: 1px solid snow;
     }
 
     .howitworks-wrapper {
