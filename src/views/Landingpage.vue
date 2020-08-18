@@ -156,52 +156,63 @@
     </div>
 
     <div class="howitworks-wrapper">
-      <div class="howitworks-icon-wrapper">
-        <div>
+      <div class="howitworks-wrapper-inner">
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/howitworks-icon.svg" class="howitworks-icon main-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-main-text underline">
+            <h3>HOW IT WORKS</h3>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
+          <img src="@/assets/one-icon.svg" class="howitworks-number" alt="how it works icon number" />
+        </div>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/connect-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Connect your Steam
+              or Faceit account
+            </p>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
+          <img src="@/assets/two-icon.svg" class="howitworks-number" alt="how it works icon number" />
+        </div>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/upload-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Start automatically
+              uploading matches
+            </p>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
           <img
-            src="@/assets/howitworks-icon.svg"
-            class="howitworks-main-icon"
-            alt="how it works icon"
+            src="@/assets/three-icon.svg"
+            class="howitworks-number"
+            alt="how it works icon number"
           />
         </div>
-        <div class="howitworks-main-text underline">
-          <h3>HOW IT WORKS</h3>
-        </div>
-      </div>
-
-      <div class="howitworks-icon-wrapper">
-        <div>
-          <img src="@/assets/connect-icon.svg" class="howitworks-icon" alt="how it works icon" />
-        </div>
-        <div class="howitworks-text">
-          <p class="icon-text">
-            Connect your Steam
-            or Faceit account
-          </p>
-        </div>
-      </div>
-
-      <div class="howitworks-icon-wrapper">
-        <div>
-          <img src="@/assets/upload-icon.svg" class="howitworks-icon" alt="how it works icon" />
-        </div>
-        <div class="howitworks-text">
-          <p class="icon-text">
-            Start automatically
-            uploading matches
-          </p>
-        </div>
-      </div>
-
-      <div class="howitworks-icon-wrapper">
-        <div>
-          <img src="@/assets/explore-icon.svg" class="howitworks-icon" alt="how it works icon" />
-        </div>
-        <div class="howitworks-text">
-          <p class="icon-text">
-            Explore the analysis for
-            your self-improvement
-          </p>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/explore-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Explore the analysis for
+              your self-improvement
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -689,49 +700,87 @@ p.icon-text {
   .howitworks-wrapper {
     position: relative;
     width: 100%;
-    min-height: 400px;
     background-color: $darkgrey;
     top: -12vw;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
 
-    .howitworks-icon-wrapper {
-      height: 200px;
+    .howitworks-wrapper-inner {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 350px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
-      justify-content: baseline;
-      margin: 30px;
+      flex-wrap: wrap;
+      margin: 0 30px;
 
-      .howitworks-main-icon {
-        width: auto;
-        height: 125px;
-        margin-bottom: 4px;
+      .howitworks-number-wrapper {
+        height: 214px;
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+
+        // border: 1px solid salmon;
+
+        .howitworks-number {
+          width: auto;
+          height: 60px;
+
+          // border: 1px solid aqua;
+        }
       }
 
-      .howitworks-icon {
-        width: auto;
-        height: 125px;
-      }
+      .howitworks-icon-wrapper {
+        height: 100%;
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: baseline;
 
-      .howitworks-main-text {
-        margin: 10px;
-        text-align: center;
-      }
+        &:first-child {
+          height: 214px;
+        }
 
-      .howitworks-text {
-        max-width: 150px;
-        margin: 15px;
-        text-align: center;
-        transform: translateX(26px);
-      }
+        // border: 1px solid yellowgreen;
 
-      .underline {
-        border-bottom: 4px solid $orange;
-        height: 47px;
+        .howitworks-main-text {
+          width: 164px;
+          margin-top: 7px;
+          text-align: center;
+
+          // border: 1px solid indianred;
+        }
+
+        .underline {
+          border-bottom: 4px solid $orange;
+          height: 46px;
+        }
+
+        .howitworks-icon {
+          width: auto;
+          height: 125px;
+
+          // border: 1px solid darkorange;
+
+          &.main-icon {
+            height: 140px;
+          }
+        }
+
+        .howitworks-text {
+          width: 150px;
+          margin-top: 8px;
+          text-align: center;
+
+          // border: 1px solid violet;
+        }
       }
     }
   }
@@ -858,7 +907,7 @@ p.icon-text {
 
   .bottom-cta {
     position: relative;
-    height: 180px;
+    height: 170px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -913,7 +962,7 @@ p.icon-text {
       padding: 0 5px 0 40px;
       opacity: 1;
       color: $grey;
-      background-color: $darkgrey;
+      background-color: $greyblack;
       border: none;
       outline: none;
     }
@@ -1089,14 +1138,7 @@ p.icon-text {
     }
 
     .howitworks-wrapper {
-      padding: 35px 0;
-
       .howitworks-icon-wrapper {
-        &:first-child {
-          flex: 0 100%;
-          margin: 15px 0 24px 0;
-        }
-
         .howitworks-main-icon {
         }
 
@@ -1243,52 +1285,20 @@ p.icon-text {
     }
 
     .howitworks-wrapper {
-      position: relative;
-      width: 100%;
-      min-height: 400px;
-      background-color: $darkgrey;
-      top: -12vw;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 30px 0 10px 0; //
-
       .howitworks-icon-wrapper {
-        height: 175px; //
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: baseline;
-        margin: 30px 10px 0 10px; //
-
         .howitworks-main-icon {
-          width: auto;
-          height: 110px; //
-          margin-bottom: 0;
         }
 
         .howitworks-icon {
-          width: auto;
-          height: 90px; //
         }
 
         .howitworks-main-text {
-          margin: 10px;
-          text-align: center;
         }
 
         .howitworks-text {
-          max-width: 140px; //
-          margin: 15px;
-          text-align: center;
-          transform: translateX(19px); //
         }
 
         .underline {
-          border-bottom: 3px solid $orange; //
-          height: 38px; //
         }
       }
     }
@@ -1401,48 +1411,20 @@ p.icon-text {
     }
 
     .howitworks-wrapper {
-      min-height: 330px;
-      padding: 10px 0 0 0;
-
       .howitworks-icon-wrapper {
-        height: 150px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: baseline;
-        margin: 0 7px; //
-
-        &:not(:first-child) {
-          height: 130px; //
-          padding-right: 25px; //
-        }
-
         .howitworks-main-icon {
-          width: auto;
-          height: 90px;
-          margin-bottom: 0;
         }
 
         .howitworks-icon {
-          width: auto;
-          height: 60px; //
         }
 
         .howitworks-main-text {
-          margin: 10px;
-          text-align: center;
         }
 
         .howitworks-text {
-          max-width: 120px; //
-          margin: 5px; //
-          text-align: center;
-          transform: translateX(15px); //
         }
 
         .underline {
-          border-bottom: 3px solid $orange;
-          height: 34px;
         }
       }
     }
@@ -1491,7 +1473,7 @@ p.icon-text {
         padding: 0; //
         opacity: 1;
         color: $grey;
-        background-color: $darkgrey;
+        background-color: $greyblack;
         border: none;
         outline: none;
       }
@@ -1531,7 +1513,6 @@ p.icon-text {
       .container-fixed-width {
         .container-margin {
           .container-nav {
-
             .mentor-logo {
               max-width: 100px;
             }
@@ -1574,61 +1555,22 @@ p.icon-text {
     .container-feature-fixed-width {
       top: 30px;
     }
-    
+
     .howitworks-wrapper {
-      position: relative;
-      width: 100%;
-      height: min-content; //
-      background-color: $darkgrey;
-      top: -12vw;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 30px 0 40px 0; //
-
       .howitworks-icon-wrapper {
-        height: 170px; //
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: baseline;
-        margin: 25px 0 0 0; //
-        flex: 0 100%;
-
-        &:not(:first-child) {
-          height: 170px; //
-          margin: 10px 0 0 0; //
-          padding-right: 30px; //
-        }
-
         .howitworks-main-icon {
-          width: auto;
-          height: 100px; //
-          margin-bottom: 4px;
         }
 
         .howitworks-icon {
-          width: auto;
-          height: 100px; //
         }
 
         .howitworks-main-text {
-          margin: 10px;
-          text-align: center;
         }
 
         .howitworks-text {
-          max-width: 120px; //
-          margin: 15px;
-          text-align: center;
-          transform: translateX(22px);
         }
 
         .underline {
-          border-bottom: 4px solid $orange;
-          height: 40px;
         }
       }
     }
@@ -1645,7 +1587,6 @@ p.icon-text {
     }
 
     .mail-wrapper-inner {
-
       .mail-icon {
       }
 
