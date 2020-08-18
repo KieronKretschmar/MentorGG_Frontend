@@ -138,7 +138,7 @@
     </div>
 
     <div class="feature-04-background">
-      <div class="container-feature-fixed-width reverse">
+      <div class="container-feature-fixed-width-bottom reverse">
         <div class="container-feature-image">
           <img
             src="@/assets/friendcomparison.jpg"
@@ -159,7 +159,11 @@
       <div class="howitworks-wrapper-inner">
         <div class="howitworks-icon-wrapper">
           <div>
-            <img src="@/assets/howitworks-icon.svg" class="howitworks-icon main-icon" alt="how it works icon" />
+            <img
+              src="@/assets/howitworks-icon.svg"
+              class="howitworks-icon main-icon"
+              alt="how it works icon"
+            />
           </div>
           <div class="howitworks-main-text underline">
             <h3>HOW IT WORKS</h3>
@@ -638,8 +642,11 @@ p.icon-text {
   }
 
   .feature-04-background {
+    display: flex; //
+    border: 1px solid hotpink;
+
     position: relative;
-    height: 1130px;
+    // height: 1130px;
     background-image: linear-gradient(
       to left bottom,
       #292b38,
@@ -663,12 +670,29 @@ p.icon-text {
     position: relative;
     width: 100%;
     max-width: 1220px;
-    height: 100%;
+    height: 100%; //
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     top: 200px;
+
+    border: 1px solid springgreen;
+  }
+
+  .container-feature-fixed-width-bottom {
+    position: relative;
+    width: 100%;
+    max-width: 1220px;
+    height: 100%; //
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // top: 200px;
+    margin-bottom: 50px; //
+    margin-top: 200px; //
+    border: 1px solid snow;
   }
 
   .container-feature-margin-left {
@@ -687,12 +711,12 @@ p.icon-text {
   }
 
   .container-feature-image {
-    height: fit-content;
+    height: fit-content; //
     margin: 10px 30px 0 30px;
 
     .feature-image {
       width: 100%;
-      height: auto;
+      // height: auto;
       mix-blend-mode: lighten;
     }
   }
@@ -701,7 +725,7 @@ p.icon-text {
     position: relative;
     width: 100%;
     background-color: $darkgrey;
-    top: -12vw;
+    // top: -12vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -726,13 +750,9 @@ p.icon-text {
         align-items: flex-end;
         justify-content: flex-start;
 
-        // border: 1px solid salmon;
-
         .howitworks-number {
           width: auto;
           height: 60px;
-
-          // border: 1px solid aqua;
         }
       }
 
@@ -748,14 +768,10 @@ p.icon-text {
           height: 214px;
         }
 
-        // border: 1px solid yellowgreen;
-
         .howitworks-main-text {
           width: 164px;
           margin-top: 7px;
           text-align: center;
-
-          // border: 1px solid indianred;
         }
 
         .underline {
@@ -767,8 +783,6 @@ p.icon-text {
           width: auto;
           height: 125px;
 
-          // border: 1px solid darkorange;
-
           &.main-icon {
             height: 140px;
           }
@@ -778,8 +792,6 @@ p.icon-text {
           width: 150px;
           margin-top: 8px;
           text-align: center;
-
-          // border: 1px solid violet;
         }
       }
     }
@@ -804,7 +816,7 @@ p.icon-text {
       #1f1f28,
       #1d1d25
     );
-    margin-top: -12vw;
+    // margin-top: -12vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1017,11 +1029,25 @@ p.icon-text {
     }
 
     .feature-04-background {
-      height: 900px;
+      // height: 900px;
     }
 
     .container-feature-fixed-width {
       top: 110px;
+    }
+
+    .container-feature-fixed-width-bottom {
+      position: relative;
+      width: 100%;
+      max-width: 1220px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 50px;
+      margin-top: 100px; //
+      border: 1px solid snow;
     }
 
     .howitworks-wrapper {
@@ -1202,7 +1228,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   h5 {
@@ -1285,20 +1311,76 @@ p.icon-text {
     }
 
     .howitworks-wrapper {
-      .howitworks-icon-wrapper {
-        .howitworks-main-icon {
+      position: relative;
+      width: 100%;
+      background-color: $darkgrey;
+      top: -12vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .howitworks-wrapper-inner {
+        width: 100%;
+        max-width: 1000px;
+        min-height: 350px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 30px;
+
+        .howitworks-number-wrapper {
+          height: 214px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-start;
+
+          .howitworks-number {
+            width: auto;
+            height: 50px; //
+          }
         }
 
-        .howitworks-icon {
-        }
+        .howitworks-icon-wrapper {
+          height: 100%;
+          width: min-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: baseline;
 
-        .howitworks-main-text {
-        }
+          &:first-child {
+            height: 214px;
+          }
 
-        .howitworks-text {
-        }
+          .howitworks-main-text {
+            width: 144px; //
+            margin-top: 7px;
+            text-align: center;
+          }
 
-        .underline {
+          .underline {
+            border-bottom: 3px solid $orange; //
+            height: 43px; //
+          }
+
+          .howitworks-icon {
+            width: auto;
+            height: 100px; //
+
+            &.main-icon {
+              height: 128px;
+            }
+          }
+
+          .howitworks-text {
+            width: 120px; //
+            margin-top: 8px;
+            text-align: center;
+          }
         }
       }
     }
