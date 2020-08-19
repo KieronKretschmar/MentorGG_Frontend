@@ -1269,10 +1269,11 @@ p.icon-text {
         }
 
         .howitworks-icon-wrapper {
-          margin: 0 20px;
+          margin: 20px 30px;
 
           &:first-child {
-            height: 214px;
+            height: fit-content;
+            flex: 1 100%;
           }
 
           .howitworks-main-text {
@@ -1380,80 +1381,6 @@ p.icon-text {
       margin-bottom: 70px;
     }
 
-    .howitworks-wrapper {
-      position: relative;
-      width: 100%;
-      background-color: $darkgrey;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .howitworks-wrapper-inner {
-        width: 100%;
-        max-width: 1000px;
-        min-height: 350px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 0 30px;
-
-        .howitworks-number-wrapper {
-          height: 214px;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          justify-content: flex-start;
-
-          .howitworks-number {
-            width: auto;
-            height: 50px;
-          }
-        }
-
-        .howitworks-icon-wrapper {
-          height: 100%;
-          width: min-content;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: baseline;
-
-          &:first-child {
-            height: 214px;
-          }
-
-          .howitworks-main-text {
-            width: 144px;
-            margin-top: 7px;
-            text-align: center;
-          }
-
-          .underline {
-            border-bottom: 3px solid $orange;
-            height: 43px;
-          }
-
-          .howitworks-icon {
-            width: auto;
-            height: 100px;
-
-            &.main-icon {
-              height: 128px;
-            }
-          }
-
-          .howitworks-text {
-            width: 120px;
-            margin-top: 8px;
-            text-align: center;
-          }
-        }
-      }
-    }
-
     .bottom-section {
       height: 900px;
     }
@@ -1524,7 +1451,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   h5 {
@@ -1594,20 +1521,30 @@ p.icon-text {
     }
 
     .howitworks-wrapper {
-      .howitworks-icon-wrapper {
-        .howitworks-main-icon {
+      .howitworks-wrapper-inner {
+        .howitworks-number-wrapper {
+          .howitworks-number {
+          }
         }
 
-        .howitworks-icon {
-        }
+        .howitworks-icon-wrapper {
+          &:first-child {
+          }
 
-        .howitworks-main-text {
-        }
+          .howitworks-main-text {
+          }
 
-        .howitworks-text {
-        }
+          .underline {
+            height: 37px;
+          }
 
-        .underline {
+          .howitworks-icon {
+            &.main-icon {
+            }
+          }
+
+          .howitworks-text {
+          }
         }
       }
     }
