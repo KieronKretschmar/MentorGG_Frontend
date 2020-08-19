@@ -91,7 +91,7 @@
     </div>
 
     <div class="feature-01-background">
-      <div class="container-feature-fixed-width-top">
+      <div class="container-feature-fixed-width-first">
         <div class="container-feature-margin-left">
           <h1>CORE FEATURE 01</h1>
           <h2>HIGHLIGHTS &amp; MISPLAYS</h2>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="feature-02-background">
-      <div class="container-feature-fixed-width reverse">
+      <div class="container-feature-fixed-width-second reverse">
         <div class="container-feature-image">
           <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
         </div>
@@ -123,7 +123,7 @@
     </div>
 
     <div class="feature-03-background">
-      <div class="container-feature-fixed-width">
+      <div class="container-feature-fixed-width-third">
         <div class="container-feature-margin-left">
           <h1>CORE FEATURE 03</h1>
           <h2>GRENADE REVIEW</h2>
@@ -138,7 +138,7 @@
     </div>
 
     <div class="feature-04-background">
-      <div class="container-feature-fixed-width-bottom reverse">
+      <div class="container-feature-fixed-width-fourth reverse">
         <div class="container-feature-image">
           <img
             src="@/assets/friendcomparison.jpg"
@@ -599,7 +599,7 @@ p.icon-text {
     background-color: $greyblack;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
 
-    .container-feature-fixed-width-top {
+    .container-feature-fixed-width-first {
       position: relative;
       width: 100%;
       max-width: 1220px;
@@ -663,7 +663,20 @@ p.icon-text {
     margin-top: -18vw;
   }
 
-  .container-feature-fixed-width {
+  .container-feature-fixed-width-second {
+    position: relative;
+    width: 100%;
+    max-width: 1220px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    margin-top: 200px;
+  }
+
+  .container-feature-fixed-width-third {
     position: relative;
     width: 100%;
     max-width: 1220px;
@@ -676,7 +689,7 @@ p.icon-text {
     margin-top: 200px;
   }
 
-  .container-feature-fixed-width-bottom {
+  .container-feature-fixed-width-fourth {
     position: relative;
     width: 100%;
     max-width: 1220px;
@@ -1004,14 +1017,19 @@ p.icon-text {
       margin-bottom: 10px;
     }
 
-    .container-feature-fixed-width {
-      margin-bottom: 100px;
+    .container-feature-fixed-width-second {
       margin-top: 130px;
+      margin-bottom: 20px;
     }
 
-    .container-feature-fixed-width-bottom {
-      margin-bottom: 80px;
+    .container-feature-fixed-width-third {
       margin-top: 130px;
+      margin-bottom: 100px;
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 130px;
+      margin-bottom: 80px;
     }
 
     .howitworks-wrapper {
@@ -1131,16 +1149,20 @@ p.icon-text {
     }
 
     .feature-01-background {
-      .container-feature-fixed-width-top {
+      .container-feature-fixed-width-first {
         margin-top: 50px;
       }
     }
 
-    .container-feature-fixed-width {
+    .container-feature-fixed-width-second {
       margin-top: 100px;
     }
 
-    .container-feature-fixed-width-bottom {
+    .container-feature-fixed-width-third {
+      margin-top: 100px;
+    }
+
+    .container-feature-fixed-width-fourth {
       margin-top: 100px;
     }
 
@@ -1288,16 +1310,16 @@ p.icon-text {
     }
 
     .feature-01-background {
-      .container-feature-fixed-width-top {
+      .container-feature-fixed-width-first {
         flex-direction: column;
       }
     }
 
-    .container-feature-fixed-width {
+    .container-feature-fixed-width-second {
       flex-direction: column;
       justify-content: flex-start;
-      margin-bottom: 0;
       margin-top: 100px;
+      margin-bottom: 0;
 
       &.reverse {
         flex-direction: column-reverse;
@@ -1305,7 +1327,19 @@ p.icon-text {
       }
     }
 
-    .container-feature-fixed-width-bottom {
+    .container-feature-fixed-width-third {
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-top: 100px;
+      margin-bottom: 0;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    .container-feature-fixed-width-fourth {
       margin-bottom: 80px;
 
       &.reverse {
@@ -1463,18 +1497,22 @@ p.icon-text {
     }
 
     .feature-01-background {
-      .container-feature-fixed-width-top {
+      .container-feature-fixed-width-first {
         margin-top: 30px;
       }
     }
 
-    .container-feature-fixed-width {
+    .container-feature-fixed-width-second {
       margin-top: 70px;
     }
 
-    .container-feature-fixed-width-bottom {
-      margin-bottom: 70px;
+    .container-feature-fixed-width-third {
       margin-top: 70px;
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 70px;
+      margin-bottom: 70px;
     }
 
     .howitworks-wrapper {
@@ -1661,21 +1699,28 @@ p.icon-text {
     }
 
     .feature-01-background {
-      .container-feature-fixed-width-top {
+      .container-feature-fixed-width-first {
         margin-top: 25px;
       }
     }
 
-    .container-feature-fixed-width {
-      margin-top: 50px;
+    .container-feature-fixed-width-second {
+      margin-top: 46px;
 
       &.reverse {
       }
     }
 
-    .container-feature-fixed-width-bottom {
-      margin-bottom: 60px;
-      margin-top: 55px;
+    .container-feature-fixed-width-third {
+      margin-top: 46px;
+
+      &.reverse {
+      }
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 46px;
+      margin-bottom: 46px;
 
       &.reverse {
         flex-direction: column-reverse;
