@@ -78,7 +78,7 @@ footer {
       }
 
       .social-icon-wrapper {
-        width: 190px; //
+        width: 190px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -89,7 +89,7 @@ footer {
 
         .twitter {
           height: 33px;
-          margin-right: -6px; //
+          margin-right: -6px;
         }
       }
 
@@ -116,87 +116,72 @@ footer {
 
 @media (max-width: 930px) {
   footer {
-    position: relative;
-    width: 100%;
-    height: min-content; //
-    background-color: #202020;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: min-content;
 
     .footer-wrapper {
-      width: 100%;
-      max-width: 1185px;
-      height: 80%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
       .footer-container-margin {
-        height: 100%;
-        width: 100%;
-        margin: 0 30px;
-        display: flex;
-        flex-direction: column; //
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        flex-direction: column;
 
         .mentor-logo-wrapper {
-          width: fit-content;
-          min-height: 80px;
-          display: flex;
-          flex-direction: column;
-          align-items: center; //
-          justify-content: space-between;
-          margin: 40px 0 50px 0; //
+          align-items: center;
+          margin: 40px 0 50px 0;
 
           .mentor-logo-white {
-            margin-top: 6px;
-            height: 40px;
           }
 
           .copyright-text {
-            font-size: 1rem;
-            max-width: fit-content;
-            margin: 0;
-            padding: 0;
           }
         }
 
         .social-icon-wrapper {
-          width: 180px; //
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin: 0 0 44px 0; //
+          width: 180px;
+          margin: 0 0 44px 0;
 
           .social-icon {
-            height: 35px;
           }
 
           .twitter {
-            height: 33px;
-            margin-right: -6px;
           }
         }
 
         .footer-links {
-          width: fit-content;
-          min-height: 80px;
-          display: flex;
-          flex-direction: column;
-          align-items: center; //
-          justify-content: space-between;
-          white-space: nowrap;
-          margin: 0 0 45px 0; //
+          align-items: center;
+          margin: 0 0 45px 0;
 
           a.link {
-            font-size: 1rem;
-            max-width: fit-content;
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  footer {
+    height: min-content;
+
+    .footer-wrapper {
+      .footer-container-margin {
+        .mentor-logo-wrapper {
+          .mentor-logo-white {
+          }
+
+          .copyright-text {
+          }
+        }
+
+        .social-icon-wrapper {
+          .social-icon {
+            height: 30px;
+          }
+
+          .twitter {
+            height: 28px;
+          }
+        }
+
+        .footer-links {
+          a.link {
           }
         }
       }
