@@ -595,7 +595,7 @@ p.icon-text {
   }
 
   .feature-01-background {
-    height: 1000px;
+    display: flex;
     background-color: $greyblack;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
 
@@ -607,13 +607,13 @@ p.icon-text {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      top: 300px;
+      margin-top: 300px;
     }
   }
 
   .feature-02-background {
+    display: flex;
     position: relative;
-    height: 900px;
     background-image: linear-gradient(
       to left bottom,
       #292b38,
@@ -634,19 +634,16 @@ p.icon-text {
   }
 
   .feature-03-background {
+    display: flex;
     position: relative;
-    height: 1100px;
     background-color: $greyblack;
     clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
     margin-top: -12vw;
   }
 
   .feature-04-background {
-    display: flex; //
-    border: 1px solid hotpink;
-
+    display: flex;
     position: relative;
-    // height: 1130px;
     background-image: linear-gradient(
       to left bottom,
       #292b38,
@@ -670,29 +667,26 @@ p.icon-text {
     position: relative;
     width: 100%;
     max-width: 1220px;
-    height: 100%; //
+    height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    top: 200px;
-
-    border: 1px solid springgreen;
+    margin-bottom: 100px;
+    margin-top: 200px;
   }
 
   .container-feature-fixed-width-bottom {
     position: relative;
     width: 100%;
     max-width: 1220px;
-    height: 100%; //
+    height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    // top: 200px;
-    margin-bottom: 50px; //
-    margin-top: 200px; //
-    border: 1px solid snow;
+    margin-bottom: 100px;
+    margin-top: 200px;
   }
 
   .container-feature-margin-left {
@@ -711,12 +705,11 @@ p.icon-text {
   }
 
   .container-feature-image {
-    height: fit-content; //
+    height: fit-content;
     margin: 10px 30px 0 30px;
 
     .feature-image {
       width: 100%;
-      // height: auto;
       mix-blend-mode: lighten;
     }
   }
@@ -725,7 +718,6 @@ p.icon-text {
     position: relative;
     width: 100%;
     background-color: $darkgrey;
-    // top: -12vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -744,7 +736,6 @@ p.icon-text {
       .howitworks-number-wrapper {
         height: 214px;
         flex: 1;
-
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -816,7 +807,6 @@ p.icon-text {
       #1f1f28,
       #1d1d25
     );
-    // margin-top: -12vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1014,95 +1004,96 @@ p.icon-text {
       margin-bottom: 10px;
     }
 
-    .feature-01-background {
-      height: 800px;
-      .container-feature-fixed-width-top {
-      }
-    }
-
-    .feature-02-background {
-      height: 700px;
-    }
-
-    .feature-03-background {
-      height: 820px;
-    }
-
-    .feature-04-background {
-      // height: 900px;
-    }
-
     .container-feature-fixed-width {
-      top: 110px;
+      margin-bottom: 100px;
+      margin-top: 130px;
     }
 
     .container-feature-fixed-width-bottom {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 50px;
-      margin-top: 100px; //
-      border: 1px solid snow;
+      margin-bottom: 80px;
+      margin-top: 130px;
     }
 
     .howitworks-wrapper {
-      .howitworks-icon-wrapper {
-        .howitworks-main-icon {
+      position: relative;
+      width: 100%;
+      background-color: $darkgrey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .howitworks-wrapper-inner {
+        width: 100%;
+        max-width: 1000px;
+        min-height: 350px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 30px;
+
+        .howitworks-number-wrapper {
+          height: 214px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-start;
+
+          .howitworks-number {
+            width: auto;
+            height: 60px;
+          }
         }
 
-        .howitworks-icon {
-        }
+        .howitworks-icon-wrapper {
+          height: 100%;
+          width: min-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: baseline;
 
-        .howitworks-main-text {
-        }
+          &:first-child {
+            height: 214px;
+          }
 
-        .howitworks-text {
-        }
+          .howitworks-main-text {
+            width: 164px;
+            margin-top: 7px;
+            text-align: center;
+          }
 
-        .underline {
+          .underline {
+            border-bottom: 4px solid $orange;
+            height: 46px;
+          }
+
+          .howitworks-icon {
+            width: auto;
+            height: 125px;
+
+            &.main-icon {
+              height: 140px;
+            }
+          }
+
+          .howitworks-text {
+            width: 150px;
+            margin-top: 8px;
+            text-align: center;
+          }
         }
       }
     }
 
     .bottom-section {
       height: 1200px;
-
-      .container-fixed-width-bottom {
-        .container-margin-bottom {
-          .video-wrapper {
-            .video-container {
-              iframe {
-              }
-            }
-          }
-        }
-      }
     }
 
     .bottom-cta {
       height: 160px;
-    }
-
-    .mail-wrapper {
-    }
-
-    .mail-wrapper-inner {
-      .mail-icon {
-      }
-
-      .mail-text {
-      }
-
-      .mail-input {
-      }
-
-      input[type="email"] {
-      }
     }
   }
 }
@@ -1140,69 +1131,95 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 500px;
-
       .container-feature-fixed-width-top {
-        top: 50px;
+        margin-top: 50px;
       }
     }
 
-    .feature-02-background {
-      height: 500px;
-    }
-
-    .feature-03-background {
-      height: 600px;
-    }
-
-    .feature-04-background {
-      //height: 670px;
-    }
-
     .container-feature-fixed-width {
-      top: 70px;
+      margin-top: 100px;
     }
 
     .container-feature-fixed-width-bottom {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 50px;
-      margin-top: 100px; //
-      border: 1px solid snow;
+      margin-top: 100px;
     }
 
     .howitworks-wrapper {
-      .howitworks-icon-wrapper {
-        .howitworks-main-icon {
+      position: relative;
+      width: 100%;
+      background-color: $darkgrey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .howitworks-wrapper-inner {
+        width: 100%;
+        max-width: 1000px;
+        min-height: 350px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 30px;
+
+        .howitworks-number-wrapper {
+          height: 214px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-start;
+
+          .howitworks-number {
+            width: auto;
+            height: 60px;
+          }
         }
 
-        .howitworks-icon {
-        }
+        .howitworks-icon-wrapper {
+          height: 100%;
+          width: min-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: baseline;
 
-        .howitworks-main-text {
-        }
+          &:first-child {
+            height: 214px;
+          }
 
-        .howitworks-text {
-        }
+          .howitworks-main-text {
+            width: 164px;
+            margin-top: 7px;
+            text-align: center;
+          }
 
-        .underline {
+          .underline {
+            border-bottom: 4px solid $orange;
+            height: 46px;
+          }
+
+          .howitworks-icon {
+            width: auto;
+            height: 125px;
+
+            &.main-icon {
+              height: 140px;
+            }
+          }
+
+          .howitworks-text {
+            width: 150px;
+            margin-top: 8px;
+            text-align: center;
+          }
         }
       }
     }
 
     .bottom-section {
       height: 1100px;
-
-      .container-fixed-width-bottom {
-        .container-margin-bottom {
-        }
-      }
     }
 
     .bottom-cta {
@@ -1210,24 +1227,16 @@ p.icon-text {
     }
 
     .mail-wrapper {
+      position: relative;
       height: fit-content;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mail-wrapper-inner {
-      flex-direction: column;
-
-      .mail-icon {
-      }
-
-      .mail-text {
-        padding: 0;
-      }
-
-      .mail-input {
-      }
-
-      input[type="email"] {
-      }
+      justify-content: center;
     }
   }
 }
@@ -1279,29 +1288,16 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 530px;
-
       .container-feature-fixed-width-top {
         flex-direction: column;
-        top: 20px;
       }
-    }
-
-    .feature-02-background {
-      height: 600px;
-    }
-
-    .feature-03-background {
-      height: 600px;
-    }
-
-    .feature-04-background {
-      //height: 700px;
     }
 
     .container-feature-fixed-width {
       flex-direction: column;
       justify-content: flex-start;
+      margin-bottom: 0;
+      margin-top: 100px;
 
       &.reverse {
         flex-direction: column-reverse;
@@ -1310,17 +1306,12 @@ p.icon-text {
     }
 
     .container-feature-fixed-width-bottom {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 50px;
-      margin-top: 100px; //
-      border: 1px solid snow;
+      margin-bottom: 80px;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
     }
 
     .container-feature-margin-left {
@@ -1342,7 +1333,6 @@ p.icon-text {
       position: relative;
       width: 100%;
       background-color: $darkgrey;
-      //top: -12vw;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1368,7 +1358,7 @@ p.icon-text {
 
           .howitworks-number {
             width: auto;
-            height: 50px; //
+            height: 50px;
           }
         }
 
@@ -1385,19 +1375,19 @@ p.icon-text {
           }
 
           .howitworks-main-text {
-            width: 144px; //
+            width: 144px;
             margin-top: 7px;
             text-align: center;
           }
 
           .underline {
-            border-bottom: 3px solid $orange; //
-            height: 43px; //
+            border-bottom: 3px solid $orange;
+            height: 43px;
           }
 
           .howitworks-icon {
             width: auto;
-            height: 100px; //
+            height: 100px;
 
             &.main-icon {
               height: 128px;
@@ -1405,7 +1395,7 @@ p.icon-text {
           }
 
           .howitworks-text {
-            width: 120px; //
+            width: 120px;
             margin-top: 8px;
             text-align: center;
           }
@@ -1415,32 +1405,10 @@ p.icon-text {
 
     .bottom-section {
       height: 1000px;
-
-      .container-fixed-width-bottom {
-        .container-margin-bottom {
-        }
-      }
     }
 
     .bottom-cta {
       height: 120px;
-    }
-
-    .mail-wrapper {
-    }
-
-    .mail-wrapper-inner {
-      .mail-icon {
-      }
-
-      .mail-text {
-      }
-
-      .mail-input {
-      }
-
-      input[type="email"] {
-      }
     }
   }
 }
@@ -1496,59 +1464,89 @@ p.icon-text {
 
     .feature-01-background {
       .container-feature-fixed-width-top {
-        top: 70;
+        margin-top: 30px;
       }
     }
 
-    .feature-02-background {
-      height: 530px;
-    }
-
-    .feature-03-background {
-      height: 530px;
-    }
-
-    .feature-04-background {
-      //height: 530px;
-    }
-
-    .container-feature-margin-left {
-      margin: 20px 30px 0 30px;
-    }
-
-    .container-feature-margin-right {
-      margin: 10px 30px 0 30px;
+    .container-feature-fixed-width {
+      margin-top: 70px;
     }
 
     .container-feature-fixed-width-bottom {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 50px;
-      margin-top: 100px; //
-      border: 1px solid snow;
+      margin-bottom: 70px;
+      margin-top: 70px;
     }
 
     .howitworks-wrapper {
-      .howitworks-icon-wrapper {
-        .howitworks-main-icon {
+      position: relative;
+      width: 100%;
+      background-color: $darkgrey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .howitworks-wrapper-inner {
+        width: 100%;
+        max-width: 1000px;
+        min-height: 350px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 30px;
+
+        .howitworks-number-wrapper {
+          height: 214px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: flex-start;
+
+          .howitworks-number {
+            width: auto;
+            height: 50px;
+          }
         }
 
-        .howitworks-icon {
-        }
+        .howitworks-icon-wrapper {
+          height: 100%;
+          width: min-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: baseline;
 
-        .howitworks-main-text {
-        }
+          &:first-child {
+            height: 214px;
+          }
 
-        .howitworks-text {
-        }
+          .howitworks-main-text {
+            width: 144px;
+            margin-top: 7px;
+            text-align: center;
+          }
 
-        .underline {
+          .underline {
+            border-bottom: 3px solid $orange;
+            height: 43px;
+          }
+
+          .howitworks-icon {
+            width: auto;
+            height: 100px;
+
+            &.main-icon {
+              height: 128px;
+            }
+          }
+
+          .howitworks-text {
+            width: 120px;
+            margin-top: 8px;
+            text-align: center;
+          }
         }
       }
     }
@@ -1562,9 +1560,24 @@ p.icon-text {
     }
 
     .mail-wrapper {
+      position: relative;
+      height: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mail-wrapper-inner {
+      width: 100%;
+      max-width: 1000px;
+      height: fit-content;
+      display: flex;
+      flex-direction: row;
+      justify-content: center; //
+      align-items: center;
+      flex-wrap: wrap;
+
       .mail-icon {
         font-size: 1.2rem;
         margin: 0 7px 1px 0;
@@ -1577,29 +1590,20 @@ p.icon-text {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-right: 0;
+        padding-right: 0; //
       }
 
       .mail-input {
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        height: fit-content;
-        max-width: 250px;
+        flex-wrap: wrap; //
+        height: fit-content; //
+        justify-content: center; //
       }
 
       input[type="email"] {
-        width: 250px;
-        height: 50px;
-        text-align: center;
-        font-size: 0.9rem;
-        padding: 0; //
-        opacity: 1;
-        color: $grey;
-        background-color: $greyblack;
-        border: none;
-        outline: none;
+        width: 250px; //
+        text-align: center; //
+        padding: 0 5px 0 5px; //
       }
     }
   }
@@ -1657,41 +1661,26 @@ p.icon-text {
     }
 
     .feature-01-background {
-      height: 350px;
-
       .container-feature-fixed-width-top {
-        top: 0;
+        margin-top: 25px;
       }
     }
 
-    .feature-02-background {
-      height: 400px;
-    }
-
-    .feature-03-background {
-      height: 400px;
-    }
-
-    .feature-04-background {
-      //height: 450px;
-    }
-
     .container-feature-fixed-width {
-      top: 30px;
+      margin-top: 50px;
+
+      &.reverse {
+      }
     }
 
     .container-feature-fixed-width-bottom {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 50px;
-      margin-top: 100px; //
-      border: 1px solid snow;
+      margin-bottom: 60px;
+      margin-top: 55px;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
     }
 
     .howitworks-wrapper {
@@ -1722,19 +1711,49 @@ p.icon-text {
     }
 
     .mail-wrapper {
+      position: relative;
+      height: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .mail-wrapper-inner {
+      width: 100%;
+      max-width: 1000px;
+      height: fit-content;
+      display: flex;
+      flex-direction: row;
+      justify-content: center; //
+      align-items: center;
+      flex-wrap: wrap;
+
       .mail-icon {
+        font-size: 1.2rem;
+        margin: 0 7px 1px 0;
+        color: $grey;
       }
 
       .mail-text {
+        max-width: 400px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-right: 10px;
       }
 
       .mail-input {
+        display: flex;
+        flex-wrap: wrap; //
+        height: fit-content; //
       }
 
       input[type="email"] {
+        width: 250px; //
+        text-align: center; //
+        padding: 0 5px 0 5px; //
       }
     }
   }
