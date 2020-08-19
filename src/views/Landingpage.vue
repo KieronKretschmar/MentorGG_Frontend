@@ -976,7 +976,7 @@ p.icon-text {
       height: 50px;
       text-align: left;
       font-size: 0.9rem;
-      padding: 0 5px 0 40px;
+      padding: 0 5px 0 39px;
       opacity: 1;
       color: $grey;
       background-color: $greyblack;
@@ -1039,7 +1039,7 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 160px;
+      height: 150px;
     }
   }
 }
@@ -1144,7 +1144,7 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 140px;
+      height: 135px;
     }
 
     .mail-wrapper {
@@ -1399,14 +1399,7 @@ p.icon-text {
     }
 
     .mail-wrapper-inner {
-      width: 100%;
-      max-width: 1000px;
-      height: fit-content;
-      display: flex;
-      flex-direction: row;
-      justify-content: center; //
-      align-items: center;
-      flex-wrap: wrap;
+      justify-content: center;
 
       .mail-icon {
         font-size: 1.2rem;
@@ -1415,25 +1408,19 @@ p.icon-text {
       }
 
       .mail-text {
-        max-width: 400px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-right: 0; //
+        padding-right: 0;
       }
 
       .mail-input {
-        display: flex;
-        flex-wrap: wrap; //
-        height: fit-content; //
-        justify-content: center; //
+        flex-wrap: wrap;
+        height: fit-content;
+        justify-content: center;
       }
 
       input[type="email"] {
-        width: 250px; //
-        text-align: center; //
-        padding: 0 5px 0 5px; //
+        width: 250px;
+        text-align: center;
+        padding: 0 5px 0 5px;
       }
     }
   }
@@ -1558,49 +1545,29 @@ p.icon-text {
     }
 
     .mail-wrapper {
-      position: relative;
-      height: auto;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .mail-wrapper-inner {
-      width: 100%;
-      max-width: 1000px;
-      height: fit-content;
-      display: flex;
-      flex-direction: row;
-      justify-content: center; //
-      align-items: center;
-      flex-wrap: wrap;
+      justify-content: center;
 
       .mail-icon {
-        font-size: 1.2rem;
-        margin: 0 7px 1px 0;
-        color: $grey;
+        font-size: 1.1rem;
+        margin: 0 7px -1px 0;
       }
 
       .mail-text {
-        max-width: 400px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding-right: 10px;
+        padding-right: 0;
       }
 
       .mail-input {
-        display: flex;
-        flex-wrap: wrap; //
-        height: fit-content; //
+        flex-wrap: wrap;
+        height: fit-content;
       }
 
       input[type="email"] {
-        width: 250px; //
-        text-align: center; //
-        padding: 0 5px 0 5px; //
+        width: 250px;
+        text-align: center;
+        padding: 0 5px 0 5px;
       }
     }
   }
