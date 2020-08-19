@@ -673,7 +673,7 @@ p.icon-text {
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 50px;
-    margin-top: 200px;
+    margin-top: 170px;
   }
 
   .container-feature-fixed-width-third {
@@ -686,7 +686,7 @@ p.icon-text {
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 100px;
-    margin-top: 200px;
+    margin-top: 170px;
   }
 
   .container-feature-fixed-width-fourth {
@@ -699,7 +699,7 @@ p.icon-text {
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 100px;
-    margin-top: 200px;
+    margin-top: 170px;
   }
 
   .container-feature-margin-left {
@@ -1091,15 +1091,15 @@ p.icon-text {
     }
 
     .container-feature-fixed-width-second {
-      margin-top: 100px;
+      margin-top: 90px;
     }
 
     .container-feature-fixed-width-third {
-      margin-top: 100px;
+      margin-top: 90px;
     }
 
     .container-feature-fixed-width-fourth {
-      margin-top: 100px;
+      margin-top: 90px;
     }
 
     .howitworks-wrapper {
@@ -1207,13 +1207,13 @@ p.icon-text {
     .feature-01-background {
       .container-feature-fixed-width-first {
         flex-direction: column;
+        margin-top: 40px;
       }
     }
 
     .container-feature-fixed-width-second {
       flex-direction: column;
       justify-content: flex-start;
-      margin-top: 100px;
       margin-bottom: 0;
 
       &.reverse {
@@ -1225,7 +1225,6 @@ p.icon-text {
     .container-feature-fixed-width-third {
       flex-direction: column;
       justify-content: flex-start;
-      margin-top: 100px;
       margin-bottom: 0;
 
       &.reverse {
@@ -1479,26 +1478,26 @@ p.icon-text {
 
     .feature-01-background {
       .container-feature-fixed-width-first {
-        margin-top: 25px;
+        margin-top: 10px;
       }
     }
 
     .container-feature-fixed-width-second {
-      margin-top: 46px;
+      margin-top: 26px;
 
       &.reverse {
       }
     }
 
     .container-feature-fixed-width-third {
-      margin-top: 46px;
+      margin-top: 26px;
 
       &.reverse {
       }
     }
 
     .container-feature-fixed-width-fourth {
-      margin-top: 46px;
+      margin-top: 26px;
       margin-bottom: 46px;
 
       &.reverse {
