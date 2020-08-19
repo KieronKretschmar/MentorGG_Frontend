@@ -594,17 +594,21 @@ p.icon-text {
     }
   }
 
+  @mixin feature-background {
+    position: relative;
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+  }
+
   .feature-01-background {
     display: flex;
     background-color: $greyblack;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
 
     .container-feature-fixed-width-first {
-      position: relative;
-      width: 100%;
-      max-width: 1220px;
-      margin: 0 auto;
-      display: flex;
+      @include feature-background;
       flex-direction: row;
       justify-content: space-between;
       margin-top: 300px;
@@ -664,12 +668,7 @@ p.icon-text {
   }
 
   .container-feature-fixed-width-second {
-    position: relative;
-    width: 100%;
-    max-width: 1220px;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
+    @include feature-background;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 50px;
@@ -677,12 +676,7 @@ p.icon-text {
   }
 
   .container-feature-fixed-width-third {
-    position: relative;
-    width: 100%;
-    max-width: 1220px;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
+    @include feature-background;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 100px;
@@ -690,12 +684,7 @@ p.icon-text {
   }
 
   .container-feature-fixed-width-fourth {
-    position: relative;
-    width: 100%;
-    max-width: 1220px;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
+    @include feature-background;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 100px;
