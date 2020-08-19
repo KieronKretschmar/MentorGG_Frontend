@@ -1508,12 +1508,14 @@ p.icon-text {
 
     .howitworks-wrapper {
       .howitworks-wrapper-inner {
+        margin: 20px;
         .howitworks-number-wrapper {
           .howitworks-number {
           }
         }
 
         .howitworks-icon-wrapper {
+          margin: 15px 30px;
           &:first-child {
           }
 
