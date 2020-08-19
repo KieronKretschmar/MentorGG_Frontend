@@ -235,14 +235,7 @@
         <div class="container-margin-bottom">
           <div class="video-wrapper">
             <div class="video-container">
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/edYCtaNueQY"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/NicjsJ9-WLA?start=29" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
 
