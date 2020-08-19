@@ -1426,7 +1426,7 @@ p.icon-text {
   }
 
   h3 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
   h5 {
@@ -1506,17 +1506,21 @@ p.icon-text {
         .howitworks-icon-wrapper {
           margin: 15px 30px;
           &:first-child {
+            margin: 15px 30px 20px 30px;
           }
 
           .howitworks-main-text {
+            width: 108px;
           }
 
           .underline {
-            height: 37px;
+            border-bottom: 3px solid $orange;
+            height: 32px;
           }
 
           .howitworks-icon {
             &.main-icon {
+              height: 110px;
             }
           }
 
