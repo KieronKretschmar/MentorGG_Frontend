@@ -235,7 +235,14 @@
         <div class="container-margin-bottom">
           <div class="video-wrapper">
             <div class="video-container">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/NicjsJ9-WLA?start=29" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/NicjsJ9-WLA?start=29"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
 
@@ -589,10 +596,10 @@ p.icon-text {
 
   @mixin feature-background {
     position: relative;
-      width: 100%;
-      max-width: 1220px;
-      margin: 0 auto;
-      display: flex;
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    display: flex;
   }
 
   .feature-01-background {
@@ -1339,6 +1346,41 @@ p.icon-text {
       max-width: 70%;
     }
 
+    .howitworks-wrapper {
+      .howitworks-wrapper-inner {
+        margin: 20px;
+        .howitworks-number-wrapper {
+          .howitworks-number {
+          }
+        }
+
+        .howitworks-icon-wrapper {
+          flex: 1 100%;
+          &:first-child {
+            margin: 15px 30px 20px 30px;
+          }
+
+          .howitworks-main-text {
+            width: 125px;
+          }
+
+          .underline {
+            border-bottom: 3px solid $orange;
+            height: 36px;
+          }
+
+          .howitworks-icon {
+            &.main-icon {
+              height: 110px;
+            }
+          }
+
+          .howitworks-text {
+          }
+        }
+      }
+    }
+
     .button-wrapper {
       display: none;
     }
@@ -1490,7 +1532,6 @@ p.icon-text {
 
     .howitworks-wrapper {
       .howitworks-wrapper-inner {
-        margin: 20px;
         .howitworks-number-wrapper {
           .howitworks-number {
           }
@@ -1499,7 +1540,6 @@ p.icon-text {
         .howitworks-icon-wrapper {
           margin: 15px 30px;
           &:first-child {
-            margin: 15px 30px 20px 30px;
           }
 
           .howitworks-main-text {
@@ -1507,13 +1547,11 @@ p.icon-text {
           }
 
           .underline {
-            border-bottom: 3px solid $orange;
             height: 32px;
           }
 
           .howitworks-icon {
             &.main-icon {
-              height: 110px;
             }
           }
 
