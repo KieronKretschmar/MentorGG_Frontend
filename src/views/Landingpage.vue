@@ -1277,7 +1277,7 @@ p.icon-text {
           }
 
           .howitworks-main-text {
-            width: 125px;
+            width: 126px;
             margin-top: 10px;
           }
 
