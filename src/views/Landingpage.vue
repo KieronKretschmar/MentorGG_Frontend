@@ -1466,6 +1466,10 @@ p.icon-text {
 
   h5 {
     font-size: 0.858rem;
+
+    &.subtitle {
+      text-align: center;
+    }
   }
 
   p {
@@ -1493,11 +1497,11 @@ p.icon-text {
 
     .hero-wrapper-inner {
       height: 110px;
-      margin: 75px 0 0 0;
+      margin: 85px 0 0 0;
     }
 
     .hero-title {
-      max-width: 250px;
+      max-width: 100%;
     }
 
     .feature-01-background {
