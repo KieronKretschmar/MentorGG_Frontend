@@ -7,7 +7,7 @@
           <div class="container-nav">
             <img src="@/assets/mentor-logo.svg" class="mentor-logo" />
             <nav>
-              <ul>
+              <ul class="navigation">
                 <li>
                   <a href="#">PRICING</a>
                 </li>
@@ -20,6 +20,27 @@
                 <i class="material-icons">exit_to_app</i>
               </ul>
             </nav>
+          </div>
+
+          <div class="mobile-nav-wrapper">
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" class="toggle">
+              <span class="line"></span>
+              <span class="line"></span>
+            </label>
+            <div class="mobile-nav-inner-wrapper">
+              <ul class="mobile-navigation">
+                <li>
+                  <a href="#">PRICING</a>
+                </li>
+                <li>
+                  <a href="#">FAQ</a>
+                </li>
+                <li>
+                  <a href="#">LOGIN</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="hero-wrapper">
@@ -329,6 +350,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+        /* Mobile nav */
+        input#toggle, ul.mobile-navigation {
+          display: none;
+        }
+
+        ul.mobile-navigation {
+          transform: translateY(0);
+        } /* Mobile nav end*/
+
+
 $offwhite: #fbfbfb;
 $orange: #ff4800;
 $grey: #dedede;
@@ -1302,6 +1335,86 @@ p.icon-text {
 }
 
 @media (max-width: 660px) {
+  // mobile nav
+  .mobile-nav-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    min-width: 100vw;
+    height: min-content;
+    top: 0;
+    right: 0;
+  }
+
+  label.toggle {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    z-index: 99999;
+    align-self: flex-end;
+    margin: 15px;
+  }
+
+  .line {
+    position: absolute;
+    height: 3px;
+    width: 25px;
+    background: $offwhite;
+    border-radius: 0px;
+    display: block;
+    transition: 0.2s;
+    transform-origin: center;
+  }
+
+  .line:nth-child(1) {
+    top: 11px;
+    transform: rotate(90deg);
+  }
+  .line:nth-child(2) {
+    top: 11px;
+  }
+
+  #toggle:checked + .toggle .line:nth-child(1) {
+    transform: translateY(0) rotate(-45deg);
+  }
+
+  #toggle:checked + .toggle .line:nth-child(2) {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  #toggle:checked ~ .mobile-nav-inner-wrapper {
+    transform: translateY(100px);
+  }
+
+  ul.mobile-navigation {
+    height: 180px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: #313131;
+
+    a {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin: 15px 0;
+      width: fit-content;
+      height: fit-content;
+      color: $offwhite;
+    }
+
+    .material-icons {
+      font-size: 1.1rem;
+      margin: 0 0 0 4px;
+      color: $orange;
+    }
+  }
+
+  // mobile nav end
+
   p.small {
     font-size: 0.8rem;
   }
