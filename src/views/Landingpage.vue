@@ -350,17 +350,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* Mobile nav */
+input#toggle,
+ul.mobile-navigation {
+  display: none;
+}
 
-
-        /* Mobile nav */
-        input#toggle, ul.mobile-navigation {
-          display: none;
-        }
-
-        ul.mobile-navigation {
-          transform: translateY(0);
-        } /* Mobile nav end*/
-
+.mobile-nav-inner-wrapper {
+  transform: translateY(-236px);
+} /**/
 
 $offwhite: #fbfbfb;
 $orange: #ff4800;
@@ -1344,76 +1342,79 @@ p.icon-text {
     height: min-content;
     top: 0;
     right: 0;
-  }
 
-  label.toggle {
-    display: block;
-    width: 25px;
-    height: 25px;
-    position: relative;
-    z-index: 99999;
-    align-self: flex-end;
-    margin: 15px;
-  }
-
-  .line {
-    position: absolute;
-    height: 3px;
-    width: 25px;
-    background: $offwhite;
-    border-radius: 0px;
-    display: block;
-    transition: 0.2s;
-    transform-origin: center;
-  }
-
-  .line:nth-child(1) {
-    top: 11px;
-    transform: rotate(90deg);
-  }
-  .line:nth-child(2) {
-    top: 11px;
-  }
-
-  #toggle:checked + .toggle .line:nth-child(1) {
-    transform: translateY(0) rotate(-45deg);
-  }
-
-  #toggle:checked + .toggle .line:nth-child(2) {
-    transform: translateY(0) rotate(45deg);
-  }
-
-  #toggle:checked ~ .mobile-nav-inner-wrapper {
-    transform: translateY(100px);
-  }
-
-  ul.mobile-navigation {
-    height: 180px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    background-color: #313131;
-
-    a {
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin: 15px 0;
-      width: fit-content;
-      height: fit-content;
-      color: $offwhite;
+    label.toggle {
+      display: block;
+      width: 25px;
+      height: 25px;
+      position: relative;
+      z-index: 99999;
+      align-self: flex-end;
+      margin: 15px;
     }
 
-    .material-icons {
-      font-size: 1.1rem;
-      margin: 0 0 0 4px;
-      color: $orange;
+    .line {
+      position: absolute;
+      height: 3px;
+      width: 25px;
+      background: $offwhite;
+      border-radius: 0px;
+      display: block;
+      transition: 0.2s;
+      transform-origin: center;
+    }
+
+    .line:nth-child(1) {
+      top: 11px;
+      transform: rotate(90deg);
+    }
+    .line:nth-child(2) {
+      top: 11px;
+    }
+
+    #toggle:checked + .toggle .line:nth-child(1) {
+      transform: translateY(0) rotate(-45deg);
+    }
+
+    #toggle:checked + .toggle .line:nth-child(2) {
+      transform: translateY(0) rotate(45deg);
+    }
+
+    #toggle:checked ~ .mobile-nav-inner-wrapper {
+      transform: translateY(-55px);
+    }
+
+    .mobile-nav-inner-wrapper {
+
+      ul.mobile-navigation {
+        height: 180px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 15px;
+        background-color: #313131;
+
+        a {
+          font-size: 0.9rem;
+          font-weight: 700;
+          text-decoration: none;
+          margin: 15px 0;
+          width: fit-content;
+          height: fit-content;
+          color: $offwhite;
+        }
+
+        .material-icons {
+          font-size: 1.1rem;
+          margin: 0 0 0 4px;
+          color: $orange;
+        }
+      }
     }
   }
-
-  // mobile nav end
+// mobile nav end
 
   p.small {
     font-size: 0.8rem;
