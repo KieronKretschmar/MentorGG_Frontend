@@ -350,7 +350,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Mobile nav */
+// Mobile nav
 input#toggle,
 ul.mobile-navigation {
   display: none;
@@ -358,7 +358,7 @@ ul.mobile-navigation {
 
 .mobile-nav-inner-wrapper {
   transform: translateY(-236px);
-} /**/
+} //
 
 $offwhite: #fbfbfb;
 $orange: #ff4800;
@@ -1333,7 +1333,7 @@ p.icon-text {
 }
 
 @media (max-width: 660px) {
-  // mobile nav
+  // Mobile nav
   .mobile-nav-wrapper {
     display: flex;
     flex-direction: column;
@@ -1413,8 +1413,7 @@ p.icon-text {
         }
       }
     }
-  }
-// mobile nav end
+  } //
 
   p.small {
     font-size: 0.8rem;
