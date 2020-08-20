@@ -1502,6 +1502,7 @@ p.icon-text {
 
     .hero-title {
       max-width: 100%;
+      margin-bottom: 4px;
     }
 
     .feature-01-background {
