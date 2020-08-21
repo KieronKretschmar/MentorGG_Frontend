@@ -354,6 +354,7 @@ export default {
 input#toggle,
 ul.mobile-navigation {
   display: none;
+  pointer-events: none;
 }
 
 .mobile-nav-inner-wrapper {
@@ -1398,6 +1399,8 @@ p.icon-text {
         margin: 25px 0 0 0;
         padding: 0;
         background-color: #313131;
+        
+        pointer-events: auto;
 
         a {
           font-size: 0.9rem;
@@ -1721,20 +1724,20 @@ p.icon-text {
 
 @media (max-width: 280px) {
   h5 {
-    font-size: 0.7rem; //
+    font-size: 0.7rem;
   }
 
   p {
-    font-size: 0.8rem; //
+    font-size: 0.8rem;
   }
 
   p.small {
-    font-size: 0.7rem; //
+    font-size: 0.7rem;
   }
 
   .full-width-container {
     .hero-title {
-      margin-bottom: 2px; //
+      margin-bottom: 2px;
     }
 
     .bottom-section {
