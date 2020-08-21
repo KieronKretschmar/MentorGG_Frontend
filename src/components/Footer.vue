@@ -163,25 +163,32 @@ footer {
     .footer-wrapper {
       .footer-container-margin {
         .mentor-logo-wrapper {
+          min-height: 55px;
           .mentor-logo-white {
+            margin-top: 0;
+            height: 30px;
           }
 
           .copyright-text {
+            font-size: 0.75rem;
           }
         }
 
         .social-icon-wrapper {
+          width: 155px;
           .social-icon {
-            height: 30px;
+            height: 25px;
           }
 
           .twitter {
-            height: 28px;
+            height: 23px;
           }
         }
 
         .footer-links {
+          min-height: 60px;
           a.link {
+            font-size: 0.8em;
           }
         }
       }

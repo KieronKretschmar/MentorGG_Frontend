@@ -1718,4 +1718,44 @@ p.icon-text {
     }
   }
 }
+
+@media (max-width: 280px) {
+  h5 {
+    font-size: 0.7rem; //
+  }
+
+  p {
+    font-size: 0.8rem; //
+  }
+
+  p.small {
+    font-size: 0.7rem; //
+  }
+
+  .full-width-container {
+    .hero-title {
+      margin-bottom: 2px; //
+    }
+
+    .bottom-section {
+      .container-fixed-width-bottom {
+      .container-margin-bottom {
+        margin: 0 15px;
+        .video-wrapper {
+          .video-container {
+            iframe {
+            }
+          }
+        }
+      }
+    }
+    }
+
+    .mail-wrapper-inner {
+      .mail-text {
+        height: 35px;
+      }
+    }
+  }
+}
 </style>
