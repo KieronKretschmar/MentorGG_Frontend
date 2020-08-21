@@ -358,6 +358,7 @@ ul.mobile-navigation {
 
 .mobile-nav-inner-wrapper {
   transform: translateY(-236px);
+  transition-duration: 0.5s;
 } //
 
 $offwhite: #fbfbfb;
