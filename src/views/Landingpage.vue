@@ -1399,7 +1399,7 @@ p.icon-text {
         margin: 25px 0 0 0;
         padding: 0;
         background-color: #313131;
-        
+
         pointer-events: auto;
 
         a {
@@ -1576,7 +1576,7 @@ p.icon-text {
 
   h2 {
     font-size: 0.9rem;
-    margin: 0.15rem 0;
+    margin: 0.15rem 0 0 0;
   }
 
   h3 {
