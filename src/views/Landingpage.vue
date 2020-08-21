@@ -1340,7 +1340,7 @@ p.icon-text {
     flex-direction: column;
     position: absolute;
     min-width: 100vw;
-    height: min-content;
+    max-height: 233px;
     top: 0;
     right: 0;
 
@@ -1386,7 +1386,8 @@ p.icon-text {
     }
 
     .mobile-nav-inner-wrapper {
-
+        top: 0;
+        right: 0;
       ul.mobile-navigation {
         height: 233px;
         list-style: none;
@@ -1394,8 +1395,8 @@ p.icon-text {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 0;
-        padding: 30px;
+        margin: 25px 0 0 0;
+        padding: 0;
         background-color: #313131;
 
         a {
