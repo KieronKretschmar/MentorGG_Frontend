@@ -119,6 +119,7 @@
           <p>Watch your and your team’s latest</p>
           <p>plays highlights and misplays.</p>
         </div>
+
         <div class="container-feature-image">
           <img
             src="@/assets/misplays.jpg"
@@ -129,7 +130,7 @@
       </div>
     </div>
 
-    <div class="feature-02-background">
+    <div class="feature-02-background section">
       <div class="container-feature-fixed-width-second reverse">
         <div class="container-feature-image">
           <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
@@ -143,7 +144,7 @@
       </div>
     </div>
 
-    <div class="feature-03-background">
+    <div class="feature-03-background section">
       <div class="container-feature-fixed-width-third">
         <div class="container-feature-margin-left">
           <h1>CORE FEATURE 03</h1>
@@ -158,7 +159,7 @@
       </div>
     </div>
 
-    <div class="feature-04-background">
+    <div class="feature-04-background section">
       <div class="container-feature-fixed-width-fourth reverse">
         <div class="container-feature-image">
           <img
@@ -347,9 +348,33 @@ export default {
     }
   },
 };
+
+$(document).on("scroll", function () {
+  let pageTop = $(document).scrollTop();
+  let pageBottom = pageTop + $(window).height();
+  let tags = $(".section");
+
+  for (let i = 0; i < tags.length; i++) {
+    let tag = tags[i];
+
+    if ($(tag).position().top < pageBottom) {
+      $(tag).addClass("slideup");
+    }
+  }
+});
 </script>
 
 <style lang="scss" scoped>
+// Slide-up animation
+.section {
+  transform: translateY(0);
+  transition: all 0.5s;
+}
+
+.slideup {
+  transform: translateY(-40px);
+} //
+
 // Mobile nav
 input#toggle,
 ul.mobile-navigation {
@@ -675,7 +700,7 @@ p.icon-text {
     position: relative;
     background-color: $greyblack;
     clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
-    margin-top: -12vw;
+    margin-top: -16vw; //
   }
 
   .feature-04-background {
@@ -697,7 +722,9 @@ p.icon-text {
       #1d1d25
     );
     clip-path: polygon(0 0, 100% 6vw, 100% 100%, 0 100%);
-    margin-top: -18vw;
+    margin-top: -18vw; //
+
+    margin-bottom: -50px; // For Slide-up animation
   }
 
   .container-feature-fixed-width-second {
@@ -1329,7 +1356,7 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 120px;
+      height: 115px;
     }
   }
 }
@@ -1387,8 +1414,8 @@ p.icon-text {
     }
 
     .mobile-nav-inner-wrapper {
-        top: 0;
-        right: 0;
+      top: 0;
+      right: 0;
       ul.mobile-navigation {
         height: 233px;
         list-style: none;
@@ -1528,7 +1555,7 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 135px;
+      height: 120px;
     }
 
     .mail-wrapper {
@@ -1615,13 +1642,13 @@ p.icon-text {
     }
 
     .hero-wrapper-inner {
+      text-align: center;
       height: 110px;
       margin: 85px 0 0 0;
     }
 
     .hero-title {
-      max-width: 100%;
-      margin-bottom: 4px;
+      min-width: 250px;
     }
 
     .feature-01-background {
@@ -1686,7 +1713,7 @@ p.icon-text {
     }
 
     .bottom-section {
-      height: 650px;
+      height: 700px;
     }
 
     .bottom-cta {
@@ -1722,7 +1749,29 @@ p.icon-text {
   }
 }
 
+@media (max-width: 380px) {
+  // Slide-up animation
+  .section {
+    transform: translateY(0);
+    transition: all 0.5s;
+  }
+
+  .slideup {
+    transform: translateY(-30px);
+  } //
+}
+
 @media (max-width: 280px) {
+  // Slide-up animation
+  .section {
+    transform: translateY(0);
+    transition: all 0.5s;
+  }
+
+  .slideup {
+    transform: translateY(-25px);
+  } //
+
   h5 {
     font-size: 0.7rem;
   }
@@ -1736,22 +1785,26 @@ p.icon-text {
   }
 
   .full-width-container {
+    .hero-wrapper-inner {
+    }
+
     .hero-title {
+      min-width: 100%;
       margin-bottom: 2px;
     }
 
     .bottom-section {
       .container-fixed-width-bottom {
-      .container-margin-bottom {
-        margin: 0 15px;
-        .video-wrapper {
-          .video-container {
-            iframe {
+        .container-margin-bottom {
+          margin: 0 15px;
+          .video-wrapper {
+            .video-container {
+              iframe {
+              }
             }
           }
         }
       }
-    }
     }
 
     .mail-wrapper-inner {
