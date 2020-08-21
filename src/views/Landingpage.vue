@@ -357,7 +357,7 @@ ul.mobile-navigation {
 }
 
 .mobile-nav-inner-wrapper {
-  transform: translateY(-236px);
+  transform: translateY(-288px);
   transition-duration: 0.5s;
 } //
 
@@ -1388,13 +1388,14 @@ p.icon-text {
     .mobile-nav-inner-wrapper {
 
       ul.mobile-navigation {
-        height: 180px;
+        height: 233px;
         list-style: none;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         margin: 0;
-        padding: 15px;
+        padding: 30px;
         background-color: #313131;
 
         a {
