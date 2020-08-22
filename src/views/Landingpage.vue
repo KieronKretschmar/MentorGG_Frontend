@@ -61,50 +61,50 @@
       </div>
     </header>
 
-    <div class="counter-wrapper">
+    <div class="counter-wrapper numbers">
       <div class="counter">
         <div class="counter-icon-wrapper">
           <div>
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4>8546</h4>
+            <h4 class="value">8546</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
       </div>
 
       <div class="counter">
-        <div class="counter-icon-wrapper">
+        <div class="counter-icon-wrapper numbers">
           <div>
             <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
           </div>
           <div class="counter-text">
-            <h4>5356</h4>
+            <h4 class="value">5356</h4>
             <p class="icon-text">MISPLAYS DETECTED</p>
           </div>
         </div>
       </div>
 
       <div class="counter">
-        <div class="counter-icon-wrapper">
+        <div class="counter-icon-wrapper numbers">
           <div>
             <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
           </div>
           <div class="counter-text">
-            <h4>6231</h4>
+            <h4 class="value">6231</h4>
             <p class="icon-text">HIGHLIGHTS DETECTED</p>
           </div>
         </div>
       </div>
 
       <div class="counter cut">
-        <div class="counter-icon-wrapper">
+        <div class="counter-icon-wrapper numbers">
           <div>
             <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
           </div>
           <div class="counter-text">
-            <h4>7643</h4>
+            <h4 class="value">7643</h4>
             <p class="icon-text">RANK UPS</p>
           </div>
         </div>
@@ -323,6 +323,8 @@
 </template>
 
 <script>
+
+/* Tesimonial slider
 export default {
   mounted() {
     let slideIndex = 0;
@@ -347,8 +349,9 @@ export default {
       setTimeout(showTestimonials, 5000);
     }
   },
-};
+}; */
 
+// Slide-up animation
 $(document).on("scroll", function () {
   let pageTop = $(document).scrollTop();
   let pageBottom = pageTop + $(window).height();
@@ -362,6 +365,37 @@ $(document).on("scroll", function () {
     }
   }
 });
+
+// Counter animation
+$(window).scroll(scrollUp);
+let viewed = false;
+
+function isScrolledIntoView(elem) {
+    let viewTop = $(window).scrollTop();
+    let viewBottom = viewTop + $(window).height();
+
+    let elemTop = $(elem).offset().top;
+    let elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= viewBottom) && (elemTop >= viewTop));
+}
+
+function scrollUp() {
+  if (isScrolledIntoView($(".numbers")) && !viewed) {
+      viewed = true;
+      $('.value').each(function () {
+      $(this).prop('Counter',0).animate({
+          Counter: $(this).text()
+      }, {
+          duration: 4000,
+          easing: 'swing',
+          step: function (now) {
+              $(this).text(Math.ceil(now));
+          }
+      });
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
