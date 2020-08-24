@@ -299,7 +299,7 @@
           </div>-->
 
           <div class="bottom-cta">
-            <img src="@/assets/improveyourgame.svg" class="hero-title" />
+            <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
             <button class="button cta">SIGN IN THROUGH STEAM</button>
           </div>
 
@@ -1523,7 +1523,9 @@ p.icon-text {
     }
 
     .hero-title {
-      max-width: 70%;
+      &.title-small{
+        min-width: 100%;
+      } 
     }
 
     .howitworks-wrapper {
@@ -1589,7 +1591,9 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 120px;
+      height: 105px;
+      max-width: 250px;
+      margin: 0 auto;
     }
 
     .mail-wrapper {
@@ -1612,6 +1616,7 @@ p.icon-text {
 
       .mail-text {
         padding-right: 0;
+        height: 45px;
       }
 
       .mail-input {
@@ -1751,7 +1756,7 @@ p.icon-text {
     }
 
     .bottom-cta {
-      height: 100px;
+      height: 102px;
     }
 
     .mail-wrapper {
@@ -1839,6 +1844,10 @@ p.icon-text {
           }
         }
       }
+    }
+
+    .bottom-cta {
+      height: 100px;
     }
 
     .mail-wrapper-inner {
