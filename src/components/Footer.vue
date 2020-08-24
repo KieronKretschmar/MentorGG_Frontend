@@ -7,14 +7,14 @@
           <p class="copyright-text">© 2020 MENTOR.GG</p>
         </div>
         <div class="social-icon-wrapper">
-          <img class="social-icon" src="@/assets/discord.svg" />
-          <img class="social-icon twitter" src="@/assets/twitter.svg" />
-          <img class="social-icon" src="@/assets/reddit.svg" />
+          <a href="https://discord.gg/X29FEKG" target="_blank"><img class="social-icon" src="@/assets/discord.svg" /></a>
+          <a href="https://twitter.com/mentorgg" target="_blank"><img class="social-icon twitter" src="@/assets/twitter.svg" /></a>
+          <a href="https://reddit.com/r/mentorgg/" target="_blank"><img class="social-icon" src="@/assets/reddit.svg" /></a>
         </div>
         <div class="footer-links">
-          <a href="#" class="link">About / Contact</a>
-          <a href="#" class="link">Terms &amp; Condition</a>
-          <a href="#" class="link">Privacy Policy</a>
+          <router-link to="/contact" class="link">About / Contact</router-link>
+          <router-link to="/terms-and-conditions" class="link">Terms &amp; Condition</router-link>
+          <router-link to="/privacy-policy" class="link">Privacy Policy</router-link>
         </div>
       </div>
     </div>
