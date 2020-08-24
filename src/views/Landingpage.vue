@@ -351,7 +351,7 @@ export default {
   },
 }; */
 
-// Slide-up animation
+// Slide-up animation jQuery
 $(document).on("scroll", function () {
   let pageTop = $(document).scrollTop();
   let pageBottom = pageTop + $(window).height();
@@ -366,7 +366,24 @@ $(document).on("scroll", function () {
   }
 });
 
-// Counter animation
+/* // Slide-up animation Vanilla JS
+document.addEventListener("scroll", function() ) {
+  let pageTop = document.pageYOffset;
+  let pageBottom = pageTop + window.innerHeight;
+  let tags = document.querySelector(".section");
+
+  let scrollPos = window.scollY; // Not sure if this works
+
+  for (let i = 0; i < tags.length; i++) {
+    let tag = tags[i];
+
+    if (tag.scrollPos < pageBottom) { // don't know how to translate this part into vanilla js
+      document.tag.classList.add("slideup"); //
+    }
+  }
+}; */
+
+/* // Counter animation jQuery -  should be "in viewport" instead of "onScoll"!!!
 $(window).scroll(scrollUp);
 let viewed = false;
 
@@ -395,7 +412,7 @@ function scrollUp() {
       });
     });
   }
-}
+} */
 </script>
 
 <style lang="scss" scoped>
