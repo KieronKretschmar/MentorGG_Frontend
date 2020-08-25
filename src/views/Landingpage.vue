@@ -68,7 +68,7 @@
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">8546</h4>
+            <h4 class="value">{{ counterNumber }}</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
@@ -130,7 +130,11 @@
       </div>
     </div>
 
-    <div class="feature-02-background section" ref="section-1" :class="{slideup: visibleSections['section-1']}">
+    <div
+      class="feature-02-background section"
+      ref="section-1"
+      :class="{slideup: visibleSections['section-1']}"
+    >
       <div class="container-feature-fixed-width-second reverse">
         <div class="container-feature-image">
           <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
@@ -144,7 +148,11 @@
       </div>
     </div>
 
-    <div class="feature-03-background section" ref="section-2" :class="{slideup: visibleSections['section-2']}">
+    <div
+      class="feature-03-background section"
+      ref="section-2"
+      :class="{slideup: visibleSections['section-2']}"
+    >
       <div class="container-feature-fixed-width-third">
         <div class="container-feature-margin-left">
           <h1>CORE FEATURE 03</h1>
@@ -159,7 +167,11 @@
       </div>
     </div>
 
-    <div class="feature-04-background section" ref="section-3" :class="{slideup: visibleSections['section-3']}">
+    <div
+      class="feature-04-background section"
+      ref="section-3"
+      :class="{slideup: visibleSections['section-3']}"
+    >
       <div class="container-feature-fixed-width-fourth reverse">
         <div class="container-feature-image">
           <img
@@ -327,7 +339,8 @@ export default {
   data() {
     return {
       visibleSections: {},
-      numSections: 3
+      numSections: 3,
+      counterNumber: "7463",
     };
   },
   mounted() {
@@ -335,23 +348,35 @@ export default {
       this.UpdateSectionFlags();
 
       if (this.IsInViewport(this.$refs.counterWrapper)) {
-        console.log('Counter is now in viewport!');
+        console.log("Counter is now in viewport!");
       }
     });
   },
   methods: {
     IsInViewport(ref) {
-      const {top, bottom} = ref.getBoundingClientRect();
-      const viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
+      const { top, bottom } = ref.getBoundingClientRect();
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
 
       return (top > 0 || bottom > 0) && top < viewportHeight;
     },
     UpdateSectionFlags() {
-      for (let idx = 1; idx != (this.numSections + 1); idx++) {
+      for (let idx = 1; idx != this.numSections + 1; idx++) {
         let key = `section-${idx}`;
-        this.$set(this.visibleSections, key, this.IsInViewport(this.$refs[key]));
+        this.$set(
+          this.visibleSections,
+          key,
+          this.IsInViewport(this.$refs[key])
+        );
       }
-    }
+    },
+  },
+  computed: {
+    // a computed getter
+    function() {
+      // `this` points to the vm instance
+      return this.counterNumber;
+    },
   },
 };
 
