@@ -68,7 +68,7 @@
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">{{ counterNumber }}</h4>
+            <h4 class="value">{{ count }}</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
@@ -340,15 +340,21 @@ export default {
     return {
       visibleSections: {},
       numSections: 3,
-      counterNumber: "7463",
+      count: "0",
+      currentNumber: "3464"
     };
   },
   mounted() {
     window.addEventListener("scroll", (e) => {
       this.UpdateSectionFlags();
-
       if (this.IsInViewport(this.$refs.counterWrapper)) {
-        console.log("Counter is now in viewport!");
+
+        setInterval(function() {
+          
+            return this.count;
+        
+        }, 4000);
+
       }
     });
   },
@@ -369,13 +375,6 @@ export default {
           this.IsInViewport(this.$refs[key])
         );
       }
-    },
-  },
-  computed: {
-    // a computed getter
-    function() {
-      // `this` points to the vm instance
-      return this.counterNumber;
     },
   },
 };
