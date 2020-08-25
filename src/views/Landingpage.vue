@@ -381,69 +381,6 @@ export default {
     }
   },
 }; */
-
-// Slide-up animation jQuery
-// $(document).on("scroll", function () {
-//   let pageTop = $(document).scrollTop();
-//   let pageBottom = pageTop + $(window).height();
-//   let tags = $(".section");
-
-//   for (let i = 0; i < tags.length; i++) {
-//     let tag = tags[i];
-
-//     if ($(tag).position().top < pageBottom) {
-//       $(tag).addClass("slideup");
-//     }
-//   }
-// });
-
-/* // Slide-up animation Vanilla JS
-document.addEventListener("scroll", function() ) {
-  let pageTop = document.pageYOffset;
-  let pageBottom = pageTop + window.innerHeight;
-  let tags = document.querySelector(".section");
-
-  let scrollPos = window.scollY; // Not sure if this works
-
-  for (let i = 0; i < tags.length; i++) {
-    let tag = tags[i];
-
-    if (tag.scrollPos < pageBottom) { // don't know how to translate this part into vanilla js
-      document.tag.classList.add("slideup"); //
-    }
-  }
-}; */
-
-/* // Counter animation jQuery -  should be "in viewport" instead of "onScoll"!!!
-$(window).scroll(scrollUp);
-let viewed = false;
-
-function isScrolledIntoView(elem) {
-    let viewTop = $(window).scrollTop();
-    let viewBottom = viewTop + $(window).height();
-
-    let elemTop = $(elem).offset().top;
-    let elemBottom = elemTop + $(elem).height();
-
-    return ((elemBottom <= viewBottom) && (elemTop >= viewTop));
-}
-
-function scrollUp() {
-  if (isScrolledIntoView($(".numbers")) && !viewed) {
-      viewed = true;
-      $('.value').each(function () {
-      $(this).prop('Counter',0).animate({
-          Counter: $(this).text()
-      }, {
-          duration: 4000,
-          easing: 'swing',
-          step: function (now) {
-              $(this).text(Math.ceil(now));
-          }
-      });
-    });
-  }
-} */
 </script>
 
 <style lang="scss" scoped>
