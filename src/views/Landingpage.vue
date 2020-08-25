@@ -61,7 +61,7 @@
       </div>
     </header>
 
-    <div class="counter-wrapper numbers">
+    <div class="counter-wrapper numbers" ref="counterWrapper">
       <div class="counter">
         <div class="counter-icon-wrapper">
           <div>
@@ -130,7 +130,7 @@
       </div>
     </div>
 
-    <div class="feature-02-background section">
+    <div class="feature-02-background section" ref="section-1" :class="{slideup: visibleSections['section-1']}">
       <div class="container-feature-fixed-width-second reverse">
         <div class="container-feature-image">
           <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <div class="feature-03-background section">
+    <div class="feature-03-background section" ref="section-2" :class="{slideup: visibleSections['section-2']}">
       <div class="container-feature-fixed-width-third">
         <div class="container-feature-margin-left">
           <h1>CORE FEATURE 03</h1>
@@ -159,7 +159,7 @@
       </div>
     </div>
 
-    <div class="feature-04-background section">
+    <div class="feature-04-background section" ref="section-3" :class="{slideup: visibleSections['section-3']}">
       <div class="container-feature-fixed-width-fourth reverse">
         <div class="container-feature-image">
           <img
@@ -323,6 +323,37 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      visibleSections: {},
+      numSections: 3
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", (e) => {
+      this.UpdateSectionFlags();
+
+      if (this.IsInViewport(this.$refs.counterWrapper)) {
+        console.log('Counter is now in viewport!');
+      }
+    });
+  },
+  methods: {
+    IsInViewport(ref) {
+      const {top, bottom} = ref.getBoundingClientRect();
+      const viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+      return (top > 0 || bottom > 0) && top < viewportHeight;
+    },
+    UpdateSectionFlags() {
+      for (let idx = 1; idx != (this.numSections + 1); idx++) {
+        let key = `section-${idx}`;
+        this.$set(this.visibleSections, key, this.IsInViewport(this.$refs[key]));
+      }
+    }
+  },
+};
 
 /* Tesimonial slider
 export default {
@@ -352,19 +383,19 @@ export default {
 }; */
 
 // Slide-up animation jQuery
-$(document).on("scroll", function () {
-  let pageTop = $(document).scrollTop();
-  let pageBottom = pageTop + $(window).height();
-  let tags = $(".section");
+// $(document).on("scroll", function () {
+//   let pageTop = $(document).scrollTop();
+//   let pageBottom = pageTop + $(window).height();
+//   let tags = $(".section");
 
-  for (let i = 0; i < tags.length; i++) {
-    let tag = tags[i];
+//   for (let i = 0; i < tags.length; i++) {
+//     let tag = tags[i];
 
-    if ($(tag).position().top < pageBottom) {
-      $(tag).addClass("slideup");
-    }
-  }
-});
+//     if ($(tag).position().top < pageBottom) {
+//       $(tag).addClass("slideup");
+//     }
+//   }
+// });
 
 /* // Slide-up animation Vanilla JS
 document.addEventListener("scroll", function() ) {
@@ -1540,9 +1571,9 @@ p.icon-text {
     }
 
     .hero-title {
-      &.title-small{
+      &.title-small {
         min-width: 100%;
-      } 
+      }
     }
 
     .howitworks-wrapper {
