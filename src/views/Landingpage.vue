@@ -52,7 +52,7 @@
               </div>
 
               <div class="button-wrapper">
-                <button class="button">SIGN IN THROUGH STEAM</button>
+                <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button>
                 <button class="button transparent">VIEW DEMO</button>
               </div>
             </div>
@@ -312,7 +312,7 @@
 
           <div class="bottom-cta">
             <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
-            <button class="button cta">SIGN IN THROUGH STEAM</button>
+            <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button>
           </div>
 
           <div class="mail-wrapper">
@@ -426,6 +426,10 @@ export default {
 
       this.counterInitialized = true;
     },
+  },
+  signIn() {
+    this.$helpers.LogEvent(this, "AttemptSignIn");
+    location.href = this.$api.getSignInUrl(window.location.origin);
   },
 };
 
