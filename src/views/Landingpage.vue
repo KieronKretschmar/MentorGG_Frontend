@@ -68,7 +68,7 @@
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">{{ count }}</h4>
+            <h4 class="value">{{ counter.matchesAnalyzed }}</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
@@ -80,7 +80,7 @@
             <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
           </div>
           <div class="counter-text">
-            <h4>5356</h4>
+            <h4>{{ counter.misplaysDetected }}</h4>
             <p class="icon-text">MISPLAYS DETECTED</p>
           </div>
         </div>
@@ -92,7 +92,7 @@
             <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
           </div>
           <div class="counter-text">
-            <h4>6231</h4>
+            <h4>{{ counter.highlightsDetected }}</h4>
             <p class="icon-text">HIGHLIGHTS DETECTED</p>
           </div>
         </div>
@@ -104,7 +104,7 @@
             <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
           </div>
           <div class="counter-text">
-            <h4>7643</h4>
+            <h4>{{ counter.rankUps }}</h4>
             <p class="icon-text">RANK UPS</p>
           </div>
         </div>
@@ -341,31 +341,25 @@ export default {
       visibleSections: {},
       numSections: 3,
 
-      count: 0,
-      currentNumber: 3464
+      counter: {
+        matchesAnalyzed: 0,
+        misplaysDetected: 0,
+        highlightsDetected: 0,
+        rankUps: 0,
+      },
+      counterInitialized: false,
     };
   },
   mounted() {
     window.addEventListener("scroll", (e) => {
       this.UpdateSectionFlags();
-      if (this.IsInViewport(this.$refs.counterWrapper)) {
-
-        const speed = 200;
-        const inc = this.currentNumber / speed;
-
-        const updateCount = function () {
-          if (this.count < this.currentNumber) {
-            this.count = Math.ceil(this.count + inc);
-            setTimeout(updateCount, 1);
-          } else {
-            this.count = this.currentNumber;
-          }
-        };
-        
-        updateCount();
-
+      if (
+        this.IsInViewport(this.$refs.counterWrapper) &&
+        !this.counterInitialized
+      ) {
+        console.log("PlayCounterAnimation()");
+        this.PlayCounterAnimation();
       }
-      
     });
   },
   methods: {
@@ -385,6 +379,52 @@ export default {
           this.IsInViewport(this.$refs[key])
         );
       }
+    },
+    PlayCounterAnimation() {
+      let startValues = {
+        matchesAnalyzed: 500,
+        misplaysDetected: 400,
+        highlightsDetected: 300,
+        rankUps: 600,
+      };
+
+      //26. august 2020
+      let startTime = 1598450420045;
+
+      let todayTime = new Date().getTime();
+      let targetValues = {};
+      let steps = {};
+
+      //step animation doesnt end at the same time
+      //because buffy is an idiot
+      for (let key in startValues) {
+        targetValues[key] = (startValues[key] / startTime) * todayTime;
+
+        let time = 3000;
+        let nSteps = time / 10;
+
+        steps[key] = targetValues[key] / nSteps;
+      }
+
+      let countUp = () => {
+        let rdy = 0;
+
+        for (let key in this.counter) {
+          if (this.counter[key] < targetValues[key]) {
+            this.counter[key] += Math.ceil(steps[key]);
+          } else {
+            rdy++;
+          }
+        }
+
+        if (rdy != 4) {
+          setTimeout(countUp, 10);
+        }
+      };
+
+      countUp();
+
+      this.counterInitialized = true;
     },
   },
 };
