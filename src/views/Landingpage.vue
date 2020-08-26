@@ -80,7 +80,7 @@
             <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">5356</h4>
+            <h4>5356</h4>
             <p class="icon-text">MISPLAYS DETECTED</p>
           </div>
         </div>
@@ -92,7 +92,7 @@
             <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">6231</h4>
+            <h4>6231</h4>
             <p class="icon-text">HIGHLIGHTS DETECTED</p>
           </div>
         </div>
@@ -104,7 +104,7 @@
             <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">7643</h4>
+            <h4>7643</h4>
             <p class="icon-text">RANK UPS</p>
           </div>
         </div>
@@ -340,8 +340,9 @@ export default {
     return {
       visibleSections: {},
       numSections: 3,
-      count: "0",
-      currentNumber: "3464"
+
+      count: 0,
+      currentNumber: 3464
     };
   },
   mounted() {
@@ -349,13 +350,22 @@ export default {
       this.UpdateSectionFlags();
       if (this.IsInViewport(this.$refs.counterWrapper)) {
 
-        setInterval(function() {
-          
-            return this.count;
+        const speed = 200;
+        const inc = this.currentNumber / speed;
+
+        const updateCount = function () {
+          if (this.count < this.currentNumber) {
+            this.count = Math.ceil(this.count + inc);
+            setTimeout(updateCount, 1);
+          } else {
+            this.count = this.currentNumber;
+          }
+        };
         
-        }, 4000);
+        updateCount();
 
       }
+      
     });
   },
   methods: {
