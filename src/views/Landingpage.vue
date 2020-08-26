@@ -478,7 +478,7 @@ ul.mobile-navigation {
 .mobile-nav-inner-wrapper {
   transform: translateY(-288px);
   transition-duration: 0.5s;
-} //
+} // Mobile nav end
 
 $offwhite: #fbfbfb;
 $orange: #ff4800;
@@ -840,7 +840,7 @@ p.icon-text {
     @include feature-background;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 100px;
+    margin-bottom: 135px;
     margin-top: 170px;
   }
 
@@ -1066,7 +1066,7 @@ p.icon-text {
 
   .bottom-cta {
     position: relative;
-    height: 170px;
+    height: 165px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1174,8 +1174,8 @@ p.icon-text {
     }
 
     .container-feature-fixed-width-fourth {
-      margin-top: 130px;
-      margin-bottom: 80px;
+      margin-top: 160px;
+      margin-bottom: 135px;
     }
 
     .bottom-section {
@@ -1284,7 +1284,7 @@ p.icon-text {
     }
 
     .bottom-section {
-      height: 1100px;
+      height: 1000px; // Set higher when mail wrapper visible
     }
 
     .bottom-cta {
@@ -1380,8 +1380,7 @@ p.icon-text {
     }
 
     .container-feature-fixed-width-fourth {
-      margin-bottom: 80px;
-
+      margin-bottom: 84px; // Adjust when mail wrapper visible
       &.reverse {
         flex-direction: column-reverse;
         justify-content: flex-end;
@@ -1449,7 +1448,7 @@ p.icon-text {
     }
 
     .bottom-section {
-      height: 1000px;
+      height: 730px; // Set to 1000px when mail wrapper visible
     }
 
     .bottom-cta {
@@ -1543,7 +1542,7 @@ p.icon-text {
         }
       }
     }
-  } //
+  } // Mobile nav end
 
   p.small {
     font-size: 0.8rem;
@@ -1588,6 +1587,7 @@ p.icon-text {
     .hero-title {
       &.title-small {
         min-width: 100%;
+        min-height: 30px;
       }
     }
 
@@ -1646,15 +1646,15 @@ p.icon-text {
 
     .container-feature-fixed-width-fourth {
       margin-top: 70px;
-      margin-bottom: 70px;
+      margin-bottom: 80px; // Set higher when mail wrapper visible
     }
 
     .bottom-section {
-      height: 900px;
+      height: 600px; // Set to 900px when mail wrapper visible
     }
 
     .bottom-cta {
-      height: 105px;
+      height: 95px;
       max-width: 250px;
       margin: 0 auto;
     }
@@ -1777,7 +1777,7 @@ p.icon-text {
 
     .container-feature-fixed-width-fourth {
       margin-top: 26px;
-      margin-bottom: 46px;
+      margin-bottom: 63px;
 
       &.reverse {
         flex-direction: column-reverse;
@@ -1817,11 +1817,7 @@ p.icon-text {
     }
 
     .bottom-section {
-      height: 700px;
-    }
-
-    .bottom-cta {
-      height: 102px;
+      height: 500px; // Set to 700px when mail wrapper visible
     }
 
     .mail-wrapper {
@@ -1898,6 +1894,7 @@ p.icon-text {
     }
 
     .bottom-section {
+      height: 430px;
       .container-fixed-width-bottom {
         .container-margin-bottom {
           margin: 0 15px;
@@ -1909,10 +1906,6 @@ p.icon-text {
           }
         }
       }
-    }
-
-    .bottom-cta {
-      height: 100px;
     }
 
     .mail-wrapper-inner {
