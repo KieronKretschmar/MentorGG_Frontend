@@ -15,7 +15,9 @@
                   <a href="#">FAQ</a>
                 </li>
                 <li>
-                  <a href="#">LOGIN</a>
+                  <a href="#">
+                    LOGIN
+                  </a>
                 </li>
                 <i class="material-icons">exit_to_app</i>
               </ul>
@@ -54,6 +56,7 @@
               <div class="button-wrapper">
                 <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button>
                 <button class="button transparent">VIEW DEMO</button>
+                <!-- Add link to demo -->
               </div>
             </div>
           </div>
@@ -602,6 +605,10 @@ p.icon-text {
         .container-nav {
           display: flex;
           justify-content: space-between;
+          align-items: center;
+
+          border: 1px solid yellow;
+          height: 60px;
 
           .mentor-logo {
             max-width: 150px;
@@ -611,24 +618,53 @@ p.icon-text {
           }
 
           ul {
-            height: 60px;
+            min-width: 230px;
+            height: fit-content;
             list-style: none;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             margin: -3px 0 0 0;
+
+            border: 1px solid yellow;
+
+            li {
+              display: inline-block;
+              position: relative;
+            }
 
             a {
               font-size: 0.9rem;
               font-weight: 500;
               text-decoration: none;
-              margin: 9px 0 0 22px;
               width: fit-content;
               color: $offwhite;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+
+              &:after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 2px;
+                top: 15px;
+                right: 0;
+                background: $orange;
+                transition: width 0.3s ease;
+              }
+
+              &:hover:after {
+                width: 100%;
+                left: 0;
+                background: $orange;
+              }
             }
 
             .material-icons {
-              font-size: 1.1rem;
-              margin: 0 0 0 4px;
+              font-size: 1rem;
+              margin: 0 0 0 3px;
               color: $orange;
             }
           }
@@ -1540,9 +1576,6 @@ p.icon-text {
         }
 
         .material-icons {
-          font-size: 1.1rem;
-          margin: 0 0 0 4px;
-          color: $orange;
         }
       }
     }
