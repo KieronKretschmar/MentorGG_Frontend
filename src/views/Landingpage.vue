@@ -1081,6 +1081,8 @@ p.icon-text {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    display: none; // Delete for showing
   }
 
   .mail-wrapper-inner {
@@ -1296,6 +1298,8 @@ p.icon-text {
       display: flex;
       align-items: center;
       justify-content: center;
+
+      display: none; // Delete for showing
     }
 
     .mail-wrapper-inner {
@@ -1662,6 +1666,8 @@ p.icon-text {
       display: flex;
       align-items: center;
       justify-content: center;
+
+      display: none; // Delete for showing
     }
 
     .mail-wrapper-inner {
