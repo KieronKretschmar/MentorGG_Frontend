@@ -607,7 +607,7 @@ p.icon-text {
           justify-content: space-between;
           align-items: center;
 
-          border: 1px solid yellow;
+          //border: 1px solid yellow;
           height: 60px;
 
           .mentor-logo {
@@ -626,7 +626,7 @@ p.icon-text {
             justify-content: space-between;
             margin: -3px 0 0 0;
 
-            border: 1px solid yellow;
+            //border: 1px solid yellow;
 
             li {
               display: inline-block;
@@ -1592,7 +1592,7 @@ p.icon-text {
           .container-nav {
             .mentor-logo {
               max-width: 130px;
-              margin: 15px 0 0 0;
+              margin: 0;
             }
 
             ul {
