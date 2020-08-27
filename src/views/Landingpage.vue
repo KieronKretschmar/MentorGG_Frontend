@@ -660,7 +660,7 @@ p.icon-text {
                 width: 0;
                 height: 2px;
                 top: 21px;
-                right: 0;
+                left: 0;
                 background: $orange;
                 transition: width 0.3s ease;
               }
