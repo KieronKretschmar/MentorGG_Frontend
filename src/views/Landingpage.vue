@@ -1786,7 +1786,7 @@ p.icon-text {
     .hero-wrapper-inner {
       text-align: center;
       height: 110px;
-      margin: 85px 0 0 0;
+      margin: 45px 0 0 0;
     }
 
     .hero-title {
@@ -1888,6 +1888,10 @@ p.icon-text {
 }
 
 @media (max-width: 380px) {
+   h5 {
+    font-size: 0.65rem;
+  }
+
   // Slide-up animation
   .section {
     transform: translateY(0);
