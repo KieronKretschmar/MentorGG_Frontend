@@ -54,8 +54,10 @@
               </div>
 
               <div class="button-wrapper">
-                <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button>
-                <button class="button transparent">VIEW DEMO</button>
+                <div class="button_slide slide_right">SIGN IN THORUGH STEAM</div>
+                <div class="button_slide slide_right">VIEW DEMO</div>
+                <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
+                <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
                 <!-- Add link to demo -->
               </div>
             </div>
@@ -315,7 +317,8 @@
 
           <div class="bottom-cta">
             <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
-            <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button>
+            <div class="button_slide slide_right">SIGN IN THORUGH STEAM</div>
+            <!--  * Button without slide hover * <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button> -->
           </div>
 
           <div class="mail-wrapper">
@@ -616,7 +619,7 @@ p.icon-text {
           }
 
           ul {
-            min-width: 235px;
+            min-width: 225px; /* Set to 235px if material icon visible */
             height: fit-content;
             list-style: none;
             display: flex;
@@ -645,6 +648,12 @@ p.icon-text {
               justify-content: center;
               height: 100%;
 
+              transition: all 0.3s ease;
+
+              /* &:hover {
+                color: $orange;
+              } */
+
               &:after {
                 content: "";
                 position: absolute;
@@ -664,9 +673,11 @@ p.icon-text {
             }
 
             .material-icons {
-              font-size: 1rem;
+              font-size: 1.2rem;
               margin-left: 3px;
               color: $orange;
+
+              display: none;
             }
           }
         }
@@ -707,6 +718,31 @@ p.icon-text {
     flex-direction: row;
   }
 
+  .button_slide {
+    width: 250px;
+    height: 50px;
+    font-size: 0.9rem;
+    color: $offwhite;
+    border: 2px solid $orange;
+    margin: 0 14px 0 0;
+    padding: 0;
+    display: flex;
+    font-family: "Open Sans", sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 $orange;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+  }
+
+  .slide_right:hover {
+    box-shadow: inset 250px 0 0 0 $orange;
+  }
+
+  /* * Button without slide hover *
   .button {
     font-size: 0.9rem;
     width: 250px;
@@ -721,11 +757,18 @@ p.icon-text {
     text-decoration: none;
     cursor: pointer;
 
+    transition: all 300ms;
+
+    &:hover {
+      background-color: $grey;
+      color: $orange;
+    }
+
     &.transparent {
       background-color: transparent;
       border: 2px solid $orange;
     }
-  }
+  } */
 
   .signup {
     margin: 0;
@@ -1888,7 +1931,7 @@ p.icon-text {
 }
 
 @media (max-width: 380px) {
-   h5 {
+  h5 {
     font-size: 0.65rem;
   }
 
