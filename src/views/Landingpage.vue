@@ -316,7 +316,7 @@
 
           <div class="bottom-cta">
             <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
-            <div class="button slide-right">SIGN IN THORUGH STEAM</div>
+            <div @click="signIn()" class="button slide-right">SIGN IN THORUGH STEAM</div>
             <!--  * Button without slide hover * <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button> -->
           </div>
 
