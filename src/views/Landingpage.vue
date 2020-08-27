@@ -1159,6 +1159,10 @@ p.icon-text {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    .slide-right {
+      margin: 0;
+    }
   }
 
   .mail-wrapper {
@@ -1309,10 +1313,6 @@ p.icon-text {
       &.signup {
         margin: 0;
       }
-    }
-
-    .slide-right {
-      margin: 0;
     }
 
     .counter-wrapper {
