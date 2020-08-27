@@ -1311,6 +1311,10 @@ p.icon-text {
       }
     }
 
+    .slide-right {
+      margin: 0;
+    }
+
     .counter-wrapper {
       display: none;
     }
