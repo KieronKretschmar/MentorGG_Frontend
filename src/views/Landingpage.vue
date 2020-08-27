@@ -9,14 +9,14 @@
             <nav>
               <ul class="navigation">
                 <li>
-                  <a href="#">PRICING</a>
+                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
                 </li>
                 <li>
-                  <a href="#">FAQ</a>
+                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
                 </li>
                 <div class="nav-icon-wrapper">
                   <li>
-                    <a href="#">LOGIN</a>
+                    <a @click="signIn()" class="login">LOGIN</a>
                   </li>
                   <i class="material-icons">exit_to_app</i>
                 </div>
@@ -33,13 +33,13 @@
             <div class="mobile-nav-inner-wrapper">
               <ul class="mobile-navigation">
                 <li>
-                  <a href="#">PRICING</a>
+                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
                 </li>
                 <li>
-                  <a href="#">FAQ</a>
+                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
                 </li>
                 <li>
-                  <a href="#">LOGIN</a>
+                  <a class="login" @click="signIn()">LOGIN</a>
                 </li>
               </ul>
             </div>
@@ -54,11 +54,10 @@
               </div>
 
               <div class="button-wrapper">
-                <div class="button_slide slide_right">SIGN IN THORUGH STEAM</div>
-                <div class="button_slide slide_right">VIEW DEMO</div>
+                <div @click="signIn()" class="button_slide slide_right">SIGN IN THORUGH STEAM</div>
+                <div class="button_slide slide_right">VIEW DEMO</div> <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
-                <!-- Add link to demo -->
               </div>
             </div>
           </div>
@@ -680,6 +679,10 @@ p.icon-text {
               display: none;
             }
           }
+        }
+
+        a.login {
+          cursor: pointer;
         }
 
         .hero-wrapper {
