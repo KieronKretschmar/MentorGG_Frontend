@@ -721,21 +721,21 @@ p.icon-text {
   .button_slide {
     width: 250px;
     height: 50px;
+    font-family: "Open Sans", sans-serif;
     font-size: 0.9rem;
+    text-decoration: none;
     color: $offwhite;
     border: 2px solid $orange;
     margin: 0 14px 0 0;
     padding: 0;
     display: flex;
-    font-family: "Open Sans", sans-serif;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
     cursor: pointer;
     box-shadow: inset 0 0 0 0 $orange;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
+    -webkit-transition: ease-out 0.3s;
+    -moz-transition: ease-out 0.3s;
+    transition: ease-out 0.3s;
   }
 
   .slide_right:hover {
