@@ -14,12 +14,12 @@
                 <li>
                   <a href="#">FAQ</a>
                 </li>
-                <li>
-                  <a href="#">
-                    LOGIN
-                  </a>
-                </li>
-                <i class="material-icons">exit_to_app</i>
+                <div class="nav-icon-wrapper">
+                  <li>
+                    <a href="#">LOGIN</a>
+                  </li>
+                  <i class="material-icons">exit_to_app</i>
+                </div>
               </ul>
             </nav>
           </div>
@@ -606,8 +606,6 @@ p.icon-text {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
-          //border: 1px solid yellow;
           height: 60px;
 
           .mentor-logo {
@@ -618,7 +616,7 @@ p.icon-text {
           }
 
           ul {
-            min-width: 230px;
+            min-width: 235px;
             height: fit-content;
             list-style: none;
             display: flex;
@@ -626,7 +624,10 @@ p.icon-text {
             justify-content: space-between;
             margin: -3px 0 0 0;
 
-            //border: 1px solid yellow;
+            .nav-icon-wrapper {
+              display: flex;
+              align-items: center;
+            }
 
             li {
               display: inline-block;
@@ -649,22 +650,20 @@ p.icon-text {
                 position: absolute;
                 width: 0;
                 height: 2px;
-                top: 15px;
-                right: 0;
+                top: 21px;
                 background: $orange;
                 transition: width 0.3s ease;
               }
 
               &:hover:after {
                 width: 100%;
-                left: 0;
                 background: $orange;
               }
             }
 
             .material-icons {
               font-size: 1rem;
-              margin: 0 0 0 3px;
+              margin-left: 3px;
               color: $orange;
             }
           }
