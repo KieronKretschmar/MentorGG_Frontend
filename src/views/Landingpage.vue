@@ -1656,7 +1656,7 @@ p.icon-text {
 
           .hero-wrapper {
             justify-content: center;
-            margin-top: -57px;
+            margin-top: -70px;
           }
         }
       }
