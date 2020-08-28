@@ -357,15 +357,10 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", (e) => {
-      this.UpdateSectionFlags();
-      if (
-        this.IsInViewport(this.$refs.counterWrapper) &&
-        !this.counterInitialized
-      ) {
-        console.log("PlayCounterAnimation()");
-        this.PlayCounterAnimation();
-      }
+      this.HandleCounterAnimation();
     });
+
+    this.HandleCounterAnimation();
   },
   methods: {
     IsInViewport(ref) {
@@ -436,6 +431,16 @@ export default {
       countUp();
 
       this.counterInitialized = true;
+    },
+    HandleCounterAnimation(){
+      this.UpdateSectionFlags();
+      if (
+        this.IsInViewport(this.$refs.counterWrapper) &&
+        !this.counterInitialized
+      ) {
+        console.log("PlayCounterAnimation()");
+        this.PlayCounterAnimation();
+      }
     },
     ShowDemoProfile() {
       console.log("HI");
