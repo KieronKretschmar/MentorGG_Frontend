@@ -55,7 +55,7 @@
 
               <div class="button-wrapper">
                 <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
-                <div @click="ShowDemoProfile()" class="button slide-right">VIEW DEMO</div> <!-- Add link to demo -->
+                <div @click="ShowDemoProfile()" class="button transparent slide-right">VIEW DEMO</div> <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
               </div>
@@ -747,8 +747,10 @@ p.icon-text {
     height: 50px;
     font-family: "Open Sans", sans-serif;
     font-size: 0.9rem;
+    font-weight: 700;
     text-decoration: none;
     color: $offwhite;
+    background-color: $orange;
     border: 2px solid $orange;
     margin: 0 14px 0 0;
     padding: 0;
@@ -760,6 +762,10 @@ p.icon-text {
     -webkit-transition: ease-out 0.3s;
     -moz-transition: ease-out 0.3s;
     transition: ease-out 0.3s;
+
+    &.transparent {
+      background-color: transparent;
+    }
   }
 
   .slide-right:hover {
