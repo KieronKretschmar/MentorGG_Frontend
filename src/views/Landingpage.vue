@@ -49,8 +49,8 @@
             <div class="hero-wrapper-inner">
               <div>
                 <img src="@/assets/improveyourgame.svg" class="hero-title title-large" />
-                <h5 class="subtitle">Get your personal eSports coach app for</h5>
-                <h5 class="subtitle">Counter Strike Global Offensive</h5>
+                <h5 class="subtitle">by joining our personal analytics platform</h5>
+                <h5 class="subtitle">for Counter-Strike: Global Offensive</h5>
               </div>
 
               <div class="button-wrapper">
