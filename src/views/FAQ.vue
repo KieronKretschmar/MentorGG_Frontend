@@ -41,20 +41,50 @@ export default {
 
     this.RegisterFAQEntry(
       this.categories.General,
-      "How are you today?",
-      "I'm good, thanks!"
+      "Do I have to fear for my Steam Account when logging in?",
+      "No. Authentication with Steam was developed by Steam to make sure of this. As you only enter your credentials on Steam's official login site, we can not access them (and also, we don't want to)."
     );
 
     this.RegisterFAQEntry(
       this.categories.General,
-      "What is Lorem Ipsum?",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br><br>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<br><br>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+      "Can I get VAC banned when using MENTOR.GG?",
+      "No. Using MENTOR.GG is perfectly fine in accordance to VAC rules. VAC is looking for malicious programs running on your computer when playing CS:GO. Because the analytics of MENTOR.GG run on our servers, them being identified as a cheat by VAC is impossible."
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.General,
+      "What perks do I get when I put \"MENTOR.GG\" in my Steam name?",
+      "Users who do this get free access to their misplays and highlights from the second half of each match, instead of just the first."
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.General,
+      "I have a question that is not answered here. Where can I ask it?",
+      "Please join our discord server and contact us there. We're happy to help!"
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.Upload,
+      "How does the automatic upload work?",
+      "If you enable automatic upload for Valve's matchmaking or FACEIT, a request for your newest matches on that platform will be triggered whenever you visit MENTOR.GG. So please be patient for up to a minute if your matches don't show up right away."
     );
 
     this.RegisterFAQEntry(
       this.categories.Upload,
       "I have configured automatic upload but i can't see my matches.",
-      "bummer!"
+      "If you waited for several minutes and nothing happens, please join our discord server and contact us there, and we'll see how we can help."
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.Upload,
+      "Can I upload POV demos that I recorded myself?",
+      "No, sadly these demos do not contain the information we need in order to analyze them."
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.Upload,
+      "For one or more of my matches the analysis has failed or the matches are too old. What can I do about it?",
+      "This can have a variety of reasons, but usually there's nothing you can do about it. Examples for circumstances where this happens: We can't access the demo file because Valve removed it from their servers (usually happens after 2-3 weeks); You uploaded a POV demo which our software can not analyze; On rare occasions our software can not analyze the demo because it contains unexpected data."
     );
   },
   data() {
