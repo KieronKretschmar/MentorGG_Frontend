@@ -1943,7 +1943,7 @@ p.icon-text {
 
 @media (max-width: 380px) {
   h5 {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
   }
 
   // Slide-up animation
