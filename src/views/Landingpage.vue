@@ -659,7 +659,7 @@ p.icon-text {
 
             a {
               font-size: 0.9rem;
-              font-weight: 500;
+              font-weight: 600;
               text-decoration: none;
               width: fit-content;
               color: $offwhite;
@@ -747,7 +747,7 @@ p.icon-text {
     height: 50px;
     font-family: "Open Sans", sans-serif;
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     color: $offwhite;
     background-color: $orange;
