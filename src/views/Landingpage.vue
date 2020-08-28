@@ -1160,6 +1160,8 @@ p.icon-text {
     align-items: center;
     justify-content: space-between;
 
+    margin-bottom: 10px; // Delete when email wrapper visible
+
     .slide-right {
       margin: 0;
     }
@@ -1544,6 +1546,7 @@ p.icon-text {
 
     .bottom-cta {
       height: 115px;
+      margin-bottom: 5px; // Delete when email wrapper visible
     }
   }
 }
@@ -1745,6 +1748,7 @@ p.icon-text {
       height: 95px;
       max-width: 250px;
       margin: 0 auto;
+      margin-bottom: 4px; // Delete when email wrapper visible
     }
 
     .mail-wrapper {
