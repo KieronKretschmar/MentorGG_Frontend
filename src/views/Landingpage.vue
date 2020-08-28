@@ -1,224 +1,339 @@
 <template>
-  <div class="view view-landingpage">
-    <div class="full-width-container">
-      <header>
-        <div class="container">
-          <div class="header-wrap">
-            <!-- Logo -->
-            <a href="/" class="logo logo-header">
-              <img class="logo" src="@/assets/logo_white.svg" alt="CS:GO Mentor" />
-            </a>
-            
-            <button
-              @click="signIn()"
-              class="button-gray-transparent login-steam"
-              title="Log in using your Steam account"
-            >
-              Sign in through STEAM
-              <img
-                class="steam-logo"
-                src="@/assets/steam-logo.svg"
-                alt="Steam logo"
-              />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <!-- main content -->
-      <div>
-        <section class="hero-section">
-          <div class="container">
-            <div class="hero-wrap">
-              <img class="logo-hero" src="@/assets/logo_white.svg" alt="CS:GO Mentor" />
-              <h1 class="hero-title">Your personal eSports Coach.</h1>
-              <strong class="hero-subtitle">Now available - CS:GO Stats, Demoviewer &amp; more</strong>
-
-              <button
-                @click="signIn()"
-                class="login-steam login-steam--green"
-                title="Log in using your Steam account"
-              >
-                Sign in through STEAM
-                <img
-                  class="steam-logo"
-                  src="@/assets/steam-logo.svg"
-                  alt="Steam logo"
-                />
-              </button>
-
-              <img src="@/assets/hero.png" alt="CSGOMentor" class="hero-img" />
-            </div>
-          </div>
-        </section>
-
-        <!-- offer -->
-        <section class="offer-section">
-          <div class="container">
-            <h2 class="title h2">Your new analytics suite</h2>
-            <p class="subtitle">
-              We offer a wide variety of tools to help
-              you perfect your game
-            </p>
-            <!-- Offer-wrap -->
-            <div class="offer-wrap">
-              <!-- Offer -->
-              <div class="offer">
-                <div class="offer-img-wrap">
-                  <img class="offer-img" src="@/assets/offer-eye.svg" alt="Track your progress" />
-                </div>
-                <div>
-                  <span class="offer-title first-title">Track your progress</span>
-                </div>
-                <div>
-                  <p class="offer-text">and see how good you've become</p>
-                </div>
-              </div>
-
-              <!-- Offer -->
-              <div class="offer">
-                <div class="offer-img-wrap">
-                  <img
-                    class="offer-img"
-                    src="@/assets/offer-artificial.svg"
-                    alt="Analyze your gameplay automatically"
-                  />
-                </div>
-                <div>
-                  <span class="offer-title middle-title">Analyze your gameplay</span>
-                </div>
-                <div>
-                  <p class="offer-text">and get insight into how YOU can improve</p>
-                </div>
-              </div>
-
-              <!-- Offer -->
-              <div class="offer">
-                <div class="offer-img-wrap">
-                  <img
-                    class="offer-img"
-                    src="@/assets/offer-networking.svg"
-                    alt="Compare to your friends"
-                  />
-                </div>
-                <div>
-                  <span class="offer-title last-title">Compare to your friends</span>
-                </div>
-                <div>
-                  <p class="offer-text">and find out where you excel</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Games -->
-        <div class="offer-games">
-          <div class="offer-game">
-            <nav class="games-nav">
-              <ul>
+  <div class="full-width-container">
+    <header>
+      <video src="@/assets/smoke.mp4" autoplay loop playsinline muted poster="@/assets/csgobg.jpg"></video>
+      <div class="container-fixed-width">
+        <div class="container-margin">
+          <div class="container-nav">
+            <img src="@/assets/mentor-logo.svg" class="mentor-logo" />
+            <nav>
+              <ul class="navigation">
                 <li>
-                  <a href="#">
-                    <img class="games-nav-active--cs-go" src="@/assets/cs-go-logo.svg" />
-                  </a>
+                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
                 </li>
                 <li>
-                  <!-- <a href="#"> -->
-                  <img class="games-nav-inactive--pubg" src="@/assets/pubg-logo.svg" />
-                  <!-- </a> -->
+                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
                 </li>
-                <li>
-                  <!-- <a href="#"> -->
-                  <img class="games-nav-inactive--fortnite" src="@/assets/fortnite-logo.svg" />
-                  <!-- </a> -->
-                </li>
-                <li>
-                  <!-- <a href="#"> -->
-                  <img class="games-nav-inactive--dota-2" src="@/assets/dota-2-logo.svg" />
-                  <!-- </a> -->
-                </li>
+                <div class="nav-icon-wrapper">
+                  <li>
+                    <a @click="signIn()" class="login">LOGIN</a>
+                  </li>
+                  <i class="material-icons">exit_to_app</i>
+                </div>
               </ul>
             </nav>
           </div>
+
+          <div class="mobile-nav-wrapper">
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" class="toggle">
+              <span class="line"></span>
+              <span class="line"></span>
+            </label>
+            <div class="mobile-nav-inner-wrapper">
+              <ul class="mobile-navigation">
+                <li>
+                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
+                </li>
+                <li>
+                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
+                </li>
+                <li>
+                  <a class="login" @click="signIn()">LOGIN</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="hero-wrapper">
+            <div class="hero-wrapper-inner">
+              <div>
+                <img src="@/assets/improveyourgame.svg" class="hero-title title-large" />
+                <h5 class="subtitle">by joining our personal analytics platform</h5>
+                <h5 class="subtitle">for Counter-Strike: Global Offensive</h5>
+              </div>
+
+              <div class="button-wrapper">
+                <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
+                <div @click="ShowDemoProfile()" class="button slide-right">VIEW DEMO</div> <!-- Add link to demo -->
+                <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
+                <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="counter-wrapper numbers" ref="counterWrapper">
+      <div class="counter">
+        <div class="counter-icon-wrapper">
+          <div>
+            <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
+          </div>
+          <div class="counter-text">
+            <h4 class="value">{{ (counter.matchesAnalyzed / 1000).toFixed(0) + 'K' }}</h4>
+            <p class="icon-text">MATCHES ANALYZED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-icon-wrapper numbers">
+          <div>
+            <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
+          </div>
+          <div class="counter-text">
+            <h4>{{ (counter.misplaysDetected / 1000).toFixed(0) + 'K' }}</h4>
+            <p class="icon-text">MISPLAYS DETECTED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-icon-wrapper numbers">
+          <div>
+            <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
+          </div>
+          <div class="counter-text">
+            <h4>{{ (counter.highlightsDetected / 1000).toFixed(0) + 'K' }}</h4>
+            <p class="icon-text">HIGHLIGHTS DETECTED</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="counter cut">
+        <div class="counter-icon-wrapper numbers">
+          <div>
+            <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
+          </div>
+          <div class="counter-text">
+            <h4>{{ (counter.rankUps / 1000).toFixed(0) + 'K' }}</h4>
+            <p class="icon-text">RANK UPS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-01-background">
+      <div class="container-feature-fixed-width-first">
+        <div class="container-feature-margin-left">
+          <h1>CORE FEATURE 01</h1>
+          <h2>HIGHLIGHTS &amp; MISPLAYS</h2>
+          <p>Watch your and your team’s latest</p>
+          <p>plays highlights and misplays.</p>
         </div>
 
-        <!-- demoviewer -->
-        <section class="demoviewer-section desc-section">
-          <div class="container">
-            <div class="section-desc-wrap">
-              <img class="section-desc-img" src="@/assets/demoviewer-img.png" alt="Demoviewer" />
-              <div class="section-desc section-desc--right">
-                <div class="section-desc-img-wrap">
-                  <img class="section-desc-img" src="@/assets/stats.png" alt="Demoviewer" />
-                </div>
-                <h3 class="section-desc-title">DemoViewer</h3>
-                <p
-                  class="section-desc-text"
-                >Watch your and your team’s latest plays on the platform. Check out every rounds performance from a 2D perspective.</p>
-                <!--<a href="/Matches/Matches" class="section-desc-link button-gray-transparent">See what matters</a>-->
+        <div class="container-feature-image">
+          <img
+            src="@/assets/misplays.jpg"
+            class="feature-image"
+            alt="misplays and highlights feature"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="feature-02-background section"
+      ref="section-1"
+      :class="{slideup: visibleSections['section-1']}"
+    >
+      <div class="container-feature-fixed-width-second reverse">
+        <div class="container-feature-image">
+          <img src="@/assets/demoviewer.jpg" class="feature-image" alt="demoviewer feature" />
+        </div>
+        <div class="container-feature-margin-right">
+          <h1>CORE FEATURE 02</h1>
+          <h2>DEMOVIEWER</h2>
+          <p>Check out every rounds performance</p>
+          <p>from a 2D perspective.</p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="feature-03-background section"
+      ref="section-2"
+      :class="{slideup: visibleSections['section-2']}"
+    >
+      <div class="container-feature-fixed-width-third">
+        <div class="container-feature-margin-left">
+          <h1>CORE FEATURE 03</h1>
+          <h2>GRENADE REVIEW</h2>
+          <p>Find out how effective your</p>
+          <p>grenades are, which ones you need</p>
+          <p>to practice and learn new lineups.</p>
+        </div>
+        <div class="container-feature-image">
+          <img src="@/assets/grenadereview.jpg" class="feature-image" alt="grenade review feature" />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="feature-04-background section"
+      ref="section-3"
+      :class="{slideup: visibleSections['section-3']}"
+    >
+      <div class="container-feature-fixed-width-fourth reverse">
+        <div class="container-feature-image">
+          <img
+            src="@/assets/friendcomparison.jpg"
+            class="feature-image"
+            alt="friend comparison feature"
+          />
+        </div>
+        <div class="container-feature-margin-right">
+          <h1>CORE FEATURE 04</h1>
+          <h2>FRIEND COMPARISON</h2>
+          <p>Compare to your friends and</p>
+          <p>find out where you excel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="howitworks-wrapper">
+      <div class="howitworks-wrapper-inner">
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img
+              src="@/assets/howitworks-icon.svg"
+              class="howitworks-icon main-icon"
+              alt="how it works icon"
+            />
+          </div>
+          <div class="howitworks-main-text underline">
+            <h3>HOW IT WORKS</h3>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
+          <img src="@/assets/one-icon.svg" class="howitworks-number" alt="how it works icon number" />
+        </div>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/connect-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Connect your Steam
+              or Faceit account
+            </p>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
+          <img src="@/assets/two-icon.svg" class="howitworks-number" alt="how it works icon number" />
+        </div>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/upload-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Start automatically
+              uploading matches
+            </p>
+          </div>
+        </div>
+
+        <div class="howitworks-number-wrapper">
+          <img
+            src="@/assets/three-icon.svg"
+            class="howitworks-number"
+            alt="how it works icon number"
+          />
+        </div>
+        <div class="howitworks-icon-wrapper">
+          <div>
+            <img src="@/assets/explore-icon.svg" class="howitworks-icon" alt="how it works icon" />
+          </div>
+          <div class="howitworks-text">
+            <p class="icon-text">
+              Explore the analysis for
+              your self-improvement
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-section">
+      <video
+        src="@/assets/smoke-bottom.mp4"
+        autoplay
+        loop
+        playsinline
+        muted
+        poster="@/assets/bottom-bg.jpg"
+      ></video>
+
+      <div class="container-fixed-width-bottom">
+        <div class="container-margin-bottom">
+          <div class="video-wrapper">
+            <div class="video-container">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/NicjsJ9-WLA?start=29"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+
+          <!--
+          <div class="slideshow-container">
+            <div class="slides fade">
+              <div class="quote">
+                <h5 class="slide-text">"1 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>1 Name</h6>
+              </div>
+            </div>
+
+            <div class="slides fade">
+              <div class="quote">
+                <h5 class="slide-text">"2 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>2 Name</h6>
+              </div>
+            </div>
+
+            <div class="slides fade">
+              <div class="quote">
+                <h5 class="slide-text">"3 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor."</h5>
+                <h6>3 Name</h6>
+              </div>
+            </div>
+
+            <div class="dot-wrapper">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>-->
+
+          <div class="bottom-cta">
+            <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
+            <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
+            <!--  * Button without slide hover * <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button> -->
+          </div>
+
+          <div class="mail-wrapper">
+            <div class="mail-wrapper-inner">
+              <div class="mail-text">
+                <i class="material-icons mail-icon">markunread</i>
+                <p class="small">GET NEWS ABOUT THE TEAM VERSION</p>
+              </div>
+
+              <div class="mail-input">
+                <input type="email" name="email-address" placeholder="YOUR EMAIL ADDRESS" />
+                <button class="button signup">SIGN UP</button>
               </div>
             </div>
           </div>
-        </section>
-
-        <!-- positions -->
-        <section class="positions-section desc-section">
-          <div class="container">
-            <div class="section-desc-wrap">
-              <div class="section-desc section-desc--left">
-                <div class="section-desc-img-wrap">
-                  <img class="section-desc-img" src="@/assets/positions.png" alt="Positions" />
-                </div>
-                <h3 class="section-desc-title">Unique CS:GO Stats</h3>
-                <p
-                  class="section-desc-text"
-                >Do you always die in the same spot? See where you succeed and show off your skill to your friends!</p>
-              </div>
-              <img class="section-desc-img" src="@/assets/positions-img.png" alt="Positions" />
-            </div>
-          </div>
-        </section>
-
-        <!-- smokes -->
-        <section class="smokes-section desc-section">
-          <div class="container">
-            <div class="section-desc-wrap">
-              <img class="section-desc-img" src="@/assets/smokes-img.png" alt="Smokes" />
-              <div class="section-desc section-desc--right">
-                <div class="section-desc-img-wrap">
-                  <img class="section-desc-img" src="@/assets/smokes.png" alt="Smokes" />
-                </div>
-                <h3 class="section-desc-title">Grenade Review</h3>
-                <p
-                  class="section-desc-text"
-                >Find out how effective your grenades are, which ones you need to practice and learn new lineups!</p>
-                <!--<a href="/Smokes/SmokesOverview" class="section-desc-link button-gray-transparent">Throw smokes</a>-->
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ready -->
-        <section class="ready-section">
-          <div class="container">
-            <div class="ready-wrap">
-              <h4 class="title">Do you want to improve your game?</h4>
-              <p class="subtitle">Join the beta by signing in</p>
-              <button
-                @click="signIn()"
-                class="login-steam login-steam--orange"
-                title="Log in using your Steam account"
-              >
-                Sign in through STEAM
-                <img
-                  class="steam-logo"
-                  src="@/assets/steam-logo.svg"
-                  alt="Steam logo"
-                />
-              </button>
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
     </div>
   </div>
@@ -226,1079 +341,1693 @@
 
 <script>
 export default {
-  mounted() {},
   data() {
     return {
+      visibleSections: {},
+      numSections: 3,
 
+      counter: {
+        matchesAnalyzed: 0,
+        misplaysDetected: 0,
+        highlightsDetected: 0,
+        rankUps: 0,
+      },
+      counterInitialized: false,
     };
   },
-  computed: {
+  mounted() {
+    window.addEventListener("scroll", (e) => {
+      this.HandleCounterAnimation();
+    });
+
+    this.HandleCounterAnimation();
   },
-  methods: {    
-    signIn() {
-      this.$helpers.LogEvent(this, "AttemptSignIn");   
-      location.href = this.$api.getSignInUrl(window.location.origin);    
+  methods: {
+    IsInViewport(ref) {
+      const { top, bottom } = ref.getBoundingClientRect();
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+
+      return (top > 0 || bottom > 0) && top < viewportHeight;
     },
+    UpdateSectionFlags() {
+      for (let idx = 1; idx != this.numSections + 1; idx++) {
+        let key = `section-${idx}`;
+        this.$set(
+          this.visibleSections,
+          key,
+          this.IsInViewport(this.$refs[key])
+        );
+      }
+    },
+    PlayCounterAnimation() {
+      const avgMinutelyMatches = 4.06;
+      const misplaysPerMatch = 40.4521674;
+      const highlightsPerMatch = 49.71718421;
+      const rankUpsPerMatch = 0.2745;
+      
+      // estimate matchesAnalyzed
+      //26. august 2020
+      let startTime = 1598450420045;
+      let todayTime = new Date().getTime();
+      let minutesPassed = Math.ceil((todayTime - startTime) / 1000 / 60);
+      let matchesAnalyzed = 175000 + minutesPassed * avgMinutelyMatches;
+
+      let targetValues = {
+        matchesAnalyzed: matchesAnalyzed,
+        misplaysDetected: matchesAnalyzed * misplaysPerMatch,
+        highlightsDetected: matchesAnalyzed * highlightsPerMatch,
+        rankUps: matchesAnalyzed * rankUpsPerMatch,
+      };
+
+
+      let startValues = {};
+      let steps = {};
+      for (let key in targetValues) {
+        startValues[key] = targetValues[key] / 2;
+
+        let time = 3000;
+        let nSteps = time / 10;
+
+        steps[key] = targetValues[key] / nSteps;
+      }
+
+      let countUp = () => {
+        let rdy = 0;
+
+        for (let key in this.counter) {
+          if (this.counter[key] < targetValues[key]) {
+            this.counter[key] += steps[key];
+          } else {
+            rdy++;
+          }
+        }
+
+        if (rdy != 4) {
+          setTimeout(countUp, 10);
+        }
+      };
+
+      countUp();
+
+      this.counterInitialized = true;
+    },
+    HandleCounterAnimation(){
+      this.UpdateSectionFlags();
+      if (
+        this.IsInViewport(this.$refs.counterWrapper) &&
+        !this.counterInitialized
+      ) {
+        console.log("PlayCounterAnimation()");
+        this.PlayCounterAnimation();
+      }
+    },
+    ShowDemoProfile() {
+      console.log("HI");
+      this.$router.push({
+        name: "profile",
+        params: {
+          steamId: "76561198033880857"
+        }
+      });
+    },
+    signIn() {
+      console.log("HI");
+      this.$helpers.LogEvent(this, "AttemptSignIn");
+      location.href = this.$api.getSignInUrl(window.location.origin);
+    }
   }
 };
+
+/* Tesimonial slider
+export default {
+  mounted() {
+    let slideIndex = 0;
+    showTestimonials();
+
+    function showTestimonials() {
+      let i;
+      let slides = document.getElementsByClassName("slides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      setTimeout(showTestimonials, 5000);
+    }
+  },
+}; */
 </script>
 
 <style lang="scss" scoped>
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
+// Slide-up animation
+.section {
+  transform: translateY(0);
+  transition: all 0.5s;
 }
 
-.view {
-    margin-bottom: 0;
+.slideup {
+  transform: translateY(-40px);
+} //
+
+// Mobile nav
+input#toggle,
+ul.mobile-navigation {
+  display: none;
+  pointer-events: none;
 }
 
-body {
-  line-height: 1;
-}
+.mobile-nav-inner-wrapper {
+  transform: translateY(-288px);
+  transition-duration: 0.5s;
+} // Mobile nav end
+
+$offwhite: #fbfbfb;
+$orange: #ff4800;
+$grey: #dedede;
+$darkgrey: #313131;
+$greyblack: #202020;
 
 a {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.4rem 0;
+  color: $offwhite;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0.2rem 0;
   color: $orange;
 }
 
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after {
-  content: "";
-  content: none;
-}
-
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+h3 {
+  font-size: 1.7rem;
+  margin: 0;
+  color: $offwhite;
 }
 
 h4 {
-  margin: 0;
+  font-family: "Teko", sans-serif;
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 0.8;
+  margin: 4px 0 0 0;
+  color: $offwhite;
 }
 
-.view-landingpage {
-  .full-width-container {
-    color: #fff;
-    margin: 0 auto;
+h5 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 20px;
+  color: $grey;
+}
 
-    .container {
-      max-width: 1200px;
-      width: 100%;
-      padding: 0 15px;
-      margin: 0 auto;
-    }
+.subtitle {
+  margin: 0 0 1px 0;
+  font-family: "Open Sans", sans-serif;
+  color: $grey;
+}
 
-    header {
-      background-color: $dark-1;
-      padding: 20px 0px;
-      display: flex;
-      position: relative;
+.slide-text {
+  font-size: 1.5rem;
+}
 
-      .header-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
+h6 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0 0 40px 0;
+  color: $orange;
+}
 
-      .logo {
-        display: inline-flex;
-        margin-right: 20px;
-      }
-    }
+p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 0;
+  color: $grey;
+}
 
-    .steam-logo {
-      width: 16px;
-      height: 16px;
-    }
+p.small {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  color: $offwhite;
+}
 
-    .hero-section {
-      padding: 0 0 40px 0;
-      background-color: $dark-2;
-      background-image: url(../assets/hero-map-bg.png),
-        url(../assets/hero-bg.png);
-      background-repeat: no-repeat;
-      background-position: center left, center;
+p.icon-text {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+  margin: 0;
+  color: $offwhite;
+}
 
-      .hero-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+.full-width-container {
+  position: relative;
+  margin: 0 auto;
 
-      .login-steam {
-        margin-top: 40px;
-      }
+  header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    border: none;
 
-      .logo-hero {
-        width: 100%;
-        max-width: 480px;
-        height: auto;
-        object-fit: contain;
-        padding: 50px 20px 0 20px;
-      }
-
-      .title {
-        margin: 0;
-      }
-
-      @mixin hero-title {
-        font-size: 28px;
-        margin-top: 1.2em;
-        color: $light-1;
-        text-align: center;
-        max-width: 750px;
-        font-weight: 500;
-      }
-
-      .hero-title {
-        @include hero-title;
-      }
-
-      .hero-subtitle {
-        @include hero-title;
-        font-size: 18px;
-        margin-top: 0;
-        padding-top: 4px;
-      }
-
-      .hero-img {
-        margin-top: 45px;
-        object-fit: contain;
-        max-width: 100%;
-        height: auto;
-      }
-    }
-
-    .login-steam {
-      border-radius: 2.5em;
-      min-width: 240px;
-      padding: 0.75em 1.25em;
-      padding-top: 0.5em;
-      text-decoration: none;
-      text-align: center;
-      transition: 0.3s;
-      color: #fff;
-      font-size: 13px;
-      padding: 0.6em 1.785em 0.75em 1.785em;
-
-      &--green {
-        @extend .login-steam;
-        background-color: $green-2;
-        border: 1px solid $green-2;
-        box-shadow: 0px 0px 20px 5px $green-2;
-
-        &:hover {
-          box-shadow: 0px 0px 30px 10px $green-2;
-        }
-      }
-
-      &--orange {
-        @extend .login-steam;
-        background-color: $orange;
-        border: 1px solid $orange;
-        box-shadow: 0px 0px 20px 5px $orange;
-
-        &:hover {
-          box-shadow: 0px 0px 30px 10px $orange;
-        }
-      }
-    }
-
-    .login-steam .steam-logo {
-      fill: #fff;
-      margin-left: 10px;
-      position: relative;
-      top: 2px;
-    }
-
-    button {
-      text-decoration: none;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-
-    [class*="button"] {
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .button-gray-transparent {
-      font-size: 14px;
-      color: #fff;
-      border-radius: 25px;
-      padding: 0.5em 1.785em 0.75em 1.785em;
-      background-color: $purple;
-      border: 1px solid $purple;
-      background-color: transparent;
-      color: #fff;
-      line-height: 1;
-
-      &.button-gray-transparent:hover {
-        background-color: $purple;
-      }
-
-      &.button-gray-transparent:focus {
-        outline: 1px solid $dark-1;
-      }
-
-      &.button-gray-transparent--round {
-        border-radius: 2.5em;
-      }
-
-      &.button-gray-transparent--small {
-        padding: 0.5em 1.5em;
-        min-width: 95px;
-      }
-    }
-
-    .offer-section {
-      padding: 0;
-      background-image: url(../assets/offer-blur.png);
-      background-size: cover;
-      background-position: center bottom;
-      background-repeat: no-repeat;
-      padding-bottom: 130px;
-      background-color: $dark-2;
-
-      .title {
-        text-align: center;
-        font-size: 2.25rem;
-        margin-bottom: 0;
-      }
-
-      .subtitle {
-        text-align: center;
-        max-width: 360px;
-        margin: 0.3em auto 0;
-        color: $light-1;
-        font-size: 16px;
-        font-weight: 500;
-      }
-
-      .offer-wrap {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 60px -10px 0;
-
-        .offer {
-          max-width: calc(100% / 3 - 20px);
-          margin: 20px 10px 0;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-
-          .offer-img-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-
-            &.offer-img-wrap:before {
-              content: "";
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              width: 1px;
-              height: 1px;
-              border-radius: 50%;
-              box-shadow: 0px 0px 45px 30px $red-2;
-            }
-          }
-
-          .offer-img {
-            width: 80px;
-            height: 64px;
-          }
-
-          .offer-title {
-            height: 25px;
-            font-size: 18px;
-            text-align: center;
-            padding-bottom: 3px;
-            display: block;
-          }
-
-          .offer-text {
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-            max-width: 240px;
-            margin: 0 auto;
-            flex: 0 1 100%;
-            color: $light-1;
-          }
-        }
-      }
-    }
-
-    .offer-games {
-      width: 100%;
-      margin: -45px 0 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .container-fixed-width {
       position: absolute;
-      z-index: 2;
+      width: 100%;
+      max-width: 1185px;
+      height: 100%;
 
-      .offer-game {
-        max-width: 80%;
+      .container-margin {
+        height: 100%;
+        margin: 0 30px;
 
-        .games-nav {
-          width: auto;
-          margin: 0 auto;
-          padding: 0;
+        .container-nav {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 60px;
+
+          .mentor-logo {
+            max-width: 150px;
+            height: auto;
+            display: flex;
+            align-self: center;
+          }
 
           ul {
+            min-width: 225px; /* Set to 235px if material icon visible */
+            height: fit-content;
             list-style: none;
-            text-align: center;
-            padding: 0 30px;
-            background-color: $dark-3;
-            border: 1px solid $dark-4;
-            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: -3px 0 0 0;
+
+            .nav-icon-wrapper {
+              display: flex;
+              align-items: center;
+            }
 
             li {
               display: inline-block;
-              padding: 0 25px;
+              position: relative;
+            }
 
-              a {
-                position: relative;
-                padding: 0;
+            a {
+              font-size: 0.9rem;
+              font-weight: 500;
+              text-decoration: none;
+              width: fit-content;
+              color: $offwhite;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+
+              transition: all 0.3s ease;
+
+              /* &:hover {
+                color: $orange;
+              } */
+
+              &:after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 2px;
+                top: 21px;
+                left: 0;
+                background: $orange;
+                transition: width 0.3s ease;
               }
 
-              a:hover .games-nav-active {
-                filter: opacity(1);
+              &:hover:after {
+                width: 100%;
+                left: 0;
+                background: $orange;
               }
             }
 
-            a::after {
-              content: " ";
-              position: absolute;
-              left: 0;
-              bottom: 0;
-              width: 100%;
-              height: 0;
-              background: orange;
-              transition: height 0.3s;
-            }
+            .material-icons {
+              font-size: 1.2rem;
+              margin-left: 3px;
+              color: $orange;
 
-            a:hover::after {
-              height: 2px;
-              transition: height 0.3s;
-            }
-
-            a + a::after {
-              content: " ";
-              position: absolute;
-              left: 0;
-              bottom: -5px;
-              width: 0;
-              height: 5px;
-              background: orange;
-              transition: width 0.3s;
-            }
-
-            a + a:hover::after {
-              width: 100%;
-              transition: width 0.3s;
+              display: none;
             }
           }
         }
 
-        @mixin games-nav-active {
-          margin: 8px;
-          padding-top: 5px;
-          filter: opacity(1);
+        a.login {
+          cursor: pointer;
         }
 
-        .games-nav-active {
-          filter: opacity(0.4) grayscale(1);
-          transition: all 0.3s;
+        .hero-wrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100%;
+          margin-top: -57px;
+        }
+      }
+    }
+  }
 
-          &--cs-go {
-            @include games-nav-active;
-            height: 40px;
+  video {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    object-fit: cover;
+  }
+
+  .hero-wrapper-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    margin: 0 0 55px 0;
+  }
+
+  .hero-title {
+    max-width: 610px;
+    margin-bottom: 15px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .button {
+    width: 250px;
+    height: 50px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: $offwhite;
+    border: 2px solid $orange;
+    margin: 0 14px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 $orange;
+    -webkit-transition: ease-out 0.3s;
+    -moz-transition: ease-out 0.3s;
+    transition: ease-out 0.3s;
+  }
+
+  .slide-right:hover {
+    box-shadow: inset 250px 0 0 0 $orange;
+  }
+
+  /* * Button without slide hover *
+  .button {
+    font-size: 0.9rem;
+    width: 250px;
+    height: 50px;
+    font-family: "Open Sans", sans-serif;
+    background-color: $orange;
+    border: none;
+    color: $offwhite;
+    margin: 0 14px 0 0;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: all 300ms;
+
+    &:hover {
+      background-color: $grey;
+      color: $orange;
+    }
+
+    &.transparent {
+      background-color: transparent;
+      border: 2px solid $orange;
+    }
+  } */
+
+  .signup {
+    margin: 0;
+  }
+
+  .counter-wrapper {
+    position: absolute;
+    width: 100%;
+    margin-top: -100px;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .counter {
+      min-width: 225px;
+      height: 300px;
+      margin: 0 8px 0 8px;
+      background-color: $darkgrey;
+
+      .counter-icon-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .counter-main-icon {
+          width: 130px;
+          height: auto;
+          margin-left: 10px;
+        }
+
+        .counter-icon {
+          width: 130px;
+          height: auto;
+        }
+      }
+
+      .counter-text {
+        margin: 30px 0 0 0;
+        text-align: center;
+      }
+    }
+
+    .cut {
+      clip-path: polygon(
+        0% 0%,
+        0% 0%,
+        100% 0%,
+        100% 0%,
+        100% 80%,
+        75% 100%,
+        0% 100%,
+        0% 100%
+      );
+    }
+  }
+
+  @mixin feature-background {
+    position: relative;
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .feature-01-background {
+    display: flex;
+    background-color: $greyblack;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
+
+    .container-feature-fixed-width-first {
+      @include feature-background;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 300px;
+    }
+  }
+
+  .feature-02-background {
+    display: flex;
+    position: relative;
+    background-image: linear-gradient(
+      to left bottom,
+      #292b38,
+      #292a37,
+      #292a36,
+      #282936,
+      #282935,
+      #272833,
+      #262632,
+      #252530,
+      #23232d,
+      #21212a,
+      #1f1f28,
+      #1d1d25
+    );
+    clip-path: polygon(0 0, 100% 6vw, 100% calc(100% - 6vw), 0 100%);
+    margin-top: -6vw;
+  }
+
+  .feature-03-background {
+    display: flex;
+    position: relative;
+    background-color: $greyblack;
+    clip-path: polygon(0 6vw, 100% 0, 100% 100%, 0 calc(100% - 6vw));
+    margin-top: -16vw; //
+  }
+
+  .feature-04-background {
+    display: flex;
+    position: relative;
+    background-image: linear-gradient(
+      to left bottom,
+      #292b38,
+      #292a37,
+      #292a36,
+      #282936,
+      #282935,
+      #272833,
+      #262632,
+      #252530,
+      #23232d,
+      #21212a,
+      #1f1f28,
+      #1d1d25
+    );
+    clip-path: polygon(0 0, 100% 6vw, 100% 100%, 0 100%);
+    margin-top: -18vw; //
+
+    margin-bottom: -50px; // For Slide-up animation
+  }
+
+  .container-feature-fixed-width-second {
+    @include feature-background;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    margin-top: 170px;
+  }
+
+  .container-feature-fixed-width-third {
+    @include feature-background;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 100px;
+    margin-top: 170px;
+  }
+
+  .container-feature-fixed-width-fourth {
+    @include feature-background;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 135px;
+    margin-top: 170px;
+  }
+
+  .container-feature-margin-left {
+    position: relative;
+    height: fit-content;
+    margin: 50px 30px 0 30px;
+    flex: none;
+  }
+
+  .container-feature-margin-right {
+    position: relative;
+    height: fit-content;
+    margin: 50px 30px 0 30px;
+    flex: none;
+    text-align: right;
+  }
+
+  .container-feature-image {
+    height: fit-content;
+    margin: 10px 30px 0 30px;
+
+    .feature-image {
+      width: 100%;
+      mix-blend-mode: lighten;
+    }
+  }
+
+  .howitworks-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: $darkgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .howitworks-wrapper-inner {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 350px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0 30px;
+
+      .howitworks-number-wrapper {
+        min-width: 80px;
+        max-width: 100px;
+        height: 214px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+
+        .howitworks-number {
+          width: auto;
+          height: 55px;
+        }
+      }
+
+      .howitworks-icon-wrapper {
+        height: 100%;
+        width: min-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: baseline;
+
+        &:first-child {
+          height: 214px;
+        }
+
+        .howitworks-main-text {
+          width: 164px;
+          margin-top: 7px;
+          text-align: center;
+        }
+
+        .underline {
+          border-bottom: 4px solid $orange;
+          height: 46px;
+        }
+
+        .howitworks-icon {
+          width: auto;
+          height: 125px;
+
+          &.main-icon {
+            height: 140px;
           }
         }
 
-        @mixin games-nav-inactive {
-          margin: 8px;
-          padding-top: 5px;
-          filter: opacity(0.4) grayscale(1);
-          transition: all 0.3s;
+        .howitworks-text {
+          width: 150px;
+          margin-top: 8px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .bottom-section {
+    position: relative;
+    width: 100%;
+    height: 1300px;
+    background-image: linear-gradient(
+      to right bottom,
+      #292b38,
+      #292a37,
+      #292a36,
+      #282936,
+      #282935,
+      #272833,
+      #262632,
+      #252530,
+      #23232d,
+      #21212a,
+      #1f1f28,
+      #1d1d25
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .container-fixed-width-bottom {
+      position: absolute;
+      width: 100%;
+      max-width: 1300px;
+      height: 100%;
+
+      .container-margin-bottom {
+        height: 100%;
+        margin: 0 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .video-wrapper {
+          margin: 0;
+
+          .video-container {
+            position: relative;
+            max-width: 1000px;
+            height: 0;
+            margin: 0 auto;
+            padding-bottom: 56.25%;
+
+            iframe {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+          }
         }
 
-        .games-nav-inactive {
-          &--pubg {
-            @include games-nav-inactive;
+        /* Testimonials slider...
+        
+        .slideshow-container {
+          position: relative;
+          height: 200px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .slides {
+            max-width: 1000px;
+            text-align: center;
+
+            .quote {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              min-height: 170px;
+              max-width: 800px;
+            }
+          }
+        } */
+      }
+    }
+  }
+
+  /* Testimonials slider...
+  
+  .fade {
+    animation-name: fade;
+    animation-duration: 2s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .dot-wrapper {
+    width: 100px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .dot {
+    height: 8px;
+    width: 8px;
+    background-color: $grey;
+    border-radius: 50%;
+    transition: background-color 0.6s ease;
+  }
+
+  .active {
+    background-color: $orange;
+  } */
+
+  .bottom-cta {
+    position: relative;
+    height: 165px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px; // Delete when email wrapper visible
+
+    .slide-right {
+      margin: 0;
+    }
+  }
+
+  .mail-wrapper {
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    display: none; // Delete for showing
+  }
+
+  .mail-wrapper-inner {
+    width: 100%;
+    max-width: 1000px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .mail-icon {
+      font-size: 1.2rem;
+      margin: 0 7px 1px 0;
+      color: $grey;
+    }
+
+    .mail-text {
+      max-width: 400px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 10px;
+    }
+
+    .mail-input {
+      display: flex;
+      height: 50px;
+    }
+
+    input[type="email"] {
+      width: 325px;
+      height: 50px;
+      text-align: left;
+      font-size: 0.9rem;
+      padding: 0 5px 0 39px;
+      opacity: 1;
+      color: $grey;
+      background-color: $greyblack;
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+@media (min-width: 1800px) {
+  h5 {
+    font-size: 2rem;
+  }
+
+  .full-width-container {
+    .hero-wrapper-inner {
+      height: 360px;
+      margin: 0;
+    }
+
+    .title-large {
+      max-width: 780px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  h5 {
+    font-size: 1.3rem;
+  }
+
+  .full-width-container {
+    .hero-wrapper-inner {
+      height: 230px;
+    }
+
+    .hero-title {
+      max-width: 500px;
+      margin-bottom: 10px;
+    }
+
+    .container-feature-fixed-width-second {
+      margin-top: 130px;
+      margin-bottom: 20px;
+    }
+
+    .container-feature-fixed-width-third {
+      margin-top: 130px;
+      margin-bottom: 100px;
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 160px;
+      margin-bottom: 135px;
+    }
+
+    .bottom-section {
+      height: 1200px;
+    }
+
+    .bottom-cta {
+      height: 150px;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+  }
+
+  p.icon-text {
+    font-size: 1rem;
+  }
+
+  .full-width-container {
+    .hero-wrapper-inner {
+      height: 280px;
+      margin: 30px 0 0 0;
+    }
+
+    .hero-title {
+      max-width: 430px;
+    }
+
+    .button-wrapper {
+      flex-direction: column;
+    }
+
+    .button {
+      margin: 0 14px 14px 0;
+
+      &.cta,
+      &.signup {
+        margin: 0;
+      }
+    }
+
+    .counter-wrapper {
+      display: none;
+    }
+
+    .feature-01-background {
+      .container-feature-fixed-width-first {
+        margin-top: 50px;
+      }
+    }
+
+    .container-feature-fixed-width-second {
+      margin-top: 90px;
+    }
+
+    .container-feature-fixed-width-third {
+      margin-top: 90px;
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 90px;
+    }
+
+    .howitworks-wrapper {
+      .howitworks-wrapper-inner {
+        .howitworks-number-wrapper {
+          .howitworks-number {
+            height: 50px;
+          }
+        }
+
+        .howitworks-icon-wrapper {
+          &:first-child {
+          }
+
+          .howitworks-main-text {
+            width: 135px;
+            margin-top: 10px;
+          }
+
+          .underline {
+            height: 39px;
+          }
+
+          .howitworks-icon {
+            height: 100px;
+
+            &.main-icon {
+              height: 128px;
+            }
+          }
+
+          .howitworks-text {
+            width: 120px;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+
+    .bottom-section {
+      height: 1000px; // Set higher when mail wrapper visible
+    }
+
+    .bottom-cta {
+      height: 135px;
+    }
+
+    .mail-wrapper {
+      position: relative;
+      height: fit-content;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      display: none; // Delete for showing
+    }
+
+    .mail-wrapper-inner {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  h1 {
+    font-size: 2.3rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .full-width-container {
+    header {
+      .container-fixed-width {
+        .container-margin {
+          .hero-wrapper {
+            justify-content: center;
+          }
+        }
+      }
+    }
+
+    .hero-wrapper-inner {
+      height: 240px;
+      margin: 30px 0 0 0;
+    }
+
+    .hero-title {
+      max-width: 330px;
+      margin-bottom: 5px;
+    }
+
+    .feature-01-background {
+      .container-feature-fixed-width-first {
+        flex-direction: column;
+        margin-top: 40px;
+      }
+    }
+
+    .container-feature-fixed-width-second {
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 0;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    .container-feature-fixed-width-third {
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 0;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-bottom: 84px; // Adjust when mail wrapper visible
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    .container-feature-margin-left {
+      margin: 15px 30px 0 30px;
+    }
+
+    .container-feature-margin-right {
+      margin: 15px 30px 0 30px;
+    }
+
+    .container-feature-image {
+      margin: 30px 30px 0 30px;
+
+      .feature-image {
+      }
+    }
+
+    .howitworks-wrapper {
+      .howitworks-wrapper-inner {
+        margin: 30px;
+
+        .howitworks-number-wrapper {
+          display: none;
+          .howitworks-number {
+          }
+        }
+
+        .howitworks-icon-wrapper {
+          margin: 20px 30px;
+
+          &:first-child {
+            height: fit-content;
+            flex: 1 100%;
+          }
+
+          .howitworks-main-text {
+            width: 126px;
+            margin-top: 10px;
+          }
+
+          .underline {
             height: 38px;
           }
 
-          &--fortnite {
-            @include games-nav-inactive;
-            height: 34px;
-          }
+          .howitworks-icon {
+            width: auto;
+            height: 100px;
 
-          &--dota-2 {
-            @include games-nav-inactive;
-            height: 35px;
-          }
-        }
-      }
-    }
-
-    .desc-section {
-      padding: 50px 0;
-      background-color: $dark-2;
-
-      .section-desc-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: relative;
-
-        .section-desc {
-          max-width: 320px;
-          width: 100%;
-          margin-left: auto;
-
-          .section-desc-title {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 0.75em;
-            margin-bottom: 0.875em;
-          }
-
-          .section-desc-img-wrap {
-            display: flex;
-            align-items: flex-end;
-            height: auto;
-
-            img {
-              max-width: 160px;
+            &.main-icon {
+              height: 128px;
             }
           }
 
-          .section-desc-text {
-            font-size: 14px;
-            line-height: 1.357;
-            font-weight: 400;
-            max-width: 280px;
-          }
-        }
-
-        .section-desc--right {
-          margin-left: auto;
-          text-align: right;
-
-          .section-desc-img-wrap {
-            justify-content: flex-end;
-          }
-
-          .section-desc-text {
-            margin-left: auto;
-          }
-        }
-
-        .section-desc--left {
-          margin-left: 0;
-          text-align: left;
-
-          .section-desc-img-wrap {
-            justify-content: flex-start;
-          }
-          .section-desc-text {
-            margin-right: auto;
+          .howitworks-text {
+            width: 120px;
+            margin-top: 8px;
+            text-align: center;
           }
         }
       }
     }
 
-    .demoviewer-section {
-      padding-top: 140px;
-      background-image: url(../assets/stats-bg.png);
-      background-position: 15vw center;
-      background-size: auto;
-      background-repeat: no-repeat;
+    .bottom-section {
+      height: 730px; // Set to 1000px when mail wrapper visible
+    }
+
+    .bottom-cta {
+      height: 115px;
+      margin-bottom: 5px; // Delete when email wrapper visible
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  // Mobile nav
+  .mobile-nav-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    min-width: 100vw;
+    max-height: 233px;
+    top: 0;
+    right: 0;
+
+    label.toggle {
+      display: block;
+      width: 25px;
+      height: 25px;
       position: relative;
+      z-index: 99999;
+      align-self: flex-end;
+      margin: 15px;
     }
 
-    .positions-section {
-      background-image: url(../assets/positions-bg.png);
-      background-position: calc(100% - 7.5vw) center;
-      background-size: auto;
-      background-repeat: no-repeat;
+    .line {
+      position: absolute;
+      height: 3px;
+      width: 25px;
+      background: $offwhite;
+      border-radius: 0px;
+      display: block;
+      transition: 0.2s;
+      transform-origin: center;
     }
 
-    .smokes-section {
-      background-color: $dark-2;
-      background-image: url(../assets/smokes-bg.png);
-      background-position: 15vw center;
-      background-size: auto;
-      background-repeat: no-repeat;
-      position: relative;
+    .line:nth-child(1) {
+      top: 11px;
+      transform: rotate(90deg);
+    }
+    .line:nth-child(2) {
+      top: 11px;
     }
 
-    .ready-section {
-      padding: 60px 0;
-      padding-bottom: 220px;
-      background-image: url(../assets/fire-bg.png);
-      background-position: center bottom;
-      background-size: cover;
-      background-repeat: no-repeat;
+    #toggle:checked + .toggle .line:nth-child(1) {
+      transform: translateY(0) rotate(-45deg);
     }
 
-    .ready-section {
-      .title {
-        text-align: center;
-        font-size: 2.25rem;
-        letter-spacing: 0.021em;
-        font-weight: bold;
-        text-transform: uppercase;
+    #toggle:checked + .toggle .line:nth-child(2) {
+      transform: translateY(0) rotate(45deg);
+    }
+
+    #toggle:checked ~ .mobile-nav-inner-wrapper {
+      transform: translateY(-55px);
+    }
+
+    .mobile-nav-inner-wrapper {
+      top: 0;
+      right: 0;
+      ul.mobile-navigation {
+        height: 233px;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 25px 0 0 0;
+        padding: 0;
+        background-color: #313131;
+
+        pointer-events: auto;
+
+        a {
+          font-size: 0.9rem;
+          font-weight: 700;
+          text-decoration: none;
+          margin: 15px 0;
+          width: fit-content;
+          height: fit-content;
+          color: $offwhite;
+        }
+
+        .material-icons {
+        }
+      }
+    }
+  } // Mobile nav end
+
+  p.small {
+    font-size: 0.8rem;
+  }
+
+  .full-width-container {
+    header {
+      .container-fixed-width {
+        .container-margin {
+          .container-nav {
+            .mentor-logo {
+              max-width: 130px;
+              margin: 0;
+            }
+
+            ul {
+              display: none;
+              a {
+                display: none;
+              }
+
+              .material-icons {
+                display: none;
+              }
+            }
+          }
+
+          .hero-wrapper {
+            justify-content: center;
+            margin-top: -70px;
+          }
+        }
       }
     }
 
-    .ready-section {
-      .subtitle {
-        text-align: center;
-        max-width: 360px;
-        margin: 1em auto 0;
-        font-size: 16px;
-        color: $light-1;
-        font-weight: 500;
+    .hero-wrapper-inner {
+      justify-content: center;
+      height: 110px;
+      margin: 70px 0 0 0;
+    }
+
+    .hero-title {
+      &.title-small {
+        min-width: 100%;
+        min-height: 30px;
       }
     }
 
-    .ready-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .howitworks-wrapper {
+      .howitworks-wrapper-inner {
+        margin: 20px;
+        .howitworks-number-wrapper {
+          .howitworks-number {
+          }
+        }
 
-      .login-steam {
+        .howitworks-icon-wrapper {
+          flex: 1 100%;
+          &:first-child {
+            margin: 15px 30px 20px 30px;
+          }
+
+          .howitworks-main-text {
+            width: 125px;
+          }
+
+          .underline {
+            border-bottom: 3px solid $orange;
+            height: 36px;
+          }
+
+          .howitworks-icon {
+            &.main-icon {
+              height: 110px;
+            }
+          }
+
+          .howitworks-text {
+          }
+        }
+      }
+    }
+
+    .button-wrapper {
+      display: none;
+    }
+
+    .feature-01-background {
+      .container-feature-fixed-width-first {
         margin-top: 30px;
       }
     }
-  }
-}
 
-//responsive
-@media (max-width: 1000px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
-      }
-
-      .desc-section {
-        padding: 20px;
-      }
-
-      .demoviewer-section {
-        padding-top: 140px;
-      }
-
-      .positions-section {
-        background-position: calc(100% - 4.5vw) center;
-        background-size: 60%;
-      }
-
-      .ready-section {
-        padding: 100px 0 220px 0;
-      }
+    .container-feature-fixed-width-second {
+      margin-top: 70px;
     }
-  }
-}
 
-@media (max-width: 985px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
+    .container-feature-fixed-width-third {
+      margin-top: 70px;
+    }
 
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              height: 25px;
-            }
-          }
-        }
+    .container-feature-fixed-width-fourth {
+      margin-top: 70px;
+      margin-bottom: 80px; // Set higher when mail wrapper visible
+    }
+
+    .bottom-section {
+      height: 600px; // Set to 900px when mail wrapper visible
+    }
+
+    .bottom-cta {
+      height: 95px;
+      max-width: 250px;
+      margin: 0 auto;
+      margin-bottom: 4px; // Delete when email wrapper visible
+    }
+
+    .mail-wrapper {
+      position: relative;
+      height: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      display: none; // Delete for showing
+    }
+
+    .mail-wrapper-inner {
+      justify-content: center;
+
+      .mail-icon {
+        font-size: 1.2rem;
+        margin: 0 7px 1px 0;
+        color: $grey;
       }
 
-      .offer-games {
-        width: 100%;
-        margin: -45px 0 0 0;
-        display: flex;
-        align-items: center;
+      .mail-text {
+        padding-right: 0;
+        height: 45px;
+      }
+
+      .mail-input {
+        flex-wrap: wrap;
+        height: fit-content;
         justify-content: center;
-        position: absolute;
-        z-index: 2;
-
-        .offer-game {
-          max-width: 80%;
-
-          .games-nav {
-            width: auto;
-            margin: 0 auto;
-            padding: 0;
-
-            ul {
-              list-style: none;
-              text-align: center;
-              padding: 0 30px;
-              background-color: $dark-3;
-              border: 1px solid $dark-4;
-              border-radius: 3px;
-              max-width: 360px; //
-
-              li {
-                display: inline-block;
-                padding: 0 25px;
-
-                a {
-                  position: relative;
-                  padding: 0;
-                }
-
-                a:hover .games-nav-active {
-                  filter: opacity(1);
-                }
-              }
-
-              a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0;
-                background: orange;
-                transition: height 0.3s;
-              }
-
-              a:hover::after {
-                height: 2px;
-                transition: height 0.3s;
-              }
-
-              a + a::after {
-                content: " ";
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 0;
-                height: 5px;
-                background: orange;
-                transition: width 0.3s;
-              }
-
-              a + a:hover::after {
-                width: 100%;
-                transition: width 0.3s;
-              }
-            }
-          }
-
-          @mixin games-nav-active {
-            padding-top: 5px;
-            filter: opacity(1);
-          }
-
-          .games-nav-active {
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-
-            &--cs-go {
-              @include games-nav-active;
-              height: 40px;
-              margin-top: 15px; //
-            }
-          }
-
-          @mixin games-nav-inactive {
-            padding-top: 5px;
-            filter: opacity(0.4) grayscale(1);
-            transition: all 0.3s;
-          }
-
-          .games-nav-inactive {
-            &--pubg {
-              @include games-nav-inactive;
-              height: 38px;
-              margin: 13px 0 15px 0; //
-            }
-
-            &--fortnite {
-              @include games-nav-inactive;
-              height: 34px;
-              margin: 8px 0; //
-            }
-
-            &--dota-2 {
-              @include games-nav-inactive;
-              height: 35px;
-              margin: 10px 0 15px 0; //
-            }
-          }
-        }
       }
 
-      .desc-section {
-        padding: 0;
-        margin-top: 80px;
-      }
-
-      .demoviewer-section {
-        padding-top: 225px;
-
-        .section-desc-img {
-          max-width: 60%;
-        }
-      }
-
-      .positions-section {
-        margin-top: 40px;
-
-        .section-desc-img {
-          max-width: 60%;
-        }
-      }
-
-      .smokes-section {
-        margin-top: 40px;
-
-        .section-desc-img {
-          max-width: 60%;
-        }
+      input[type="email"] {
+        width: 250px;
+        text-align: center;
+        padding: 0 5px 0 5px;
       }
     }
   }
 }
 
-@media (max-width: 728px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
+@media (max-width: 510px) {
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 0.3rem 0;
+  }
 
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              height: 25px;
+  h2 {
+    font-size: 0.9rem;
+    margin: 0.15rem 0 0 0;
+  }
 
-              &.last-title {
-                height: 45px;
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h5 {
+    font-size: 0.858rem;
+
+    &.subtitle {
+      text-align: center;
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  p.icon-text {
+    font-size: 1rem;
+  }
+
+  .full-width-container {
+    header {
+      .container-fixed-width {
+        .container-margin {
+          .container-nav {
+            .mentor-logo {
+              max-width: 100px;
+            }
+          }
+          .hero-wrapper {
+          }
+        }
+      }
+    }
+
+    .hero-wrapper-inner {
+      text-align: center;
+      height: 110px;
+      margin: 45px 0 0 0;
+    }
+
+    .hero-title {
+      min-width: 250px;
+    }
+
+    .feature-01-background {
+      .container-feature-fixed-width-first {
+        margin-top: 10px;
+      }
+    }
+
+    .container-feature-fixed-width-second {
+      margin-top: 26px;
+
+      &.reverse {
+      }
+    }
+
+    .container-feature-fixed-width-third {
+      margin-top: 26px;
+
+      &.reverse {
+      }
+    }
+
+    .container-feature-fixed-width-fourth {
+      margin-top: 26px;
+      margin-bottom: 63px;
+
+      &.reverse {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+      }
+    }
+
+    .howitworks-wrapper {
+      .howitworks-wrapper-inner {
+        .howitworks-number-wrapper {
+          .howitworks-number {
+          }
+        }
+
+        .howitworks-icon-wrapper {
+          margin: 15px 30px;
+          &:first-child {
+          }
+
+          .howitworks-main-text {
+            width: 108px;
+          }
+
+          .underline {
+            height: 32px;
+          }
+
+          .howitworks-icon {
+            &.main-icon {
+            }
+          }
+
+          .howitworks-text {
+          }
+        }
+      }
+    }
+
+    .bottom-section {
+      height: 500px; // Set to 700px when mail wrapper visible
+    }
+
+    .mail-wrapper {
+    }
+
+    .mail-wrapper-inner {
+      justify-content: center;
+
+      .mail-icon {
+        font-size: 1.1rem;
+        margin: 0 7px -1px 0;
+      }
+
+      .mail-text {
+        padding-right: 0;
+      }
+
+      .mail-input {
+        flex-wrap: wrap;
+        height: fit-content;
+      }
+
+      input[type="email"] {
+        width: 250px;
+        text-align: center;
+        padding: 0 5px 0 5px;
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  h5 {
+    font-size: 0.8rem;
+  }
+
+  // Slide-up animation
+  .section {
+    transform: translateY(0);
+    transition: all 0.5s;
+  }
+
+  .slideup {
+    transform: translateY(-30px);
+  } //
+}
+
+@media (max-width: 280px) {
+  // Slide-up animation
+  .section {
+    transform: translateY(0);
+    transition: all 0.5s;
+  }
+
+  .slideup {
+    transform: translateY(-25px);
+  } //
+
+  h5 {
+    font-size: 0.7rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  p.small {
+    font-size: 0.7rem;
+  }
+
+  .full-width-container {
+    .hero-wrapper-inner {
+    }
+
+    .hero-title {
+      min-width: 100%;
+      margin-bottom: 2px;
+    }
+
+    .bottom-section {
+      height: 430px;
+      .container-fixed-width-bottom {
+        .container-margin-bottom {
+          margin: 0 15px;
+          .video-wrapper {
+            .video-container {
+              iframe {
               }
             }
           }
         }
       }
     }
-  }
-}
 
-@media (max-width: 699px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
-
-        .offer-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 60px -10px 0;
-
-          .offer {
-            .offer-title {
-              height: 45px;
-
-              &.first-title {
-                height: 25px;
-              }
-            }
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        margin-top: 120px;
-      }
-
-      .demoviewer-section {
-        padding-top: 220px;
-      }
-
-      .positions-section {
-        margin-top: 40px;
-      }
-
-      .smokes-section {
-        margin-top: 20px;
-      }
-    }
-  }
-}
-
-@media (max-width: 596px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
-
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              height: 45px;
-
-              &.first-title {
-                height: 45px;
-              }
-            }
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        margin-top: 100px;
-      }
-
-      .demoviewer-section {
-        padding-top: 200px;
-      }
-
-      .positions-section {
-        margin-top: 40px;
-      }
-
-      .smokes-section {
-        margin-top: 20px;
-      }
-    }
-  }
-}
-
-@media (max-width: 500px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding: 0;
-        padding-bottom: 130px;
-
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              &.first-title {
-                height: 20px;
-              }
-
-              &.middle-title {
-                height: 20px;
-              }
-
-              &.last-title {
-                height: 20px;
-              }
-            }
-
-            .offer-text {
-              margin-top: 25px;
-            }
-          }
-        }
-      }
-
-      .desc-section {
-        padding: 45px 0;
-        margin-top: 160px;
-      }
-
-      .demoviewer-section {
-        padding-top: 120px;
-
-        .section-desc-img {
-          max-width: 40%;
-        }
-      }
-
-      .positions-section {
-        margin-top: 20px;
-
-        .section-desc-img {
-          max-width: 40%;
-        }
-      }
-
-      .smokes-section {
-        margin-top: 20px;
-
-        .section-desc-img {
-          max-width: 40%;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 415px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding-bottom: 130px;
-
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              &.first-title {
-                height: 0;
-              }
-
-              &.middle-title {
-                height: 24px;
-              }
-
-              &.last-title {
-                height: 0;
-              }
-            }
-
-            .offer-text {
-              margin-top: 50px;
-            }
-          }
-        }
-      }
-
-      .demoviewer-section {
-        padding-top: 135px;
-      }
-
-      .positions-section {
-        margin-top: 0;
-      }
-
-      .smokes-section {
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-@media (max-width: 395px) {
-  .view-landingpage {
-    .full-width-container {
-      header {
-        .header-wrap {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-      }
-
-      .button-gray-transparent {
-        display: none;
-      }
-
-      .offer-section {
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              &.first-title {
-                height: 5px;
-              }
-
-              &.middle-title {
-                height: 25px;
-              }
-
-              &.last-title {
-                height: 25px;
-              }
-            }
-          }
-        }
-      }
-
-      .demoviewer-section {
-        padding-top: 140px;
-      }
-
-      .positions-section {
-        margin-top: 0;
-      }
-
-      .smokes-section {
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-@media (max-width: 350px) {
-  .view-landingpage {
-    .full-width-container {
-      .offer-section {
-        padding-bottom: 130px;
-
-        .offer-wrap {
-          .offer {
-            .offer-title {
-              &.first-title {
-                height: 25px;
-              }
-            }
-          }
-        }
-      }
-
-      .demoviewer-section {
-        padding-top: 130px;
-      }
-
-      .positions-section {
-        margin-top: 0;
-      }
-
-      .smokes-section {
-        margin-top: 0;
-      }
-
-      .ready-section {
-        padding-bottom: 100px;
+    .mail-wrapper-inner {
+      .mail-text {
+        height: 35px;
       }
     }
   }
