@@ -55,7 +55,7 @@
 
               <div class="button-wrapper">
                 <div @click="signIn()" class="button slide-right">SIGN IN THORUGH STEAM</div>
-                <div class="button slide-right">VIEW DEMO</div> <!-- Add link to demo -->
+                <div @click="ShowDemoProfile()" class="button slide-right">VIEW DEMO</div> <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
               </div>
@@ -437,11 +437,21 @@ export default {
 
       this.counterInitialized = true;
     },
-  },
-  signIn() {
-    this.$helpers.LogEvent(this, "AttemptSignIn");
-    location.href = this.$api.getSignInUrl(window.location.origin);
-  },
+    ShowDemoProfile() {
+      console.log("HI");
+      this.$router.push({
+        name: "profile",
+        params: {
+          steamId: "76561198033880857"
+        }
+      });
+    },
+    signIn() {
+      console.log("HI");
+      this.$helpers.LogEvent(this, "AttemptSignIn");
+      location.href = this.$api.getSignInUrl(window.location.origin);
+    }
+  }
 };
 
 /* Tesimonial slider
