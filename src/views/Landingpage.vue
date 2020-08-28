@@ -72,7 +72,7 @@
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">{{ counter.matchesAnalyzed }}</h4>
+            <h4 class="value">{{ Math.ceil(counter.matchesAnalyzed) }}</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
@@ -84,7 +84,7 @@
             <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ counter.misplaysDetected }}</h4>
+            <h4>{{ Math.ceil(counter.misplaysDetected) }}</h4>
             <p class="icon-text">MISPLAYS DETECTED</p>
           </div>
         </div>
@@ -96,7 +96,7 @@
             <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ counter.highlightsDetected }}</h4>
+            <h4>{{ Math.ceil(counter.highlightsDetected) }}</h4>
             <p class="icon-text">HIGHLIGHTS DETECTED</p>
           </div>
         </div>
@@ -108,7 +108,7 @@
             <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ counter.rankUps }}</h4>
+            <h4>{{ Math.ceil(counter.rankUps) }}</h4>
             <p class="icon-text">RANK UPS</p>
           </div>
         </div>
@@ -386,24 +386,30 @@ export default {
       }
     },
     PlayCounterAnimation() {
-      let startValues = {
-        matchesAnalyzed: 500,
-        misplaysDetected: 400,
-        highlightsDetected: 300,
-        rankUps: 600,
-      };
-
+      const avgMinutelyMatches = 4.06;
+      const misplaysPerMatch = 40.4521674;
+      const highlightsPerMatch = 49.71718421;
+      const rankUpsPerMatch = 0.2745;
+      
+      // estimate matchesAnalyzed
       //26. august 2020
       let startTime = 1598450420045;
-
       let todayTime = new Date().getTime();
-      let targetValues = {};
-      let steps = {};
+      let minutesPassed = Math.ceil((todayTime - startTime) / 1000 / 60);
+      let matchesAnalyzed = 175000 + minutesPassed * avgMinutelyMatches;
 
-      //step animation doesnt end at the same time
-      //because buffy is an idiot
-      for (let key in startValues) {
-        targetValues[key] = (startValues[key] / startTime) * todayTime;
+      let targetValues = {
+        matchesAnalyzed: matchesAnalyzed,
+        misplaysDetected: matchesAnalyzed * misplaysPerMatch,
+        highlightsDetected: matchesAnalyzed * highlightsPerMatch,
+        rankUps: matchesAnalyzed * rankUpsPerMatch,
+      };
+
+
+      let startValues = {};
+      let steps = {};
+      for (let key in targetValues) {
+        startValues[key] = targetValues[key] / 2;
 
         let time = 3000;
         let nSteps = time / 10;
@@ -416,7 +422,7 @@ export default {
 
         for (let key in this.counter) {
           if (this.counter[key] < targetValues[key]) {
-            this.counter[key] += Math.ceil(steps[key]);
+            this.counter[key] += steps[key];
           } else {
             rdy++;
           }
