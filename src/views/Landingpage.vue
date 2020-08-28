@@ -54,7 +54,7 @@
               </div>
 
               <div class="button-wrapper">
-                <div @click="signIn()" class="button slide-right">SIGN IN THORUGH STEAM</div>
+                <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
                 <div @click="ShowDemoProfile()" class="button slide-right">VIEW DEMO</div> <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
@@ -316,7 +316,7 @@
 
           <div class="bottom-cta">
             <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
-            <div @click="signIn()" class="button slide-right">SIGN IN THORUGH STEAM</div>
+            <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
             <!--  * Button without slide hover * <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button> -->
           </div>
 
