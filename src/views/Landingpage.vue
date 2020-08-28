@@ -72,7 +72,7 @@
             <img src="@/assets/analyze-icon.svg" class="counter-main-icon" alt="analyze icon" />
           </div>
           <div class="counter-text">
-            <h4 class="value">{{ Math.ceil(counter.matchesAnalyzed) }}</h4>
+            <h4 class="value">{{ (counter.matchesAnalyzed / 1000).toFixed(0) + 'K' }}</h4>
             <p class="icon-text">MATCHES ANALYZED</p>
           </div>
         </div>
@@ -84,7 +84,7 @@
             <img src="@/assets/misplays-icon.svg" class="counter-icon" alt="misplays icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ Math.ceil(counter.misplaysDetected) }}</h4>
+            <h4>{{ (counter.misplaysDetected / 1000).toFixed(0) + 'K' }}</h4>
             <p class="icon-text">MISPLAYS DETECTED</p>
           </div>
         </div>
@@ -96,7 +96,7 @@
             <img src="@/assets/highlights-icon.svg" class="counter-icon" alt="highlights icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ Math.ceil(counter.highlightsDetected) }}</h4>
+            <h4>{{ (counter.highlightsDetected / 1000).toFixed(0) + 'K' }}</h4>
             <p class="icon-text">HIGHLIGHTS DETECTED</p>
           </div>
         </div>
@@ -108,7 +108,7 @@
             <img src="@/assets/rankups-icon.svg" class="counter-icon" alt="rankups icon" />
           </div>
           <div class="counter-text">
-            <h4>{{ Math.ceil(counter.rankUps) }}</h4>
+            <h4>{{ (counter.rankUps / 1000).toFixed(0) + 'K' }}</h4>
             <p class="icon-text">RANK UPS</p>
           </div>
         </div>
