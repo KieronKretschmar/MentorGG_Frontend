@@ -17,9 +17,9 @@
           <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
         </header>
         <main>
-            <div class="announcement" v-if="true">
+            <div class="announcement" v-if="false">
               <span class="text">
-                Due to server issues and high traffic, <strong>MENTOR.GG is currently not working.</strong>. Please be patient with us, thanks!
+                Due to server issues, <strong>Automatic Upload for Valve Matchmaking is currently disabled</strong>. Please use the <router-link :to="{name: 'browser-extension'}">Browser Extension</router-link> to upload your matches.
               </span>
             </div>
             <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
