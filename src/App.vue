@@ -19,7 +19,7 @@
         <main>
             <div class="announcement" v-if="true">
               <span class="text">
-                Due to server issues, <strong>MENTOR.GG is currently extremly instable.</strong>. Please be patient with us, thanks!
+                Due to server issues and high traffic, <strong>MENTOR.GG is currently not working.</strong>. Please be patient with us, thanks!
               </span>
             </div>
             <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
