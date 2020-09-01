@@ -1587,6 +1587,10 @@ p.icon-text {
 }
 
 @media (max-width: 660px) {
+  h3 {
+    font-size: 1.28rem;
+  }
+
   // Mobile nav
   .mobile-nav-wrapper {
     display: flex;
@@ -1732,12 +1736,12 @@ p.icon-text {
           }
 
           .howitworks-main-text {
-            width: 125px;
+            width: 124px;
           }
 
           .underline {
             border-bottom: 3px solid $orange;
-            height: 36px;
+            height: 35px;
           }
 
           .howitworks-icon {
