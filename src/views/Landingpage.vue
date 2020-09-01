@@ -870,7 +870,7 @@ p.icon-text {
   @mixin feature-background {
     position: relative;
     width: 100%;
-    max-width: 1220px;
+    max-width: 1185px;
     margin: 0 auto;
     display: flex;
   }
