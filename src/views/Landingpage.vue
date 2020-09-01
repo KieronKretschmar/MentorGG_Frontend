@@ -9,10 +9,14 @@
             <nav>
               <ul class="navigation">
                 <li>
-                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
+                  <router-link :to="{name: 'membership'}">
+                    <a>PRICING</a>
+                  </router-link>
                 </li>
                 <li>
-                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
+                  <router-link :to="{name: 'faq'}">
+                    <a>FAQ</a>
+                  </router-link>
                 </li>
                 <div class="nav-icon-wrapper">
                   <li>
@@ -33,10 +37,14 @@
             <div class="mobile-nav-inner-wrapper">
               <ul class="mobile-navigation">
                 <li>
-                  <router-link :to="{name: 'membership'}"><a>PRICING</a></router-link>
+                  <router-link :to="{name: 'membership'}">
+                    <a>PRICING</a>
+                  </router-link>
                 </li>
                 <li>
-                  <router-link :to="{name: 'faq'}"><a>FAQ</a></router-link>
+                  <router-link :to="{name: 'faq'}">
+                    <a>FAQ</a>
+                  </router-link>
                 </li>
                 <li>
                   <a class="login" @click="signIn()">LOGIN</a>
@@ -55,7 +63,8 @@
 
               <div class="button-wrapper">
                 <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
-                <div @click="ShowDemoProfile()" class="button transparent slide-right">VIEW DEMO</div> <!-- Add link to demo -->
+                <div @click="ShowDemoProfile()" class="button transparent slide-right">VIEW DEMO</div>
+                <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
               </div>
@@ -276,7 +285,7 @@
               <iframe
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/NicjsJ9-WLA?start=29"
+                src="https://www.youtube.com/embed/qvZDQmtBF8c"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
@@ -385,7 +394,7 @@ export default {
       const misplaysPerMatch = 40.4521674;
       const highlightsPerMatch = 49.71718421;
       const rankUpsPerMatch = 0.2745;
-      
+
       // estimate matchesAnalyzed
       //26. august 2020
       let startTime = 1598450420045;
@@ -399,7 +408,6 @@ export default {
         highlightsDetected: matchesAnalyzed * highlightsPerMatch,
         rankUps: matchesAnalyzed * rankUpsPerMatch,
       };
-
 
       let startValues = {};
       let steps = {};
@@ -432,7 +440,7 @@ export default {
 
       this.counterInitialized = true;
     },
-    HandleCounterAnimation(){
+    HandleCounterAnimation() {
       this.UpdateSectionFlags();
       if (
         this.IsInViewport(this.$refs.counterWrapper) &&
@@ -447,16 +455,16 @@ export default {
       this.$router.push({
         name: "profile",
         params: {
-          steamId: "76561198033880857"
-        }
+          steamId: "76561198033880857",
+        },
       });
     },
     signIn() {
       console.log("HI");
       this.$helpers.LogEvent(this, "AttemptSignIn");
       location.href = this.$api.getSignInUrl(window.location.origin);
-    }
-  }
+    },
+  },
 };
 
 /* Tesimonial slider
