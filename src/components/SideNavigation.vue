@@ -96,6 +96,12 @@
               Sign in through Steam
             </a>
           </div>
+
+          <!-- FAQ -->
+          <div class="nav-section">
+            <div class="nav-header">Other</div>
+            <router-link :to="{name: 'faq'}">FAQ</router-link>
+          </div>
         </div>
       </nav>
 
@@ -122,14 +128,14 @@ export default {
   components: {
     DiscordHint,
     GenericOverlay,
-    QueueStatusDisplay
+    QueueStatusDisplay,
   },
   mounted() {
     if (this.ownSteamId != null) {
       let params = {
-        steamId: this.ownSteamId
+        steamId: this.ownSteamId,
       };
-      this.$api.getPlayerInfo(params).then(response => {
+      this.$api.getPlayerInfo(params).then((response) => {
         this.user = response.data;
       });
     }
@@ -142,25 +148,25 @@ export default {
       uploadInfo: {
         progress: null,
         success: null,
-        message: null
-      }
+        message: null,
+      },
     };
   },
   methods: {
-    OnUploadMatches: function() {
+    OnUploadMatches: function () {
       this.$router.push({ name: "upload" });
     },
-    GetFullSteamAvatarURL: function(url) {
+    GetFullSteamAvatarURL: function (url) {
       if (!url) {
         return "";
       }
       return url.split(".jpg")[0] + "_full.jpg";
     },
-    TriggerManualUpload: function() {
+    TriggerManualUpload: function () {
       this.uploadInfo = {
         progress: null,
         success: null,
-        message: null
+        message: null,
       };
       let formData = new FormData();
       let fileinput = this.$refs.manualUploadInput;
@@ -174,17 +180,17 @@ export default {
       formData.append("demos", fileinput.files[0]);
       formData.append("steamId", this.ownSteamId);
       this.$api
-        .uploadDemo(formData, progressEvent => {
+        .uploadDemo(formData, (progressEvent) => {
           this.uploadInfo.progress = progressEvent;
         })
-        .then(result => {
+        .then((result) => {
           this.uploadInfo.progress = null;
           this.uploadInfo.success = true;
           this.uploadInfo.message =
             result.data.DemoCount +
             (result.data.DemoCount > 1 ? " demos" : " demo");
         })
-        .catch(error => {
+        .catch((error) => {
           this.uploadInfo.progress = null;
           this.uploadInfo.success = false;
           this.uploadInfo.message = error;
@@ -197,7 +203,7 @@ export default {
       this.$helpers.LogEvent(this, "DailyLimitUpgrade");
       this.$refs.manualUploadOverlay.Hide();
       this.$router.push({ name: "membership" });
-    }
+    },
   },
   computed: {
     ownSteamId() {
@@ -218,8 +224,8 @@ export default {
         this.$route.name == "profile" &&
         this.$route.params.steamId == this.ownSteamId
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
