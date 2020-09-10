@@ -53,7 +53,7 @@ export default {
 
     this.RegisterFAQEntry(
       this.categories.General,
-      "What perks do I get when I put \"MENTOR.GG\" in my Steam name?",
+      'What perks do I get when I put "MENTOR.GG" in my Steam name?',
       "Users who do this get free access to their misplays and highlights from the second half of each match, instead of just the first."
     );
 
@@ -66,7 +66,13 @@ export default {
     this.RegisterFAQEntry(
       this.categories.Upload,
       "How does the automatic upload work?",
-      "If you enable automatic upload for Valve's matchmaking or FACEIT, a request for your newest matches on that platform will be triggered whenever you visit MENTOR.GG. So please be patient for up to a minute if your matches don't show up right away."
+      "You can upload all your future matches with automatic upload. If you enable automatic upload for Valve's matchmaking or FACEIT, a request for your newest matches on that platform will be triggered whenever you visit MENTOR.GG. So please be patient for up to a minute if your matches don't show up right away."
+    );
+
+    this.RegisterFAQEntry(
+      this.categories.Upload,
+      "How can I upload my past matches?",
+      "You can upload matchmaking matches from the past 2 weeks using our browser extension. Faceit matches from the past 2 weeks are automatically uploaded as soon as you enable automatic upload."
     );
 
     this.RegisterFAQEntry(
@@ -92,8 +98,8 @@ export default {
       faq: [],
       categories: {
         General: 1,
-        Upload: 2
-      }
+        Upload: 2,
+      },
     };
   },
   methods: {
@@ -102,14 +108,14 @@ export default {
         Vue.observable({
           q: q,
           a: a,
-          open: false
+          open: false,
         })
       );
     },
     ToggleEntry(entry) {
       entry.open = !entry.open;
-    }
-  }
+    },
+  },
 };
 </script>
 
