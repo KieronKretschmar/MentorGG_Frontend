@@ -84,6 +84,7 @@
           <div class="nav-section">
             <div class="nav-header">Account</div>
             <router-link :to="{name: 'membership'}">Membership & Pricing</router-link>
+            <router-link :to="{name: 'referafriend'}" v-if="shouldShowReferAFriend">Refer A Friend</router-link>
             <div class="logout" v-if="$api.User">
               <button @click="signOut()" class="nav-button">Logout</button>
             </div>
@@ -225,6 +226,10 @@ export default {
         this.$route.params.steamId == this.ownSteamId
       );
     },
+    shouldShowReferAFriend() {
+      return false; //disabled for now
+      return $api.User != null; //user must be logged in
+    }
   },
 };
 </script>

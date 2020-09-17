@@ -159,8 +159,8 @@ class MentorGGAPI {
         return `${this.apiBaseAddress}/authentication/signout?returnUrl=${returnUrl}`
     }
 
-    getSignInUrl(returnUrl = "/") {
-        return `${this.apiBaseAddress}/authentication/signin/steam?returnUrl=${returnUrl}`
+    getSignInUrl(returnUrl = "/", referrer = null) {
+        return `${this.apiBaseAddress}/authentication/signin/steam?returnUrl=${returnUrl}` + (referrer == null ? '' : ('&referrer=' + referrer))
     }
 
     getPlayerInfo(params, forceRefresh = false) {
@@ -202,6 +202,10 @@ class MentorGGAPI {
     getPosition(matchId) {
         return axios.get(`${this.apiBaseAddress}/v1/match/${matchId}/demostatus/queue-position`, {
         });
+    }
+
+    getReferrals() {
+        return axios.get(`${this.apiBaseAddress}/v1/referrals/coupon`);
     }
 
     getMatchesInQueue(uploaderId) {

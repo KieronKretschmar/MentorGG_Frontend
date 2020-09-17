@@ -140,6 +140,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "membership" */'./views/Membership.vue')
     },
     {
+      path: '/refer-a-friend',
+      name: 'referafriend',
+      component: () => import(/* webpackChunkName: "referafriend" */'./views/ReferAFriend.vue')
+    },
+    {
       path: '*',
       name: 'page-not-found',
       component: () => import(/* webpackChunkName: "pagenotfound" */'./views/PageNotFound.vue')

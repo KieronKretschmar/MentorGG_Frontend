@@ -345,6 +345,10 @@
         </div>
       </div>
     </div>
+
+    <div class="referrer-badge" v-if="referrerUser">
+      <p>You have been referred by <span class="orange">{{ referrerUser.SteamUser.SteamName }}</span></p>
+    </div>
   </div>
 </template>
 
@@ -362,6 +366,7 @@ export default {
         rankUps: 0,
       },
       counterInitialized: false,
+      referrerUser: null
     };
   },
   mounted() {
@@ -370,6 +375,15 @@ export default {
     });
 
     this.HandleCounterAnimation();
+
+    if (this.$route.query.referrer) {
+      this.$api.getPlayerInfo({
+        steamId: this.$route.query.referrer
+      }).then(result => {
+        this.referrerUser = result.data;
+        console.log(this.referrerUser);
+      });
+    }
   },
   methods: {
     IsInViewport(ref) {
@@ -451,7 +465,6 @@ export default {
       }
     },
     ShowDemoProfile() {
-      console.log("HI");
       this.$router.push({
         name: "profile",
         params: {
@@ -460,9 +473,8 @@ export default {
       });
     },
     signIn() {
-      console.log("HI");
       this.$helpers.LogEvent(this, "AttemptSignIn");
-      location.href = this.$api.getSignInUrl(window.location.origin);
+      location.href = this.$api.getSignInUrl(window.location.origin, this.referrerUser ? this.referrerUser.SteamUser.SteamId : null);
     },
   },
 };
@@ -496,6 +508,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 html {
   line-height: 1.15; /* 1 */
@@ -1417,6 +1430,25 @@ p.icon-text {
       background-color: $greyblack;
       border: none;
       outline: none;
+    }
+  }
+}
+
+.referrer-badge {
+  position: fixed;
+  top: 30%;
+  right: 0px;
+  color: white;
+  background: $dark-1;
+  z-index: 99999;
+  padding: 10px 20px;
+
+  p {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    .orange {
+      color: $orange;
     }
   }
 }
