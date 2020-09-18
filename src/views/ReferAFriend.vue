@@ -28,14 +28,23 @@
           You have referred
           <span class="big-number">{{ numReferrals }}/4</span> friends so far. Copy the link below and send it to your friends.
         </p>
-        <div class="referral-link">
+        <div class="copy-section">
           <input type="text" readonly v-model="referralLink" />
           <i @click="CopyReferralLinkToClipboard" class="fas fa-copy" title="Copy to Clipboard"></i>
         </div>
         <template v-if="numReferrals >= 4">
           <p class="text m-top">
             Congratulations, you have reached the goal of refering MENTOR.GG to at least 4 other people.
-            <br />Click the button below to redeem your free month of premium access.
+            <br /><br />This is your coupon code:
+          </p>          
+          <div class="copy-section">
+            <input type="text" readonly v-model="coupon" />
+            <i @click="CopyReferralLinkToClipboard" class="fas fa-copy" title="Copy to Clipboard"></i>
+          </div>
+          <p class="text m-top">
+            <br />Click the button below to activate your monthly PREMIUM subscription. 
+            You can enter the coupon code in a later step. 
+            Be aware that you have to CANCEL the subscription in the <router-link :to="{name: 'membership'}">Membership</router-link> page if you don't want it to continue.
           </p>
           <button
             class="button-variant-bordered upgrade"
@@ -144,7 +153,7 @@ export default {
     }
   }
 
-  .referral-link {
+  .copy-section {
     display: flex;
     margin-top: 10px;
 
