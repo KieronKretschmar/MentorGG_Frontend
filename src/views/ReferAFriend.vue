@@ -39,7 +39,7 @@
           </p>          
           <div class="copy-section">
             <input type="text" readonly v-model="coupon" />
-            <i @click="CopyReferralLinkToClipboard" class="fas fa-copy" title="Copy to Clipboard"></i>
+            <i @click="CopyCouponToClipboard" class="fas fa-copy" title="Copy to Clipboard"></i>
           </div>
           <p class="text m-top">
             <br />Click the button below to activate your monthly PREMIUM subscription. 
@@ -93,6 +93,9 @@ export default {
   methods: {
     CopyReferralLinkToClipboard() {
       this.$helpers.CopyTextToClipboard(this.referralLink);
+    },
+    CopyCouponToClipboard() {
+      this.$helpers.CopyTextToClipboard(this.coupon);
     },
     RedeemUpgrade() {
       Paddle.Checkout.open({
