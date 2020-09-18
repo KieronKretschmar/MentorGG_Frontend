@@ -2,16 +2,31 @@
   <div class="view view-refer-a-friend">
     <div class="fixed-width-container">
       <h2 class="section-header">Refer A Friend</h2>
-      <div class="bordered-box">
-        <p
-          class="text"
-        >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div>
+        
       </div>
-
       <div class="bordered-box">
         <p class="text">
+          Refer MENTOR.GG to 4 friends using the link below to get one month of PREMIUM for free.
+          <br />
+          <br />Please read these rules carefully:
+          <ol>
+            <li>The offer is only available for non-subscribed users.</li>
+            <li>Every user can only participate once.</li>
+            <li>
+              To start the free month, you will be asked to start a paid monthly subscription, which means you will have to enter payment details. 
+              You can cancel it right after through the membership page and no costs will occur.
+            </li>
+            <li>Users have to sign up for the first time on MENTOR.GG using your link</li>
+            <li>Once 4 friends signed up, a button will appear below. If you subscribe using this button, a coupon will be applied during the checkout process and the first month will be free.</li>
+          </ol>
+        </p>
+      </div>
+
+      <div class="bordered-box" v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free">
+        <p class="text">
           You have referred
-          <span class="big-number">{{ numReferrals }}</span> friends so far. Copy the link below and send it to your friends.
+          <span class="big-number">{{ numReferrals }}/4</span> friends so far. Copy the link below and send it to your friends.
         </p>
         <div class="referral-link">
           <input type="text" readonly v-model="referralLink" />
@@ -19,8 +34,8 @@
         </div>
         <template v-if="numReferrals >= 4">
           <p class="text m-top">
-            Congratulations, you have reached the goal of refering MENTOR.GG to 4 other people!
-            <br />Click the button below to redeem your free month of premium access!
+            Congratulations, you have reached the goal of refering MENTOR.GG to at least 4 other people.
+            <br />Click the button below to redeem your free month of premium access.
           </p>
           <button
             class="button-variant-bordered upgrade"
@@ -28,30 +43,42 @@
           >Redeem FREE PREMIUM Upgrade</button>
         </template>
       </div>
+      <div class="bordered-box" v-else>
+        <p class="text">
+          Seems like you're already subscribed. This programme is available to non-subscribed users only.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Paddle from "paddle";
+import Enums from "@/enums";
 
 export default {
   mounted() {
-    this.$api.getReferrals().then((result) => {
-      console.log(result);
-    });
+    this.$api.ensureLogin().then(() => {
+      this.$api.getReferrals().then((result) => {
+        this.numReferrals = result.data.Referrals;
+        this.coupon = result.data.Coupon;
+      });
 
-    this.$nextTick(() => {
-      // setup paddle with our vendor id
-      Paddle.Setup({ vendor: 110217 });
-    });
+      this.$nextTick(() => {
+        // setup paddle with our vendor id
+        Paddle.Setup({ vendor: 110217 });
+      });
 
-    this.referralLink = "https://mentor.gg/?referrer=" + this.$api.User.GetSteamId(false);
+      this.referralLink =
+        "https://mentor.gg/?referrer=" + this.$api.User.GetSteamId(false);
+    });
   },
   data() {
     return {
       referralLink: "",
-      numReferrals: 4,
+      coupon: "",
+      numReferrals: -1,
+      Enums: Enums
     };
   },
   methods: {
@@ -64,7 +91,7 @@ export default {
         passthrough: {
           ApplicationUserId: this.$api.User.applicationUserId,
         },
-        coupon_code: "DEV-TEST-COUPON"
+        coupon_code: this.coupon,
       });
     },
   },

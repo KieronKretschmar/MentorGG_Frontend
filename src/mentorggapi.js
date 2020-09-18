@@ -205,7 +205,7 @@ class MentorGGAPI {
     }
 
     getReferrals() {
-        return axios.get(`${this.apiBaseAddress}/v1/referrals/coupon`);
+        return axios.get(`${this.apiBaseAddress}/referrals/coupon`);
     }
 
     getMatchesInQueue(uploaderId) {
