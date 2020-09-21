@@ -23,7 +23,7 @@
         </p>
       </div>
 
-      <div class="bordered-box" v-if="$api.User.subscriptionStatus == Enums.SubscriptionStatus.Free">
+      <div class="bordered-box" v-if="loadingComplete && ($api.User.subscriptionStatus == Enums.SubscriptionStatus.Free || $api.User.subscriptionStatus == Enums.SubscriptionStatus.Influencer)">
         <p class="text">
           You have referred
           <span class="big-number">{{ numReferrals }}/4</span> friends so far. Copy the link below and send it to your friends.
@@ -52,7 +52,7 @@
           >Redeem FREE PREMIUM Upgrade</button>
         </template>
       </div>
-      <div class="bordered-box" v-else>
+      <div class="bordered-box" v-else-if="loadingComplete">
         <p class="text">
           Seems like you're already subscribed. This programme is available to non-subscribed users only.
         </p>
@@ -71,6 +71,7 @@ export default {
       this.$api.getReferrals().then((result) => {
         this.numReferrals = result.data.Referrals;
         this.coupon = result.data.Coupon;
+        this.loadingComplete = true;
       });
 
       this.$nextTick(() => {
@@ -80,6 +81,7 @@ export default {
 
       this.referralLink =
         "https://mentor.gg/?referrer=" + this.$api.User.GetSteamId(false);
+
     });
   },
   data() {
@@ -87,7 +89,8 @@ export default {
       referralLink: "",
       coupon: "",
       numReferrals: -1,
-      Enums: Enums
+      Enums: Enums,
+      loadingComplete: false,
     };
   },
   methods: {
