@@ -227,9 +227,8 @@ export default {
       );
     },
     shouldShowReferAFriend() {
-      return false; //disabled for now
-      return $api.User != null; //user must be logged in
-    }
+      return this.$api.User != null; //user must be logged in
+    },
   },
 };
 </script>
