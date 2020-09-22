@@ -18,7 +18,7 @@
               You can cancel it right after through the membership page and no costs will occur.
             </li>
             <li>Users have to sign up for the first time on MENTOR.GG using your link</li>
-            <li>Once 4 friends signed up, a button will appear below. If you subscribe using this button, a coupon will be applied during the checkout process and the first month will be free.</li>
+            <li>Once 4 friends signed up, a button and a personalized coupon will appear below. If you subscribe using this button, you can enter the coupon during the checkout process and the first month will be free.</li>
           </ol>
         </p>
       </div>
@@ -36,14 +36,14 @@
           <p class="text m-top">
             Congratulations, you have reached the goal of refering MENTOR.GG to at least 4 other people.
             <br /><br />This is your coupon code:
-          </p>          
+          </p>
           <div class="copy-section">
             <input type="text" readonly v-model="coupon" />
             <i @click="CopyCouponToClipboard" class="fas fa-copy" title="Copy to Clipboard"></i>
           </div>
           <p class="text m-top">
             <br />Click the button below to activate your monthly PREMIUM subscription. 
-            You can enter the coupon code in a later step. 
+            During the process, you will be able to enter the coupon code. 
             Be aware that you have to CANCEL the subscription in the <router-link :to="{name: 'membership'}">Membership</router-link> page if you don't want it to continue.
           </p>
           <button
