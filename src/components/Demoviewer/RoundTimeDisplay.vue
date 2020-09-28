@@ -91,7 +91,7 @@ export default {
 
   .logo {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     left: 10px;
     user-select: none;
     z-index: 9999;
