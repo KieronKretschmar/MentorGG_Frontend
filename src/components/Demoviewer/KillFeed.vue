@@ -12,7 +12,7 @@
         <div class="name" :class="{ct: kill.AssisterTeam == 'CT'}">{{ kill.AssisterName }}</div>
       </span>
       <div class="weapon">{{ $helpers.EquipmentIdToFontCharacter(kill.Weapon) }}</div>
-      <img class="headshot-icon" src="@/assets/headshot.png" v-if="kill.KillType == 2">
+      <img class="headshot-icon" src="@/assets/headshot.png" v-if="kill.KillType == 2" />
       <div class="name" :class="{ct: kill.VictimTeam == 'CT'}">{{ kill.VictimName }}</div>
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {
   mounted() {},
   data() {
     return {
-      timeVisible: 2500
+      timeVisible: 2500,
     };
   },
   computed: {
@@ -43,8 +43,8 @@ export default {
 
         return acc;
       }, []);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -95,8 +95,8 @@ export default {
     }
 
     .headshot-icon {
-        width: 26px;
-        margin-right: 5px;
+      width: 26px;
+      margin-right: 5px;
     }
   }
 }

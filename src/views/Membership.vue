@@ -236,18 +236,18 @@ export default {
     SubscribeButton,
     SubscriptionDurationPicker,
     CustomCheckbox,
-    GenericOverlay
+    GenericOverlay,
   },
   mounted() {
     if (this.$api.User) {
       this.$api
         .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) })
-        .then(response => {
+        .then((response) => {
           this.user = response.data;
         });
     }
 
-    this.$api.getSubscriptions().then(response => {
+    this.$api.getSubscriptions().then((response) => {
       this.subscriptionData = response.data;
       this.loadingComplete = true;
     });
@@ -266,7 +266,7 @@ export default {
       loadingComplete: false,
       failedToAcceptTerms: false,
       termsAccepted: false,
-      selectedSubscription: null
+      selectedSubscription: null,
     };
   },
   methods: {
@@ -276,7 +276,7 @@ export default {
 
         this.$api
           .getPlayerInfo({ steamId: this.$api.User.GetSteamId(false) }, true)
-          .then(response => {
+          .then((response) => {
             this.verifyingUsername = false;
             this.user = response.data;
           });
@@ -288,7 +288,7 @@ export default {
       }
 
       return this.subscriptionData.AvailableSubscriptions.find(
-        x => x.SubscriptionType == subscriptionType
+        (x) => x.SubscriptionType == subscriptionType
       );
     },
     OnCancelSubscription(subscriptionType) {
@@ -296,18 +296,17 @@ export default {
       window.open(this.subscriptionData.ActiveSubscription.CancelUrl, "_blank");
     },
     OnUpgradeSubscription(newSubscriptionType) {
-      this.$helpers.LogEvent(this, "AttemptUpgrade");
-      this.$refs.upgradeOverlay.Show();
+      // this.$helpers.LogEvent(this, "AttemptUpgrade");
+      // this.$refs.upgradeOverlay.Show();
     },
     OnSubscribe(newSubscriptionType) {
-      this.$helpers.LogEvent(this, "SelectSubscriptionType", {
-        label: newSubscriptionType
-      });
-
-      this.$api.LoginGate(() => {
-        this.selectedSubscription = newSubscriptionType;
-        this.$refs.durationPickerOverlay.Show();
-      });
+      // this.$helpers.LogEvent(this, "SelectSubscriptionType", {
+      //   label: newSubscriptionType
+      // });
+      // this.$api.LoginGate(() => {
+      //   this.selectedSubscription = newSubscriptionType;
+      //   this.$refs.durationPickerOverlay.Show();
+      // });
     },
     OpenCheckout(planIndex) {
       if (!this.termsAccepted) {
@@ -318,19 +317,19 @@ export default {
       let offer = this.selectedSubscriptionData.Plans[planIndex];
 
       this.$helpers.LogEvent(this, "OpenCheckout", {
-        label: offer.ProductId
+        label: offer.ProductId,
       });
 
       Paddle.Checkout.open({
         product: offer.ProductId,
         passthrough: {
-          ApplicationUserId: this.$api.User.applicationUserId
-        }
+          ApplicationUserId: this.$api.User.applicationUserId,
+        },
       });
     },
     OnTermsAccepted() {
       this.failedToAcceptTerms = false;
-    }
+    },
   },
   computed: {
     isVerified() {
@@ -348,10 +347,10 @@ export default {
     availableSubscriptions() {
       return {
         Premium: this.GetSubscriptionData(Enums.SubscriptionStatus.Premium),
-        Ultimate: this.GetSubscriptionData(Enums.SubscriptionStatus.Ultimate)
+        Ultimate: this.GetSubscriptionData(Enums.SubscriptionStatus.Ultimate),
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

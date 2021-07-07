@@ -139,7 +139,9 @@ class MentorGGAPI {
         return new Promise((resolve, reject) => {
             this.getMatchSelection(steamId)
                 .then(result => {
+                    console.log(result)
                     let matchList = result.data.Matches;
+                    console.log("Matches:" + matchList.length)
                     this.matchSelectors[steamId] = new MatchSelector(this, result.data.Matches, result.data.DailyLimitReached, result.data.DailyLimitEnds);
                     this.MatchSelector = this.matchSelectors[steamId];
 

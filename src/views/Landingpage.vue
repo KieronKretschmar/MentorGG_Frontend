@@ -347,7 +347,10 @@
     </div>
 
     <div class="referrer-badge" v-if="referrerUser">
-      <p>You have been referred by <span class="orange">{{ referrerUser.SteamUser.SteamName }}</span></p>
+      <p>
+        You have been referred by
+        <span class="orange">{{ referrerUser.SteamUser.SteamName }}</span>
+      </p>
     </div>
   </div>
 </template>
@@ -366,7 +369,7 @@ export default {
         rankUps: 0,
       },
       counterInitialized: false,
-      referrerUser: null
+      referrerUser: null,
     };
   },
   mounted() {
@@ -377,12 +380,14 @@ export default {
     this.HandleCounterAnimation();
 
     if (this.$route.query.referrer) {
-      this.$api.getPlayerInfo({
-        steamId: this.$route.query.referrer
-      }).then(result => {
-        this.referrerUser = result.data;
-        console.log(this.referrerUser);
-      });
+      this.$api
+        .getPlayerInfo({
+          steamId: this.$route.query.referrer,
+        })
+        .then((result) => {
+          this.referrerUser = result.data;
+          console.log(this.referrerUser);
+        });
     }
   },
   methods: {
@@ -411,10 +416,10 @@ export default {
 
       // estimate matchesAnalyzed
       //26. august 2020
-      let startTime = 1598450420045;
+      let startTime = 1625648397512;
       let todayTime = new Date().getTime();
       let minutesPassed = Math.ceil((todayTime - startTime) / 1000 / 60);
-      let matchesAnalyzed = 175000 + minutesPassed * avgMinutelyMatches;
+      let matchesAnalyzed = 545968 + minutesPassed * avgMinutelyMatches;
 
       let targetValues = {
         matchesAnalyzed: matchesAnalyzed,
@@ -474,7 +479,10 @@ export default {
     },
     signIn() {
       this.$helpers.LogEvent(this, "AttemptSignIn");
-      location.href = this.$api.getSignInUrl(window.location.origin, this.referrerUser ? this.referrerUser.SteamUser.SteamId : null);
+      location.href = this.$api.getSignInUrl(
+        window.location.origin,
+        this.referrerUser ? this.referrerUser.SteamUser.SteamId : null
+      );
     },
   },
 };
@@ -508,7 +516,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 html {
   line-height: 1.15; /* 1 */
@@ -597,12 +604,14 @@ textarea {
 }
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 

@@ -17,23 +17,32 @@
           <i class="fas fa-bars" @click="menuVisible = !menuVisible"></i>
         </header>
         <main>
-            <div class="announcement" v-if="false">
-              <span class="text">
-                Due to server issues, <strong>Automatic Upload for Valve Matchmaking is currently disabled</strong>. Please use the <router-link :to="{name: 'browser-extension'}">Browser Extension</router-link> to upload your matches.
-              </span>
-            </div>
-            <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
-              <span class="text">
-                Setup
-                <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG
-              </span>
-              <button @click="$router.push({name: 'automatic-upload'})">setup</button>
-            </div>
+          <div class="announcement">
+            <span class="text">
+              Dear MENTOR.GG users,
+              <br />
+              <br />Over the past years, we had lots of fun developing this project with you. Unfortunately, we have to end our service on 13/07/2021.
+              Please download your replay data if required.
+              With the end of the service, user data and play data will be deleted.
+              For more information, visit our Discord server.
+              <br />
+              <br />Thanks for over half a million games. Keep winning!
+              <br />Your MENTOR.GG Team
+              <br />
+            </span>
+          </div>
+          <div class="auto-upload-not-configured" v-if="showAutomaticUploadSetupPrompt">
+            <span class="text">
+              Setup
+              <b>Automatic Upload</b> to ensure all of your future Matchmaking matches will be uploaded whenever you visit MENTOR.GG
+            </span>
+            <button @click="$router.push({name: 'automatic-upload'})">setup</button>
+          </div>
           <transition name="page" mode="out-in">
-              <router-view
-                :key="reloadHack"
-                @valve-connected="showAutomaticUploadSetupPrompt = false"
-              />
+            <router-view
+              :key="reloadHack"
+              @valve-connected="showAutomaticUploadSetupPrompt = false"
+            />
           </transition>
         </main>
         <footer>
@@ -107,7 +116,7 @@ export default {
       .then(() => {
         this.InitConnectionsCallback();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("Not logged in");
       });
   },
@@ -122,24 +131,24 @@ export default {
     InputBlock,
     NotAuthorized,
     NotLoggedIn,
-    CookieBanner
+    CookieBanner,
   },
   data() {
     return {
       menuVisible: false,
       reloadHack: false,
-      showAutomaticUploadSetupPrompt: false
+      showAutomaticUploadSetupPrompt: false,
     };
   },
   computed: {},
   methods: {
-    OnOpenFilters: function() {
+    OnOpenFilters: function () {
       this.$refs.globalFiltersOverlay.Show();
     },
     InitConnectionsCallback() {
       // Start looking for matches for all configured automatic uploads,
       // and show overlay if valve automatic-upload is not configured
-      this.$api.getConnectionsObject().then(result => {
+      this.$api.getConnectionsObject().then((result) => {
         if (result[Enums.Source.Valve]) {
           this.$api.startLookingForValveMatches();
         } else {
@@ -159,8 +168,8 @@ export default {
     //abuses :key attribute to trigger a component reload in vue
     ForceViewReload() {
       this.reloadHack = !this.reloadHack;
-    }
-  }
+    },
+  },
 };
 </script>
 

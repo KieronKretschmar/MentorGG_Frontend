@@ -12,6 +12,7 @@
       class="button-variant-bordered upgrade"
       v-else-if="activeSubscription == null"
       @click="$emit('subscribe', forSubscriptionType)"
+      disabled
     >Subscribe</button>
 
     <!-- Cancel Button -->
@@ -33,6 +34,7 @@
       class="button-variant-bordered upgrade"
       v-else-if="IsSubscribed(Enums.SubscriptionStatus.Premium)"
       @click="$emit('upgrade', forSubscriptionType)"
+      disabled
     >Upgrade</button>
   </div>
 </template>
@@ -47,7 +49,7 @@ export default {
   },
   data() {
     return {
-      Enums
+      Enums,
     };
   },
   methods: {
@@ -56,7 +58,7 @@ export default {
         this.activeSubscription &&
         this.activeSubscription.SubscriptionType == subscriptionType
       );
-    }
-  }
+    },
+  },
 };
 </script>
