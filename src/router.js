@@ -72,16 +72,20 @@ export default new Router({
       path: '/',
       name: 'landingpage',
       component: () => import(/* webpackChunkName: "landingpage" */'./views/Landingpage.vue'),
-      beforeEnter: (to, from, next) => {
-        let $api = Vue.prototype.$api;
+      // beforeEnter: (to, from, next) => {
+      //   let $api = Vue.prototype.$api;
 
-        $api.ensureLogin()
-        .then(response => {
-          return next('/profile/' + $api.User.GetSteamId(false));
-        }).catch(error => {
-          return next();
-        });
-      }
+      //   $api.ensureLogin()
+      //   .then(response => {
+      //     return next('/profile/' + $api.User.GetSteamId(false));
+      //   }).catch(error => {
+      //     return next();
+      //   });
+      // }
+    },
+    {
+      path: "/:catchAll(.*)",
+      redirect: '/'
     },
     {
       path: '/profile/:steamId/:tab?',
