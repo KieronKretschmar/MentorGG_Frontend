@@ -1,5 +1,22 @@
 <template>
   <div class="full-width-container">
+    <div class="announcement">
+      <span class="text">
+        <b>END OF SERVICE</b>
+        <br />
+        <br />Dear MENTOR.GG users,
+        <br />
+        <br />Over the past years, we had lots of fun developing this project with you. Unfortunately, we have ended our service on 18/07/2021.
+        <br />
+        <br />For those of you looking for an alternative we can recommend the services offered by pureskill.gg.
+        <br />Bill (one of the co-founders) and I have been in contact for some time, and they have developed many features helping you in a similar fashion like mentor.gg did.
+        It is currently free to use, and they will add Faceit support soon.
+        <br />
+        <br />Thanks for over half a million games. Keep winning!
+        <br />Your MENTOR.GG Team
+        <br />
+      </span>
+    </div>
     <header>
       <video src="@/assets/smoke.mp4" autoplay loop playsinline muted poster="@/assets/csgobg.jpg"></video>
       <div class="container-fixed-width">
@@ -18,12 +35,12 @@
                     <a>FAQ</a>
                   </router-link>
                 </li>
-                <div class="nav-icon-wrapper">
+                <!-- <div class="nav-icon-wrapper">
                   <li>
                     <a @click="signIn()" class="login">LOGIN</a>
                   </li>
                   <i class="material-icons">exit_to_app</i>
-                </div>
+                </div>-->
               </ul>
             </nav>
           </div>
@@ -62,8 +79,14 @@
               </div>
 
               <div class="button-wrapper">
-                <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
-                <div @click="ShowDemoProfile()" class="button transparent slide-right">VIEW DEMO</div>
+                <div
+                  @click="signIn()"
+                  class="button button-disabled slide-right"
+                >SIGN IN THROUGH STEAM</div>
+                <div
+                  @click="ShowDemoProfile()"
+                  class="button button-disabled transparent slide-right"
+                >VIEW DEMO</div>
                 <!-- Add link to demo -->
                 <!-- * Button without slide hover * <button @click="signIn()" class="button">SIGN IN THROUGH STEAM</button> -->
                 <!-- * Button without slide hover * <button class="button transparent">VIEW DEMO</button> -->
@@ -325,7 +348,7 @@
 
           <div class="bottom-cta">
             <img src="@/assets/improveyourgame.svg" class="hero-title title-small" />
-            <div @click="signIn()" class="button slide-right">SIGN IN THROUGH STEAM</div>
+            <div @click="signIn()" class="button button-disabled slide-right">SIGN IN THROUGH STEAM</div>
             <!--  * Button without slide hover * <button @click="signIn()" class="button cta">SIGN IN THROUGH STEAM</button> -->
           </div>
 
@@ -417,7 +440,7 @@ export default {
       // estimate matchesAnalyzed
       //26. august 2020
       let startTime = 1625648397512;
-      let todayTime = new Date().getTime();
+      let todayTime = new Date("2021-07-18").getTime();
       let minutesPassed = Math.ceil((todayTime - startTime) / 1000 / 60);
       let matchesAnalyzed = 545968 + minutesPassed * avgMinutelyMatches;
 
@@ -470,6 +493,8 @@ export default {
       }
     },
     ShowDemoProfile() {
+      return;
+
       this.$router.push({
         name: "profile",
         params: {
@@ -478,6 +503,8 @@ export default {
       });
     },
     signIn() {
+      return;
+
       this.$helpers.LogEvent(this, "AttemptSignIn");
       location.href = this.$api.getSignInUrl(
         window.location.origin,
@@ -682,6 +709,48 @@ textarea {
   -webkit-appearance: button; /* 1 */
   font: inherit; /* 2 */
 } //
+
+.announcement,
+.auto-upload-not-configured {
+  background: $red;
+  color: white;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+  button {
+    margin-left: 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+    outline: 0;
+    background: transparent;
+    color: white;
+    padding: 3px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.35s;
+    font-weight: bold;
+
+    &:hover {
+      background: white;
+      color: $red;
+    }
+  }
+
+  a {
+    color: white;
+  }
+}
+
+.announcement {
+  background: $orange;
+  span {
+    max-width: 1000px;
+    text-align: center;
+  }
+}
 
 // Slide-up animation
 .section {
@@ -960,6 +1029,15 @@ p.icon-text {
 
     &.transparent {
       background-color: transparent;
+    }
+
+    &.button-disabled {
+      cursor: not-allowed;
+      background-color: $darkgrey;
+      border: 2px solid $darkgrey;
+      -webkit-transition: none;
+      -moz-transition: none;
+      transition: none;
     }
   }
 
