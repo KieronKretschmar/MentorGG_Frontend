@@ -8,7 +8,7 @@
         <br />
         <br />Over the past years, we had lots of fun developing this project with you. Unfortunately, we have ended our service on 18/07/2021.
         <br />
-        <br />For those of you looking for an alternative we can recommend the services offered by pureskill.gg.
+        <br />For those of you looking for an alternative we can recommend the services offered by <a href="https://pureskill.gg">pureskill.gg </a>.
         <br />Bill (one of the co-founders) and I have been in contact for some time, and they have developed many features helping you in a similar fashion like mentor.gg did.
         It is currently free to use, and they will add Faceit support soon.
         <br />
